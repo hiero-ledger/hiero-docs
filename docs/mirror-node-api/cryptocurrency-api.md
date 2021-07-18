@@ -12,7 +12,7 @@ Public:** [https://mainnet-public.mirrornode.hedera.com](https://mainnet-public.
 **Whitelisted Partners:**[ ****https://mainnet.mirrornode.hedera.com](https://mainnet.mirrornode.hedera.com/)  
   
 **TESTNET**  
-[https://testnet.mirrornode.hedera.co](https://testnet.mirrornode.hedera.com/)m  
+[https://testnet.mirrornode.hedera.com](https://testnet.mirrornode.hedera.com/)
   
 **PREVIEWNET**  
 [https://previewnet.mirrornode.hedera.com](https://previewnet.mirrornode.hedera.com/api/v1/transactions)  
