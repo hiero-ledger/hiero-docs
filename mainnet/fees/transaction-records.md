@@ -19,11 +19,11 @@ A transaction can cause a given account’s balance to change for any of the abo
 
 There are, in general, 5 types of accounts associated with a transaction:
 
-1. Senders – the accounts from which hbars are being sent
-2. Receivers – the accounts to which hbars are being sent
-3. Payer – the account that pays the fees associated with the transaction. 
+1. Senders – the accounts from which hbars are being sent.
+2. Receivers – the accounts to which hbars are being sent.
+3. Payer – the account that pays the fees associated with the transaction.
 4. Network – the Hedera account that receives the component of the fees that compensate the network for processing the transaction.
-5. Node – the account of whichever node submits the transaction to the network for consensus
+5. Node – the account of whichever node submits the transaction to the network for consensus.
 
 **Notes**
 
