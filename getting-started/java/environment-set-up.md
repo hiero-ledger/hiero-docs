@@ -173,7 +173,8 @@ public class HederaExamples {
 
         //Create your Hedera testnet client
         Client client = Client.forTestnet();
-        client.setOperator(myAccountId, myPrivateKey)
+        client.setOperator(myAccountId, myPrivateKey);
+        
     }
 }
 ```
