@@ -12,7 +12,7 @@ Yes, the entity ID is referred to as the schedule ID which is returned in the re
 
 ## 3. What transactions can be scheduled?
 
-In its early iteration, users can schedule CryptoTransfer and ConsensusSubmitMessage transactions. All other transactions types will be available to schedule in future releases. The complete list of transactions that users can schedule in the future can be found [here](https://github.com/hashgraph/hedera-protobufs/blob/develop/services/SchedulableTransactionBody.proto#L76).
+In its early iteration, users can schedule CryptoTransfer and ConsensusSubmitMessage transactions. All other transactions types will be available to schedule in future releases. The complete list of transactions that users can schedule in the future can be found [here](https://github.com/hashgraph/hedera-protobufs/blob/develop/services/schedulable_transaction_body.proto#L76).
 
 ## 4. How can I find a schedule transaction that requires my signature?
 
