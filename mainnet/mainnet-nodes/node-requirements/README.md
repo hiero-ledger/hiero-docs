@@ -22,7 +22,7 @@ Chassis \(hardware nodes only\)
 
 Network Connectivity: Single 1-Gigabit / 10-Gigabit Ethernet \(physical connectivity subject to network infrastructure\)
 
-2 x Intel® Xeon® Silver 4116 Processor 12-core 2.10GHz 16.50MB Cache \(85W\)
+48-core or better CPU
 
 256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM
 
@@ -72,7 +72,6 @@ Node Connectivity
   * TCP Port 50212 open to 0.0.0.0/0
   * TCP Port 80 open egress to 0.0.0.0/0 \(for Ubuntu OS package repository connectivity\)
   * TCP Port 443 open egress to 0.0.0.0/0
-  * TCP Port 22 \(SSH\) open to 35.192.32.50/32 & 18.219.214.181/32
 
 Proxy Connectivity
 
@@ -80,7 +79,6 @@ Proxy Connectivity
 * 200Mb/s internet connectivity
 * TCP Port 50211 open to 0.0.0.0/0
 * TCP Port 50212 open to 0.0.0.0/0
-* TCP Port 22 \(SSH\) open to 35.192.32.50/32 & 18.219.214.181/32
 
 ### Hosting
 
@@ -96,23 +94,6 @@ Proxy Connectivity
   * Red Hat Enterprise
   * CentOS
   * BSD not supported
-* Linux user with sudo privileges, named: `hgcadmin` 
-* Public key added to SSH authorized\_keys for user hgcadmin for both node host and proxy\(ies\)
-
-```text
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDt50KHgircRbqfukIFUElFd6BBSNHdcA7k Qabb4o/6ZbiOSzwVL5yNHVZ6lxrWEy5oDSKT4JJX85Gv8y5EbIh7oFqr5njfDvTylX6QV XnkexW4yOnfuryQOYcnejlnKyMNMUJuCXvj1CVOjB+MR9Zppiuj6eLGKDVydWcXMKSt Fd5w0ZmriOEJvd5O/5J7eYau1gpYZeNaarDOSI27oM8CIDTgg/oQX/SDNN0jX5Y55mh NJw0AmWTgc1K/wQFXnxlhvBpBPaQZAMEF/ZvQttAqH0BCpoUzC0EQ4+Z7NNkBcVr QN667L5zH+ggvzsIeBGAsUjJ4L56191sV1Rc3Qz3 hgcadmin
-```
-
-{% hint style="warning" %}
-External access from hgcadmin will not be required for ongoing production\(mainnet\). This is temporary to be able to update the configuration of the nodes to support new members and features during the testing and initial production deployment phase.
-{% endhint %}
-
-Once the hardware with base O/S is deployed, please email \(devops@hedera.com\) us the following
-
-* Static IPs of the node interface
-* hgcadmin user password
-
-Once received we can test permissions and setup the node accordingly.
 
 ## Network Topology /\(Typical Corporate Datacenter Configuration/\)
 
@@ -147,4 +128,3 @@ The following steps outline the process for Council Members to add their consens
    2. Update private keys using provided tools
 10. Schedule mainnet connection
 11. Mainnet live
-
