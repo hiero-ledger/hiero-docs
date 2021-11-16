@@ -32,7 +32,7 @@ new TokenMintTransaction()
 | Method | Type | Description | Requirement |
 | :--- | :--- | :--- | :--- |
 | `setTokenId(<tokenId>)` | TokenId | The token ID for which to mint additional tokens | Required |
-| `setAmount(<amount>)` | long | Applicable to tokens of type `FUNGIBLE_UNIQUE`.The amount to mint to the Treasury Account. The amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than `2^63-1`. | Optional |
+| `setAmount(<amount>)` | long | Applicable to tokens of type `FUNGIBLE_COMMON`.The amount to mint to the Treasury Account. The amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than `2^63-1`. | Optional |
 | `setMetaData(<metaDatas>)` | List&lt;byte\[\]&gt; | Applicable to tokens of type `NON_FUNGIBLE_UNIQUE`. A list of metadata that are being created. The maximum allowed size of each metadata is 100 bytes and is immutable.  | Optional |
 | `addMetaData(<metaData>)` | byte \[\] | Applicable to tokens of type `NON_FUNGIBLE_UNIQUE`. A list of metadata that are being created. The maximum allowed size of each metadata is 100 bytes and is immutable.  | Optional |
 
