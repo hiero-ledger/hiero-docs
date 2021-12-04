@@ -28,7 +28,7 @@ contract HelloHedera {
     // the message we're storing
     string message;
 
-    constructor(string memory message_) public {
+    constructor(string memory message_) {
         // set the owner of the contract for `kill()`
         owner = msg.sender;
         message = message_;
@@ -46,7 +46,7 @@ contract HelloHedera {
     }
 
     // recover the funds of the contract
-    function kill() public { if (msg.sender == owner) selfdestruct(msg.sender); }
+    function kill() public { if (msg.sender == owner) selfdestruct(payable(msg.sender)); }
 }
 ```
 {% endtab %}
