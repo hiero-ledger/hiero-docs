@@ -33,13 +33,13 @@ System.println(keyStructure)
 ```java
 //Generate 3 keys
 const key1 = PrivateKey.generate();
-const publicKey1 = key1.publicKey();
+const publicKey1 = key1.publicKey;
 
 const key2 = PrivateKey.generate();
-const publicKey2 = key2.publicKey();
+const publicKey2 = key2.publicKey;
 
 const key3 = PrivateKey.generate();
-const publicKey3 = key3.publicKey();
+const publicKey3 = key3.publicKey;
 
 //Create a list of the keys
 const publicKeyList = [];
