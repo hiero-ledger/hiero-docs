@@ -7,7 +7,7 @@ A transaction that updates the properties of an existing account. The network wi
 * The account key\(s\) are required to sign the transaction
 * If you are updating the keys on the account the OLD KEY and NEW KEY must sign
   * If either is a key list then the key list keys are all required to sign
-  * If either is a threshold kye, the threshold value is required to sign
+  * If either is a threshold key, the threshold value is required to sign
 * If you do not have the required signatures, the network will throw an INVALID\_SIGNATURE error
 
 **Account Properties**
