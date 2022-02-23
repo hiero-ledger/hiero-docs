@@ -52,6 +52,7 @@ System.out.print(info);
 ```
 {% endcode %}
 
+{% code title="Javascript" %}
 ```javascript
 //Create the query
 const query = new ContractInfoQuery()
@@ -60,8 +61,9 @@ const query = new ContractInfoQuery()
 //Sign the query with the client operator private key and submit to a Hedera network
 const info = await query.execute(client);
 
-System.out.print(info);
+console.log(info);
 ```
+{% endcode %}
 
 {% code title="Go" %}
 ```java
