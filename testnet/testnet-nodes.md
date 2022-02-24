@@ -24,7 +24,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera mai
         <p>50.18.132.211</p>
         <p>138.91.142.219</p>
       </td>
-      <td style="text-align:left">50211</td>
+      <td style="text-align:left">50211, 50212 (TLS)</td>
     </tr>
     <tr>
       <td style="text-align:left">1</td>
@@ -36,7 +36,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera mai
         <p>3.212.6.13</p>
         <p>52.168.76.241</p>
       </td>
-      <td style="text-align:left">50211</td>
+      <td style="text-align:left">50211, 50212 (TLS)</td>
     </tr>
     <tr>
       <td style="text-align:left">2</td>
@@ -48,7 +48,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera mai
         <p>52.20.18.86</p>
         <p>40.79.83.124</p>
       </td>
-      <td style="text-align:left">50211</td>
+      <td style="text-align:left">50211, 50212 (TLS)</td>
     </tr>
     <tr>
       <td style="text-align:left">3</td>
@@ -60,7 +60,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera mai
         <p>54.70.192.33</p>
         <p>52.183.45.65</p>
       </td>
-      <td style="text-align:left">50211</td>
+      <td style="text-align:left">50211, 50212 (TLS)</td>
     </tr>
     <tr>
       <td style="text-align:left">4</td>
@@ -72,7 +72,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera mai
           <br />54.176.199.109
           <br />13.64.181.136</p>
       </td>
-      <td style="text-align:left">50211</td>
+      <td style="text-align:left">50211, 50212 (TLS)</td>
     </tr>
     <tr>
       <td style="text-align:left">5</td>
@@ -84,7 +84,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera mai
           <br />35.155.49.147
           <br />13.78.238.32</p>
       </td>
-      <td style="text-align:left">50211</td>
+      <td style="text-align:left">50211, 50212 (TLS)</td>
     </tr>
     <tr>
       <td style="text-align:left">6</td>
@@ -96,7 +96,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera mai
           <br />52.14.252.207
           <br />52.165.17.231</p>
       </td>
-      <td style="text-align:left">50211</td>
+      <td style="text-align:left">50211, 50212 (TLS)</td>
     </tr>
   </tbody>
 </table>
