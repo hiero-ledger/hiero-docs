@@ -37,6 +37,7 @@ Hedera and the developer community contribute to and maintain developer tools an
 | Hedera JavaScript DID SDK | Envision | Apache 2.0 |  | [github.com/hashgraph/did-sdk-js](https://github.com/hashgraph/did-sdk-js) |
 | Serverless Hedera REST API | Community | Apache 2.0 | [docs.trust.enterprises](https://docs.trust.enterprises/) | [mattsmithies/hedera-serverless-consensus](https://github.com/mattsmithies/hedera-serverless-consensus) |
 | Serverless Hedera Laravel Package | Community | Apache 2.0 | [docs.trust.enterprises/laravel](https://docs.trust.enterprises/laravel/working-with-laravel) | [mattsmithies/laravel-hashgraph](https://github.com/mattsmithies/laravel-hashgraph) |
+| Strato JS SDK | Community | MIT | [hsj-docs.buidlerlabs.com](https://hsj-docs.buidlerlabs.com/) | [buidler-labs/hedera-strato-js](https://github.com/buidler-labs/hedera-strato-js) |
 
 Want to help contribute or have a project you'd like to see, here? Get in touch in [discord](http://hedera.com/discord) or add a pull request.
 
