@@ -31,7 +31,7 @@ Hedera mirror nodes receive information from Hedera network consensus nodes, eit
 * Audit support
 * Monitoring
 
-While mirror nodes receive information from the consensus nodes, they do not contribute to consensus themselves. The trust of Hedera is derived based on. the consensus reached by the consensus nodes. That trust is transferred to the mirror nodes using signatures, chain of hashes and state proofs.
+While mirror nodes receive information from the consensus nodes, they do not contribute to consensus themselves. The trust of Hedera is derived based on the consensus reached by the consensus nodes. That trust is transferred to the mirror nodes using signatures, chain of hashes, and state proofs.
 
 At version 1.0, mirror nodes will run the same code as consensus nodes.
 
