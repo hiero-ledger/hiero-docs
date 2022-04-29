@@ -1,6 +1,6 @@
 # Freeze an account
 
-Freezes transfers of the specified token for the account. The transaction must be signed by the token's Freeze Key. 
+Freezes transfers of the specified token for the account. The transaction must be signed by the token's Freeze Key.&#x20;
 
 * If the provided account is not found, the transaction will resolve to INVALID\_ACCOUNT\_ID. If the provided account has been deleted, the transaction will resolve to ACCOUNT\_DELETED.
 * If the provided token is not found, the transaction will resolve to INVALID\_TOKEN\_ID.
@@ -10,13 +10,18 @@ Freezes transfers of the specified token for the account. The transaction must b
 * Once executed the Account is marked as Frozen and will not be able to receive or send tokens unless unfrozen.
 * The operation is idempotent
 
-**Transaction Signing Requirements:**
+**Transaction Signing Requirements**
 
 * Freeze key
 * Transaction fee payer account key
 
-| Constructor | Description |
-| :--- | :--- |
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
+| Constructor                    | Description                                   |
+| ------------------------------ | --------------------------------------------- |
 | `new TokenFreezeTransaction()` | Initializes the TokenFreezeTransaction object |
 
 ```java
@@ -29,10 +34,10 @@ new TokenFreezeTransaction()
 {% tab title="V2" %}
 
 
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setTokenId(<tokenId>)` | TokenId | The token for this account to be frozen | Required |
-| `setAccountId(<accountId>)` | AccountId | The account to be frozen | Required |
+| Method                      | Type      | Description                             | Requirement |
+| --------------------------- | --------- | --------------------------------------- | ----------- |
+| `setTokenId(<tokenId>)`     | TokenId   | The token for this account to be frozen | Required    |
+| `setAccountId(<accountId>)` | AccountId | The account to be frozen                | Required    |
 
 {% code title="Java" %}
 ```java
@@ -118,10 +123,10 @@ fmt.Printf("The transaction consensus status is %v\n", status)
 {% endtab %}
 
 {% tab title="V1" %}
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setTokenId(<tokenId>)` | TokenId | The token for this account to be frozen | Required |
-| `setAccountId(<accountId>)` | AccountId | The account to be frozen | Required |
+| Method                      | Type      | Description                             | Requirement |
+| --------------------------- | --------- | --------------------------------------- | ----------- |
+| `setTokenId(<tokenId>)`     | TokenId   | The token for this account to be frozen | Required    |
+| `setAccountId(<accountId>)` | AccountId | The account to be frozen                | Required    |
 
 {% code title="Java" %}
 ```java
@@ -166,6 +171,4 @@ console.log("The transaction consensus status is " +transactionStatus);
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-
-
 

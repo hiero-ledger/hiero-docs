@@ -34,6 +34,11 @@ The Hedera Services 0.22 release increases the contract state size to 10 MB and 
 * The client operator account is required to sign the transaction
 * The admin key, if specified&#x20;
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 **Smart Contract Properties**
 
 | **Field**                  | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                      |

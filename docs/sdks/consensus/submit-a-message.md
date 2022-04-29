@@ -7,14 +7,19 @@ A transaction that submits a topic message to the Hedera network. To access the 
 * Anyone can submit a message to a public topic
 * The submitKey is required to sign the transaction for a private topic
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 {% hint style="info" %}
 HCS message size: 1024 bytes
 {% endhint %}
 
 {% tabs %}
 {% tab title="V2" %}
-| Constructor | Description |
-| :--- | :--- |
+| Constructor                           | Description                                        |
+| ------------------------------------- | -------------------------------------------------- |
 | `new TopicMessageSubmitTransaction()` | Initializes a TopicMessageSubmitTransaction object |
 
 ```java
@@ -23,12 +28,12 @@ new TopicMessageSubmitTransaction()
 
 ### Methods
 
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setTopicId(<topicId>)` | TopicId | The topic ID to submit the message to | Required |
-| `setMessage(<message>)` | String | The message in a String format | Optional |
-| `setMessage(<message>)` | byte \[ \] | The message in a byte array format | Optional |
-| `setMessage(<message>)` | ByteString | The message in a  ByteString format | Optional |
+| Method                  | Type       | Description                           | Requirement |
+| ----------------------- | ---------- | ------------------------------------- | ----------- |
+| `setTopicId(<topicId>)` | TopicId    | The topic ID to submit the message to | Required    |
+| `setMessage(<message>)` | String     | The message in a String format        | Optional    |
+| `setMessage(<message>)` | byte \[ ]  | The message in a byte array format    | Optional    |
+| `setMessage(<message>)` | ByteString | The message in a  ByteString format   | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -92,8 +97,8 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 {% endtab %}
 
 {% tab title="V1" %}
-| Constructor | Description |
-| :--- | :--- |
+| Constructor                               | Description                                            |
+| ----------------------------------------- | ------------------------------------------------------ |
 | `new ConsensusMessageSubmitTransaction()` | Initializes a ConsensusMessageSubmitTransaction object |
 
 ```java
@@ -102,66 +107,14 @@ new ConsensusMessageSubmitTransaction()
 
 ### Methods
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Method</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Requirement</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>setTopicId(&lt;topicId&gt;)</code>
-      </td>
-      <td style="text-align:left">TopicId</td>
-      <td style="text-align:left">The topic ID to submit the message to</td>
-      <td style="text-align:left">Required</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>setMessage(&lt;message&gt;)</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">The message in a String format</td>
-      <td style="text-align:left">Optional</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>setMessage(&lt;message&gt;)</code>
-      </td>
-      <td style="text-align:left">byte [ ]</td>
-      <td style="text-align:left">The message in a byte array format</td>
-      <td style="text-align:left">Optional</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>setMessage(&lt;message&gt;)</code>
-      </td>
-      <td style="text-align:left">ByteString</td>
-      <td style="text-align:left">The message in a ByteString format</td>
-      <td style="text-align:left">Optional</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>setMaxChunk(&lt;maxChunks&gt;)</code>
-      </td>
-      <td style="text-align:left">int</td>
-      <td style="text-align:left">The number of chunks to break the message into. Default:10</td>
-      <td style="text-align:left">Optional</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>setMaxChunkInfo(&lt;initial<br />Transactionid<br />,totalNumber, number&gt;)</code>
-      </td>
-      <td style="text-align:left">TransactionId, int, int</td>
-      <td style="text-align:left">
-        <p>initialId: TransactionID of the first chunk, gets copied to every subsequent
-          chunk in a fragmented message.</p>
-        <p>total: total number of chunks</p>
-        <p>number: The sequence number (from 1 to total) of the current chunk in
-          the message.</p>
-      </td>
-      <td style="text-align:left">Optional</td>
-    </tr>
-  </tbody>
-</table>
+| Method                                                                                                                 | Type                    | Description                                                                                                                                                                                                                                     | Requirement |
+| ---------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `setTopicId(<topicId>)`                                                                                                | TopicId                 | The topic ID to submit the message to                                                                                                                                                                                                           | Required    |
+| `setMessage(<message>)`                                                                                                | String                  | The message in a String format                                                                                                                                                                                                                  | Optional    |
+| `setMessage(<message>)`                                                                                                | byte \[ ]               | The message in a byte array format                                                                                                                                                                                                              | Optional    |
+| `setMessage(<message>)`                                                                                                | ByteString              | The message in a ByteString format                                                                                                                                                                                                              | Optional    |
+| `setMaxChunk(<maxChunks>)`                                                                                             | int                     | The number of chunks to break the message into. Default:10                                                                                                                                                                                      | Optional    |
+| <p><code>setMaxChunkInfo(&#x3C;initial</code><br><code>Transactionid</code><br><code>,totalNumber, number>)</code></p> | TransactionId, int, int | <p>initialId: TransactionID of the first chunk, gets copied to every subsequent chunk in a fragmented message.</p><p>total: total number of chunks</p><p>number: The sequence number (from 1 to total) of the current chunk in the message.</p> | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -197,11 +150,11 @@ await new ConsensusMessageSubmitTransaction()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
-| `getTopicId()` | TopicId | The topic ID to submit the message to |
-| `getMessage()` | ByteString | The message being submitted |
-| `getAllTransactionHash()` | byte \[ \] | The hash for each transaction |
+| Method                    | Type       | Description                           |
+| ------------------------- | ---------- | ------------------------------------- |
+| `getTopicId()`            | TopicId    | The topic ID to submit the message to |
+| `getMessage()`            | ByteString | The message being submitted           |
+| `getAllTransactionHash()` | byte \[ ]  | The hash for each transaction         |
 
 {% code title="Java" %}
 ```java
@@ -244,4 +197,3 @@ getMessage := transaction.GetMessage()
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-

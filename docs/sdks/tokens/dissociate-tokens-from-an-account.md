@@ -13,10 +13,15 @@ Disassociates the provided Hedera account from the provided Hedera tokens. This 
 The account is required to have a zero balance of the token you wish to disassociate. If a token balance is present, you will receive a TRANSACTION\_REQUIRES\_ZERO\_TOKEN\_BALANCES error.
 {% endhint %}
 
-**Transaction Signing Requirements:**
+**Transaction Signing Requirements**
 
 * The key of the account the token is being dissociated with
 * Transaction fee payer account key
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 | Constructor                        | Description                                       |
 | ---------------------------------- | ------------------------------------------------- |

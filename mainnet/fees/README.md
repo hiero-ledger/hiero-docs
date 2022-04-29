@@ -26,7 +26,7 @@ Mainnet transaction and query fees can be estimated using the [Hedera Fee Estima
 
 ## Transaction and Query Fees
 
-All fees are subject to change.
+All fees are subject to change. The fees below reflect a base price for the transaction or query. Transaction characteristics may increase the price from the base price shown below. Transaction characteristics include having more than one signature, a memo field, etc. Please reference the [Hedera fee estimator](https://hedera.com/fees) to estimate the a transaction or query fee.&#x20;
 
 ### Cryptocurrency Service
 
@@ -34,15 +34,15 @@ All fees are subject to change.
 | ---------------------------- | -------- |
 | CryptoCreate                 | $0.05    |
 | CryptoAccountAutoRenew       | $0.00022 |
-| CryptoAdjustAllowance        | $0.05    |
+| CryptoDeleteAllowance        | $0.05    |
 | CryptoApproveAllowance       | $0.05    |
 | CryptoUpdate                 | $0.00022 |
 | CryptoTransfer               | $0.0001  |
 | CryptoTransfer (custom fees) | $0.002   |
 | CryptoDelete                 | $0.005   |
-| CryptoAddClaim               | $0.1     |
-| CryptoDeleteClaim            | $0.005   |
-| CryptoGetClaim               | $0.0001  |
+| CryptoAddLiveHash            | $0.1     |
+| CryptoDeleteLiveHash         | $0.005   |
+| CryptoGetLiveHash            | $0.0001  |
 | CryptoGetAccountRecords      | $0.0001  |
 | CryptoGetAccountBalance      | $0.00    |
 | CryptoGetInfo                | $0.0001  |

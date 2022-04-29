@@ -6,10 +6,15 @@ Deleting a token marks a token as deleted, though it will remain in the ledger. 
 
 You cannot delete a specific NFT. You can delete the class of the NFT specified by the token ID after you have burned all associated NFTs associated with the token class
 
-#### Transaction Signing Requirements:
+#### Transaction Signing Requirements
 
 * Admin key
 * Transaction fee payer account key
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 | Constructor                    | Description                                   |
 | ------------------------------ | --------------------------------------------- |

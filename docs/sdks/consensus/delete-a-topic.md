@@ -1,16 +1,21 @@
 # Delete a topic
 
-A transaction that deletes a topic from the Hedera network. Once a topic is deleted, the topic cannot be recovered to receive messages and all submitMessage calls will fail. Older messages can still be accessed, even after the topic is deleted, via the mirror node. 
+A transaction that deletes a topic from the Hedera network. Once a topic is deleted, the topic cannot be recovered to receive messages and all submitMessage calls will fail. Older messages can still be accessed, even after the topic is deleted, via the mirror node.&#x20;
 
 **Transaction Signing Requirements**
 
 * If the adminKey was set upon the creation of the topic, the adminKey is required to sign to successfully delete the topic
 * If no adminKey was set upon the creating of the topic, you cannot delete the topic and will receive an UNAUTHORIZED error
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 {% tabs %}
 {% tab title="V2" %}
-| Constructor | Description |
-| :--- | :--- |
+| Constructor                    | Description                                 |
+| ------------------------------ | ------------------------------------------- |
 | `new TopicDeleteTransaction()` | Initializes a TopicDeleteTransaction object |
 
 ```java
@@ -19,9 +24,9 @@ new TopicDeleteTransaction()
 
 ### Methods
 
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setTopicId(<topicId>)` | TopicId | The ID of the topic to delete | Required |
+| Method                  | Type    | Description                   | Requirement |
+| ----------------------- | ------- | ----------------------------- | ----------- |
+| `setTopicId(<topicId>)` | TopicId | The ID of the topic to delete | Required    |
 
 {% code title="Java" %}
 ```java
@@ -102,8 +107,8 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 {% tab title="V1" %}
 
 
-| Constructor | Description |
-| :--- | :--- |
+| Constructor                             | Description                                          |
+| --------------------------------------- | ---------------------------------------------------- |
 | `new ConsensusTopicDeleteTransaction()` | Initializes a ConsensusTopicDeleteTransaction object |
 
 ```java
@@ -112,8 +117,8 @@ new ConsensusTopicDeleteTransaction()
 
 ### Methods
 
-| Method | Type | Description |
-| :--- | :--- | :--- |
+| Method                  | Type    | Description                   |
+| ----------------------- | ------- | ----------------------------- |
 | `setTopicId(<topicId>)` | TopicId | The ID of the topic to delete |
 
 {% code title="Java" %}
@@ -162,9 +167,9 @@ console.log("The transaction consensus status is " +transactionStatus);
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `getTopicId(<topicId>)` | TopicId | The ID of the topic to delete | Required |
+| Method                  | Type    | Description                   | Requirement |
+| ----------------------- | ------- | ----------------------------- | ----------- |
+| `getTopicId(<topicId>)` | TopicId | The ID of the topic to delete | Required    |
 
 {% code title="Java" %}
 ```java
@@ -207,5 +212,4 @@ getTopicId := transaction.GetTopicID()
 {% endtab %}
 {% endtabs %}
 
-## 
-
+##

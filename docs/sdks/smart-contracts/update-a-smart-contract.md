@@ -8,6 +8,11 @@ A transaction that allows you to modify the smart contract entity state like adm
 * If any other smart contract entity property is being modified, the transaction must be signed by the admin key.
 * If the admin key is being updated, the new key must sign
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 **Smart Contract Properties**
 
 | Field                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |

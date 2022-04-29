@@ -16,10 +16,15 @@ The following operations cannot be performed when a token is paused and will res
 
 Once a token is paused, token status will update to `paused`. To verify if the token's status has been updated to `paused`, you can request the token info via the SDK or use the token info mirror node query. If the token is not paused the token status will be `unpaused`. The token status for tokens that do not have an assigned pause key will state `PauseNotApplicable`.
 
-**Transaction Signing Requirements:**
+**Transaction Signing Requirements**
 
 * The pause key of the token
 * Transaction fee payer account key
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 | Constructor                   | Description                                  |
 | ----------------------------- | -------------------------------------------- |

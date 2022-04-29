@@ -11,6 +11,11 @@ Will not be enabled with the 0.17 Hedera Services release. This transaction will
 * Fee schedule key
 * Transaction fee payer account key
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 | Property         | Description                        |
 | ---------------- | ---------------------------------- |
 | **Fee Schedule** | The new fee schedule for the token |

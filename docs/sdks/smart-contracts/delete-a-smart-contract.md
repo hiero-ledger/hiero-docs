@@ -7,6 +7,11 @@ A transaction that deletes a smart contract from a Hedera network. Once a smart 
 * If the admin key was defined for the smart contract it is required to sign the transaction.
 * The client operator's (fee payer account) private key is required to sign the transaction.
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 | Constructor                       | Description                                    |
 | --------------------------------- | ---------------------------------------------- |
 | `new ContractDeleteTransaction()` | Initializes a ContractDeleteTransaction object |

@@ -18,6 +18,11 @@ Wipes the provided amount of fungible or non-fungible tokens from the specified 
 * Wipe key
 * Transaction fee payer account key
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 | Constructor                  | Description                                      |
 | ---------------------------- | ------------------------------------------------ |
 | `new TokenWipeTransaction()` | Initializes a TokenWipeAccountTransaction object |

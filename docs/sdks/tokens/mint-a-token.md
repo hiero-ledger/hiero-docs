@@ -10,10 +10,15 @@ Minting fungible token allows you to increase the total supply of the token. Min
 * The serial number for the NFT is returned in the receipt of the transaction.
 * When minting NFTs, do not set the amount. The amount is used for minting fungible tokens only.
 
-**Transaction Signing Requirements:**
+**Transaction Signing Requirements**
 
 * Supply key
 * Transaction fee payer account key
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 | Constructor                  | Description                               |
 | ---------------------------- | ----------------------------------------- |

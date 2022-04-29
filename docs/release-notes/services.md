@@ -8,7 +8,63 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Upcoming Releases
 
+## [v0.25](https://github.com/hashgraph/hedera-services/releases/tag/v0.25.0)
+
+{% hint style="info" %}
+**MAINNET UPDATE: MAY 13, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE: APRIL 26, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE: APRIL 21, 202**
+{% endhint %}
+
+The Hedera Services 0.25 release brings good news for HTS users who manage large numbers of token types, as it delivers [HIP-367 (Unlimited Token Associations per Account)](https://hips.hedera.com/hip/hip-367). In particular, a single account can now serve as treasury for any number of token types. (Please do note the `CryptoService` HAPI queries still return information for only an account’s 1000 most recently associated tokens; mirror nodes remain the best source for full history.)
+
+We are also very excited to announce support for [HIP-358 (Allow `TokenCreate` through Hedera Token Service Precompiled Contract)](https://hips.hedera.com/hip/hip-358). This HIP supercharges contract integration, making it possible for a smart contract to create a new HTS token---fungible or non-fungible, with or without custom fees. (An interested Solidity developer might consult the examples in [this contract](https://github.com/hashgraph/hedera-services/blob/master/test-clients/src/main/resource/contract/solidity/FeeHelper.sol).)
+
+In a harbinger of [more upcoming HTS precompile support](https://hips.hedera.com/hip/hip-376), this release will also enable [HIP-336 (Approval and Allowance API for Tokens)](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-336.md). Token owners can now approve other accounts to manage their HTS tokens or NFTs, in direct analogy to the `approve()` and `transferFrom()` mechanisms in ERC-20 and ERC-721 style tokens.
+
+### Enhancements
+
+* HIP-336 implementation [#2814](https://github.com/hashgraph/hedera-services/issues/2814)
+* HIP-358 implementation [#3015](https://github.com/hashgraph/hedera-services/issues/3015)
+* HIP-367 implementation [#2917](https://github.com/hashgraph/hedera-services/issues/2917)
+
+### Fixes
+
+* ERC `view` functions now usable in `ContractCallLocalQuery` [#3061](https://github.com/hashgraph/hedera-services/issues/3061)
+
 ## Latest Releases &#x20;
+
+## [v0.24](https://github.com/hashgraph/hedera-services/releases/tag/v0.24.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE: APRIL 15, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE: APRIL 7, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE:  MARCH 31, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE:  MARCH 24, 2022**
+{% endhint %}
+
+In the 0.24 release of Hedera Services, we are excited to give smart contract developers a new level of interoperability with native Hedera Token Service (HTS) tokens via [HIP-218 (Smart Contract interactions with Hedera Token Accounts)](https://hips.hedera.com/hip/hip-218). The Hedera EVM now exposes every HTS fungible token as an ERC-20 token at the address of the token’s `0.0.X` entity id; and analogously, every HTS non-fungible token appears as an ERC-721 token. This means a smart contract can look up its balance of a fungible HTS token; or change its behavior based on the owner of a particular HTS NFT. Please see the linked HIP for full details.
+
+This upgrade also creates two new system accounts 0.0.800 and 0.0.801 that will hold reward funds.
+
+One change to the Hedera API (HAPI) is that we now have enough evidence to conclude the experimental `getAccountNftInfos` and `getTokenNftInfos` queries do not have a favorable cost/benefit ratio, and these queries are now [permanently disabled](https://hashgraph.github.io/hedera-protobufs/#proto.TokenService).
+
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (4).jpeg>)
 
 ## [v0.23](https://github.com/hashgraph/hedera-services/releases/tag/v0.23.0)
 
@@ -94,7 +150,7 @@ Please also note the following deprecations in the Hedera API protobufs:
 * The [<mark style="color:purple;">`ContractUpdateTransactionBody.fileID`</mark> <mark style="color:purple;"></mark><mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L82), which is redundant given the existence of the <mark style="color:purple;"></mark> [<mark style="color:purple;">`ContractGetBytecode`</mark> <mark style="color:purple;"></mark><mark style="color:purple;">quer</mark>y](https://github.com/hashgraph/hedera-protobufs/blob/main/services/smart\_contract\_service.proto#L63).
 * The [<mark style="color:purple;">`ContractCallLocalQuery.maxResultSize`</mark> <mark style="color:purple;"></mark><mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_call\_local.proto#L136), as this limit is now simply a side-effect of the given gas limit.
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001.jpeg>)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1).jpeg>)
 
 ## [v0.19.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.4)
 

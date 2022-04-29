@@ -267,6 +267,193 @@ _Available values_
 {% endswagger-response %}
 {% endswagger %}
 
+{% swagger method="get" path="/api/v1/accounts/{accountId}/nfts" baseUrl="" summary="NFTs by account ID" %}
+{% swagger-description %}
+Specify the account ID or account alias you would like to return the NFTs for. Please reference this 
+
+[doc](https://testnet.mirrornode.hedera.com/api/v1/docs/#/accounts/listNftByAccountId)
+
+ for additional filtering guidelines. 
+{% endswagger-description %}
+
+{% swagger-parameter in="query" name="token.id" type="String" %}
+The ID of the token to return information for
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="serialNumber" type="String" %}
+The nft serial number (64 bit type). Requires a tokenId value also be populated.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="path" name="accountAliasOrAccountId" required="true" %}
+The account ID or account alias (0.0.accountNum or 0.0.accountAlias)
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="limit" type="integer" %}
+The maximum number of items to return. 
+
+\
+
+
+Default: 25
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="order" %}
+The order in which items are listed
+
+_Available values_ : asc, desc
+
+_Default value_ : desc
+
+_Example_ : asc\
+
+{% endswagger-parameter %}
+
+{% swagger-response status="200: OK" description="NFTs for account 0.1.2" %}
+```javascript
+{
+  "nfts": [
+    {
+      "account_id": "0.1.2",
+      "created_timestamp": "1234567890.000000001",
+      "deleted": false,
+      "metadata": "VGhpcyBpcyBhIHRlc3QgTkZU",
+      "modified_timestamp": "1610682445.003266001",
+      "serial_number": 124,
+      "token_id": "0.0.222"
+    }
+  ],
+  "links": {
+    "next": null
+  }
+}
+```
+{% endswagger-response %}
+{% endswagger %}
+
+{% swagger method="get" path="/api/v1/accounts/{accountId}/allowances/crypto" baseUrl="" summary="Hbar allowances for an account" %}
+{% swagger-description %}
+Returns hbar allowances for an account.
+{% endswagger-description %}
+
+{% swagger-parameter in="path" name="account.id" required="true" %}
+The account ID or account alias to return the hbar allowances for.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="spender.id" %}
+The ID of the spender to return information for.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="limit" type="integer" %}
+The maximum number of items to return
+
+_Default value_ : 25
+
+_Example_ : 2
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="order" %}
+The order in which items are listed
+
+_Available values_ : asc, desc
+
+_Default value_ : desc
+{% endswagger-parameter %}
+
+{% swagger-response status="200: OK" description="The hbar allowances returned for account 0.0.1000." %}
+```javascript
+{
+  {
+  "allowances": [
+    {
+      "amount_granted": 10,
+      "owner": "0.0.1000",
+      "spender": "0.0.8488",
+      "timestamp": {
+        "from": "1633466229.96874612",
+        "to": "1633466568.31556926"
+      }
+    },
+    {
+      "amount_granted": 5,
+      "owner": "0.0.1000",
+      "spender": "0.0.9857",
+      "timestamp": {
+        "from": "1633466229.96874612",
+        "to": null
+      }
+    }
+  ],
+  "links": {}
+}
+}
+```
+{% endswagger-response %}
+{% endswagger %}
+
+{% swagger method="get" path="/api/v1/accounts/{accountId}/allowances/tokens" baseUrl="" summary="Fungible token allowances for an account" %}
+{% swagger-description %}
+Returns information for fungible token allowances for an account. Please refer to 
+
+[this](https://testnet.mirrornode.hedera.com/api/v1/docs/#/accounts/listTokenAllowancesByAccountId)
+
+ document regarding filtering restrictions.
+{% endswagger-description %}
+
+{% swagger-parameter in="path" name="account.id" type="String" required="true" %}
+Account ID or account alias to return the fungible token allowances for.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="spender.id" type="String" %}
+The ID of the spender to return information for.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="token.id" type="String" %}
+The ID of the token to return information for.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="limit" type="integer" %}
+The maximum number of items to return
+
+_Default value_ : 25
+
+_Example_ : 2
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="order" %}
+The order in which items are listed
+
+_Available values_ : asc, desc
+
+_Default value_ : asc
+
+_Example_ : desc
+{% endswagger-parameter %}
+
+{% swagger-response status="200: OK" description="" %}
+```javascript
+{
+  "allowances": [
+    {
+      "amount_granted": 100,
+      "owner": "0.1.2",
+      "spender": "0.1.2",
+      "timestamp": {
+        "from": "1586567700.453054000",
+        "to": "1586567700.453054000"
+      },
+      "token_id": "0.1.2"
+    }
+  ],
+  "links": {
+    "next": null
+  }
+}
+```
+{% endswagger-response %}
+{% endswagger %}
+
+## &#x20;<a href="#balances" id="balances"></a>
+
 ## Balances <a href="#balances" id="balances"></a>
 
 The **balance** object represents the balance of accounts on the Hedera network. You can retrieve this to view the **most recent** balance of all the accounts on the network at that given time. The balances object returns the account ID and the balance in hbars. Balances are checked on a periodic basis and thus return the most recent snapshot of time captured prior to the request.
@@ -432,74 +619,79 @@ _Default value_ : desc
 {% swagger-response status="200" description="A request to return information for a transaction that was provided a specific timestamp" %}
 ```
   {
-    "transactions": [
-      {
-        "consensus_timestamp": "1234567890.000000001",
-        "valid_start_timestamp": "1234567890.000000000",
-        "charged_tx_fee": 7,
-        "memo_base64": null,
-        "result": "SUCCESS",
-        "transaction_hash": "aGFzaA==",
-        "name": "CRYPTOTRANSFER",
-        "node": "0.0.3",
-        "transaction_id": "0.0.10-1234567890-000000000",
-        "valid_duration_seconds": "11",
-        "max_fee": "33",
-        "transfers": [
-          {
-            "account": "0.0.9",
-            "amount": 10
-          },
-          {
-            "account": "0.0.10",
-            "amount": -161
-          },
-          {
-            "account": "0.0.98",
-            "amount": 1
-          },
-          {
-            "account": "0.0.87501",
-            "amount": 150
-          }
-        ],
-        "token_transfers": [
-          {
-            "account": "0.0.200",
-            "amount": 200,
-            "token_id": "0.0.90000"
-          },
-          {
-            "account": "0.0.10",
-            "amount": -1210,
-            "token_id": "0.0.90000"
-          },
-          {
-            "account": "0.0.400",
-            "amount": 1000,
-            "token_id": "0.0.90000"
-          },
-          {
-            "account": "0.0.87502",
-            "amount": 10,
-            "token_id": "0.0.90000"
-          }
-        ],
-        "assessed_custom_fees": [
-          {
-            "amount": 150,
-            "collector_account_id": "0.0.87501",
-            "token_id": null
-          },
-          {
-            "amount": 10,
-            "collector_account_id": "0.0.87502",
-            "token_id": "0.0.90000"
-          }
-        ]
-      }
-    ]
+  "transactions": [
+    {
+      "consensus_timestamp": "1234567890.000000007",
+      "transaction_hash": "vigzKe2J7fv4ktHBbNTSzQmKq7Lzdq1/lJMmHT+a2KgvdhAuadlvS4eKeqKjIRmW",
+      "valid_start_timestamp": "1234567890.000000006",
+      "charged_tx_fee": 7,
+      "memo_base64": null,
+      "bytes": null,
+      "result": "SUCCESS",
+      "entity_id": "0.0.2281979",
+      "name": "CRYPTOTRANSFER",
+      "nft_transfers": [
+        {
+          "receiver_account_id": "0.0.121",
+          "sender_account_id": "0.0.122",
+          "serial_number": 1,
+          "token_id": "0.0.123"
+        },
+        {
+          "receiver_account_id": "0.0.321",
+          "sender_account_id": "0.0.422",
+          "serial_number": 2,
+          "token_id": "0.0.123"
+        }
+      ],
+      "max_fee": 33,
+      "valid_duration_seconds": 11,
+      "node": "0.0.3",
+      "transaction_id": "0.0.8-1234567890-000000006",
+      "scheduled": false,
+      "transfers": [
+        {
+          "account": "0.0.3",
+          "amount": 2
+        },
+        {
+          "account": "0.0.8",
+          "amount": -3
+        },
+        {
+          "account": "0.0.98",
+          "amount": 1
+        }
+      ],
+      "token_transfers": [
+        {
+          "token_id": "0.0.90000",
+          "account": "0.0.9",
+          "amount": 1200
+        },
+        {
+          "token_id": "0.0.90000",
+          "account": "0.0.8",
+          "amount": -1200
+        }
+      ],
+      "assessed_custom_fees": [
+        {
+          "amount": 100,
+          "collector_account_id": "0.0.10",
+          "effective_payer_account_ids": [
+            "0.0.8",
+            "0.0.72"
+          ],
+          "token_id": "0.0.90001"
+        }
+      ]
+    }
+  ],
+  "links": {
+    "next": null
   }
+}
 
 ```
 {% endswagger-response %}
@@ -516,6 +708,7 @@ _Default value_ : desc
 | **transaction id**         | The ID of the transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | **memo base64**            | The memo attached to the transaction encoded in Base64 format                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | **result**                 | Whether the cryptocurrency transaction was successful or not                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **entity ID**              | The entity ID that is created from create transactions (AccountCreateTransaction, TopicCreateTransaction, TokenCreateTransaction, ScheduleCreateTransaction, ContractCreateTransaction, FileCreateTransaction).                                                                                                                                                                                                                                                                                                                                                          |
 | **name**                   | The type of transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **max fee**                | The maximum transaction fee the client is willing to pay                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | **valid duration seconds** | The seconds for which a submitted transaction is to be deemed valid beyond the start time. The transaction is invalid if consensusTimestamp is greater than transactionValidStart + valid\_duration\_seconds.                                                                                                                                                                                                                                                                                                                                                            |
@@ -1146,8 +1339,6 @@ The NFT serial number
 | **type**                  | The type of transaction           |
 | **token\_id**             | The token ID of the NFT           |
 
-
-
 {% swagger method="get" path="/api/v1/network/supply" baseUrl="" summary="network supply" %}
 {% swagger-description %}
 This query returns the number of hbars that are released along with the timestamp and total supply.
@@ -1608,15 +1799,16 @@ _Example_ : 4.027126854939018e+76
 {
   "logs": [
     {
-      "address": "1.0038928713678618e+77",
+      "address": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "bloom": "0x549358c4c2e573e02410ef7b5a5ffa5f36dd7398",
       "contract_id": "0.1.2",
-      "data": "250",
-      "index": 1,
-      "root_contract_id": "0.1.2",
-      "timestamp": "1586567700.453054000",
+      "data": "0x00000000000000000000000000000000000000000000000000000000000000fa",
+      "index": 0,
       "topics": [
-        1.1057190016089302e+77
-      ]
+        "0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300"
+      ],
+      "root_contract_id": "0.1.2",
+      "timestamp": "1586567700.453054000"
     }
   ]
 }
@@ -1726,3 +1918,68 @@ _Default value_
 | **address\_books**   | The address book file contents                                                   | base64 encoding |
 
 Save the response to a json file and use the [check-state-proof](https://github.com/hashgraph/hedera-mirror-node/tree/master/hedera-mirror-rest/check-state-proof) cli commands to confirm the validity of the transaction. You can find the instructions [here](https://github.com/hashgraph/hedera-mirror-node/tree/master/hedera-mirror-rest/check-state-proof).
+
+## Network
+
+{% swagger method="get" path="/api/v1/network/nodes" baseUrl="" summary="Get the network address book" %}
+{% swagger-description %}
+Returns the network's list of nodes used in consensus.
+{% endswagger-description %}
+
+{% swagger-parameter in="query" name="file.id" %}
+0.0.101 or 0.0.102 address book files
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="node.id" %}
+The node account ID (ex. 0.0.10)
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="limit" type="integer" %}
+The maximum number of items to return
+
+_Default value_ : 25
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="order" %}
+The order in which items are listed
+
+_Available values_ : asc, desc
+
+_Default value_ : asc
+
+_Example_ : desc
+{% endswagger-parameter %}
+
+{% swagger-response status="200: OK" description="" %}
+```javascript
+{
+    {
+  "nodes": [
+    {
+      "description": "",
+      "file_id": "0.0.102",
+      "memo": "0.0.3",
+      "node_account_id": "0.0.3",
+      "node_cert_hash": "0x3334...",
+      "node_id": 0,
+      "public_key": "0x308201...",
+      "service_endpoints": [
+        {
+          "ip_address_v4": "13.124.142.126",
+          "port": 50211
+        }
+      ],
+      "timestamp": {
+        "from": "1636052707.740848001",
+        "to": null
+      }
+    }
+  ],
+  "links": {
+    "next": null
+  }
+}
+}
+```
+{% endswagger-response %}
+{% endswagger %}

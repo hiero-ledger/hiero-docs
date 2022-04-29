@@ -19,6 +19,11 @@ A transaction that updates the properties of an existing topic. This includes th
 * If the admin key was set during the creation of the topic, the admin key must sign the transaction to update any of the topic's properties&#x20;
 * If no adminKey was defined during the creation of the topic, you can only extend the expirationTime.
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 {% tabs %}
 {% tab title="V2" %}
 | Constructor                    | Description                                   |

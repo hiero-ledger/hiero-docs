@@ -2,6 +2,11 @@
 
 Gets information about a fungible or non-fungible token instance. The token info query returns the following information:
 
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
+
 | Item                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **TokenId**               | ID of the token instance                                                                                                                                                                                                                                                                                                                                                                                                                                                  |

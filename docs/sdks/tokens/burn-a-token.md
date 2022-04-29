@@ -7,10 +7,15 @@ Burns fungible and non-fungible tokens owned by the Treasury Account. If no Supp
 * The amount provided must be in the lowest denomination possible.&#x20;
   * Example: Token A has 2 decimals. In order to burn 100 tokens, one must provide an amount of 10000. In order to burn 100.55 tokens, one must provide an amount of 10055.
 
-**Transaction Signing Requirements:**
+**Transaction Signing Requirements**
 
 * Supply key
 * Transaction fee payer account key
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 | Constructor                  | Description                                     |
 | ---------------------------- | ----------------------------------------------- |
@@ -123,7 +128,7 @@ fmt.Printf("The transaction consensus status is %v\n", status)
 | `setTokenId(<tokenId>)`    | TokenId     | The ID of the token to burn supply                                                 | Required    |
 | `setTokenAmount(<amount>)` | long        | The number of tokens to burn                                                       | Optional    |
 | `addSerial(<serial>)`      | long        | Applicable to tokens of type `NON_FUNGIBLE_UNIQUE`. Serial ID to burn.             | Optional    |
-| `setSerials(<serials>)`    | List\<Long> | Applicable to tokens of type `NON_FUNGIBLE_UNIQUE. `A list of NFT serials to burn. | Optional    |
+| `setSerials(<serials>)`    | List\<Long> | Applicable to tokens of type `NON_FUNGIBLE_UNIQUE.` A list of NFT serials to burn. | Optional    |
 
 {% code title="Java" %}
 ```java

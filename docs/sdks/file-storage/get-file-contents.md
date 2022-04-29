@@ -6,8 +6,13 @@ A query to get the contents of a file. Queries do not change the state of the fi
 
 * The client operator private key is required to sign the query request
 
-| Constructor | Description |
-| :--- | :--- |
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
+
+| Constructor               | Description                            |
+| ------------------------- | -------------------------------------- |
 | `new FileContentsQuery()` | Initializes a FileContentsQuery object |
 
 ```java
@@ -18,9 +23,9 @@ new FileContentsQuery()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
-| `setFileId(<fileId>)` | FileId | The ID of the file to get contents for \(x.z.y\) |
+| Method                | Type   | Description                                    |
+| --------------------- | ------ | ---------------------------------------------- |
+| `setFileId(<fileId>)` | FileId | The ID of the file to get contents for (x.z.y) |
 
 {% code title="Java" %}
 ```java
@@ -72,9 +77,9 @@ fmt.Println(string(contents))
 {% endtab %}
 
 {% tab title="V1" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
-| `setFileId(<fileId>)` | FileId | The ID of the file to get contents for \(x.z.y\) |
+| Method                | Type   | Description                                    |
+| --------------------- | ------ | ---------------------------------------------- |
+| `setFileId(<fileId>)` | FileId | The ID of the file to get contents for (x.z.y) |
 
 {% code title="Java" %}
 ```java
@@ -113,9 +118,9 @@ console.log(contents);
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
-| `getFileId()` | FileId | The ID of the file to get contents for \(x.z.y\) |
+| Method        | Type   | Description                                    |
+| ------------- | ------ | ---------------------------------------------- |
+| `getFileId()` | FileId | The ID of the file to get contents for (x.z.y) |
 
 {% code title="Java" %}
 ```java
@@ -156,5 +161,4 @@ getFileId := query.GetFileID()
 {% endtab %}
 {% endtabs %}
 
-## 
-
+##

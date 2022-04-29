@@ -24,6 +24,11 @@ In addition to the custom token fee payment, the sender account is required to p
 * At most, two "levels" of custom token fees are allowed. In other words, a token being transferred may have a custom fee schedule (first layer) which requires you to pay fees in another token that has its own fee schedule (second layer). If that’s the case, a token paid as a fee within the second layer cannot have its own fee schedule, otherwise, that would create a third layer.
 * Fees cannot be a negative value
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 ## Custom Fee&#x20;
 
 ### Fixed Fee

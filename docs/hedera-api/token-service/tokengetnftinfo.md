@@ -27,6 +27,7 @@ Applicable only to tokens of type `NON_FUNGIBLE_UNIQUE`. Gets info on a NFT for 
 | `creationTime` | [Timestamp](../miscellaneous/timestamp.md) | The effective consensus timestamp at which the NFT was minted                                                                                                                        |
 | `metadata`     | bytes                                      | Represents the unique metadata of the NFT                                                                                                                                            |
 | `ledger_id`    | bytes                                      | The ledger ID the response was returned from; please see [HIP-198](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md) for the network-specific IDs |
+| `spender_id`   | AccountID                                  | If an allowance is granted for the NFT, its corresponding spender account                                                                                                            |
 
 ## TokenGetNftInfoResponse
 

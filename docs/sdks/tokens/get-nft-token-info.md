@@ -2,6 +2,11 @@
 
 A query that returns information about a non-fungible token (NFT). You request the info for an NFT by specifying the NFT ID.
 
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
+
 {% hint style="warning" %}
 Requesting NFT info by Token ID or Account ID is deprecated.
 {% endhint %}

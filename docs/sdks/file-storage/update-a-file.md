@@ -6,19 +6,24 @@ A transaction that updates the state of an existing file on a Hedera network. On
 
 * The key or keys on the file are required to sign this transaction to modify the file properties
 * If you are updating the keys on the file, you must sign with the old key and the new key
-* If you do not sign with the key\(s\) on the file, you will receive an INVALID\_SIGNATURE network error
+* If you do not sign with the key(s) on the file, you will receive an INVALID\_SIGNATURE network error
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 #### File Properties
 
-| Field | Description |
-| :--- | :--- |
-| **Key\(s\)** | Update the keys which must sign any transactions modifying this file. All keys must sign to modify the file's contents or keys. No key is required to sign for extending the expiration time \(except the one for the operator account paying for the transaction\). The network currently requires a file to have at least one key \(or key list or threshold key\) but this requirement may be lifted in the future. |
-| **Contents** | The content to update the files with. |
-| **Expiration Time** | If set, update the expiration time of the file. Must be in the future \(may only be used to extend the expiration\). To make a file inaccessible use FileDeleteTransaction. |
-| **Memo** | Short publicly visible memo about the file. No guarantee of uniqueness. \(100 characters max\) |
+| Field               | Description                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Key(s)**          | Update the keys which must sign any transactions modifying this file. All keys must sign to modify the file's contents or keys. No key is required to sign for extending the expiration time (except the one for the operator account paying for the transaction). The network currently requires a file to have at least one key (or key list or threshold key) but this requirement may be lifted in the future. |
+| **Contents**        | The content to update the files with.                                                                                                                                                                                                                                                                                                                                                                              |
+| **Expiration Time** | If set, update the expiration time of the file. Must be in the future (may only be used to extend the expiration). To make a file inaccessible use FileDeleteTransaction.                                                                                                                                                                                                                                          |
+| **Memo**            | Short publicly visible memo about the file. No guarantee of uniqueness. (100 characters max)                                                                                                                                                                                                                                                                                                                       |
 
-| Constructor | Description |
-| :--- | :--- |
+| Constructor                   | Description                                  |
+| ----------------------------- | -------------------------------------------- |
 | `new FileUpdateTransaction()` | Initializes the FileUpdateTransaction object |
 
 ```java
@@ -33,14 +38,14 @@ new FileUpdateTransaction()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Requirement |
-| :--- | :--- | :--- |
-| `setFileId(<fileId>)` | FileId | Required |
-| `setKey(<keys>)` | Key | Optional |
-| `setContents(<bytes>)` | byte \[ \] | Optional |
-| `setContents(<text>)` | String | Optional |
-| `setExpirationTime(<expiration>)` | Instant | Optional |
-| `setFileMemo(<memo>)` | String | Optional |
+| Method                            | Type      | Requirement |
+| --------------------------------- | --------- | ----------- |
+| `setFileId(<fileId>)`             | FileId    | Required    |
+| `setKey(<keys>)`                  | Key       | Optional    |
+| `setContents(<bytes>)`            | byte \[ ] | Optional    |
+| `setContents(<text>)`             | String    | Optional    |
+| `setExpirationTime(<expiration>)` | Instant   | Optional    |
+| `setFileMemo(<memo>)`             | String    | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -133,13 +138,13 @@ fmt.Println("The transaction consensus status is ", transactionStatus)
 {% endtab %}
 
 {% tab title="V1" %}
-| Method | Type | Requirement |
-| :--- | :--- | :--- |
-| `setFileId(<fileId>)` | FileId | Required |
-| `addKey(<keys>)` | PublicKey | Optional |
-| `setContents(<bytes>)` | byte \[ \] | Optional |
-| `setContents(<text>)` | String | Optional |
-| `setExpirationTime(<expiration>)` | Instant | Optional |
+| Method                            | Type      | Requirement |
+| --------------------------------- | --------- | ----------- |
+| `setFileId(<fileId>)`             | FileId    | Required    |
+| `addKey(<keys>)`                  | PublicKey | Optional    |
+| `setContents(<bytes>)`            | byte \[ ] | Optional    |
+| `setContents(<text>)`             | String    | Optional    |
+| `setExpirationTime(<expiration>)` | Instant   | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -193,13 +198,13 @@ console.log("The transaction consensus status is " +transactionStatus);
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Requirement |
-| :--- | :--- | :--- |
-| `getFileId()` | FileId | Optional |
-| `getKey()` | Key | Optional |
-| `setContents()` | ByteString | Optional |
-| `getExpirationTime()` | Instant | Optional |
-| `getFileMemo()` | String | Optional |
+| Method                | Type       | Requirement |
+| --------------------- | ---------- | ----------- |
+| `getFileId()`         | FileId     | Optional    |
+| `getKey()`            | Key        | Optional    |
+| `setContents()`       | ByteString | Optional    |
+| `getExpirationTime()` | Instant    | Optional    |
+| `getFileMemo()`       | String     | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -241,4 +246,3 @@ getKey := transaction.GetKeys()
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-

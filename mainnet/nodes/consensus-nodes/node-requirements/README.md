@@ -42,8 +42,8 @@ Storage performance specifications \(within 10% of performance parameters below\
 
 Considerations for future expansion \(hardware based deployments\):
 
-* Chassis must be [Nvidia Tesla V100 PCIe certified](https://www.nvidia.com/en-us/data-center/tesla/tesla-qualified-servers-catalog/)
-* 1x Nvidia Tesla V100 PCIe 16GB GPU
+* Chassis should be [Nvidia Tesla V100 PCIe certified](https://www.nvidia.com/en-us/data-center/tesla/tesla-qualified-servers-catalog/)
+* 1x Nvidia Tesla V100 PCIe 16GB or 32GB GPU
 
 {% hint style="info" %}
 Reference Configurations available in Appendices B, C, D
@@ -88,10 +88,10 @@ Proxy Connectivity
 
 ### Software & Installation
 
-* Any 64 bit Long Term Support \(LTS\) Linux distribution
+* A 64 bit Long Term Support \(LTS\) Linux distribution
   * Ubuntu
   * Red Hat Enterprise
-  * CentOS
+  * CentOS (being deprecated in 2022)
   * BSD not supported
 * Linux user with sudo privileges, named: `hgcadmin` 
 * Public key added to SSH authorized\_keys for user hgcadmin for both node host and proxy\(ies\)
@@ -101,7 +101,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDt50KHgircRbqfukIFUElFd6BBSNHdcA7k Qabb4o
 ```
 
 {% hint style="warning" %}
-External access from hgcadmin will not be required for ongoing production\(mainnet\). This is temporary to be able to update the configuration of the nodes to support new members and features during the testing and initial production deployment phase.
+External SSH access from hgcadmin will not be required for ongoing production\(mainnet\). This is temporary to allow for configuration of the nodes to support new members and features during the testing and initial production deployment phases.
 {% endhint %}
 
 Once the hardware with base O/S is deployed, please email \(devops@hedera.com\) us the following

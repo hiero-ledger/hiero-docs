@@ -1,6 +1,6 @@
 # Unfreeze an account
 
-Unfreezes transfers of the specified token for the account. The transaction must be signed by the token's Freeze Key. 
+Unfreezes transfers of the specified token for the account. The transaction must be signed by the token's Freeze Key.&#x20;
 
 * If the provided account is not found, the transaction will resolve to INVALID\_ACCOUNT\_ID.
 * If the provided account has been deleted, the transaction will resolve to ACCOUNT\_DELETED.
@@ -10,13 +10,18 @@ Unfreezes transfers of the specified token for the account. The transaction must
 * If no Freeze Key is defined, the transaction will resolve to TOKEN\_HAS\_NO\_FREEZE\_KEY.
 * Once executed the Account is marked as Unfrozen and will be able to receive or send tokens. The operation is idempotent.
 
-**Transaction Signing Requirements:**
+**Transaction Signing Requirements**
 
 * Freeze key
 * Transaction fee payer account key
 
-| Constructor | Description |
-| :--- | :--- |
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
+| Constructor                      | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
 | `new TokenUnfreezeTransaction()` | Initializes the TokenUnfreezeTransaction object |
 
 ```java
@@ -29,10 +34,10 @@ new TokenUnfreezeTransaction()
 {% tab title="V2" %}
 
 
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setTokenId(<tokenId>)` | TokenId | The token for this account to unfreeze | Required |
-| `setAccountId(<accountId>)` | AccountId | The account to unfreeze | Required |
+| Method                      | Type      | Description                            | Requirement |
+| --------------------------- | --------- | -------------------------------------- | ----------- |
+| `setTokenId(<tokenId>)`     | TokenId   | The token for this account to unfreeze | Required    |
+| `setAccountId(<accountId>)` | AccountId | The account to unfreeze                | Required    |
 
 {% code title="Java" %}
 ```java
@@ -119,10 +124,10 @@ fmt.Printf("The transaction consensus status is %v\n", status)
 {% endtab %}
 
 {% tab title="V1" %}
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setTokenId(<tokenId>)` | TokenId | The token for this account to unfreeze | Required |
-| `setAccountId(<accountId>)` | AccountId | The account to unfreeze | Required |
+| Method                      | Type      | Description                            | Requirement |
+| --------------------------- | --------- | -------------------------------------- | ----------- |
+| `setTokenId(<tokenId>)`     | TokenId   | The token for this account to unfreeze | Required    |
+| `setAccountId(<accountId>)` | AccountId | The account to unfreeze                | Required    |
 
 {% code title="Java" %}
 ```java
@@ -167,6 +172,4 @@ console.log("The transaction consensus status is " +transactionStatus);
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-
-
 

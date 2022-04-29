@@ -30,7 +30,8 @@ description: Examples of different use cases and projects built on Hedera.
 | Theft prevention                                                                              | [GitHub](https://github.com/hashgraph/hedera-theft-prevention-demo)                                        | Hedera      |
 | Check State Proof                                                                             | [Github](https://github.com/hashgraph/hedera-mirror-node/tree/master/hedera-mirror-rest/check-state-proof) | Hedera      |
 | Trading Post                                                                                  | [Github](https://github.com/launchbadge/trading-post)                                                      | Launchbadge |
-| Hashgraph Chess                                                                               | [GitHub](https://github.com/scalemaildev/hashgraph_chess)                                                  | Community   |
+| Hashgraph Chess                                                                               | [GitHub](https://github.com/scalemaildev/hashgraph\_chess)                                                 | Community   |
+| Hedera Mirror Node Explorer                                                                   | [GitHub](https://github.com/hashgraph/hedera-mirror-node-explorer)                                         | Hedera      |
 | Others                                                                                        | Coming soon!                                                                                               | Community   |
 {% endtab %}
 

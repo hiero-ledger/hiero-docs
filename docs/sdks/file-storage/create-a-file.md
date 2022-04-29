@@ -10,6 +10,11 @@ The maximum file size is 1,024 kB.&#x20;
 
 * The key on the file is required to sign the transaction if different than the client operator account key
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 #### File Properties
 
 | Field               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                |

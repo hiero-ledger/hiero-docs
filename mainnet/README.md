@@ -25,7 +25,7 @@ Transactions are currently throttled for mainnet. You will receive a "BUSY" resp
 
 | Network Request Type        | Throttle (tps)                                                                                                                                                                 |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Cryptocurrency Transactions | <p>AccountCreateTransaction: 2 tps</p><p>AccountBalanceQuery: unlimited</p><p>Other: 10,000 tps </p>                                                                           |
+| Cryptocurrency Transactions | <p>AccountCreateTransaction: 2 tps</p><p>AccountBalanceQuery: unlimited</p><p>TransferTransaction: 10,000 tps</p><p>Other: 10,000 tps </p>                                     |
 | Consensus Transactions      | <p>TopicCreateTransaction: 5 tps</p><p>Other: 10,000 tps</p>                                                                                                                   |
 | Token Transactions          | <p>TokenMint (NFT): 1200 tps</p><p>TokenAssociateTransaction: 100 tps</p><p>Other: 3,000 tps</p>                                                                               |
 | Schedule Transactions       | <p>ScheduleSignTransaction: 100 tps<br>ScheduleCreateTransaction: 100 tps</p>                                                                                                  |

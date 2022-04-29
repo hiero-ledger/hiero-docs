@@ -11,8 +11,8 @@ A query that returns the current state of a smart contract instance, including i
 | **Contract Account ID** | ID of both the contract instance and the cryptocurrency account owned by the contract ID of both the contract instance and the cryptocurrency account owned by the contract.                                                                                                                                                                                                                                                                                    |
 | **Admin Key**           | The state of the instance and its fields can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance. Note that if it is created with no admin keys, then there is no administrator to authorize changing the admin keys, so there can never be any admin keys for that instance. |
 | **Expiration Time**     | The current time at which this contract instance (and its account) is set to expire.                                                                                                                                                                                                                                                                                                                                                                            |
-| **Auto Renew Period**   | The expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If the account is empty when it expires,  then it is deleted.                                                                                                                                                                                                                                                                    |
-| **Storage**             | Number of bytes of storage being used by this instance (which affects the cost to  extend the expiration time).                                                                                                                                                                                                                                                                                                                                                 |
+| **Auto Renew Period**   | The expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If the account is empty when it expires, then it is deleted.                                                                                                                                                                                                                                                                     |
+| **Storage**             | Number of bytes of storage being used by this instance (which affects the cost to extend the expiration time).                                                                                                                                                                                                                                                                                                                                                  |
 | **Contract Memo**       | The memo associated with the contract (max 100 bytes).                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **Balance**             | The current balance of the contract.                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | **Deleted**             | Whether the contract has been deleted.                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -22,6 +22,11 @@ A query that returns the current state of a smart contract instance, including i
 **Query Signing Requirements**
 
 * The client operator account's private key (fee payer) is required to sign this query
+
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
 
 | Constructor               | Description                            |
 | ------------------------- | -------------------------------------- |
@@ -133,4 +138,3 @@ console.log(info);
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-

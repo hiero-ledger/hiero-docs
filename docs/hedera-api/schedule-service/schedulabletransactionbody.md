@@ -11,6 +11,8 @@ A schedulable transaction. Note that the global/dynamic system property scheduli
 | `contractCreateInstance`    | ContractCreateTransactionBody         | Creates a contract instance                                                                                          |
 | `contractUpdateInstance`    | ContractUpdateTransactionBody         | Updates a contract                                                                                                   |
 | `contractDeleteInstance`    | ContractDeleteTransactionBody         | Delete contract and transfer remaining balance into specified account                                                |
+| `cryptoApproveAllowance`    | CryptoApproveAllowanceTransactionBody | Adds one or more approved allowances for spenders to transfer the paying account's hbar or tokens.                   |
+| `cryptoDeleteAllowance`     | CryptoDeleteAllowanceTransactionBody  | Deletes one or more NFT allowances from an owner's account                                                           |
 | `cryptoCreateAccount`       | CryptoCreateTransactionBody           | Create a new cryptocurrency account                                                                                  |
 | `cryptoDelete`              | CryptoDeleteTransactionBody           | Delete a cryptocurrency account (mark as deleted, and transfer hbars out)                                            |
 | `cryptoTransfer`            | CryptoTransferTransactionBody         | Transfer amount between accounts                                                                                     |

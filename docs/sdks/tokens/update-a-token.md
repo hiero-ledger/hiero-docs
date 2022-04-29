@@ -21,12 +21,17 @@ For an immutable token (that is, a token created without an admin key), only the
 | **Auto Renew Period**  | The new interval at which the auto-renew account will be charged to extend the token's expiry. The default auto-renew period is 131,500 minutes.                                                                                                                      |
 | **Memo**               | Short publicly visible memo about the token. No guarantee of uniqueness. (100 characters max)                                                                                                                                                                         |
 
-#### Transaction Signing Requirements:
+#### Transaction Signing Requirements
 
 * Admin key is required to sign to update any token properties
 * Updating the admin key requires the new admin key to sign
 * If a new treasury account is set, the new treasury key is required to sign
 * The account that is paying for the transaction fee
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 | Constructor                    | Description                                 |
 | ------------------------------ | ------------------------------------------- |

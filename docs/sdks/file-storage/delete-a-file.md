@@ -1,14 +1,19 @@
 # Delete a file
 
-A transaction that deletes a file from a Hedera network. When deleted, a file's contents are truncated to zero length and it can no longer be updated or appended to, or its expiration time extended. When you request the contents or info of a deleted file, the network will return FILE\_DELETED. 
+A transaction that deletes a file from a Hedera network. When deleted, a file's contents are truncated to zero length and it can no longer be updated or appended to, or its expiration time extended. When you request the contents or info of a deleted file, the network will return FILE\_DELETED.&#x20;
 
 **Transaction Signing Requirements**
 
-* The key\(s\) on the file are required to sign the transaction
-* If you do not sign with the key\(s\) on the file, you will receive an INVALID\_SIGNATURE network error
+* The key(s) on the file are required to sign the transaction
+* If you do not sign with the key(s) on the file, you will receive an INVALID\_SIGNATURE network error
 
-| Constructor | Description |
-| :--- | :--- |
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
+| Constructor                   | Description                                  |
+| ----------------------------- | -------------------------------------------- |
 | `new FileDeleteTransaction()` | Initializes the FileDeleteTransaction object |
 
 ```java
@@ -19,8 +24,8 @@ new FileDeleteTransaction()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
+| Method                | Type   | Description                                  |
+| --------------------- | ------ | -------------------------------------------- |
 | `setFileId(<fileId>)` | FileId | The ID of the file to delete in x.y.z format |
 
 {% code title="Java" %}
@@ -111,8 +116,8 @@ fmt.Println("The transaction consensus status is ", transactionStatus)
 {% endtab %}
 
 {% tab title="V1" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
+| Method                | Type   | Description                                  |
+| --------------------- | ------ | -------------------------------------------- |
 | `setFileId(<fileId>)` | FileId | The ID of the file to delete in x.y.z format |
 
 {% code title="Java" %}
@@ -167,9 +172,9 @@ console.log("The transaction consensus status is " + transactionStatus);
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
-| `getFileId(<fileId>)` | FileId | The ID of the file to delete \(x.z.y\) |
+| Method                | Type   | Description                          |
+| --------------------- | ------ | ------------------------------------ |
+| `getFileId(<fileId>)` | FileId | The ID of the file to delete (x.z.y) |
 
 {% code title="Java" %}
 ```java
@@ -206,5 +211,4 @@ getFileId := transaction.GetFileID()
 {% endtab %}
 {% endtabs %}
 
-## 
-
+##

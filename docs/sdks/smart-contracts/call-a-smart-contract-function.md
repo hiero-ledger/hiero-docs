@@ -10,6 +10,11 @@ The amount of gas used, as well as other attributes of the transaction, e.g. siz
 
 * The key of the transaction fee paying account
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 | `new ContractExecuteTransaction ()` | Initializes a ContractExecuteTransaction object |
 | ----------------------------------- | ----------------------------------------------- |
 

@@ -8,6 +8,11 @@ Unlike a contract execute transaction, the node will consume the entire amount o
 
 * The client operator account's private key (fee payer) is required to sign this query
 
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
+
 | Constructor               | Description                            |
 | ------------------------- | -------------------------------------- |
 | `new ContractCallQuery()` | Initializes a ContractCallQuery object |

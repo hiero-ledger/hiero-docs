@@ -20,9 +20,12 @@ Chassis \(hardware nodes only\)
 
 * Dual Power - 1600W minimum, 2000W recommended
 
+All nodes
+
 Network Connectivity: Single 1-Gigabit / 10-Gigabit Ethernet \(physical connectivity subject to network infrastructure\)
 
-48-core or better CPU
+24-core or better CPU hyperthreaded (48 threads) - Intel Xeon Silver class or higher / AMD EPYC 74xx class or higher 
+Virtual hosts must have 48vCPU (single threaded)
 
 256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM
 
@@ -42,8 +45,8 @@ Storage performance specifications \(within 10% of performance parameters below\
 
 Considerations for future expansion \(hardware based deployments\):
 
-* Chassis must be [Nvidia Tesla V100 PCIe certified](https://www.nvidia.com/en-us/data-center/tesla/tesla-qualified-servers-catalog/)
-* 1x Nvidia Tesla V100 PCIe 16GB GPU
+* Chassis should be [Nvidia Tesla V100 PCIe certified](https://www.nvidia.com/en-us/data-center/tesla/tesla-qualified-servers-catalog/)
+* 1x Nvidia Tesla V100 PCIe 16GB/32GB GPU
 
 {% hint style="info" %}
 Reference Configurations available in Appendices B, C, D
@@ -63,7 +66,8 @@ Access to the node via public APIs must be mediated by an in-line proxy. Below a
 
 Node Connectivity
 
-* 1Gbps internet connectivity – sustained/unmetered
+* 1Gbps internet connectivity – sustained (not burstable)
+  * Unmetered preferred
   * Deployed with firewalled access to other mainnet consensus nodes
 * Node deployed in dedicated \(isolated\) DMZ network
   * Static IP \(FQDN is not supported\)
@@ -92,8 +96,9 @@ Proxy Connectivity
 * Any 64 bit Long Term Support \(LTS\) Linux distribution
   * Ubuntu
   * Red Hat Enterprise
-  * CentOS
+  * Debian
   * BSD not supported
+  * CentOS deprecated for 2022
 
 ## Network Topology /\(Typical Corporate Datacenter Configuration/\)
 

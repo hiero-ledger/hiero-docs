@@ -1,13 +1,18 @@
 # Delete an account
 
-A transaction that deletes an existing account from the Hedera network. Before deleting an account, the existing hbars must be transferred to another account. If you fail to transfer the hbars, you will receive an error message "setTransferAccountId\(\) required." Transfers cannot be made into a deleted account. A record of the deleted account will remain in the ledger until it expires.The expiration of a deleted account can be extended. The account that is being deleted is required to sign the transaction.
+A transaction that deletes an existing account from the Hedera network. Before deleting an account, the existing hbars must be transferred to another account. If you fail to transfer the hbars, you will receive an error message "setTransferAccountId() required." Transfers cannot be made into a deleted account. A record of the deleted account will remain in the ledger until it expires.The expiration of a deleted account can be extended. The account that is being deleted is required to sign the transaction.
+
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 **Transaction Signing Requirements**
 
 * The account the is being deleted is required to sign the transaction
 
-| Constructor | Description |
-| :--- | :--- |
+| Constructor                      | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
 | `new AccountDeleteTransaction()` | Initializes the AccountDeleteTransaction object |
 
 ```java
@@ -18,10 +23,10 @@ new AccountDeleteTransaction()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setAccountId(<accountId>)` | AccountId | The ID of the account to delete. | Required |
-| `setTransferAccountId(<transferAccountId>)` | AccountId | The ID of the account to transfer the remaining funds to. | Optional |
+| Method                                      | Type      | Description                                               | Requirement |
+| ------------------------------------------- | --------- | --------------------------------------------------------- | ----------- |
+| `setAccountId(<accountId>)`                 | AccountId | The ID of the account to delete.                          | Required    |
+| `setTransferAccountId(<transferAccountId>)` | AccountId | The ID of the account to transfer the remaining funds to. | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -103,10 +108,10 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 {% endtab %}
 
 {% tab title="V1" %}
-| Method | Type | Description | Requirement |
-| :--- | :--- | :--- | :--- |
-| `setAccountId(<accountId>)` | AccountId | The ID of the account to delete. | Required |
-| `setTransferAccountId(<transferAccountId>)` | AccountId | The ID of the account to transfer the remaining funds to. | Optional |
+| Method                                      | Type      | Description                                               | Requirement |
+| ------------------------------------------- | --------- | --------------------------------------------------------- | ----------- |
+| `setAccountId(<accountId>)`                 | AccountId | The ID of the account to delete.                          | Required    |
+| `setTransferAccountId(<transferAccountId>)` | AccountId | The ID of the account to transfer the remaining funds to. | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -160,9 +165,9 @@ console.log("The transaction consensus status is " +transactionStatus);
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description |
-| :--- | :--- | :--- |
-| `getAccountId(<accountId>)` | AccountId | The account to delete |
+| Method                                      | Type      | Description                                    |
+| ------------------------------------------- | --------- | ---------------------------------------------- |
+| `getAccountId(<accountId>)`                 | AccountId | The account to delete                          |
 | `getTransferAccountId(<transferAccountId>)` | AccountId | The account to transfer the remaining funds to |
 
 {% code title="Java" %}
@@ -210,4 +215,3 @@ transactionAccountId := transaction.GetAccountID()
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-

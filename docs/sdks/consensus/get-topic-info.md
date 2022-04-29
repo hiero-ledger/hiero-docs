@@ -21,6 +21,11 @@ Topic info returns the following values for a topic.  Queries do not change the 
 
 * The client operator private key is required to sign the query request
 
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
+
 {% tabs %}
 {% tab title="V2" %}
 | Constructor            | Description                           |

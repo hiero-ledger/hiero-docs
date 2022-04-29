@@ -1,20 +1,25 @@
 # Get account token balance
 
-To get the balance of tokens for an account,  you can submit an account balance query. The account balance query will return the tokens the account holds in a list format. 
+To get the balance of tokens for an account,  you can submit an account balance query. The account balance query will return the tokens the account holds in a list format.&#x20;
+
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
 
 {% tabs %}
 {% tab title="V2" %}
-| Constructor | Description |
-| :--- | :--- |
+| Constructor                 | Description                                |
+| --------------------------- | ------------------------------------------ |
 | `new AccountBalanceQuery()` | Initializes the AccountBalanceQuery object |
 
 ```java
 new AccountBalanceQuery()
 ```
 
-| Method | Type | Requirement |
-| :--- | :--- | :--- |
-| `setAccountId(<accountId>)` | AccountId | Required |
+| Method                      | Type      | Requirement |
+| --------------------------- | --------- | ----------- |
+| `setAccountId(<accountId>)` | AccountId | Required    |
 
 {% code title="Java" %}
 ```java
@@ -67,17 +72,17 @@ fmt.Printf("The token balance(s) for this account: %v\n", tokenBalance)
 {% endtab %}
 
 {% tab title="V1" %}
-| Constructor | Description |
-| :--- | :--- |
+| Constructor               | Description                              |
+| ------------------------- | ---------------------------------------- |
 | `new TokenBalanceQuery()` | Initializes the TokenBalanceQuery object |
 
 ```java
 new TokenBalanceQuery()
 ```
 
-| Method | Type | Requirement |
-| :--- | :--- | :--- |
-| `setAccountId(<accountId>)` | AccountId | Required |
+| Method                      | Type      | Requirement |
+| --------------------------- | --------- | ----------- |
+| `setAccountId(<accountId>)` | AccountId | Required    |
 
 {% code title="Java" %}
 ```java
@@ -102,8 +107,6 @@ console.log("The token balance(s) for this account: " +tokenBalance.get("<tokenI
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-
-
 
 
 

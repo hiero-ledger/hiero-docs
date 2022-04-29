@@ -4,10 +4,15 @@ A query that returns the bytecode for a smart contract instance**.** Anyone can 
 
 **Query Signing Requirements**
 
-* The client operator account's private key \(fee payer\) is required to sign this query
+* The client operator account's private key (fee payer) is required to sign this query
 
-| Constructor | Description |
-| :--- | :--- |
+**Query Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
+
+| Constructor                   | Description                                |
+| ----------------------------- | ------------------------------------------ |
 | `new ContractByteCodeQuery()` | Initializes a ContractByteCodeQuery object |
 
 ```java
@@ -18,9 +23,9 @@ new ContractByteCodeQuery()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description | Requirements |
-| :--- | :--- | :--- | :--- |
-| `setContractId(<contractId>)` | ContractId | The ID of the contract to return the bytecode for | Required |
+| Method                        | Type       | Description                                       | Requirements |
+| ----------------------------- | ---------- | ------------------------------------------------- | ------------ |
+| `setContractId(<contractId>)` | ContractId | The ID of the contract to return the bytecode for | Required     |
 
 {% code title="Java" %}
 ```java
@@ -61,9 +66,9 @@ if err != nil {
 {% endtab %}
 
 {% tab title="V1" %}
-| Method | Type | Description | Requirements |
-| :--- | :--- | :--- | :--- |
-| `setContractId(<contractId>)` | ContractId | The ID of the contract to return the bytecode for | Required |
+| Method                        | Type       | Description                                       | Requirements |
+| ----------------------------- | ---------- | ------------------------------------------------- | ------------ |
+| `setContractId(<contractId>)` | ContractId | The ID of the contract to return the bytecode for | Required     |
 
 {% code title="Java" %}
 ```java
@@ -89,9 +94,9 @@ const byteCode = await query.execute(client);
 
 {% tabs %}
 {% tab title="V2" %}
-| Method | Type | Description | Requirements |
-| :--- | :--- | :--- | :--- |
-| `getContractId(<contractId>)` | ContractId | Get the contract ID on the transaction | Required |
+| Method                        | Type       | Description                            | Requirements |
+| ----------------------------- | ---------- | -------------------------------------- | ------------ |
+| `getContractId(<contractId>)` | ContractId | Get the contract ID on the transaction | Required     |
 
 {% code title="Java" %}
 ```java
@@ -132,4 +137,3 @@ query.GetContractID()
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-

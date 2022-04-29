@@ -22,6 +22,11 @@ You can also create a private topic where only authorized parties can submit mes
 * If not admin key is specified the topic is immutable
 * If an auto renew account is specified, that account must also sign this transaction
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 {% tabs %}
 {% tab title="V2" %}
 | Constructor                    | Description                                   |

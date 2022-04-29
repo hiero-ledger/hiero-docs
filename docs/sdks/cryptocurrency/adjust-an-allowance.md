@@ -1,49 +1,44 @@
-# Adjust an allowance
+# Delete an allowance
 
 {% hint style="info" %}
-This feature is available on previewnet.
+This feature is available on previewnet and testnet as part of the 0.25 release.
 {% endhint %}
 
-A transaction called by the token owner to increase or decrease the allowance of a spender. Tokens include hbar, fungible and non-fungible tokens.  The token owner can modify multiple allowances in a single transaction. The transaction fee is paid by the owner.
+A transaction called by the token owner to delete allowances for NFTs only. In order to delete an existing hbar or fungible token allowance the `AccountAllowanceApproveTransaction` API should be used with an `amount` of 0.
 
-{% hint style="warning" %}
-Note: If the `spender` does not have an allowance established with the owner for the specified token and the `amount` is positive, this transaction will implicitly create a new approved allowance for the `spender` for the specified `amount` of tokens.
-{% endhint %}
+The total number of NFT serial number deletions contained within the transaction body cannot exceed 20.
 
-**NFTs**
+**Transaction Fees**
 
-If the NFT serial number is _positive_ then the NFT will be added to the approved list. Conversely, if the serial number is _negative_ the NFT will be removed from the approved list.
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
-You can view the account allowances for an account by requesting the [account info](get-account-info.md).
+**Transaction Signing Requirements**
 
-**Transaction Signing Requirements:**
+* The transaction must be signed by the owner's account
+* The transaction must be signed by the transaction fee paying account if different than the owner's account
+* If the owner's account and transaction fee paying account are the same only one signature is required
 
-* The transaction must be signed by the token owner's account and the account paying for the transaction fee
-* If the token owner account and the transaction fee-paying account is the same only one signature is required
+**Reference:** [HIP-336](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-336.md)
 
 | **Constructor**                           | **Description**                                          |
 | ----------------------------------------- | -------------------------------------------------------- |
-| `new AccountAllowanceAdjustTransaction()` | Initializes the AccountAllowanceAdjustTransaction object |
+| `new AccountAllowanceDeleteTransaction()` | Initializes the AccountAllowanceDeleteTransaction object |
 
 ### Methods
 
-
-
-| **Method**                                                  | **Type**                                                                                                                | **Description**                                                                                                                                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `addHbarAllowance(<spenderAccountId>, <amount>)`            | [AccountId](../specialized-types.md#accountid), [Hbar](../hbars.md)                                                     | The account and amount of hbar the allowance is approved for. The `amount` must be specified in terms of the `decimals` value for the token. If the addition of `amount` to the `spender`’s current allowance equals 0, the transaction will remove the `spender`’s allowance from the owner’s account, thereby freeing an allowance for future use.                    |
-| `addTokenAllowance(<tokenId>,<spenderAccountId>, <amount>)` | <p><a href="../tokens/token-id.md">TokenId</a>, <br><a href="../specialized-types.md#accountid">AccountId</a>, long</p> | The  account the allowance is approved for the specified token and token amount. The `amount` must be specified in terms of the `decimals` value for the token. If the addition of `amount` to the `spender`’s current allowance equals 0, the transaction will remove the `spender`’s allowance from the owner’s account, thereby freeing an allowance for future use. |
-| `addTokenNftAllowance(<nftId>, <spenderAccountId>)`         | [nftId](../tokens/nft-id.md), [AccountId](../specialized-types.md#accountid)                                            | The specific NFT the spending account is approved for.                                                                                                                                                                                                                                                                                                                  |
-| `addAllTokenNftAllowance(<tokenId>,<spenderAccountId>)`     | [TokenId](../tokens/token-id.md), [AccountId](../specialized-types.md#accountid)                                        | The class of NFTs the spending account is approved for.                                                                                                                                                                                                                                                                                                                 |
+| **Method**                                          | **Type**                                                                     | **Description**                                     |
+| --------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------- |
+| `deleteAllNftAllowances(<nftId>, <ownerAccountId>)` | <p>NFT ID, <br><a href="../specialized-types.md#accountid">AccountId</a></p> | Removes the NFT allowance from the spender account. |
 
 {% tabs %}
 {% tab title="Java" %}
 ```java
 //Create the transaction
 AccountAllowanceAdjustTransaction transaction = new AccountAllowanceAdjustTransaction()
-    .addHbarAllowance(spenderAccountId, Hbar.from(100));
+    .deleteAllTokenNftAllowances(nftId , ownerAccountId);
 
-//Sign the transaction with the owner account  
+//Sign the transaction with the owner account key  
 TransactionResponse txResponse = transaction.freezeWith(client).sign(ownerAccountKey).execute(client);
 
 //Request the receipt of the transaction
@@ -53,16 +48,18 @@ TransactionReceipt receipt = txResponse.getReceipt(client);
 Status transactionStatus = receipt.status;
 
 System.out.println("The transaction consensus status is " +transactionStatus);
+
+//v2.12.0+
 ```
 {% endtab %}
 
 {% tab title="JavaScript" %}
 ```javascript
 //Create the transaction
-const transaction = new AccountAllowanceAdjustTransaction()
-    .addHbarAllowance(spenderAccountId, Hbar.from(100));
+const transaction = new AccountAllowanceDeleteTransaction()
+    .deleteAllTokenNftAllowances(nftId , ownerAccountId);
 
-//Sign the transaction with the token owner
+//Sign the transaction with the owner account key
 const signTx = await transaction.sign(ownerAccountKey);
 
 //Sign the transaction with the client operator private key and submit to a Hedera network
@@ -75,20 +72,22 @@ const receipt = await txResponse.getReceipt(client);
 const transactionStatus = receipt.status;
 
 console.log("The transaction consensus status is " +transactionStatus.toString());
+
+//v2.13.0+
 ```
 {% endtab %}
 
 {% tab title="Go" %}
 ```go
 //Create the transaction
-transaction := hedera.NewAccountAllowanceAdjustTransaction().
-     AddHbarAllowance(spenderAccountId, Hbar.fromTinybars(10))
+transaction := hedera.NewAccountAllowanceDeleteTransaction().
+     DeleteAllTokenNftAllowances(nftId , ownerAccountId)
 
 if err != nil {
     panic(err)
 }
 
-//Sign the transaction with the token owner account private key and submit to the network  
+//Sign the transaction with the owner account private key and submit to the network  
 txResponse, err := transaction.Sign(ownerAccountKey).Execute(client)
 
 //Request the receipt of the transaction
@@ -101,6 +100,8 @@ if err != nil {
 transactionStatus := receipt.Status
 
 println("The transaction consensus status is ", transactionStatus)
+
+//v2.13.1+
 ```
 {% endtab %}
 {% endtabs %}

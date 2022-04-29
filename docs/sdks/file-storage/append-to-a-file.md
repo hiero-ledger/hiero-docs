@@ -6,6 +6,11 @@ A transaction that appends new file content to the end of an existing file. The 
 
 * The key on the file is required to sign the transaction if different than the client operator account key
 
+**Transaction Fees**
+
+* Please see the transaction and query [fees](../../../mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+
 | Constructor               | Description                                  |
 | ------------------------- | -------------------------------------------- |
 | `FileAppendTransaction()` | Initializes the FileAppendTransaction object |
