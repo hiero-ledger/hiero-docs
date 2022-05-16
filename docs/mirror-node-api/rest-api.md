@@ -1504,7 +1504,7 @@ The ID of the schedule to return the information for.
 
 ## Smart Contracts
 
-{% swagger method="get" path="/api/v1/contracts" baseUrl="api/v1/contracts" summary="contracts" %}
+{% swagger method="get" path="/api/v1/contracts" baseUrl="" summary="contracts" %}
 {% swagger-description %}
 Returns a list of all contract entity items on the network.
 {% endswagger-description %}
