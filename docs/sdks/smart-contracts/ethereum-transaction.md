@@ -1,4 +1,4 @@
-# Ethereum Transaction
+# Ethereum transaction
 
 {% hint style="info" %}
 This feature is on previewnet only. API subject to change.
@@ -28,12 +28,12 @@ Reference: [HIP-410](https://hips.hedera.com/hip/hip-410)
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
 | <p><code>setCallDataFileId(&#x3C;fileId>)</code> (Java)<br><code>setCallData(&#x3C;fileId></code> (JavaScript/Go)</p>                                                                                                    | FileID   |
 | `setEthereumData(<ethereumData>)`                                                                                                                                                                                        | byte \[] |
-| <p><code>setMaxGasAllowanceHbar(&#x3C;maxGasAllowanceHbar>)</code> (Java)<br><code>setMaxGasAllowance(&#x3C;maxGasAllowanceHbar>)</code> (JavaScript)<br><code>SetGasAllowed(&#x3C;maxGasAllowanceHbar>) (Go)</code></p> | Hbar     |
+| <p><code>setMaxGasAllowanceHbar(&#x3C;maxGasAllowanceHbar>)</code> (Java)<br><code>setMaxGasAllowance(&#x3C;maxGasAllowanceHbar>)</code> (JavaScript)<br><code>SetGasAllowed(&#x3C;maxGasAllowanceHbar>)</code> (Go)</p> | Hbar     |
 
 {% code title="Java" %}
 ```java
 //Create the transaction
-EthereumTransaction transaction = new ContractExecuteTransaction()
+EthereumTransaction transaction = new EthereumTransaction()
      .setEthereumData(ethereumData)
      .setMaxGasAllowanceHbar(allowance);
 
@@ -55,7 +55,7 @@ System.out.println("The transaction consensus status is " +transactionStatus);
 {% code title="JavaScript" %}
 ```javascript
 //Create the transaction
-const transaction = new ContractExecuteTransaction()
+const transaction = new EthereumTransaction()
      .setEthereumData(ethereumData)
      .setMaxGasAllowance(allowance);
 
