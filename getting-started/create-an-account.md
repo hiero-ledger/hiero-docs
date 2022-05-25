@@ -71,7 +71,7 @@ Generate a private and public key to associate to the account you will create.&#
 //-----------------------<enter code below>--------------------------------------
 
 // Generate a new key pair
-PrivateKey newAccountPrivateKey = PrivateKey.generateED25519()
+PrivateKey newAccountPrivateKey = PrivateKey.generateED25519();
 PublicKey newAccountPublicKey = newAccountPrivateKey.getPublicKey();
 ```
 {% endtab %}
