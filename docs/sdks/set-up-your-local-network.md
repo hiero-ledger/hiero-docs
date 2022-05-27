@@ -51,7 +51,7 @@ client.SetMirrorNetwork(mirrorNode)
 
 ### 3. Set your local node transaction fee paying account
 
-You will need and account ID and key to pay for the [fees](../../mainnet/fees/) associated with each transaction and query that is submitted to your local network. You will use the account ID and key provided by the local node on startup to set-up your operator account ID and key. The operator is the default account that pays for transaction and query fees.
+You will need an account ID and key to pay for the [fees](../../mainnet/fees/) associated with each transaction and query that is submitted to your local network. You will use the account ID and key provided by the local node on startup to set-up your operator account ID and key. The operator is the default account that pays for transaction and query fees.
 
 | **Account ID**  | `0.0.2`                                                                                            |
 | --------------- | -------------------------------------------------------------------------------------------------- |
