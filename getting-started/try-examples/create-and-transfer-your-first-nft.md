@@ -422,7 +422,7 @@ public class CreateNFTTutorial {
         client.setOperator(myAccountId, myPrivateKey);
 
         //Treasury Key
-        PrivateKey treasuryKey = PrivateKey.generate();
+        PrivateKey treasuryKey = PrivateKey.generateED25519();
         PublicKey treasuryPublicKey = treasuryKey.getPublicKey();
 
         //Create treasury account
@@ -434,7 +434,7 @@ public class CreateNFTTutorial {
         AccountId treasuryId = treasuryAccount.getReceipt(client).accountId;
 
         //Alice Key
-        PrivateKey aliceKey = PrivateKey.generate();
+        PrivateKey aliceKey = PrivateKey.generateED25519();
         PublicKey alicePublicKey = aliceKey.getPublicKey();
 
         //Create Alice's account
@@ -445,8 +445,8 @@ public class CreateNFTTutorial {
 
         AccountId aliceAccountId = aliceAccount.getReceipt(client).accountId;
 
-        //Alice Key
-        PrivateKey supplyKey = PrivateKey.generate();
+        //Supply Key
+        PrivateKey supplyKey = PrivateKey.generateED25519();
         PublicKey supplyPublicKey = supplyKey.getPublicKey();
 
         //Create the NFT
