@@ -266,6 +266,7 @@ public class CreateTopicTutorial {
 
 {% tab title="JavaScript" %}
 ```javascript
+
 console.clear();
 require("dotenv").config();
 const {
