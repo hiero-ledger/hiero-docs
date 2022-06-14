@@ -16,7 +16,7 @@ new TokenId()
 {% tab title="V2" %}
 | Method | Type | Description |
 | :--- | :--- | :--- |
-| `TokenId.fromtString(<tokenId>)` | String | Constructs a token ID from a String value |
+| `TokenId.fromString(<tokenId>)` | String | Constructs a token ID from a String value |
 | `TokenId.fromSolidityAddress(<address>)` | String | Constructs a token ID from a solidity address |
 | `TokenId.fromBytes(<bytes>)` | byte\[\] | Constructs a token ID from bytes |
 
@@ -60,7 +60,7 @@ tokenId := hedera.TokenID {
 {% tab title="V1" %}
 | Method | Type | Description |
 | :--- | :--- | :--- |
-| `TokenId.fromtString(<tokenId>)` | String | Constructs a token ID from a String value |
+| `TokenId.fromString(<tokenId>)` | String | Constructs a token ID from a String value |
 | `TokenId.fromSolidityAddress(<address>)` | String | Constructs a token ID from a solidity address |
 
 ```java
