@@ -16,7 +16,7 @@ We recommend you complete the following introduction to get a basic understandin
 
 To create your first topic, you will use the _<mark style="color:purple;">**`TopicCreateTransaction()`**</mark>_, set its properties, and submit it to the Hedera network. A public topic that anyone can submit messages to does not require any other properties to be set.&#x20;
 
-If you would like to create a private topic you can optionally set a topic key(_`setKey()`_) This means that messages submitted to this topic will require the topic key to sign the message submit transaction. If the topic key does not sign the message submit transaction, the message will not be submitted to the topic.
+If you would like to create a private topic you can optionally set a topic key ([_`setSubmitKey()`_](https://docs.hedera.com/guides/docs/sdks/consensus/create-a-topic#methods)). This means that messages submitted to this topic will require the topic key to sign the message submit transaction. If the topic key does not sign the message submit transaction, the message will not be submitted to the topic.
 
 After submitting the transaction to the Hedera network, you can obtain the new token ID by requesting the receipt.&#x20;
 
@@ -96,7 +96,7 @@ After you create the topic, you will want to subscribe to the topic via a Hedera
 
 The Hedera testnet client already establishes a connection to a Hedera mirror node. You can set a custom mirror node by calling _<mark style="color:purple;">**`client.SetMirrorNetwork()`**</mark>_.&#x20;
 
-To subscribe to a topic you will use _<mark style="color:purple;">**`TopicMessageQuery()`**</mark>_. You will provide it the topic ID to subscribe to, the Hedera mirror node client information, and the topic message contents to return.
+To subscribe to a topic, you will use _<mark style="color:purple;">**`TopicMessageQuery()`**</mark>_. You will provide it the topic ID to subscribe to, the Hedera mirror node client information, and the topic message contents to return.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -137,7 +137,7 @@ _, err = hedera.NewTopicMessageQuery().
 
 ## 3. Submit a message&#x20;
 
-Now you are ready to submit your first message to the topic. To do this you will use _<mark style="color:purple;">**`TopicMessageSubmitTransaction().`**</mark>_ For this transaction you will provide the topic ID and the message to submit to it.
+Now you are ready to submit your first message to the topic. To do this, you will use _<mark style="color:purple;">**`TopicMessageSubmitTransaction().`**</mark>_ For this transaction, you will provide the topic ID and the message to submit to it.
 
 {% tabs %}
 {% tab title="Java" %}
