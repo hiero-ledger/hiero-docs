@@ -28,7 +28,7 @@ System.out.println("public = " + publicKey);
 
 {% code title="JavaScript" %}
 ```javascript
-const privateKey = await PrivateKeyED25519.generate();
+const privateKey = await PrivateKey.generateECDSAAsync();
 const publicKey = privateKey.publicKey;
 
 console.log("private = " + privateKey);
