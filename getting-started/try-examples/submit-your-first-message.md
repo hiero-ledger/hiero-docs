@@ -169,7 +169,7 @@ const getReceipt = await sendResponse.getReceipt(client);
 
 //Get the status of the transaction
 const transactionStatus = getReceipt.status
-console.log("The message transaction status" + transactionStatus)
+console.log("The message transaction status " + transactionStatus)
 
 ```
 {% endtab %}
@@ -315,7 +315,7 @@ async function main() {
     
     //Get the status of the transaction
     const transactionStatus = getReceipt.status
-    console.log("The message transaction status" + transactionStatus)
+    console.log("The message transaction status: " + transactionStatus)
 }
 main();
 ```
