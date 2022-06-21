@@ -94,7 +94,7 @@ fmt.Printf("topicID: %v\n", topicID)
 
 After you create the topic, you will want to subscribe to the topic via a Hedera mirror node. Subscribing to a topic via a Hedera mirror node allows you to receive the stream of messages that are being submitted to it.&#x20;
 
-The Hedera testnet client already establishes a connection to a Hedera mirror node. You can set a custom mirror node by calling _<mark style="color:purple;">**`client.SetMirrorNetwork()`**</mark>_.&#x20;
+The Hedera testnet client already establishes a connection to a Hedera mirror node. You can set a custom mirror node by calling _<mark style="color:purple;">**`client.SetMirrorNetwork()`**</mark>_. Please note that you can currently subscribe to Hedera Consensus Service (HCS) topics via [gRPC API](https://docs.hedera.com/guides/docs/mirror-node-api/hedera-consensus-service-api-1) only, so remember to set the mirror node's host and port accordingly.&#x20;
 
 To subscribe to a topic, you will use _<mark style="color:purple;">**`TopicMessageQuery()`**</mark>_. You will provide it the topic ID to subscribe to, the Hedera mirror node client information, and the topic message contents to return.
 
