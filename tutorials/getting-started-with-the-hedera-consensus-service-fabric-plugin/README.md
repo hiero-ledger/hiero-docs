@@ -323,5 +323,8 @@ You have successfully done the following:
 * Verified the topics and messages created in this example network
 
 Running into issues or have suggestions? Visit the developer advocates in [Discord](https://discordapp.com/invite/FFb9YFX) and post your comments to the hedera-consensus-service channel 🤓 .
-git commit -s -m "add stack overflow link to main docs page, examples and tutorials"
+{% hint style="info" %}
+Have a question?
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
+{% endhint %}
 

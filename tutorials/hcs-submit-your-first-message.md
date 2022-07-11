@@ -184,5 +184,7 @@ new MirrorConsensusTopicQuery()
 
 Having trouble or have any comments, suggestions, or feedback?   
 Connect with us on [Discord](https://discordapp.com/invite/FFb9YFX)🤓!
-git commit -s -m "add stack overflow link to main docs page, examples and tutorials"
-
+{% hint style="info" %}
+Have a question?
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
+{% endhint %}

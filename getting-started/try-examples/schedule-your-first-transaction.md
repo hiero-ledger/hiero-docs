@@ -353,6 +353,6 @@ fmt.Printf("The scheduled transaction record is %v\n", scheduledTxRecord)
 {% endtabs %}
 {% hint style="info" %}
 Have a question?
-[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hashgraph)&#x20;
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
 {% endhint %}
 
