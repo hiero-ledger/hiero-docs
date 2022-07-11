@@ -851,3 +851,4 @@ func main() {
 ```
 {% endtab %}
 {% endtabs %}
+git commit -s -m "add stack overflow link to main docs page, examples and tutorials"

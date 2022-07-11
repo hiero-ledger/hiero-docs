@@ -218,4 +218,5 @@ Want to keep learning about Hedera development? Here’s some resources.
   * [Environment set-up](https://www.youtube.com/watch?v=4lJaql_RMsw&feature=youtu.be)
 
 Is there anything else you’d like a tutorial about? Let me know on [twitter](https://twitter.com/cooper_kunz?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor).
+git commit -s -m "add stack overflow link to main docs page, examples and tutorials"
 
