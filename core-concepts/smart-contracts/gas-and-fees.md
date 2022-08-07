@@ -3,20 +3,20 @@
 Gas is used to pay for Hedera Smart Contract Service transactions like creating a contract, calling a smart contract function, or returning contract values. Gas reflects the cost necessary to pay for the computational resources used to process transactions.
 
 {% hint style="danger" %}
-Smart contract entity auto renewal and expiry will be enabled in a future release. Please check out [HIP-16](https://hips.hedera.com/hip/hip-16) for more information.&#x20;
+Smart contract entity auto renewal and expiry will be enabled in a future release. Please check out [HIP-16](https://hips.hedera.com/hip/hip-16) for more information.
 {% endhint %}
 
 ### Gas Fees
 
-Gas fees include the intrinsic gas cost and the cost of the EVM operation from the London gas schedule for all non-Hedera Service transactions. The changes from the London gas schedule are noted [here](hyperledger-besu-evm.md#gas-schedule). The intrinsic gas cost is 21,000 per transaction plus the cost of input data (16 gas per non-zero byte and 4 gas per zero byte). If you are calling a Hedera Service transaction in your contract then an additional Hedera Service transaction gas fee will be assessed along with the intrinsic gas cost and EVM operation cost.&#x20;
+Gas fees include the intrinsic gas cost and the cost of the EVM operation from the London gas schedule for all non-Hedera Service transactions. The changes from the London gas schedule are noted [here](hyperledger-besu-evm.md#gas-schedule). The intrinsic gas cost is 21,000 per transaction plus the cost of input data (16 gas per non-zero byte and 4 gas per zero byte). If you are calling a Hedera Service transaction in your contract then an additional Hedera Service transaction gas fee will be assessed along with the intrinsic gas cost and EVM operation cost.
 
-**Total Gas (non-Hedera Service transaction) = Intrinsic Gas + EVM Operation Gas**&#x20;
+**Total Gas (non-Hedera Service transaction) = Intrinsic Gas + EVM Operation Gas**
 
 **Total Gas (Hedera Service transaction) = Intrinsic Gas + EVM Operation Gas + Hedera Service Gas**
 
-The Hedera Service transaction gas fee is calculated using the [USD](../../mainnet/fees/#transaction-and-query-fees) price of the native Hedera Service transaction multiplied by the gas/USD conversion rate with an additional 20% charge. For example, a native token burn transaction costs $0.001 USD. To convert that to gas you would use the gas/USD conversion rate 1 gas = $0.0000000569 USD. Then you would add an additional 20% of gas to get the total gas cost.&#x20;
+The Hedera Service transaction gas fee is calculated using the [USD](../../mainnet/fees/#transaction-and-query-fees) price of the native Hedera Service transaction multiplied by the gas/USD conversion rate with an additional 20% charge. For example, a native token burn transaction costs $0.001 USD. To convert that to gas you would use the gas/USD conversion rate 1 gas = $0.0000000569 USD. Then you would add an additional 20% of gas to get the total gas cost.
 
-To calculate the price of gas in USD you can take the gas amount and multiply it by the USD/gas conversion rate of $0.0000000569 USD/1 gas. For example, the price of 2 million gas in USD is $0.1138 (2,000,000 gas\*($0.0000000569 USD/1 gas).&#x20;
+To calculate the price of gas in USD you can take the gas amount and multiply it by the USD/gas conversion rate of $0.0000000569 USD/1 gas. For example, the price of 2 million gas in USD is $0.1138 (2,000,000 gas\*($0.0000000569 USD/1 gas).
 
 ### Gas Per Second Throttling
 
@@ -51,7 +51,7 @@ Because consensus time execution is now limited by actual gas used and not based
 When a transaction is submitted to a node with a `gasLimit` that is greater than the per-transaction gas limit the transaction must be rejected during precheck with a response code of `INDIVIDUAL_TX_GAS_LIMIT_EXCEEDED`. The transaction must not be submitted to consensus.
 
 {% hint style="info" %}
-Gas throttle per contract call and contract create: **5 million gas per second**.
+Gas throttle per contract call and contract create: **8 million gas per second**.
 {% endhint %}
 
 Reference [HIP-185](https://hips.hedera.com/hip/hip-185)

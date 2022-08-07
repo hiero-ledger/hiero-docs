@@ -6,7 +6,7 @@ description: Hedera network fees
 
 The Hedera testnet fees tables found below offers a low-end estimate of transaction and query fees for all network services. The tables below contain USD, HBAR, and Tinybar (tℏ) values per each API call. All operation fees on the Hedera testnet are paid in test HBAR, which is freely available and only useful for development purposes.
 
-Fee estimates are based on assumptions about the details of a specific API call. For instance, the fee for an HBAR cryptocurrency transfer (CryptoTransfer) assumes a single signature on the transaction and the fee for storing a file assumes a 48 byte sized file stored for 30 days. Transactions which exceed these base assumptions will be more expensive; we recommend increasing your maximum allowable fee to accommodate for additional complexity.&#x20;
+Fee estimates are based on assumptions about the details of a specific API call. For instance, the fee for an HBAR cryptocurrency transfer (CryptoTransfer) assumes a single signature on the transaction and the fee for storing a file assumes a 48 byte sized file stored for 30 days. Transactions which exceed these base assumptions will be more expensive; we recommend increasing your maximum allowable fee to accommodate for additional complexity.
 
 ### Mainnet Fees
 
@@ -26,7 +26,7 @@ Mainnet transaction and query fees can be estimated using the [Hedera Fee Estima
 
 ## Transaction and Query Fees
 
-All fees are subject to change. The fees below reflect a base price for the transaction or query. Transaction characteristics may increase the price from the base price shown below. Transaction characteristics include having more than one signature, a memo field, etc. Please reference the [Hedera fee estimator](https://hedera.com/fees) to estimate the a transaction or query fee.&#x20;
+All fees are subject to change. The fees below reflect a base price for the transaction or query. Transaction characteristics may increase the price from the base price shown below. Transaction characteristics include having more than one signature, a memo field, etc. Please reference the [Hedera fee estimator](https://hedera.com/fees) to estimate the a transaction or query fee.
 
 ### Cryptocurrency Service
 
@@ -95,7 +95,7 @@ All fees are subject to change. The fees below reflect a base price for the tran
 | Operations      | USD ($) |
 | --------------- | ------- |
 | FileCreate      | $0.05   |
-| FileUpdate      | $0.0005 |
+| FileUpdate      | $0.05   |
 | FileDelete      | $0.007  |
 | FileAppend      | $0.05   |
 | FileGetContents | $0.0001 |

@@ -34,6 +34,7 @@
   * [Schedule Your First Transaction](getting-started/try-examples/schedule-your-first-transaction.md)
   * [Deploy Your First Smart Contract](getting-started/try-examples/deploy-your-first-smart-contract.md)
   * [Deploy a Contract Using the Hedera Token Service](getting-started/try-examples/deploy-a-contract-using-the-hedera-token-service.md)
+  * [Create and Transfer an NFT using a Solidity Contract](getting-started/try-examples/create-and-transfer-an-nft-using-a-solidity-contract.md)
 
 ## Core Concepts
 
@@ -47,6 +48,7 @@
   * [Supported ERC Token Standards](core-concepts/smart-contracts/supported-erc-token-standards.md)
   * [Hedera Services Integration with Smart Contracts](core-concepts/smart-contracts/hedera-services-integration-with-smart-contracts.md)
   * [Hethers](core-concepts/smart-contracts/hethers.md)
+* [Staking](core-concepts/staking.md)
 * [Hashgraph Consensus Algorithm](core-concepts/hashgraph-consensus-algorithms/README.md)
   * [Gossip About Gossip](core-concepts/hashgraph-consensus-algorithms/gossip-about-gossip.md)
   * [Virtual Voting](core-concepts/hashgraph-consensus-algorithms/virtual-voting.md)
@@ -73,6 +75,7 @@
     * [Recover keys from a mnemonic phrase](docs/sdks/keys/recover-keys-from-a-mnemonic-phrase.md)
   * [Hbars](docs/sdks/hbars.md)
   * [Specialized Types](docs/sdks/specialized-types.md)
+  * [Pseudorandom Number Generator](docs/sdks/pseudorandom-number-generator.md)
   * [Transactions](docs/sdks/transactions/README.md)
     * [Transaction ID](docs/sdks/transactions/transaction-id.md)
     * [Modify transaction fields](docs/sdks/transactions/modify-transaction-fields.md)
@@ -306,6 +309,11 @@
 * [Mirror Node API](docs/mirror-node-api/README.md)
   * [REST API](docs/mirror-node-api/rest-api.md)
   * [Hedera Consensus Service gRPC API](docs/mirror-node-api/hedera-consensus-service-api-1.md)
+* [Signature Provider](docs/signature-provider/README.md)
+  * [Provider](docs/signature-provider/provider.md)
+  * [Signer](docs/signature-provider/signer.md)
+  * [Wallet](docs/signature-provider/wallet.md)
+  * [Local Provider](docs/signature-provider/local-provider.md)
 * [Integrating a Hedera Token Service Token](docs/integrating-a-hedera-token-service-token.md)
 * [Record and Event Stream File Formats](docs/record-and-event-stream-file-formats.md)
 * [Changelog](docs/changelog.md)
@@ -313,17 +321,19 @@
 
 ## Resources
 
-* [Starter Projects](resources/starter-projects.md)
-* [Demo Applications](resources/demo-applications.md)
 * [Tutorials](resources/tutorials/README.md)
-  * [Get Started with Hedera NFTs](resources/tutorials/get-started-with-hedera-nfts.md)
-  * [Deploy Smart Contracts on Hedera](resources/tutorials/deploy-smart-contracts-on-hedera.md)
-  * [Get Event Information from Hedera Smart Contracts](resources/tutorials/get-event-information-from-hedera-smart-contracts.md)
-  * [Look Up Transaction History Using Mirror Nodes](resources/tutorials/look-up-transaction-history-using-mirror-nodes.md)
-  * [Set up a message queue with the Hedera Consensus Service and JavaScript](resources/tutorials/hcs-javascript-setup.md)
-  * [Run the JavaScript Hedera Consensus Service Chat Demo](resources/tutorials/run-the-hedera-consensus-service-chat-demo.md)
-  * [Get Started with the Hedera Consensus Service Fabric Plugin](resources/tutorials/getting-started-with-the-hedera-consensus-service-fabric-plugin/README.md)
-    * [Virtual Environment Set-up](resources/tutorials/getting-started-with-the-hedera-consensus-service-fabric-plugin/virtual-environment-set-up.md)
+  * [NFTs and Fungible Tokens on Hedera](resources/tutorials/get-started-with-hedera-nfts.md)
+  * [Smart Contracts on Hedera](resources/tutorials/deploy-smart-contracts-on-hedera.md)
+  * [Mirror Nodes: Get Transaction History](resources/tutorials/look-up-transaction-history-using-mirror-nodes.md)
+  * [Hedera Consensus Service](resources/tutorials/hedera-consensus-service/README.md)
+    * [Set up a message queue with the Hedera Consensus Service and JavaScript](resources/tutorials/hedera-consensus-service/hcs-javascript-setup.md)
+    * [Run the JavaScript Hedera Consensus Service Chat Demo](resources/tutorials/hedera-consensus-service/run-the-hedera-consensus-service-chat-demo.md)
+    * [Get Started with the Hedera Consensus Service Fabric Plugin](resources/tutorials/hedera-consensus-service/getting-started-with-the-hedera-consensus-service-fabric-plugin/README.md)
+      * [Virtual Environment Set-up](resources/tutorials/hedera-consensus-service/getting-started-with-the-hedera-consensus-service-fabric-plugin/virtual-environment-set-up.md)
+  * [Developer Tools](resources/tutorials/developer-tools.md)
+* [Demo Applications](resources/demo-applications.md)
+* [Starter Projects](resources/starter-projects.md)
+* [JSON-RPC Relay](resources/json-rpc-relay.md)
 
 ## Support & Community
 

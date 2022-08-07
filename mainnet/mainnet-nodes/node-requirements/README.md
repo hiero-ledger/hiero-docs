@@ -13,19 +13,18 @@ The following is provided to help Hedera Governing Council members deploy their 
 Currently, the Hedera mainnet will perform at a rate determined by the lowest-performing node. To ensure a common level of performance minimum hardware, connectivity and hosting requirements have been defined for the initial permissioned, Governing Council nodes.
 
 {% hint style="warning" %}
-To ensure accurate conformity with the minimum requirements, please provide node hardware, connectivity, and hosting details to Hedera prior to purchase \(devops@hedera.com\).
+To ensure accurate conformity with the minimum requirements, please provide node hardware, connectivity, and hosting details to Hedera prior to purchase (devops@hedera.com).
 {% endhint %}
 
-Chassis \(hardware nodes only\)
+Chassis (hardware nodes only)
 
 * Dual Power - 1600W minimum, 2000W recommended
 
 All nodes
 
-Network Connectivity: Single 1-Gigabit / 10-Gigabit Ethernet \(physical connectivity subject to network infrastructure\)
+Network Connectivity: Single 1-Gigabit / 10-Gigabit Ethernet (physical connectivity subject to network infrastructure)
 
-24-core or better CPU hyperthreaded (48 threads) - Intel Xeon Silver class or higher / AMD EPYC 74xx class or higher 
-Virtual hosts must have 48vCPU (single threaded)
+24-core or better CPU hyperthreaded (48 threads) - Intel Xeon Silver class or higher / AMD EPYC 74xx class or higher Virtual hosts must have 48vCPU (single threaded)
 
 256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM
 
@@ -34,16 +33,16 @@ Virtual hosts must have 48vCPU (single threaded)
 5TB SSD NVMe usable storage
 
 * Single Drive recommended
-* Endurance / Mixed Use \(Not Read Intensive\)
+* Endurance / Mixed Use (Not Read Intensive)
 
-Storage performance specifications \(within 10% of performance parameters below\)
+Storage performance specifications (within 10% of performance parameters below)
 
 * Sequential read: 6200 MB/s
 * Random read: 1.08M IOPS
 * Sequential write: 3000 MB/s
 * Random write: 170K IOPS
 
-Considerations for future expansion \(hardware based deployments\):
+Considerations for future expansion (hardware based deployments):
 
 * Chassis should be [Nvidia Tesla V100 PCIe certified](https://www.nvidia.com/en-us/data-center/tesla/tesla-qualified-servers-catalog/)
 * 1x Nvidia Tesla V100 PCIe 16GB/32GB GPU
@@ -60,7 +59,7 @@ Access to the node via public APIs must be mediated by an in-line proxy. Below a
 * 2GB RAM
 * 100GB storage
 * 200Mb/S internet network connectivity with public static IP address
-* Docker 18 or higher \(Hedera to provide Docker image with HAProxy\)
+* Docker 18 or higher (Hedera to provide Docker image with HAProxy)
 
 ### Network Connectivity
 
@@ -69,17 +68,17 @@ Node Connectivity
 * 1Gbps internet connectivity – sustained (not burstable)
   * Unmetered preferred
   * Deployed with firewalled access to other mainnet consensus nodes
-* Node deployed in dedicated \(isolated\) DMZ network
-  * Static IP \(FQDN is not supported\)
+* Node deployed in dedicated (isolated) DMZ network
+  * Static IP (FQDN is not supported)
   * TCP Port 50111 open to 0.0.0.0/0
   * TCP Port 50211 open to 0.0.0.0/0
   * TCP Port 50212 open to 0.0.0.0/0
-  * TCP Port 80 open egress to 0.0.0.0/0 \(for Ubuntu OS package repository connectivity\)
+  * TCP Port 80 open egress to 0.0.0.0/0 (for Ubuntu OS package repository connectivity)
   * TCP Port 443 open egress to 0.0.0.0/0
 
 Proxy Connectivity
 
-* Static IP address \(FQDN not supported\)
+* Static IP address (FQDN not supported)
 * 200Mb/s internet connectivity
 * TCP Port 50211 open to 0.0.0.0/0
 * TCP Port 50212 open to 0.0.0.0/0
@@ -93,16 +92,16 @@ Proxy Connectivity
 
 ### Software & Installation
 
-* Any 64 bit Long Term Support \(LTS\) Linux distribution
+* Any 64 bit Long Term Support (LTS) Linux distribution
   * Ubuntu
   * Red Hat Enterprise
   * Debian
   * BSD not supported
   * CentOS deprecated for 2022
 
-## Network Topology /\(Typical Corporate Datacenter Configuration/\)
+## Network Topology /(Typical Corporate Datacenter Configuration/)
 
-![](../../../.gitbook/assets/network-topology.jpg)
+![](../../../.gitbook/assets/Network-topology.jpg)
 
 ## Deployment Steps
 
@@ -118,7 +117,7 @@ The following steps outline the process for Council Members to add their consens
    3. Hosting facility
 4. Configuration of the operating system on platform
    1. Provisioning of accounts as specified
-   2. Provisioning of network access \(firewall rules/access control lists\)
+   2. Provisioning of network access (firewall rules/access control lists)
 5. Conveyance of credentials to Hedera
    1. Includes any special instructions for permissioned access such as VPNs
    2. Discussion of support and escalation paths between organizations
@@ -133,4 +132,3 @@ The following steps outline the process for Council Members to add their consens
    2. Update private keys using provided tools
 10. Schedule mainnet connection
 11. Mainnet live
-

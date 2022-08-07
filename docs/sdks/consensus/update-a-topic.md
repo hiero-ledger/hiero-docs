@@ -1,6 +1,6 @@
 # Update a topic
 
-A transaction that updates the properties of an existing topic. This includes the topic memo, admin key, submit key, auto renew account, and auto renew period.&#x20;
+A transaction that updates the properties of an existing topic. This includes the topic memo, admin key, submit key, auto renew account, and auto renew period.
 
 #### Topic Properties
 
@@ -16,7 +16,7 @@ A transaction that updates the properties of an existing topic. This includes th
 **Transaction Signing Requirements**
 
 * If an admin key is updated, the transaction must be signed by the pre-update admin key and post-update admin key.
-* If the admin key was set during the creation of the topic, the admin key must sign the transaction to update any of the topic's properties&#x20;
+* If the admin key was set during the creation of the topic, the admin key must sign the transaction to update any of the topic's properties
 * If no adminKey was defined during the creation of the topic, you can only extend the expirationTime.
 
 **Transaction Fees**
@@ -34,7 +34,7 @@ A transaction that updates the properties of an existing topic. This includes th
 new TopicUpdateTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                                     | Type      | Requirements |
 | ------------------------------------------ | --------- | ------------ |
@@ -136,7 +136,7 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 new ConsensusTopicUpdateTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                                     | Type      | Requirements |
 | ------------------------------------------ | --------- | ------------ |

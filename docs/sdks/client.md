@@ -53,7 +53,7 @@ Client.forNetwork(nodes);
 const client = Client.forTestnet();
 
 //For a specified network
-const nodes = {"35.237.200.180:50211": new AccountId(3)}
+const nodes = {"34.94.106.61:50211": new AccountId(10)}
 const client = Client.forNetwork(nodes);
 
 //v2.0.7

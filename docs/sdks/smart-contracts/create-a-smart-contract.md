@@ -2,23 +2,24 @@
 
 A transaction that creates a new smart contract instance. After the contract is created you can get the new contract ID by requesting the receipt of the transaction. To create the solidity smart contract, you can use [remix](https://remix.ethereum.org/#optimize=false\&runs=200\&evmVersion=null\&version=soljson-v0.8.7+commit.e28d00a7.js) or another [Solidity](https://docs.soliditylang.org/en/v0.8.9/) compiler. After you have the hex-encoded bytecode of the smart contract you need to store that on a file using the [Hedera File Service](../file-storage/create-a-file.md). Then you will create the smart contract instance that will run the bytecode stored in the Hedera file, referenced by file ID. Alternatively, you can use the <mark style="color:purple;">`ContractCreateFlow()`</mark> API to create the file storing the bytecode and contract in a single step.
 
-The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs are passed in the `constructorParameters`.&#x20;
+The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs are passed in the `constructorParameters`.
 
 If this constructor stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.
 
 {% hint style="danger" %}
-Smart contract entity auto renewal and expiry will be enabled in a future release. Please check out [HIP-16](https://hips.hedera.com/hip/hip-16) for more information.&#x20;
+Smart contract entity auto renewal and expiry will be enabled in a future release. Please check out [HIP-16](https://hips.hedera.com/hip/hip-16) for more information.
 {% endhint %}
 
 {% hint style="info" %}
-**Solidity Support**\
-****The latest version of Solidity is supported on all networks (v0.8.9).
+**Solidity Support**
+
+The latest version of Solidity is supported on all networks (v0.8.9).
 {% endhint %}
 
 {% hint style="info" %}
 **Smart Contract State Size and Gas Limits**
 
-The Hedera Services 0.22 release increases the contract state size to 10 MB and the system gas throttle to 15 million gas per second. Contract call and contract create are throttled at 5 million gas per second.
+The contract state size limit is 10 MB and the system gas throttle is 15 million gas per second. Contract call and contract create are throttled at 8 million gas per second.
 {% endhint %}
 
 {% content-ref url="../../../core-concepts/smart-contracts/gas-and-fees.md" %}
@@ -32,7 +33,7 @@ The Hedera Services 0.22 release increases the contract state size to 10 MB and 
 **Transaction Signing Requirements**
 
 * The client operator account is required to sign the transaction
-* The admin key, if specified&#x20;
+* The admin key, if specified
 
 **Transaction Fees**
 
@@ -47,7 +48,8 @@ The Hedera Services 0.22 release increases the contract state size to 10 MB and 
 | **Gas**                          | The gas to run the constructor.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Initial Balance**              | The initial number of hbars to put into the cryptocurrency account associated with and owned by the smart contract.                                                                                                                                                                                                                                                                                                                                                  |
 | **Byte Code File**               | The file containing the hex encoded smart contract byte code.                                                                                                                                                                                                                                                                                                                                                                                                        |
-| **Proxy Account**                | The ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking, or if it is not currently running a node, then it will behave as if proxyAccountID was null. (disabled)                          |
+| **Staked ID**                    | <p>The node account or node ID to which this contract account is staking to. See <a href="https://hips.hedera.com/hip/hip-406">HIP-406.</a><br><br><strong>Note:</strong> Accounts cannot stake to contract accounts. This will fixed in a future release.</p>                                                                                                                                                                                                       |
+| **Decline Rewards**              | Some contracts may choose to stake their hbars and decline receiving rewards. If set to  true, the contract account will not earn rewards when staked. The default value is false. See [HIP-406.](https://hips.hedera.com/hip/hip-406)                                                                                                                                                                                                                               |
 | **Auto Renew Account ID**        | An account to charge for auto-renewal of this contract. If not set, or set to an account with zero hbar balance, the contract's own hbar balance will be used to cover auto-renewal fees. (disabled)                                                                                                                                                                                                                                                                 |
 | **Auto Renew Period**            | The period that the instance will charge its account every this many seconds to renew. (disabled)                                                                                                                                                                                                                                                                                                                                                                    |
 | **Automatic Token Associations** | The maximum number of tokens that this contract can be automatically associated with (i.e., receive air-drops from).                                                                                                                                                                                                                                                                                                                                                 |
@@ -56,7 +58,7 @@ The Hedera Services 0.22 release increases the contract state size to 10 MB and 
 
 ## `ContractCreateFlow()`
 
-The <mark style="color:purple;">`ContractCreateFlow()`</mark>streamlines the creation of a contract by taking the bytecode of the contract and creating the file on Hedera to store the bytecode for you.&#x20;
+The <mark style="color:purple;">`ContractCreateFlow()`</mark>streamlines the creation of a contract by taking the bytecode of the contract and creating the file on Hedera to store the bytecode for you.
 
 First, a <mark style="color:purple;">`FileCreateTransaction()`</mark> will be executed to create a file on Hedera to store the specified contract bytecode. Second, the <mark style="color:purple;">`ContractCreateTransaction()`</mark> will be executed to create the contract instance on Hedera.
 
@@ -71,7 +73,7 @@ The response will return the contract create transaction information like the ne
 {% tabs %}
 {% tab title="V2" %}
 {% hint style="info" %}
-**Note:** Please refer to [ContractCreateTransaction()](create-a-smart-contract.md#contractcreatetransaction) for a complete list of applicable methods.&#x20;
+**Note:** Please refer to [ContractCreateTransaction()](create-a-smart-contract.md#contractcreatetransaction) for a complete list of applicable methods.
 {% endhint %}
 
 | Method                    | Type       |
@@ -163,19 +165,21 @@ Creates a smart contract instance using the file ID of the contract bytecode.
 
 {% tabs %}
 {% tab title="V2" %}
-| Method                                              | Type                                           | Requirement |
-| --------------------------------------------------- | ---------------------------------------------- | ----------- |
-| `setGas(<gas>)`                                     | long                                           | Required    |
-| `setBytecodeFileId(<fileId>)`                       | [FileId](../specialized-types.md#fileid)       | Required    |
-| `setInitialBalance(<initialBalance>)`               | Hbar                                           | Optional    |
-| `setAdminKey(<keys>)`                               | Key                                            | Optional    |
-| `setProxyAccountId(<accountId>`)                    | [AccountId](../specialized-types.md#accountid) | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                      | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters                     | Optional    |
-| `setContractMemo(<memo>)`                           | String                                         | Optional    |
-| `setAutoRenewAccountId(<accountId)`                 | AccountId                                      | Disabled    |
-| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                       | Disabled    |
-| `setMaxAutomaticTokenAssociations()`                | int                                            | Optional    |
+| Method                                              | Type                                     | Requirement |
+| --------------------------------------------------- | ---------------------------------------- | ----------- |
+| `setGas(<gas>)`                                     | long                                     | Required    |
+| `setBytecodeFileId(<fileId>)`                       | [FileId](../specialized-types.md#fileid) | Required    |
+| `setInitialBalance(<initialBalance>)`               | Hbar                                     | Optional    |
+| `setAdminKey(<keys>)`                               | Key                                      | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters               | Optional    |
+| `setContractMemo(<memo>)`                           | String                                   | Optional    |
+| `setStakedNodeId(<stakedNodeId>)`                   | long                                     | Optional    |
+| `setStakedAccountId(<stakedAccountId>)`             | AccountId                                | Optional    |
+| `setDeclineStakingReward(<declineStakingReward>)`   | boolean                                  | Optional    |
+| `setAutoRenewAccountId(<accountId)`                 | AccountId                                | Disabled    |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                 | Disabled    |
+| `setMaxAutomaticTokenAssociations()`                | int                                      | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -221,7 +225,6 @@ const receipt = await txResponse.getReceipt(client);
 const newContractId = receipt.contractId;
         
 console.log("The new contract ID is " +newContractId);
-
 ```
 {% endcode %}
 
@@ -309,7 +312,6 @@ const newContractId = receipt.getContractId();
 System.out.println("The new contract ID is " + newContractId);
 
 //v1.4.4
-
 ```
 {% endcode %}
 {% endtab %}
@@ -328,6 +330,9 @@ System.out.println("The new contract ID is " + newContractId);
 | `getProxyAccountId(<accountId>`)                    | AccountId  | Optional    |
 | `getConstructorParameters(<constructorParameters>)` | ByteString | Optional    |
 | `getContractMemo(<memo>)`                           | String     | Optional    |
+| `getDeclineStakingReward()`                         | boolean    | Optional    |
+| `getStakedNodeId()`                                 | long       | Optional    |
+| `getStakedAccountId()`                              | Accountid  | Optional    |
 | `getAutoRenewPeriod(<autoRenewPeriod>)`             | Duration   | Optional    |
 
 {% code title="Java" %}
@@ -376,7 +381,5 @@ transaction.GetAdminKey()
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-
-
 
 ##

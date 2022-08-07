@@ -186,7 +186,7 @@ fmt.Println("The public keys that signed the transaction ", signatures)
 
 ## 5. Submit the transaction
 
-We are now ready to submit the transfer transaction to a Hedera network. To submit the transaction, we will apply the `.execute()` method to `signedTransaction`. After the transaction is submitted, we will print the transaction ID to the console. You can use the transaction ID to search for transaction details in a mirror node explorer like [Kabuto](https://kabuto.sh) or [DragonGlass](https://app.dragonglass.me/hedera/home). Be sure to select the correct network when searching for the transaction in a mirror node explorer. You can also check the status of a transaction by requesting the [receipt](get-a-transaction-receipt.md) of the transaction and obtaining the status.
+We are now ready to submit the transfer transaction to a Hedera network. To submit the transaction, we will apply the `.execute()` method to `signedTransaction`. After the transaction is submitted, we will print the transaction ID to the console. You can use the transaction ID to search for transaction details in a mirror node explorer like [DragonGlass](https://app.dragonglass.me/hedera/home), [Kabuto](https://kabuto.sh), or [Ledger Works](https://explore.lworks.io). Be sure to select the correct network when searching for the transaction in a mirror node explorer. You can also check the status of a transaction by requesting the [receipt](get-a-transaction-receipt.md) of the transaction and obtaining the status.
 
 {% tabs %}
 {% tab title="Java" %}

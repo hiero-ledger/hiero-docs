@@ -4,7 +4,7 @@ A transaction that creates a new topic recognized by the Hedera network. The new
 
 #### Private topic
 
-You can also create a private topic where only authorized parties can submit messages to that topic. To create a private topic you would need to set the `submitKey` property of the transaction. The `submitKey` value is then shared with the authorized parties and is required to successfully submit messages to the private topic.&#x20;
+You can also create a private topic where only authorized parties can submit messages to that topic. To create a private topic you would need to set the `submitKey` property of the transaction. The `submitKey` value is then shared with the authorized parties and is required to successfully submit messages to the private topic.
 
 #### Topic Properties
 
@@ -37,7 +37,7 @@ You can also create a private topic where only authorized parties can submit mes
 new TopicCreateTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                                     | Type      | Requirements |
 | ------------------------------------------ | --------- | ------------ |
@@ -125,7 +125,7 @@ fmt.Printf("The new topic ID is %v\n", newTopicID)
 new ConsensusTopicCreateTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                                     | Type      | Requirements |
 | ------------------------------------------ | --------- | ------------ |

@@ -6,15 +6,13 @@ Create a new Ed25519 key pair used to sign transactions and queries on the Heder
 
 {% tabs %}
 {% tab title="V2" %}
-
-
 | **Method**                                                              | **Type**   | **Description**                                              |
 | ----------------------------------------------------------------------- | ---------- | ------------------------------------------------------------ |
 | `PrivateKey.generateED25519()`                                          | PrivateKey | Generates an Ed25519 private key                             |
 | `PrivateKey.generateED25519().getPublicKey()`                           | PublicKey  | Derive a public key from this Ed25519 private key            |
 | `PrivateKey.generateED25519().publicKey()`                              | PublicKey  | Derive a public key from this Ed25519 private key            |
 | `PrivateKey.generateED25519().publicKey().toAccountId(<shard>,<realm>)` | long, long | Contruct an alias account ID from a alias public key address |
-| **`[DEPRECATED]`**` ``PrivateKey.generate()`                            | PrivateKey | Generates an Ed25519 private key                             |
+| **`[DEPRECATED]`**`PrivateKey.generate()`                               | PrivateKey | Generates an Ed25519 private key                             |
 
 {% code title="Java" %}
 ```java
@@ -28,7 +26,7 @@ System.out.println("public = " + publicKey);
 
 {% code title="JavaScript" %}
 ```javascript
-const privateKey = await PrivateKeyED25519.generate();
+const privateKey = await PrivateKey.generateED25519Async();
 const publicKey = privateKey.publicKey;
 
 console.log("private = " + privateKey);
@@ -50,7 +48,7 @@ fmt.Printf("public = %v\n", publicKey)
 ```
 {% endcode %}
 
-#### Sample Output:
+**Sample Output:**
 
 ```
 private key = 3030020100300706052b8104000a04220420818c50766e025db403416421cb4a16d26ab0044b7f1a1e45513cef2c86123b91 
@@ -90,14 +88,12 @@ console.log("public = " + publicKey);
 {% endtab %}
 {% endtabs %}
 
-## ECDSA (secp256k1_)_
+## ECDSA (secp256k1\_)\_
 
 Create a new ECDSA (secp256k1) key pair used to sign transactions and queries on a Hedera network. The private key is kept confidential and is used to sign transactions that modify the state of an account, topic, token, smart contract, or file entity on the network. The public key can be shared with other users on the network.
 
 {% tabs %}
 {% tab title="V2" %}
-
-
 | **Method**                                                             | **Type**   | **Description**                                          |
 | ---------------------------------------------------------------------- | ---------- | -------------------------------------------------------- |
 | `PrivateKey.generateECDSA()`                                           | PrivateKey | Generates an ECSDA private key                           |
@@ -122,7 +118,6 @@ const publicKey = privateKey.publicKey();icKey;
 
 console.log("private = " + privateKey);
 console.log("public = " + publicKey);
-
 ```
 {% endcode %}
 
@@ -140,7 +135,7 @@ fmt.Printf("public = %v\n", publicKey)
 ```
 {% endcode %}
 
-#### Sample Output:
+**Sample Output:**
 
 ```
 private key = 302e020100300506032b657004220420b9c3ebac81a72aafa5490cc78111643d016d311e60869436fbb91c73307ed35a 
