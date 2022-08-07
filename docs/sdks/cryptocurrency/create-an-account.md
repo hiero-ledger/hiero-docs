@@ -238,7 +238,11 @@ accountKey, err := AccountCreateTransaction.GetKey()
 
 ### **Create an account via an account alias**
 
-You can create an account via an **account alias**. An account alias is a single public key address that is used to create the Hedera account. Hedera supports aliases generated using [Ed25519](../keys/generate-a-new-key-pair.md#ed25519) or [ECDSA](../keys/generate-a-new-key-pair.md#ecdsa-secp256k1) (secp256k1) algorithms. The account alias is immutable and cannot be modified.
+Since the introduction of [HIP-32](https://hips.hedera.com/hip/hip-32), you can create an account via an **account alias**. An account alias is a single public key address that is used to create the Hedera account. Hedera supports aliases generated using [Ed25519](../keys/generate-a-new-key-pair.md#ed25519) or [ECDSA](../keys/generate-a-new-key-pair.md#ecdsa-secp256k1) (secp256k1) algorithms.
+
+Wallet software can allow the user to create an "account" instantly, for free, even without an internet connection. In this case, it will not create an actual account on Hedera. Instead, it will simply create a public/private key pair for the user. The software will then display this as an "account" with a zero balance, with a "long account ID". This long form doesn't look like `0.0.123`, but instead is an alias consisting of `<shard>.<realm>.<bytes>`, where the `bytes` is a [base32url](https://datatracker.ietf.org/doc/html/rfc4648#section-6) representation of the bytes of a serialized HAPI primitive `Key`, with the trailing `=` padding characters removed. For example, `0.0.CIQNOWUYAGBLCCVX2VF75U6JMQDTUDXBOLZ5VJRDEWXQEGTI64DVCGQ` is the alias address of shard 0 realm 0 with a serialization of a HAPI `Key` for the ed25519 public key `0xd75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a`.
+
+The account alias is immutable, cannot be modified, and it will continue to be associated with that account for as long as it exists. Still, if the account is deleted and removed from Hedera, the alias can be associated with a new account.
 
 The account is officially registered with Hedera when hbars are initially deposited to the account alias. The transaction fee to create the account is deducted from the initial hbar transfer. The remaining balance minus the transaction fee to create the account is the initial balance of the new account. The account create transaction is executed first to register the new account and following the transfer transaction to transfer the remaining hbar balance to the new account.
 
