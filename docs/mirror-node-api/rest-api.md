@@ -24,7 +24,7 @@ You can also view the Hedera Mirror Node Swagger UI documentation where you can 
 **PREVIEWNET**\
 [https://previewnet.mirrornode.hedera.com](https://previewnet.mirrornode.hedera.com/api/v1/transactions)
 
-You may also check out [DragonGlass](https://app.dragonglass.me/hedera/home), [Kabuto](https://kabuto.sh/), or [Ledger Works](https://lworks.io) as alternatives.‌
+You may also check out [HederaExplorer](https://hederaexplorer.io/), [DragonGlass](https://app.dragonglass.me/hedera/home), [Kabuto](https://kabuto.sh/), or [Ledger Works](https://lworks.io) as alternatives.‌
 {% endhint %}
 
 {% hint style="warning" %}
