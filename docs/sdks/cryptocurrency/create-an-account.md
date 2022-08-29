@@ -5,7 +5,7 @@
 A transaction that creates a Hedera account. A Hedera account is required to interact with any of the Hedera network services as you need an account to pay for all associated transaction/query fees. You can visit the [Hedera Developer Portal](https://portal.hedera.com/register) to create a previewnet or testnet account. You can also use third-party wallets to generate free [mainnet accounts](../../../mainnet/mainnet-access.md). To process an account create transaction, you will need an existing account to pay for the transaction fee. To obtain the new account ID, request the [receipt](../transactions/get-a-transaction-receipt.md) of the transaction.
 
 {% hint style="info" %}
-When creating a **new account** using the **** <mark style="color:purple;">`AccountCreateTransaction()`</mark>API you will need an existing account to pay for the associated transaction fee.&#x20;
+When creating a **new account** using the<mark style="color:purple;">`AccountCreateTransaction()`</mark>API you will need an existing account to pay for the associated transaction fee.
 {% endhint %}
 
 **Transaction Fees**
@@ -15,19 +15,20 @@ When creating a **new account** using the **** <mark style="color:purple;">`Acco
 
 **Transaction Signing Requirements**
 
-* The account paying for the transaction fee is required to sign the transaction&#x20;
+* The account paying for the transaction fee is required to sign the transaction
 
 **Transaction Properties**
 
-| Field                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Key**                              | The key for the new account.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **Initial Balance**                  | The initial balance of the account, transferred from the operator account, in Hbar.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| **Receiver Signature Required**      | <p>If true, all the account keys must sign any transaction depositing into this account (in addition to all withdrawals).</p><p><em>default: false</em></p>                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| **Max Automatic Token Associations** | <p>Accounts can optionally automatically associate tokens to this account if this property is set. You do not need to associate a token prior to transferring it to this account. The max automatic token association is 1,000 token IDs.</p><p></p><p>Update: There is no limit on how many tokens you can associate in the 0.25 mainnet release. Currently, live on previewnet and testnet Reference <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-23.md">HIP-23</a> and <a href="https://hips.hedera.com/hip/hip-367">HIP-367</a>.</p> |
-| **Memo**                             | Set a note or description that should be recorded with the state of the account entity (maximum length of 100 characters). Anyone can view this memo on the network.                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Auto Renew Period**                | <p>The period of time in which the account will auto-renew in seconds. The account is charged tinybars for every auto-renew period. Duration type is in seconds. For example, one hour would result in an input value of 3,600 seconds.<br><br><strong>NOTE:</strong> This is fixed to approximately 3 months (7890000 seconds). Any other value will return the following error: AUTORENEW_DURATION_NOT_IN_RANGE.</p><p><em>default: 2,592,000 seconds</em> (DISABLED)</p>                                                                                                       |
-| **Proxy Account**                    | ID of the account to which this account is proxy staked **(**DISABLED).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Field                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Key**                              | The key for the new account.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Initial Balance**                  | The initial balance of the account, transferred from the operator account, in Hbar.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Receiver Signature Required**      | <p>If true, all the account keys must sign any transaction depositing into this account (in addition to all withdrawals).</p><p><em>default: false</em></p>                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Max Automatic Token Associations** | <p>Accounts can optionally automatically associate tokens to this account if this property is set. You do not need to associate a token prior to transferring it to this account. The max automatic token association is 1,000 token IDs.</p><p>Update: There is no limit on how many tokens you can associate in the 0.25 mainnet release. Currently, live on previewnet and testnet Reference <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-23.md">HIP-23</a> and <a href="https://hips.hedera.com/hip/hip-367">HIP-367</a>.</p> |
+| **Staked ID**                        | <p>The staked ID is the node ID this account is staking to or the account ID of the account this account is staking to. An account can be staked to only one node or one account at a time. See <a href="https://hips.hedera.com/hip/hip-406">HIP-406.</a><br><br><strong>Note:</strong> Accounts cannot stake to contract accounts. This will fixed in a future release.</p>                                                                                                                                                                                              |
+| **Decline Rewards**                  | Some accounts may stake to a node and decline to earn rewards. If set to true, the account will not receive staking rewards. The default value is false. See [HIP-406.](https://hips.hedera.com/hip/hip-406)                                                                                                                                                                                                                                                                                                                                                               |
+| **Memo**                             | Set a note or description that should be recorded with the state of the account entity (maximum length of 100 characters). Anyone can view this memo on the network.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Auto Renew Period**                | <p>The period of time in which the account will auto-renew in seconds. The account is charged tinybars for every auto-renew period. Duration type is in seconds. For example, one hour would result in an input value of 3,600 seconds.<br><br><strong>NOTE:</strong> This is fixed to approximately 3 months (7890000 seconds). Any other value will return the following error: AUTORENEW_DURATION_NOT_IN_RANGE.</p><p><em>default: 2,592,000 seconds</em> (DISABLED)</p>                                                                                                |
 
 | Constructor                      | Description                                     |
 | -------------------------------- | ----------------------------------------------- |
@@ -41,15 +42,17 @@ new AccountCreateTransaction()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method                                         | Type                                           | Requirement |
-| ---------------------------------------------- | ---------------------------------------------- | ----------- |
-| `setKey(<key>)`                                | Key                                            | Required    |
-| `setInitialBalance(<initialBalance>)`          | HBar                                           | Optional    |
-| `setReceiverSignatureRequired(<booleanValue>)` | boolean                                        | Optional    |
-| `setMaxAutomaticTokenAssociations(<amount>)`   | int                                            | Optional    |
-| `setAccountMemo(<memo>)`                       | String                                         | Optional    |
-| `setAutoRenewPeriod(<autoRenewPeriod>)`        | Duration                                       | Disabled    |
-| `setProxyAccount(<accountId>)`                 | [AccountId](../specialized-types.md#accountid) | Disabled    |
+| Method                                            | Type      | Requirement |
+| ------------------------------------------------- | --------- | ----------- |
+| `setKey(<key>)`                                   | Key       | Required    |
+| `setInitialBalance(<initialBalance>)`             | HBar      | Optional    |
+| `setReceiverSignatureRequired(<booleanValue>)`    | boolean   | Optional    |
+| `setMaxAutomaticTokenAssociations(<amount>)`      | int       | Optional    |
+| `setStakedAccountId(<stakedAccountId>)`           | AccountId | Optional    |
+| `setStakedNodeId(<stakedNodeId>)`                 | long      | Optional    |
+| `setDeclineStakingReward(<declineStakingReward>)` | boolean   | Optional    |
+| `setAccountMemo(<memo>)`                          | String    | Optional    |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`           | Duration  | Disabled    |
 
 {% code title="Java" %}
 ```java
@@ -183,12 +186,15 @@ console.log("The new account ID is " +newAccountId);
 
 {% tabs %}
 {% tab title="V2" %}
-| Method                           | Type     | Description                                               |
-| -------------------------------- | -------- | --------------------------------------------------------- |
-| `getKey()`                       | Key      | Returns the public key on the account                     |
-| `getInitialBalance()`            | Hbar     | Returns the initial balance of the account                |
-| `getAutoRenewPeriod()`           | Duration | Returns the auto renew period on the account              |
-| `getReceiverSignatureRequired()` | boolean  | Returns whether the receiver signature is required or not |
+| Method                           | Type      | Description                                               |
+| -------------------------------- | --------- | --------------------------------------------------------- |
+| `getKey()`                       | Key       | Returns the public key on the account                     |
+| `getInitialBalance()`            | Hbar      | Returns the initial balance of the account                |
+| `getAutoRenewPeriod()`           | Duration  | Returns the auto renew period on the account              |
+| `getDeclineStakingReward()`      | boolean   | Returns whether or not the account declined rewards       |
+| `getStakedNodeId()`              | long      | Returns the node ID                                       |
+| `getStakedAccountId()`           | AccountId | Returns the node account ID                               |
+| `getReceiverSignatureRequired()` | boolean   | Returns whether the receiver signature is required or not |
 
 {% code title="Java" %}
 ```java
@@ -232,9 +238,13 @@ accountKey, err := AccountCreateTransaction.GetKey()
 
 ### **Create an account via an account alias**
 
-You can create an account via an **account alias**. An account alias is a single public key address that is used to create the Hedera account. Hedera supports aliases generated using [Ed25519](../keys/generate-a-new-key-pair.md#ed25519) or [ECDSA](../keys/generate-a-new-key-pair.md#ecdsa-secp256k1) (secp256k1) algorithms. The account alias is immutable and cannot be modified.
+Since the introduction of [HIP-32](https://hips.hedera.com/hip/hip-32), you can create an account via an **account alias**. An account alias is a single public key address that is used to create the Hedera account. Hedera supports aliases generated using [Ed25519](../keys/generate-a-new-key-pair.md#ed25519) or [ECDSA](../keys/generate-a-new-key-pair.md#ecdsa-secp256k1) (secp256k1) algorithms.
 
-The account is officially registered with Hedera when hbars are initially deposited to the account alias. The transaction fee to create the account is deducted from the initial hbar transfer. The remaining balance minus the transaction fee to create the account is the initial balance of the new account. The account create transaction is executed first to register the new account and following the transfer transaction to transfer the remaining hbar balance to the new account.&#x20;
+Wallet software can allow the user to create an "account" instantly, for free, even without an internet connection. In this case, it will not create an actual account on Hedera. Instead, it will simply create a public/private key pair for the user. The software will then display this as an "account" with a zero balance, with a "long account ID". This long form doesn't look like `0.0.123`, but instead is an alias consisting of `<shard>.<realm>.<bytes>`, where the `bytes` is a [base32url](https://datatracker.ietf.org/doc/html/rfc4648#section-6) representation of the bytes of a serialized HAPI primitive `Key`, with the trailing `=` padding characters removed. For example, `0.0.CIQNOWUYAGBLCCVX2VF75U6JMQDTUDXBOLZ5VJRDEWXQEGTI64DVCGQ` is the alias address of shard 0 realm 0 with a serialization of a HAPI `Key` for the ed25519 public key `0xd75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a`.
+
+The account alias is immutable, cannot be modified, and it will continue to be associated with that account for as long as it exists. Still, if the account is deleted and removed from Hedera, the alias can be associated with a new account.
+
+The account is officially registered with Hedera when hbars are initially deposited to the account alias. The transaction fee to create the account is deducted from the initial hbar transfer. The remaining balance minus the transaction fee to create the account is the initial balance of the new account. The account create transaction is executed first to register the new account and following the transfer transaction to transfer the remaining hbar balance to the new account.
 
 The consensus timestamp for the create account transaction is one nanosecond before the transfer transaction. The parent transfer transaction and the child account create transaction share the same payer account and timestamp in the transaction ID except that the child transaction has an added nonce value. You will also notice the account and transaction memo set to `auto-created account`.
 
@@ -243,7 +253,7 @@ You can return the new account ID from one of the following ways:
 * Requesting the [child records](../transactions/get-a-transaction-record.md) of the parent transfer transaction using the parent transfer transaction ID. The child transaction ID in the child transaction record will display a nonce value (`0.0.2252@1640119571.329880313/1`).
 * Requesting the [child receipts](../transactions/get-a-transaction-receipt.md) of the parent transfer transaction using the parent transfer transaction ID. The account ID field will be populated with the new account ID.
 * Requesting the receipt or record of the account create transaction by using the transaction ID of the parent transfer transaction and setting the nonce value to 1
-* Requesting an [account info](get-account-info.md) using the account alias&#x20;
+* Requesting an [account info](get-account-info.md) using the account alias
 * Looking at the parent transfer transaction record transfer list for the account that has a transfer that equals the transfer value minus the transaction fee
 
 {% hint style="info" %}

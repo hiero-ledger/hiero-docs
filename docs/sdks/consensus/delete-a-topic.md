@@ -1,6 +1,6 @@
 # Delete a topic
 
-A transaction that deletes a topic from the Hedera network. Once a topic is deleted, the topic cannot be recovered to receive messages and all submitMessage calls will fail. Older messages can still be accessed, even after the topic is deleted, via the mirror node.&#x20;
+A transaction that deletes a topic from the Hedera network. Once a topic is deleted, the topic cannot be recovered to receive messages and all submitMessage calls will fail. Older messages can still be accessed, even after the topic is deleted, via the mirror node.
 
 **Transaction Signing Requirements**
 
@@ -22,7 +22,7 @@ A transaction that deletes a topic from the Hedera network. Once a topic is dele
 new TopicDeleteTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                  | Type    | Description                   | Requirement |
 | ----------------------- | ------- | ----------------------------- | ----------- |
@@ -105,8 +105,6 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 {% endtab %}
 
 {% tab title="V1" %}
-
-
 | Constructor                             | Description                                          |
 | --------------------------------------- | ---------------------------------------------------- |
 | `new ConsensusTopicDeleteTransaction()` | Initializes a ConsensusTopicDeleteTransaction object |
@@ -115,7 +113,7 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 new ConsensusTopicDeleteTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                  | Type    | Description                   |
 | ----------------------- | ------- | ----------------------------- |

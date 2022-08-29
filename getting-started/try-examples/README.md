@@ -22,6 +22,14 @@
 [deploy-your-first-smart-contract.md](deploy-your-first-smart-contract.md)
 {% endcontent-ref %}
 
+{% content-ref url="deploy-a-contract-using-the-hedera-token-service.md" %}
+[deploy-a-contract-using-the-hedera-token-service.md](deploy-a-contract-using-the-hedera-token-service.md)
+{% endcontent-ref %}
+
+{% content-ref url="create-and-transfer-an-nft-using-a-solidity-contract.md" %}
+[create-and-transfer-an-nft-using-a-solidity-contract.md](create-and-transfer-an-nft-using-a-solidity-contract.md)
+{% endcontent-ref %}
+
 ## <mark style="color:purple;">Scheduled Transaction</mark>
 
 {% content-ref url="schedule-your-first-transaction.md" %}

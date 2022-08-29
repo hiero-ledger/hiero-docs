@@ -8,7 +8,7 @@ The Hedera Consensus Service (HCS) gRPC API is a public mirror node managed by H
 
 ### Mainnet:
 
-The non-production public mainnet mirror node serves to help developers build their applications without having to run their own mirror node. For production-ready mainnet mirror nodes please check out **** [Dragonglass](https://dragonglass.me/) and [Kabuto](https://kabuto.sh/). When building your Hedera client via SDK, you can use `setMirrorNetwork()` and enter the public mainnet mirror node endpoint. The gRPC API requires TLS. The following SDK versions support TLS:
+The non-production public mainnet mirror node serves to help developers build their applications without having to run their own mirror node. For production-ready mainnet mirror nodes please check out **** [Dragonglass](https://dragonglass.me/), [Kabuto](https://kabuto.sh/), or [Ledger Works](http://lworks.io/). When building your Hedera client via SDK, you can use `setMirrorNetwork()` and enter the public mainnet mirror node endpoint. The gRPC API requires TLS. The following SDK versions support TLS:
 
 * **Java:** v2.0.6+
 * **JavaScript:** v2.0.23+

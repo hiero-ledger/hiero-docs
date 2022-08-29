@@ -22,6 +22,9 @@ You can request a transaction record for up to 3 minutes after a transaction has
 | **Alias**                      | In the record of an internal `AccountCreateTransaction` triggered by a user transaction with a (previously unused) alias, the new account's alias.                                                                                                                                                                    |
 | **Parent Consensus Timestamp** | The parent consensus timestamp is found in the record of a child transaction. The parent consensus timestamp is the consensus timestamp related to the parent transaction to this child transaction.                                                                                                                  |
 | **Ethereum Hash**              | The keccak256 hash of the ethereumData. This field will only be populated for EthereumTransaction.                                                                                                                                                                                                                    |
+| **Paid Staking Rewards**       | <p>List of accounts with the corresponding staking rewards paid as a result of a transaction. See <a href="https://hips.hedera.com/hip/hip-406">HIP-406</a>.<br>Network: <code>previewnet/testnet</code></p>                                                                                                          |
+| **PRNG Bytes**                 | <p>In the record of a PRNG transaction with no output range, a pseudorandom 384-bit string. See <a href="https://hips.hedera.com/hip/hip-351">HIP-351</a>.<br>Network: <code>previewnet</code></p>                                                                                                                    |
+| **PRNG Number**                | <p>In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit string. See <a href="https://hips.hedera.com/hip/hip-351">HIP-351</a>.<br>Network: <code>previewnet</code></p>                                                                                            |
 
 **Transaction Signing Requirements**
 
@@ -37,7 +40,7 @@ You can request a transaction record for up to 3 minutes after a transaction has
 
 | **Method**                          | **Type**      | **Requirement** |
 | ----------------------------------- | ------------- | --------------- |
-| `setTransactionId(<transactionId>)` | TransactionID | Required        |
+| `setTransactionId(<transactionId>)` | TransactionId | Required        |
 | `setIncludeChildren(<value>)`       | boolean       | Optional        |
 | `setIncludeDuplicates(<value>)`     | boolean       | Optional        |
 
@@ -67,8 +70,6 @@ hedera.NewTransactionRecordQuery().
 {% endtab %}
 {% endtabs %}
 
-
-
 ### Methods
 
 {% tabs %}
@@ -90,6 +91,9 @@ hedera.NewTransactionRecordQuery().
 | `<TransactionRecord>.automaticTokenAssociations` | List\<TokenAssociation>                     | Optional        |
 | `<TransactionRecord>.ethereumHash`               | ByteString                                  | Optional        |
 | `<TransactionRecord>.parentConsensusTimestamp`   | Instant                                     | Optional        |
+| `<TransactionRecord>.paidStakingRewards`         | List\<Transfer>                             | Optional        |
+| `<TransactionRecord>.prngBytes`                  | ByteString                                  | Optional        |
+| `<TransactionRecord>.prngNumber`                 | Integer                                     | Optional        |
 
 {% code title="Java" %}
 ```java
@@ -148,7 +152,7 @@ fmt.Printf("The transaction record is %v\n", record)
 ```
 {% endcode %}
 
-#### Sample Output:
+**Sample Output:**
 
 ```
 TransactionRecord{

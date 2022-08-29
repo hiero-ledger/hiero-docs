@@ -3,7 +3,7 @@
 A transaction that creates a new file on a Hedera network. The file is referenced by its file ID which can be obtained from the receipt or record once the transaction reaches consensus on a Hedera network. The file does not have a file name. If the file is too big to create with a single `FileCreateTransaction()`, the file can be appended with the remaining content multiple times using the `FileAppendTransaction()`.
 
 {% hint style="info" %}
-The maximum file size is 1,024 kB.&#x20;
+The maximum file size is 1,024 kB.
 {% endhint %}
 
 **Transaction Signing Requirements**
@@ -35,7 +35,7 @@ new FileCreateTransaction()
 ```
 
 {% hint style="info" %}
-The default max transaction fee (1 hbar) is not enough to create a a file. Use `setMaxTransactionFee()`to change the default max transaction fee from 1 hbar to 2 hbars.&#x20;
+The default max transaction fee (1 hbar) is not enough to create a a file. Use `setDefaultMaxTransactionFee()`to change the default max transaction fee from 1 hbar to 2 hbars.
 {% endhint %}
 
 {% tabs %}
@@ -241,29 +241,6 @@ transaction := hedera.NewFileCreateTransaction().
 
 //Get the file contents
 getContents := transaction.GetContents()
-```
-{% endcode %}
-{% endtab %}
-
-{% tab title="V1" %}
-| Method                            | Type               | Description                                                                                                     | Requirement |
-| --------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------- | ----------- |
-| `addKey(<key>)`                   | ​Ed25519PublicKey​ | The public key of the owner of the file                                                                         |             |
-| `setContents(<contents>)`         | bytes\[]           | The file contents                                                                                               |             |
-| `setExpirationTime(<expiration>)` | Instant            | The time at which this file should expire (unless FileUpdateTransaction is used before then to extend its life) |             |
-
-{% code title="Java" %}
-```java
-```
-{% endcode %}
-
-{% code title="JavaScript" %}
-```java
-```
-{% endcode %}
-
-{% code title="Go" %}
-```java
 ```
 {% endcode %}
 {% endtab %}

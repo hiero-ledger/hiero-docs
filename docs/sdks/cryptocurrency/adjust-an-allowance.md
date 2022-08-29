@@ -1,9 +1,5 @@
 # Delete an allowance
 
-{% hint style="info" %}
-This feature is available on previewnet and testnet as part of the 0.25 release.
-{% endhint %}
-
 A transaction called by the token owner to delete allowances for NFTs only. In order to delete an existing hbar or fungible token allowance the `AccountAllowanceApproveTransaction` API should be used with an `amount` of 0.
 
 The total number of NFT serial number deletions contained within the transaction body cannot exceed 20.
@@ -27,9 +23,9 @@ The total number of NFT serial number deletions contained within the transaction
 
 ### Methods
 
-| **Method**                                          | **Type**                                                                     | **Description**                                     |
-| --------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------- |
-| `deleteAllNftAllowances(<nftId>, <ownerAccountId>)` | <p>NFT ID, <br><a href="../specialized-types.md#accountid">AccountId</a></p> | Removes the NFT allowance from the spender account. |
+| **Method**                                          | **Type**                                                                    | **Description**                                     |
+| --------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------- |
+| `deleteAllNftAllowances(<nftId>, <ownerAccountId>)` | <p>NFT ID,<br><a href="../specialized-types.md#accountid">AccountId</a></p> | Removes the NFT allowance from the spender account. |
 
 {% tabs %}
 {% tab title="Java" %}

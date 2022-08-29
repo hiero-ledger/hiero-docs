@@ -26,14 +26,14 @@ HCS message size: 1024 bytes
 new TopicMessageSubmitTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                  | Type       | Description                           | Requirement |
 | ----------------------- | ---------- | ------------------------------------- | ----------- |
 | `setTopicId(<topicId>)` | TopicId    | The topic ID to submit the message to | Required    |
 | `setMessage(<message>)` | String     | The message in a String format        | Optional    |
 | `setMessage(<message>)` | byte \[ ]  | The message in a byte array format    | Optional    |
-| `setMessage(<message>)` | ByteString | The message in a  ByteString format   | Optional    |
+| `setMessage(<message>)` | ByteString | The message in a ByteString format    | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -105,7 +105,7 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 new ConsensusMessageSubmitTransaction()
 ```
 
-### Methods
+#### Methods
 
 | Method                                                                                                                 | Type                    | Description                                                                                                                                                                                                                                     | Requirement |
 | ---------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |

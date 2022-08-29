@@ -17,7 +17,7 @@ Subscribe to a topic ID's messages from a mirror node. You will receive all mess
 new TopicMessageQuery()
 ```
 
-## Methods
+### Methods
 
 | Method                       | Type               | Description                                         | Requirement |
 | ---------------------------- | ------------------ | --------------------------------------------------- | ----------- |
@@ -83,7 +83,7 @@ if err != nil {
 new MirrorConsensusTopicQuery()
 ```
 
-## Methods
+### Methods
 
 | Method                                     | Type                                                                         | Description                                         | Requirement |
 | ------------------------------------------ | ---------------------------------------------------------------------------- | --------------------------------------------------- | ----------- |
@@ -91,7 +91,7 @@ new MirrorConsensusTopicQuery()
 | `setStartTime(<startTime>)`                | Instant                                                                      | The time to start subscribing to a topic's messages | Optional    |
 | `setEndTime(<endTime>)`                    | Instant                                                                      | The time to stop subscribing to a topic's messages  | Optional    |
 | `setLimit(<limit>)`                        | long                                                                         | The number of messages to return                    | Optional    |
-| `subscribe(<mirrorClient, onNext onError)` | MirrorClient, Consumer \<MirrorConsensusTopicResponse>, Consumer\<Throwable> | Subscribe and get the  messages for a topic         | Required    |
+| `subscribe(<mirrorClient, onNext onError)` | MirrorClient, Consumer \<MirrorConsensusTopicResponse>, Consumer\<Throwable> | Subscribe and get the messages for a topic          | Required    |
 
 {% code title="Java" %}
 ```java

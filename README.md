@@ -7,11 +7,11 @@ Hedera is a public distributed ledger for building and deploying decentralized a
 The network is made up of permissioned nodes run by the [Hedera Governing Council](https://hedera.com/council), a group of term-limited enterprises that lead the network's direction. Over time the network will [move to a permissionless model](https://www.youtube.com/watch?v=QTNNYeSks-s).
 
 {% hint style="info" %}
-Hedera Token Service is now live on our networks. Learn more in the blog series, [Get started with the Hedera Token Service](https://hedera.com/blog/get-started-with-the-hedera-token-service-part-1). Hedera Token Service API information can be found in the SDK section [here](docs/hedera-api/token-service/).&#x20;
+Hedera Token Service is now live on our networks. Learn more in the blog series, [Get started with the Hedera Token Service](https://hedera.com/blog/get-started-with-the-hedera-token-service-part-1). Hedera Token Service API information can be found in the SDK section [here](docs/sdks/tokens/).
 {% endhint %}
 
 {% hint style="info" %}
-Ready to submit your first transaction to a Hedera network? Visit our [Getting Started ](getting-started/introduction.md)section to learn the basics of how to create an account and transfer hbars :boom: .&#x20;
+Ready to submit your first transaction to a Hedera network? Visit our [Getting Started ](getting-started/introduction.md)section to learn the basics of how to create an account and transfer hbars :boom: .
 {% endhint %}
 
 #### What is hashgraph?
@@ -78,9 +78,9 @@ All of the markdown files and images are stored in the hashgraph/hedera-docs rep
 If you find something that needs to be fixed, updated, or would like to publish additional content to the docs site you may do so by the following methods:
 
 * Log an issue
-  * You may submit an issue directly on `hedera-docs` repository&#x20;
-* Create a pull request&#x20;
-  * Fork the repository and submit a pull request that includes the suggested updates&#x20;
+  * You may submit an issue directly on `hedera-docs` repository
+* Create a pull request
+  * Fork the repository and submit a pull request that includes the suggested updates
 
 Issues and pull requests will be reviewed by the Hedera team.&#x20;
 {% hint style="info" %}

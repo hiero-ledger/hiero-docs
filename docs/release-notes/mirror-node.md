@@ -8,6 +8,234 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.61](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.61.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: AUGUST 2, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: JULY 27, 2022**
+{% endhint %}
+
+This release adds initial support for [HIP-513](https://hips.hedera.com/hip/hip-513) Smart Contract Traceability Extension. Contract traceability information is now available inside an optional sidecar file uploaded separately to cloud storage. Mirror node operators can choose whether to download this extra information by configuring the `hedera.mirror.importer.parser.record.sidecar` properties on the importer. By default, sidecar files will not be downloaded. Enabling it will permit contract state, actions, and bytecode data to be persisted by the mirror node. HIP-513 support is incomplete in this release and the next release will enable full persistence of all sidecar types.
+
+The transactions REST API now supports multiple `transactiontype` query filters to simplify searches across types.
+
+The version of the mirror node in [GCP Marketplace](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node?project=mirrornode-non-prod-314918) was updated to v0.60.0. This required migration to the new GCP Producer Portal which should help streamline future version updates.
+
+The monitor components saw an option added to retrieve the address book on startup. This avoids having to configure the list of nodes to monitor manually in pre-production environments and ensure the list of nodes is up to date. The monitor now uses OpenAPI generated models to dog food our OpenAPI schema. We also added an option to the monitor to set the max memo length property for published transactions.
+
+## [v0.60](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.60.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: JULY 18, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: JULY 14, 2022**
+{% endhint %}
+
+The two big features of this release are support for a data retention period and HIP-351 pseudorandom number generation.
+
+On public networks, mirror nodes can generate tens of gigabytes worth of data every day and this rate is only projected to increase. Mirror nodes now support an optional data [retention period](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#retention) that is disabled by default. When enabled, the retention job purges historical data beyond a configured time period. By reducing the overall amount of data in the database it will reduce operational costs and improve read/write performance. Only insert-only data associated with balance or transaction data is deleted. Cumulative entity information like accounts, contracts, etc. are not deleted.
+
+[HIP-351](https://hips.hedera.com/hip/hip-351) adds a pseudorandom number generator transaction. The mirror node now persists this `PrngTransaction` type including the pseudorandom number or the bytes it generates. A future release will expose this information on the REST API.
+
+There were various other improvements in this release. Block numbers are now migrated to be consistent with other mirror nodes regardless of their configured start date when it receives the first v6 record file with the canonical block number from consensus nodes. We added the reward rate at the start of the staking period to the nodes REST API. Rosetta now shows fee crypto transfers operation type as `FEE`. Rosetta also shows account aliases as account addresses in Rosetta DATA API response.
+
+## [v0.59](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.59.0)
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: JUNE 29, 2022**
+{% endhint %}
+
+The previous release saw support for the persistence of [HIP-406](https://hips.hedera.com/HIP/hip-406.html) staking-related data. Staking persistence saw further fine-tuning in this release to adapt to changes in the `NodeStakeUpdateTransaction` protobuf. The `decline_reward`, `staked_account_id`, `staked_node_id` fields were added to `/api/v1/accounts` and `/api/v1/accounts/{id}` to show account-level staking properties. We also added staking related fields to the existing `/api/v1/network/nodes` REST API (see example below).
+
+`GET /api/v1/network/nodes`
+
+```
+{
+  "nodes": [
+    {
+      "description": "address book 1",
+      "file_id": "0.0.102",
+      "max_stake": 50000,
+      "memo": "0.0.4",
+      "min_stake": 1000,
+      "node_account_id": "0.0.4",
+      "node_cert_hash": "0x01d...",
+      "node_id": 1,
+      "public_key": "0x4a...",
+      "service_endpoints": [],
+      "stake": 20000,
+      "stake_not_rewarded": 19900,
+      "stake_rewarded": 100,
+      "stake_total": 100000,
+      "staking_period": {
+        "from": "1655164800.000000000",
+        "to": "1655251200.000000000"
+      },
+      "timestamp": {
+        "from": "16552512001.000000000",
+        "to": null
+      }
+    }
+  ],
+  "links": {
+    "next": null
+  }
+}
+```
+
+Support for the new record file v6 format as defined in [HIP-435](https://hips.hedera.com/HIP/hip-435.html) was added in this release. Record file v6 adds block number as well as support for the new sidecar record files that carry detailed contract traceability information that mirror nodes can optionally choose to download. The record and signature files are now in a more maintainable protobuf format that should make them easier to enhance with new fields in the future without requiring breaking changes. Also, the v6 record files will now be compressed which should translate into reduced network and storage costs while potentially improving performance. Once v6 is enabled in a future hedera-service's release, mirror node operators will be required to update to a version that supports the new v6 format to avoid downtime.
+
+Rosetta saw a number of improvements this release to better align it with the Rosetta specification. A configurable valid duration seconds option was added to the transaction construction API to support customization of this value. Support for a consistent block number regardless of `startDate` was added in Rosetta now that Hedera has a consistent block as defined in [HIP-415](https://hips.hedera.com/HIP/hip-415.html). A `0x` prefix was added to alias addresses returned via the API to denote that the data is hex-encoded.
+
+## [v0.58](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.58.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: JUNE 22, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: JUNE 16, 2022**
+{% endhint %}
+
+This release contains support for HIP-406 Staking, HIP-410 Wrapped Ethereum Transaction, and HIP-482 JSON-RPC Relay as well as a long overdue upgrade to Java 17.
+
+[HIP-406 Staking](https://hips.hedera.com/HIP/hip-406.html) is coming and the mirror node is getting ready for it. This release we added persistence support to store staking information. In the next release, we'll expose this information via our APIs.
+
+[HIP-410](https://hips.hedera.com/HIP/hip-410.html) and [HIP-482](https://hips.hedera.com/HIP/hip-482.html) are both intended to improve the onramp for existing Ethereum developers. Towards that end, we added pagination support to both of the contract logs REST APIs. You can now page through logs via a combination of a consensus timestamp and log index parameters. The new blocks REST APIs also saw new `gas_used` and `logs_bloom` fields added that show the aggregated values for all transactions within the block. Finally, we added a new network fee schedule REST API. Currently, it only exposes the gas price for `ContractCall`, `ContractCreate`, and `EthereumTransaction` types in tinybars.
+
+`GET /api/v1/network/fees`
+
+```
+{
+  "fees": [
+    {
+      "gas": 35561,
+      "transaction_type": "ContractCall"
+    },
+    {
+      "gas": 481934,
+      "transaction_type": "ContractCreate"
+    },
+    {
+      "gas": 35561,
+      "transaction_type": "EthereumTransaction"
+    }
+  ],
+  "timestamp": "1633392000.387357562"
+}
+```
+
+Since mirror node's inception in 2019, it has used Java 11 to build and run due to it being the most recent LTS release. After Java 17 LTS was released in September 2021 we knew we wanted to upgrade. With this release we upgraded to 17 after validating that the mirror node was still functional and performant. If you're using our official container images, they are also on Java 17 so there will be no migration necessary besides updating the image. If you're running outside of a container, you'll need to either upgrade your JRE to 17 or rebuild the jar from source with `-Djava.version=11`.
+
+## [v0.57](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.57.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: MAY 25, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: MAY 25, 2022**
+{% endhint %}
+
+This release is focused on adding the necessary data and APIs needed for the JSON-RPC Relay defined in [HIP-482](https://hips.hedera.com/hip/hip-482). The JSON-RPC Relay implements the Ethereum JSON-RPC [standard](https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/ethereum/eth1.0-apis/assembled-spec/openrpc.json) and relays [HIP-410 Ethereum transactions](https://hips.hedera.com/HIP/hip-410) to consensus nodes. Since the concept of a block is crucial for JSON-RPC APIs, this release also contains the implementation of [HIP-415 Introduction of Blocks](https://hips.hedera.com/hip/hip-415).
+
+The mirror node now exposes the concept of blocks as introduced in [HIP-415](https://hips.hedera.com/hip/hip-415#mirror-nodes). We now calculate and store the cumulative gas used and the contract log bloom filter for the block as a whole. This HIP defines three new REST APIs and this release includes all three: a list blocks REST API, a get blocks REST API, and a list contract results REST API. The new `/api/v1/blocks` API supports the usual `limit` and `order` query parameters along with `timestamp` and `block.number` to support equality and range operators for consensus timestamps and block numbers, respectively. The `/api/v1/blocks/{hashOrNumber}` is identical to the list blocks but only returns a single block by either its block hash or its block number. Finally, a `/api/v1/contracts/results` REST API was added that is identical to the existing `/api/v1/contracts/{id}/results` but able to search across contracts.
+
+`GET /api/v1/blocks`
+
+```
+{
+  "blocks": [{
+    "count": 4,
+    "gas_limit": 150000000,
+    "gas_used": 50000000,
+    "hapi_version": "0.24.0",
+    "hash": "0xa4ef824cd63a325586bfe1a66396424cd33499f895db2ce2292996e2fc5667a69d83a48f3883f2acab0edfb6bfeb23c4",
+    "logs_bloom": "0x549358c4c2e573e02410ef7b5a5ffa5f36dd7398",
+    "name": "2022-04-07T16_59_23.159846673Z.rcd",
+    "number": 19533336,
+    "previous_hash": "0x4fbcefec4d07c60364ac42286d5dd989bc09c57acc7370b46fa8860de4b8721e63a5ed46addf1564e4f8cd7b956a5afa",
+    "size": 8489,
+    "timestamp": {
+      "from": "1649350763.159846673",
+      "to": "1649350763.382130000"
+    }
+  }],
+  "links": {
+    "next": null
+  }
+}
+```
+
+`GET /api/v1/blocks/{hashOrNumber}`
+
+```
+{
+  "count": 4,
+  "gas_limit": 150000000,
+  "gas_used": 50000000,
+  "hapi_version": "0.24.0",
+  "hash": "0xa4ef824cd63a325586bfe1a66396424cd33499f895db2ce2292996e2fc5667a69d83a48f3883f2acab0edfb6bfeb23c4",
+  "logs_bloom": "0x549358c4c2e573e02410ef7b5a5ffa5f36dd7398",
+  "name": "2022-04-07T16_59_23.159846673Z.rcd",
+  "number": 19533336,
+  "previous_hash": "0x4fbcefec4d07c60364ac42286d5dd989bc09c57acc7370b46fa8860de4b8721e63a5ed46addf1564e4f8cd7b956a5afa",
+  "size": 8489,
+  "timestamp": {
+    "from": "1649350763.159846673"
+    "to": "1649350763.382130000"
+  }
+}
+```
+
+A number of changes were made in support of [HIP-410 Ethereum Transactions](https://hips.hedera.com/hip/hip-410#mirror-node). The `/api/v1/accounts/{idOrAlias}` REST API was updated to accept an EVM address as a path parameter in lieu of an ID or alias. An `ethereum_nonce` and `evm_address` was added to the response of `/api/v1/accounts/{idOrAliasOrAddress}` and `/api/v1/accounts`. The existing `/api/v1/contracts/results/{transactionId}` was updated to accept the 32 byte Ethereum transaction hash as a path parameter in addition to the transaction ID that it supports now. Its response, as well as the similar `/api/v1/contracts/{idOrAddress}/results/{timestamp}`, was updated to add the following new Ethereum transaction fields:
+
+```
+{
+  "access_list": "0xabcd...",
+  "block_gas_used": 564684,
+  "chain_id": "0x0127",
+  "gas_price": "0xabcd...",
+  "max_fee_per_gas": "0xabcd...",
+  "max_priority_fee_per_gas": "0xabcd...",
+  "nonce": 1,
+  "r": "0x84f0...",
+  "s": "0x5e03...",
+  "transaction_index": 1,
+  "type": 2,
+  "v": 0
+}
+```
+
+_Note: Existing fields omitted for brevity._
+
+A new exchange rate REST API `/api/v1/network/exchangerate` was added that returns the [exchange rate](https://github.com/hashgraph/hedera-protobufs/blob/main/services/exchange\_rate.proto) network file stored in `0.0.112`. It supports a `timestamp` parameter to retrieve the exchange rate at a certain time in the past.
+
+```
+{
+  "current_rate": {
+    "cent_equivalent": 596987
+    "expiration_time": 1649689200
+    "hbar_equivalent": 30000
+  },
+  "next_rate": {
+    "cent_equivalent": 594920
+    "expiration_time": 1649692800
+    "hbar_equivalent": 30000
+  },
+  "timestamp": "1649689200.123456789"
+}
+```
+
+A new `/api/v1/contracts/results/logs` API was added with the same query parameters and response as `/api/v1/contracts/{address}/results/logs` but with the ability to search across contracts. It does not support address as a query parameter as it’s expected users use the existing API if they need logs for a specific address. The same rules around not exceeding `maxTimestampRange` still applies and allows it to stay performant. Pagination is possible using a combination of the timestamp and index query parameters.
+
+Finally, this releases completes our implementation of [HIP-423 Long Term Scheduled Transactions](https://hips.hedera.com/hip/hip-423). Two new fields `wait_for_expiry` and `expiration_time` were added to `/api/v1/schedules` and `/api/v1/schedules/{id}`
+
 ## [v0.56](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.56.0)
 
 {% hint style="success" %}
@@ -1553,8 +1781,8 @@ Also, we moved the persist properties to be grouped under a new path. That is we
 
 ## [v0.6.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.6.0)
 
-* Release focused on stability and performance improvements.&#x20;
-* End to end test coverage.&#x20;
+* Release focused on stability and performance improvements.
+* End to end test coverage.
 
 This release was mainly focused on enhancing the stability and performance of the mirror node. We improved the transaction ingestion speed from 600 to about 4000 transactions per second. At the same time, we greatly improved the resiliency and performance of the GRPC module. We also added acceptance tests to test out HCS end to end.
 
@@ -1564,9 +1792,9 @@ Please note that one potentially breaking change in this release is to reject su
 
 ## v0.5.3
 
-* Now supports all HCS functionality including a streaming gRPC API for message topic subscription.&#x20;
+* Now supports all HCS functionality including a streaming gRPC API for message topic subscription.
 * Changed how the mirror node verifies mainnet consensus. Mirror node now waits for at least third of node signatures rather than greater than two thirds to verify consensus.
 * Added new mainnet nodes to the mirror node address book.
 * Access still restricted to a white listed set of IP addresses. Request access [here](https://learn.hedera.com/l/576593/2020-01-13/7z5jb).
 * Please see the Mirror Node releases page for the full list of changes [here](https://github.com/hashgraph/hedera-mirror-node/releases).
-* We occasionally may encounter a situation where an additional 15-20 second delay in message round trip time is experienced and subscriber connections are dropped. No messages are lost, and the consensus time is not affected. Clients are encouraged to reconnect. This issue will be fixed in a subsequent release of the Hedera mirror node. Some third-party mirror nodes should not be affected by this issue. We also don't expect it to impact the exchanges using the REST end point for the mirror node.&#x20;
+* We occasionally may encounter a situation where an additional 15-20 second delay in message round trip time is experienced and subscriber connections are dropped. No messages are lost, and the consensus time is not affected. Clients are encouraged to reconnect. This issue will be fixed in a subsequent release of the Hedera mirror node. Some third-party mirror nodes should not be affected by this issue. We also don't expect it to impact the exchanges using the REST end point for the mirror node.

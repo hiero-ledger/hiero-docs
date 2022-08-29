@@ -7,8 +7,8 @@
   * Check to see if you have it installed from your terminal: `docker --version && docker-compose --version`
   * For mirror node versions 0.35.0 and higher you will need docker v3.3.3+
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Hedera Mirror Node Repository](https://github.com/hashgraph/hedera-mirror-node)&#x20;
-  * You will be prompted to download the repo in the following steps&#x20;
+* [Hedera Mirror Node Repository](https://github.com/hashgraph/hedera-mirror-node)
+  * You will be prompted to download the repo in the following steps
 
 ## 1. Create an IAM user
 
@@ -16,53 +16,53 @@
 Create an IAM user with either an administrator or custom policy.
 {% endhint %}
 
-### **Administrator Policy**&#x20;
+### **Administrator Policy**
 
-* Refer to AWS documentation to create an IAM user with administrator policy [here ](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started\_create-admin-group.html)
-  * This sets up an IAM user with Administrator Access Policy&#x20;
-  * This user has full access and can delegate permissions to every service and resource in AWS.&#x20;
+* Refer to AWS documentation to create an IAM user with administrator policy [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started\_create-admin-group.html)
+  * This sets up an IAM user with Administrator Access Policy
+  * This user has full access and can delegate permissions to every service and resource in AWS.
 * Once that is complete, select **Users** from the left IAM navigation bar
 * Select the **Administrator** from the **User name** column
 * Select the **Security credentials** tab
 * Select **Create access key**
-* Copy or download your **Access key ID** and **Secret access key** &#x20;
+* Copy or download your **Access key ID** and **Secret access key**
 
-### **Custom Policy**&#x20;
+### **Custom Policy**
 
 * Enable access to billing data
   * Follow step 2 [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started\_create-admin-group.html)
-* From the IAM left navigation bar select **Polices**&#x20;
+* From the IAM left navigation bar select **Polices**
 * Click on **Create policy**
-  * Service&#x20;
+  * Service
     * Enter **S3** as your service
   * Actions
-    * Access level&#x20;
-    * Select **List** and **Read**&#x20;
-* Resources&#x20;
-  * Select **Specify bucket resource ARN for the GetBucketLocation**&#x20;
-  * Add ARN&#x20;
-    * hedera-mainnet-streams&#x20;
-  * Add ARN&#x20;
-    * hedera-mainnet-streams/\*&#x20;
+    * Access level
+    * Select **List** and **Read**
+* Resources
+  * Select **Specify bucket resource ARN for the GetBucketLocation**
+  * Add ARN
+    * hedera-mainnet-streams
+  * Add ARN
+    * hedera-mainnet-streams/\*
 * Click **Next:Tags**
-* Click **Next: Review**&#x20;
+* Click **Next: Review**
   * Enter a name for the policy
-* Click **Create policy**&#x20;
-* From the left navigation bar on the IAM console select **User** **Groups**&#x20;
-* Click **Create group**&#x20;
+* Click **Create policy**
+* From the left navigation bar on the IAM console select **User** **Groups**
+* Click **Create group**
 * Enter a user group name
-* Select the policy that was created in the previous step&#x20;
-* Click **Create Group**&#x20;
-* Click **Users** from the IAM console left navigation bar&#x20;
-* Click on **Add user** &#x20;
-* Enter username&#x20;
-* Select **Programmatic access for Access type**&#x20;
-* Click **Next: Permissions**&#x20;
-* Select the group that was created in the previous step&#x20;
-* Click **Next: Tags**&#x20;
-* Click **Next: Review**&#x20;
-* Click **Create user**&#x20;
-* Copy or download your **Access key ID** and **Secret access key**&#x20;
+* Select the policy that was created in the previous step
+* Click **Create Group**
+* Click **Users** from the IAM console left navigation bar
+* Click on **Add user**
+* Enter username
+* Select **Programmatic access for Access type**
+* Click **Next: Permissions**
+* Select the group that was created in the previous step
+* Click **Next: Tags**
+* Click **Next: Review**
+* Click **Create user**
+* Copy or download your **Access key ID** and **Secret access key**
 
 ## 2. Install the mirror node repository
 
