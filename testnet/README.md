@@ -27,7 +27,7 @@ Once your application has been built and tested in this test environment you can
 
 ### Test Network Resets
 
-The mirror node and consensus node test network are scheduled to reset once a quarter starting July 2022. When a testnet reset occurs all account, token, contract, topic, schedule, and file data are wiped.
+The mirror node and consensus node test network are scheduled to reset once a quarter. When a testnet reset occurs all account, token, contract, topic, schedule, and file data are wiped.
 
 Developers will no longer have access to the state data from test network consensus nodes. For example, you will not be able to perform transactions or queries on an account that existed before the reset.
 
@@ -37,14 +37,12 @@ What you should do:
 
 * Take note of the upcoming reset dates
 * Have the ability to recreate test data for your application to minimize interruptions
-* After the reset, you will need to visit the [Hedera Developer Portal](https://portal.hedera.com/register) to get a new testnet account information
+* After the reset, you will need to visit the [Hedera Developer Portal](https://portal.hedera.com/register) to get your new testnet account keys
 * Subscribe to the [Hedera status page](https://status.hedera.com/) to receive reset notifications
 
 If you have any questions or concerns, please connect with us via [Discord](https://discord.com/invite/EC2GY8ueRk).
 
 **Reset Dates 2022**
-
-* July 28, 2022
 * Oct 27, 2022
 
 ### Test Network Throttles
