@@ -1,9 +1,13 @@
 # Transfer cryptocurrency
 
-A transaction that transfers hbars and tokens between Hedera accounts. You can enter multiple transfers in a single transaction. The net value of hbars between the sending accounts and receiving accounts must equal zero.
+A transaction that transfers hbars and tokens between Hedera accounts. You can enter multiple transfers in a single transaction. The net value of hbars between the sending accounts and receiving accounts must equal zero.\
+For a CryptoTransferTransactionBody:
 
 {% hint style="warning" %}
-* The maximum allowable balance adjustment in a single transfer transaction is 20. A debit from one account and credit to another account equals two balance adjustments.
+* A max of 10 balance adjustments in its hbar transferList
+* A max of 10 token fungible balance adjustments across all its tokenTransferList’s&#x20;
+* A max of 10 NFT ownership changes across all its tokenTransferList’s&#x20;
+* There’s also a maximum of 20 balance adjustments or NFT ownership changes implied by a transaction (including custom fees)
 * If you are transferring a token with custom fees, only two levels of nesting of fees are allowed
 * The sending account is responsible to pay for the custom token fees
 {% endhint %}

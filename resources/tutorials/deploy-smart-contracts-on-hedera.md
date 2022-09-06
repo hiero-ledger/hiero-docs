@@ -20,6 +20,10 @@ How to Deploy Smart Contracts on Hedera Using Truffle
 How to Send and Receive HBAR Using Smart Contracts – Part 1: Using the SDK
 {% endembed %}
 
+{% embed url="https://hedera.com/blog/how-to-send-and-receive-hbar-using-smart-contracts-part-2-solidity" %}
+How to Send and Receive HBAR Using Smart Contracts – Part 2: Using Solidity
+{% endembed %}
+
 ## Working with Smart Contracts
 
 {% embed url="https://hedera.com/blog/how-to-use-hethers-js-to-deploy-smart-contracts-on-hedera" %}

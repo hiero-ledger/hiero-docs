@@ -7,7 +7,7 @@ Hedera is a public distributed ledger for building and deploying decentralized a
 The network is made up of permissioned nodes run by the [Hedera Governing Council](https://hedera.com/council), a group of term-limited enterprises that lead the network's direction. Over time the network will [move to a permissionless model](https://www.youtube.com/watch?v=QTNNYeSks-s).
 
 {% hint style="info" %}
-Hedera Token Service is now live on our networks. Learn more in the blog series, [Get started with the Hedera Token Service](https://hedera.com/blog/get-started-with-the-hedera-token-service-part-1). Hedera Token Service API information can be found in the SDK section [here](docs/sdks/tokens/).
+Hedera Token Service is now live on our networks. Learn more in the blog series, [Get started with the Hedera Token Service](https://hedera.com/blog/get-started-with-the-hedera-token-service-part-1). Hedera Token Service API information can be found in the SDK section [here](docs/hedera-api/token-service/).
 {% endhint %}
 
 {% hint style="info" %}

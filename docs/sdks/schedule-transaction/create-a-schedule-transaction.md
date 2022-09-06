@@ -1,7 +1,6 @@
 # Create a scheduled transaction
 
 {% hint style="info" %}
-`setExpirationTime(expirationTime)`\
 TokenTransfer, ConsensusSubmitMessage, TokenMint and TokenBurn transactions are the transaction types that can be scheduled. Additional schedulable transactions will be added in future releases.
 {% endhint %}
 

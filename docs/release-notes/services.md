@@ -8,15 +8,21 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Upcoming Releases
 
-## [v0.29.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.29.0)
+## [v0.29](https://github.com/hashgraph/hedera-services/releases/tag/v0.29.0)
 
 {% hint style="info" %}
-**MAINNET UPDATE: SEPTEMBER 15, 2022**
+**MAINNET UPDATE: SEPTEMBER 20, 2022**
 {% endhint %}
 
 {% hint style="info" %}
+**TESTNET UPDATE: SEPTEMBER 7, 2022**
+{% endhint %}
+
+{% hint style="success" %}
 **TESTNET UPDATE: AUGUST 30, 2022**
 {% endhint %}
+
+###
 
 ### Contract-managed tokens 🪙
 
@@ -259,7 +265,7 @@ Please also note the following deprecations in the Hedera API protobufs:
 * The [<mark style="color:purple;">`ContractUpdateTransactionBody.fileID`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L82), which is redundant given the existence of the [<mark style="color:purple;">`ContractGetBytecode`</mark> <mark style="color:purple;">quer</mark>y](https://github.com/hashgraph/hedera-protobufs/blob/main/services/smart\_contract\_service.proto#L63).
 * The [<mark style="color:purple;">`ContractCallLocalQuery.maxResultSize`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_call\_local.proto#L136), as this limit is now simply a side-effect of the given gas limit.
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1) (1) (1).jpeg>)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1) (1) (2).jpeg>)
 
 ## [v0.19.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.4)
 
@@ -329,7 +335,7 @@ Developers will likely appreciate two other release 0.18.0 items. First, we have
 
 **Performance Measurement Results:**
 
-![](<../../.gitbook/assets/Performance Measurement Results.jpeg>)
+![](../../.gitbook/assets/performance-measurement-results.jpeg)
 
 ## [v0.17.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.17.3)
 
