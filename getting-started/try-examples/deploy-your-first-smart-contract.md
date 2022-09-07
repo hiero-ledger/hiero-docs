@@ -1,12 +1,12 @@
 # Deploy Your First Smart Contract
 
-![](<../../.gitbook/assets/Screen Shot 2021-12-01 at 2.26.12 PM (1).png>)
+![](<../../.gitbook/assets/Screen Shot 2021-12-01 at 2.26.12 PM.png>)
 
 ## Summary
 
-In this tutorial, you will learn how to create a simple smart contract on Hedera using Solidity.&#x20;
+In this tutorial, you will learn how to create a simple smart contract on Hedera using Solidity.
 
-We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.&#x20;
+We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
 {% content-ref url="../environment-set-up.md" %}
 [environment-set-up.md](../environment-set-up.md)
@@ -628,3 +628,7 @@ Want to see more examples? Check out the following:
 **YouTube**
 
 {% embed url="https://www.youtube.com/watch?amp%3Bt=24s&v=L9Tm6yn_ayY" %}
+{% hint style="info" %}
+Have a question?
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
+{% endhint %}

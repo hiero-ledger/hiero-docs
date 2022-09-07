@@ -18,8 +18,11 @@ A transaction that allows you to modify the smart contract entity state like adm
 | Field                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Admin Key**                    | Sets the new admin key and its fields can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance. Note that if it is created with no admin keys, then there is no administrator to authorize changing the admin keys, so there can never be any admin keys for that instance. The bytecode will also be immutable. |
-| **Proxy Account**                | The ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking, or if it is not currently running a node, then it will behave as if proxyAccountID was null.                                                                  |
-| **Auto Renew Period**            | The new period that the instance will charge its account every this many seconds to renew.                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Expiration Time**              | The new expiry of the contract, no earlier than the current expiry (resolves to EXPIRATION\_REDUCTION\_NOT\_ALLOWED otherwise).                                                                                                                                                                                                                                                                                                                                                                   |
+| **Staked ID**                    | <p>The new node account ID or node ID this contract is being staked to. If set to the sentinel 1, this removes the contract's staked node ID. See <a href="https://hips.hedera.com/hip/hip-406">HIP-406.</a><br><br><strong>Note:</strong> Accounts cannot stake to contract accounts. This will fixed in a future release.</p>                                                                                                                                                                   |
+| **Decline Rewards**              | Updates the contract to decline receiving staking rewards if set to true. The default value is false. See [HIP-406.](https://hips.hedera.com/hip/hip-406)                                                                                                                                                                                                                                                                                                                                         |
+| **Auto Renew Period**            | The new period that the instance will charge its account every this many seconds to renew. (not enabled)                                                                                                                                                                                                                                                                                                                                                                                          |
+| **Auto Renew Account ID**        | If set to the sentinel 0.0.0 AccountID, this field removes the contract's auto-renew account. Otherwise it updates the contract's auto-renew account to the referenced account. (not enabled)                                                                                                                                                                                                                                                                                                     |
 | **Automatic Token Associations** | The maximum number of tokens that this contract can be automatically associated with (i.e., receive air-drops from).                                                                                                                                                                                                                                                                                                                                                                              |
 | **Memo**                         | The new memo to be associated with this contract.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
@@ -35,16 +38,19 @@ new ContractUpdateTransaction()
 
 {% tabs %}
 {% tab title="V2" %}
-| Method                                       | Type                                             | Requirement |
-| -------------------------------------------- | ------------------------------------------------ | ----------- |
-| `setContractId(<contractId>)`                | [ContractId](../specialized-types.md#contractid) | Required    |
-| `setAdminKey(<keys>)`                        | Key                                              | Optional    |
-| `setProxyAccountId(<accountId>`)             | [AccountId](../specialized-types.md#accountid)   | Optional    |
-| `setContractMemo(<memo>)`                    | String                                           | Optional    |
-| `setContractExpirationTime(<expirationTime)` | Instant                                          | Optional    |
-| `setMaxAutomaticTokenAssociations()`         | int                                              | Optional    |
-| `setContractMemo(<memo>)`                    | String                                           | Optional    |
-| `setAutoRenewPeriod(<autoRenewPeriod>)`      | Duration                                         | Optional    |
+| Method                                            | Type                                             | Requirement |
+| ------------------------------------------------- | ------------------------------------------------ | ----------- |
+| `setContractId(<contractId>)`                     | [ContractId](../specialized-types.md#contractid) | Required    |
+| `setAdminKey(<keys>)`                             | Key                                              | Optional    |
+| `setContractMemo(<memo>)`                         | String                                           | Optional    |
+| `setContractExpirationTime(<expirationTime)`      | Instant                                          | Optional    |
+| `setMaxAutomaticTokenAssociations()`              | int                                              | Optional    |
+| `setContractMemo(<memo>)`                         | String                                           | Optional    |
+| `setStakedAccountId(<stakedAccountId>)`           | AccountId                                        | Optional    |
+| `setStakedNodeId(<stakedNodeId>)`                 | long                                             | Optional    |
+| `setDeclineStakingReward(<declineStakingReward>)` | boolean                                          | Optional    |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`           | Duration                                         | Optional    |
+| `setAutoRenewAccountId(<accountId>)`              | AccountId                                        | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -187,14 +193,17 @@ System.out.println("The transaction consensus status is " +transactionStatus)
 
 {% tabs %}
 {% tab title="V2" %}
-| Method                 | Type                                             | Requirement |
-| ---------------------- | ------------------------------------------------ | ----------- |
-| `getContractId()`      | [ContractId](../specialized-types.md#contractid) | Required    |
-| `getAdminKey()`        | Key                                              | Optional    |
-| `getBytecodeFileId()`  | [FileId](../specialized-types.md#fileid)         | Optional    |
-| `getProxyAccountId()`  | [AccountId](../specialized-types.md#accountid)   | Optional    |
-| `getContractMemo()`    | String                                           | Optional    |
-| `getAutoRenewPeriod()` | Duration                                         | Optional    |
+| Method                      | Type                                             | Requirement |
+| --------------------------- | ------------------------------------------------ | ----------- |
+| `getContractId()`           | [ContractId](../specialized-types.md#contractid) | Required    |
+| `getAdminKey()`             | Key                                              | Optional    |
+| `getBytecodeFileId()`       | [FileId](../specialized-types.md#fileid)         | Optional    |
+| `getProxyAccountId()`       | [AccountId](../specialized-types.md#accountid)   | Optional    |
+| `getContractMemo()`         | String                                           | Optional    |
+| `getStakedAccountId()`      | AccountId                                        | Optional    |
+| `getStakedNodeId()`         | long                                             | Optional    |
+| `getDeclineStakingReward()` | boolean                                          | Optional    |
+| `getAutoRenewPeriod()`      | Duration                                         | Optional    |
 
 {% code title="Java" %}
 ```java

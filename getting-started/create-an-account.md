@@ -60,7 +60,7 @@ import (
 
 ## Step 2: Generate keys for the new account
 
-Generate a private and public key to associate to the account you will create.&#x20;
+Generate a private and public key to associate to the account you will create.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -110,7 +110,7 @@ newAccountPublicKey := newAccountPrivateKey.PublicKey()
 
 Create a new account using <mark style="color:purple;">`AccountCreateTransaction()`</mark>. Use the public key created in the previous step to enter in the `setKey()` field. This will associate the key pair generated in the previous step to the new account. The public key of the account is visible to the public and can be viewed in a mirror node explorer. The private key is used to authorize account related transactions like transferring hbars or tokens from that account to another account. The account will have an initial balance of 1,000 tinybar that is funded from your testnet account created by the Hedera portal.
 
-You can view transactions that were successfully submitted to the network by getting the transaction ID and searching for it in a mirror node explorer. The transaction ID is composed of the account ID that paid for the transaction and the transaction valid start time e.g. <mark style="color:blue;">`0.0.1234@1609348302 <ADD IN EXAMPLE>.`</mark> The transaction valid start time is the time the transaction begins to be valid on the network. The SDK automatically generates a transaction ID for each transaction behind the scenes.&#x20;
+You can view transactions that were successfully submitted to the network by getting the transaction ID and searching for it in a mirror node explorer. The transaction ID is composed of the account ID that paid for the transaction and the transaction valid start time e.g. <mark style="color:blue;">`0.0.1234@1609348302`</mark><mark style="color:blue;">.</mark> The transaction valid start time is the time the transaction begins to be valid on the network. The SDK automatically generates a transaction ID for each transaction behind the scenes.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -189,7 +189,7 @@ fmt.Printf("The new account ID is %v\n", newAccountId)
 
 ## Step 5: Verify the new account balance
 
-Next, you will submit a query to the Hedera test network to return the balance of the new account using the new account ID. The current account balance for the new account should be 1,000 tinybars. Getting the balance of an account is free today.&#x20;
+Next, you will submit a query to the Hedera test network to return the balance of the new account using the new account ID. The current account balance for the new account should be 1,000 tinybars. Getting the balance of an account is free today.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -229,8 +229,6 @@ if err != nil {
 //Print the balance of tinybars
 fmt.Println("The account balance for the new account is ", accountBalance.Hbars.AsTinybar())
 ```
-
-
 {% endtab %}
 {% endtabs %}
 
@@ -433,16 +431,7 @@ func main() {
 ```
 {% endtab %}
 {% endtabs %}
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% hint style="info" %}
+Have a question?
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
+{% endhint %}

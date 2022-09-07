@@ -2,10 +2,6 @@
 
 Update the custom fees for a given token. If the token does not have a fee schedule, the network response returned will be `CUSTOM_SCHEDULE_ALREADY_HAS_NO_FEES`. You will need to sign the transaction with the fee schedule key to update the fee schedule for the token. If you do not have a fee schedule key set for the token, you will not be able to update the fee schedule.
 
-{% hint style="danger" %}
-Will not be enabled with the 0.17 Hedera Services release. This transaction will be enabled in the following 0.18 Hedera Services release.
-{% endhint %}
-
 **Transaction Signing Requirements**
 
 * Fee schedule key
@@ -166,4 +162,3 @@ console.log("The transaction consensus status is " +transactionStatus);
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-

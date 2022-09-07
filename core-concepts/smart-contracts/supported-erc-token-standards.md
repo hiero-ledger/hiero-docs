@@ -20,7 +20,7 @@ Returns the symbol of the token.
 
 **decimals**
 
-<mark style="color:purple;background-color:purple;">`function decimals() public view returns (uint8)`</mark>
+<mark style="color:purple;">`function decimals() public view returns (uint8)`</mark>
 
 Returns the number of decimals the token uses.
 
@@ -42,25 +42,25 @@ Returns of the balance of the token in the specified account. The <mark style="c
 
 Transfer tokens from your account to a recipient account. The <mark style="color:purple;">`recipient`</mark> is the Hedera account ID <mark style="color:purple;">`0.0.x`</mark> in Solidity format or the evm address of a contract that has been created via `CREATE2` operation.
 
-**allowance (previewnet)**
+**allowance**&#x20;
 
 <mark style="color:purple;">`function allowance(address owner, address spender) external view returns (uint256)`</mark>
 
-Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through `transferFrom`. This is zero by default. This value changes when `approve` or `transferFrom` are called. This works by loading the owner `FUNGIBLE_TOKEN_ALLOWANCES` from the accounts ledger and returning the allowance approved for `spender` The `owner` and `spender` address are the account IDs (0.0.num) in solidity format.&#x20;
+Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through `transferFrom`. This is zero by default. This value changes when `approve` or `transferFrom` are called. This works by loading the owner `FUNGIBLE_TOKEN_ALLOWANCES` from the accounts ledger and returning the allowance approved for `spender` The `owner` and `spender` address are the account IDs (0.0.num) in solidity format.
 
-**approve (previewnet)**
+**approve**
 
 <mark style="color:purple;">`function approve(address spender, uint256 amount) external returns (bool)`</mark>
 
 Sets `amount` as the allowance of `spender` over the caller's tokens.
 
-This works by creating a synthetic `CryptoApproveAllowanceTransaction` with payer - the account that called the precompile (the message sender property of the message frame in the EVM).&#x20;
+This works by creating a synthetic `CryptoApproveAllowanceTransaction` with payer - the account that called the precompile (the message sender property of the message frame in the EVM).
 
 Fires an approval event with the following signature when executed:\
 event Approval(address indexed owner, address indexed spender, uint256 value);
 
 \
-**transferFrom (previewnet)**
+**transferFrom**&#x20;
 
 <mark style="color:purple;">`function transferFrom(address sender, address recipient, uint256 amount) external returns (bool)`</mark>
 
@@ -86,13 +86,13 @@ Returns balance of the HTS non fungible token from the account owner. The <mark 
 
 <mark style="color:purple;">`function ownerOf(uint256 _tokenId) external view returns (address)`</mark>
 
-Returns the account ID of the specified HTS token owner. The <mark style="color:purple;">`_tokenId`</mark> is the Hedera token ID <mark style="color:purple;">`0.0.x`</mark> in Solidity format.
+Returns the account ID of the specified HTS token owner. The `_tokenId` is the Hedera serial number of the NFT.
 
-**approve (previewnet)**
+**approve**
 
 <mark style="color:purple;">`function approve(address _approved, uint256 _tokenId) external payable`</mark>
 
-Gives the spender permission to transfer a token (`tokenId`) to another account from the owner. The approval is cleared when the token is transferred.
+Gives the spender permission to transfer a token (`_tokenId`) to another account from the owner. The approval is cleared when the token is transferred. The `_tokenId` is the Hedera serial number of the NFT.
 
 This works by creating a synthetic `CryptoApproveAllowanceTransaction` with payer - the account that called the precompile (the message sender property of the message frame in the EVM).
 
@@ -102,7 +102,7 @@ Fires an approval event with the following signature when executed:
 
 event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
 
-**setApprovalForAll (previewnet)**
+**setApprovalForAll**&#x20;
 
 <mark style="color:purple;">`function setApprovalForAll(address _operator, bool _approved) external`</mark>
 
@@ -110,15 +110,15 @@ Approve or remove an `operator` as an operator for the caller. Operators can cal
 
 This works by creating a synthetic `CryptoApproveAllowanceTransaction` with payer - the account that called the precompile (the message sender property of the message frame in the EVM).
 
-**getApproved (previewnet)**
+**getApproved**&#x20;
 
 <mark style="color:purple;">`function getApproved(uint256 _tokenId) external view returns (address)`</mark>
 
-Returns the account approved for the specified `tokenId`.
+Returns the account approved for the specified `_tokenId`. The `_tokenId` is the Hedera serial number of the NFT.
 
 This works by loading the `SPENDER` property of the token from the NFTs ledger.
 
-**isApprovedForAll (previewnet)**
+**isApprovedForAll**&#x20;
 
 <mark style="color:purple;">`function isApprovedForAll(address _owner, address _operator) external view returns (bool)`</mark>
 
@@ -126,11 +126,11 @@ Returns if the `operator` is allowed to manage all of the assets of `owner`.
 
 This works by loading the `APPROVE_FOR_ALL_NFTS_ALLOWANCES` property of the owner account and verifying if the list of approved for all accounts contains the account id of the `operator`.
 
-**transferFrom (previewnet)**
+**transferFrom**&#x20;
 
 <mark style="color:purple;">`function transferFrom(address _from, address _to, uint256 _tokenId) external payable`</mark>
 
-Transfers a token (`tokenId`) from a Hedera account (`from`) to another Hedera account (`to`) in solidity format.
+Transfers a token (`_tokenId`) from a Hedera account (`from`) to another Hedera account (`to`) in Solidity format. The `_tokenId` is the Hedera serial number of the NFT.
 
 This works by creating a synthetic `CryptoTransferTransaction` with nft token transfers with the `is_approval` property set to true.
 
@@ -152,7 +152,7 @@ Returns the symbol of the HTS non fungible token.
 
 <mark style="color:purple;">`function tokenURI(uint256 _tokenId) external view returns (string)`</mark>
 
-Returns the token metadata of the HTS non fungible token. This corresponds to the NFT meta data field when minting an NFT using HTS.
+Returns the token metadata of the HTS non fungible token. This corresponds to the NFT meta data field when minting an NFT using HTS. The `_tokenId` is the Hedera serial number of the NFT.
 
 #### From interface ERC721Enumerable
 
@@ -168,7 +168,7 @@ The following ERC-721 operations are currently not supported.
 
 #### From interface ERC721
 
-* <mark style="color:purple;background-color:purple;">`safeTransferFrom`</mark>
+* <mark style="color:purple;">`safeTransferFrom`</mark>
 
 #### All semantics of interface ERC721TokenReceiver.
 

@@ -4,9 +4,9 @@
 
 ## Summary
 
-Using the Hedera Token Service you can create non-fungible tokens (NFTs). NFTs are uniquely identifiable. On the Hedera network, the token ID represents a collection of NFTs of the same class, and the serial number of each token uniquely identifies each NFT in the class. &#x20;
+Using the Hedera Token Service you can create non-fungible tokens (NFTs). NFTs are uniquely identifiable. On the Hedera network, the token ID represents a collection of NFTs of the same class, and the serial number of each token uniquely identifies each NFT in the class.
 
-We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.&#x20;
+We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
 {% content-ref url="../environment-set-up.md" %}
 [environment-set-up.md](../environment-set-up.md)
@@ -153,7 +153,7 @@ System.out.println("Created NFT " +tokenId + "with serial: " +mintRx.serials);
 {% tab title="JavaScript" %}
 ```javascript
 //IPFS content identifiers for which we will create a NFT
-CID = ["QmTzWcVfk88JRqjTpVwHzBeULRTNzHY7mnBSG42CpwHmPa"];
+CID = "ipfs://QmTzWcVfk88JRqjTpVwHzBeULRTNzHY7mnBSG42CpwHmPa";
 
 // Mint new NFT
 let mintTx = await new TokenMintTransaction()
@@ -172,7 +172,6 @@ let mintRx = await mintTxSubmit.getReceipt(client);
 
 //Log the serial number
 console.log(`- Created NFT ${tokenId} with serial: ${mintRx.serials[0].low} \n`);
-
 ```
 {% endtab %}
 
@@ -225,7 +224,7 @@ fmt.Print("Created NFT ", tokenId, " with serial: ", mintRx.SerialNumbers)o
 
 ## 3. Associate User Accounts with the NFT
 
-Before an account that is not the treasury for a token can receive or send this specific token ID, the account must become “associated” with the token. To associate a token to an account the account owner must sign the associate transaction.&#x20;
+Before an account that is not the treasury for a token can receive or send this specific token ID, the account must become “associated” with the token. To associate a token to an account the account owner must sign the associate transaction.
 
 If you have an account with the automatic token association property set you do not need to associate the token before transferring it the receiving account.
 
@@ -247,7 +246,6 @@ TransactionReceipt associateAliceRx = associateAliceTxSubmit.getReceipt(client);
 
 //Confirm the transaction was successful
 System.out.println("NFT association with Alice's account: " +associateAliceRx.status);
-
 ```
 {% endtab %}
 
@@ -268,7 +266,6 @@ let associateAliceRx = await associateAliceTxSubmit.getReceipt(client);
 
 //Confirm the transaction was successful
 console.log(`- NFT association with Alice's account: ${associateAliceRx.status}\n`);
-
 ```
 {% endtab %}
 
@@ -291,7 +288,6 @@ associateAliceRx, err := associateAliceTxSubmit.GetReceipt(client)
 
 //Confirm the transaction was successful
 fmt.Println("NFT association with Alice's account:", associateAliceRx.Status)
-
 ```
 {% endtab %}
 {% endtabs %}
@@ -330,7 +326,6 @@ System.out.println("Treasury balance: " +balanceCheckTreasury2.tokens + "NFTs of
 // Check the balance of Alice's account after the transfer
 AccountBalance balanceCheckAlice2 = new AccountBalanceQuery().setAccountId(aliceAccountId).execute(client);
 System.out.println("Alice's balance: " +balanceCheckAlice2.tokens +  "NFTs of ID " +tokenId);
-
 ```
 {% endtab %}
 
@@ -851,3 +846,7 @@ func main() {
 ```
 {% endtab %}
 {% endtabs %}
+{% hint style="info" %}
+Have a question?
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
+{% endhint %}

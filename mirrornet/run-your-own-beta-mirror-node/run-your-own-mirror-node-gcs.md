@@ -14,8 +14,8 @@
   * Check to see if you have it installed from your terminal: `docker --version && docker-compose --version`
   * For mirror node versions 0.35.0 and higher you will need docker v3.3.3+
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Hedera Mirror Node Repository](https://github.com/hashgraph/hedera-mirror-node)&#x20;
-  * You will be prompted to download the repo in the following steps&#x20;
+* [Hedera Mirror Node Repository](https://github.com/hashgraph/hedera-mirror-node)
+  * You will be prompted to download the repo in the following steps
 
 ## 1. Obtain Google Cloud Platform Requester Pay Information
 
@@ -34,7 +34,7 @@ You will need to grab the **secret key, access key**, and **project ID** from yo
 ## 2. Clone Hedera Mirror Node Repository
 
 * Open your terminal
-* Clone the `hedera-mirror-node` repository&#x20;
+* Clone the `hedera-mirror-node` repository
 
 ```
 git clone https://github.com/hashgraph/hedera-mirror-node
@@ -48,7 +48,7 @@ cd hedera-mirror-node
 
 ## 3. Configure your application.yml file
 
-* Open the **application.yml** file found in the root directory with a text editor of your choice&#x20;
+* Open the **application.yml** file found in the root directory with a text editor of your choice
 * Input the following information and uncomment each line
 * Buckets are preconfigured for each network
 

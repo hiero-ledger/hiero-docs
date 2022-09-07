@@ -8,7 +8,7 @@ description: Hedera accounts
 
 Accounts are the central starting point for Hedera. Accounts are stored on the public ledger and hold hbars which are used to pay for the transaction and query fees.
 
-Accounts can be created, updated, or deleted. There are two ways you can create an account either by using an existing account or by using an alias. If you have an existing account, you can use that account to create a new account and to pay for the associated transaction fees in hbar. If you do not have access to an existing account, you can create a testnet account via the [Hedera Developer Portal](https://portal.hedera.com/register) or a mainnet account through one of the options listed [here](../mainnet/mainnet-access.md). To create an account  using an alias, you have to transfer an hbar to that alias. When the transfer transaction is successful it deducts the cost of creating the account and transfers the remaining balance into that new account.
+Accounts can be created, updated, or deleted. There are two ways you can create an account either by using an existing account or by using an alias. If you have an existing account, you can use that account to create a new account and to pay for the associated transaction fees in hbar. If you do not have access to an existing account, you can create a testnet account via the [Hedera Developer Portal](https://portal.hedera.com/register) or a mainnet account through one of the options listed [here](../mainnet/mainnet-access.md). To create an account using an alias, you have to transfer an hbar to that alias. When the transfer transaction is successful it deducts the cost of creating the account and transfers the remaining balance into that new account.
 
 Accounts are comprised of:
 
@@ -37,14 +37,14 @@ Each Hedera account is represented by an account ID. The account ID is used to r
 * y represents the realm number (`realmId`). It will default to 0 today, as realms are not yet supported.
 * z represents the account number, the equivalent of a human-friendly public key.
 
-The account ID of the new account is found in the receipt or record of the account create transaction. A receipt or record can be requested immediatly after an account create transaction is successfully processed.&#x20;
+The account ID of the new account is found in the receipt or record of the account create transaction. A receipt or record can be requested immediatly after an account create transaction is successfully processed.
 
 ## Account Keys
 
-Each account is required to have a key associated with it. The key type can be a single key, a list of keys, or a threshold of keys.&#x20;
+Each account is required to have a key associated with it. The key type can be a single key, a list of keys, or a threshold of keys.
 
 * If the account has a key list, all keys in that key list are required to sign transactions that modify the account like debiting tokens, updating account properties, etc.
-* If an account has a threshold key, all keys that meet the threshold are required to sign transactions that modify the account. For example, if there were 10 keys on the account and the threshold was to a value of five then five out of the ten keys would need to sign the transaction for it to succeed.&#x20;
+* If an account has a threshold key, all keys that meet the threshold are required to sign transactions that modify the account. For example, if there were 10 keys on the account and the threshold was to a value of five then five out of the ten keys would need to sign the transaction for it to succeed.
 
 The private key(s) associated with the account are not to be shared with other members on the network as it will allow others to authorize transactions from your account on your behalf. The corresponding public key is visible to others on the Hedera network and stored on ledger.
 
@@ -69,13 +69,34 @@ The amount of HBAR (ℏ) and any other tokens created using the Hedera Token Ser
 
 ## Auto Token Associations
 
-When you create an account, you can select the number of token associations that can be automatically allowed. If this account property is set it means that any user can send you tokens without associating that token to your account first.&#x20;
+When you create an account, you can select the number of token associations that can be automatically allowed. If this account property is set it means that any user can send you tokens without associating that token to your account first.
 
-If you did not set this property when your account was created you will need to associate the tokens to your account prior to initiating the transfer of that token to your account.&#x20;
+If you did not set this property when your account was created you will need to associate the tokens to your account prior to initiating the transfer of that token to your account.
 
 ## Account Alias
 
 Accounts can have an account alias if the account was created by transferring hbar to an account alias. The account alias is a simple key that is immutable once set. Follow the link [here](../docs/sdks/cryptocurrency/create-an-account.md#create-an-account-via-an-account-alias) for more details.
+
+## Staked Node ID
+
+An account can elect to stake its hbars to a node in the Hedera network. The staked node ID is the ID of the node the account anticipates staking to. The full balance of the account is staked to the node. The account balance is liquid at all times. There is no lock-up period. The node ID can be found [here](../mainnet/) or can be queried from the [nodes API](https://testnet.mirrornode.hedera.com/api/v1/docs/#/network/getNetworkNodes). Staking to node is an optional account feature. An account can only stake to one node or one account at any given time. Reference [HIP-406](https://hips.hedera.com/hip/hip-406). This feature is available on:
+
+* `previewnet`
+* `testnet`
+
+## Staked Account ID
+
+An account can elect to stake its hbars to another account in the Hedera network. This is referenced as indirect staking. The staked account ID is the ID of the account this account would like to stake to. The full balance of the account is staked to the specified account. Staking to an account is an optional account feature. An account can only stake to one node or one account at any given time. Reference [HIP-406](https://hips.hedera.com/hip/hip-406). This feature is available on:
+
+* `previewnet`
+* `testnet`
+
+## Decline to Earn Staking Rewards
+
+Accounts have the option to decline earning staking rewards when they stake to a node or an account that then stakes to a node. The staked account still contributes to the stake of the node, but does not earn rewards or calculated as part of the rewards payment to the other accounts that have elected to earn rewards. By default, all staked accounts will earn rewards unless this flag is set. Declining to earn rewards is an optional account feature. Reference [HIP-406](https://hips.hedera.com/hip/hip-406). This feature is available on:
+
+* `previewnet`
+* `testnet`
 
 ## Expiration
 
@@ -88,7 +109,5 @@ The maximum autoRenewPeriod for an account, file, or smart contract will be limi
 {% hint style="info" %}
 Currently not implemented on the network i.e. accounts **do not expire**.
 {% endhint %}
-
-## LiveHash
 
 A hash (presumably of some kind of credential or certificate), along with a list of keys (each of which is either a primitive or a threshold key). Each of them must reach its threshold when signing the transaction, to attach this livehash to this account. At least one of them must reach its threshold to delete this livehash from this account.

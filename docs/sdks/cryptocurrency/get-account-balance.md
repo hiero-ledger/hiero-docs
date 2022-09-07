@@ -1,6 +1,6 @@
 # Get account balance
 
-A query that returns the account balance for the specified account. Requesting an account balance is currently free of charge.  Queries do not change the state of the account or require network consensus. The information is returned from a single node processing the query.
+A query that returns the account balance for the specified account. Requesting an account balance is currently free of charge. Queries do not change the state of the account or require network consensus. The information is returned from a single node processing the query.
 
 **Query Fees**
 
@@ -23,9 +23,10 @@ new AccountBalanceQuery
 
 {% tabs %}
 {% tab title="V2" %}
-| Method                      | Type      | Description                                       |
-| --------------------------- | --------- | ------------------------------------------------- |
-| `setAccountId(<accountId>)` | AccountID | The account ID to return the current balance for. |
+| Method                        | Type       | Description                                        |
+| ----------------------------- | ---------- | -------------------------------------------------- |
+| `setAccountId(<accountId>)`   | AccountID  | The account ID to return the current balance for.  |
+| `setContractId(<contractId>)` | ContractID | The contract ID to return the current balance for. |
 
 {% code title="Java" %}
 ```java
@@ -114,4 +115,3 @@ console.log(accountBalance);
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-

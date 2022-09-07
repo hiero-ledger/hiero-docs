@@ -143,11 +143,11 @@ Together these values make up your `ContractId`. When an `ContractId` is request
 
 ### Methods
 
-| **Methods**                                                 | **Type**           | **Description**                                                                                                                 |
-| ----------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| `ContractId.fromString(<account>)`                          | String             | <p>Constructs a <code>ContractId</code> from a string formatted as</p><p>&#x3C;shardNum>.&#x3C;realmNum>.&#x3C;contractNum></p> |
-| `ContractId.fromSolidityAddress(<address>)`                 | String             | Constructs a `ContractId` from a solidity address in string format \[deprecated use `ContractId.fromEvmAddres()]`               |
-| `ContractId.fromEvmAddress(<shard>, <realm>, <evmAddress>)` | long, long, String | Constructs a `ContractId` from evm address                                                                                      |
+| **Methods**                                                                            | **Type**           | **Description**                                                                                                                 |
+| -------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `ContractId.fromString(<account>)`                                                     | String             | <p>Constructs a <code>ContractId</code> from a string formatted as</p><p>&#x3C;shardNum>.&#x3C;realmNum>.&#x3C;contractNum></p> |
+| `ContractId.fromSolidityAddress(<address>)[deprecated use ConractId.fromEvmAddress()]` | String             | Constructs a `ContractId` from a solidity address in string format \[deprecated use `ContractId.fromEvmAddres()]`               |
+| `ContractId.fromEvmAddress(<shard>, <realm>, <evmAddress>)`                            | long, long, String | Constructs a `ContractId` from evm address                                                                                      |
 
 ### Example
 
