@@ -79,6 +79,7 @@ new TokenCreateTransaction()
 | `setFreezeKey(<key>)`                 | Key                                                | Optional    |
 | `setWipeKey(<key>)`                   | Key                                                | Optional    |
 | `setSupplyKey(<key>)`                 | Key                                                | Optional    |
+| `setPauseKey(<key>)`                  | Key                                                | Optional    |
 | `setFreezeDefault(<freeze>`)          | boolean                                            | Optional    |
 | `setExpirationTime(<expirationTime>)` | Instant                                            | Optional    |
 | `setFeeScheduleKey(<key>)`            | Key                                                | Optional    |
