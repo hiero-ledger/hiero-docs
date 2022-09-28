@@ -7,10 +7,6 @@ Hedera is a public distributed ledger for building and deploying decentralized a
 The network is made up of permissioned nodes run by the [Hedera Governing Council](https://hedera.com/council), a group of term-limited enterprises that lead the network's direction. Over time the network will [move to a permissionless model](https://www.youtube.com/watch?v=QTNNYeSks-s).
 
 {% hint style="info" %}
-Hedera Token Service is now live on our networks. Learn more in the blog series, [Get started with the Hedera Token Service](https://hedera.com/blog/get-started-with-the-hedera-token-service-part-1). Hedera Token Service API information can be found in the SDK section [here](docs/hedera-api/token-service/).
-{% endhint %}
-
-{% hint style="info" %}
 Ready to submit your first transaction to a Hedera network? Visit our [Getting Started ](getting-started/introduction.md)section to learn the basics of how to create an account and transfer hbars :boom: .
 {% endhint %}
 
@@ -26,6 +22,7 @@ The following features of the Hedera mainnet are still under development and the
   * An alpha version of the state proof is available [here](docs/mirror-node-api/rest-api.md#state-proof-alpha)
 * Live Hashes
 * Staking
+  * Phases I - IV for staking are found [here](https://docs.hedera.com/guides/core-concepts/staking)
 
 ### Have Feedback?
 
