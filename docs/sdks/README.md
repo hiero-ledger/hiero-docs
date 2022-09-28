@@ -25,19 +25,39 @@ Hedera and the developer community contribute to and maintain Hedera Services Co
 | Hedera Java SDK | Hedera | Apache 2.0 | [github.com/hashgraph](https://github.com/hashgraph/hedera-sdk-java) |
 | Hedera JavaScript SDK | Hedera | Apache 2.0 | [github.com/hashgraph](https://github.com/hashgraph/hedera-sdk-js) |
 | Hedera Go SDK | Hedera | Apache 2.0 | [github.com/hashgraph](https://github.com/hashgraph/hedera-sdk-go) |
+| Hedera Swift SDK | Hedera | Apache 2.0 | [github.com/hashgraph](https://github.com/hashgraph/hedera-sdk-swift) |
 
 ## Development Tools & SDKs
 
 Hedera and the developer community contribute to and maintain developer tools and SDKs. These can be used to make bootstraping your own project even easier
 
+### Additional Language Support
+Build a Hedera-powered application using your favorite language with these community-supported SDKs.
 | Project | Maintainer | License | Documentation | Download |
 | :--- | :--- | :--- | :--- | :--- |
 | Hedera SDK for .NET | Community | Apache 2.0 | [https://bugbytesinc.github.io/Hashgraph/](https://bugbytesinc.github.io/Hashgraph/) | [github.com/bugbytesinc](https://github.com/bugbytesinc/Hashgraph) |
+| Hedera SDK for Strato JS | Community | MIT | [hsj-docs.buidlerlabs.com](https://hsj-docs.buidlerlabs.com/) | [buidler-labs/hedera-strato-js](https://github.com/buidler-labs/hedera-strato-js) |
+
+### Ecosystem Wallet Support
+Integrate Hedera ecosystem wallet support with ease.
+| Project | Maintainer | License | Documentation | Download |
+| :--- | :--- | :--- | :--- | :--- |
+| [HashPack](https://www.hashpack.app/) HashConnect | Community | MIT | [hashpack.app/hashconnect](https://www.hashpack.app/hashconnect) | [hashpack.app/hashconnect](https://www.hashpack.app/hashconnect) |
+| [Blade](https://www.bladewallet.io/) Wallet JavaScript API | Community | Apache 2.0 | [blade-labs.github.io/blade-web3.js](https://blade-labs.github.io/blade-web3.js/) | [blade-labs.github.io/blade-web3.js](https://blade-labs.github.io/blade-web3.js/) |
+
+### Decentralized Identity SDKs
+Build decentralized identity directly into your Hedera-powered application. Manage [DID Documents](https://www.w3.org/TR/did-core/) & a [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) registry, abiding by W3C standards, using the Hedera Consensus Service.
+| Project | Maintainer | License | Documentation | Download |
+| :--- | :--- | :--- | :--- | :--- |
 | Hedera Java DID SDK | Hedera | Apache 2.0 | [https://github.com/hashgraph/did-sdk-java\#documentation](https://github.com/hashgraph/did-sdk-java#documentation) | [github.com/hashgraph/did-sdk-java](https://github.com/hashgraph/did-sdk-java) |
 | Hedera JavaScript DID SDK | Envision | Apache 2.0 |  | [github.com/hashgraph/did-sdk-js](https://github.com/hashgraph/did-sdk-js) |
+
+### Serverless SDKs
+Build a Hedera-powered application using your own serverless REST client.
+| Project | Maintainer | License | Documentation | Download |
+| :--- | :--- | :--- | :--- | :--- |
 | Serverless Hedera REST API | Community | Apache 2.0 | [docs.trust.enterprises](https://docs.trust.enterprises/) | [mattsmithies/hedera-serverless-consensus](https://github.com/mattsmithies/hedera-serverless-consensus) |
 | Serverless Hedera Laravel Package | Community | Apache 2.0 | [docs.trust.enterprises/laravel](https://docs.trust.enterprises/laravel/working-with-laravel) | [mattsmithies/laravel-hashgraph](https://github.com/mattsmithies/laravel-hashgraph) |
-| Strato JS SDK | Community | MIT | [hsj-docs.buidlerlabs.com](https://hsj-docs.buidlerlabs.com/) | [buidler-labs/hedera-strato-js](https://github.com/buidler-labs/hedera-strato-js) |
 
 Want to help contribute or have a project you'd like to see, here? Get in touch in [discord](http://hedera.com/discord) or add a pull request.
 
