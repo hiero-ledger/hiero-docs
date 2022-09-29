@@ -76,7 +76,7 @@ System.out.println("public key = " + newPublicKey);
 
 {% code title="JavaScript " %}
 ```javascript
-const privateKey = await PrivateKey.generate();
+const privateKey = PrivateKey.generate();
 const publicKey = privateKey.publicKey;
 
 console.log("private = " + privateKey);

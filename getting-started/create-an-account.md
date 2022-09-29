@@ -83,7 +83,7 @@ PublicKey newAccountPublicKey = newAccountPrivateKey.getPublicKey();
 //-----------------------<enter code below>--------------------------------------
 
 //Create new keys
-const newAccountPrivateKey = await PrivateKey.generateED25519(); 
+const newAccountPrivateKey = PrivateKey.generateED25519(); 
 const newAccountPublicKey = newAccountPrivateKey.publicKey;
 ```
 {% endtab %}
@@ -323,7 +323,7 @@ async function main() {
     client.setOperator(myAccountId, myPrivateKey);
 
     //Create new keys
-    const newAccountPrivateKey = await PrivateKey.generateED25519(); 
+    const newAccountPrivateKey = PrivateKey.generateED25519(); 
     const newAccountPublicKey = newAccountPrivateKey.publicKey;
 
     //Create a new account with 1,000 tinybar starting balance

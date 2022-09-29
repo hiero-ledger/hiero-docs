@@ -40,13 +40,13 @@ System.out.println("The 1/3 threshold key structure" +thresholdKey);
 {% endcode %}
 
 {% code title="JavaScript" %}
-```java
+```javascript
 // Generate our key lists
 const privateKeyList = [];
 const publicKeyList = [];
 for (let i = 0; i < 4; i += 1) {
      // eslint-disable-next-line no-await-in-loop
-     const privateKey = await PrivateKey.generate();
+     const privateKey = PrivateKey.generate();
      const publicKey = privateKey.publicKey;
      privateKeyList.push(privateKey);
      publicKeyList.push(publicKey);
@@ -64,7 +64,7 @@ console.log("The 1/3 threshold key structure" +thresholdKey);
 {% endcode %}
 
 {% code title="Go" %}
-```java
+```go
 //Generate 3 keys
 key1, err := hedera.GeneratePrivateKey()
 
