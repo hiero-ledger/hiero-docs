@@ -294,8 +294,8 @@ mkdir hedera-go-examples && cd hedera-go-examples
 Open the project in your favorite IDE and create a **.env** file in the root directory of your project. Enter your Hedera testnet account ID and private key provided to you from your Hedera portal account.
 
 ```
-MY_ACCOUNT_ID= ENTER TESTNET ACCOUNT ID
-MY_PRIVATE_KEY= ENTER TESTNET PRIVATE KEY
+MY_ACCOUNT_ID = ENTER TESTNET ACCOUNT ID
+MY_PRIVATE_KEY = ENTER TESTNET PRIVATE KEY
 ```
 
 
