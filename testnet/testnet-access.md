@@ -2,7 +2,7 @@
 
 You will need a Hedera **testnet account** or **preview testnet** **account** to interact with and pay for any of the network services \(cryptocurrency, consensus, tokens, files, and smart contracts\). Your Hedera testnet account is what holds a balance of hbar to be used for transfers to other accounts or payments for network services.
 
-### Create Hedera Portal Profile (Faucet)
+### Step 1: Create Hedera Portal Profile (Faucet)
 
 To create your Hedera Portal profile register [here](https://portal.hedera.com/register) and complete your profile. The Hedera Portal works like a regular **faucet**. The Portal will top up your account's balance daily to 10,000 testnet Hbar.
 
