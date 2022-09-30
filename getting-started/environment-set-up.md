@@ -159,9 +159,9 @@ Note: you can just say “yes” to all of the defaults and/or plugin what makes
 
 ### Step 2: Install the Hedera JavaScript SDK
 
-Now that you have your node environment setup, we can get started with Hedera’s JS SDK! You can open this project in your favorite text editor like [Visual Studio Code](https://code.visualstudio.com/Download).
+Now that you have your node environment setup, we can install the Hedera’s JS SDK! You can open this project in your favorite text editor like [Visual Studio Code](https://code.visualstudio.com/Download).
 
-* Install it with your favorite package manager.
+* Install the JS SDK with your favorite package manager, `npm` or `yarn`.
 
 ```
 // install Hedera's JS SDK with NPM
@@ -171,7 +171,7 @@ npm install --save @hashgraph/sdk
 yarn add @hashgraph/sdk
 ```
 
-* Install `dotenv` with your favorite package manager. This will allow our node environment to use your testnet account ID and the private key that we will store in a .env file next.
+* Install `dotenv` with your favorite package manager. This will allow our node environment to use your testnet account ID and the private key that we will store in a `.env` file next.
 
 ```bash
 // install with NPM
@@ -196,12 +196,19 @@ MY_PRIVATE_KEY = ENTER YOUR PRIVATE KEY
 
 ### Step 4: Create an index.js file in the 'root' directory
 
-This file will contain the code we will write in the following samples. Your project structure should look something like this after:
+This file will contain the code we will write in the following samples. 
+
+```shell
+touch index.js
+```
+
+Your project structure should look something like this after:
 
 ![](../.gitbook/assets/image105.png)
 
 Grab your Hedera testnet account ID and private key from the .env file.
 
+{% code title="index.js" %}
 ```javascript
 const { Client } = require("@hashgraph/sdk");
 require("dotenv").config();
@@ -220,6 +227,7 @@ async function main() {
 }
 main();
 ```
+{% endcode %}
 
 
 ### Step 5: Create your Hedera testnet client
@@ -238,10 +246,6 @@ client.setOperator(myAccountId, myPrivateKey);
 ```
 {% endcode %}
 
-{% hint style="info" %}
-The client has a default **max transaction fee** of 100,000,000 tinybars (1 hbar) and default **max query payment** of 100,000,000 tinybars (1 hbar). If you need to change these values, you can use`.setMaxDefaultTransactionFee()` for a transaction and `.setDefaultMaxQueryPayment()` for queries.
-{% endhint %}
-
 Your project environment is now set up to successfully submit transactions/queries to the Hedera test network!
 
 Next, you will learn how to create an account. Click the link at the bottom to get started.
@@ -249,7 +253,7 @@ Next, you will learn how to create an account. Click the link at the bottom to g
 
 ### Code Check ✅
 
-What your index.js file should look like at this point:
+What your `index.js` file should look like at this point:
 
 {% code title="index.js" %}
 ```javascript
