@@ -8,10 +8,10 @@ Through this short coding series, you will learn the basics of creating an accou
 
 **You will need a Hedera testnet account**. The Hedera testnet account allows you to interact with our APIs and pay for the transaction fees. Visit the [Hedera portal](https://portal.hedera.com/register) to set up your Hedera testnet account and follow the instructions. 
 
-Once you have completed the instructions, you will receive a Hedera testnet account ID (0.0.x) and your private/public key pair on your testnet page. 
+Once you have completed the instructions, you will receive a Hedera testnet account ID (0.0.x) and your private/public key pair on your testnet page. You will need to copy over your account ID and key pair information when you set up your coding environment in the following steps.
 
-Your Hedera testnet account will also be credited with 10,000 test Hbar upon creation that can only be utilized on the Hedera test network. Your balance will be topped up daily to 10,000 test Hbar when you use your funds. 
-
-You will need to copy over your account ID and key pair information when you set up your coding environment in the following steps.
+{% hint style="info" %}
+Your Hedera testnet account will be credited with 10,000 test Hbar upon creation that can only be utilized on the Hedera test network. Your balance will be topped up daily to 10,000 test Hbar when you use your funds.
+{% endhint %}
 
 Next, you will set up your coding environment.
