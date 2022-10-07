@@ -84,6 +84,13 @@ Proxy Connectivity
 * TCP Port 50211 open to 0.0.0.0/0
 * TCP Port 50212 open to 0.0.0.0/0
 
+Interface Bonding (optional)
+
+* If using interface bonding, note that mutual TLS is in use, and Layer 3
+  Policy Based Routing (PBR) with dual-pathways is not supported. Only Layer
+  2 interface bonding using mode 1 (autonomous ports using active-backup)
+  or mode 4 (LACP 802.3ad active/active) is supported.
+
 ### Hosting
 
 * Industry standard hosting requirements for security and availability
