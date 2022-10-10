@@ -37,12 +37,14 @@ What you should do:
 
 * Take note of the upcoming reset dates
 * Have the ability to recreate test data for your application to minimize interruptions
-* After the reset, you will need to visit the [Hedera Developer Portal](https://portal.hedera.com/register) to get your new testnet account keys
+* After the reset, you will need to visit the [Hedera Developer Portal](https://portal.hedera.com/register) to get your new testnet account ID
+  * The public and private key pair will remain the same after resets
 * Subscribe to the [Hedera status page](https://status.hedera.com/) to receive reset notifications
 
 If you have any questions or concerns, please connect with us via [Discord](https://discord.com/invite/EC2GY8ueRk).
 
 **Reset Dates 2022**
+
 * Oct 27, 2022
 
 ### Test Network Throttles

@@ -6,13 +6,15 @@ When you create a token, you have the ability to set one or many custom fees (up
 * A **fractional fee** transfers the specified fraction of the total value of the tokens that are being transferred to the specified fee collecting account. Along with setting a custom fractional fee, you can impose minimum and maximum fee limits per transfer transaction. Applicable to fungible tokens only.
 * A **royalty fee** is a fractional fee that is assessed each time the ownership of an NFT is transferred from person A to person B. The fee collector account ID defined in the royalty fee schedule will receive the royalty fee each time. The royalty fee charged is a fraction of the value exchanged for the NFT. If there is no value exchanged for the NFT, a fallback fee can be used to charge the receiving account. Applicable to non-fungible tokens only.
 
-A custom fee schedule can include a mix of fee types. You can optionally set a token's fee schedule during the [creation of a token](define-a-token.md).
-
 **Token Custom Fee Payment**
 
 * Fractional fees are by default charged to the token transfer receiver. This means the receiving account of the fungible token will receive less than the transfer amount (transfer amount - custom fees). If the `net_of_transfers` field is set to true, the fractional fees are then charged to the sending account. In this case, the receiving account will receive the full amount of the token transfer value.
 * Fixed fees are paid by the sending account in the fungible or non-fungible token transfer transaction.
 * Royalty fees are paid by the account exchanging the fungible value. When the NFT sender does not receive any fungible value, the fallback fee is charged to the NFT receiver
+  * Users must understand that native royalty fees are _strictly_ a convenience feature, and that the network cannot enforce inescapable royalties on the exchange of a non-fractional NFT.&#x20;
+  * For example, if the counter-parties agree to split their value transfer and NFT exchange into separate transactions, the network cannot possibly intervene. (And note the counter-parties could use a smart contract to make this split transaction atomic if they do not trust each other.)&#x20;
+  * Counter-parties that _do_ wish to respect creator royalties should follow the pattern the network recognizes: The NFT sender and receiver should both sign a single `CryptoTransfer` that credits the sender with all the fungible value the receiver is exchanging for the NFT. Similarly, a marketplace using an approved spender account for an escrow transaction should credit the account selling the NFT in the same `CryptoTransfer` that deducts fungible value from the buying account.&#x20;
+  * There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578) that proposes to broaden the class of transactions for which the network automatically collects royalties. If this interests or concerns you, please add your voice to that discussion. A custom fee schedule can include a mix of fee types. You can optionally set a token's fee schedule during the [creation of a token](define-a-token.md).
 * The accounts transferring the token to the receiving accounts are responsible for paying the transfer transaction fee in hbar.
 
 In addition to the custom token fee payment, the sender account is required to pay for the token transfer transaction fee in hbar.

@@ -57,7 +57,7 @@ System.out.println("The transaction consensus status is " +transactionStatus);
 {% code title="JavaScript" %}
 ```javascript
 //Create the transaction and freeze for manual signing
-const transaction = await new TokenFeeScheudleUpdateTransaction()
+const transaction = await new TokenFeeScheduleUpdateTransaction()
      .setTokenId(tokenId)
      .setCustomFees(customFee)
      .freezeWith(client);

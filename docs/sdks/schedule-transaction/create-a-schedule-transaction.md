@@ -1,7 +1,7 @@
 # Create a scheduled transaction
 
 {% hint style="info" %}
-TokenTransfer, ConsensusSubmitMessage, TokenMint and TokenBurn transactions are the transaction types that can be scheduled. Additional schedulable transactions will be added in future releases.
+TokenTransfer, ConsensusSubmitMessage, CryptoApproveAllowance, TokenMint and TokenBurn transactions are the transaction types that can be scheduled. Additional schedulable transactions will be added in future releases.
 {% endhint %}
 
 A transaction that creates a schedule entity on a Hedera network. The entity ID for a schedule transaction is referred to as the ScheduleID. After successfully executing a schedule create transaction, you can obtain the ScheduleID by requesting the receipt of the transaction immediately after the transaction was executed. The receipt also contains the scheduled transaction ID. The scheduled transaction ID is used to to request the record of the scheduled transaction if it is successfully executed.

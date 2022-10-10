@@ -401,7 +401,8 @@ func main() {
 	fmt.Println("The transaction message status " + transactionStatus.String())
     
         //Prevent the program from exiting to display the message from the mirror to the console
-	time.Sleep(30000)
+	time.Sleep(30 * time.Second)
+    }
 ```
 {% endtab %}
 {% endtabs %}

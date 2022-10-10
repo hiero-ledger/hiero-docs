@@ -50,15 +50,23 @@ Account IDs can also take the account number as an input value. For example, for
 | **Response Item**                       | **Description**                                                                        |
 | --------------------------------------- | -------------------------------------------------------------------------------------- |
 | **account**                             | The ID of the account                                                                  |
+| **alias**                               | RFC4648 no-padding base32 encoded account alias                                        |
 | **auto renew period**                   | The period in which the account will auto renew                                        |
 | **balance**                             | The timestamp and account balance of the account                                       |
+| **decline\_reward**                     | Whether or not the account has opted to decline a staking reward                       |
+| **ethereum\_nonce**                     | The ethereum transaction nonce associated with this account                            |
+| **evm\_address**                        | A network entity encoded as an EVM encoded hex                                         |
 | **tokens**                              | The tokens and their balances associated to the specified account                      |
 | **deleted**                             | Whether the account was deleted or not (Boolean)                                       |
 | **expiry timestamp**                    | The expiry date for the entity as set by a create or update transaction                |
 | **key**                                 | The public key associated with the account                                             |
 | **max\_automatic\_token\_associations** | The number of automatic token associations, if any                                     |
+| **pending\_reward**                     | The account's pending staking reward that has not been transferred to the account      |
 | **memo**                                | The account memo, if any                                                               |
 | **receiver\_sig\_required**             | Whether or not the account requires a signature to receive a transfer into the account |
+| **staked\_account\_id**                 | The account ID the account is staked to, if set                                        |
+| **staked\_node\_id**                    | The node ID the account is staked to, if set                                           |
+| **stake period start**                  | The start of the staking period                                                        |
 | **links.next**                          | Hyperlink to the next page of results                                                  |
 
 #### Optional Filtering <a href="#optional-filtering" id="optional-filtering"></a>
@@ -1574,6 +1582,10 @@ _Default value_ : 0
 {% endswagger-response %}
 {% endswagger %}
 
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/results/{transactionIdOrHash}/actions" method="get" %}
+[ https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
+
 ## Blocks
 
 {% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/blocks" method="get" %}
@@ -1601,8 +1613,6 @@ The Hedera Mirror Node state proof alpha api provides the ability to cryptograph
 Save the response to a json file and use the [check-state-proof](https://github.com/hashgraph/hedera-mirror-node/tree/master/hedera-mirror-rest/check-state-proof) cli commands to confirm the validity of the transaction. You can find the instructions [here](https://github.com/hashgraph/hedera-mirror-node/tree/master/hedera-mirror-rest/check-state-proof).
 
 ## Network
-
-
 
 {% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/network/supply" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)

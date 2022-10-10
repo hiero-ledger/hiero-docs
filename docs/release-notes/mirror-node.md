@@ -8,7 +8,50 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.65](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.65.0)
+
+The mirror node now calculates consensus using the staking weight of all the nodes as outlined in [HIP-406](https://hips.hedera.com/HIP/hip-406.html). If staking is not yet activated, it falls back to the previous behavior of counting each node as `1/N` weight where `N` is the number of consensus nodes running on the network. The `/api/v1/accounts` and `/api/v1/accounts/{id}`REST APIs now expose a `pending_reward` field that provides an estimate of the staking reward payout in tinybars as of the last staking period. The `/api/v1/network/supply` REST API updated its configured list of unreleased supply accounts to accurately reflect the separation of accounts done for staking purposes by Hedera.
+
+This release implements the contract actions REST API detailed in [HIP-513](https://hips.hedera.com/hip/hip-513). An example of an actions payload is shown below. We added `transaction_hash`, `transaction_index`, `block_hash` and `block_number` fields to the contract logs REST APIs. This work was done to optimize the performance for the `eth_getLogs` JSON-RPC method used by the relay. Also for the relay, we now support lookup of non-Ethereum contract results by its 32 byte transaction hash.
+
+`GET /api/v1/contracts/results/0.0.5001-1676540001-234390005/actions`
+
+```
+{
+  "actions": [{
+    "call_depth": 1,
+    "call_type": "CALL",
+    "call_operation_type": "CALL",
+    "caller": "0.0.5001",
+    "caller_type": "CONTRACT",
+    "from": "0x0000000000000000000000000000000000001389",
+    "timestamp": "1676540001.234390005",
+    "gas": 1000,
+    "gas_used": 900,
+    "index": 1,
+    "input": "0xabcd",
+    "to": "0x70f2b2914a2a4b783faefb75f459a580616fcb5e",
+    "recipient": "0.0.8001",
+    "recipient_type": "CONTRACT",
+    "result_data": "0x1234",
+    "result_data_type": "OUTPUT",
+    "value": 100
+  }],
+  "links": {
+    "next": null
+  }
+}
+```
+
+To support mirror node explorers being able to display the transaction that created an entity, we added a `created_timestamp` field to the accounts REST API.
+
+The Rosetta module saw a large number of improvements this release. Rosetta now supports a transaction memo be returned in its metadata response. To improve performance of large blocks, Rosetta now limits the number of transactions in its block response. The importer balance reconciliation job was disabled in the Rosetta Docker image since Rosetta performs its own reconciliation process. There were other various fixes to the reconciliation process balance offset, charts testing failing for PRs from forked repos, and fixing a slow search block by hash query in rosetta.
+
 ## [v0.64](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.64.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: SEPTEMBER 26 2022**
+{% endhint %}
 
 {% hint style="success" %}
 **TESTNET UPDATE COMPLETED: SEPTEMBER 12, 2022**

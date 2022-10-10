@@ -475,6 +475,17 @@ Update the keys set on a token. The key type is defined in the key parameter.
 | `token`   | address                                                                                                                                              | The Hedera token ID in Solidity format. |
 | `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/IHederaTokenService.sol#L100) memory | The token key type.                     |
 
+### <mark style="color:purple;">`updateTokenKeys(token, keys)`</mark>
+
+Update the keys set on a token. The key type is defined in the key parameter.
+
+| **Param** | **Type**                                                                                                                                             | **Description**                         |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `token`   | address                                                                                                                                              | The Hedera token ID in Solidity format. |
+| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/IHederaTokenService.sol#L100) memory | The token key type.                     |
+
+##
+
 ## Gas Cost
 
 {% content-ref url="../../../core-concepts/smart-contracts/gas-and-fees.md" %}

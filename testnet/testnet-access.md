@@ -15,4 +15,3 @@ When previewnet or testnet is reset, new account IDs will be generated. The publ
 ![](../.gitbook/assets/portal-testnet.png)
 
 You're now ready to build your application on testnet!
-

@@ -61,7 +61,6 @@
 
 * [Release Notes](docs/release-notes/README.md)
   * [Hedera Services](docs/release-notes/services.md)
-  * [Hedera Platform](docs/release-notes/hedera-platform.md)
   * [Hedera Mirror Node](docs/release-notes/mirror-node.md)
 * [SDKs](docs/sdks/README.md)
   * [Build your Hedera client](docs/sdks/client.md)
@@ -325,6 +324,7 @@
 * [Tutorials](resources/tutorials/README.md)
   * [NFTs and Fungible Tokens on Hedera](resources/tutorials/get-started-with-hedera-nfts.md)
   * [Smart Contracts on Hedera](resources/tutorials/deploy-smart-contracts-on-hedera.md)
+  * [Accounts, Keys, and HBAR](resources/tutorials/accounts-keys-and-hbar.md)
   * [Mirror Nodes: Get Transaction History](resources/tutorials/look-up-transaction-history-using-mirror-nodes.md)
   * [Hedera Consensus Service](resources/tutorials/hedera-consensus-service/README.md)
     * [Set up a message queue with the Hedera Consensus Service and JavaScript](resources/tutorials/hedera-consensus-service/hcs-javascript-setup.md)

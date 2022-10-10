@@ -73,9 +73,9 @@ Node Connectivity
   * TCP Port 50111 open to 0.0.0.0/0
   * TCP Port 50211 open to 0.0.0.0/0
   * TCP Port 50212 open to 0.0.0.0/0
-  * TCP Port 80 open egress to 0.0.0.0/0 \(for OS package repository connectivity\)
-  * TCP Port 443 open egress to 0.0.0.0/0 \(for OS package repository connectivity\)
-  * UDP Port 123 open ingress and egress to 0.0.0.0/0 (for NTP pool synchronization of system time)  
+  * TCP Port 80 open egress to 0.0.0.0/0 (for OS package repository connectivity)
+  * TCP Port 443 open egress to 0.0.0.0/0 (for OS package repository connectivity)
+  * UDP Port 123 open ingress and egress to 0.0.0.0/0 (for NTP pool synchronization of system time)
 
 Proxy Connectivity
 
@@ -102,7 +102,7 @@ Proxy Connectivity
 
 ## Network Topology /(Typical Corporate Datacenter Configuration/)
 
-![](../../../.gitbook/assets/network-topology.jpg)
+![](../../../.gitbook/assets/Network-topology.jpg)
 
 ## Deployment Steps
 

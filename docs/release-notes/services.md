@@ -11,11 +11,11 @@ For the latest versions supported on each network please visit the Hedera status
 ## [v0.30](https://github.com/hashgraph/hedera-services/releases/tag/v0.30.0)
 
 {% hint style="info" %}
-**MAINNET UPDATE: OCTOBER 13, 2022**
+**MAINNET UPDATE: OCTOBER 18, 2022**
 {% endhint %}
 
-{% hint style="info" %}
-**TESTNET UPDATE: SEPTEMBER 29, 2022**
+{% hint style="success" %}
+**TESTNET UPDATE: OCTOBER 6, 2022**
 {% endhint %}
 
 Services 0.30 completes the [HIP-514 roadmap](https://hips.hedera.com/hip/hip-514) for making Hedera native tokens manageable via smart contracts. There are five new system contracts: `getTokenExpiryInfo(address)`, `updateTokenExpiryInfo(address, Expiry)`, `isToken(address token)`, `getTokenType(address token)`, and `updateTokenInfo(address, HederaToken)`.
@@ -38,6 +38,10 @@ This release also brings two peripheral improvements:
 
 1. It will become possible to schedule a `CryptoApproveAllowance` transaction.
 2. Mirror node operators will be able to use the daily `NodeStakeUpdate` export to track the current values of [several key staking properties](https://github.com/hashgraph/hedera-protobufs/blob/main/services/node\_stake\_update.proto#L45). Please review the linked protobuf comments for more details on these properties.
+
+<figure><img src="../../.gitbook/assets/0.30_results.001.png" alt=""><figcaption></figcaption></figure>
+
+## Latest Releases
 
 ## [v0.29](https://github.com/hashgraph/hedera-services/releases/tag/v0.29.0)
 
@@ -68,8 +72,6 @@ Note there are four HIP-514 functions that will be part of release 0.30, as foll
 Please note this [important deprecation](https://github.com/hashgraph/hedera-protobufs/blob/main/services/crypto\_get\_info.proto#L141) that will change how clients fetch token associations and balances after the November release in this year. At that time, mirror nodes will become the exclusive source of token association metadata. This is because [HIP-367](https://hips.hedera.com/hip/hip-367) made token associations unlimited, so in the long run it will not be efficient for consensus nodes to serve this information.
 
 <figure><img src="../../.gitbook/assets/0.29.2.png" alt=""><figcaption></figcaption></figure>
-
-## Latest Releases
 
 ## [v0.28](https://github.com/hashgraph/hedera-services/releases/tag/v0.28.0)
 
@@ -296,7 +298,7 @@ Please also note the following deprecations in the Hedera API protobufs:
 * The [<mark style="color:purple;">`ContractUpdateTransactionBody.fileID`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L82), which is redundant given the existence of the [<mark style="color:purple;">`ContractGetBytecode`</mark> <mark style="color:purple;">quer</mark>y](https://github.com/hashgraph/hedera-protobufs/blob/main/services/smart\_contract\_service.proto#L63).
 * The [<mark style="color:purple;">`ContractCallLocalQuery.maxResultSize`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_call\_local.proto#L136), as this limit is now simply a side-effect of the given gas limit.
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1) (1) (1).jpeg>)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1) (1) (1) (1) (1).jpeg>)
 
 ## [v0.19.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.4)
 
@@ -366,7 +368,7 @@ Developers will likely appreciate two other release 0.18.0 items. First, we have
 
 **Performance Measurement Results:**
 
-![](../../.gitbook/assets/performance-measurement-results.jpeg)
+![](<../../.gitbook/assets/Performance Measurement Results.jpeg>)
 
 ## [v0.17.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.17.3)
 

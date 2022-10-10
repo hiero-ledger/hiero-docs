@@ -10,10 +10,10 @@ Note: This example uses version 2.0 of the SDKs
 
 In this example, we will use a transfer transaction that requires 3 keys to sign the transaction. If all 3 keys do not sign the transaction, the transaction will not execute and an "`INVALID_SIGNATURE`" response will be returned from the network. The `senderAccountId` is a Hedera account that was created with a key list of 3 keys. Since the sender account is required to sign in a transfer transaction, all three keys are required to sign to complete the transfer of hbars from the sender account to the recipient account. The recipient account is not required to sign the transaction.
 
-After you create the transfer transaction, you will need to freeze \(`freezeWith(client)`\) the transaction from further modification so that transaction cannot be tampered with. This ensures each signer is signing the same exact transaction. The `transaction` is then shared with each of the three signers to sign with their private keys.
+After you create the transfer transaction, you will need to freeze (`freezeWith(client)`) the transaction from further modification so that transaction cannot be tampered with. This ensures each signer is signing the same exact transaction. The `transaction` is then shared with each of the three signers to sign with their private keys.
 
 {% hint style="info" %}
-It is required to set the account ID of the node\(s\) the transaction will be submitted to when freezing a transaction for signatures. To set the node account ID\(s\) you apply the `.setNodeAccountIds()` method.
+It is required to set the account ID of the node(s) the transaction will be submitted to when freezing a transaction for signatures. To set the node account ID(s) you apply the `.setNodeAccountIds()` method.
 {% endhint %}
 
 {% tabs %}
@@ -129,7 +129,7 @@ if err != nil {
 
 ## 3. Create a single transaction with all three signatures
 
-Once you have collected all three signature bytes \(`signature1`, `signature2`, `signature 3`\), you will then apply them to the transaction \(`transaction`\) to create a single transaction with all three signatures to submit to the network. You will take the `transaction` that we started with and apply the signature bytes to the transaction using `addSignature()`. You will need the public keys of each of the signers to include in the method.
+Once you have collected all three signature bytes (`signature1`, `signature2`, `signature 3`), you will then apply them to the transaction (`transaction`) to create a single transaction with all three signatures to submit to the network. You will take the `transaction` that we started with and apply the signature bytes to the transaction using `addSignature()`. You will need the public keys of each of the signers to include in the method.
 
 You can add as many signatures to a single transaction as long as the transaction size does not exceed 6,144 kb. Each additional signature applied to the transaction will increase the transaction fee from its base cost of $0.0001. If the transaction fee increases beyond the SDK's default max transaction fee of 1 hbar, you will need to update the max transaction fee value by calling the `.setMaxTransactionFee()` before submitting the transaction to the network.
 
@@ -186,7 +186,7 @@ fmt.Println("The public keys that signed the transaction ", signatures)
 
 ## 5. Submit the transaction
 
-We are now ready to submit the transfer transaction to a Hedera network. To submit the transaction, we will apply the `.execute()` method to `signedTransaction`. After the transaction is submitted, we will print the transaction ID to the console. You can use the transaction ID to search for transaction details in a mirror node explorer like [DragonGlass](https://app.dragonglass.me/hedera/home), [Kabuto](https://kabuto.sh), or [Ledger Works](https://explore.lworks.io). Be sure to select the correct network when searching for the transaction in a mirror node explorer. You can also check the status of a transaction by requesting the [receipt](get-a-transaction-receipt.md) of the transaction and obtaining the status.
+We are now ready to submit the transfer transaction to a Hedera network. To submit the transaction, we will apply the `.execute()` method to `signedTransaction`. After the transaction is submitted, we will print the transaction ID to the console. You can use the transaction ID to search for transaction details in a mirror node explorer like [DragonGlass](https://app.dragonglass.me/hedera/home), [Hashscan](https://hashscan.io/#/mainnet/dashboard), or [Ledger Works](https://explore.lworks.io). Be sure to select the correct network when searching for the transaction in a mirror node explorer. You can also check the status of a transaction by requesting the [receipt](get-a-transaction-receipt.md) of the transaction and obtaining the status.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -228,4 +228,3 @@ fmt.Println("The transaction ID ", txId)
 ```
 {% endtab %}
 {% endtabs %}
-

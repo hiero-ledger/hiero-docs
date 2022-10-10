@@ -957,7 +957,7 @@ async function main() {
     const bytecode = htsContract.data.bytecode.object;
 
     //Treasury Key
-    const treasuryKey = await PrivateKey.generateED25519();
+    const treasuryKey = PrivateKey.generateED25519();
 
     //Create token treasury account
     const treasuryAccount = new AccountCreateTransaction()

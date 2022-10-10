@@ -24,17 +24,17 @@ You can find instructions on how to operate your own Hedera mirror node below.
 
 **Third-party mirror nodes:**
 
-* [Dragon Glass](https://app.dragonglass.me/hedera/home) &#x20;
-* [Kabuto](https://kabuto.sh/)&#x20;
-* [Ledger Works](https://lworks.io) &#x20;
+* [Dragon Glass](https://app.dragonglass.me/hedera/home)
+* [Ledger Works](https://lworks.io)
+* [Hashscan](https://hashscan.io/#/mainnet/dashboard)
 
 ## **SDKs and Docs**
 
 The following SDKs support HTS:
 
-* [Java](https://github.com/hashgraph/hedera-sdk-java)&#x20;
-* [JavaScript](https://github.com/hashgraph/hedera-sdk-js)&#x20;
-* [Go](https://github.com/hashgraph/hedera-sdk-go)&#x20;
+* [Java](https://github.com/hashgraph/hedera-sdk-java)
+* [JavaScript](https://github.com/hashgraph/hedera-sdk-js)
+* [Go](https://github.com/hashgraph/hedera-sdk-go)
 * [.NET](https://github.com/bugbytesinc/Hashgraph)
 
 Documentation can be found below.
@@ -123,12 +123,12 @@ Hedera accounts can be optionally flagged for meeting KYC requirements or not. T
 
 The Hedera Mirror Node has the following REST APIs you can use to query token information from:
 
-* The accounts API returns the tokens that are associated with an account&#x20;
-* The transactions API returns the token transfers in a given transaction&#x20;
-* The token APIs you can:&#x20;
-  * Get all of the tokens that were created in a Hedera network&#x20;
-  * Get all the accounts the specified token is associated with&#x20;
-  * Get a specified token’s current state on the network with the following information&#x20;
+* The accounts API returns the tokens that are associated with an account
+* The transactions API returns the token transfers in a given transaction
+* The token APIs you can:
+  * Get all of the tokens that were created in a Hedera network
+  * Get all the accounts the specified token is associated with
+  * Get a specified token’s current state on the network with the following information
 
 You can find the token REST API information below.
 
