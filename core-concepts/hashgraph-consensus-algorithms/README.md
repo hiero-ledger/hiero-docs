@@ -6,7 +6,7 @@ description: Distributed consensus algorithm
 
 The hashgraph consensus algorithm enables distributed consensus in an innovative, efficient way. Hashgraph is a distributed consensus algorithm and data structure that is fast, fair, and secure. This indirectly creates a trusted community, even when members do not necessarily trust each other.
 
-Hedera is the only public ledger authorized to use hashgraph. The consensus algorithm is proprietary, the code will be made available for open review at version 1.0 of the Hedera network.
+The [hashrgaph consensus algorithm]([url](https://github.com/hashgraph/hedera-platform)) and platform code is open source under an Apache 2.0 license.
 
 {% embed url="https://www.youtube.com/watch?v=cje1vuVKhwY&t=5s" %}
 
