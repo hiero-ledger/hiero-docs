@@ -592,7 +592,7 @@ contractCallQuery, err := hedera.NewContractCallQuery().
         //This value must cover the cost of the request otherwise will fail
         SetQueryPayment(hedera.NewHbar(2)).
         //Set the contract function to call
-	SetFunction("getMessage", nil). // nil -> no parameters
+	SetFunction("get_message", nil). // nil -> no parameters
 	//Submit the query to a Hedera network node
 	Execute(client)
 	
