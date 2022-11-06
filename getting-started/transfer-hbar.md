@@ -124,7 +124,7 @@ public class HederaExamples {
         client.setOperator(myAccountId, myPrivateKey);
 
         // Generate a new key pair
-        PrivateKey newAccountPrivateKey = PrivateKey.generateED25519());
+        PrivateKey newAccountPrivateKey = PrivateKey.generateED25519();
         PublicKey newAccountPublicKey = newAccountPrivateKey.getPublicKey();
 
         //Create new account and assign the public key
