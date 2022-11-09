@@ -20,9 +20,54 @@ In this section, you will learn how to transfer hbars from your account to anoth
 
 You can always check the "Code Check ✅ " section at the bottom of each page to view the entire code if you run into issues. You can also post your issue to the respective SDK channel in our Discord community [here](http://hedera.com/discord) or on the GitHub repository.
 
+## Step 1: Import modules
+
+Import the following modules to your code file.
+
 {% tabs %}
 {% tab title="Java" %}
-#### Step 1. Create a transfer transaction
+```java
+import com.hedera.hashgraph.sdk.AccountId;
+import com.hedera.hashgraph.sdk.HederaPreCheckStatusException;
+import com.hedera.hashgraph.sdk.HederaReceiptStatusException;
+import com.hedera.hashgraph.sdk.PrivateKey;
+import com.hedera.hashgraph.sdk.Client;
+import com.hedera.hashgraph.sdk.TransactionResponse;
+import com.hedera.hashgraph.sdk.TransferTransaction;
+import com.hedera.hashgraph.sdk.PublicKey;
+import com.hedera.hashgraph.sdk.AccountCreateTransaction;
+import com.hedera.hashgraph.sdk.Hbar;
+import com.hedera.hashgraph.sdk.AccountBalanceQuery;
+import com.hedera.hashgraph.sdk.AccountBalance;
+import io.github.cdimascio.dotenv.Dotenv;
+​
+import java.util.concurrent.TimeoutException;
+```
+{% endtab %}
+
+{% tab title="JavaScript" %}
+```javascript
+const { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, Hbar, TransferTransaction } = require("@hashgraph/sdk");
+require("dotenv").config();
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+import (
+    "fmt"
+    "os"
+
+    "github.com/hashgraph/hedera-sdk-go/v2"
+    "github.com/joho/godotenv"
+)
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Java" %}
+#### Step 2. Create a transfer transaction
 
 You should already have a new account from the account you created in the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your account to the new account. The account transferring hbars is required to sign the transaction with the account's corresponding private key to authorize the transfer. Since you are transferring from the account associated with the client, you do not need to explicitly sign the transaction as the operator account signs all transactions to authorize the payment of the transaction fee.
 
@@ -41,7 +86,7 @@ TransactionResponse sendHbar = new TransferTransaction()
 The net value of the transfer must equal zero (total number of hbars sent by the sender must equal the total number of hbars received by the recipient).
 {% endhint %}
 
-#### Step 2. Verify the transfer transaction reached consensus
+#### Step 3. Verify the transfer transaction reached consensus
 
 To verify the transfer transaction reached consensus by the network, you will submit a request to obtain the receipt of the transfer transaction. The receipt will let you know if the transaction was successful or not.
 
@@ -49,7 +94,7 @@ To verify the transfer transaction reached consensus by the network, you will su
 System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client).status);
 ```
 
-#### Step 3. Get the account balance
+#### Step 4. Get the account balance
 
 **Get the cost of requesting the query**
 
