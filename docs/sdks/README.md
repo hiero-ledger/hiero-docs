@@ -36,7 +36,7 @@ Build a Hedera-powered application using your favorite language with these commu
 | Project | Maintainer | License | Documentation | Download |
 | :--- | :--- | :--- | :--- | :--- |
 | Hedera SDK for .NET | Community | Apache 2.0 | [https://bugbytesinc.github.io/Hashgraph/](https://bugbytesinc.github.io/Hashgraph/) | [github.com/bugbytesinc](https://github.com/bugbytesinc/Hashgraph) |
-| Hedera SDK for Strato JS | Community | MIT | [hsj-docs.buidlerlabs.com](https://hsj-docs.buidlerlabs.com/) | [buidler-labs/hedera-strato-js](https://github.com/buidler-labs/hedera-strato-js) |
+| Hashgraph Venin SDK for JS | Community | MIT | [venin.buidlerlabs.com](https://venin.buidlerlabs.com/) | [buidler-labs/hashgraph-venin-js](https://github.com/buidler-labs/hashgraph-venin-js) |
 
 ### Ecosystem Wallet Support
 Integrate Hedera ecosystem wallet support with ease.
