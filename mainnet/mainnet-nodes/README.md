@@ -44,6 +44,7 @@ Note: TLS port is currently not supported by Hedera SDKs
 | DBS                 | 23      | **0.0.26**      | <p>34.87.150.174</p><p>13.228.103.14</p>                                                                                  | 50211, 50212 (TLS) | 8852cb8dcddab369e5719cdbac5e5f50098f882176412ad711e2b03ac6e9fe7035826fd47c12a12742d2c00d5075753f |
 | ServiceNow          | 24      | **0.0.27**      | <p>34.125.200.96</p><p>13.56.4.96</p>                                                                                     | 50211, 50212 (TLS) | 9e51d01fd202f55080e5ddc4c5a9822747c66a857b0d4070fc20b3f508c5a20239877a219b761825349af5f30010a83d |
 | Ubisoft             | 25      | **0.0.28**      | <p>35.198.220.75</p><p>18.139.47.5</p>                                                                                    | 50211, 50212 (TLS) | b02c9e85f49da18147fd1353773baf0e71d72e22a007f1df9051aa8a4761ae87ad4f90ea4c3409811a1c4777cc2fc61f |
+| abrdn               | 26      | **0.0.29**      | <p>34.142.71.129</p><p>54.74.60.120</p>                                                                                    | 50211, 50212 (TLS) | fff800ea4280d62c9c1ff333cf430194e0f8af282b813b45211328533cf72f9f14644c0604aacf12b165b5a6b059acc3 |
 
 ### Mainnet Node Public Keys
 
