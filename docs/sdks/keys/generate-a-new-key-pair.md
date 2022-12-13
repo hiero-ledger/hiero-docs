@@ -19,7 +19,7 @@ PrivateKey privateKey = PrivateKey.generateED25519();
 PublicKey publicKey = privateKey.getPublicKey();
 
 System.out.println("private = " + privateKey);
-System.out.println("public = " + publicKey);Java
+System.out.println("public = " + publicKey);
 ```
 {% endtab %}
 
@@ -29,7 +29,7 @@ const privateKey = await PrivateKey.generateED25519Async();
 const publicKey = privateKey.publicKey;
 
 console.log("private = " + privateKey);
-console.log("public = " + publicKey);ava
+console.log("public = " + publicKey);
 ```
 {% endtab %}
 
@@ -43,7 +43,7 @@ if err != nil {
 publicKey := privateKey.PublicKey()
 
 fmt.Printf("private = %v\n", privateKey)
-fmt.Printf("public = %v\n", publicKey)go
+fmt.Printf("public = %v\n", publicKey)
 ```
 {% endtab %}
 {% endtabs %}
