@@ -19,7 +19,7 @@
     * [Run your mirror node using GCS](mirrornet/run-your-own-beta-mirror-node/run-your-own-mirror-node-gcs.md)
     * [Run your mirror node using S3](mirrornet/run-your-own-beta-mirror-node/run-your-own-mirror-node-s3.md)
   * [Hedera ETL](mirrornet/hedera-etl.md)
-  * [Community Mirror Node Explorers and Tools](mirrornet/community-mirror-nodes.md)
+  * [Network Explorers and Tools](mirrornet/community-mirror-nodes.md)
 
 ## Getting Started
 
