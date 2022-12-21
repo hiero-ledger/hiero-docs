@@ -74,4 +74,4 @@ Populate the requests with the required fields. The transaction ID should be con
 
 Responsible for serializing your request and sending it over the wire to be executed, and then deserializing the response into the appropriate type.
 
-Note: This is a wrapper around the `Provder.call()` method.
+Note: This is a wrapper around the `Provider.call()` method.
