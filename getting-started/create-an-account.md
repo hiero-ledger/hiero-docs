@@ -108,7 +108,7 @@ newAccountPublicKey := newAccountPrivateKey.PublicKey()
 
 ## Step 3: Create new account
 
-Create a new account using <mark style="color:purple;">`AccountCreateTransaction()`</mark>. Use the public key created in the previous step to enter in the `setKey()` field. This will associate the key pair generated in the previous step to the new account. The public key of the account is visible to the public and can be viewed in a mirror node explorer. The private key is used to authorize account related transactions like transferring hbars or tokens from that account to another account. The account will have an initial balance of 1,000 tinybar that is funded from your testnet account created by the Hedera portal.
+Create a new account using <mark style="color:purple;">`AccountCreateTransaction()`</mark>. Use the public key created in the previous step to enter in the `setKey()` field. This will associate the key pair generated in the previous step to the new account. The public key of the account is visible to the public and can be viewed in a mirror node explorer. The private key is used to authorize account related transactions like transferring HBARs or tokens from that account to another account. The account will have an initial balance of 1,000 tinybars that is funded from your testnet account created by the Hedera portal.
 
 You can view transactions that were successfully submitted to the network by getting the transaction ID and searching for it in a mirror node explorer. The transaction ID is composed of the account ID that paid for the transaction and the transaction valid start time e.g. <mark style="color:blue;">`0.0.1234@1609348302`</mark><mark style="color:blue;">.</mark> The transaction valid start time is the time the transaction begins to be valid on the network. The SDK automatically generates a transaction ID for each transaction behind the scenes.
 
@@ -234,7 +234,7 @@ fmt.Println("The account balance for the new account is ", accountBalance.Hbars.
 
 :star: Congratulations! You have successfully completed the following:
 
-* Created new a Hedera account with an initial balance of 1,000 tinybar
+* Created new a Hedera account with an initial balance of 1,000 tinybars
 * Obtained the new account ID by requesting the receipt of the transaction
 * Verified the starting balance of the new account by submitting a query to the network
 

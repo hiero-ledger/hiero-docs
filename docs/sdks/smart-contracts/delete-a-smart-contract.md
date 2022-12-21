@@ -22,11 +22,11 @@ new ContractDeleteTransaction()
 
 ### Methods
 
-| Method                                      | Type                                                             | Description                                                          | Requirement |
-| ------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------- | ----------- |
-| `setContractId(<contractId>)`               | [ContractId](../deprecated/sdks/specialized-types.md#contractid) | Sets the contract ID (x.z.y) which should be deleted.                | Required    |
-| `setTransferAccountId(<transferAccountId>)` | [AccountId](../deprecated/sdks/specialized-types.md#accountid)   | Sets the account ID (x.z.y) which will receive all remaining hbars   | Optional    |
-| `setTransferContractId(<contractId>)`       | [ContractId](../deprecated/sdks/specialized-types.md#contractid) | Sets the contract ID (x.z.y) which will receive all remaining hbars. | Optional    |
+| Method                                      | Type                                             | Description                                                          | Requirement |
+| ------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------- | ----------- |
+| `setContractId(<contractId>)`               | [ContractId](../specialized-types.md#contractid) | Sets the contract ID (x.z.y) which should be deleted.                | Required    |
+| `setTransferAccountId(<transferAccountId>)` | [AccountId](../specialized-types.md#accountid)   | Sets the account ID (x.z.y) which will receive all remaining hbars   | Optional    |
+| `setTransferContractId(<contractId>)`       | [ContractId](../specialized-types.md#contractid) | Sets the contract ID (x.z.y) which will receive all remaining hbars. | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

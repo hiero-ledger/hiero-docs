@@ -90,17 +90,17 @@ System.out.println("The transaction consensus status is " +transactionStatus)
 
 {% tabs %}
 {% tab title="V2" %}
-| Method                      | Type                                             | Requirement |
-| --------------------------- | ------------------------------------------------ | ----------- |
-| `getContractId()`           | [ContractId](../specialized-types.md#contractid) | Required    |
-| `getAdminKey()`             | Key                                              | Optional    |
-| `getBytecodeFileId()`       | [FileId](../specialized-types.md#fileid)         | Optional    |
-| `getProxyAccountId()`       | [AccountId](../specialized-types.md#accountid)   | Optional    |
-| `getContractMemo()`         | String                                           | Optional    |
-| `getStakedAccountId()`      | AccountId                                        | Optional    |
-| `getStakedNodeId()`         | long                                             | Optional    |
-| `getDeclineStakingReward()` | boolean                                          | Optional    |
-| `getAutoRenewPeriod()`      | Duration                                         | Optional    |
+| Method                      | Type                                                   | Requirement |
+| --------------------------- | ------------------------------------------------------ | ----------- |
+| `getContractId()`           | [ContractId](../../../specialized-types.md#contractid) | Required    |
+| `getAdminKey()`             | Key                                                    | Optional    |
+| `getBytecodeFileId()`       | [FileId](../../../specialized-types.md#fileid)         | Optional    |
+| `getProxyAccountId()`       | [AccountId](../../../specialized-types.md#accountid)   | Optional    |
+| `getContractMemo()`         | String                                                 | Optional    |
+| `getStakedAccountId()`      | AccountId                                              | Optional    |
+| `getStakedNodeId()`         | long                                                   | Optional    |
+| `getDeclineStakingReward()` | boolean                                                | Optional    |
+| `getAutoRenewPeriod()`      | Duration                                               | Optional    |
 
 {% code title="Java" %}
 ```java

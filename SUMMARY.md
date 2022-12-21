@@ -24,7 +24,7 @@
 ## Getting Started
 
 * [Introduction](getting-started/introduction.md)
-* [Environment Set-up](getting-started/environment-set-up.md)
+* [Environment Setup](getting-started/environment-set-up.md)
 * [Create an account](getting-started/create-an-account.md)
 * [Transfer HBAR](getting-started/transfer-hbar.md)
 * [Try Examples! 👩‍💻](getting-started/try-examples/README.md)

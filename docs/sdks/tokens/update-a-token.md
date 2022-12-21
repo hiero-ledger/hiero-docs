@@ -43,23 +43,23 @@ new TokenUpdateTransaction()
 
 ## Methods
 
-| Method                                | Type                                                           | Requirement |
-| ------------------------------------- | -------------------------------------------------------------- | ----------- |
-| `setTokenId(<tokenId>)`               | [TokenId](token-id.md)                                         | Required    |
-| `setTokenName(<name>)`                | String                                                         | Optional    |
-| `setTokenSymbol(<symbol>)`            | String                                                         | Optional    |
-| `setTreasuryAccountId(<treasury>)`    | [AccountId](../deprecated/sdks/specialized-types.md#accountid) | Optional    |
-| `setAdminKey(<key>)`                  | Key                                                            | Optional    |
-| `setKycKey(<key>)`                    | Key                                                            | Optional    |
-| `setFreezeKey(<key>)`                 | Key                                                            | Optional    |
-| `setFeeScheduleKey(<key>)`            | Key                                                            | Optional    |
-| `setPauseKey(<key>)`                  | Key                                                            | Optional    |
-| `setWipeKey(<key>)`                   | Key                                                            | Optional    |
-| `setSupplyKey(<key>)`                 | Key                                                            | Optional    |
-| `setExpirationTime(<expirationTime>)` | Instant                                                        | Optional    |
-| `setTokenMemo(<memo>)`                | String                                                         | Optional    |
-| `setAutoRenewAccountId(<account>)`    | [AccountId](../deprecated/sdks/specialized-types.md#accountid) | Disabled    |
-| `setAutoRenewPeriod(<period>)`        | Duration                                                       | Disabled    |
+| Method                                | Type                                           | Requirement |
+| ------------------------------------- | ---------------------------------------------- | ----------- |
+| `setTokenId(<tokenId>)`               | [TokenId](token-id.md)                         | Required    |
+| `setTokenName(<name>)`                | String                                         | Optional    |
+| `setTokenSymbol(<symbol>)`            | String                                         | Optional    |
+| `setTreasuryAccountId(<treasury>)`    | [AccountId](../specialized-types.md#accountid) | Optional    |
+| `setAdminKey(<key>)`                  | Key                                            | Optional    |
+| `setKycKey(<key>)`                    | Key                                            | Optional    |
+| `setFreezeKey(<key>)`                 | Key                                            | Optional    |
+| `setFeeScheduleKey(<key>)`            | Key                                            | Optional    |
+| `setPauseKey(<key>)`                  | Key                                            | Optional    |
+| `setWipeKey(<key>)`                   | Key                                            | Optional    |
+| `setSupplyKey(<key>)`                 | Key                                            | Optional    |
+| `setExpirationTime(<expirationTime>)` | Instant                                        | Optional    |
+| `setTokenMemo(<memo>)`                | String                                         | Optional    |
+| `setAutoRenewAccountId(<account>)`    | [AccountId](../specialized-types.md#accountid) | Disabled    |
+| `setAutoRenewPeriod(<period>)`        | Duration                                       | Disabled    |
 
 {% tabs %}
 {% tab title="Java" %}

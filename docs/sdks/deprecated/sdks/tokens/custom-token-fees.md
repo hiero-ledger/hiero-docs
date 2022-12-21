@@ -56,11 +56,11 @@ new CustomFixedFee()
 
 {% tabs %}
 {% tab title="V1" %}
-| Method                                  | Type                                           | Requirement |
-| --------------------------------------- | ---------------------------------------------- | ----------- |
-| `setFeeCollectorAccountId(<accountId>)` | [AccountId](../specialized-types.md#accountid) | Required    |
-| `setAmount(<amount>)`                   | long                                           | Required    |
-| `setDenominatingTokenId(<tokenId>)`     | [TokenId](../../../tokens/token-id.md)         | Optional    |
+| Method                                  | Type                                                 | Requirement |
+| --------------------------------------- | ---------------------------------------------------- | ----------- |
+| `setFeeCollectorAccountId(<accountId>)` | [AccountId](../../../specialized-types.md#accountid) | Required    |
+| `setAmount(<amount>)`                   | long                                                 | Required    |
+| `setDenominatingTokenId(<tokenId>)`     | [TokenId](../../../tokens/token-id.md)               | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -107,14 +107,14 @@ new CustomFractionalFee()
 
 {% tabs %}
 {% tab title="V1" %}
-| Method                                    | Type                                           | Requirement |
-| ----------------------------------------- | ---------------------------------------------- | ----------- |
-| `setFeeCollectorAccountId(<accountId>)`   | [AccountId](../specialized-types.md#accountid) | Required    |
-| `setNumerator(<numerator>)`               | long                                           | Required    |
-| `setDenominator(<amount>)`                | long                                           | Required    |
-| `setMax(<max>)`                           | long                                           | Optional    |
-| `setMin(<min>)`                           | long                                           | Optional    |
-| `setAssessmentMethod(<assessmentMethod>)` | FeeAssessmentMethod                            | Optional    |
+| Method                                    | Type                                                 | Requirement |
+| ----------------------------------------- | ---------------------------------------------------- | ----------- |
+| `setFeeCollectorAccountId(<accountId>)`   | [AccountId](../../../specialized-types.md#accountid) | Required    |
+| `setNumerator(<numerator>)`               | long                                                 | Required    |
+| `setDenominator(<amount>)`                | long                                                 | Required    |
+| `setMax(<max>)`                           | long                                                 | Optional    |
+| `setMin(<min>)`                           | long                                                 | Optional    |
+| `setAssessmentMethod(<assessmentMethod>)` | FeeAssessmentMethod                                  | Optional    |
 
 {% code title="Java" %}
 ```java
@@ -163,12 +163,12 @@ new CustomRoyaltyFee()
 
 {% tabs %}
 {% tab title="V1" %}
-| Method                                              | Type                                             | Requirement |
-| --------------------------------------------------- | ------------------------------------------------ | ----------- |
-| `setNumerator(<numerator>)`                         | long                                             | Required    |
-| `setDenominator(<denominator>)`                     | long                                             | Required    |
-| `setFallbackFee(<fallbackFee>)`                     | [CustomFixedFee](custom-token-fees.md#fixed-fee) | Optional    |
-| `setFeeCollectorAccountId(<feeCollectorAccountId>)` | [AccountId](../specialized-types.md#accountid)   | Required    |
+| Method                                              | Type                                                 | Requirement |
+| --------------------------------------------------- | ---------------------------------------------------- | ----------- |
+| `setNumerator(<numerator>)`                         | long                                                 | Required    |
+| `setDenominator(<denominator>)`                     | long                                                 | Required    |
+| `setFallbackFee(<fallbackFee>)`                     | [CustomFixedFee](custom-token-fees.md#fixed-fee)     | Optional    |
+| `setFeeCollectorAccountId(<feeCollectorAccountId>)` | [AccountId](../../../specialized-types.md#accountid) | Required    |
 
 {% code title="Java" %}
 ```java

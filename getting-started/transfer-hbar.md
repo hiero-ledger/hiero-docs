@@ -2,7 +2,7 @@
 
 ## Summary
 
-In this section, you will learn how to transfer hbars from your account to another account on the Hedera test network.
+In this section, you will learn how to transfer HBARs from your account to another account on the Hedera test network.
 
 ## Pre-requisites: <a href="#pre-requisites" id="pre-requisites"></a>
 
@@ -24,7 +24,7 @@ You can always check the "Code Check ✅ " section at the bottom of each page to
 {% tab title="Java" %}
 **Step 1. Create a transfer transaction**
 
-You should already have a new account from the account you created in the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your account to the new account. The account transferring HBAR is required to sign the transaction with the account's corresponding private key to authorize the transfer. Since you are transferring from the account associated with the client, you do not need to explicitly sign the transaction as the operator account signs all transactions to authorize the payment of the transaction fee.
+You should already have a new account from the account you created in the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your account to the new account. The account transferring HBARs is required to sign the transaction with the account's corresponding private key to authorize the transfer. Since you are transferring from the account associated with the client, you do not need to explicitly sign the transaction as the operator account signs all transactions to authorize the payment of the transaction fee.
 
 ```java
 //System.out.println("The new account balance is: " +accountBalance.hbars);
@@ -38,7 +38,7 @@ TransactionResponse sendHbar = new TransferTransaction()
 ```
 
 {% hint style="info" %}
-The net value of the transfer must equal zero (total number of hbars sent by the sender must equal the total number of hbars received by the recipient).
+The net value of the transfer must equal zero (total number of HBARs sent by the sender must equal the total number of HBARs received by the recipient).
 {% endhint %}
 
 **Step 2. Verify the transfer transaction reached consensus**
@@ -77,11 +77,11 @@ AccountBalance accountBalanceNew = new AccountBalanceQuery()
 System.out.println("The new account balance is: " +accountBalanceNew.hbars);
 ```
 
-:star: Congratulations! You have successfully transferred hbars to another account on the Hedera testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
+:star: Congratulations! You have successfully transferred HBARs to another account on the Hedera testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
 
 * Set up your Hedera environment to submit transactions and queries
 * Created an account
-* Transferred hbars to another account
+* Transferred HBARs to another account
 
 Do you want to keep learning? Visit our "[Resources](../resources/starter-projects.md)" and "[Documentation](../docs/sdks/)" sections to take your learning experience to the next level. You can also find additional Java SDK examples [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java).
 
