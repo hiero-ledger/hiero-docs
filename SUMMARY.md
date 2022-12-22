@@ -2,7 +2,7 @@
 
 * [Hedera](README.md)
 * [Mainnet](mainnet/README.md)
-  * [Mainnet Access](mainnet/mainnet-access.md)
+  * [Mainnet Accounts](mainnet/mainnet-access.md)
   * [Mainnet Nodes](mainnet/mainnet-nodes/README.md)
     * [Node Requirements](mainnet/mainnet-nodes/node-requirements/README.md)
       * [Reference Configuration](mainnet/mainnet-nodes/node-requirements/reference-configuration.md)
@@ -10,7 +10,7 @@
   * [Fees](mainnet/fees/README.md)
     * [Transaction Records](mainnet/fees/transaction-records.md)
 * [Testnets](testnet/README.md)
-  * [Testnet Access](testnet/testnet-access.md)
+  * [Testnet Accounts](testnet/testnet-access.md)
   * [Testnet Nodes](testnet/testnet-nodes.md)
 * [Mirrornet](mirrornet/README.md)
   * [Hedera Mirror Node](mirrornet/hedera-mirror-node.md)
