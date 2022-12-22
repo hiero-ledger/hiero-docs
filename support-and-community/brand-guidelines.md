@@ -10,6 +10,6 @@ For use on white or light backgrounds.
 
 For use on black or dark backgrounds
 
-![](<../.gitbook/assets/Built On Hedera \_ WHITE\_Background (1) (1) (1) (1) (1) (1) (1) (1) (1) (2).png>)
+![](<../.gitbook/assets/Built On Hedera \_ WHITE\_Background (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
 For Hedera logo usage, details, and more view the complete [Hedera Brand page](https://hedera.com/brand).

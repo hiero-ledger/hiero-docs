@@ -210,7 +210,7 @@ Approved operators can manage an owner's tokens on their behalf; this is necessa
 
 Any permissions granted in a contract through `approve()` or `setApprovalForAll()` have an equivalent HAPI `cryptoApproveAllowance` or `cryptoDeleteAllowance` expression---and this expression is externalized as a HAPI `TransactionBody` in the record stream. That is, the HIP-376 system contracts expose a subset of the native HAPI operations, only within the EVM.
 
-![](<../../.gitbook/assets/image (1).png>)
+![](<../../.gitbook/assets/image (5).png>)
 
 ## [v0.25](https://github.com/hashgraph/hedera-services/releases/tag/v0.25.0)
 
@@ -284,7 +284,7 @@ Hedera Services 0.23 fleshes out our smart contract service via the implementati
 
 Please note two issues fixed in this release. [First](https://github.com/hashgraph/hedera-services/issues/2841), in release 0.22, the nodes returned the `bytes ledger_id` stipulated by [HIP-33](https://hips.hedera.com/hip/hip-33) as a UTF-8 encoding of a hex string. The returned bytes are now the big-endian representation of the ledger's numeric id. [Second](https://github.com/hashgraph/hedera-services/issues/2857), prior to this release, the record of a `dissociateToken` from a deleted token did not list the discarded balance of the dissociated account if the token's treasury was missing. This is now fixed.
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (2).jpeg>)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (2) (1).jpeg>)
 
 ## [v0.22](https://github.com/hashgraph/hedera-services/releases/tag/v0.22.1)
 
@@ -311,7 +311,7 @@ There are two other HIP's included in this release not related to the smart cont
 
 While we are gaining momentum in our smart contracts roadmap, we are also deeply committed to improving the developer experience, and welcome issues and ideas in our [GitHub repository](https://github.com/hashgraph/hedera-services) and [Discord](https://hedera.com/discord)!
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1).jpeg>)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1).jpeg>)
 
 ## [v0.21.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.21.0-rc.1)
 
@@ -400,7 +400,7 @@ Third, please note that the `TokenService` `getTokenNftInfos` and `getAccountNft
 
 Developers will likely appreciate two other release 0.18.1 items. First, we have migrated to [Dagger2](https://dagger.dev/) for dependency injection. Second, there is a new `getExecutionTime` query in the [`NetworkService`](https://hashgraph.github.io/hedera-protobufs/#proto.NetworkService) that supports granular performance testing in development environments.
 
-![](<../../.gitbook/assets/image (2).png>)
+![](<../../.gitbook/assets/image (1).png>)
 
 ## v0.18.0
 
