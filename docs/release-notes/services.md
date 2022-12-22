@@ -8,6 +8,28 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Upcoming Releases
 
+{% hint style="info" %}
+**MAINNET UPDATE: JANUARY 12, 2023**
+{% endhint %}
+
+{% hint style="info" %}
+**TESTNET UPDATE: DECEMBER 22, 2022**
+{% endhint %}
+
+## [v0.33](https://github.com/hashgraph/hedera-services/releases/tag/v0.33.0)
+
+Services v0.33.0 adds the following features:
+
+* HIP-583: Allow CryptoCreate transactions with ECDSA key and public address alias when lazy creation flag is off
+
+This release also adds the following minor features:
+
+* Hyperledger Besu EVM updated to version 22.10.x
+* 'accounts send' subcommand added to yahcli to support sending HTS token units
+* Developer documentation updates
+
+## **Latest Releases**
+
 ## [v0.31](https://github.com/hashgraph/hedera-services/releases/tag/v0.31.0)
 
 {% hint style="success" %}
@@ -39,8 +61,6 @@ In addition to the above features,
 * Adds some changes related to testability improvements.
 
 <figure><img src="../../.gitbook/assets/0.31_results.001.png" alt=""><figcaption></figcaption></figure>
-
-## Latest Releases
 
 ## [v0.30](https://github.com/hashgraph/hedera-services/releases/tag/v0.30.0)
 
