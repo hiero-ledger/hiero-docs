@@ -101,136 +101,19 @@ Account IDs can also take the account number as an input value. For example, for
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
-{% swagger method="get" path="/api/v1/accounts/{accountId}/nfts" baseUrl="" summary="NFTs by account ID" %}
-{% swagger-description %}
-Specify the account ID or account alias you would like to return the NFTs for. Please reference this
-
-[doc](https://testnet.mirrornode.hedera.com/api/v1/docs/#/accounts/listNftByAccountId)
-
-for additional filtering guidelines.
-{% endswagger-description %}
-
-{% swagger-parameter in="query" name="token.id" type="String" required="false" %}
-The ID of the token to return information for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="serialNumber" type="String" required="false" %}
-The nft serial number (64 bit type). Requires a tokenId value also be populated.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="path" name="accountAliasOrAccountId" required="true" %}
-The account ID or account alias (0.0.accountNum or 0.0.accountAlias)
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="spender.id" required="false" %}
-The account ID of the spender to return information for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-The maximum number of items to return.
-
-Default: 25
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="order" required="false" %}
-The order in which items are listed
-
-_Available values_ : asc, desc
-
-_Default value_ : desc
-
-_Example_ : asc\\
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="NFTs for account 0.0.5" %}
-```javascript
-{
-  "nfts": [
-    {
-      "account_id": "0.0.5",
-      "created_timestamp": "1234567890.000000001",
-      "deleted": false,
-      "metadata": "VGhpcyBpcyBhIHRlc3QgTkZU",
-      "modified_timestamp": "1610682445.003266001",
-      "serial_number": 124,
-      "token_id": "0.0.222"
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
-{% endswagger %}
-
 {% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/accounts/{idOrAliasOrEvmAddress}/allowances/crypto" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
-{% swagger method="get" path="/api/v1/accounts/{accountAliasOrAccountId}/allowances/tokens" baseUrl="" summary="Fungible token allowances for an account" %}
-{% swagger-description %}
-Returns information for fungible token allowances for an account. Please refer to
-
-[this](https://testnet.mirrornode.hedera.com/api/v1/docs/#/accounts/listTokenAllowancesByAccountId)
-
-document regarding filtering restrictions.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="accountAliasOrAccountId" type="String" required="true" %}
-Account ID or account alias to return the fungible token allowances for.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="spender.id" type="String" required="false" %}
-The ID of the spender to return information for.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="token.id" type="String" required="false" %}
-The ID of the token to return information for.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-The maximum number of items to return
-
-_Default value_ : 25
-
-_Example_ : 2
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="order" required="false" %}
-The order in which items are listed
-
-_Available values_ : asc, desc
-
-_Default value_ : asc
-
-_Example_ : desc
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```javascript
-{
-  "allowances": [
-    {
-      "amount_granted": 100,
-      "owner": "0.1.2",
-      "spender": "0.1.2",
-      "timestamp": {
-        "from": "1586567700.453054000",
-        "to": "1586567700.453054000"
-      },
-      "token_id": "0.1.2"
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/accounts/{idOrAliasOrEvmAddress}/tokens" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/accounts/{idOrAliasOrEvmAddress}/tokens" method="get" %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/accounts/{idOrAliasOrEvmAddress}/nfts" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
+
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/accounts/{idOrAliasOrEvmAddress}/allowances/tokens" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
@@ -238,57 +121,8 @@ _Example_ : desc
 
 The **balance** object represents the balance of accounts on the Hedera network. You can retrieve this to view the **most recent** balance of all the accounts on the network at that given time. The balances object returns the account ID and the balance in hbars. Balances are checked on a periodic basis and thus return the most recent snapshot of time captured prior to the request.
 
-{% swagger baseUrl="" path=" /api/v1/balances" method="get" summary="account balances" %}
-{% swagger-description %}
-Returns a timestamped list of account balances on the network. Balances for an account are updated every 15 minutes. You can refer to the timestamp for when the balance was last updated for the account. If you need to return the balance of an account more frequently you can do so by using the free account balance query via the SDK.
-{% endswagger-description %}
-
-{% swagger-parameter in="query" name="account.id" type="String" required="false" %}
-The ID of the account to return the balance for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.balance" type="String" required="false" %}
-Returns a list of account IDs that have the specified balance (tinybars)
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="timestamp" type="array[string]" required="false" %}
-The timestamp the user would like to return account balances for. The timestamp can be provided in seconds format (15000000000) or in seconds.nanoseconds (15000000000.010000000).
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.publickey" type="String" required="false" %}
-The account's public key to compare against
-
-_Example_ : 3c3d546321ff6f63d701d2ec5c277095874e19f4a235bee1e6bb19258bf362be
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-The limit of items to return
-
-_Default value_ : 25
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="The balance for account 0.0.2004" %}
-```
-{
-    "timestamp": "1602804267.903201001",
-    "balances": [
-        {
-            "account": "0.0.2004",
-            "balance": 10000000,
-            "tokens": [
-                {
-                    "token_id": "0.0.2003",
-                    "balance": 2350
-                }
-            ]
-        }
-    ],
-    "links": {
-        "next": "/api/v1/balances?limit=1&account.id=lt:0.0.2004"
-    }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/balances" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details <a href="#response-details-1" id="response-details-1"></a>
@@ -327,129 +161,12 @@ _Default value_ : 25
 
 The **transaction** object represents the transactions processed on the Hedera network. You can retrieve this to view the transaction metadata information including transaction id, timestamp, transaction fee, transfer list, etc. If a transaction was submitted to multiple nodes, the successful transaction and duplicate transaction(s) will be returned as separate entries in the response with the same transaction ID. Duplicate transactions will still be assessed [network fees](https://www.hedera.com/fees).
 
-{% swagger baseUrl="" path="/api/v1/transactions" method="get" summary="transactions" %}
-{% swagger-description %}
-Lists transactions on the network. This includes successful and unsuccessful transactions.
-{% endswagger-description %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/transactions" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
 
-{% swagger-parameter in="query" name="transactionType" type="String" required="false" %}
-Filter transactions by transaction type.
-
-_Available values_
-
-: CONSENSUSCREATETOPIC, CONSENSUSDELETETOPIC, CONSENSUSSUBMITMESSAGE, CONSENSUSUPDATETOPIC, CONTRACTCALL, CONTRACTCREATEINSTANCE, CONTRACTDELETEINSTANCE, CONTRACTUPDATEINSTANCE, CRYPTOADDLIVEHASH, CRYPTOCREATEACCOUNT, CRYPTODELETE, CRYPTODELETELIVEHASH, CRYPTOTRANSFER, CRYPTOUPDATEACCOUNT, FILEAPPEND, FILECREATE, FILEDELETE, FILEUPDATE, FREEZE, SCHEDULECREATE, SCHEDULEDELETE, SCHEDULESIGN, SYSTEMDELETE, SYSTEMUNDELETE, TOKENASSOCIATE, TOKENBURN, TOKENCREATION, TOKENDELETION, TOKENDISSOCIATE, TOKENFEESCHEDULEUPDATE, TOKENFREEZE, TOKENGRANTKYC, TOKENMINT, TOKENPAUSE, TOKENREVOKEKYC, TOKENUNFREEZE, TOKENUNPAUSE, TOKENUPDATE, TOKENWIPE, UNCHECKEDSUBMIT\_Available values\_ : CONSENSUSCREATETOPIC, CONSENSUSDELETETOPIC, CONSENSUSSUBMITMESSAGE, CONSENSUSUPDATETOPIC, CONTRACTCALL, CONTRACTCREATEINSTANCE, CONTRACTDELETEINSTANCE, CONTRACTUPDATEINSTANCE, CRYPTOADDLIVEHASH, CRYPTOAPPROVEALLOWANCE, CRYPTOCREATEACCOUNT, CRYPTODELETE, CRYPTODELETEALLOWANCE, CRYPTODELETELIVEHASH, CRYPTOTRANSFER, CRYPTOUPDATEACCOUNT, FILEAPPEND, FILECREATE, FILEDELETE, FILEUPDATE, FREEZE, SCHEDULECREATE, SCHEDULEDELETE, SCHEDULESIGN, SYSTEMDELETE, SYSTEMUNDELETE, TOKENASSOCIATE, TOKENBURN, TOKENCREATION, TOKENDELETION, TOKENDISSOCIATE, TOKENFEESCHEDULEUPDATE, TOKENFREEZE, TOKENGRANTKYC, TOKENMINT, TOKENPAUSE, TOKENREVOKEKYC, TOKENUNFREEZE, TOKENUNPAUSE, TOKENUPDATE, TOKENWIPE, UNCHECKEDSUBMIT
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.id" type="String" required="false" %}
-The ID of the account the user would like to return transactions for within the transferlist.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="timestamp" type="array[string]" required="false" %}
-The specific timestamp the user would like to return transactions for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="result" type="" required="false" %}
-If
-
-`result=fail`
-
-l the query returns all failed cryptocurrency transactions
-
-If the
-
-`result=success`
-
-the query returns all successful cryptocurrency transactions
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="type" type="" required="false" %}
-If
-
-`type=credit`
-
-the query returns all transactions that deposited into an account ID
-
-If
-
-`type=debit`
-
-the query returns all transactions that withdrew from an account ID
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-The limit of items to return
-
-_Default value_ : 25
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="order" required="false" %}
-The order in which items are listed
-
-_Available values_ : asc, desc
-
-_Default value_ : desc
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-  {
-  "transactions": [
-    {
-      "bytes": null,
-      "charged_tx_fee": 7,
-      "consensus_timestamp": "1234567890.000000007",
-      "entity_id": "0.0.2281979",
-      "max_fee": 33,
-      "memo_base64": null,
-      "name": "CRYPTOTRANSFER",
-      "node": "0.0.3",
-      "nonce": 0,
-      "parent_consensus_timestamp": "1234567890.000000007",
-      "result": "SUCCESS",
-      "scheduled": false,
-      "transaction_hash": "vigzKe2J7fv4ktHBbNTSzQmKq7Lzdq1/lJMmHT+a2KgvdhAuadlvS4eKeqKjIRmW",
-      "transaction_id": "0.0.8-1234567890-000000006",
-      "token_transfers": [
-        {
-          "token_id": "0.0.90000",
-          "account": "0.0.9",
-          "amount": 1200,
-          "is_approval": false
-        },
-        {
-          "token_id": "0.0.90000",
-          "account": "0.0.8",
-          "amount": -1200,
-          "is_approval": false
-        }
-      ],
-      "transfers": [
-        {
-          "account": "0.0.3",
-          "amount": 2,
-          "is_approval": false
-        },
-        {
-          "account": "0.0.8",
-          "amount": -3,
-          "is_approval": false
-        },
-        {
-          "account": "0.0.98",
-          "amount": 1,
-          "is_approval": false
-        }
-      ],
-      "valid_duration_seconds": 11,
-      "valid_start_timestamp": "1234567890.000000006"
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/transactions/{transactionId}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details <a href="#response-details-2" id="response-details-2"></a>
@@ -501,134 +218,10 @@ A single transaction can also be returned by specifying the transaction ID in th
 | `/api/v1/transactions?account.id=0.0.13622&type=credit` `/api/v1/transactions?account.id=0.0.13622&type=debit` | <p>Returns all transactions that deposited into an account ID 0.0.13622</p><p>​</p><p>Returns all transactions that withdrew from account ID 0.0.13622<br></p> |
 | `/api/v1/transactions?transactionType=cryptotransfer`                                                          | Returns all cryptotransfer transactions                                                                                                                        |
 
-{% swagger method="get" path="/api/v1/transactions/{transactionId}" baseUrl="" summary="transaction by transaction ID" %}
-{% swagger-description %}
-Return the information about a specific transaction by specifying the transaction ID
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="transactionId" required="true" type="String" %}
-The transaction ID.
-
-_Example_
-
-: 0.0.10-1234567890-000000000
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="nonce" type="integer" required="false" %}
-Filter the query result by the nonce of the transaction. The filter honors the last value. If not specified, all transactions with the specified payer account ID and valid start timestamp match.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="scheduled" type="boolean" required="false" %}
-Filter transactions by the scheduled flag. If true, return information for the scheduled transaction. If false, return information for the non-scheduled transaction. If not present, return information for all transactions matching transactionId.
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-  "transactions": [
-    {
-      "consensus_timestamp": "1234567890.000000007",
-      "transaction_hash": "vigzKe2J7fv4ktHBbNTSzQmKq7Lzdq1/lJMmHT+a2KgvdhAuadlvS4eKeqKjIRmW",
-      "valid_start_timestamp": "1234567890.000000006",
-      "charged_tx_fee": 7,
-      "memo_base64": null,
-      "bytes": null,
-      "result": "SUCCESS",
-      "entity_id": "0.0.2281979",
-      "name": "CRYPTOTRANSFER",
-      "nft_transfers": [
-        {
-          "receiver_account_id": "0.0.121",
-          "sender_account_id": "0.0.122",
-          "serial_number": 1,
-          "token_id": "0.0.123"
-        },
-        {
-          "receiver_account_id": "0.0.321",
-          "sender_account_id": "0.0.422",
-          "serial_number": 2,
-          "token_id": "0.0.123"
-        }
-      ],
-      "max_fee": 33,
-      "valid_duration_seconds": 11,
-      "node": "0.0.3",
-      "transaction_id": "0.0.8-1234567890-000000006",
-      "scheduled": false,
-      "transfers": [
-        {
-          "account": "0.0.3",
-          "amount": 2
-        },
-        {
-          "account": "0.0.8",
-          "amount": -3
-        },
-        {
-          "account": "0.0.98",
-          "amount": 1
-        }
-      ],
-      "token_transfers": [
-        {
-          "token_id": "0.0.90000",
-          "account": "0.0.9",
-          "amount": 1200
-        },
-        {
-          "token_id": "0.0.90000",
-          "account": "0.0.8",
-          "amount": -1200
-        }
-      ],
-      "assessed_custom_fees": [
-        {
-          "amount": 100,
-          "collector_account_id": "0.0.10",
-          "effective_payer_account_ids": [
-            "0.0.8",
-            "0.0.72"
-          ],
-          "token_id": "0.0.90001"
-        }
-      ]
-    }
-  ]
-}
-```
-{% endswagger-response %}
-{% endswagger %}
-
 ## Topics
 
-{% swagger baseUrl="" path="/api/v1/topics/{topicId}/messages/" method="get" summary="topic messages" %}
-{% swagger-description %}
-Returns the list of topic messages for the given topic id.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="topicId" type="string" required="true" %}
-The ID of the topic in x.y.z or z format
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="sequenceNumber" type="integer" required="false" %}
-The sequence number of the message relative to other messages submitted to the same topic
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="consensusTimestamp" type="array[string]" required="false" %}
-The consensus timestamp of a message in seconds.nanoseconds
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-  "responseJson": {
-    "consensus_timestamp": "1234567890.000000002",
-    "topic_id": "0.0.7",
-    "message": "bWVzc2FnZQ==",
-    "running_hash": "cnVubmluZ19oYXNo",
-    "sequence_number": 2
-  }
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/topics/{topicId}/messages" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details
@@ -637,137 +230,33 @@ The consensus timestamp of a message in seconds.nanoseconds
 | ------------------------ | ------------------------------------------------------------------------------------ |
 | **consensus\_timestamp** | The consensus timestamp of the message in seconds.nanoseconds                        |
 | **topic\_id**            | The ID of the topic the message was submitted to                                     |
+| **payer\_account\_id**   | The account ID that paid for the transaction to submit the message                   |
 | **message**              | The content of the message                                                           |
 | **running\_hash**        | The new running hash of the topic that received the message                          |
 | **sequence\_number**     | The sequence number of the message relative to all other messages for the same topic |
 
-{% swagger method="get" path="/api/v1/topics/{topicId}/messages/{sequenceNumber}" baseUrl="" summary="topic message by ID and sequence number" %}
-{% swagger-description %}
-Returns a single topic message the given topic id and sequence number.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" required="true" name="topicId" type="String" %}
-The topic ID
-{% endswagger-parameter %}
-
-{% swagger-parameter in="path" required="true" name="sequenceNumber" type="integer" %}
-Topic message sequence number
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-  "messages": [
-    {
-      "consensus_timestamp": "1234567890.000000001",
-      "topic_id": "0.0.7",
-      "message": "bWVzc2FnZQ==",
-      "running_hash": "cnVubmluZ19oYXNo",
-      "running_hash_version": 2,
-      "sequence_number": 1
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/topics/{topicId}/messages/{sequenceNumber}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
-{% swagger method="get" path="/api/v1/topics/messages/{consensusTimestamp}" baseUrl="" summary="topic messages by consensus timestamp" %}
-{% swagger-description %}
-Returns a topic message the given the consensus timestamp
-{% endswagger-description %}
-
-{% swagger-parameter in="path" required="true" type="String" name="consensusTimestamp" %}
-The timestamp at which the associated transaction reached consensus
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-  "consensus_timestamp": "1234567890.000000001",
-  "topic_id": "0.0.7",
-  "message": "bWVzc2FnZQ==",
-  "running_hash": "cnVubmluZ19oYXNo",
-  "running_hash_version": 2,
-  "sequence_number": 1
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/topics/messages/{timestamp}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 ## Tokens
 
-{% swagger baseUrl="" path="/api/v1/tokens" method="get" summary="tokens" %}
-{% swagger-description %}
-Returns the list of tokens created in a Hedera network
-{% endswagger-description %}
-
-{% swagger-parameter in="query" name="publickey" type="String" required="false" %}
-The public key to return all tokens for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="token.id" type="String" required="false" %}
-The ID of the token to return the query for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.id" type="String" required="false" %}
-The ID of the account to return the tokens for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="type" type="String" required="false" %}
-The token type to return
-
-\\
-
-_Example_
-
-: List \[ "ALL", "FUNGIBLE\_COMMON", "NON\_FUNGIBLE\_UNIQUE" ]
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-The limit of items to return
-
-_Default value_ : 25
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="order" required="false" %}
-The order in which items are listed
-
-_Available values_ : asc, desc
-
-_Default value_ : asc
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-{
-  "tokens": [
-    {
-      "token_id": "0.0.1",
-      "symbol": "FIRSTMOVERLPDJH",
-      "admin_key": null,
-      "type": "FUNGIBLE_COMMON"
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/tokens" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details
 
-| Response Item | Description                                  |
-| ------------- | -------------------------------------------- |
-| **token\_Id** | The ID of the token in x.y.z format          |
-| **symbol**    | The symbol of the token                      |
-| **adminKey**  | The admin key for the token                  |
-| **type**      | The type of token (fungible or non-fungible) |
+| Response Item  | Description                                  |
+| -------------- | -------------------------------------------- |
+| **token\_Id**  | The ID of the token in x.y.z format          |
+| **symbol**     | The symbol of the token                      |
+| **admin\_key** | The admin key for the token                  |
+| **type**       | The type of token (fungible or non-fungible) |
 
 #### Additional Examples
 
@@ -779,55 +268,8 @@ _Default value_ : asc
 | `/api/v1/tokens?order=desc`                                                                  | All tokens in descending order of `token.id`     |
 | `/api/v1/tokens?limit=x`                                                                     | All tokens taking the first `x` number of tokens |
 
-{% swagger baseUrl="" path="/api/v1/tokens/{tokenId}/balances" method="get" summary="token balances" %}
-{% swagger-description %}
-Returns all the accounts and token balance for the specified token ID.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="tokenId" type="String" required="true" %}
-The token ID to get the balances for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.publickey" type="String" required="false" %}
-The public key
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.id" type="String" required="false" %}
-The ID of the account
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.balance" type="String" required="false" %}
-The balance to query for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="timestamp" type="String" required="false" %}
-The consensus timestamp to query for
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="The request response" %}
-```
-   {
-        "timestamp": "0.000002345",
-        "balances": [
-          {
-            "account": "0.15.10",
-            "balance": 100
-          },
-          {
-            "account": "0.15.9",
-            "balance": 90
-          },
-          {
-            "account": "0.15.8",
-            "balance": 80
-          }
-        ],
-        "links": {
-          "next": null
-        }
-    }
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/tokens/{tokenId}/balances" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details
@@ -848,91 +290,8 @@ The consensus timestamp to query for
 | `/api/v1/tokens/<token_id>/balances?account.balance=gt:1000`        | The balance for the token greater than 1000      |
 | `/api/v1/tokens/<token_id>/balances?timestamp=1566562500.040961001` | The token balances for the specified timestamp   |
 
-{% swagger baseUrl="" path="/api/v1/tokens/{tokenId}" method="get" summary="token info" %}
-{% swagger-description %}
-Returns the specified token information.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="tokenId" type="String" required="true" %}
-The ID of the token to return the information for in x.y.z format.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="timestamp" type="String" required="false" %}
-The consensus timestamp to query for
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
- {
-  "admin_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2231222c2231222c2231227d"
-  },
-  "auto_renew_account": "0.1.2",
-  "auto_renew_period": null,
-  "created_timestamp": "1234567890.000000001",
-  "deleted": false,
-  "decimals": 1000,
-  "expiry_timestamp": null,
-  "freeze_default": false,
-  "freeze_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2231222c2231222c2231227d"
-  },
-  "initial_supply": 1000000,
-  "kyc_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2231222c2231222c2231227d"
-  },
-  "max_supply": 9223372036854776000,
-  "memo": "token memo",
-  "modified_timestamp": "1234567890.000000001",
-  "name": "Token name",
-  "pause_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2231222c2231222c2231227d"
-  },
-  "pause_status": "UNPAUSED",
-  "supply_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2231222c2231222c2231227d"
-  },
-  "supply_type": "INFINITE",
-  "symbol": "ORIGINALRDKSE",
-  "token_id": "0.10.1",
-  "total_supply": 1000000,
-  "treasury_account_id": "0.1.2",
-  "type": "FUNGIBLE_COMMON",
-  "wipe_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2231222c2231222c2231227d"
-  },
-  "custom_fees": {
-    "created_timestamp": "1234567890.000000001",
-    "fixed_fees": [
-      {
-        "amount": 100,
-        "collector_account_id": "0.1.5",
-        "denominating_token_id": "0.10.8"
-      }
-    ],
-    "fractional_fees": [
-      {
-        "amount": {
-          "numerator": 12,
-          "denominator": 29
-        },
-        "collector_account_id": "0.1.6",
-        "denominating_token_id": "0.10.9",
-        "maximum": 120,
-        "minimum": 30,
-        "net_of_transfers": true
-      }
-    ]
-  }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/tokens/{tokenId}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details
@@ -963,34 +322,8 @@ The consensus timestamp to query for
 | **pause\_key**            | The pause key for a token, if specified                                  |
 | **pause\_status**         | Whether or not the token is paused                                       |
 
-{% swagger baseUrl="" path="/api/v1/tokens/{tokenId}/nfts" method="get" summary="NFTs" %}
-{% swagger-description %}
-Returns the list of non-fungible tokens.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="tokenId" type="String" required="true" %}
-The ID of token
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.id" type="String" required="false" %}
-The ID of the account to return the tokens for
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-[
-  {
-    "account_id": "0.1.2",
-    "created_timestamp": "1234567890.000000001",
-    "deleted": false,
-    "metadata": "VGhpcyBpcyBhIHRlc3QgTkZU",
-    "modified_timestamp": "1610682445.003266001",
-    "serial_number": 124,
-    "token_id": "0.0.222"
-  }
-]
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/tokens/{tokenId}/nfts" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details
@@ -1005,31 +338,8 @@ The ID of the account to return the tokens for
 | **serial\_number**      | The serial number of the NFT                          |
 | **token\_id**           | The token ID of the NFT                               |
 
-{% swagger baseUrl="" path="/api/v1/tokens/{tokenId}/nfts/{serialNumber}" method="get" summary="NFT info" %}
-{% swagger-description %}
-Returns the information associated for specific NFT.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="tokenId" type="string" required="true" %}
-The token ID of the NFT
-{% endswagger-parameter %}
-
-{% swagger-parameter in="path" name="serialNumber" type="integer" required="true" %}
-The serial number of the NFT
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-  "account_id": "0.1.2",
-  "created_timestamp": "1234567890.000000001",
-  "deleted": false,
-  "metadata": "VGhpcyBpcyBhIHRlc3QgTkZU",
-  "modified_timestamp": "1610682445.003266001",
-  "serial_number": 124,
-  "token_id": "0.0.222"
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/tokens/{tokenId}/nfts/{serialNumber}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details
@@ -1044,33 +354,8 @@ The serial number of the NFT
 | **serial\_number**      | The serial number of the NFT                          |
 | **token\_id**           | The token ID of the NFT                               |
 
-{% swagger baseUrl="" path="/api​/v1​/tokens​/{tokenId}​/nfts​/{serialNumber}​/transactions" method="get" summary="NFT transaction history" %}
-{% swagger-description %}
-Returns the history of transactions for a NFT.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="tokenId" type="string" required="true" %}
-The token ID
-{% endswagger-parameter %}
-
-{% swagger-parameter in="path" name="serialNumber" type="integer" required="true" %}
-The NFT serial number
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-[
-  {
-    "consensus_timestamp": "1618591023.997420021",
-    "id": "0.0.19789-1618591023-997420021",
-    "receiver_account_id": "0.0.11",
-    "sender_account_id": "0.0.10",
-    "type": "CRYPTOTRANSFER",
-    "token_id": "0.0.1000"
-  }
-]
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/tokens/{tokenId}/nfts/{serialNumber}/transactions" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details
@@ -1084,228 +369,67 @@ The NFT serial number
 | **type**                  | The type of transaction           |
 | **token\_id**             | The token ID of the NFT           |
 
-{% swagger method="get" path="/api/v1/network/supply" baseUrl="" summary="network supply" %}
-{% swagger-description %}
-This query returns the number of hbars that are released along with the timestamp and total supply.
-{% endswagger-description %}
-
-{% swagger-parameter in="query" name="timestamp" type="array[string]" required="false" %}
-The timestamp to return the information for
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-    "released_supply":"922619772920027381",
-    "timestamp":"1634787900.311842000",
-    "total_supply":"5000000000000000000"
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/network/supply" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 ## Schedule Transactions
 
-{% swagger baseUrl="" path="/api/v1/schedules" method="get" summary="schedule list" %}
-{% swagger-description %}
-Returns a list of all scheduled transactions for a network.
-{% endswagger-description %}
-
-{% swagger-parameter in="query" name="schedule.id" type="String" required="false" %}
-
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="account.id" type="String" required="false" %}
-All schedule transactions matching the creator account
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="executed" type="boolean" required="false" %}
-If equal to true, returns all schedule transactions that were executed
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-Limits results to the first N schedule transactions
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-{
-  "schedules": [
-    {
-      "admin_key": {
-        "_type": "ProtobufEncoded",
-        "key": "7b2233222c2233222c2233227d"
-      },
-      "consensus_timestamp": "1234567890.000000001",
-      "creator_account_id": "0.0.100",
-      "executed_timestamp": "1234567890.000000002",
-      "memo": "Created per council decision dated 1/21/21",
-      "payer_account_id": "0.0.101",
-      "schedule_id": "0.0.102",
-      "signatures": [
-        {
-          "consensus_timestamp": "1234567890.000000001",
-          "public_key_prefix": "H0vpig==",
-          "signature": "0o0gC7p9SPUH4UD6Yiirp/Kf+LKj8qjuuFdC3AU87HE="
-        },
-        {
-          "consensus_timestamp": "1234567890.000000002",
-          "public_key_prefix": "GvxuXg==",
-          "signature": "w9mHyHQpTrlbLfn9NrBlZiMxV2mvLvNEw1hoeAECtcA="
-        }
-      ],
-      "transaction_body": "KcyxTMX2XFL+t0KSsB1S/c8t5kXTlLU3BGgNttEy7Gw="
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/schedules" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details <a href="#response-details-1" id="response-details-1"></a>
 
-| Response Item                       | Description                                                               |
-| ----------------------------------- | ------------------------------------------------------------------------- |
-| **schedules**                       | List of schedules                                                         |
-| **adminKey**                        | The admin key on the schedule                                             |
-| **adminKey.\_type**                 | The type of key                                                           |
-| **adminKey.key**                    | The admin public key                                                      |
-| **consensus\_timestamp**            | The consensus timestamp of when the schedule was created                  |
-| **creator\_account\_id**            | The account ID of the creator of the schedule                             |
-| **executed\_timestamp**             | The timestamp at which the transaction that was scheduled was executed at |
-| **memo**                            | A string of characters associated with the memo if set                    |
-| **payer\_account\_id**              | The account ID of the account paying for the execution of the transaction |
-| **schedule\_id**                    | The ID of the schedule entity                                             |
-| **signatures**                      | The list of keys that signed the transaction                              |
-| **signatures.consensus\_timestamp** | The consensus timestamp at which the signature was added                  |
-| **signatures.public\_key\_prefix**  | The signatures public key prefix                                          |
-| **signatures.signature**            | The signature of the key that signed the schedule transaction             |
-| **transaction\_body**               | The transaction body of the transaction that was scheduled                |
-| **links.next**                      | Hyperlink to the next page of results                                     |
+| Response Item                      | Description                                                                    |
+| ---------------------------------- | ------------------------------------------------------------------------------ |
+| **schedules**                      | List of schedules                                                              |
+| **admin\_key**                     | The admin key on the schedule                                                  |
+| **admin\_key\_type**               | The type of key                                                                |
+| **admin\_key\_key**                | The admin public key                                                           |
+| **consensus\_timestamp**           | The consensus timestamp of when the schedule was created                       |
+| **creator\_account\_id**           | The account ID of the creator of the schedule                                  |
+| **executed\_timestamp**            | The timestamp at which the transaction that was scheduled was executed at      |
+| **memo**                           | A string of characters associated with the memo if set                         |
+| **payer\_account\_id**             | The account ID of the account paying for the execution of the transaction      |
+| **schedule\_id**                   | The ID of the schedule entity                                                  |
+| **signatures**                     | The list of keys that signed the transaction                                   |
+| **signatures.public\_key\_prefix** | The signatures public key prefix                                               |
+| **signatures.signature**           | The signature of the key that signed the schedule transaction                  |
+| **signatures.type**                | The type of signature (ED5519 or ECDSA)                                        |
+| **transaction\_body**              | The transaction body of the transaction that was scheduled                     |
+| **wait\_for\_expiry**              | Whether or not the schedule transaction specified a specific time to expire by |
+| **links.next**                     | Hyperlink to the next page of results                                          |
 
-{% swagger baseUrl="" path="/api/v1/schedules/{scheduleId}" method="get" summary="schedule transaction" %}
-{% swagger-description %}
-Returns the specified schedule entity information.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="scheduleId" type="String" required="true" %}
-The ID of the schedule to return the information for.
-{% endswagger-parameter %}
-
-{% swagger-response status="200" description="" %}
-```
-{
-  "admin_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2233222c2233222c2233227d"
-  },
-  "consensus_timestamp": "1234567890.000000001",
-  "creator_account_id": "0.0.100",
-  "executed_timestamp": "1234567890.000000002",
-  "memo": "Created per council decision dated 1/21/21",
-  "payer_account_id": "0.0.101",
-  "schedule_id": "0.0.102",
-  "signatures": [
-    {
-      "consensus_timestamp": "1234567890.000000001",
-      "public_key_prefix": "H0vpig==",
-      "signature": "0o0gC7p9SPUH4UD6Yiirp/Kf+LKj8qjuuFdC3AU87HE="
-    },
-    {
-      "consensus_timestamp": "1234567890.000000002",
-      "public_key_prefix": "GvxuXg==",
-      "signature": "w9mHyHQpTrlbLfn9NrBlZiMxV2mvLvNEw1hoeAECtcA="
-    }
-  ],
-  "transaction_body": "KcyxTMX2XFL+t0KSsB1S/c8t5kXTlLU3BGgNttEy7Gw="
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/schedules/{scheduleId}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 #### Response Details <a href="#response-details-1" id="response-details-1"></a>
 
-| Response Item                       | Description                                                               |
-| ----------------------------------- | ------------------------------------------------------------------------- |
-| **adminKey**                        | The admin key on the schedule                                             |
-| **adminKey.\_type**                 | The type of key                                                           |
-| **adminKey.key**                    | The admin public key                                                      |
-| **consensus\_timestamp**            | The consensus timestamp of when the schedule was created                  |
-| **creator\_account\_id**            | The account ID of the creator of the schedule                             |
-| **executed\_timestamp**             | The timestamp at which the transaction that was scheduled was executed at |
-| **memo**                            | A string of characters associated with the memo if set                    |
-| **payer\_account\_id**              | The account ID of the account paying for the execution of the transaction |
-| **schedule\_id**                    | The ID of the schedule entity                                             |
-| **signatures**                      | The list of keys that signed the transaction                              |
-| **signatures.consensus\_timestamp** | The consensus timestamp at which the signature was added                  |
-| **signatures.public\_key\_prefix**  | The signatures public key prefix                                          |
-| **signatures.signature**            | The signature of the key that signed the schedule transaction             |
-| **transaction\_body**               | The transaction body of the transaction that was scheduled                |
+| Response Item                       | Description                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------ |
+| **adminKey**                        | The admin key on the schedule                                                  |
+| **adminKey.\_type**                 | The type of key                                                                |
+| **adminKey.key**                    | The admin public key                                                           |
+| **consensus\_timestamp**            | The consensus timestamp of when the schedule was created                       |
+| **creator\_account\_id**            | The account ID of the creator of the schedule                                  |
+| **executed\_timestamp**             | The timestamp at which the transaction that was scheduled was executed at      |
+| **memo**                            | A string of characters associated with the memo if set                         |
+| **payer\_account\_id**              | The account ID of the account paying for the execution of the transaction      |
+| **schedule\_id**                    | The ID of the schedule entity                                                  |
+| **signatures**                      | The list of keys that signed the transaction                                   |
+| **signatures.consensus\_timestamp** | The consensus timestamp at which the signature was added                       |
+| **signatures.public\_key\_prefix**  | The signatures public key prefix                                               |
+| **signatures.signature**            | The signature of the key that signed the schedule transaction                  |
+| **signatures.type**                 | The type of signature (ED5519 or ECDSA)                                        |
+| **transaction\_body**               | The transaction body of the transaction that was scheduled                     |
+| **wait\_for\_expiry**               | Whether or not the schedule transaction specified a specific time to expire by |
 
 ## Smart Contracts
 
-{% swagger method="get" path="/api/v1/contracts" baseUrl="" summary="contracts" %}
-{% swagger-description %}
-Returns a list of all contract entity items on the network.
-{% endswagger-description %}
-
-{% swagger-parameter in="query" name="contract.id" type="String" required="false" %}
-The ID of the contract to return information for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-The limit of items to return
-
-_Default value_
-
-: 25
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="order" required="false" %}
-The order in which items are listed
-
-_Available values_ : asc, desc
-
-_Default value_ : desc
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```
-{
-  "contracts": [
-    {
-      "admin_key": {
-        "_type": "ProtobufEncoded",
-        "key": "7b2231222c2231222c2231227d"
-      },
-      "auto_renew_account": "0.1.2",
-      "auto_renew_period": null,
-      "contract_id": "0.1.2",
-      "created_timestamp": "1586567700.453054000",
-      "deleted": false,
-      "evm_address": "0000000000000000000000000000000000001f41",
-      "expiration_timestamp": "1586567700.453054000",
-      "file_id": "0.1.2",
-      "max_automatic_token_associations": 0,
-      "memo": "contract memo",
-      "obtainer_id": "0.1.2",
-      "permanent_removal": true,
-      "proxy_account_id": "0.1.2",
-      "timestamp": {
-        "from": "1586567700.453054000",
-        "to": "1586567700.453054000"
-      }
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 | Response Item                           | Description                                                                                            |
@@ -1328,278 +452,27 @@ _Default value_ : desc
 | **solidity\_address**                   | The solidity address                                                                                   |
 | **timestamp**                           | The period for which the attributes are valid for                                                      |
 
-{% swagger method="get" path="/api/v1/contracts/{contractId}" baseUrl="" summary="contract by ID" %}
-{% swagger-description %}
-Return the contract information given an id
-{% endswagger-description %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/{contractIdOrAddress}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
 
-{% swagger-parameter in="path" name="contractId" required="true" type="String" %}
-The ID of the contract in 0.0.contractNumber format
-{% endswagger-parameter %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/{contractIdOrAddress}/results" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
 
-{% swagger-parameter in="query" name="timestamp" type="array[string]" required="false" %}
-The timestamp to query the results with
-{% endswagger-parameter %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/{contractIdOrAddress}/state" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
 
-{% swagger-response status="200: OK" description="" %}
-```
-{
-  "admin_key": {
-    "_type": "ProtobufEncoded",
-    "key": "7b2231222c2231222c2231227d"
-  },
-  "auto_renew_period": null,
-  "contract_id": "0.1.2",
-  "created_timestamp": "1586567700.453054000",
-  "deleted": false,
-  "expiration_timestamp": "1586567700.453054000",
-  "file_id": "0.1.2",
-  "memo": "contract memo",
-  "obtainer_id": "0.1.2",
-  "proxy_account_id": "0.1.2",
-  "solidity_address": "0x0000000000000000000000000000000000001f41",
-  "timestamp": {
-    "from": "1586567700.453054000",
-    "to": "1586567700.453054000"
-  },
-  "bytecode": "0x01021a1fdc9b"
-}
-```
-{% endswagger-response %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/{contractIdOrAddress}/results/{timestamp}" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
 {% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/results" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
-{% swagger method="get" path="/api/v1/contracts/{contractId}/results" baseUrl="" summary="contract results" %}
-{% swagger-description %}
-Returns a list of all ContractResults for a contract's function executions.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" type="String" name="contractId" required="true" %}
-The ID of the contract in 0.0.contractNumber format
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="timestamp" type="array[string]" required="false" %}
-The timestamp to query the results for
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="order" required="false" %}
-The order in which items are listed
-
-_Available values_ : asc, desc
-
-_Default value_ : asc
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" required="false" %}
-The limit of items to return
-
-_Default value_ : 25
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-  "contracts": [
-    {
-      "amount": 10,
-      "call_result": "0x2b048531b38d2882e86044bc972e940ee0a01938",
-      "contract_id": "0.1.2",
-      "created_contract_ids": [
-        "0.1.2"
-      ],
-      "error_message": "Out of gas",
-      "from": "0x0000000000000000000000000000000000001f41",
-      "function_parameters": "0xbb9f02dc6f0e3289f57a1f33b71c73aa8548ab8b",
-      "gas_limit": 100000,
-      "gas_used": 1000,
-      "timestamp": "1586567700.453054000",
-      "to": "0x0000000000000000000000000000000000001f41"
-    }
-  ],
-  "links": {
-    "next": null
-  }
-}
-```
-{% endswagger-response %}
-{% endswagger %}
-
-{% swagger method="get" path="/api/v1/contracts/{contractId}/results/{timestamp}" baseUrl="" summary="contract result by timestamp" %}
-{% swagger-description %}
-Returns a single ContractResult for a contract's function executions at a specific timestamp
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="contractId" type="String" required="true" %}
-The ID of the contract in 0.0.contractNumber format
-
-\\
-
-_Example_
-
-: 0.0.10
-{% endswagger-parameter %}
-
-{% swagger-parameter in="path" name="timestamp" type="String" required="true" %}
-The timestamp at which the associated transaction reached consensus
-
-_Example_: 1234567890.0000007
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-  "contracts": {
-    "amount": 10,
-    "call_result": "0x2b048531b38d2882e86044bc972e940ee0a01938",
-    "contract_id": "0.1.2",
-    "created_contract_ids": [
-      "0.1.2"
-    ],
-    "error_message": "Out of gas",
-    "from": "0x0000000000000000000000000000000000001f41",
-    "function_parameters": "0xbb9f02dc6f0e3289f57a1f33b71c73aa8548ab8b",
-    "gas_limit": 100000,
-    "gas_used": 1000,
-    "timestamp": "1586567700.453054000",
-    "to": "0x0000000000000000000000000000000000001f41",
-    "block_hash": "0x6ceecd8bb224da491",
-    "block_number": 10,
-    "hash": "0x3531396130303866616264653464"
-  }
-}
-```
-{% endswagger-response %}
-{% endswagger %}
-
-{% swagger method="get" path="/api/v1/contracts/{contractIdOrAddress}/results/logs" baseUrl="" summary="contract logs" %}
-{% swagger-description %}
-Returns a list of all ContractLogs for a single specified contract's function executions. Chained logs are not included but can be found by calling
-
-`/api/v1/contracts/{contractId}/results/{timestamp}`
-
-or
-
-`/api/v1/contracts/results/{transactionId}`
-
-. When searching by topic a timestamp parameter must be supplied and span a time range of at most seven days.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="contractIdOrAddress" type="String" required="true" %}
-The ID or hex encoded EVM address associated with this contract
-
-_Example_
-
-: 0.0.10
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="index" type="integer" required="false" %}
-Contract log index
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
-The limit of items to return
-
-_Default value_ : 25
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="order" required="false" %}
-The order in which items are listed
-
-_Available values_ : asc, desc
-
-_Default value_ : asc
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="timestamp" type="array[string]" required="false" %}
-The timestamp at which the associated transaction reached consensus
-
-_Example_: 1234567890.0000007
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="topic0" type="array[string]" required="false" %}
-The first topic associated with a contract log. Requires a timestamp range also be populated.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="topic1" type="array[string]ring" required="false" %}
-The second topic associated with a contract log. Requires a timestamp range also be populated.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="topic2" type="array[string]" required="false" %}
-The third topic associated with a contract log. Requires a timestamp range also be populated.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="topic3" type="array[string]g" required="false" %}
-The third topic associated with a The fourth topic associated with a contract log. Requires a timestamp range also be populated.
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-  "logs": [
-    {
-      "address": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-      "bloom": "0x549358c4c2e573e02410ef7b5a5ffa5f36dd7398",
-      "contract_id": "0.1.2",
-      "data": "0x00000000000000000000000000000000000000000000000000000000000000fa",
-      "index": 0,
-      "topics": [
-        "0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300"
-      ],
-      "root_contract_id": "0.1.2",
-      "timestamp": "1586567700.453054000"
-    }
-  ]
-}
-```
-{% endswagger-response %}
-{% endswagger %}
-
-{% swagger method="get" path="/api/v1/contracts/results/{transactionId}" baseUrl="" summary="contract result by transaction ID" %}
-{% swagger-description %}
-Returns a single ContractResult for a contract's function executions for a given transactionId.
-{% endswagger-description %}
-
-{% swagger-parameter in="path" name="transactionId" type="String" required="true" %}
-The transaction ID
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="nonce" type="integer" required="false" %}
-Filter the query result by the nonce of the transaction. The filter honors the last value. Default is 0 when not specified.
-
-_Default value_ : 0
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="" %}
-```json
-{
-{
-  "contracts": {
-    "amount": 10,
-    "call_result": "0x2b048531b38d2882e86044bc972e940ee0a01938",
-    "contract_id": "0.1.2",
-    "created_contract_ids": [
-      "0.1.2"
-    ],
-    "error_message": "Out of gas",
-    "from": "0x0000000000000000000000000000000000001f41",
-    "function_parameters": "0xbb9f02dc6f0e3289f57a1f33b71c73aa8548ab8b",
-    "gas_limit": 100000,
-    "gas_used": 1000,
-    "timestamp": "1586567700.453054000",
-    "to": "0x0000000000000000000000000000000000001f41",
-    "block_hash": "0x6ceecd8bb224da491",
-    "block_number": 10,
-    "hash": "0x3531396130303866616264653464"
-  }
-}
-```
-{% endswagger-response %}
-{% endswagger %}
-
-{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/results/logs" method="get" %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/results/{transactionIdOrHash}" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
@@ -1607,7 +480,11 @@ _Default value_ : 0
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/{contractIdOrAddress}/state" method="get" %}
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/{contractIdOrAddress}/results/logs" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
+
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/results/logs" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
