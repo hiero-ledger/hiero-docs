@@ -8,7 +8,77 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.70](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.70.0)
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: DECEMBER 14, 2022**
+{% endhint %}
+
+As part of [HIP-406](https://hips.hedera.com/HIP/hip-406.html), the mirror node is adding a new account staking rewards REST API. This API will show the staking rewards paid to an account over time. The mirror node now also shows staking reward transfers in the transaction REST APIs (e.g. `/api/v1/transactions`, `/api/v1/transactions/{id}`, and the list of transactions in `/api/v1/accounts/{id}`). This can be useful to show which transaction involving your account after the staking period ended triggered the lazy reward payout.
+
+`GET /api/v1/accounts/{id}/rewards`
+
+```
+{
+  "rewards": [{
+    "account_id": "0.0.1000",
+    "amount": 10,
+    "timestamp": "123456789.000000001"
+  }],
+  "links": {
+    "next": null
+  }
+}
+```
+
+The REST API saw further improvements outside of staking. The accounts REST APIs now show a calculated expiration timestamp to mirror the HAPI `CryptoGetInfo` query. Previously expiration timestamp only shows up if explicitly sent via a transaction that supports it (mainly update transactions). Now if it's `null` we calculate it as `created_timestamp.seconds + auto_renew_period`. Every contract results endpoint was updated to include an address field for the EVM address of the created contract.
+
+This release makes progress on being able to execute contract calls on the mirror node as outlined in [HIP-584](https://hips.hedera.com/HIP/hip-584.html). A lot of the groundwork is being laid that will be further refined in upcoming releases.\
+
+
+## [v0.69](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.69.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: DECEMBER 5, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: NOVEMBER 29, 2022**
+{% endhint %}
+
+As noted in previous releases, [HIP-367](https://hips.hedera.com/hip/hip-367) is deprecating the token relationship information returned from HAPI queries. In this release, its mirror node replacement is now feature complete. We now track and show the current fungible token balance in the token relationships API instead of relying upon the 15 minute balance export from consensus nodes. In a future release, the accounts and balances REST APIs will be updated to show the current fungible token balance.
+
+The importer component now supports a local file stream provider. This allows it to read stream files from a local directory instead of just the S3-compatible providers it supported previously. This mode is useful for debugging stream files received out of band or for reducing complexity and latency in a local node setup. To try it out, set `hedera.mirror.importer.downloader.cloudProvider=LOCAL` and populate the `hedera.mirror.importer.dataPath`/`streams` folder with the same file structure as the cloud buckets.
+
+We now show a contract's `CREATE2` EVM address in the contract logs REST APIs. Previously, we would convert the Hedera `shard.realm.num` to a 20-byte EVM address but this did not always reflect the true EVM address of the contract. Using the `CREATE2` form of the EVM address provides increased Ethereum compatibility.
+
+We continue to make progress on converting our build process to Gradle. This release adds a Golang Gradle plugin to download the Go SDK and use it to build and test the Rosetta module.
+
+## [v0.68](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.68.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: NOVEMBER 18, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: NOVEMBER 18, 2022**
+{% endhint %}
+
+Besides the usual round of bug fixes, this release focuses on some internal enhancements to lay the groundwork for some upcoming features. We now track and persist the current fungible token balance in the database. This information is not yet exposed on any API but will be rolled out to the token relationships, accounts and balances REST APIs in the near future.
+
+We're continuing our work towards [CitusDB](https://www.citusdata.com/) as a possible database replacement in this release by adding distribution columns and fixing our v2 schema tests.
+
+Finally, we implemented initial Gradle support to improve build times and provide a better developer experience. Initial testing shows build and test times reduced from 8 minutes overall down to 2 minutes. The Gradle and Maven build scripts will be maintained concurrently for a few releases until we can ensure the Gradle build reaches feature parity with Maven.
+
 ## [v0.67](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.67.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: NOVEMBER 10, 2022**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE COMPLETED: NOVEMBER 10, 2022**
+{% endhint %}
 
 [HIP-367](https://hips.hedera.com/hip/hip-367) deprecated the list of token balances for an account returned via HAPI. The mirror node has been working on its replacement for a few releases by [storing](https://github.com/hashgraph/hedera-mirror-node/issues/4030) the current account balance, [combining](https://github.com/hashgraph/hedera-mirror-node/issues/4150) contract and entity tables, and [adding a history table](https://github.com/hashgraph/hedera-mirror-node/issues/3251) for `token_account`. This work has paved the way for a new token relationships REST API that will list all fungible and non-fungible tokens associated with a particular account. This API also returns some metadata like balance, KYC status, freeze status, and whether it's an automatic association or not. Currently the fungible token balance being returned is from the 15 minute account balance file. We are [actively](https://github.com/hashgraph/hedera-mirror-node/issues/4402) working towards tracking the real-time fungible token balance and it will be updated to reflect that in a future release.
 
