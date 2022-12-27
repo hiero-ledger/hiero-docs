@@ -67,7 +67,7 @@ The transaction fee for the child transaction is included in the record of the p
 
 ## Queries
 
-**Queries** are processed only by the single node to which they are sent. Clients send queries to retrieve some aspect of the current consensus state like the balance of an account. Certain queries are free but generally, queries are subject to fees. The full list of queries can be found [here](../apis-and-sdks/sdks/queries.md).
+**Queries** are processed only by the single node to which they are sent. Clients send queries to retrieve some aspect of the current consensus state like the balance of an account. Certain queries are free but generally, queries are subject to fees. The full list of queries can be found [here](../docs/sdks/queries.md).
 
 A query includes a header that includes a normal HBAR transfer transaction that will serve as the means by which the client pays the node the appropriate fee. There is no way to give partial payment to a node for processing the query meaning if a user overpaid for the query the user will not receive a refund. The node processing the query will submit that payment transaction to the network for processing into consensus statement in order to receive its fee.
 
@@ -99,8 +99,8 @@ Once a transaction has been submitted to the network, clients may seek confirmat
 An early version of a state proof, state proof alpha, is now available. Please check out the Mirror Node REST API section to get started.
 {% endhint %}
 
-{% content-ref url="../apis-and-sdks/mirror-node-api/rest-api.md" %}
-[rest-api.md](../apis-and-sdks/mirror-node-api/rest-api.md)
+{% content-ref url="../docs/mirror-node-api/rest-api.md" %}
+[rest-api.md](../docs/mirror-node-api/rest-api.md)
 {% endcontent-ref %}
 
 For a more detailed review of confirmation methods check out this [blog post](https://www.hedera.com/blog/transaction-confirmation-methods-in-hedera).

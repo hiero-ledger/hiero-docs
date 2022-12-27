@@ -1,2 +1,0 @@
-# Hedera File Service
-
