@@ -99,8 +99,8 @@ Once a transaction has been submitted to the network, clients may seek confirmat
 An early version of a state proof, state proof alpha, is now available. Please check out the Mirror Node REST API section to get started.
 {% endhint %}
 
-{% content-ref url="../apis-and-sdks/rest-api/" %}
-[rest-api](../apis-and-sdks/rest-api/)
+{% content-ref url="../apis-and-sdks/mirror-node-api/rest-api.md" %}
+[rest-api.md](../apis-and-sdks/mirror-node-api/rest-api.md)
 {% endcontent-ref %}
 
 For a more detailed review of confirmation methods check out this [blog post](https://www.hedera.com/blog/transaction-confirmation-methods-in-hedera).

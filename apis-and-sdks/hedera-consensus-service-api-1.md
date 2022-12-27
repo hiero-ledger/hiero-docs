@@ -20,8 +20,8 @@ Requests for the public mainnet mirror node are throttled at 100 requests per se
 
 Community supported mirror node information can be found here:
 
-{% content-ref url="../mirrornet/community-mirror-nodes.md" %}
-[community-mirror-nodes.md](../mirrornet/community-mirror-nodes.md)
+{% content-ref url="../core-concepts/mirror-nodes/mirrornet/community-mirror-nodes.md" %}
+[community-mirror-nodes.md](../core-concepts/mirror-nodes/mirrornet/community-mirror-nodes.md)
 {% endcontent-ref %}
 
 ## Build a Mirror Node Client

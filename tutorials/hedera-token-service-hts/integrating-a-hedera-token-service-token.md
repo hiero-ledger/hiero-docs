@@ -39,8 +39,8 @@ The following SDKs support HTS:
 
 Documentation can be found below.
 
-{% content-ref url="../../docs/sdks/" %}
-[sdks](../../docs/sdks/)
+{% content-ref url="../../apis-and-sdks/sdks/" %}
+[sdks](../../apis-and-sdks/sdks/)
 {% endcontent-ref %}
 
 ## **Hedera Token Service (HTS)**
@@ -132,6 +132,6 @@ The Hedera Mirror Node has the following REST APIs you can use to query token in
 
 You can find the token REST API information below.
 
-{% content-ref url="../../apis-and-sdks/rest-api/" %}
-[rest-api](../../apis-and-sdks/rest-api/)
+{% content-ref url="../../apis-and-sdks/mirror-node-api/rest-api.md" %}
+[rest-api.md](../../apis-and-sdks/mirror-node-api/rest-api.md)
 {% endcontent-ref %}

@@ -717,7 +717,7 @@ fmt.Printf("The account token balance %v\n", transferAccountBalance.Tokens)
 {% endtabs %}
 
 {% hint style="info" %}
-Check out our [smart contract mirror node rest APIs](../../apis-and-sdks/rest-api/#smart-contracts) that return information about a contract like contract results and logs!
+Check out our [smart contract mirror node rest APIs](../../apis-and-sdks/mirror-node-api/rest-api.md#smart-contracts) that return information about a contract like contract results and logs!
 {% endhint %}
 
 #### Congratulations :tada:! You have completed the following:

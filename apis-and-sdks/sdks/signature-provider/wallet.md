@@ -16,7 +16,7 @@ Constructs a local wallet from an account ID, private key, and provider.
 
 ### **Methods**
 
-<mark style="color:purple;">**`<Wallet>.getLedgerId()`**</mark><mark style="color:purple;">**->**</mark>**  `LedgerId`**
+<mark style="color:purple;">**`<Wallet>.getLedgerId()`**</mark><mark style="color:purple;">**->**</mark>\*\* `LedgerId`\*\*
 
 Returns the ledger ID.
 
@@ -40,37 +40,37 @@ Returns the mirror node for the network.
 
 Sign an arbitrary list of messages.
 
-<mark style="color:purple;">**`<Wallet>.getAccountBalance()`**</mark><mark style="color:purple;">**->**</mark>**  `Promise<AccountBalance>`**
+<mark style="color:purple;">**`<Wallet>.getAccountBalance()`**</mark><mark style="color:purple;">**->**</mark>\*\* `Promise<AccountBalance>`\*\*
 
 Returns the account balance.
 
-<mark style="color:purple;">**`<Wallet>.getAccountInfo`**</mark><mark style="color:purple;">**()->**</mark>**  `Promise<AccountInfo>`**
+<mark style="color:purple;">**`<Wallet>.getAccountInfo`**</mark><mark style="color:purple;">**()->**</mark>\*\* `Promise<AccountInfo>`\*\*
 
 Returns the account info.
 
-<mark style="color:purple;">**`<Wallet>.getAccountRecords`**</mark><mark style="color:purple;">**()->**</mark>**  `Promise<TransactionRecord[]>`**
+<mark style="color:purple;">**`<Wallet>.getAccountRecords`**</mark><mark style="color:purple;">**()->**</mark>\*\* `Promise<TransactionRecord[]>`\*\*
 
 Fetch the last transaction records for this account using `TransactionRecordQuery`.
 
-<mark style="color:purple;">**`<Wallet>.getProvider`**</mark><mark style="color:purple;">**()->**</mark>**  `Provider`**
+<mark style="color:purple;">**`<Wallet>.getProvider`**</mark><mark style="color:purple;">**()->**</mark>\*\* `Provider`\*\*
 
 Returns the Hedera network.
 
-<mark style="color:purple;">**`<Wallet>.`**</mark><mark style="color:purple;">**signTransaction \<T extends Transaction>**</mark>**`(transaction:T` **<mark style="color:purple;">**)->**</mark>**  `Promise<T>`**
+<mark style="color:purple;">**`<Wallet>.`**</mark><mark style="color:purple;">**signTransaction \<T extends Transaction>**</mark>**`(transaction:T` )->**\*\* `Promise<T>`\*\*
 
 Signs a transaction, returning the signed transaction
 
 **NOTE**: This method is allowed to mutate the parameter being passed in so the returned transaction is not guaranteed to be a new instance of the transaction.
 
-<mark style="color:purple;">**`<Wallet>.checkTransaction<T extends Transaction>`**</mark><mark style="color:purple;">** **</mark><mark style="color:purple;">**(**</mark>**  `transaction`: `T`  **<mark style="color:purple;">**)->**</mark>**  `Promise<T>`**
+<mark style="color:purple;">**`<Wallet>.checkTransaction<T extends Transaction>`**</mark><mark style="color:purple;">\*\*</mark> ( `transaction`: `T` )-> `Promise<T>`\*\*
 
 Check whether all the required fields are set appropriately. Fields such as the transaction ID's account ID should either be `null` or be equal to the signer's account ID, and the node account IDs on the request should exist within the signer's network.
 
-<mark style="color:purple;">**`<Wallet>.populateTransaction<T extends Transaction>`**</mark><mark style="color:purple;">** **</mark><mark style="color:purple;">**(**</mark>** `transaction`: `T`  **<mark style="color:purple;">**)->**</mark>**  `Promise<T>`**
+<mark style="color:purple;">**`<Wallet>.populateTransaction<T extends Transaction>`**</mark><mark style="color:purple;">\*\*</mark> ( `transaction`: `T` )-> `Promise<T>`\*\*
 
 Populate the requests with the required fields. The transaction ID should be constructed from the signer's account ID, and the node account IDs should be set using the signer's network.
 
-<mark style="color:purple;">**`<Wallet>.call(`**</mark>**`<RequestT, ResponseT, OutputT>(request: Executable<RequestT, ResponseT, OutputT>`**<mark style="color:purple;">**`)`**</mark><mark style="color:purple;">**->**</mark>**  `Promise <Output>`**
+<mark style="color:purple;">**`<Wallet>.call(`**</mark>**`<RequestT, ResponseT, OutputT>(request: Executable<RequestT, ResponseT, OutputT>`**<mark style="color:purple;">**`)`**</mark><mark style="color:purple;">**->**</mark>\*\* `Promise <Output>`\*\*
 
 Responsible for serializing your request and sending it over the wire to be executed, and then deserializing the response into the appropriate type.
 
