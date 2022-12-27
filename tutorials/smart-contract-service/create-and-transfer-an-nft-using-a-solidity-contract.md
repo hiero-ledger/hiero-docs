@@ -1,6 +1,6 @@
 # Create and Transfer an NFT using a Solidity Contract
 
-![](<../../.gitbook/assets/image (4).png>)
+![](<../../.gitbook/assets/image (3).png>)
 
 ## Summary
 

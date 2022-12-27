@@ -44,7 +44,7 @@
         * [Run your mirror node using GCS](core-concepts/mirror-nodes/mirrornet/run-your-own-beta-mirror-node/run-your-own-mirror-node-gcs.md)
         * [Run your mirror node using S3](core-concepts/mirror-nodes/mirrornet/run-your-own-beta-mirror-node/run-your-own-mirror-node-s3.md)
       * [Hedera ETL](core-concepts/mirror-nodes/mirrornet/hedera-etl.md)
-      * [Network Explorers and Tools](core-concepts/mirror-nodes/mirrornet/community-mirror-nodes.md)
+      * [Network Explorers and Tools](mirrornet/community-mirror-nodes.md)
       * [Record and Event Stream File Formats](core-concepts/mirror-nodes/mirrornet/record-and-event-stream-file-formats.md)
       * [Mirror Nodes: Get Transaction History](core-concepts/mirror-nodes/mirrornet/look-up-transaction-history-using-mirror-nodes.md)
 * [Tutorials](tutorials/README.md)
