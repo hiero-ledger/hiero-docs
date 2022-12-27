@@ -6,12 +6,12 @@ The Hedera Service integration currently supports the Hedera Token Service trans
 
 Stay tuned for future releases that will expand support for the remaining HTS transactions!
 
-{% content-ref url="../../docs/sdks/smart-contracts/hedera-service-solidity-libraries.md" %}
-[hedera-service-solidity-libraries.md](../../docs/sdks/smart-contracts/hedera-service-solidity-libraries.md)
+{% content-ref url="../../apis-and-sdks/sdks/smart-contracts/hedera-service-solidity-libraries.md" %}
+[hedera-service-solidity-libraries.md](../../apis-and-sdks/sdks/smart-contracts/hedera-service-solidity-libraries.md)
 {% endcontent-ref %}
 
-{% content-ref url="../../getting-started/try-examples/deploy-a-contract-using-the-hedera-token-service.md" %}
-[deploy-a-contract-using-the-hedera-token-service.md](../../getting-started/try-examples/deploy-a-contract-using-the-hedera-token-service.md)
+{% content-ref url="../../tutorials/smart-contract-service/deploy-a-contract-using-the-hedera-token-service.md" %}
+[deploy-a-contract-using-the-hedera-token-service.md](../../tutorials/smart-contract-service/deploy-a-contract-using-the-hedera-token-service.md)
 {% endcontent-ref %}
 
 Reference [HIP-206](https://hips.hedera.com/hip/hip-206)

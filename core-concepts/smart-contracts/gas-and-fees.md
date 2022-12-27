@@ -10,7 +10,7 @@ Gas fees include the intrinsic gas cost and the cost of the EVM operation from t
 
 **Total Gas (Hedera Service transaction) = Intrinsic Gas + EVM Operation Gas + Hedera Service Gas**
 
-The Hedera Service transaction gas fee is calculated using the [USD](../../mainnet/fees/#transaction-and-query-fees) price of the native Hedera Service transaction multiplied by the gas/USD conversion rate with an additional 20% charge. For example, a native token burn transaction costs $0.001 USD. To convert that to gas you would use the gas/USD conversion rate 1 gas = $0.000\_000\_0569 USD. Then you would add an additional 20% of gas to get the total gas cost.
+The Hedera Service transaction gas fee is calculated using the [USD](broken-reference) price of the native Hedera Service transaction multiplied by the gas/USD conversion rate with an additional 20% charge. For example, a native token burn transaction costs $0.001 USD. To convert that to gas you would use the gas/USD conversion rate 1 gas = $0.000\_000\_0569 USD. Then you would add an additional 20% of gas to get the total gas cost.
 
 To calculate the price of gas in USD you can take the gas amount and multiply it by the USD/gas conversion rate of $0.000\_000\_0569 USD/1 gas. For example, the price of 2 million gas in USD is $0.1138 (2,000,000 gas\*($0.000\_000\_0569 USD/1 gas).\
 \
@@ -123,7 +123,7 @@ Rent is defined as the recurring payment required for contracts (and, eventually
 * **Auto-renewal payments** will be enabled on mainnet (for contracts only) with the Hedera Services release planned for February 2023. The auto-renewal fee for a contract is $0.026 USD per 90 days
 * **Storage payments** will start once a total of **100 million key-value pairs** are stored cumulatively across the network. These storage fees will be part of the rent payment collected when a contract is auto renewed. The storage fee rate is $0.02 per key-value pair per year
 
-<img src="../../.gitbook/assets/image (3).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/image (4).png" alt="" data-size="original">
 
 </details>
 
