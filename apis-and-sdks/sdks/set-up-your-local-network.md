@@ -157,7 +157,7 @@ You can view the transactions that were submitted to your local node by submitti
 http://localhost:5551/api/v1/transactions
 ```
 
-The list of supported mirror node REST APIs can be found [here](../mirror-node-api/rest-api.md). You have now set-up your local environment. Check out the following links for more examples.
+The list of supported mirror node REST APIs can be found [here](../rest-api/). You have now set-up your local environment. Check out the following links for more examples.
 
 {% content-ref url="broken-reference" %}
 [Broken link](broken-reference)

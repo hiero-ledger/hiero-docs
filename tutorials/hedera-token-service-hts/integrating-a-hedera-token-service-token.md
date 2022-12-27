@@ -132,6 +132,6 @@ The Hedera Mirror Node has the following REST APIs you can use to query token in
 
 You can find the token REST API information below.
 
-{% content-ref url="../../apis-and-sdks/mirror-node-api/rest-api.md" %}
-[rest-api.md](../../apis-and-sdks/mirror-node-api/rest-api.md)
+{% content-ref url="../../apis-and-sdks/rest-api/" %}
+[rest-api](../../apis-and-sdks/rest-api/)
 {% endcontent-ref %}

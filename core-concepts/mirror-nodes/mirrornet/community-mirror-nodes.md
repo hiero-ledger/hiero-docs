@@ -57,7 +57,7 @@ For example, if you create a new account using the `AccountCreateTransaction` in
 
 <summary><mark style="color:blue;"><strong>Can I host my own Hedera network explorer?</strong></mark></summary>
 
-Yes, you can! You can create your own custom Hedera network explorer using the [Mirror Node REST APIs](../../../apis-and-sdks/mirror-node-api/rest-api.md) or take a look at the [Hedera Mirror Node Explorer](https://github.com/hashgraph/hedera-mirror-node-explorer) open-source project.
+Yes, you can! You can create your own custom Hedera network explorer using the [Mirror Node REST APIs](../../../apis-and-sdks/rest-api/) or take a look at the [Hedera Mirror Node Explorer](https://github.com/hashgraph/hedera-mirror-node-explorer) open-source project.
 
 </details>
 
