@@ -1,3 +1,8 @@
+---
+cover: .gitbook/assets/HH-Eco-Hero-Desktop-R1.webp
+coverY: -139.75903614457832
+---
+
 # Hedera
 
 Hedera is a distributed ledger for building and deploying decentralized applications and microservices. You can use Hedera’s network services– Consensus, Tokens, Smart Contracts, and File Service–atop the [hashgraph consensus algorithm](core-concepts/hashgraph-consensus-algorithms/), to build applications with high throughput, fair ordering, and low-latency consensus finality in seconds without relying on centralized infrastructure.
