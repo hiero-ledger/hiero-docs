@@ -163,8 +163,8 @@ The list of supported mirror node REST APIs can be found [here](../rest-api/). Y
 [Broken link](broken-reference)
 {% endcontent-ref %}
 
-{% content-ref url="./" %}
-[.](./)
+{% content-ref url="../../docs/sdks/" %}
+[sdks](../../docs/sdks/)
 {% endcontent-ref %}
 
 ### Code Check :white\_check\_mark:

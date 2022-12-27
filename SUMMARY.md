@@ -81,7 +81,7 @@
   * [HashProof](ecosystem-accelerators/hashproof.md)
   * [CBDC](ecosystem-accelerators/cbdc.md)
 * [APIs & SDKs](apis-and-sdks/README.md)
-  * [Hedera SDKs](apis-and-sdks/sdks/README.md)
+  * [Hedera SDKs](docs/sdks/README.md)
     * [Build your Hedera client](apis-and-sdks/sdks/client.md)
     * [Set-up Your Local Network](apis-and-sdks/sdks/set-up-your-local-network.md)
     * [Network address book](apis-and-sdks/sdks/address-book.md)

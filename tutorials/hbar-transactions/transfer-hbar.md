@@ -83,7 +83,7 @@ System.out.println("The new account balance is: " +accountBalanceNew.hbars);
 * Created an account
 * Transferred HBARs to another account
 
-Do you want to keep learning? Visit our "[Resources](../demo-applications/starter-projects.md)" and "[Documentation](../../apis-and-sdks/sdks/)" sections to take your learning experience to the next level. You can also find additional Java SDK examples [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java).
+Do you want to keep learning? Visit our "[Resources](../demo-applications/starter-projects.md)" and "[Documentation](../../docs/sdks/)" sections to take your learning experience to the next level. You can also find additional Java SDK examples [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java).
 
 {% content-ref url="broken-reference" %}
 [Broken link](broken-reference)
@@ -246,7 +246,7 @@ console.log("The account balance after the transfer is: " +getNewBalance.hbars.t
 * Created an account
 * Transferred hbars to another account
 
-Do you want to keep learning? Visit our "[Resources](../demo-applications/starter-projects.md)" and "[Documentation](../../apis-and-sdks/sdks/)" sections to take your learning experience to the next level. You can also find additional JavaScript SDK examples [here](https://github.com/hashgraph/hedera-sdk-js/tree/master/examples).
+Do you want to keep learning? Visit our "[Resources](../demo-applications/starter-projects.md)" and "[Documentation](../../docs/sdks/)" sections to take your learning experience to the next level. You can also find additional JavaScript SDK examples [here](https://github.com/hashgraph/hedera-sdk-js/tree/master/examples).
 
 {% content-ref url="broken-reference" %}
 [Broken link](broken-reference)
@@ -423,7 +423,7 @@ fmt.Println("The hbar account balance for this account is", newAccountBalance.Hb
 * Created an account
 * Transferred hbars to another account
 
-Do you want to keep learning? Visit our "[Resources](../demo-applications/starter-projects.md)" and "[Documentation](../../apis-and-sdks/sdks/)" sections to take your learning experience to the next level. You can also find additional Hedera Go SDK examples [here](https://github.com/hashgraph/hedera-sdk-go/tree/master/examples).
+Do you want to keep learning? Visit our "[Resources](../demo-applications/starter-projects.md)" and "[Documentation](../../docs/sdks/)" sections to take your learning experience to the next level. You can also find additional Hedera Go SDK examples [here](https://github.com/hashgraph/hedera-sdk-go/tree/master/examples).
 
 {% content-ref url="broken-reference" %}
 [Broken link](broken-reference)

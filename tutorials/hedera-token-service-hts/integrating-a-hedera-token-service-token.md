@@ -39,8 +39,8 @@ The following SDKs support HTS:
 
 Documentation can be found below.
 
-{% content-ref url="../../apis-and-sdks/sdks/" %}
-[sdks](../../apis-and-sdks/sdks/)
+{% content-ref url="../../docs/sdks/" %}
+[sdks](../../docs/sdks/)
 {% endcontent-ref %}
 
 ## **Hedera Token Service (HTS)**
