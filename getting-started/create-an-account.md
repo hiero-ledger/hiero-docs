@@ -2,7 +2,7 @@
 
 ## Summary
 
-In this section, you will learn how to make a simple Hedera account. Hedera accounts are the entry point by which you can interact with the Hedera APIs. Accounts hold a balance of hbars used to pay for API calls for the various transaction and query types.
+In this section, you will learn how to make a simple Hedera account. Hedera accounts are the entry point by which you can interact with the Hedera APIs. Accounts hold a balance of HBARs used to pay for API calls for the various transaction and query types.
 
 ## Pre-requisites:
 
@@ -234,11 +234,11 @@ fmt.Println("The account balance for the new account is ", accountBalance.Hbars.
 
 :star: Congratulations! You have successfully completed the following:
 
-* Created new a Hedera account with an initial balance of 1,000 tinybars
-* Obtained the new account ID by requesting the receipt of the transaction
-* Verified the starting balance of the new account by submitting a query to the network
+* Created new a Hedera account with an initial balance of 1,000 tinybars.
+* Obtained the new account ID by requesting the receipt of the transaction.
+* Verified the starting balance of the new account by submitting a query to the network.
 
-You are now ready to transfer some hbar to the new account :money\_mouth:!
+You are now ready to transfer some HBAR to the new account :money\_mouth:!
 
 ## Code Check:white\_check\_mark:
 
