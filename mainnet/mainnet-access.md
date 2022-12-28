@@ -20,7 +20,7 @@ Create free mainnet accounts by visiting any of these wallet providers:&#x20;
 
 Once you have obtained your mainnet account from a supported wallet, you can use the SDKs to create additional mainnet accounts.&#x20;
 
-To do this, you will need to point your Hedera client to mainnet (C`lient.forMainnet())`and use the `AccountCreateTransaction` API to create a new account. The transaction fee payer (referred to as the `operator` in the SDKs) information should be set to the mainnet account you created from one of the above wallets (`setOperator(<mainnetAccountId, mainnetAccountPrivateKey)`.&#x20;
+To do this, you will need to point your Hedera client to mainnet (`Client.forMainnet()`)and use the `AccountCreateTransaction` API to create a new account. The transaction fee payer (referred to as the `operator` in the SDKs) information should be set to the mainnet account you created from one of the above wallets (`setOperator(<mainnetAccountId, mainnetAccountPrivateKey)`.&#x20;
 
 {% content-ref url="../docs/sdks/cryptocurrency/create-an-account.md" %}
 [create-an-account.md](../docs/sdks/cryptocurrency/create-an-account.md)
