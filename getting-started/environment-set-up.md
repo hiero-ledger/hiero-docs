@@ -38,7 +38,7 @@ dependencies {
 
 **Step 2: Create a .env file in your project**
 
-Create a **.env** file in the root directory of your project. Grab the the Hedera Testnet **account ID** and **private key** from your [Hedera portal profile](https://portal.hedera.com/) and enter them in the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` fields.
+Create a **.env** file in the root directory of your project. Grab the Hedera Testnet **account ID** and **private key** from your [Hedera portal profile](https://portal.hedera.com/) and enter them in the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` fields.
 
 ```
 MY_ACCOUNT_ID=ENTER TESTNET ACCOUNT ID 
