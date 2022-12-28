@@ -8,10 +8,6 @@ coverY: -154.63917525773195
 
 For friendly, language-specific access to the Hedera API and its network services, there are several options.&#x20;
 
-{% hint style="info" %}
-**Note:** During Hedera's beta period, the API is subject to change and may impact SDKs.
-{% endhint %}
-
 ## Hedera Services Code SDKs
 
 Hedera and the developer community contribute to and maintain Hedera Services Code SDKs across various languages.
