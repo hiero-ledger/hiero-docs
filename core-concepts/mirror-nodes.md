@@ -12,14 +12,14 @@ Mirror nodes provide a way to store and cost-effectively query historical data f
 * Event files
 * Balance files
 
-A beta version of mirror node code is [available on GitHub](https://github.com/hashgraph/hedera-mirror-node).
+A beta version of the mirror node code is [available on GitHub](https://github.com/hashgraph/hedera-mirror-node).
 
 {% hint style="info" %}
 **Current Status**\
 The beta mirror node is available to deploy and downloads transaction data via an Amazon or Google bucket. A full version is actively being developed and will connect directly to a Hedera network (testnet or mainnet).\
 \
 **UPDATE: LIMITED AVAILABILITY**\
-Please check out mirror node information [here](https://docs.hedera.com/guides/docs/mirror-node-api/hedera-consensus-service-api-1).
+Please check out the mirror node information [here](https://docs.hedera.com/guides/docs/mirror-node-api/hedera-consensus-service-api-1).
 {% endhint %}
 
 ## Understanding Mirror Nodes
@@ -35,7 +35,7 @@ While mirror nodes receive information from the consensus nodes, they do not con
 
 At version 1.0, mirror nodes will run the same code as consensus nodes.
 
-To make the initial deployments easier, the beta version of mirror nodes strive to take away the burden of running a full Hedera node through the creation of periodic files that contain processed information (such as account balances or transaction records), and have the full trust of the Hedera consensus nodes. The beta mirror node software reduces the processing burden by receiving pre-constructed files from the network, validating those, populating a database, and providing REST APIs
+To make the initial deployments easier, the beta version of the mirror nodes strive to take away the burden of running a full Hedera node through the creation of periodic files that contain processed information (such as account balances or transaction records) and have the full trust of the Hedera consensus nodes. The beta mirror node software reduces the processing burden by receiving pre-constructed files from the network, validating those, populating a database, and providing REST APIs.
 
 ![](../.gitbook/assets/betamirrornode-overview.jpg)
 
@@ -45,7 +45,7 @@ As transactions reach consensus on the Hedera network, either mainnet or testnet
 
 Once a record file is closed, the consensus nodes generate a signature file. The signature file contains a signature for the corresponding record file’s hash. Along with the signature file of the consensus node, the record file also contains the hash of the previous record file. The former record file can now be verified by matching the hash of the previous record file.
 
-Hedera consensus nodes push new record files and signature files to the cloud storage provider – currently AWS S3 and Google File Storage are supported. Mirror nodes download these files, verify their signatures based upon their hashes, and only then make them available to be processed.
+Hedera consensus nodes push new record files and signature files to the cloud storage provider – currently AWS S3 and Google File Storage are supported. Mirror nodes download these files, verify their signatures based on their hashes, and only then make them available to be processed.
 
 ## Using Mirror Nodes
 
