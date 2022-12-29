@@ -83,7 +83,7 @@ client.setOperator(myAccountId, myPrivateKey);
 ```
 
 {% hint style="info" %}
-The client has a default **max transaction fee** of 100,000,000 tinybars (1 HBAR) and default **max query payment** of 100,000,000 tinybars (1 HBAR). If you need to change these values, you can use`.setDefaultMaxTransactionFee()` for a transaction and `.setDefaultMaxQueryPayment()` for queries. You are only charged the actual cost of the transaction or query.
+The client has a default **max transaction fee** of 100,000,000 tinybars (1 hbar) and default **max query payment** of 100,000,000 tinybars (1 hbar). If you need to change these values, you can use`.setDefaultMaxTransactionFee()` for a transaction and `.setDefaultMaxQueryPayment()` for queries. You are only charged the actual cost of the transaction or query.
 {% endhint %}
 
 Your project environment is now set up to successfully submit transactions and queries to the Hedera test network!
@@ -124,7 +124,7 @@ public class HederaExamples {
 
 **Create a new directory for our sample & move into it**
 
-Open your terminal and create a directory called `hello-hedera-js-sdk`. After you create the project directory navigate to the directory.
+Open your terminal and create a directory called `hello-hedera-js-sdk`. After you create the project directory navigate into the directory.
 
 ```bash
 mkdir hello-hedera-js-sdk && cd hello-hedera-js-sdk
@@ -136,7 +136,7 @@ mkdir hello-hedera-js-sdk && cd hello-hedera-js-sdk
 npm init
 ```
 
-> **Note:** you can just say “yes” to all of the defaults and/or plugin that makes sense. It’s an example!
+Note: you can just say “yes” to all of the defaults and/or plugin what makes sense. It’s an example!
 
 ```bash
 {
@@ -154,9 +154,9 @@ npm init
 
 **Step 2: Install the Hedera JavaScript SDK**
 
-Now that you have your node environment set up, we can install Hedera’s JavaScript SDK! You can open this project in your favorite IDE/text editor like [Visual Studio Code](https://code.visualstudio.com/Download).
+Now that you have your node environment setup, we can install the Hedera’s JS SDK! You can open this project in your favorite text editor like [Visual Studio Code](https://code.visualstudio.com/Download).
 
-* Install the JavaScript SDK with your favorite package manager, `npm` or `yarn`.
+* Install the JS SDK with your favorite package manager, `npm` or `yarn`.
 
 ```
 // install Hedera's JS SDK with NPM
@@ -178,7 +178,7 @@ yarn add dotenv
 
 **Step 3: Create a .env file in your project**
 
-The .env file will store your Hedera testnet **account ID** and **private key.** Create this file in the root directory of your project and save it as `.env` file.
+The .env file will store your Hedera testnet **account ID** and **private key.** Create this file in the root directory of your project and save it as **.env** file.
 
 Now you can add your testnet account ID and private key provided from your [Hedera Portal](https://portal.hedera.com/) Account.
 
@@ -224,9 +224,9 @@ main();
 
 **Step 5: Create your Hedera testnet client**
 
-You have the option to create a client for the Hedera Mainnet or Testnet. Since we are using a Hedera Testnet account ID and private key, we will create a client for the Hedera Testnet. You can find all the client configurations here.
+You have the option to create a client for the Hedera mainnet or testnet. Since we are using a Hedera testnet account ID and private key, we will create a client for the Hedera testnet. You can find all the client configurations here.
 
-After you create your Hedera Testnet client, you will need to set the operator information. The operator is the account that will pay for the transaction and query fees in HBAR.
+After you create your Hedera testnet client, you will need to set the operator information. The operator is the account that will pay for the transaction and query fees in hbar.
 
 {% code title="index.js" %}
 ```javascript
@@ -373,7 +373,7 @@ client.SetOperator(myAccountId, myPrivateKey)
 ```
 
 {% hint style="info" %}
-The client has a default **max transaction fee** of 100,000,000 tinybars (1 HBAR) and default **max query payment** of 100,000,000 tinybars (1 HBAR). If you need to change these values, you can use`.setDefaultMaxTransactionFee()` for transactions and `.setDefaultMaxQueryPayment()` for queries. You are only charged the actual cost of the transaction or query.
+The client has a default **max transaction fee** of 100,000,000 tinybars (1 hbar) and default **max query payment** of 100,000,000 tinybars (1 hbar). If you need to change these values, you can use`.setDefaultMaxTransactionFee()` for transactions and `.setDefaultMaxQueryPayment()` for queries. You are only charged the actual cost of the transaction or query.
 {% endhint %}
 
 Your project environment is now set up to successfully submit transactions/queries to the Hedera test network!

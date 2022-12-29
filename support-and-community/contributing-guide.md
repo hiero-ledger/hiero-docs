@@ -79,7 +79,7 @@ Use recognizable and industry-standard acronyms and initialisms. Abbreviations a
 
 ### Make abbreviations plural <a href="#making-abbreviations-plural" id="making-abbreviations-plural"></a>
 
-Treat acronyms, initialisms, and other abbreviations as _regular_ words when making them plural—for example, _**APIs**_, _**SDKs**_, and _**IDEs**_.
+Treat acronyms, initialisms, and other abbreviations as _regular_ words when making them plural—for example, _**APIs**_, _**SKEs**_, and _**IDEs**_.
 
 ### When to spell out a term <a href="#spelling-out" id="spelling-out"></a>
 
@@ -90,6 +90,6 @@ In general, when an abbreviation is likely to be unfamiliar to the audience, spe
 
 For all subsequent mentions of the term, use the abbreviation by itself. If the first mention of a term occurs in a heading or title, you can use the abbreviation and then spell out the abbreviation in the first paragraph that follows the heading or section title.&#x20;
 
-In some cases, spelling out an acronym doesn't help the reader understand the term. For example, writing out a _portable document format_ doesn't help the reader understand what a _PDF_ document is.
+In some cases, spelling out an acronym doesn't help the reader understand the term. For example, writing out _portable document format_ doesn't help the reader understand what a _PDF_ document is.
 
 > **Note:** The following acronyms rarely need to be spelled out: _**API**_, _**SDK**_, _**HTML**_, _**REST**_, _**URL**_, _**USB**_, and file formats such as _**PDF**_ or _**XML**_.

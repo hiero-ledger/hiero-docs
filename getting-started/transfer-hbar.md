@@ -2,7 +2,7 @@
 
 ## Summary
 
-In this section, you will learn how to transfer HBAR from your account to another account on the Hedera test network.
+In this section, you will learn how to transfer HBARs from your account to another account on the Hedera test network.
 
 ## Pre-requisites: <a href="#pre-requisites" id="pre-requisites"></a>
 
@@ -24,7 +24,7 @@ You can always check the "Code Check ✅ " section at the bottom of each page to
 {% tab title="Java" %}
 **Step 1. Create a transfer transaction**
 
-You should already have a new account from the account you created in the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your account to the new account. The account transferring HBAR is required to sign the transaction with the account's corresponding private key to authorize the transfer. Since you are transferring from the account associated with the client, you do not need to explicitly sign the transaction as the operator account signs all transactions to authorize the payment of the transaction fee.
+You should already have a new account from the account you created in the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your account to the new account. The account transferring HBARs is required to sign the transaction with the account's corresponding private key to authorize the transfer. Since you are transferring from the account associated with the client, you do not need to explicitly sign the transaction as the operator account signs all transactions to authorize the payment of the transaction fee.
 
 ```java
 //System.out.println("The new account balance is: " +accountBalance.hbars);
@@ -38,7 +38,7 @@ TransactionResponse sendHbar = new TransferTransaction()
 ```
 
 {% hint style="info" %}
-The net value of the transfer must equal zero (the total number of HBAR sent by the sender must equal the total number of HBAR received by the recipient).
+The net value of the transfer must equal zero (total number of HBARs sent by the sender must equal the total number of HBARs received by the recipient).
 {% endhint %}
 
 **Step 2. Verify the transfer transaction reached consensus**
@@ -66,7 +66,7 @@ System.out.println("The cost of this query is: " +queryCost);
 
 **Get the account balance**
 
-You will verify the account balance was updated for the new account by requesting a get account balance query. The current account balance should be the sum of the initial balance (1,000 tinybars) plus the transfer amount (1,000 tinybars) and equal to 2,000 tinybars.
+You will verify the account balance was updated for the new account by requesting a get account balance query. The current account balance should be the sum of the initial balance (1,000 tinybar) plus the transfer amount (1,000 tinybar) and equal to 2,000 tinybars.
 
 ```java
 //Check the new account's balance
@@ -77,11 +77,11 @@ AccountBalance accountBalanceNew = new AccountBalanceQuery()
 System.out.println("The new account balance is: " +accountBalanceNew.hbars);
 ```
 
-:star: Congratulations! You have successfully transferred HBAR to another account on the Hedera Testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
+:star: Congratulations! You have successfully transferred HBARs to another account on the Hedera testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
 
-* Set up your Hedera environment to submit transactions and queries.
-* Created an account.
-* Transferred HBAR to another account.
+* Set up your Hedera environment to submit transactions and queries
+* Created an account
+* Transferred HBARs to another account
 
 Do you want to keep learning? Visit our "[Resources](../resources/starter-projects.md)" and "[Documentation](../docs/sdks/)" sections to take your learning experience to the next level. You can also find additional Java SDK examples [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java).
 
@@ -185,7 +185,7 @@ The new account balance is: 2000 tℏ
 {% tab title="JavaScript" %}
 **Step 1: Create a transfer transaction**
 
-You should already have a new account ID from the account you created from the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your account to the new account. The account sending HBAR is the signature that is required for this transaction to be processed.
+You should already have a new account ID from the account you created from the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your account to the new account. The account sending hbars is the signature that is required for this transaction to be processed.
 
 ```javascript
 //console.log("The new account balance is: " +accountBalance.hbars.toTinybars() +" tinybar.");
@@ -199,7 +199,7 @@ const sendHbar = await new TransferTransaction()
 ```
 
 {% hint style="info" %}
-The net value of the transfer must equal zero (the total number of HBAR sent by the sender must equal the total number of HBAR received by the recipient).
+The net value of the transfer must equal zero (total number of hbars sent by the sender must equal the total number of hbars received by the recipient).
 {% endhint %}
 
 **Step 2: Verify the transfer transaction reached consensus**
@@ -229,7 +229,7 @@ console.log("The cost of query is: " +queryCost);
 
 **Get the account balance**
 
-You will verify the account balance was updated for the new account by requesting a _get account balance_ query. The current account balance should be the sum of the initial balance (1,000 tinybars) plus the transfer amount (1,000 tinybars) and equal to 2,000 tinybars.
+You will verify the account balance was updated for the new account by requesting a get account balance query. The current account balance should be the sum of the initial balance (1,000 tinybars) plus the transfer amount (1,000 tinybasr) and equal to 2,000 tinybars.
 
 ```javascript
 //Check the new account's balance
@@ -240,11 +240,11 @@ const getNewBalance = await new AccountBalanceQuery()
 console.log("The account balance after the transfer is: " +getNewBalance.hbars.toTinybars() +" tinybar.")
 ```
 
-⭐ Congratulations! You have successfully transferred HBAR to another account on the Hedera testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
+⭐ Congratulations! You have successfully transferred hbars to another account on the Hedera testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
 
-* Set up your Hedera environment to submit transactions and queries.
-* Created an account.
-* Transferred HBAR to another account.
+* Set up your Hedera environment to submit transactions and queries
+* Created an account
+* Transferred hbars to another account
 
 Do you want to keep learning? Visit our "[Resources](../resources/starter-projects.md)" and "[Documentation](../docs/sdks/)" sections to take your learning experience to the next level. You can also find additional JavaScript SDK examples [here](https://github.com/hashgraph/hedera-sdk-js/tree/master/examples).
 
@@ -335,7 +335,7 @@ main();
 {% tab title="Go" %}
 **Step 1. Create a transfer transaction**
 
-You should already have a new account ID from the account you created in the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your testnet account to the new account. The sender account's private key is required to sign the transaction. The sender account is your testnet account so the client is already set up to sign with your testnet account's private key to authorize the transfer.
+You should already have a new account ID from the account you created in the "[Create an account](create-an-account.md)" section. You will transfer 1,000 tinybars from your testnet account to the new account. The sender account's private key is required to sign the transaction. The sender account is your testnet account so the client is already set-up to sign with your testnet account's private key to authorize the transfer.
 
 ```java
 //Print the balance of tinybars
@@ -356,7 +356,7 @@ if err != nil {
 ```
 
 {% hint style="info" %}
-The net value of the transfer must equal zero (the total number of HBAR sent by the sender must equal the total number of HBAR received by the recipient).
+The net value of the transfer must equal zero (total number of hbars sent by the sender must equal the total number of hbars received by the recipient).
 {% endhint %}
 
 **Step 2. Verify the transfer transaction reached consensus**
@@ -400,7 +400,7 @@ println("The account balance query cost is:", cost.String())
 
 **Get the account balance**
 
-You will verify the account balance was updated for the new account by submitting a get account balance query. The current account balance should be the sum of the initial balance (1,000 tinybars) plus the transfer amount (1,000 tinybars) and equal to 2,000 tinybars.
+You will verify the account balance was updated for the new account by submitting a get account balance query. The current account balance should be the sum of the initial balance (1,000 tinybar) plus the transfer amount (1,000 tinybar) and equal to 2,000 tinybars.
 
 ```java
 //Check the new account's balance
@@ -417,11 +417,11 @@ if err != nil {
 fmt.Println("The hbar account balance for this account is", newAccountBalance.Hbars.AsTinybar())
 ```
 
-⭐ Congratulations! You have successfully transferred HBAR to another account on the Hedera testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
+⭐ Congratulations! You have successfully transferred hbars to another account on the Hedera testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:
 
-* Set up your Hedera environment to submit transactions and queries.
-* Created an account.
-* Transferred HBAR to another account.
+* Set up your Hedera environment to submit transactions and queries
+* Created an account
+* Transferred hbars to another account
 
 Do you want to keep learning? Visit our "[Resources](../resources/starter-projects.md)" and "[Documentation](../docs/sdks/)" sections to take your learning experience to the next level. You can also find additional Hedera Go SDK examples [here](https://github.com/hashgraph/hedera-sdk-go/tree/master/examples).
 
