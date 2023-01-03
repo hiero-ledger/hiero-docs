@@ -1,14 +1,18 @@
 ---
-description: 'Welcome to Hedera docs contributing guide! Ways you can contribute below⬇:'
+description: >-
+  Welcome to Hedera docs contributing and style guide! Ways you can contribute
+  below⬇:
 cover: ../.gitbook/assets/28_ultraviolet.jpg
-coverY: 82.88986784140985
+coverY: 7.686030910954216
 ---
 
-# Contributing Guide
+# Contributing & Style Guide
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>CREATE NEW ISSUES</strong></td><td></td><td></td><td><a href="contributing-guide.md#create-new-issues-and-pull-requests">#create-new-issues-and-pull-requests</a></td></tr><tr><td align="center"><strong>HEDERA IMPROVEMENT PROPOSAL</strong></td><td></td><td></td><td><a href="contributing-guide.md#hedera-improvement-proposal-hip">#hedera-improvement-proposal-hip</a></td></tr><tr><td align="center"><strong>STYLE GUIDE</strong></td><td></td><td></td><td><a href="contributing-guide.md#style-guide">#style-guide</a></td></tr><tr><td align="center"><strong>BRAND GUIDELINES</strong></td><td></td><td></td><td><a href="brand-guidelines.md">brand-guidelines.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>CONTRIBUTING GUIDE</strong></td><td></td><td></td><td><a href="contributing-guide.md#contributing-guide">#contributing-guide</a></td></tr><tr><td align="center"><strong>STYLE GUIDE</strong></td><td></td><td></td><td><a href="contributing-guide.md#style-guide">#style-guide</a></td></tr></tbody></table>
 
-## Create new issues and pull requests
+## Contributing Guide
+
+### Create new issues and pull requests
 
 If you find something that needs to be updated or would like to publish additional content to the docs site you may do so by the following methods:
 
@@ -19,7 +23,7 @@ If you find something that needs to be updated or would like to publish addition
 
 > **Note:** Issues and pull requests will be reviewed by the Hedera team.
 
-## Hedera Improvement Proposal (HIP)
+### Hedera Improvement Proposal (HIP)
 
 Have a new feature request for consensus or mirror nodes? Looking to submit a standard or informational guide for the Hedera ecosystem? Submit a Hedera Improvement Proposal that will be reviewed and evaluated by the Hedera Team. These improvement proposals can range from core protocol changes to the applications, frameworks, and protocols built on top of the Hedera public network and used by the community. To view all active and pending HIPs, check out the [HIP website](https://hips.hedera.com/).&#x20;
 
@@ -46,6 +50,24 @@ Follow the standard [capitalization rules](https://owl.purdue.edu/owl/general\_w
 * Do not use all-uppercase or camel case except in the following contexts: in official names, abbreviations, or variable names in a code block, e.g., _**HBAR, HIPs,**_ or _**SHA384**._
 * You should revise any sentence starting with lowercase word stylization to avoid creating a sentence with a lowercase word.
 
+### HBAR
+
+When referring to the Hedera native currency, use the singular form of the noun _**HBAR**_. For example:&#x20;
+
+* _"I bought 10 **HBAR** yesterday"_
+
+Do not use the plural form of the noun as this style rule applies even when referring to multiple units of _**HBAR**_.&#x20;
+
+### tinybars
+
+When referring to fractions of _**HBAR**_, use the plural form _**tinybars**_. For example:&#x20;
+
+* _"I will transfer 1,000 **tinybars** from my account to yours"_
+
+Do not use the singular form of the noun as any reference should be plural since one _**HBAR**_ is equal to 100,000 _**tinybars**_.
+
+> **Note:** The same style rule applies to other _**HBAR**_ denominations like _**millibars**_ and _**microbars.**_
+
 ### Abbreviations
 
 {% hint style="info" %}
@@ -66,7 +88,7 @@ Abbreviations include acronyms, initialisms, shortened words, and contractions. 
 
 > **Note:** Some abbreviations can be either acronyms or initialisms, depending on the speaker's preference—examples include _**FAQ**_ and _**SQL**_. In some cases, the pronunciation determines [whether to use _a_ or _an_](https://developers.google.com/style/articles).
 
-### Long and short versions of a word <a href="#long-and-short-versions" id="long-and-short-versions"></a>
+#### Long and short versions of a word <a href="#long-and-short-versions" id="long-and-short-versions"></a>
 
 The short versions of the words are not abbreviations; if you use them, you don't need to put a period after them—for example:
 
