@@ -1,7 +1,7 @@
 ---
 description: >-
-  Welcome to Hedera docs contributing and style guide! Ways you can contribute
-  below⬇:
+  Welcome to Hedera documentation contributing and style guide! Ways you can
+  contribute below⬇:
 cover: ../.gitbook/assets/28_ultraviolet.jpg
 coverY: 7.686030910954216
 ---
@@ -67,8 +67,6 @@ When referring to fractions of _**HBAR**_, use the plural form _**tinybars**_. F
 * _"I will transfer 1,000 **tinybars** from my account to yours"_
 
 Do not use the singular form of the noun as any reference should be plural since one _**HBAR**_ is equal to 100,000 _**tinybars**_.
-
-> **Note:** The same style rule applies to other _**HBAR**_ denominations like _**millibars**_ and _**microbars.**_
 
 ### Abbreviations
 
