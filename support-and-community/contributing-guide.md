@@ -34,6 +34,8 @@ Have a new feature request for consensus or mirror nodes? Looking to submit a st
 > **Note:** Which category should you make the _**HIP**_? See [hip-1](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-1.md) for details on the _**HIP**_ process or watch the following video tutorial.
 
 {% embed url="https://www.youtube.com/watch?v=Gbk8EbtibA0" %}
+Hedera Improvement Proposals by Developer Advocate: Michael Garber
+{% endembed %}
 
 ## Style Guide
 
