@@ -1,8 +1,12 @@
 ---
 description: 'Welcome to Hedera docs contributing guide! Ways you can contribute below⬇:'
+cover: ../.gitbook/assets/28_ultraviolet.jpg
+coverY: 82.88986784140985
 ---
 
 # Contributing Guide
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>CREATE NEW ISSUES</strong></td><td></td><td></td><td><a href="contributing-guide.md#create-new-issues-and-pull-requests">#create-new-issues-and-pull-requests</a></td></tr><tr><td align="center"><strong>HEDERA IMPROVEMENT PROPOSAL</strong></td><td></td><td></td><td><a href="contributing-guide.md#hedera-improvement-proposal-hip">#hedera-improvement-proposal-hip</a></td></tr><tr><td align="center"><strong>STYLE GUIDE</strong></td><td></td><td></td><td><a href="contributing-guide.md#style-guide">#style-guide</a></td></tr><tr><td align="center"><strong>BRAND GUIDELINES</strong></td><td></td><td></td><td><a href="brand-guidelines.md">brand-guidelines.md</a></td></tr></tbody></table>
 
 ## Create new issues and pull requests
 
@@ -13,9 +17,7 @@ If you find something that needs to be updated or would like to publish addition
 * Create a pull request
   * Fork the repository and submit a pull request that includes the suggested updates
 
-{% hint style="info" %}
-**Key Point:** Issues and pull requests will be reviewed by the Hedera team.
-{% endhint %}
+> **Note:** Issues and pull requests will be reviewed by the Hedera team.
 
 ## Hedera Improvement Proposal (HIP)
 
