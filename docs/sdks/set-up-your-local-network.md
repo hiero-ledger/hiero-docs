@@ -1,15 +1,15 @@
 # Set-up Your Local Network
 
-While you are developing your application, you can use the Hedera supported networks (previewnet and testnet) to test your application against. In addition to using those networks, you have the option to set-up your own local consensus node and mirror node for testing purposes. \
+While you are developing your application, you can use the Hedera supported networks (previewnet and testnet) to test your application against. In addition to using those networks, you have the option to set-up your own local consensus node and mirror node for testing purposes.\
 \
 With your local network set-up you can:
 
 * Create and submit transactions and queries to a consensus node
 * Interact with the mirror node via REST APIs
 
-### 1. Set-up your local network&#x20;
+### 1. Set-up your local network
 
-Set-up your local network by following the instructions found in the [readme](https://github.com/hashgraph/hedera-local-node#docker) of the `hedera-local-node` project. This will create a Hedera network composed of one consensus node and one mirror node. The consensus node will process incoming transactions and queries. The mirror node stores the history of transactions. Both nodes are created at startup.&#x20;
+Set-up your local network by following the instructions found in the [readme](https://github.com/hashgraph/hedera-local-node#docker) of the `hedera-local-node` project. This will create a Hedera network composed of one consensus node and one mirror node. The consensus node will process incoming transactions and queries. The mirror node stores the history of transactions. Both nodes are created at startup.
 
 ### 2. Configure your network
 
@@ -85,7 +85,7 @@ client.SetOperator(accountId, privateKey)
 
 ### 4. Submit your transaction
 
-Submit a transaction that will create a new account in your local network. The console should print out the new account ID. In this example, we are using the same key as the transaction fee paying account as the key for the new account. You can also create a [new key](keys/generate-a-new-key-pair.md) if you wish.&#x20;
+Submit a transaction that will create a new account in your local network. The console should print out the new account ID. In this example, we are using the same key as the transaction fee paying account as the key for the new account. You can also create a [new key](keys/generate-a-new-key-pair.md) if you wish.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -147,11 +147,11 @@ fmt.Print(newAccountId)
 
 ### 5. View your transaction
 
-You can view the executed transaction by querying your local mirror node.&#x20;
+You can view the executed transaction by querying your local mirror node.
 
-The local mirror node endpoint URL is `http://localhost:5551/`.&#x20;
+The local mirror node endpoint URL is `http://localhost:5551/`.
 
-You can view the transactions that were submitted to your local node by submitting this request:&#x20;
+You can view the transactions that were submitted to your local node by submitting this request:
 
 ```http
 http://localhost:5551/api/v1/transactions
@@ -167,7 +167,7 @@ The list of supported mirror node REST APIs can be found [here](../mirror-node-a
 [.](./)
 {% endcontent-ref %}
 
-### Code Check :white\_check\_mark:&#x20;
+### Code Check :white\_check\_mark:
 
 {% tabs %}
 {% tab title="Java" %}

@@ -2,7 +2,7 @@
 
 * [Hedera](README.md)
 * [Mainnet](mainnet/README.md)
-  * [Mainnet Access](mainnet/mainnet-access.md)
+  * [Mainnet Accounts](mainnet/mainnet-access.md)
   * [Mainnet Nodes](mainnet/mainnet-nodes/README.md)
     * [Node Requirements](mainnet/mainnet-nodes/node-requirements/README.md)
       * [Reference Configuration](mainnet/mainnet-nodes/node-requirements/reference-configuration.md)
@@ -10,7 +10,7 @@
   * [Fees](mainnet/fees/README.md)
     * [Transaction Records](mainnet/fees/transaction-records.md)
 * [Testnets](testnet/README.md)
-  * [Testnet Access](testnet/testnet-access.md)
+  * [Testnet Accounts](testnet/testnet-access.md)
   * [Testnet Nodes](testnet/testnet-nodes.md)
 * [Mirrornet](mirrornet/README.md)
   * [Hedera Mirror Node](mirrornet/hedera-mirror-node.md)
@@ -19,12 +19,12 @@
     * [Run your mirror node using GCS](mirrornet/run-your-own-beta-mirror-node/run-your-own-mirror-node-gcs.md)
     * [Run your mirror node using S3](mirrornet/run-your-own-beta-mirror-node/run-your-own-mirror-node-s3.md)
   * [Hedera ETL](mirrornet/hedera-etl.md)
-  * [Community Mirror Node Explorers and Tools](mirrornet/community-mirror-nodes.md)
+  * [Network Explorers and Tools](mirrornet/community-mirror-nodes.md)
 
 ## Getting Started
 
 * [Introduction](getting-started/introduction.md)
-* [Environment Set-up](getting-started/environment-set-up.md)
+* [Environment Setup](getting-started/environment-set-up.md)
 * [Create an account](getting-started/create-an-account.md)
 * [Transfer HBAR](getting-started/transfer-hbar.md)
 * [Try Examples! 👩‍💻](getting-started/try-examples/README.md)
@@ -435,8 +435,8 @@
 
 ## Support & Community
 
-* [Contributing Guide](support-and-community/contributing-guide.md)
-* [Developer Chat](http://hedera.com/discord)
+* [Contributing & Style Guide](support-and-community/contributing-guide.md)
+* [Discord](https://discord.gg/hedera)
 * [Meetups](support-and-community/meetups.md)
 * [Hedera FAQ](https://help.hedera.com/hc/en-us)
 * [Status Page](https://status.hedera.com)

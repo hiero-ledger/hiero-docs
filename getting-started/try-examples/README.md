@@ -35,7 +35,7 @@
 {% content-ref url="schedule-your-first-transaction.md" %}
 [schedule-your-first-transaction.md](schedule-your-first-transaction.md)
 {% endcontent-ref %}
+
 {% hint style="info" %}
-Have a question?
-[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
+Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}

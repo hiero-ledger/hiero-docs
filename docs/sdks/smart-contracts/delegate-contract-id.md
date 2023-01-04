@@ -15,4 +15,3 @@ A smart contract that, if the recipient of the active message frame, should be t
 | `DelegateContractId.fromString(<id>)`             | String   | Constructs a delegate contract ID from a String         |
 | `DelegateContractId.fromBytes(<bytes>)`           | bytes    | Constructs a delegate contract ID from bytes            |
 | `DelegateContractId.fromSolidityAddress(address)` | address  | Constructs a delegate contract ID from Solidity address |
-

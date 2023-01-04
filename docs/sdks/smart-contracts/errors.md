@@ -7,7 +7,7 @@ Network response messages and their descriptions.
 | `CONTRACT_BYTECODE_EMPTY`           | Bytecode for smart contract is of length zero                                                                                            |
 | `CONTRACT_DELETED`                  | Contract is marked as deleted                                                                                                            |
 | `CONTRACT_EXECUTION_EXCEPTION`      | For any contract execution-related error not handled by specific error codes listed above.                                               |
-| `CONTRACT_FILE_EMPTY `              | File to create a smart contract was of length zero                                                                                       |
+| `CONTRACT_FILE_EMPTY`               | File to create a smart contract was of length zero                                                                                       |
 | `CONTRACT_NEGATIVE_GAS`             | Negative gas was offered in the smart contract call                                                                                      |
 | `CONTRACT_NEGATIVE_VALUE`           | Negative value / initial balance was specified in a smart contract call / create                                                         |
 | `CONTRACT_REVERT_EXECUTED`          | Contract REVERT OPCODE executed                                                                                                          |

@@ -7,6 +7,3 @@ description: >-
 # Run the JavaScript Hedera Consensus Service Chat Demo
 
 {% embed url="https://youtu.be/tMj6tFGc4c0" %}
-
-
-

@@ -17,7 +17,7 @@ In its early iteration, a small subset of transactions will be schedulable. You 
 ## 4. How can I find a schedule transaction that requires my signature?
 
 * The creator of the scheduled transaction can provide you a schedule ID which you specify in the ScheduleSign transaction to submit your signature.
-* You can query a mirror node to return all schedule transactions that have your public key associated with it. This option is not available today, but is planned for the future.&#x20;
+* You can query a mirror node to return all schedule transactions that have your public key associated with it. This option is not available today, but is planned for the future.
 
 ## 5. What happens if the scheduled transaction does not have sufficient balance?
 
@@ -36,7 +36,7 @@ No, you cannot delay or modify a scheduled transaction once it's been submitted 
 
 The scheduled transaction executes when the last signature is received.
 
-## 9. How often does the network check to see if the scheduled transaction (inner transaction)  has met the signature requirement?
+## 9. How often does the network check to see if the scheduled transaction (inner transaction) has met the signature requirement?
 
 Every time the schedule transaction is signed.
 

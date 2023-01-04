@@ -1,8 +1,8 @@
 # Network address book
 
-The address book contains the node ID and node address information to communicate with Hedera node(s) in a specific network. There are two ways you can get the address book for a network.&#x20;
+The address book contains the node ID and node address information to communicate with Hedera node(s) in a specific network. There are two ways you can get the address book for a network.
 
-* You can submit a `FileContentsQuery()` to a consensus node for file `0.0.101` or `0.0.102`&#x20;
+* You can submit a `FileContentsQuery()` to a consensus node for file `0.0.101` or `0.0.102`
 * You can also query the Hedera mirror node using the `AddressBookQuery()`
 
 {% tabs %}
@@ -111,4 +111,4 @@ fmt.Print(addressBook)
 
 34.125.23.490.0.9"308201a2300d06092a864886f70d01010105000382018f003082018a0282018100c6e18c8fbf4cd4eb104542cb20aaaa252d95f052f1086d581c44ad737bf6676c0c3f789af5265b8afb79b50912da84e0afcf7547cb1fff08d0527017eb6dc5cdf83b51969d44336a6387cd70b94bf4c9baf2029840e5f4f863d7081f0fa81e0863adedb8b89a5dac2bb552d6e7b9fba222ac28c57075538fc957992942d341fa2876e6b507e9ce7ed572e8cfda5defa364fdf8d8e23829a4ccbb478f11eee3b32ab85e072951c5d9420115fba327073494f43b5f6bebf84152e356e7b16ba764b7a3b52cb2734640163be1465e6d1fa4c6e6f66684a635c9a556aa7100dbe645df8f4c423ae45a08cb35b4bc187886e2299b5c0210a5fba3b9449f483ef94ed922e1e98c113be166b89c73582243135d442306abe5a71b77018ff335d6dd79542697b168238b96727fd1339b5f82a3b6a597d976037ae2506456c8b34e9fbf3bc32410441c4bfc8eba58597254efebfaa78809a5c8854729a5ba78ece19fc8407dd8894a6bc7844037d878cace6c152c2e89e8a64b068a6c237e09993be806890203010001(2 :\`64e098615bf405f7ed5a4013446b89c488cfcd6bb25a4a676dc77eea11d33d702682f0a69a8030e8c5777d0e42203799B
 
-``
+\`\`

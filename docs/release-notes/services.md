@@ -8,6 +8,28 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Upcoming Releases
 
+{% hint style="info" %}
+**MAINNET UPDATE: JANUARY 12, 2023**
+{% endhint %}
+
+{% hint style="info" %}
+**TESTNET UPDATE: DECEMBER 22, 2022**
+{% endhint %}
+
+## [v0.33](https://github.com/hashgraph/hedera-services/releases/tag/v0.33.0)
+
+Services v0.33.0 adds the following features:
+
+* HIP-583: Allow CryptoCreate transactions with ECDSA key and public address alias when lazy creation flag is off
+
+This release also adds the following minor features:
+
+* Hyperledger Besu EVM updated to version 22.10.x
+* 'accounts send' subcommand added to yahcli to support sending HTS token units
+* Developer documentation updates
+
+## **Latest Releases**
+
 ## [v0.31](https://github.com/hashgraph/hedera-services/releases/tag/v0.31.0)
 
 {% hint style="success" %}
@@ -39,8 +61,6 @@ In addition to the above features,
 * Adds some changes related to testability improvements.
 
 <figure><img src="../../.gitbook/assets/0.31_results.001.png" alt=""><figcaption></figcaption></figure>
-
-## Latest Releases
 
 ## [v0.30](https://github.com/hashgraph/hedera-services/releases/tag/v0.30.0)
 
@@ -334,7 +354,7 @@ Please also note the following deprecations in the Hedera API protobufs:
 * The [<mark style="color:purple;">`ContractUpdateTransactionBody.fileID`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L82), which is redundant given the existence of the [<mark style="color:purple;">`ContractGetBytecode`</mark> <mark style="color:purple;">quer</mark>y](https://github.com/hashgraph/hedera-protobufs/blob/main/services/smart\_contract\_service.proto#L63).
 * The [<mark style="color:purple;">`ContractCallLocalQuery.maxResultSize`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_call\_local.proto#L136), as this limit is now simply a side-effect of the given gas limit.
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001.jpeg>)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).jpeg>)
 
 ## [v0.19.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.4)
 

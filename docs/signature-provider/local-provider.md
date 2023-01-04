@@ -4,7 +4,7 @@
 This feature is available in the [Hedera JavaScript SDK](https://github.com/hashgraph/hedera-sdk-js) only. (version >=2.14.0).
 {% endhint %}
 
-LocalProvider is a quality of life implementation that creates a provider using the `HEDERA_NETWORK` environment variable. &#x20;
+LocalProvider is a quality of life implementation that creates a provider using the `HEDERA_NETWORK` environment variable.
 
 The `LocalProvider()` requires the following variable to be defined in the `.env` file. The `.env` file is located in the root directory of the project.
 
@@ -18,37 +18,37 @@ HEDERA_NETWORK= previewnet/testnet/mainnet (select one network)
 ```
 {% endcode %}
 
-## class LocalProvider implements Wallet&#x20;
+## class LocalProvider implements Wallet
 
 ### Constructor
 
-#### &#x20;new <mark style="color:purple;">LocalProvider</mark><mark style="color:purple;">`()`</mark>
+#### new <mark style="color:purple;">LocalProvider</mark><mark style="color:purple;">`()`</mark>
 
-Instantiates the LocalProvider object. The local provider is built using `HEDERA_NETWORK` network specified in the `.env` file.&#x20;
+Instantiates the LocalProvider object. The local provider is built using `HEDERA_NETWORK` network specified in the `.env` file.
 
 ### Methods
 
-#### **`<LocalProvider>.`**<mark style="color:purple;">**`getAccountBalance()`**</mark><mark style="color:purple;">** **</mark><mark style="color:purple;">**->**</mark>** Promise \<AccountBalance>**
+#### **`<LocalProvider>.`**<mark style="color:purple;">**`getAccountBalance()`**</mark><mark style="color:purple;">\*\*</mark> -> Promise \<AccountBalance>\*\*
 
 Returns the account balance of the account in the local wallet.
 
-#### **`<LocalProvider>.`**<mark style="color:purple;">**`getAccountInfo()`**</mark><mark style="color:purple;">** **</mark><mark style="color:purple;">**->**</mark>** Promise \<AccountInfo>**
+#### **`<LocalProvider>.`**<mark style="color:purple;">**`getAccountInfo()`**</mark><mark style="color:purple;">\*\*</mark> -> Promise \<AccountInfo>\*\*
 
 Returns the account information of the account in the local wallet.
 
-#### **`<LocalProvider>.`**<mark style="color:purple;">**`getAccountRecords()`**</mark><mark style="color:purple;">** **</mark><mark style="color:purple;">**->**</mark>** Promise \<AccountInfo>**
+#### **`<LocalProvider>.`**<mark style="color:purple;">**`getAccountRecords()`**</mark><mark style="color:purple;">\*\*</mark> -> Promise \<AccountInfo>\*\*
 
 Returns the last transaction records for this account using `TransactionRecordQuery`.
 
-#### **`<LocalProvider>.`**<mark style="color:purple;">**`getLedgerId()`**</mark><mark style="color:purple;">**->**</mark>** LedgerId**
+#### **`<LocalProvider>.`**<mark style="color:purple;">**`getLedgerId()`**</mark><mark style="color:purple;">**->**</mark>\*\* LedgerId\*\*
 
-Returns the ledger ID (`previewnet`, `testnet`, or `mainnet`).&#x20;
+Returns the ledger ID (`previewnet`, `testnet`, or `mainnet`).
 
-#### **`<LocalProvider>.`**<mark style="color:purple;">**`getMirrorNetwork()`**</mark><mark style="color:purple;">**->**</mark>** string**
+#### **`<LocalProvider>.`**<mark style="color:purple;">**`getMirrorNetwork()`**</mark><mark style="color:purple;">**->**</mark>\*\* string\*\*
 
 The mirror network the wallet is connected to.
 
-#### **`<LocalProvider>.`**<mark style="color:purple;">**`getNetwork()`**</mark><mark style="color:purple;">**->**</mark>** \[key: string]: string | **<mark style="color:purple;">****</mark>** AccountId**
+#### **`<LocalProvider>.`**<mark style="color:purple;">**`getNetwork()`**</mark><mark style="color:purple;">**->**</mark>\*\* \[key: string]: string | <mark style="color:purple;">**\*\*\*\***</mark> AccountId\*\*
 
 Returns the network map information.
 
@@ -60,7 +60,7 @@ Returns the transaction receipt.
 
 Wait for the receipt for a transaction response.
 
-**`<LocalProvider>.`**<mark style="color:purple;">**`call(`**</mark>**`<RequestT, ResponseT, OutputT>(request: Executable<RequestT, ResponseT, OutputT>`**<mark style="color:purple;">**`)`**</mark><mark style="color:purple;">**->**</mark>**  `Promise <Output>`**
+**`<LocalProvider>.`**<mark style="color:purple;">**`call(`**</mark>**`<RequestT, ResponseT, OutputT>(request: Executable<RequestT, ResponseT, OutputT>`**<mark style="color:purple;">**`)`**</mark><mark style="color:purple;">**->**</mark>\*\* `Promise <Output>`\*\*
 
 Sign and send a request using the wallet.
 

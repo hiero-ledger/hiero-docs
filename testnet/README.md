@@ -44,14 +44,14 @@ What you should do:
 If you have any questions or concerns, please connect with us via [Discord](https://discord.com/invite/EC2GY8ueRk).
 
 **Reset Dates:**\
-****\
+\*\*\*\*\
 **2022**
 
 * Oct 27, 2022 \[Cancelled]
 
 **2023**
 
-* January 26, 2023&#x20;
+* January 26, 2023
 * April 27, 2023
 * July 27, 2023
 * October 26, 2023

@@ -1,2 +1,2 @@
-# Accounts and hbar
+# Accounts and HBAR
 
