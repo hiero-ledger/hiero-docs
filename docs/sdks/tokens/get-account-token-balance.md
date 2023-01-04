@@ -57,7 +57,7 @@ query := hedera.NewAccountBalanceQuery().
 	 SetAccountID(accountId)
 	
 //Sign with the client operator private key and submit to a Hedera network
-tokenbalance, err := query.Execute(client)
+tokenBalance, err := query.Execute(client)
 
 if err != nil {
 		panic(err)
