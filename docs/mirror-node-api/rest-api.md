@@ -59,24 +59,28 @@ Account IDs can also take the account number as an input value. For example, for
 | **Response Item**                       | **Description**                                                                        |
 | --------------------------------------- | -------------------------------------------------------------------------------------- |
 | **account**                             | The ID of the account                                                                  |
+| **allowances**                          | The allowances granted to this account                                                 |
 | **alias**                               | RFC4648 no-padding base32 encoded account alias                                        |
-| **auto renew period**                   | The period in which the account will auto renew                                        |
+| **auto\_renew\_period**                 | The period in which the account will auto renew                                        |
 | **balance**                             | The timestamp and account balance of the account                                       |
+| **created_timestamp**                   | The timestamp for the creation of that account                                         |
 | **decline\_reward**                     | Whether or not the account has opted to decline a staking reward                       |
+| **deleted**                             | Whether the account was deleted or not                                                 |
 | **ethereum\_nonce**                     | The ethereum transaction nonce associated with this account                            |
 | **evm\_address**                        | A network entity encoded as an EVM encoded hex                                         |
-| **tokens**                              | The tokens and their balances associated to the specified account                      |
-| **deleted**                             | Whether the account was deleted or not (Boolean)                                       |
-| **expiry timestamp**                    | The expiry date for the entity as set by a create or update transaction                |
+| **expiry\_timestamp**                   | The expiry date for the entity as set by a create or update transaction                |
 | **key**                                 | The public key associated with the account                                             |
+| **links.next**                          | Hyperlink to the next page of results                                                  |
 | **max\_automatic\_token\_associations** | The number of automatic token associations, if any                                     |
-| **pending\_reward**                     | The account's pending staking reward that has not been transferred to the account      |
 | **memo**                                | The account memo, if any                                                               |
+| **nfts**                                | List of nfts informations belonging to this account                                    |
+| **pending\_reward**                     | The account's pending staking reward that has not been transferred to the account      |
 | **receiver\_sig\_required**             | Whether or not the account requires a signature to receive a transfer into the account |
+| **rewards**                             | List of rewards which of the account                                                   |
 | **staked\_account\_id**                 | The account ID the account is staked to, if set                                        |
 | **staked\_node\_id**                    | The node ID the account is staked to, if set                                           |
-| **stake period start**                  | The start of the staking period                                                        |
-| **links.next**                          | Hyperlink to the next page of results                                                  |
+| **stake\_period\_start**                | The start of the staking period                                                        |
+| **tokens**                              | The tokens and their balances associated to the specified account                      |
 
 #### Optional Filtering <a href="#optional-filtering" id="optional-filtering"></a>
 
