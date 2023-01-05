@@ -24,7 +24,7 @@ The design document for this feature can be referenced [here](https://github.com
 
 **Schedule Transaction ID**
 
-Hedera Transaction IDs are composed of the account ID submitting the transaction and the transaction valid start time in seconds.nanoseconds (`0.0.1234@126534.126456`). The transaction ID for a scheduled transaction will include "`?schedule`" at the end of the transaction ID which identifies the transaction as a scheduled transaction i.e. `0.0.1.2.3.4@1615422161.673238162?scheduled.` The transaction ID of the scheduled (inner) transaction inherits the transaction valid start time and account ID from the schedule (outer) transaction.
+Hedera Transaction IDs are composed of the account ID submitting the transaction and the transaction valid start time in seconds.nanoseconds (`0.0.1234@126534.126456`). The transaction ID for a scheduled transaction will include "`?schedule`" at the end of the transaction ID which identifies the transaction as a scheduled transaction i.e. `0.0.1.2.3.4@1615422161.673238162?scheduled.` The transaction ID of the scheduled (inner) transaction inherits the transaction valid start time and account ID from the scheduled (outer) transaction.
 
 **Schedule Transaction Receipts**
 
@@ -35,7 +35,5 @@ The transaction receipt for a schedule that was created contains the new schedul
 Transaction records are created when the scheduled transaction is created, for each signature that was appended, when the scheduled transaction is executed, and if the scheduled transaction was deleted by a user. The record of a scheduled transaction includes a schedule reference property which is the ID of the schedule the record is associated with. To get the transaction record for the inner transaction after successful execution, you can do the following:
 
 1. Poll the network for the specified scheduled transaction ID. Once the scheduled transaction executes the scheduled transaction successfully, request the record for the scheduled transaction using the scheduled transaction ID.
-
-2\. Query a Hedera mirror node for the scheduled transaction ID
-
-3\. Run your own mirror node and query for the scheduled transaction ID
+2. Query a Hedera mirror node for the scheduled transaction ID.
+3. Run your own mirror node and query for the scheduled transaction ID.

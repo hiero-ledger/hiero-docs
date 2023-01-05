@@ -20,7 +20,7 @@ You can always check the "Code Check ✅ " section at the bottom of each page to
 {% tab title="Java" %}
 **Step 1: Create a new Gradle project in your favorite IDE**
 
-Open your favorite IDE and create a new gradle project. Add the following dependencies to your build.gradle file. You may choose to install the latest version of the SDK [here](https://github.com/hashgraph/hedera-sdk-java).
+Open your favorite IDE and create a new Gradle project. Add the following dependencies to your `build.gradle` file. You may choose to install the latest version of the SDK [here](https://github.com/hashgraph/hedera-sdk-java).
 
 {% code title="build.gradle " %}
 ```java
@@ -47,7 +47,7 @@ MY_PRIVATE_KEY=ENTER TESTNET PRIVATE KEY
 
 **Step 3: Create a new class**
 
-Create a new java class and title it something like `HederaExamples`. Import the following classes to use in your example.
+Create a new Java class and title it something like `HederaExamples`. Import the following classes to use in your example.
 
 ```java
 import com.hedera.hashgraph.sdk.AccountId;
