@@ -6,7 +6,7 @@ coverY: -353.77973568281936
 
 # 🛠 Tutorials
 
-## The Basics
+## <mark style="color:purple;">The Basics</mark>
 
 {% embed url="https://hedera.com/blog/how-to-develop-on-hedera-back-to-the-basics" %}
 How to Start Developing on Hedera: \
@@ -28,9 +28,9 @@ Staking on Hedera for Developers: \
 Back to the Basics
 {% endembed %}
 
-## Smart Contracts
+## <mark style="color:purple;">Smart Contracts</mark>
 
-### Get Started
+#### Get Started
 
 {% embed url="https://hedera.com/blog/how-to-deploy-smart-contracts-on-hedera-part-1-a-simple-getter-and-setter-contract" %}
 How to Deploy Smart Contracts on Hedera – Part 1: \
@@ -46,7 +46,7 @@ A Contract with Hedera Token Service Integration
 How to Deploy Smart Contracts on Hedera Using Truffle
 {% endembed %}
 
-### Send and Receive HBAR
+#### Send and Receive HBAR
 
 {% embed url="https://hedera.com/blog/how-to-send-and-receive-hbar-using-smart-contracts-part-1-using-the-sdk" %}
 How to Send and Receive HBAR Using Smart Contracts – Part 1: \
@@ -58,7 +58,7 @@ How to Send and Receive HBAR Using Smart Contracts – Part 2: \
 Using Solidity
 {% endembed %}
 
-### Working with Smart Contracts
+#### Working with Smart Contracts
 
 {% embed url="https://hedera.com/blog/how-to-use-hethers-js-to-deploy-smart-contracts-on-hedera" %}
 How to Use Hethers.js to Deploy Smart Contracts on Hedera
@@ -76,9 +76,9 @@ The CREATE2 Opcode on Hedera: An Introduction
 How to Pass Zero Token Values to Hedera Contracts
 {% endembed %}
 
-## NFTs and Fungible Tokens on Hedera
+## <mark style="color:purple;">NFTs and Fungible Tokens on Hedera</mark>
 
-### Get Started with the Hedera Token Service (HTS)
+#### Get Started with the Hedera Token Service (HTS)
 
 {% embed url="https://hedera.com/blog/get-started-with-the-hedera-token-service-part-1-how-to-mint-nfts" %}
 Get Started with the Hedera Token Service - Part 1: \
@@ -95,7 +95,7 @@ Get started with the Hedera Token Service - Part 3: \
 How to Pause, Freeze, Wipe, and Delete NFTs
 {% endembed %}
 
-### Working with HTS Tokens
+#### Working with HTS Tokens
 
 {% embed url="https://hedera.com/blog/smart-contract-rent-on-hedera-is-coming-what-you-need-to-know" %}
 Smart Contract Rent on Hedera: \
@@ -139,13 +139,13 @@ NFT Royalty Fees: \
 Everything You Need To Know (Edge-cases Included)
 {% endembed %}
 
-## Hedera Consensus Service (HCS)
+## <mark style="color:purple;">Hedera Consensus Service (HCS)</mark>
 
 {% content-ref url="hedera-consensus-service/" %}
 [hedera-consensus-service](hedera-consensus-service/)
 {% endcontent-ref %}
 
-## Accounts, Keys, and HBAR
+## <mark style="color:purple;">Accounts, Keys, and HBAR</mark>
 
 {% embed url="https://hedera.com/blog/how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers" %}
 How to Auto-Create Hedera Accounts with HBAR and Token Transfers
@@ -170,7 +170,7 @@ How to Approve Fungible Token and NFT Allowances on Hedera - Part 3: \
 ERC Standard Calls
 {% endembed %}
 
-## Developer Tools
+## <mark style="color:purple;">Developer Tools</mark>
 
 {% embed url="https://hedera.com/blog/leveraging-ethereum-developer-tools-on-hedera" %}
 Leveraging Ethereum Developer Tools On Hedera
