@@ -134,6 +134,11 @@ Solidity
 How to Exempt Hedera Accounts from Custom Token Fees
 {% endembed %}
 
+{% embed url="https://hedera.com/blog/nft-royalty-fees-hedera-hashgraph" %}
+NFT Royalty Fees: \
+Everything You Need To Know (Edge-cases Included)
+{% endembed %}
+
 ## Hedera Consensus Service (HCS)
 
 {% content-ref url="hedera-consensus-service/" %}
@@ -185,4 +190,9 @@ How to Set Up Foundry to Test Smart Contracts on Hedera
 
 {% embed url="https://hedera.com/blog/meet-venin-a-concise-yet-powerful-sdk-alternative-for-js-devs" %}
 Meet Venin, a concise yet powerful SDK alternative for JS Devs
+{% endembed %}
+
+{% embed url="https://hedera.com/blog/now-available-hedera-javascript-did-sdk" %}
+­­Now Available: \
+Hedera JavaScript Decentralized Identity (DID) SDK
 {% endembed %}
