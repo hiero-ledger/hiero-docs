@@ -1,6 +1,6 @@
 # Deploy Your First Smart Contract
 
-![](<../../.gitbook/assets/Screen Shot 2021-12-01 at 2.26.12 PM (1).png>)
+![](<../../.gitbook/assets/Screen Shot 2021-12-01 at 2.26.12 PM.png>)
 
 ## Summary
 

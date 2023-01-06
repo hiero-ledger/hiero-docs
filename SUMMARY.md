@@ -419,17 +419,10 @@
 
 ## Resources
 
-* [Tutorials](resources/tutorials/README.md)
-  * [NFTs and Fungible Tokens on Hedera](resources/tutorials/get-started-with-hedera-nfts.md)
-  * [Smart Contracts on Hedera](resources/tutorials/deploy-smart-contracts-on-hedera.md)
-  * [Accounts, Keys, and HBAR](resources/tutorials/accounts-keys-and-hbar.md)
-  * [Mirror Nodes: Get Transaction History](resources/tutorials/look-up-transaction-history-using-mirror-nodes.md)
-  * [Hedera Consensus Service](resources/tutorials/hedera-consensus-service/README.md)
-    * [Set up a message queue with the Hedera Consensus Service and JavaScript](resources/tutorials/hedera-consensus-service/hcs-javascript-setup.md)
-    * [Run the JavaScript Hedera Consensus Service Chat Demo](resources/tutorials/hedera-consensus-service/run-the-hedera-consensus-service-chat-demo.md)
+* [🛠 Tutorials](resources/tutorials/README.md)
+  * [Hedera Consensus Service (HCS) Tutorials](resources/tutorials/hedera-consensus-service/README.md)
     * [Get Started with the Hedera Consensus Service Fabric Plugin](resources/tutorials/hedera-consensus-service/getting-started-with-the-hedera-consensus-service-fabric-plugin/README.md)
       * [Virtual Environment Set-up](resources/tutorials/hedera-consensus-service/getting-started-with-the-hedera-consensus-service-fabric-plugin/virtual-environment-set-up.md)
-  * [Developer Tools](resources/tutorials/developer-tools.md)
 * [Demo Applications](resources/demo-applications.md)
 * [Starter Projects](resources/starter-projects.md)
 
