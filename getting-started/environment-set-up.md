@@ -197,7 +197,7 @@ touch index.js
 
 Your project structure should look something like this after:
 
-![](<../.gitbook/assets/image105 (1) (1) (1).png>)
+![](<../.gitbook/assets/image105 (1).png>)
 
 Grab your Hedera testnet account ID and private key from the .env file.
 
