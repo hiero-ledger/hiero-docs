@@ -8,7 +8,25 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.71](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.71.0)
+
+As of this release, all account and token balances in the REST API will reflect their real time balance information. Historically, the mirror node has relied upon the balance file uploaded by consensus nodes every 15 minutes for its balance information. We've been working towards this milestone for many releases gradually rolling out real-time balance tracking to more entities and more APIs. This release completes this migration with the addition of real time token balances to both the accounts and the balances REST APIs.
+
+The mirror node now implements support for [HIP-583](https://hips.hedera.com/HIP/hip-583.html) alias on `CryptoCreate` transactions. With this, clients can directly set an alias during account creation instead of relying upon the implicit auto-account creation during transfers. The mirror node respects this explicit alias along with the new explicit EVM address in both `CryptoCreate` or the `TransactionRecord`. This avoids the brittle EVM address calculation on the mirror node that has caused us some trouble in the past.
+
+This release completes the migration from Maven to Gradle for our build process. A lot of work has been put into the new build to improve its performance and stability both locally and in continuous integration (CI). GitHub Actions workflows have been consolidated from one workflow per module to a single Gradle build workflow with a matrix strategy running them in parallel for each module and database schema. This greatly simplifies the workflow configuration making it easier to maintain and debug.
+
+We continue to make progress on our Citus exploration. The v2 schema for Citus now does timestamp based partitioning of data and automates this process via pg\_cron. A Citus specific environment was created and we're currently conducting performance tests against it at scale to verify it meets our requirements.
+
+This release adds automation to keep our GCP Marketplace application up to date with each release. While not fully automatic due to the manual nature of Marketplace version submission, now any new production tag will trigger the generation and verification of the marketplace images.
+
+This was a big release and there were a lot of other various improvements and fixes. See the full release note below.
+
 ## [v0.70](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.70.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE COMPLETED: DECEMBER 29, 2022**
+{% endhint %}
 
 {% hint style="success" %}
 **TESTNET UPDATE COMPLETED: DECEMBER 14, 2022**
