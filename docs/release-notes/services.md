@@ -8,6 +8,20 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Upcoming Releases
 
+## v0.34
+
+{% hint style="info" %}
+**MAINNET UPDATE: FEBRUARY 9, 2023**
+{% endhint %}
+
+{% hint style="info" %}
+**TESTNET UPDATE: JANUARY 19, 2023**
+{% endhint %}
+
+Coming soon...
+
+## [v0.33](https://github.com/hashgraph/hedera-services/releases/tag/v0.33.0)
+
 {% hint style="info" %}
 **MAINNET UPDATE: JANUARY 12, 2023**
 {% endhint %}
@@ -15,8 +29,6 @@ For the latest versions supported on each network please visit the Hedera status
 {% hint style="success" %}
 **TESTNET UPDATE: DECEMBER 22, 2022**
 {% endhint %}
-
-## [v0.33](https://github.com/hashgraph/hedera-services/releases/tag/v0.33.0)
 
 Services v0.33.0 adds the following features:
 
@@ -27,6 +39,8 @@ This release also adds the following minor features:
 * Hyperledger Besu EVM updated to version 22.10.x
 * 'accounts send' subcommand added to yahcli to support sending HTS token units
 * Developer documentation updates
+
+<figure><img src="../../.gitbook/assets/Performance Measurement Results_033.001.png" alt=""><figcaption></figcaption></figure>
 
 ## **Latest Releases**
 
