@@ -6,7 +6,7 @@ description: Join Hedera Mainnet
 
 ## Overview
 
-The Hedera mainnet (short for main network) is where applications are run in production, with transaction fees paid in [HBAR](https://www.hedera.com/hbar). Transactions are submitted to the Hedera mainnet by any application or retail user — they're automatically consensus timestamped and fairly ordered.&#x20;
+The Hedera mainnet (short for main network) is where applications are run in production, with transaction fees paid in [HBAR](https://www.hedera.com/hbar). Transactions are submitted to the Hedera mainnet by any application or retail user; they're automatically consensus timestamped and fairly ordered.&#x20;
 
 Data associated with Hedera's services and stored on-chain can be queried by any Hedera account. Every transaction requires payment in the form of a **transaction fee** denominated in tinybars (100,000,000 tℏ = 1 ℏ). You can learn more about transaction fees and estimate your application costs [here](https://www.hedera.com/fees).&#x20;
 
