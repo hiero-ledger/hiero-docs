@@ -10,7 +10,7 @@ The Hedera mainnet (short for main network) is where applications are run in pro
 
 Data associated with Hedera's services and stored on-chain can be queried by any Hedera account. Every transaction requires payment in the form of a **transaction fee** denominated in tinybars (100,000,000 tℏ = 1 ℏ). You can learn more about transaction fees and estimate your application costs [here](https://www.hedera.com/fees).&#x20;
 
-If you're looking to test your application (or just experiment), please visit [Testnet Access](../testnet/testnet-access.md). The Hedera testnet enables developers to prototype and test applications in a simulated mainnet environment without incurring fees.
+If you're looking to test your application (or just experiment), please visit [Testnet Access](../testnet/testnet-access.md). The Hedera testnet enables developers to prototype and test applications in a simulated mainnet environment while paying transaction fees using test HBAR.
 
 {% hint style="warning" %}
 **Transaction Throttles**\
