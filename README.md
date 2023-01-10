@@ -1,6 +1,6 @@
 ---
 cover: .gitbook/assets/HH-Eco-Hero-Desktop-R1.webp
-coverY: 16.71578399930658
+coverY: 3.226575366213069
 ---
 
 # Hedera
