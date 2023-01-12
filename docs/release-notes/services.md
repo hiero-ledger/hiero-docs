@@ -32,10 +32,6 @@ Coming soon...
 
 Services v0.33.0 adds the following features:
 
-* HIP-583: Allow CryptoCreate transactions with ECDSA key and public address alias when lazy creation flag is off
-
-This release also adds the following minor features:
-
 * Hyperledger Besu EVM updated to version 22.10.x
 * 'accounts send' subcommand added to yahcli to support sending HTS token units
 * Developer documentation updates
