@@ -22,7 +22,7 @@ Coming soon...
 
 ## [v0.33](https://github.com/hashgraph/hedera-services/releases/tag/v0.33.0)
 
-{% hint style="info" %}
+{% hint style="success" %}
 **MAINNET UPDATE: JANUARY 12, 2023**
 {% endhint %}
 
