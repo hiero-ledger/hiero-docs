@@ -43,11 +43,7 @@ What you should do:
 
 If you have any questions or concerns, please connect with us via [Discord](https://discord.com/invite/EC2GY8ueRk).
 
-**Reset Dates:**\
-\*\*\*\*\
-**2022**
-
-* Oct 27, 2022 \[Cancelled]
+**Reset Dates:**
 
 **2023**
 
