@@ -78,6 +78,14 @@ The CREATE2 Opcode on Hedera: An Introduction
 How to Pass Zero Token Values to Hedera Contracts
 {% endembed %}
 
+{% embed url="https://hedera.com/blog/smart-contract-rent-on-hedera-is-coming-what-you-need-to-know" %}
+Smart Contract Rent on Hedera - Part 1: What You Need to Know
+{% endembed %}
+
+{% embed url="https://hedera.com/blog/smart-contract-rent-on-hedera-part-2-how-to-pay" %}
+Smart Contract Rent on Hedera – Part 2: How to Pay
+{% endembed %}
+
 ## <mark style="color:purple;">NFTs and Fungible Tokens on Hedera</mark>
 
 #### Get Started with the Hedera Token Service (HTS)
@@ -98,11 +106,6 @@ How to Pause, Freeze, Wipe, and Delete NFTs
 {% endembed %}
 
 #### Working with HTS Tokens
-
-{% embed url="https://hedera.com/blog/smart-contract-rent-on-hedera-is-coming-what-you-need-to-know" %}
-Smart Contract Rent on Hedera: \
-What You Need to Know
-{% endembed %}
 
 {% embed url="https://hedera.com/blog/mapping-hedera-token-service-standards-to-erc20-erc721-erc1155" %}
 Mapping Hedera Token Service Standards to ERC20, ERC721, & ERC1155
