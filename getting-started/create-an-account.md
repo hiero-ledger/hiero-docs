@@ -1,4 +1,4 @@
-# Create an account
+# Create an Account
 
 ## Summary
 
@@ -6,13 +6,7 @@ In this section, you will learn how to make a simple Hedera account. Hedera acco
 
 ## Pre-requisites:
 
-{% content-ref url="introduction.md" %}
-[introduction.md](introduction.md)
-{% endcontent-ref %}
-
-{% content-ref url="environment-set-up.md" %}
-[environment-set-up.md](environment-set-up.md)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong></strong><a href="introduction.md"><strong>Introduction</strong></a><strong></strong></td><td></td><td></td><td><a href="../.gitbook/assets/black hedera.jpeg">black hedera.jpeg</a></td><td><a href="introduction.md">introduction.md</a></td></tr><tr><td align="center"><strong></strong><a href="environment-set-up.md"><strong>Environment Setup</strong></a><strong></strong></td><td></td><td></td><td><a href="../.gitbook/assets/black hedera.jpeg">black hedera.jpeg</a></td><td><a href="environment-set-up.md">environment-set-up.md</a></td></tr></tbody></table>
 
 ## Step 1: Import modules
 
