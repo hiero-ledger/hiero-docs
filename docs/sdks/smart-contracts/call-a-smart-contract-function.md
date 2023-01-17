@@ -38,7 +38,7 @@ ContractCreateTransaction transaction = new ContractExecuteTransaction()
      .setContractId(newContractId)
      .setGas(100_000_000)
      .setFunction("set_message", new ContractFunctionParameters()
-           .addString("hello from hedera again!"))
+     .addString("hello from hedera again!"))
 
 //Sign with the client operator private key to pay for the transaction and submit the query to a Hedera network
 TransactionResponse txResponse = transaction.execute(client);
@@ -62,7 +62,7 @@ const transaction = new ContractExecuteTransaction()
      .setContractId(newContractId)
      .setGas(100_000_000)
      .setFunction("set_message", new ContractFunctionParameters()
-           .addString("hello from hedera again!"))
+     .addString("hello from hedera again!"))
 
 //Sign with the client operator private key to pay for the transaction and submit the query to a Hedera network
 const txResponse = await transaction.execute(client);
