@@ -30,30 +30,6 @@ new ContractExecuteTransaction()
 | `setGas(<gas>)`               | long                               | The maximum amount of gas to use for the call.                         | Required    |
 | `setPayableAmount(<amount>)`  | Hbar                               | Number of hbars sent (the function must be payable if this is nonzero) | Optional    |
 
-{% code title="JavaScript" %}
-```javascript
-//Create the transaction
-const transaction = new ContractExecuteTransaction()
-     .setContractId(newContractId)
-     .setGas(100_000_000)
-     .setFunction("set_message", new ContractFunctionParameters()
-           .addString("hello from hedera again!"))
-
-//Sign with the client operator private key to pay for the transaction and submit the query to a Hedera network
-const txResponse = await transaction.execute(client);
-
-//Request the receipt of the transaction
-const receipt = await txResponse.getReceipt(client);
-
-//Get the transaction consensus status
-const transactionStatus = receipt.status;
-
-console.log("The transaction consensus status is " +transactionStatus);
-
-//v2.0.0
-```
-{% endcode %}
-
 {% tabs %}
 {% tab title="Java" %}
 ```java
@@ -74,6 +50,30 @@ TransactionReceipt receipt = txResponse.getReceipt(client);
 Status transactionStatus = receipt.status;
 
 System.out.println("The transaction consensus status is " +transactionStatus);
+
+//v2.0.0
+```
+{% endtab %}
+
+{% tab title="JavaScript" %}
+```javascript
+//Create the transaction
+const transaction = new ContractExecuteTransaction()
+     .setContractId(newContractId)
+     .setGas(100_000_000)
+     .setFunction("set_message", new ContractFunctionParameters()
+           .addString("hello from hedera again!"))
+
+//Sign with the client operator private key to pay for the transaction and submit the query to a Hedera network
+const txResponse = await transaction.execute(client);
+
+//Request the receipt of the transaction
+const receipt = await txResponse.getReceipt(client);
+
+//Get the transaction consensus status
+const transactionStatus = receipt.status;
+
+console.log("The transaction consensus status is " +transactionStatus);
 
 //v2.0.0
 ```
