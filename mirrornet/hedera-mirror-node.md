@@ -46,7 +46,7 @@ client.SetMirrorNetwork([]string{"mainnet-public.mirrornode.hedera.com:443"})
 {% hint style="info" %}
 **Mainnet Mirror Node Endpoint:** [mainnet-public.mirrornode.hedera.com](http://mainnet-public.mirrornode.hedera.com/):443\
 \
-**REST API Mainnet Root Endpoint:**[ https://mainnet-public.mirrornode.hedera.com](https://mainnet.mirrornode.hedera.com/)****
+**REST API Mainnet Root Endpoint:**[ https://mainnet-public.mirrornode.hedera.com](https://mainnet-public.mirrornode.hedera.com/)****
 {% endhint %}
 
 ### Testnet:
