@@ -20,11 +20,11 @@ You can request the current state of a scheduled transaction by querying the net
 * Expiration time
 * The timestamp of when the transaction was deleted, if true
 
-The design document for this feature can be referenced [here](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md).
+The design document for this feature can be referenced [here](https://github.com/hashgraph/hedera-services/blob/main/docs/scheduled-transactions/revised-spec.md).
 
 **Schedule Transaction ID**
 
-Hedera Transaction IDs are composed of the account ID submitting the transaction and the transaction valid start time in seconds.nanoseconds (`0.0.1234@126534.126456`). The transaction ID for a scheduled transaction will include "`?schedule`" at the end of the transaction ID which identifies the transaction as a scheduled transaction i.e. `0.0.1.2.3.4@1615422161.673238162?scheduled.` The transaction ID of the scheduled (inner) transaction inherits the transaction valid start time and account ID from the scheduled (outer) transaction.
+Hedera Transaction IDs are composed of the account ID submitting the transaction and the transaction valid start time in seconds.nanoseconds (`0.0.1234@1615422161.673238162`). The transaction ID for a scheduled transaction will include "`?schedule`" at the end of the transaction ID which identifies the transaction as a scheduled transaction i.e. `0.0.1234@1615422161.673238162?scheduled.` The transaction ID of the scheduled (inner) transaction inherits the transaction valid start time and account ID from the scheduled (outer) transaction.
 
 **Schedule Transaction Receipts**
 
