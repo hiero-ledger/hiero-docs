@@ -181,10 +181,69 @@ The following ERC-721 operations are currently not supported.
 
 ## Examples
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><a href="https://github.com/hashgraph/hedera-services/blob/develop/test-clients/src/main/resource/contract/contracts/ERC20Contract/ERC20Contract.sol">ERC20Contract.sol</a></td><td></td><td></td><td><a href="https://github.com/hashgraph/hedera-services/blob/develop/test-clients/src/main/resource/contract/contracts/ERC20Contract/ERC20Contract.sol">https://github.com/hashgraph/hedera-services/blob/develop/test-clients/src/main/resource/contract/contracts/ERC20Contract/ERC20Contract.sol</a></td></tr><tr><td align="center"><a href="https://github.com/hashgraph/hedera-services/blob/master/test-clients/src/main/resource/contract/contracts/ERC721Contract/ERC721Contract.sol">ERC721Contract.sol</a></td><td></td><td></td><td></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards">
+	<thead>
+	<tr>
+		<th align="center"></th>
+		<th data-hidden></th>
+		<th data-hidden></th>
+		<th data-hidden data-card-target data-type="content-ref"></th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td align="center">
+			<a href="https://github.com/hashgraph/hedera-services/blob/main/test-clients/src/main/resource/contract/contracts/ERC20Contract/ERC20Contract.sol">ERC20Contract.sol</a>
+		</td>
+    <td></td>
+    <td></td>
+		<td>
+			<a href="https://github.com/hashgraph/hedera-services/blob/main/test-clients/src/main/resource/contract/contracts/ERC20Contract/ERC20Contract.sol">https://github.com/hashgraph/hedera-services/blob/main/test-clients/src/main/resource/contract/contracts/ERC20Contract/ERC20Contract.sol</a>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<a href="https://github.com/hashgraph/hedera-services/blob/main/test-clients/src/main/resource/contract/contracts/ERC721Contract/ERC721Contract.sol">ERC721Contract.sol</a>
+		</td>
+    <td></td>
+    <td></td>
+		<td>
+			<a href="https://github.com/hashgraph/hedera-services/blob/main/test-clients/src/main/resource/contract/contracts/ERC721Contract/ERC721Contract.sol">https://github.com/hashgraph/hedera-services/blob/main/test-clients/src/main/resource/contract/contracts/ERC721Contract/ERC721Contract.sol</a>
+		</td>
+	</tr>
+</tbody>
+</table>
 
 ## References
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th></tr></thead><tbody><tr><td align="center"><a href="https://hips.hedera.com/hip/hip-218">HIP-218</a></td><td></td><td></td></tr><tr><td align="center"><a href="https://hips.hedera.com/hip/hip-376">HIP-376</a></td><td></td><td></td></tr><tr><td align="center"><a href="https://eips.ethereum.org/EIPS/eip-20">EIP-20</a></td><td></td><td></td></tr><tr><td align="center"><a href="https://eips.ethereum.org/EIPS/eip-721">EIP-721</a></td><td></td><td></td></tr></tbody></table>
-
-*
+<table data-card-size="large" data-view="cards">
+<thead>
+	<tr>
+		<th align="center"></th>
+		<th data-hidden></th>
+		<th data-hidden></th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td align="center"><a href="https://hips.hedera.com/hip/hip-218">HIP-218</a></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="https://hips.hedera.com/hip/hip-376">HIP-376</a></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="https://eips.ethereum.org/EIPS/eip-20">EIP-20</a></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="https://eips.ethereum.org/EIPS/eip-721">EIP-721</a></td>
+    <td></td>
+    <td></td>
+	</tr>
+</tbody>
+</table>
