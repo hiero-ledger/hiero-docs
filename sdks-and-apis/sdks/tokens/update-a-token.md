@@ -18,7 +18,7 @@ For an immutable token (that is, a token created without an admin key), only the
 | **Supply Key**         | The new supply key of the token. If the token does not have currently a supply key, the transaction will resolve to `TOKEN_HAS_NO_SUPPLY_KEY`.                                                                                                                        |
 | **Expiration Time**    | The new expiry time of the token. Expiry can be updated even if the admin key is not set. If the provided expiry is earlier than the current token expiry, the transaction will resolve to `INVALID_EXPIRATION_TIME`.                                                 |
 | **Auto Renew Account** | The new account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval.                                                                                                                                                     |
-| **Auto Renew Period**  | The new interval at which the auto-renew account will be charged to extend the token's expiry. The default auto-renew period is 131,500 minutes.                                                                                                                      |
+| **Auto Renew Period**  | The new interval at which the auto-renew account will be charged to extend the token's expiry. The default auto-renew period is 7,890,000 seconds.                                                                                                                      |
 | **Memo**               | Short publicly visible memo about the token. No guarantee of uniqueness. (100 characters max)                                                                                                                                                                         |
 
 #### Transaction Signing Requirements
@@ -58,8 +58,8 @@ new TokenUpdateTransaction()
 | `setSupplyKey(<key>)`                 | Key                                            | Optional    |
 | `setExpirationTime(<expirationTime>)` | Instant                                        | Optional    |
 | `setTokenMemo(<memo>)`                | String                                         | Optional    |
-| `setAutoRenewAccountId(<account>)`    | [AccountId](../specialized-types.md#accountid) | Disabled    |
-| `setAutoRenewPeriod(<period>)`        | Duration                                       | Disabled    |
+| `setAutoRenewAccountId(<account>)`    | [AccountId](../specialized-types.md#accountid) | Optional    |
+| `setAutoRenewPeriod(<period>)`        | Duration                                       | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

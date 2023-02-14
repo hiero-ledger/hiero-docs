@@ -10,8 +10,8 @@ A transaction that updates the properties of an existing topic. This includes th
 | **Admin Key**          | Set a new admin key that authorizes update topic and delete topic transactions.                     |
 | **Submit Key**         | Set a new submit key for a topic that authorizes sending messages to this topic.                    |
 | **Topic Memo**         | Set a new short publicly visible memo on the new topic and is stored with the topic. (100 bytes)    |
-| **Auto Renew Account** | Set a new auto-renew account ID for this topic (once autoRenew functionality is supported by HAPI). |
-| **Auto Renew Period**  | Set a new auto-renew period for this topic (once autoRenew functionality is supported by HAPI).     |
+| **Auto Renew Account** | Set a new auto-renew account ID for this topic.                                                     |
+| **Auto Renew Period**  | Set a new auto-renew period for this topic.                                                         |
 
 **Transaction Signing Requirements**
 
@@ -42,7 +42,7 @@ new TopicUpdateTransaction()
 | `setExpirationTime(<expirationTime>)`      | Instant   | Optional     |
 | `setTopicMemo(<memo>)`                     | String    | Optional     |
 | `setAutoRenewAccountId(<accountId>)`       | AccountId | Optional     |
-| `setAutoRenewPeriod(<autoRenewAccountId>)` | Duration  | Optional     |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`    | Duration  | Optional     |
 | `clearAdminKey()`                          |           | Optional     |
 | `clearSubmitKey()`                         |           | Optional     |
 | `clearTopicMemo()`                         |           | Optional     |
@@ -138,8 +138,8 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 | `getAdminKey()`           | Key       | Optional     |
 | `getSubmitKey()`          | Key       | Optional     |
 | `getTopicMemo()`          | String    | Optional     |
-| `getAutoRenewAccountId()` | AccountId | Disabled     |
-| `getAutoRenewPeriod()`    | Duration  | Disabled     |
+| `getAutoRenewAccountId()` | AccountId | Optional     |
+| `getAutoRenewPeriod()`    | Duration  | Optional     |
 
 {% tabs %}
 {% tab title="Java" %}

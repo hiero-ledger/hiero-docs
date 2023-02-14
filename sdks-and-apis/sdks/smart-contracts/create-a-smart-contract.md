@@ -7,7 +7,7 @@ The constructor will be executed using the given amount of gas, and any unspent 
 If this constructor stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.
 
 {% hint style="danger" %}
-Smart contract entity auto renewal and expiry will be enabled in a future release. Please check out [HIP-16](https://hips.hedera.com/hip/hip-16) for more information.
+Smart contract entity auto renewal and expiry has been enabled. Please check out [HIP-16](https://hips.hedera.com/hip/hip-16) for more information.
 {% endhint %}
 
 {% hint style="info" %}
@@ -51,8 +51,8 @@ The contract state size limit is 10 MB and the system gas throttle is 15 million
 | **Byte Code File**               | The file containing the hex encoded smart contract byte code.                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Staked ID**                    | <p>The node account or node ID to which this contract account is staking to. See <a href="https://hips.hedera.com/hip/hip-406">HIP-406.</a><br><br><strong>Note:</strong> Accounts cannot stake to contract accounts. This will fixed in a future release.</p>                                                                                                                                                                                                       |
 | **Decline Rewards**              | Some contracts may choose to stake their hbars and decline receiving rewards. If set to true, the contract account will not earn rewards when staked. The default value is false. See [HIP-406.](https://hips.hedera.com/hip/hip-406)                                                                                                                                                                                                                                |
-| **Auto Renew Account ID**        | An account to charge for auto-renewal of this contract. If not set, or set to an account with zero hbar balance, the contract's own hbar balance will be used to cover auto-renewal fees. (disabled)                                                                                                                                                                                                                                                                 |
-| **Auto Renew Period**            | The period that the instance will charge its account every this many seconds to renew. (disabled)                                                                                                                                                                                                                                                                                                                                                                    |
+| **Auto Renew Account ID**        | An account to charge for auto-renewal of this contract. If not set, or set to an account with zero hbar balance, the contract's own hbar balance will be used to cover auto-renewal fees.                                                                                                                                                   |
+| **Auto Renew Period**            | The period that the instance will charge its account every this many seconds to renew.                                                                                                                                                                                                                                                      |
 | **Automatic Token Associations** | The maximum number of tokens that this contract can be automatically associated with (i.e., receive air-drops from).                                                                                                                                                                                                                                                                                                                                                 |
 | **Constructor Parameters**       | The constructor parameters to pass.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Memo**                         | The memo to be associated with this contract. (max 100 bytes)                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -175,8 +175,8 @@ Creates a smart contract instance using the file ID of the contract bytecode.
 | `setStakedNodeId(<stakedNodeId>)`                   | long                                     | Optional    |
 | `setStakedAccountId(<stakedAccountId>)`             | AccountId                                | Optional    |
 | `setDeclineStakingReward(<declineStakingReward>)`   | boolean                                  | Optional    |
-| `setAutoRenewAccountId(<accountId)`                 | AccountId                                | Disabled    |
-| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                 | Disabled    |
+| `setAutoRenewAccountId(<accountId)`                 | AccountId                                | Optional    |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                 | Optional    |
 | `setMaxAutomaticTokenAssociations()`                | int                                      | Optional    |
 
 {% tabs %}
@@ -268,8 +268,9 @@ fmt.Printf("The new topic ID is %v\n", newContractId)
 | `getContractMemo(<memo>)`                           | String     | Optional    |
 | `getDeclineStakingReward()`                         | boolean    | Optional    |
 | `getStakedNodeId()`                                 | long       | Optional    |
-| `getStakedAccountId()`                              | Accountid  | Optional    |
-| `getAutoRenewPeriod(<autoRenewPeriod>)`             | Duration   | Optional    |
+| `getStakedAccountId()`                              | AccountId  | Optional    |
+| `getAutoRenewAccountId()`                           | AccountId  | Optional    |
+| `getAutoRenewPeriod()`                              | Duration   | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

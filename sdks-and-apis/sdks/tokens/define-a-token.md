@@ -37,9 +37,9 @@ Note: It is required to set the initial supply for an NFT to 0.
 | **Max Supply**         | <p>For tokens of type <code>FUNGIBLE_COMMON</code> - the maximum number of tokens that can be in circulation.<br>For tokens of type <code>NON_FUNGIBLE_UNIQUE</code> - the maximum number of NFTs (serial numbers) that can be minted. This field can never be changed.<br>You must set the token supply type to FINITE if you set this field.</p> |
 | **Supply Type**        | Specifies the token supply type. Defaults to INFINITE.                                                                                                                                                                                                                                                                                             |
 | **Freeze Default**     | The default Freeze status (frozen or unfrozen) of Hedera accounts relative to this token. If true, an account must be unfrozen before it can receive the token.                                                                                                                                                                                    |
-| **Expiration Time**    | The epoch second at which the token should expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod. The default expiration time is 90 days.                                                                                                                                |
-| **Auto Renew Account** | An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval. This key is required to sign the transaction if present. This is not currently enabled.                                                                                                                                               |
-| **Auto Renew Period**  | The interval at which the auto-renew account will be charged to extend the token's expiry. The default auto-renew period is 131,500 minutes. This is not currently enabled.                                                                                                                                                                        |
+| **Expiration Time**    | The epoch second at which the token should expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod. The default expiration time is 7,890,000 seconds (90 days).                                                                                                                                |
+| **Auto Renew Account** | An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval. This key is required to sign the transaction if present.                                                                                                                                               |
+| **Auto Renew Period**  | The interval at which the auto-renew account will be charged to extend the token's expiry. The default auto-renew period is 7,890,000 seconds.                                                                                                                                                                        |
 | **Memo**               | A short publicly visible memo about the token.                                                                                                                                                                                                                                                                                                     |
 
 **Transaction Signing Requirements**
@@ -71,7 +71,7 @@ new TokenCreateTransaction()
 | `setTokenSymbol(<symbol>)`            | String                                                            | Required    |
 | `setDecimals(<decimal>)`              | int                                                               | Optional    |
 | `setInitialSupply(<initialSupply>)`   | int                                                               | Optional    |
-| `setTreasuryAccountId(<treasury>)`    | [AccountId](../../deprecated/sdks/specialized-types.md#accountid) | Required    |
+| `setTreasuryAccountId(<treasury>)`    | [AccountId](../specialized-types.md#accountid)                    | Required    |
 | `setAdminKey(<key>)`                  | Key                                                               | Optional    |
 | `setKycKey(<key>)`                    | Key                                                               | Optional    |
 | `setFreezeKey(<key>)`                 | Key                                                               | Optional    |
@@ -79,14 +79,13 @@ new TokenCreateTransaction()
 | `setSupplyKey(<key>)`                 | Key                                                               | Optional    |
 | `setPauseKey(<key>)`                  | Key                                                               | Optional    |
 | `setFreezeDefault(<freeze>`)          | boolean                                                           | Optional    |
-| `setExpirationTime(<expirationTime>)` | Instant                                                           | Optional    |
 | `setFeeScheduleKey(<key>)`            | Key                                                               | Optional    |
 | `setCustomFees(<customFees>)`         | List<[CustomFee](custom-token-fees.md#custom-fee)>                | Optional    |
 | `setSupplyType(<supplyType>)`         | TokenSupplyType                                                   | Optional    |
 | `setMaxSupply(<maxSupply>)`           | long                                                              | Optional    |
 | `setTokenMemo(<memo>)`                | String                                                            | Optional    |
-| `setAutoRenewAccountId(<account>)`    | [AccountId](../../deprecated/sdks/specialized-types.md#accountid) | Disabled    |
-| `setAutoRenewPeriod(<period>)`        | Duration                                                          | Disabled    |
+| `setAutoRenewAccountId(<account>)`    | [AccountId](../specialized-types.md#accountid)                    | Optional    |
+| `setAutoRenewPeriod(<period>)`        | Duration                                                          | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

@@ -44,8 +44,8 @@ new ConsensusTopicCreateTransaction()
 | `setAdminKey(<adminKey>)`                  | PublicKey | Optional     |
 | `setSubmitKey(<submitKey>)`                | PublicKey | Optional     |
 | `setTopicMemo(<memo>)`                     | String    | Optional     |
-| `setAutoRenewAccountId(<accountId>)`       | AccountId | Disabled     |
-| `setAutoRenewPeriod(<autoRenewAccountId>)` | Duration  | Disabled     |
+| `setAutoRenewAccountId(<accountId>)`       | AccountId | Optional     |
+| `setAutoRenewPeriod(<autoRenewAccountId>)` | Duration  | Optional     |
 
 {% code title="Java" %}
 ```java
