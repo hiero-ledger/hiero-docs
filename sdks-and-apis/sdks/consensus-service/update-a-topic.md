@@ -10,8 +10,8 @@ A transaction that updates the properties of an existing topic. This includes th
 | **Admin Key**          | Set a new admin key that authorizes update topic and delete topic transactions.                     |
 | **Submit Key**         | Set a new submit key for a topic that authorizes sending messages to this topic.                    |
 | **Topic Memo**         | Set a new short publicly visible memo on the new topic and is stored with the topic. (100 bytes)    |
-| **Auto Renew Account** | Set a new auto-renew account ID for this topic.                                                     |
-| **Auto Renew Period**  | Set a new auto-renew period for this topic.                                                         |
+| **Auto Renew Account** | Set a new auto-renew account ID for this topic. Currently, rent is not enforced for topics so auto-renew payments will not be made. |
+| **Auto Renew Period**  | Set a new auto-renew period for this topic. Currently, rent is not enforced for topics so auto-renew payments will not be made. <br><br><strong>NOTE:</strong> The minimum period of time is approximately 30 days (2592000 seconds) and the maximum period of time is approximately 92 days (8000001 seconds). Any other value outside of this range will return the following error: AUTORENEW_DURATION_NOT_IN_RANGE. |
 
 **Transaction Signing Requirements**
 
@@ -134,12 +134,12 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 
 | Method                    | Type      | Requirements |
 | ------------------------- | --------- | ------------ |
-| `getTopicId()`            | TopicId   | Optional     |
+| `getTopicId()`            | TopicId   | Required     |
 | `getAdminKey()`           | Key       | Optional     |
 | `getSubmitKey()`          | Key       | Optional     |
 | `getTopicMemo()`          | String    | Optional     |
-| `getAutoRenewAccountId()` | AccountId | Optional     |
-| `getAutoRenewPeriod()`    | Duration  | Optional     |
+| `getAutoRenewAccountId()` | AccountId | Required     |
+| `getAutoRenewPeriod()`    | Duration  | Required     |
 
 {% tabs %}
 {% tab title="Java" %}

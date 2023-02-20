@@ -13,8 +13,8 @@ You can also create a private topic where only authorized parties can submit mes
 | **Admin Key**          | Access control for updateTopic/deleteTopic. Anyone can increase the topic's expirationTime regardless of the adminKey. If no adminKey is specified, updateTopic may only be used to extend the topic's expirationTime, and deleteTopic is disallowed.                                                                                                                                                    |
 | **Submit Key**         | Access control for submitMessage. If unspecified, no access control is performed to submit messages (all submissions are allowed).                                                                                                                                                                                                                                                                       |
 | **Topic Memo**         | Set a short publicly visible memo on the new topic and is stored with the topic. (100 bytes)                                                                                                                                                                                                                                                                                                             |
-| **Auto Renew Account** | Optional account to be used at the topic's expirationTime to extend the life of the topic. The topic lifetime will be extended up to a maximum of the autoRenewPeriod or however long the topic can be extended using all funds on the account (whichever is the smaller duration/amount and if any extension is possible with the account's funds). |
-| **Auto Renew Period**  | The initial lifetime of the topic and the amount of time to attempt to extend the topic's lifetime by automatically at the topic's expirationTime.                                                                                                                                                            |
+| **Auto Renew Account** | Optional account to be used at the topic's expirationTime to extend the life of the topic. The topic lifetime will be extended up to a maximum of the autoRenewPeriod or however long the topic can be extended using all funds on the account (whichever is the smaller duration/amount and if any extension is possible with the account's funds). Currently, rent is not enforced for topics so auto-renew payments will not be made. |
+| **Auto Renew Period**  | The initial lifetime of the topic and the amount of time to attempt to extend the topic's lifetime by automatically at the topic's expirationTime. Currently, rent is not enforced for topics so auto-renew payments will not be made. <br><br><strong>NOTE:</strong> The minimum period of time is approximately 30 days (2592000 seconds) and the maximum period of time is approximately 92 days (8000001 seconds). Any other value outside of this range will return the following error: AUTORENEW_DURATION_NOT_IN_RANGE.                             |
 
 **Transaction Signing Requirements:**
 
@@ -122,8 +122,8 @@ fmt.Printf("The new topic ID is %v\n", newTopicID)
 | `getAdminKey(<adminKey>)`                  | Key       | Optional     |
 | `getSubmitKey(<submitKey>)`                | Key       | Optional     |
 | `getTopicMemo(<memo>)`                     | String    | Optional     |
-| `getAutoRenewAccountId(<accountId>)`       | AccountId | Optional     |
-| `getAutoRenewPeriod(<autoRenewPeriod>)`    | Duration  | Optional     |
+| `getAutoRenewAccountId()`                  | AccountId | Required     |
+| `getAutoRenewPeriod()`                     | Duration  | Required     |
 
 {% tabs %}
 {% tab title="Java" %}

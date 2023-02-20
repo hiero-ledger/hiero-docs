@@ -156,8 +156,8 @@ fmt.Printf("The transaction consensus status %v\n", transactionStatus)
 | `getStakedAccountId()`      | AccountId                                        | Optional    |
 | `getStakedNodeId()`         | long                                             | Optional    |
 | `getDeclineStakingReward()` | boolean                                          | Optional    |
-| `getAutoRenewAccountId()`   | AccountId                                        | Optional    |
-| `getAutoRenewPeriod()`      | Duration                                         | Optional    |
+| `getAutoRenewAccountId()`   | AccountId                                        | Required    |
+| `getAutoRenewPeriod()`      | Duration                                         | Required    |
 
 {% tabs %}
 {% tab title="Java" %}
