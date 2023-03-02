@@ -2,11 +2,11 @@
 description: >-
   Welcome to Hedera documentation contributing and style guide! Ways you can
   contribute below⬇:
-cover: ../.gitbook/assets/28_ultraviolet (1) (1).jpg
+cover: ../.gitbook/assets/28_ultraviolet (1) (2).jpg
 coverY: 31
 ---
 
-# Contributing & Style Guide
+# Contributing Guide
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>CONTRIBUTING GUIDE</strong></td><td></td><td></td><td><a href="contributing-guide.md#contributing-guide">#contributing-guide</a></td></tr><tr><td align="center"><strong>STYLE GUIDE</strong></td><td></td><td></td><td><a href="contributing-guide.md#style-guide">#style-guide</a></td></tr></tbody></table>
 

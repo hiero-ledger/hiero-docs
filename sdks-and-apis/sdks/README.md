@@ -1,8 +1,8 @@
 ---
 description: Hedera supported and community-maintained SDKs
 cover: >-
-  ../../.gitbook/assets/Hero-Desktop-Tooling_2022-12-07-021130_ayix (1) (1)
-  (2).webp
+  ../../.gitbook/assets/Hero-Desktop-Tooling_2022-12-07-021130_ayix (1) (1) (1)
+  (1).webp
 coverY: -154.63917525773195
 ---
 

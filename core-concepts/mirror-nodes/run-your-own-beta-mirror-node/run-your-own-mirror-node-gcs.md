@@ -12,7 +12,7 @@
 
 * [Docker](https://www.docker.com/get-docker)
   * Check to see if you have it installed from your terminal: `docker --version && docker-compose --version`
-  * For mirror node versions 0.35.0 and higher you will need docker v3.3.3+
+  * For mirror node versions `0.35.0` and higher you will need docker `v3.3.3+`
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Hedera Mirror Node Repository](https://github.com/hashgraph/hedera-mirror-node)
   * You will be prompted to download the repo in the following steps.
@@ -78,7 +78,7 @@ hedera:
 {% endtab %}
 {% endtabs %}
 
-## 4. Start Your Beta Mirror Node
+## 4. Start Your Hedera Mirror Node
 
 * From the `hedera-mirror-node` directory, run the following command in your terminal:
 
@@ -86,7 +86,7 @@ hedera:
 docker-compose up
 ```
 
-## 5. Access Your Beta Mirror Node Data
+## 5. Access Your Hedera Mirror Node Data
 
 To access the mirror node data now available to you, access the `hedera-mirror-node_db_1` container.
 
@@ -115,7 +115,7 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 \dt
 ```
 
-![](<../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
+![](<../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
 {% hint style="success" %}
 You have successfully deployed a Hedera mirror node ​ 🥳 !

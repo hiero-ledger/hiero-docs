@@ -8,6 +8,13 @@ Create a new fungible or non-fungible token (NFT) on the Hedera network. After y
 
 You can also create, access, or transfer HTS tokens using smart contracts - see [Hedera Service Solidity Libraries](https://docs.hedera.com/guides/docs/sdks/smart-contracts/hedera-service-solidity-libraries) and [Supported ERC Token Standards](https://docs.hedera.com/guides/core-concepts/smart-contracts/supported-erc-token-standards).
 
+{% hint style="warning" %}
+**Token Keys**&#x20;
+
+* If any of the token key types (KYC key, Wipe key, etc) are not set during the creation of the token, you will not be able to update the token and add them in the future
+* If any of the token key types (KYC key, Wipe key, etc) are set during the creation of the token, you will not be able to remove them in the future
+{% endhint %}
+
 **NFTs**
 
 For non-fungible tokens, the token ID represents a NFT class. Once the token is created, you will have to mint each NFT using the [token mint](mint-a-token.md) operation.
@@ -64,29 +71,29 @@ new TokenCreateTransaction()
 
 ## Methods
 
-| Method                                | Type                                                              | Requirement |
-| ------------------------------------- | ----------------------------------------------------------------- | ----------- |
-| `setTokenName(<name>)`                | String                                                            | Required    |
-| `setTokenType(<tokenType>)`           | [TokenType](token-types.md)                                       | Optional    |
-| `setTokenSymbol(<symbol>)`            | String                                                            | Required    |
-| `setDecimals(<decimal>)`              | int                                                               | Optional    |
-| `setInitialSupply(<initialSupply>)`   | int                                                               | Optional    |
-| `setTreasuryAccountId(<treasury>)`    | [AccountId](../specialized-types.md#accountid)                    | Required    |
-| `setAdminKey(<key>)`                  | Key                                                               | Optional    |
-| `setKycKey(<key>)`                    | Key                                                               | Optional    |
-| `setFreezeKey(<key>)`                 | Key                                                               | Optional    |
-| `setWipeKey(<key>)`                   | Key                                                               | Optional    |
-| `setSupplyKey(<key>)`                 | Key                                                               | Optional    |
-| `setPauseKey(<key>)`                  | Key                                                               | Optional    |
-| `setFreezeDefault(<freeze>`)          | boolean                                                           | Optional    |
-| `setExpirationTime(<expirationTime>)` | Instant                                                           | Optional    |
-| `setFeeScheduleKey(<key>)`            | Key                                                               | Optional    |
-| `setCustomFees(<customFees>)`         | List<[CustomFee](custom-token-fees.md#custom-fee)>                | Optional    |
-| `setSupplyType(<supplyType>)`         | TokenSupplyType                                                   | Optional    |
-| `setMaxSupply(<maxSupply>)`           | long                                                              | Optional    |
-| `setTokenMemo(<memo>)`                | String                                                            | Optional    |
-| `setAutoRenewAccountId(<account>)`    | [AccountId](../specialized-types.md#accountid)                    | Optional    |
-| `setAutoRenewPeriod(<period>)`        | Duration                                                          | Optional    |
+| Method                                | Type                                               | Requirement |
+| ------------------------------------- | -------------------------------------------------- | ----------- |
+| `setTokenName(<name>)`                | String                                             | Required    |
+| `setTokenType(<tokenType>)`           | [TokenType](token-types.md)                        | Optional    |
+| `setTokenSymbol(<symbol>)`            | String                                             | Required    |
+| `setDecimals(<decimal>)`              | int                                                | Optional    |
+| `setInitialSupply(<initialSupply>)`   | int                                                | Optional    |
+| `setTreasuryAccountId(<treasury>)`    | [AccountId](../specialized-types.md#accountid)     | Required    |
+| `setAdminKey(<key>)`                  | Key                                                | Optional    |
+| `setKycKey(<key>)`                    | Key                                                | Optional    |
+| `setFreezeKey(<key>)`                 | Key                                                | Optional    |
+| `setWipeKey(<key>)`                   | Key                                                | Optional    |
+| `setSupplyKey(<key>)`                 | Key                                                | Optional    |
+| `setPauseKey(<key>)`                  | Key                                                | Optional    |
+| `setFreezeDefault(<freeze>`)          | boolean                                            | Optional    |
+| `setExpirationTime(<expirationTime>)` | Instant                                            | Optional    |
+| `setFeeScheduleKey(<key>)`            | Key                                                | Optional    |
+| `setCustomFees(<customFees>)`         | List<[CustomFee](custom-token-fees.md#custom-fee)> | Optional    |
+| `setSupplyType(<supplyType>)`         | TokenSupplyType                                    | Optional    |
+| `setMaxSupply(<maxSupply>)`           | long                                               | Optional    |
+| `setTokenMemo(<memo>)`                | String                                             | Optional    |
+| `setAutoRenewAccountId(<account>)`    | [AccountId](../specialized-types.md#accountid)     | Optional    |
+| `setAutoRenewPeriod(<period>)`        | Duration                                           | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

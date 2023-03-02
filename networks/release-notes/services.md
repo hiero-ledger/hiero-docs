@@ -13,10 +13,36 @@ For the latest versions supported on each network please visit the Hedera status
 {% endhint %}
 
 {% hint style="info" %}
-**TESTNET UPDATE: FEBRUARY 16, 2023**
+**TESTNET UPDATE: FEBRUARY 23, 2023**
 {% endhint %}
 
-Coming Soon...
+### Features
+
+* [HIP-583](https://hips.hedera.com/hip/hip-583) to expand alias support in CryptoCreate & CryptoTransfer Transactions.
+
+This includes,
+
+* CryptoTransfer to non-existing EVM address alias causing hollow-account creation.
+* Finalizing a hollow account with the payer signature in an incoming transaction
+
+Use cases for HIP-583 that work in this release :
+
+1. As a user with an ECDSA based account from another chain I can have a new Hedera account created based on on my evm-address alias.
+2. As a developer, I can create a new account using a evm-address alias via the CryptoTransfer transaction.
+3. As a developer, I can transfer HBAR or tokens to a Hedera account using their evm-address alias.
+4. As a Hedera user with an Ethereum-native wallet, I can receive HBAR or tokens in my account by sharing only my evm-address alias.
+5. As a Hedera user with a Hedera-native wallet, I can transfer HBAR or tokens to another account using only the recipient's evm-address alias.
+
+### Configuration Changes
+
+```
+autoCreation.enabled=true
+lazyCreation.enabled=true
+cryptoCreateWithAliasAndEvmAddress.enabled=false
+contracts.evm.version=v0.34
+```
+
+<figure><img src="../../.gitbook/assets/0.35_results.001.jpeg" alt=""><figcaption></figcaption></figure>
 
 ## [v0.34](https://github.com/hashgraph/hedera-services/releases/tag/v0.34.0)
 
@@ -53,7 +79,7 @@ Services v0.33.0 adds the following features:
 * 'accounts send' subcommand added to yahcli to support sending HTS token units
 * Developer documentation updates
 
-<figure><img src="../../.gitbook/assets/Performance Measurement Results_033.001 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Performance Measurement Results_033.001.png" alt=""><figcaption></figcaption></figure>
 
 ## [v0.31](https://github.com/hashgraph/hedera-services/releases/tag/v0.31.0)
 
@@ -379,7 +405,7 @@ Please also note the following deprecations in the Hedera API protobufs:
 * The [<mark style="color:purple;">`ContractUpdateTransactionBody.fileID`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L82), which is redundant given the existence of the [<mark style="color:purple;">`ContractGetBytecode`</mark> <mark style="color:purple;">quer</mark>y](https://github.com/hashgraph/hedera-protobufs/blob/main/services/smart\_contract\_service.proto#L63).
 * The [<mark style="color:purple;">`ContractCallLocalQuery.maxResultSize`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_call\_local.proto#L136), as this limit is now simply a side-effect of the given gas limit.
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).jpeg>)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).jpeg>)
 
 ## [v0.19.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.4)
 

@@ -166,17 +166,17 @@ Creates a smart contract instance using the file ID of the contract bytecode.
 
 {% tabs %}
 {% tab title="V1" %}
-| Method                                              | Type                                                | Requirement |
-| --------------------------------------------------- | --------------------------------------------------- | ----------- |
-| `setGas(<gas>)`                                     | long                                                | Required    |
-| `setBytecodeFileId(<fileId>)`                       | [FileId](../../../sdks/specialized-types.md#fileid) | Required    |
-| `setInitialBalance(<initialBalance>)`               | long/Hbar                                           | Optional    |
-| `setAdminKey(<publicKeys>)`                         | Ed25519PublicKey                                    | Optional    |
-| `setProxyAccountId(<accountId>`)                    | AccountId                                           | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                           | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters                          | Optional    |
-| `setContractMemo(<memo>)`                           | String                                              | Optional    |
-| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                            | Optional    |
+| Method                                              | Type                                     | Requirement |
+| --------------------------------------------------- | ---------------------------------------- | ----------- |
+| `setGas(<gas>)`                                     | long                                     | Required    |
+| `setBytecodeFileId(<fileId>)`                       | [FileId](../specialized-types.md#fileid) | Required    |
+| `setInitialBalance(<initialBalance>)`               | long/Hbar                                | Optional    |
+| `setAdminKey(<publicKeys>)`                         | Ed25519PublicKey                         | Optional    |
+| `setProxyAccountId(<accountId>`)                    | AccountId                                | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters               | Optional    |
+| `setContractMemo(<memo>)`                           | String                                   | Optional    |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                 | Optional    |
 
 {% code title="Java" %}
 ```java

@@ -176,8 +176,8 @@ new CustomRoyaltyFee()
 new CustomRoyaltyFee()
      .setNumerator(1) // The numerator of the fraction
      .setDenominator(10) // The denominator of the fraction
-     .setFallbackFee(new CustomFixedFee().setHbarAmount(new Hbar(1)) // The fallback fee
-     .setFeeCollectorAccountId(feeCollectorAccountId))) // The account that will receive the royalty fee
+     .setFallbackFee(new CustomFixedFee().setHbarAmount(new Hbar(1))) // The fallback fee
+     .setFeeCollectorAccountId(feeCollectorAccountId) // The account that will receive the royalty fee
 
 // v1.5.1
 ```
@@ -189,8 +189,8 @@ new CustomRoyaltyFee()
 new CustomRoyaltyFee()
      .setNumerator(1) // The numerator of the fraction
      .setDenominator(10) // The denominator of the fraction
-     .setFallbackFee(new CustomFixedFee().setHbarAmount(new Hbar(1)) // The fallback fee
-     .setFeeCollectorAccountId(feeCollectorAccountId))) // The account that will receive the royalty fee
+     .setFallbackFee(new CustomFixedFee().setHbarAmount(new Hbar(1))) // The fallback fee
+     .setFeeCollectorAccountId(feeCollectorAccountId) // The account that will receive the royalty fee
      
  // v1.4.11 
 ```

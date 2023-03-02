@@ -4,11 +4,9 @@ description: Hedera accounts
 
 # Accounts
 
-## Accounts
-
 Accounts are the central starting point for Hedera. Accounts are stored on the public ledger and hold hbars which are used to pay for the transaction and query fees.
 
-Accounts can be created, updated, or deleted. There are two ways you can create an account either by using an existing account or by using an alias. If you have an existing account, you can use that account to create a new account and to pay for the associated transaction fees in hbar. If you do not have access to an existing account, you can create a testnet account via the [Hedera Developer Portal](https://portal.hedera.com/register) or a mainnet account through one of the options listed [here](../networks/mainnet/mainnet-access.md). To create an account using an alias, you have to transfer an hbar to that alias. When the transfer transaction is successful it deducts the cost of creating the account and transfers the remaining balance into that new account.
+Accounts can be created, updated, or deleted. There are two ways you can create an account either by using an existing account or by using an alias. If you have an existing account, you can use that account to create a new account and to pay for the associated transaction fees in hbar. If you do not have access to an existing account, you can create a testnet account via the [Hedera Developer Portal](https://portal.hedera.com/register) or a mainnet account through one of the options listed [here](../networks/mainnet/mainnet-access.md). To create an account using an alias, you have to transfer an hbar to that alias. The full balance gets transferred to the new account. The account paying for the transfer transaction is responsible for paying the account creation transaction fees.
 
 Accounts are comprised of:
 

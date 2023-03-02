@@ -52,9 +52,9 @@ client.SetMirrorNetwork([]string{"mainnet-public.mirrornode.hedera.com:443"})
 {% endtabs %}
 
 {% hint style="info" %}
-**Mainnet Mirror Node Endpoint:** [mainnet-public.mirrornode.hedera.com](http://mainnet-public.mirrornode.hedera.com/):443\
+**Mainnet Mirror Node Endpoint:** mainnet-public.mirrornode.hedera.com:443\
 \
-**REST API Mainnet Root Endpoint:**[ https://mainnet-public.mirrornode.hedera.com](https://mainnet-public.mirrornode.hedera.com/)\*\*\*\*
+**REST API Mainnet Root Endpoint:**[ https://mainnet-public.mirrornode.hedera.com](https://mainnet-public.mirrornode.hedera.com/)
 {% endhint %}
 
 ### Testnet:
@@ -62,7 +62,7 @@ client.SetMirrorNetwork([]string{"mainnet-public.mirrornode.hedera.com:443"})
 The endpoints provided below allow developers to access the testnet mirror node, which contains testnet transaction data.
 
 {% hint style="info" %}
-**HCS Testnet Mirror Node Endpoint:** hcs.testnet.mirrornode.hedera.com:5600
+**HCS Testnet Mirror Node Endpoint:** testnet.mirrornode.hedera.com:443
 
 **REST API Testnet Root Endpoint:**[ https://testnet.mirrornode.hedera.com](https://testnet.mirrornode.hedera.com/)
 {% endhint %}
@@ -72,7 +72,7 @@ The endpoints provided below allow developers to access the testnet mirror node,
 The endpoints provided below allow developers to access the previewnet mirror node, which contains previewnet transaction data.
 
 {% hint style="info" %}
-**HCS Previewnet Mirror Node Endpoint:** hcs.previewnet.mirrornode.hedera.com:5600
+**HCS Previewnet Mirror Node Endpoint:** previewnet.mirrornode.hedera.com:443
 
 **REST API Preview Testnet Root Endpoint:** [https://previewnet.mirrornode.hedera.com](https://previewnet.mirrornode.hedera.com)
 {% endhint %}

@@ -5,7 +5,7 @@
 * [AWS](https://aws.amazon.com/free/?trk=ps\_a131L0000085DvcQAE\&trkCampaign=acq\_paid\_search\_brand\&sc\_channel=ps\&sc\_campaign=acquisition\_US\&sc\_publisher=google\&sc\_category=core\&sc\_country=US\&sc\_geo=NAMER\&sc\_outcome=acq\&sc\_detail=aws%20account\&sc\_content=Account\_e\&sc\_segment=432339156165\&sc\_medium=ACQ-P|PS-GO|Brand|Desktop|SU|AWS|Core|US|EN|Text\&s\_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\&ef\_id=Cj0KCQjw8IaGBhCHARIsAGIRRYrLfWc3ykRf\_hAUeVvf4nNEYvacHwk\_w1jAuSj6hQZ8\_muh0T5p3acaAkZDEALw\_wcB:G:s\&s\_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\&all-free-tier.sort-by=item.additionalFields.SortRank\&all-free-tier.sort-order=asc\&awsf.Free%20Tier%20Types=\*all\&awsf.Free%20Tier%20Categories=\*all) account
 * [Docker](https://www.docker.com/get-docker)
   * Check to see if you have it installed from your terminal: `docker --version && docker-compose --version`
-  * For mirror node versions 0.35.0 and higher you will need docker v3.3.3+
+  * For mirror node versions `0.35.0` and higher you will need docker `v3.3.3+`
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Hedera Mirror Node Repository](https://github.com/hashgraph/hedera-mirror-node)
   * You will be prompted to download the repo in the following steps
@@ -109,7 +109,7 @@ hedera:
 docker-compose up
 ```
 
-## 5. Access Your Beta Mirror Node Data
+## 5. Access Your Mirror Node Data
 
 To access the mirror node data now available to you, enter the `hedera-mirror-node_db_1` container.
 
@@ -138,7 +138,7 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 \dt
 ```
 
-![](<../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
+![](<../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
 {% hint style="success" %}
 You have successfully deployed a Hedera mirror node :partying\_face: !

@@ -163,21 +163,22 @@ Creates a smart contract instance using the file ID of the contract bytecode.
 
 ### Methods
 
-| Method                                              | Type                                     | Requirement |
-| --------------------------------------------------- | ---------------------------------------- | ----------- |
-| `setGas(<gas>)`                                     | long                                     | Required    |
-| `setBytecodeFileId(<fileId>)`                       | [FileId](../specialized-types.md#fileid) | Required    |
-| `setInitialBalance(<initialBalance>)`               | Hbar                                     | Optional    |
-| `setAdminKey(<keys>)`                               | Key                                      | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters               | Optional    |
-| `setContractMemo(<memo>)`                           | String                                   | Optional    |
-| `setStakedNodeId(<stakedNodeId>)`                   | long                                     | Optional    |
-| `setStakedAccountId(<stakedAccountId>)`             | AccountId                                | Optional    |
-| `setDeclineStakingReward(<declineStakingReward>)`   | boolean                                  | Optional    |
-| `setAutoRenewAccountId(<accountId)`                 | AccountId                                | Optional    |
-| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                 | Optional    |
-| `setMaxAutomaticTokenAssociations()`                | int                                      | Optional    |
+| Method                                              | Type                                                        | Requirement |
+| --------------------------------------------------- | ----------------------------------------------------------- | ----------- |
+| `setGas(<gas>)`                                     | long                                                        | Required    |
+| `setBytecodeFileId(<fileId>)`                       | [FileId](../../deprecated/sdks/specialized-types.md#fileid) | Required    |
+| `setInitialBalance(<initialBalance>)`               | Hbar                                                        | Optional    |
+| `setAdminKey(<keys>)`                               | Key                                                         | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                                   | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters                                  | Optional    |
+| `setContractMemo(<memo>)`                           | String                                                      | Optional    |
+| `setStakedNodeId(<stakedNodeId>)`                   | long                                                        | Optional    |
+| `setStakedAccountId(<stakedAccountId>)`             | AccountId                                                   | Optional    |
+| `setDeclineStakingReward(<declineStakingReward>)`   | boolean                                                     | Optional    |
+| `setAutoRenewAccountId(<accountId)`                 | AccountId                                                   | Optional    |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                                    | Optional    |
+| `setMaxAutomaticTokenAssociations()`                | int                                                         | Optional    |
+
 
 {% tabs %}
 {% tab title="Java" %}

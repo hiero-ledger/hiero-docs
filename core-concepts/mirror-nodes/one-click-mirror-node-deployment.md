@@ -1,4 +1,4 @@
-# One Click Beta Mirror Node Deployment
+# One Click Mirror Node Deployment
 
 ## Google Cloud Platform Marketplace
 
@@ -39,7 +39,7 @@ You can also submit a `get` request from your browser:
 
 * From your Kubernetes Engine navigation bar, click on "Workloads."
 * Click on "hedera-mirror-node-1-rest"
-* Navigate down to \*\*"\*\*Exposing services" and click on the "Endpoints" link
+* Navigate down to "Exposing services" and click on the "Endpoints" link
 
 Example request:
 

@@ -123,7 +123,7 @@ Rent is defined as the recurring payment required for contracts (and, eventually
 * **Auto-renewal payments** will be enabled on mainnet (for contracts only) with the Hedera Services release planned for February 2023. The auto-renewal fee for a contract is $0.026 USD per 90 days
 * **Storage payments** will start once a total of **100 million key-value pairs** are stored cumulatively across the network. These storage fees will be part of the rent payment collected when a contract is auto renewed. The storage fee rate is $0.02 per key-value pair per year
 
-<img src="../../.gitbook/assets/image (2).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/image (3).png" alt="" data-size="original">
 
 </details>
 
@@ -243,5 +243,17 @@ Yes, that is possible for contracts.
 
 * Storage payments for contracts will only start being charged once **100 million key-value pairs** are reached cumulatively across the network
 * After than, each contract has **100 free key-value pairs** of storage available. Once a contract exceeds the first 100 free key-value pairs, it must pay storage fees
+
+</details>
+
+<details>
+
+<summary>For smart contracts created via <code>CREATE2</code>, how can I specify rent-related properties like<code>autorenewAccount</code> and <code>autorenewPeriod</code>?</summary>
+
+Contracts created via `CREATE2` inside the EVM will inherit the `autorenewaccount` and `autorenewPeriod`of the `sender` address.&#x20;
+
+For example, if you call contract `0xab...cd` which has `autorenewAccount` `0.0.X` and `autorenewPeriod` of 45 days, and this contract deploys a new contract `0xcd...ef`, then the new contract will also have `autorenewAccount` `0.0.X`and `autorenewPeriod` of 45 days.
+
+Also, remember that rent can be covered by the HBAR balance of a contract. Thus, developers can send HBAR to the contract or configure the contract to charge users a specific HBAR amount when executing operations.
 
 </details>

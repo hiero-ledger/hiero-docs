@@ -121,15 +121,15 @@ new CustomFractionalFee()
 
 #### Methods
 
-| Method                                                | Type                                           | Requirement |
-| ----------------------------------------------------- | ---------------------------------------------- | ----------- |
-| `setFeeCollectorAccountId(<accountId>)`               | [AccountId](../specialized-types.md#accountid) | Required    |
-| `setNumerator(<numerator>)`                           | long                                           | Required    |
-| `setDenominator(<amount>)`                            | long                                           | Required    |
-| `setMax(<max>)`                                       | long                                           | Optional    |
-| `setMin(<min>)`                                       | long                                           | Optional    |
-| `setAssessmentMethod(<assessmentMethod>)`             | FeeAssessmentMethod                            | Optional    |
-| `setAllCollectorsAreExempt(<allCollectorsAreExempt>)` | boolean                                        | Optional    |
+| Method                                                | Type                                                              | Requirement |
+| ----------------------------------------------------- | ----------------------------------------------------------------- | ----------- |
+| `setFeeCollectorAccountId(<accountId>)`               | [AccountId](../../deprecated/sdks/specialized-types.md#accountid) | Required    |
+| `setNumerator(<numerator>)`                           | long                                                              | Required    |
+| `setDenominator(<amount>)`                            | long                                                              | Required    |
+| `setMax(<max>)`                                       | long                                                              | Optional    |
+| `setMin(<min>)`                                       | long                                                              | Optional    |
+| `setAssessmentMethod(<assessmentMethod>)`             | FeeAssessmentMethod                                               | Optional    |
+| `setAllCollectorsAreExempt(<allCollectorsAreExempt>)` | boolean                                                           | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}
@@ -190,13 +190,13 @@ new CustomRoyaltyFee()
 
 #### Methods
 
-| Method                                                | Type                                             | Requirement |
-| ----------------------------------------------------- | ------------------------------------------------ | ----------- |
-| `setNumerator(<numerator>)`                           | long                                             | Required    |
-| `setDenominator(<denominator>)`                       | long                                             | Required    |
-| `setFallbackFee(<fallbackFee>)`                       | [CustomFixedFee](custom-token-fees.md#fixed-fee) | Optional    |
-| `setFeeCollectorAccountId(<feeCollectorAccountId>)`   | [AccountId](../specialized-types.md#accountid)   | Required    |
-| `setAllCollectorsAreExempt(<allCollectorsAreExempt>)` | boolean                                          | Optional    |
+| Method                                                | Type                                                              | Requirement |
+| ----------------------------------------------------- | ----------------------------------------------------------------- | ----------- |
+| `setNumerator(<numerator>)`                           | long                                                              | Required    |
+| `setDenominator(<denominator>)`                       | long                                                              | Required    |
+| `setFallbackFee(<fallbackFee>)`                       | [CustomFixedFee](custom-token-fees.md#fixed-fee)                  | Optional    |
+| `setFeeCollectorAccountId(<feeCollectorAccountId>)`   | [AccountId](../../deprecated/sdks/specialized-types.md#accountid) | Required    |
+| `setAllCollectorsAreExempt(<allCollectorsAreExempt>)` | boolean                                                           | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

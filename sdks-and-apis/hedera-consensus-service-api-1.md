@@ -9,8 +9,8 @@ description: >-
 
 {% hint style="info" %}
 **HCS Mirror Node Endpoints:**\
-**PREVIEWNET:** hcs.previewnet.mirrornode.hedera.com:5600\
-**TESTNET**: hcs.testnet.mirrornode.hedera.com:5600\
+**PREVIEWNET:** previewnet.mirrornode.hedera.com:443\
+**TESTNET**: testnet.mirrornode.hedera.com:443\
 **MAINNET**: mainnet-public.mirrornode.hedera.com:443
 {% endhint %}
 
@@ -26,17 +26,10 @@ Community-supported mirror node information can be found here:
 
 ## Build a Mirror Node Client
 
+If you building your client with a predefined Hedera network (previewnet, testnet, mainnet), you do not need to define the mirror client as it is built in. If you would like to modify the mirror node client, you can use <mark style="color:purple;">`Client.<network>.setMirrorNetwork(<network>)`</mark>.
+
 {% tabs %}
-{% tab title="V2" %}
-If you building your client with a predefined Hedera network (previewnet, testnet, mainnet), you do not need to define the mirror client as it is built in. If you would like to modify the mirror client, you can use [`Client.<network>.setMirrorNetwork(<network>)`](https://docs.hedera.com/guides/docs/sdks/client#1-configure-your-hedera-network).\
-\
-**Public Mainnet Mirror Node**\
-The default mainnet mirror node points to the whitelisted node when using `Client.forMainnet()`. To establish a connection to the public mainnet mirror node you will need to upgrade to one of the following versions of the SDK that now supports TLS connections.
-
-* **Java:** v2.0.6+
-* **JavaScript:** v2.0.23+
-* **Go:** v2.1.9+
-
+{% tab title="Java" %}
 {% code title="Java" %}
 ```java
 //You will need to upgrade to v2.0.6 or higher
@@ -44,39 +37,21 @@ Client client = Client.forMainnet();
 client.setMirrorNetwork(Collections.singletonList("mainnet-public.mirrornode.hedera.com:443"))
 ```
 {% endcode %}
+{% endtab %}
 
-{% code title="JavaScript" %}
+{% tab title="JavaScript" %}
 ```javascript
 //You will need to upgrade to v2.0.23 or higher
 const client = Client.forMainnet()
-client.setMirrorNetwork("mainnet-public.mirrornode.hedera.com:443")
+client.setMirrorNetwork("mainnet-public.mirrornode.hedera.com:443"
 ```
-{% endcode %}
+{% endtab %}
 
-{% code title="Go" %}
+{% tab title="Go" %}
 ```go
 hedera.ClientForMainnet()
 client.SetMirrorNetwork([]string{"mainnet-public.mirrornode.hedera.com:443"})
 ```
-{% endcode %}
-{% endtab %}
-
-{% tab title="V1" %}
-| Constructor                    | Description                         |
-| ------------------------------ | ----------------------------------- |
-| `new MirrorClient(<endpoint>)` | Initializes the MirrorClient object |
-
-{% code title="Java" %}
-```java
-final MirrorClient mirrorClient = new MirrorClient(MIRROR_NODE_ADDRESS);
-```
-{% endcode %}
-
-{% code title="JavaScript" %}
-```javascript
-const mirrorClient = new MirrorClient(mirrorNodeAddress);
-```
-{% endcode %}
 {% endtab %}
 {% endtabs %}
 
