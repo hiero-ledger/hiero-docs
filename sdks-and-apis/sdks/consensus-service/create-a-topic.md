@@ -10,16 +10,16 @@ You can also create a private topic where only authorized parties can submit mes
 
 | Field                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Admin Key**          | Access control for updateTopic/deleteTopic. Anyone can increase the topic's expirationTime regardless of the adminKey. If no adminKey is specified, updateTopic may only be used to extend the topic's expirationTime, and deleteTopic is disallowed.                                                                                                                                                                                                                                                                                |
-| **Submit Key**         | Access control for submitMessage. If unspecified, no access control is performed to submit messages (all submissions are allowed).                                                                                                                                                                                                                                                                                                                                                                                                   |
-| **Topic Memo**         | Set a short publicly visible memo on the new topic and is stored with the topic. (100 bytes)                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **Auto Renew Account** | Optional account to be used at the topic's expirationTime to extend the life of the topic. The topic lifetime will be extended up to a maximum of the autoRenewPeriod or however long the topic can be extended using all funds on the account (whichever is the smaller duration/amount and if any extension is possible with the account's funds). Currently, rent is not enforced for topics so auto-renew payments will not be made.                                                                                             |
+| **Admin Key**          | Access control for updateTopic/deleteTopic. If no adminKey is specified, anyone can increase the topic's expirationTime with updateTopic, but they cannot use deleteTopic. However, if an adminKey is specified, both updateTopic and deleteTopic can be used.                                                                                                                                                                                                                                                                            |
+| **Submit Key**         | Access control for submitMessage. No access control will be performed unless specified, allowing all message submissions.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Topic Memo**         | Store the new topic with a short publicly visible memo. (100 bytes)                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Auto Renew Account** | At the topic's expirationTime, the optional account can be used to extend the topic's lifetime up to a maximum of the autoRenewPeriod or the duration/amount that all funds on the account can extend (whichever is the smaller). Currently, rent is not enforced for topics so no auto-renew payments will be made.                                                                                            |
 | **Auto Renew Period**  | <p>The initial lifetime of the topic and the amount of time to attempt to extend the topic's lifetime by automatically at the topic's expirationTime. Currently, rent is not enforced for topics so auto-renew payments will not be made.<br><br><strong>NOTE:</strong> The minimum period of time is approximately 30 days (2592000 seconds) and the maximum period of time is approximately 92 days (8000001 seconds). Any other value outside of this range will return the following error: AUTORENEW_DURATION_NOT_IN_RANGE.</p> |
 
 **Transaction Signing Requirements:**
 
 * If an admin key is specified, the admin key must sign the transaction
-* If not admin key is specified the topic is immutable
+* If an admin key is not specified the topic is immutable
 * If an auto-renew account is specified, that account must also sign this transaction
 
 **Transaction Fees**
@@ -87,14 +87,14 @@ transaction := hedera.NewTopicCreateTransaction()
 txResponse, err := transaction.Execute(client)
 
 if err != nil {
-		panic(err)
+	panic(err)
 }
 
 //Request the receipt of the transaction
 transactionReceipt, err := txResponse.GetReceipt(client)
 
 if err != nil {
-		panic(err)
+	panic(err)
 }
 
 //Get the topic ID
