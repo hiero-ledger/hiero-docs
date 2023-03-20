@@ -152,7 +152,7 @@ Grab your Hedera Testnet _**account ID**_ and _**private key**_ from the _`.env`
 
 {% code title="index.js" %}
 ```javascript
-import { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, Hbar, TransferTransaction } from "@hashgraph/sdk";
+const { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, Hbar, TransferTransaction } = require("@hashgraph/sdk");
 
 async function main() {
 
