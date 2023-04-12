@@ -91,17 +91,3 @@ Rewards distributions can be triggered by one of the following mechanisms:
   * Example: Staker stakes for 1000 days, never collecting a reward, and on the 1001st day collect your rewards
     * You will only get rewards for the latest 365 periods
     * You will not earn rewards for the preceding 635 periods (1,000 days - 365 days)
-
-### Get Started with Staking
-
-Supported Wallets:
-
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>Blade</strong></td><td></td><td></td><td><a href="../.gitbook/assets/BLADE.png">BLADE.png</a></td><td><a href="https://www.bladewallet.io/">https://www.bladewallet.io/</a></td></tr><tr><td align="center"><strong>HashPack</strong></td><td></td><td></td><td><a href="../.gitbook/assets/HASHPACK.png">HASHPACK.png</a></td><td><a href="https://www.hashpack.app/post/staking-with-hashpack">https://www.hashpack.app/post/staking-with-hashpack</a></td></tr><tr><td align="center"><strong>MyHbarWallet</strong></td><td></td><td></td><td><a href="../.gitbook/assets/myhbarwallet.png">myhbarwallet.png</a></td><td><a href="https://myhbarwallet.com/">https://myhbarwallet.com/</a></td></tr><tr><td align="center"><strong>Uphold</strong></td><td></td><td></td><td><a href="../.gitbook/assets/uphold (1).png">uphold (1).png</a></td><td><a href="https://uphold.com/en-us/products/staking">https://uphold.com/en-us/products/staking</a></td></tr><tr><td align="center"><strong>Wallawallet</strong></td><td></td><td></td><td><a href="../.gitbook/assets/WALLA (1).png">WALLA (1).png</a></td><td><a href="https://wallawallet.com/2022/07/21/how-to-stake-hbar/">https://wallawallet.com/2022/07/21/how-to-stake-hbar/</a></td></tr><tr><td align="center"><strong>Yamgo</strong></td><td></td><td></td><td><a href="../.gitbook/assets/yamgo.png">yamgo.png</a></td><td><a href="https://yamgo.com/">https://yamgo.com/</a></td></tr></tbody></table>
-
-Exchanges:
-
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td align="center"><strong>OKX</strong></td><td></td><td></td><td><a href="https://www.okx.com/support/hc/en-us/articles/9824479181709-Win-up-to-72-APY-with-Hedera-HBAR-Staking">https://www.okx.com/support/hc/en-us/articles/9824479181709-Win-up-to-72-APY-with-Hedera-HBAR-Staking</a></td><td><a href="../.gitbook/assets/okx.png">okx.png</a></td></tr></tbody></table>
-
-Custodians:
-
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td align="center"><strong>Hex Trust</strong></td><td></td><td></td><td><a href="https://hextrust.com/">https://hextrust.com/</a></td><td><a href="../.gitbook/assets/hex trust.png">hex trust.png</a></td></tr></tbody></table>
