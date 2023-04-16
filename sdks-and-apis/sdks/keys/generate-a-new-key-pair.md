@@ -80,7 +80,7 @@ System.out.println("public = " + publicKey);
 {% tab title="JavaScript" %}
 ```javascript
 const privateKey = PrivateKey.generateECDSA();
-const publicKey = privateKey.publicKey();
+const publicKey = privateKey.publicKey;
 
 console.log("private = " + privateKey);
 console.log("public = " + publicKey);
