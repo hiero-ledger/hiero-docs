@@ -18,8 +18,8 @@ Create a new _**ED25519**_ key pair used to sign transactions and queries on the
 PrivateKey privateKey = PrivateKey.generateED25519();
 PublicKey publicKey = privateKey.getPublicKey();
 
-System.out.println("private = " + privateKey);
-System.out.println("public = " + publicKey);
+System.out.println("private key = " + privateKey);
+System.out.println("public key = " + publicKey);
 ```
 {% endtab %}
 
@@ -28,8 +28,8 @@ System.out.println("public = " + publicKey);
 const privateKey = await PrivateKey.generateED25519Async();
 const publicKey = privateKey.publicKey;
 
-console.log("private = " + privateKey);
-console.log("public = " + publicKey);
+console.log("private key = " + privateKey);
+console.log("public key = " + publicKey);
 ```
 {% endtab %}
 
@@ -42,8 +42,8 @@ if err != nil {
 
 publicKey := privateKey.PublicKey()
 
-fmt.Printf("private = %v\n", privateKey)
-fmt.Printf("public = %v\n", publicKey)
+fmt.Printf("private key = %v\n", privateKey)
+fmt.Printf("public key = %v\n", publicKey)
 ```
 {% endtab %}
 {% endtabs %}
@@ -72,18 +72,18 @@ Create a new _**ECDSA**_ (secp256k1) key pair used to sign transactions and quer
 PrivateKey privateKey = PrivateKey.generateECDSA();
 PublicKey publicKey = privateKey.getPublicKey();
 
-System.out.println("private = " + privateKey);
-System.out.println("public = " + publicKey);
+System.out.println("private key = " + privateKey);
+System.out.println("public key = " + publicKey);
 ```
 {% endtab %}
 
 {% tab title="JavaScript" %}
 ```javascript
 const privateKey = PrivateKey.generateECDSA();
-const publicKey = privateKey.publicKey();
+const publicKey = privateKey.publicKey;
 
-console.log("private = " + privateKey);
-console.log("public = " + publicKey);
+console.log("private key = " + privateKey);
+console.log("public key = " + publicKey);
 ```
 {% endtab %}
 
@@ -96,8 +96,8 @@ if err != nil {
 
 publicKey := privateKey.PublicKey()
 
-fmt.Printf("private = %v\n", privateKey)
-fmt.Printf("public = %v\n", publicKey)
+fmt.Printf("private key = %v\n", privateKey)
+fmt.Printf("public key = %v\n", publicKey)
 ```
 {% endtab %}
 {% endtabs %}
