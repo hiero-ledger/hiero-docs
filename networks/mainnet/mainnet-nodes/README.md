@@ -47,7 +47,6 @@ For node status, please visit the Hedera status page [here](https://status.heder
 | abrdn               | 26      | **0.0.29**      | <p>34.142.71.129</p><p>54.74.60.120</p>                                                               | 50211, 50212 (TLS) | fff800ea4280d62c9c1ff333cf430194e0f8af282b813b45211328533cf72f9f14644c0604aacf12b165b5a6b059acc3 |
 | Dell               | 27      | **0.0.30**      | <p>35.234.249.150</p><p>34.201.177.212</p>                                                               | 50211, 50212 (TLS) | 9773691c2995551932e052e7dc80532b31d8470ec2db37956ce88036817965436300f00d95ba5a750c2b7891c8b66a9a |
 
-
 ### Mainnet Node Public Keys
 
 Below you will find the mainnet node public keys found in the mainnet address book file `0.0.102`. You can also access the address book by using the [state proof alpha API](../../../sdks-and-apis/rest-api.md) or [SDKs](../../../sdks-and-apis/sdks/address-book.md) as well. The public keys stored in the address book are hex-encoded keys (x509).
