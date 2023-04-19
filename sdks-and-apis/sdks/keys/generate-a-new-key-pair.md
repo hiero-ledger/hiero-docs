@@ -14,26 +14,31 @@ Create a new _**ED25519**_ key pair used to sign transactions and queries on the
 
 {% tabs %}
 {% tab title="Java" %}
+
 ```java
 PrivateKey privateKey = PrivateKey.generateED25519();
 PublicKey publicKey = privateKey.getPublicKey();
 
-System.out.println("private = " + privateKey);
-System.out.println("public = " + publicKey);
+System.out.println("private key = " + privateKey);
+System.out.println("public key = " + publicKey);
 ```
+
 {% endtab %}
 
 {% tab title="JavaScript" %}
+
 ```javascript
 const privateKey = await PrivateKey.generateED25519Async();
 const publicKey = privateKey.publicKey;
 
-console.log("private = " + privateKey);
-console.log("public = " + publicKey);
+console.log("private key = " + privateKey);
+console.log("public key = " + publicKey);
 ```
+
 {% endtab %}
 
 {% tab title="Go" %}
+
 ```go
 privateKey, err := hedera.GenerateEd25519PrivateKey()
 if err != nil {
@@ -42,16 +47,17 @@ if err != nil {
 
 publicKey := privateKey.PublicKey()
 
-fmt.Printf("private = %v\n", privateKey)
-fmt.Printf("public = %v\n", publicKey)
+fmt.Printf("private key = %v\n", privateKey)
+fmt.Printf("public key = %v\n", publicKey)
 ```
+
 {% endtab %}
 {% endtabs %}
 
 **Sample Output:**
 
 ```
-private key = 3030020100300706052b8104000a04220420818c50766e025db403416421cb4a16d26ab0044b7f1a1e45513cef2c86123b91 
+private key = 3030020100300706052b8104000a04220420818c50766e025db403416421cb4a16d26ab0044b7f1a1e45513cef2c86123b91
 public key = 302d300706052b8104000a0322000224d3700dc68fc9061457c5f50b66442c73367f7d0b1d5a7e3a1903e352ca217c
 ```
 
@@ -68,26 +74,31 @@ Create a new _**ECDSA**_ (secp256k1) key pair used to sign transactions and quer
 
 {% tabs %}
 {% tab title="Java" %}
+
 ```java
 PrivateKey privateKey = PrivateKey.generateECDSA();
 PublicKey publicKey = privateKey.getPublicKey();
 
-System.out.println("private = " + privateKey);
-System.out.println("public = " + publicKey);
+System.out.println("private key = " + privateKey);
+System.out.println("public key = " + publicKey);
 ```
+
 {% endtab %}
 
 {% tab title="JavaScript" %}
+
 ```javascript
 const privateKey = PrivateKey.generateECDSA();
-const publicKey = privateKey.publicKey();
+const publicKey = privateKey.publicKey;
 
-console.log("private = " + privateKey);
-console.log("public = " + publicKey);
+console.log("private key = " + privateKey);
+console.log("public key = " + publicKey);
 ```
+
 {% endtab %}
 
 {% tab title="Go" %}
+
 ```go
 privateKey, err := hedera.GenerateEcdsaPrivateKey()
 if err != nil {
@@ -96,15 +107,16 @@ if err != nil {
 
 publicKey := privateKey.PublicKey()
 
-fmt.Printf("private = %v\n", privateKey)
-fmt.Printf("public = %v\n", publicKey)
+fmt.Printf("private key = %v\n", privateKey)
+fmt.Printf("public key = %v\n", publicKey)
 ```
+
 {% endtab %}
 {% endtabs %}
 
 **Sample Output:**
 
 ```
-private key = 302e020100300506032b657004220420b9c3ebac81a72aafa5490cc78111643d016d311e60869436fbb91c73307ed35a 
+private key = 302e020100300506032b657004220420b9c3ebac81a72aafa5490cc78111643d016d311e60869436fbb91c73307ed35a
 public key = 302a300506032b65700321001a5a62bb9f35990d3fea1a5bb7ef6f1df0a297697adef1e04510c9d4ecc5db3f
 ```
