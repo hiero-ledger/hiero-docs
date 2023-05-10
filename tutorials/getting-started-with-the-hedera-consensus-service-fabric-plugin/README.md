@@ -1,8 +1,6 @@
 # Getting Started with the Hedera Consensus Service Fabric Plugin
 
-{% hint style="warning" %}
 You must have a basic understanding of the Hyperledger Fabric network, its key concepts, first-network sample, and transaction flow. Please visit the Hyperledger Fabric [docs](https://hyperledger-fabric.readthedocs.io/en/release-2.0/) to familiarize yourself with these concepts if you have not done so already. 
-{% endhint %}
 
 ## Background
 
@@ -89,9 +87,7 @@ If you would like to run the sample using a virtual environment, please follow t
 
 * You will be directed to clone this [repository](https://github.com/hyperledger-labs/pluggable-hcs) in the outlined steps below
 
-{% hint style="info" %}
 The HCS Fabric plugin supports Fabric ordering service 2.0 and is compatible with older versions peers. 
-{% endhint %}
 
 ### Hyperledger Fabric Network
 
@@ -241,9 +237,8 @@ Operator:
 
 * Save the **orderer.yaml** file
 
-{% hint style="info" %}
 Please make sure you have entered your Hedera information correctly with no syntax errors as it will cause issues when trying to run the network later.
-{% endhint %}
+
 
 ⭐ You have now successfully set up your configuration variables for the Hedera operator and for the HCS Hyperledger ordering node.
 
@@ -313,18 +308,15 @@ generated HCS topics: 0.0.23419 0.0.23420
 * A fabric transaction payload is encrypted by the ordering node therefore the subsequent HCS transaction payload is also encrypted
 *  All messages on the mirror node explorer will be displayed in encrypted format. 
 
-{% hint style="info" %}
 Make sure you have selected the testnet network toggle in the explorer as the topics and messages created through this tutorial will not appear on the main network.
-{% endhint %}
+
 
 You have successfully done the following:
 
 * Created a Hyperledger Fabric network using the HCS Fabric plugin as the ordering service
 * Verified the topics and messages created in this example network
 
-Running into issues or have suggestions? Visit the developer advocates in [Discord](https://discordapp.com/invite/FFb9YFX) and post your comments to the hedera-consensus-service channel 🤓 .
-{% hint style="info" %}
-Have a question?
-[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
-{% endhint %}
+Running into issues or have suggestions? Visit the developer advocates in [Discord](https://hedera.com/discord) and post your comments to the hedera-consensus-service channel 🤓 .
 
+Have a question?
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
