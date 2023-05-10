@@ -423,7 +423,7 @@
         * [Delegate Contract ID](sdks-and-apis/deprecated/sdks/smart-contracts/delegate-contract-id.md)
         * [Create a smart contract](sdks-and-apis/deprecated/sdks/smart-contracts/create-a-smart-contract.md)
 * [Support & Community](support-and-community/README.md)
-  * [Discord](https://discord.gg/hedera)
+  * [Discord](https://hedera.com/discord)
   * [GitHub](https://github.com/hashgraph)
   * [Stack Overflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
   * [Bug Bounty](https://hedera.com/bounty)
