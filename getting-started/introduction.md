@@ -1,22 +1,17 @@
 # Introduction
 
-Here you will learn the basics of submitting transactions and queries to the Hedera network. You will see how easy it is to get started with one of our Hedera SDKs in the programming language of your choice.
+Through this short _Getting Started_ coding series, you will learn the basics of creating an account, transferring HBAR, signing, and submitting transactions to the _Hedera Testnet_. The Hedera test network allows you to play with our APIs in a non-production environment. You will see how easy it is to get started with one of our [Hedera SDKs](../sdks-and-apis/) in the programming language of your choice. First, you must create a Hedera Portal profile to receive test HBAR.
 
-To successfully follow each of the coding samples, you will need a Hedera testnet **account ID** and **private key**. To set up a Hedera testnet account, please visit the [Hedera portal](https://portal.hedera.com/register) and follow the instructions. Once you have completed the instructions, you will see a Hedera testnet account ID \(0.0.x\) and your private/public key pair on your home page. You will need to copy the **account ID** and **private key** when you set up your coding environment. Your Hedera testnet account will also be credited with test hbar upon creation.
+### Create Hedera Portal Profile (Faucet)
 
-{% page-ref page="../testnet/testnet-access.md" %}
+The _Hedera Testnet_ account allows you to interact with our [APIs](../sdks-and-apis/) and pay for the transaction fees. Visit the [Hedera portal](https://portal.hedera.com/register) to create your _Hedera Testnet_ account and follow the instructions.
 
-## Select Your Programming Language 👇
+<figure><img src="../.gitbook/assets/portal testnet account.png" alt="Screenshot of the Hedera Developer portal (portal.hedera.com/register) account creation page."><figcaption></figcaption></figure>
 
-Click on the programming language of your choice to get started. Be sure to have your favorite text editor or IDE ready to go. You can always check the "Code Check ✅ " section at the bottom of each page to view the entire code if you run into issues. You can also post your issue to the respective SDK channel in our Discord community [here](http://hedera.com/discord) or on the GitHub repository.
+Once you have completed the instructions, you will receive a _Hedera Testnet_ account ID (0.0.x) and your private/public key pair on your testnet page. You will need to copy over your **account ID** and the _**DER**_**-encoded private key** information when you set up your coding environment in the following steps.
 
-{% hint style="warning" %}
-**Note:** The Hedera JavaScript SDK supports React Native with Expo on Android devices and Android emulators. It does not currently support React Native Bare.
+![](<../.gitbook/assets/DER portal (2).png>)
+
+{% hint style="info" %}
+_**Note:** Your Hedera Testnet account will be credited with 10,000 test_ **HBAR** _upon creation that can only be utilized on the Hedera test network. Your balance will be topped up daily to 10,000 test_ **HBAR** _when you use your funds._
 {% endhint %}
-
-{% page-ref page="java/" %}
-
-{% page-ref page="javascript/" %}
-
-{% page-ref page="go/" %}
-

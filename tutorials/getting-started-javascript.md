@@ -218,4 +218,7 @@ Want to keep learning about Hedera development? Here’s some resources.
   * [Environment set-up](https://www.youtube.com/watch?v=4lJaql_RMsw&feature=youtu.be)
 
 Is there anything else you’d like a tutorial about? Let me know on [twitter](https://twitter.com/cooper_kunz?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor).
-
+{% hint style="info" %}
+Have a question?
+[Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)&#x20;
+{% endhint %}

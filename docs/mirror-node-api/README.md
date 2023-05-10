@@ -1,2 +1,0 @@
-# Mirror Node API
-

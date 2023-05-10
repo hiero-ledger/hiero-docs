@@ -1,0 +1,9 @@
+# Accounts
+
+Accounts are the central starting point when interacting with the Hedera network and using Hedera Services. A Hedera account is an entity, a distinct object type, stored in the ledger, that holds tokens. Accounts can hold the native Hedera fungible token (HBAR), custom fungible, and custom non-fungible tokens (NFTs) created on the Hedera network.&#x20;
+
+The Hedera native token HBAR (ℏ) is a utility token primarily used to pay for transactions and query fees when interacting with the network. The HBAR symbol is represented as "ℏ."  Applications may reference HBAR as the token denomination; however, the network returns information in tinybars (tℏ), a denomination of HBAR. 100,000,000 tℏ are equivalent to 1 ℏ. This includes things like transaction fees or accounts HBAR balances.&#x20;
+
+You interact with the network by submitting transactions that modify the ledger's state or submitting query requests that read data from the ledger. Most transactions and queries have a [transaction fee](../../networks/mainnet/fees/) that is charged in HBAR. Unlike custom tokens users create on the Hedera network, no token ID represents the native HBAR token.&#x20;
+
+<table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong></strong><a href="account-creation.md">         <strong>Account Creation</strong></a><strong></strong></td><td><a href="account-creation.md">account-creation.md</a></td></tr><tr><td>   <a href="auto-account-creation.md"><strong>Auto Account Creation</strong></a><strong></strong></td><td><a href="auto-account-creation.md">auto-account-creation.md</a></td></tr><tr><td><a href="account-properties.md">     <strong>Account Properties</strong></a><strong></strong></td><td><a href="account-properties.md">account-properties.md</a></td></tr></tbody></table>
