@@ -1,8 +1,6 @@
 # Getting Started with the Hedera Consensus Service Fabric Plugin
 
-{% hint style="warning" %}
 You must have a basic understanding of the Hyperledger Fabric network, its key concepts, first-network sample, and transaction flow. Please visit the Hyperledger Fabric [docs](https://hyperledger-fabric.readthedocs.io/en/release-2.0/) to familiarize yourself with these concepts if you have not done so already. 
-{% endhint %}
 
 ## Background
 
@@ -322,5 +320,5 @@ You have successfully done the following:
 * Created a Hyperledger Fabric network using the HCS Fabric plugin as the ordering service
 * Verified the topics and messages created in this example network
 
-Running into issues or have suggestions? Visit the developer advocates in [Discord](https://discordapp.com/invite/FFb9YFX) and post your comments to the hedera-consensus-service channel 🤓 .
+Running into issues or have suggestions? Visit the developer advocates in [Discord](https://hedera.com/discord) and post your comments to the hedera-consensus-service channel 🤓 .
 
