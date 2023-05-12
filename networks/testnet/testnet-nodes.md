@@ -10,7 +10,7 @@ Testnet nodes belong to the test network and run the same code as the Hedera Mai
 | 3       | **0.0.6**       | <p>3.testnet.hedera.com</p><p>34.83.112.116<br>54.70.192.33</p>   | 50211, 50212 (TLS) |
 | 4       | **0.0.7**       | <p>4.testnet.hedera.com</p><p>34.94.160.4<br>54.176.199.109</p>   | 50211, 50212 (TLS) |
 | 5       | **0.0.8**       | <p>5.testnet.hedera.com</p><p>34.106.102.218<br>35.155.49.147</p> | 50211, 50212 (TLS) |
-| 6       | **0.0.9**       | <p>6.testnet.hedera.com</p><p>34.133.197.230<br>52.14.252.207</p> | 50211, 50212 (TLS) |
+| 6       | **0.0.9**       | <p>6.testnet.hedera.com</p><p>34.133.197.230<br>52.14.252.207</p> | 50211, 50212 (TLS) | 
 
 You will need to create your Hedera portal profile to receive a testnet account ID.
 
