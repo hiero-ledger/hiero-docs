@@ -4,13 +4,13 @@ Testnet nodes belong to the test network and run the same code as the Hedera Mai
 
 | Node ID | Node Account ID | Node IP Address                                                                         | Port               |
 | ------- | --------------- | --------------------------------------------------------------------------------------- | ------------------ |
-| 0       | **0.0.3**       | <p>0.testnet.hedera.com</p><p>34.94.106.61</p><p>50.18.132.211</p><p>138.91.142.219</p> | 50211, 50212 (TLS) |
-| 1       | **0.0.4**       | <p>1.testnet.hedera.com</p><p>35.237.119.55</p><p>3.212.6.13</p><p>52.168.76.241</p>    | 50211, 50212 (TLS) |
-| 2       | **0.0.5**       | <p>2.testnet.hedera.com</p><p>35.245.27.193</p><p>52.20.18.86</p><p>40.79.83.124</p>    | 50211, 50212 (TLS) |
-| 3       | **0.0.6**       | <p>3.testnet.hedera.com</p><p>34.83.112.116</p><p>54.70.192.33</p><p>52.183.45.65</p>   | 50211, 50212 (TLS) |
-| 4       | **0.0.7**       | <p>4.testnet.hedera.com</p><p>34.94.160.4<br>54.176.199.109<br>13.64.181.136</p>        | 50211, 50212 (TLS) |
-| 5       | **0.0.8**       | <p>5.testnet.hedera.com</p><p>34.106.102.218<br>35.155.49.147<br>13.78.238.32</p>       | 50211, 50212 (TLS) |
-| 6       | **0.0.9**       | <p>6.testnet.hedera.com</p><p>34.133.197.230<br>52.14.252.207<br>52.165.17.231</p>      | 50211, 50212 (TLS) |
+| 0       | **0.0.3**       | <p>0.testnet.hedera.com</p><p>34.94.106.61<br>50.18.132.211</p>   | 50211, 50212 (TLS) |
+| 1       | **0.0.4**       | <p>1.testnet.hedera.com</p><p>35.237.119.55<br>3.212.6.13</p>     | 50211, 50212 (TLS) |
+| 2       | **0.0.5**       | <p>2.testnet.hedera.com</p><p>35.245.27.193<br>52.20.18.86</p>    | 50211, 50212 (TLS) |
+| 3       | **0.0.6**       | <p>3.testnet.hedera.com</p><p>34.83.112.116<br>54.70.192.33</p>   | 50211, 50212 (TLS) |
+| 4       | **0.0.7**       | <p>4.testnet.hedera.com</p><p>34.94.160.4<br>54.176.199.109</p>   | 50211, 50212 (TLS) |
+| 5       | **0.0.8**       | <p>5.testnet.hedera.com</p><p>34.106.102.218<br>35.155.49.147</p> | 50211, 50212 (TLS) |
+| 6       | **0.0.9**       | <p>6.testnet.hedera.com</p><p>34.133.197.230<br>52.14.252.207</p> | 50211, 50212 (TLS) | 
 
 You will need to create your Hedera portal profile to receive a testnet account ID.
 
@@ -38,13 +38,13 @@ Preview testnet nodes belong to the preview test network. The preview testnet no
 
 | Node ID | Node Account ID | Node IP Address                                                                             | Port  |
 | ------- | --------------- | ------------------------------------------------------------------------------------------- | ----- |
-| 0       | **0.0.3**       | <p>0.previewnet.hedera.com</p><p>35.231.208.148</p><p>3.211.248.172</p><p>40.121.64.48</p>  | 50211 |
-| 1       | **0.0.4**       | <p>1.previewnet.hedera.com</p><p>35.199.15.177</p><p>3.133.213.146</p><p>40.70.11.202</p>   | 50211 |
-| 2       | **0.0.5**       | <p>2.previewnet.hedera.com</p><p>35.225.201.195</p><p>52.15.105.130</p><p>104.43.248.63</p> | 50211 |
-| 3       | **0.0.6**       | <p>3.previewnet.hedera.com</p><p>35.247.109.135</p><p>54.241.38.1</p><p>13.88.22.47</p>     | 50211 |
-| 4       | **0.0.7**       | <p>4.previewnet.hedera.com</p><p>35.235.65.51</p><p>54.177.51.127</p><p>13.64.170.40</p>    | 50211 |
-| 5       | **0.0.8**       | <p>5.previewnet.hedera.com</p><p>34.106.247.65</p><p>35.83.89.171</p><p>13.78.232.192</p>   | 50211 |
-| 6       | **0.0.9**       | <p>6.previewnet.hedera.com</p><p>34.125.23.49</p><p>50.18.17.93</p><p>20.150.136.89</p>     | 50211 |
+| 0       | **0.0.3**       | <p>0.previewnet.hedera.com</p><p>35.231.208.148<br>3.211.248.172</p>  | 50211 |
+| 1       | **0.0.4**       | <p>1.previewnet.hedera.com</p><p>35.199.15.177<br>3.133.213.146</p>   | 50211 |
+| 2       | **0.0.5**       | <p>2.previewnet.hedera.com</p><p>35.225.201.195<br>52.15.105.130</p>  | 50211 |
+| 3       | **0.0.6**       | <p>3.previewnet.hedera.com</p><p>35.247.109.135<br>54.241.38.1</p>    | 50211 |
+| 4       | **0.0.7**       | <p>4.previewnet.hedera.com</p><p>35.235.65.51<br>54.177.51.127</p>    | 50211 |
+| 5       | **0.0.8**       | <p>5.previewnet.hedera.com</p><p>34.106.247.65<br>35.83.89.171</p>    | 50211 |
+| 6       | **0.0.9**       | <p>6.previewnet.hedera.com</p><p>34.125.23.49</p><p>50.18.17.93</p>   | 50211 |
 
 You will need to create and complete your Hedera portal profile to receive a previewnet account ID.
 
