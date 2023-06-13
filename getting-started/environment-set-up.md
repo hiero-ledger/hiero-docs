@@ -53,7 +53,7 @@ This is what your console should look like after running the command:
 ```bash
 {
   "name": "hello-hedera-js-sdk",
-  "version": "",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -481,5 +481,7 @@ func main() {
 
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+Have a question? [Ask it on StackOverflow  "version": "",
+57
+](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}
