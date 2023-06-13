@@ -482,7 +482,5 @@ func main() {
 
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow  "version": "",
-57
-](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}
