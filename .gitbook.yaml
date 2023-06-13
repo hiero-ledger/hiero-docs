@@ -19,7 +19,7 @@ redirects:
     docs/join-hedera-testnet: networks.md
     docs/mirror-node-api: sdks-and-apis/mirror-node-api.md
     docs/mirror-node-api/cryptocurrency-api: sdks-and-apis/rest-api.md
-    docs/mirror-node-api/hedera-consensus-service-api-1: sdks-and-apis/mirror-node-api/hedera-consensus-service-api-1.md
+    docs/mirror-node-api/hedera-consensus-service-api-1: sdks-and-apis/mirror-node-api/hedera-consensus-service-api.md
     docs/mirror-node-api/rest-api: sdks-and-apis/rest-api.md
     docs/release-notes: sdks-and-apis/release-notes.md
     docs/release-notes/services: networks/release-notes/services.md
@@ -45,7 +45,7 @@ redirects:
     docs/sdks/set-up-your-local-network: sdks-and-apis/sdks/set-up-your-local-network.md
     docs/sdks/smart-contracts: sdks-and-apis/sdks/smart-contracts.md
     docs/sdks/smart-contracts/call-a-smart-contract-function: sdks-and-apis/sdks/smart-contracts/call-a-smart-contract-function.md
-    docs/sdks/smart-contracts/call-a-smart-contract-function-1: sdks-and-apis/sdks/smart-contracts/call-a-smart-contract-function-1.md
+    docs/sdks/smart-contracts/call-a-smart-contract-function-1: sdks-and-apis/sdks/smart-contracts/call-a-smart-contract-function.md
     docs/sdks/smart-contracts/create-a-smart-contract: sdks-and-apis/sdks/smart-contracts/create-a-smart-contract.md
     docs/sdks/smart-contracts/get-smart-contract-info: sdks-and-apis/sdks/smart-contracts/get-smart-contract-info.md
     docs/sdks/smart-contracts/hedera-service-solidity-libraries: sdks-and-apis/sdks/smart-contracts/hedera-service-solidity-libraries.md
@@ -56,7 +56,7 @@ redirects:
     docs/sdks/tokens/burn-a-token: sdks-and-apis/sdks/tokens/burn-a-token.md
     docs/sdks/tokens/custom-token-fees: sdks-and-apis/sdks/tokens/custom-token-fees.md
     docs/sdks/tokens/define-a-token: sdks-and-apis/sdks/tokens/define-a-token.md
-    docs/sdks/tokens/enable-kyc-account-flag-1: sdks-and-apis/sdks/tokens/enable-kyc-account-flag-1.md
+    docs/sdks/tokens/enable-kyc-account-flag-1: sdks-and-apis/sdks/tokens/enable-kyc-account-flag.md
     docs/sdks/tokens/freeze-an-account: sdks-and-apis/sdks/tokens/freeze-an-account.md
     docs/sdks/tokens/get-account-token-balance: sdks-and-apis/sdks/tokens/get-account-token-balance.md
     docs/sdks/tokens/mint-a-token: sdks-and-apis/sdks/tokens/mint-a-token.md
