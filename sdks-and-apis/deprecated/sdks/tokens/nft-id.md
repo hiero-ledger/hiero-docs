@@ -1,6 +1,6 @@
 # NFT ID
 
-The ID of a non-fungible token (NFT). The NFT ID is composed of the [**token ID**](../../../sdks/tokens/token-id.md) and a **serial number**.
+The ID of a non-fungible token (NFT). The NFT ID is composed of the [**token ID**](../../../sdks/token-service/token-id.md) and a **serial number**.
 
 | Constructor                     | Description                  |
 | ------------------------------- | ---------------------------- |

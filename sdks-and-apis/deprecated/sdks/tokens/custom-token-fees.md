@@ -16,7 +16,7 @@ All fee collectors can be exempt from being charged custom fees. To exempt all f
   * Users must understand that native royalty fees are _strictly_ a convenience feature, and that the network cannot enforce inescapable royalties on the exchange of a non-fractional NFT.
   * For example, if the counter-parties agree to split their value transfer and NFT exchange into separate transactions, the network cannot possibly intervene. (And note the counter-parties could use a smart contract to make this split transaction atomic if they do not trust each other.)
   * Counter-parties that _do_ wish to respect creator royalties should follow the pattern the network recognizes: The NFT sender and receiver should both sign a single `CryptoTransfer` that credits the sender with all the fungible value the receiver is exchanging for the NFT. Similarly, a marketplace using an approved spender account for an escrow transaction should credit the account selling the NFT in the same `CryptoTransfer` that deducts fungible value from the buying account.
-  * There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578) that proposes to broaden the class of transactions for which the network automatically collects royalties. If this interests or concerns you, please add your voice to that discussion. A custom fee schedule can include a mix of fee types. You can optionally set a token's fee schedule during the [creation of a token](../../../sdks/tokens/define-a-token.md).
+  * There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578) that proposes to broaden the class of transactions for which the network automatically collects royalties. If this interests or concerns you, please add your voice to that discussion. A custom fee schedule can include a mix of fee types. You can optionally set a token's fee schedule during the [creation of a token](../../../sdks/token-service/define-a-token.md).
 * The accounts transferring the token to the receiving accounts are responsible for paying the transfer transaction fee in hbar.
 
 In addition to the custom token fee payment, the sender account is required to pay for the token transfer transaction fee in hbar.
@@ -60,7 +60,7 @@ new CustomFixedFee()
 | --------------------------------------- | --------------------------------------------------------- | ----------- |
 | `setFeeCollectorAccountId(<accountId>)` | [AccountId](../../../sdks/specialized-types.md#accountid) | Required    |
 | `setAmount(<amount>)`                   | long                                                      | Required    |
-| `setDenominatingTokenId(<tokenId>)`     | [TokenId](../../../sdks/tokens/token-id.md)               | Optional    |
+| `setDenominatingTokenId(<tokenId>)`     | [TokenId](../../../sdks/token-service/token-id.md)        | Optional    |
 
 {% code title="Java" %}
 ```java

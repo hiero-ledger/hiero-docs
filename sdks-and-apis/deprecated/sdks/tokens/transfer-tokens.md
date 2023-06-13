@@ -4,7 +4,7 @@ Transfer tokens from some accounts to other accounts. The transaction must be si
 
 **Custom Fee Tokens**
 
-Custom fee tokens are tokens that have a unique custom fee schedule associated to them. The sender account is required to pay for the custom fee(s) associated with the token that is being transferred. The sender account must have the amount of the custom fee token being transferred and the custom fee amounts to successfully process the transaction. You can check to see if the token has a custom fee schedule by requesting the [token info query](../../../sdks/tokens/get-token-info.md). Token with custom fees allow up two levels of nesting in a transfer transaction.
+Custom fee tokens are tokens that have a unique custom fee schedule associated to them. The sender account is required to pay for the custom fee(s) associated with the token that is being transferred. The sender account must have the amount of the custom fee token being transferred and the custom fee amounts to successfully process the transaction. You can check to see if the token has a custom fee schedule by requesting the [token info query](../../../sdks/token-service/get-token-info.md). Token with custom fees allow up two levels of nesting in a transfer transaction.
 
 {% hint style="warning" %}
 * A max of 10 balance adjustments in its hbar transferList
