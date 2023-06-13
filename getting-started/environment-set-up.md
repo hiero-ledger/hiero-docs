@@ -59,6 +59,7 @@ This is what your console should look like after running the command:
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC"
 }
