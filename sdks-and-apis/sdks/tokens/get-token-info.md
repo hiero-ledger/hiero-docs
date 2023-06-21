@@ -46,7 +46,7 @@ Gets information about a fungible or non-fungible token instance. The token info
 | `<TokenInfo>.decimals`            | int              | Optional    |
 | `<TokenInfo>.customFees`          | List\<CustomFee> | Optional    |
 | `<TokenInfo>.totalSupply`         | long             | Optional    |
-| `<TokenInfoQuery>.treasury`       | AccountId        | Optional    |
+| `<TokenInfo>.treasuryAccountId`   | AccountId        | Optional    |
 | `<TokenInfo>.adminKey`            | Key              | Optional    |
 | `<TokenInfo>.kycKey`              | Key              | Optional    |
 | `<TokenInfo>.freezeKey`           | Key              | Optional    |
