@@ -115,7 +115,9 @@ This effectively means that running and instance of `hedera-json-rpc-relay` on H
 * (7) From the next screen that shows your accounts, copy the value of the "DER-encoded private key" and replace `YOUR_OPERATOR_KEY` in the `.env` file with it.
 * (8) From the same screen, copy the value of "Account ID" and set the value of the `OPERATOR_ID_MAIN` variable in the `.env` file with it.
 * (9) Run `npm install` to install dependencies. Recommended that you have NodeJS version `18` or later for this.
-* (10) Run `npm run start` to start the RPC relay server.
+* (10) Run `npm run setup`. This will link the node_modules to the packages, and the packages together.
+* (11) Run `npm run build`. This will clean and compile the relay library and the server.
+* (12) Run `npm run start` to start the RPC relay server.
 
 Now you're ready to connect to an RPC endpoint via a locally running instance of Hedera JSON-RPC Relay!
 
