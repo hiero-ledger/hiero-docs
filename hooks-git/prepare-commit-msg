@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# This hook is invoked by git commit right after preparing the default log 
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+# This adds a "Signed-off-by: Name <email>" line to the message, if it isn't 
+# already there.  It is equivalent to using `git commit --signoff`. The real name and email are used if they are set in the
+# git config variables user.name and user.email.  The email is taken only from
+# the git config variable user.email, and not from the local part of the
+# "author" or "committer" identities; if you want to add a "From: " or
+# "Reply-To: " header to the message, do that in a custom prepare-commit-msg
+# hook.
+SOB=$(git var GIT_COMMITTER_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+git interpret-trailers --in-place --trailer "$SOB" "$COMMIT_MSG_FILE"
+if test -z "$COMMIT_SOURCE"
+then
+  /usr/bin/perl -i.bak -pe 'print "\n" if !$first_line++' "$COMMIT_MSG_FILE"
+fi
