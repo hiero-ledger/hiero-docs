@@ -80,8 +80,7 @@ The account alias public key is the public key of an ECDSA secp256k1 or ED25519 
 
 </details>
 
-\
-**EVM Address Account Alias**
+#### **EVM Address Account Alias**
 
 An EVM address account alias is the rightmost 20 bytes of the 32-byte `Keccak-256` hash of the `ECDSA` public key of the account. This calculation is in the manner described by the [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf). Note that the recovery id is not formally part of the public key and is not included in the hash. This is calculated on the consensus nodes using the `ECDSA` key provided in the [auto account creation](auto-account-creation.md) flow.  The EVM address is also commonly known as the public address. The EVM address account ID format is <mark style="color:purple;">`<shardNum>.<realmNum>.<alias>`</mark> where <mark style="color:purple;">`alias`</mark> is the EVM address.
 

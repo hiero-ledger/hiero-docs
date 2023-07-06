@@ -6,11 +6,11 @@ description: Distributed consensus algorithm
 
 The hashgraph consensus algorithm enables distributed consensus in an innovative, efficient way. Hashgraph is a distributed consensus algorithm and data structure that is fast, fair, and secure. This indirectly creates a trusted community, even when members do not necessarily trust each other.
 
-The [hashrgaph consensus algorithm](./) and platform code are open source under an Apache 2.0 license.
+The [hashrgaph consensus algorithm](./) and platform code are open-source under an Apache 2.0 license.
 
 {% embed url="https://www.youtube.com/watch?v=cje1vuVKhwY&t=5s" %}
 
-***
+
 
 ## Performance
 
@@ -69,3 +69,29 @@ This consensus timestamping is useful for things such as a legal obligation to p
 ### Fair Transaction Order
 
 Transactions are put into order according to their timestamps. Because the timestamps assigned to individual transactions are fair, so is the resulting order. This is critically important for some use cases. For example, imagine a stock market, where Alice and Bob both try to buy the last available share of a stock at the same moment for the same price. In a blockchain, a miner might put both of those transactions in a single block, and have complete freedom to choose what order they occur. Or the miner might choose to only include Alice’s transaction, and delay Bob’s to a future block. In hashgraph, there is no way for an individual to unduly affect the consensus order of those transactions. The best Alice can do is to invest in a better internet connection so that her transaction reaches everyone before Bob’s. That’s the fair way to compete.
+
+## FAQ
+
+<details>
+
+<summary>What is the hashgraph consensus algorithm? How does it work?</summary>
+
+The hashgraph consensus algorithm is a distributed consensus mechanism used by Hedera. It uses a data structure called a [hashgraph](../../support-and-community/glossary.md#hashgraph), and a consensus mechanism called the Gossip protocol. This combination allows for fast, fair, and secure consensus. The algorithm works by each node in the network sharing information (or “gossiping”) about the transactions it knows about with other nodes in random order.
+
+</details>
+
+<details>
+
+<summary>How secure is the hashgraph consensus algorithm?</summary>
+
+Hashgraph is secure because it is asynchronous Byzantine Fault Tolerant (aBFT). This means that no single member or small group of members can prevent the community from reaching a consensus or changing the consensus once it has been reached. It is also ACID compliant when used as a distributed database, and it is resilient to [Distributed Denial of Service (DDoS)](../../support-and-community/glossary.md#distributed-denial-of-service-ddos) attacks.
+
+</details>
+
+<details>
+
+<summary>What is virtual voting?</summary>
+
+Virtual voting is an integral part of the hashgraph consensus algorithm. It allows nodes to know what others would vote for without needing actual votes sent over the internet. This is accomplished by examining the history of gossip (who spoke to whom and in what order) to determine how a node would vote based on the information it is likely to have.
+
+</details>

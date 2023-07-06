@@ -13,3 +13,29 @@ For Hedera mainnet nodes, contributing to consensus and persisting state are the
 But there is value in the history being persisted, even if not by mainnet nodes. An auditor might want to determine the identities of the parties that sent HBAR to a given account, or the times of those transfers, neither of which would be available from the state (e.g. the balances of the accounts) alone.
 
 It is the mirror nodes in the Hedera architecture that, in addition to maintaining state, can also store transaction history. A particular mirror can choose whether to store all history, no history, or possibly only a fraction of the history, perhaps only for particular transaction types, particular accounts, etc. In addition to the history, mirror nodes store information that allows them to prove that their history is correct, even for some kinds of partial histories. So a malicious mirror node is unable to lie about what it is storing. A client seeking a transaction from the past would query an appropriate mirror for the record of that transaction. As the burden of storing history is borne by mirrors and not mainnet nodes, the latter can be optimized for the more fundamental role of consensus and state storage.
+
+## FAQ
+
+<details>
+
+<summary>What is the concept of <code>state</code> in the Hedera Network?</summary>
+
+The state in the Hedera Network is the current status of all data, like the amount of HBAR in a set of accounts. It is maintained across multiple nodes in a consistent representation, providing fault tolerance. The state constantly changes as transactions are applied to it.
+
+</details>
+
+<details>
+
+<summary>How does Hedera handle history?</summary>
+
+The history of transactions is maintained as a separate data structure from the state. It provides a record of transactions that have changed the state over time. It is usually envisaged as immutable and irreversible. Mirror nodes in the Hedera architecture store the transaction history, while mainnet nodes focus on consensus and state storage.
+
+</details>
+
+<details>
+
+<summary>What are the roles of mainnet nodes and mirror nodes?</summary>
+
+Mainnet nodes prioritize contributing to consensus and persisting state. They delete historical transactions after they are assigned a place in the consensus order. Mirror nodes, on the other hand, store the transaction history and maintain state, providing a record of past transactions for audit purposes.
+
+</details>

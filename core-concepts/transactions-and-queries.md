@@ -31,7 +31,7 @@ A **transaction** generally includes the following:
 
 The lifecycle of a transaction in the Hedera ecosystem begins when a client creates a transaction. Once the transaction is created it is cryptographically signed at a minimum by the account paying for the fees associated with the transaction. Additional signatures may be required depending on the properties set for the account, topic, or token. The client is able to stipulate the maximum fee it is willing to pay for the processing of the transaction and, for a smart contract operation, the maximum amount of gas. Once the required signatures are applied to the transaction the client then submits the transaction to any node on the Hedera network.
 
-The receiving node validates (for instance, confirms the paying account has sufficient balance to pay the fee) the transaction and, if validation is successful, submits the transaction to the Hedera network for consensus by adding the transaction to an event and gossiping that event to another node. Quickly, that event flows out to all the other nodes. The network receives this transaction exponentially fast via the [gossip about gossip protocol](https://docs.hedera.com/docs/gossip-about-gossip). The consensus timestamp for an event (and so the transactions within) is calculated by each node independently calculating the median of the times that the nodes of the network received that event. You may find more information on how the consensus timestamp is calculated [here](https://docs.hedera.com/docs/hashgraph-overview#section-fair-timestamps). The hashgraph algorithm delivers the finality of consensus. Once assigned a consensus timestamp the transaction is then applied to the consensus state in the order determined by each transaction’s consensus timestamp. At that point, the fees for the transaction are also processed. In this manner, every node in the network maintains a consensus state because they all apply the same transactions in the same order. Each node also creates and temporarily stores receipts/records in support of the client subsequently querying for the status of a transaction.
+The receiving node validates (for instance, confirms the paying account has sufficient balance to pay the fee) the transaction and, if validation is successful, submits the transaction to the Hedera network for consensus by adding the transaction to an event and gossiping that event to another node. Quickly, that event flows out to all the other nodes. The network receives this transaction exponentially fast via the [gossip about gossip protocol](hashgraph-consensus-algorithms/gossip-about-gossip.md). The consensus timestamp for an event (and so the transactions within) is calculated by each node independently calculating the median of the times that the nodes of the network received that event. You may find more information on how the consensus timestamp is calculated [here](https://docs.hedera.com/docs/hashgraph-overview#section-fair-timestamps). The hashgraph algorithm delivers the finality of consensus. Once assigned a consensus timestamp the transaction is then applied to the consensus state in the order determined by each transaction’s consensus timestamp. At that point, the fees for the transaction are also processed. In this manner, every node in the network maintains a consensus state because they all apply the same transactions in the same order. Each node also creates and temporarily stores receipts/records in support of the client subsequently querying for the status of a transaction.
 
 ### Nested Transactions
 
@@ -104,3 +104,37 @@ An early version of a state proof, state proof alpha, is now available. Please c
 {% endcontent-ref %}
 
 For a more detailed review of the confirmation methods, please check out this [blog post](https://www.hedera.com/blog/transaction-confirmation-methods-in-hedera).
+
+## FAQ
+
+<details>
+
+<summary>What are the transaction and query fees associated with using Hedera?</summary>
+
+You can refer to the fees page on Hedera's website for a detailed breakdown of transaction and query costs. If you're looking for an estimation tool, you can use the [Hedera fee estimator](https://hedera.com/fees).
+
+</details>
+
+<details>
+
+<summary>What are transactions?</summary>
+
+Transactions are requests sent by a client to a node with the expectation that they are submitted to the network for processing into consensus order and subsequent application to state. Each transaction has a unique transaction ID composed of the transaction's valid start time and the account ID of the account that is paying for the transaction. This ID is used for obtaining receipts, records, and state proofs and for detecting when duplicate transactions are submitted.
+
+</details>
+
+<details>
+
+<summary>What are queries?</summary>
+
+Queries are requests processed only by the single node to which they are sent. [Clients](../support-and-community/glossary.md#client) send queries to retrieve some aspect of the current consensus state, like the balance of an account. Certain queries are free, but generally, queries are subject to fees.
+
+</details>
+
+<details>
+
+<summary>What is the difference between receipts, records, and state proofs?</summary>
+
+Receipts provide minimal information - whether or not the transaction was successfully processed into a consensus state. Records provide greater detail about the transaction than receipts, such as the consensus timestamp it received or the results of a smart contract function call. State proofs are a feature that will allow a client to indicate optionally that it desires the network to return a state proof in addition to the record.
+
+</details>

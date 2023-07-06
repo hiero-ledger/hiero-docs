@@ -438,7 +438,7 @@ ContractExecuteTransaction transferToken = new ContractExecuteTransaction()
 TransactionResponse transferTokenTx = transferToken.execute(client);
 TransactionReceipt transferTokenRx = transferTokenTx.getReceipt(client);
 
-System.out.println("Trasnfer status: " + transferTokenRx.status);
+System.out.println("Transfer status: " + transferTokenRx.status);
 ```
 {% endtab %}
 

@@ -10,7 +10,7 @@ The JSON RPC Relay **`msg.value`** uses 18 decimals when it returns HBAR. As a r
 
 Anyone in the community can set up their own JSON RPC relay that applications can use to deploy, query, and execute smart contracts. The endpoints for previewnet, testnet, and mainnet can be found in their associated docs or website. You will find the list of community-hosted Hedera JSON RPC Relays below. If you want to add your hosted JSON RPC relay to this list, please open an issue in the [Hedera docs GitHub repository](https://github.com/hashgraph/hedera-docs). Please be sure to visit the community-hosted websites to review any limitations specific to their instance.&#x20;
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>Hashio</strong></td><td><a href="../../.gitbook/assets/hashio (1).png">hashio (1).png</a></td><td><a href="https://swirldslabs.com/hashio/">https://swirldslabs.com/hashio/</a></td></tr><tr><td align="center"><strong>Arkhia</strong></td><td><a href="../../.gitbook/assets/arkhia logo.png">arkhia logo.png</a></td><td><a href="https://www.arkhia.io/features/#api-services">https://www.arkhia.io/features/#api-services</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>Hashio</strong></td><td><a href="../../.gitbook/assets/hashio (1).png">hashio (1).png</a></td><td><a href="https://swirldslabs.com/hashio/">https://swirldslabs.com/hashio/</a></td></tr><tr><td align="center"><strong>Arkhia</strong></td><td><a href="../../.gitbook/assets/arkhia logo.png">arkhia logo.png</a></td><td><a href="https://www.arkhia.io/features/#api-services">https://www.arkhia.io/features/#api-services</a></td></tr></tbody></table>
 
 ## FAQ
 
@@ -25,9 +25,9 @@ Anyone in the community can set up their own JSON RPC relay that applications ca
 
 <details>
 
-<summary><strong>How does Hedera handle decimals in HBAR and gas prices?</strong></summary>
+<summary>How do I connect to the Hedera Network over RPC?</summary>
 
-The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPrice` value also returns 18 decimal places. _Check out the_ [_HBAR page_](../../sdks-and-apis/sdks/hbars.md) _for the full list of Hedera APIs and their decimal representation._&#x20;
+The configuration guide to connect to the Hedera Network over RPC can be found [here](../../tutorials/more-tutorials/json-rpc-connections/).
 
 </details>
 
@@ -36,6 +36,14 @@ The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPr
 <summary>Where can I find the Hedera JSON-RPC relay endpoints?</summary>
 
 The endpoints for previewnet, testnet, and mainnet can be found on [Hashio](https://swirldslabs.com/hashio/), accessible through the [Swirlds Labs](https://swirldslabs.com/) website. Feel free to join the discussion on [Stack Overflow](https://stackoverflow.com/questions/76153239/how-can-i-connect-to-hedera-testnet-over-rpc/76153290#76153290) for more questions.
+
+</details>
+
+<details>
+
+<summary><strong>How does Hedera handle decimals in HBAR and gas prices?</strong></summary>
+
+The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPrice` value also returns 18 decimal places. _Check out the_ [_HBAR page_](../../sdks-and-apis/sdks/hbars.md) _for the full list of Hedera APIs and their decimal representation._&#x20;
 
 </details>
 

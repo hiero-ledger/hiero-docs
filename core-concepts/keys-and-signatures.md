@@ -17,3 +17,21 @@ Key structures can be nested. This means you can have a more complex key system 
 {% endhint %}
 
 All transaction types support the above key structures that specify a key field. For a transaction to be successful, the provided signatures must match the defined key structure requirements.
+
+## FAQ
+
+<details>
+
+<summary>What is a key in Hedera?</summary>
+
+A key in Hedera can be a [public key](../support-and-community/glossary.md#public-key) of a supported system such as [ED25519](../support-and-community/glossary.md#ed25519), [ECDSA secp256k1](../support-and-community/glossary.md#ecdsa-secp256k), or an ID of a [smart contract](../support-and-community/glossary.md#smart-contract). The corresponding algorithm generates public and private keys which are unique to one another. The public key can be shared and visible to other network users in a [Network Explorer](../support-and-community/glossary.md#network-explorer) or REST APIs. The [private key](../support-and-community/glossary.md#private-key) is kept secret and grants access to the owner to modify entities (accounts, tokens, etc.).
+
+</details>
+
+<details>
+
+<summary>What happens if I lose my private key?</summary>
+
+Private keys can only be recovered once lost if created with an associated recovery phrase that you can access. It's crucial to keep your private keys safe and secure as they grant access to modify your Hedera entities, like accounts and tokens.
+
+</details>

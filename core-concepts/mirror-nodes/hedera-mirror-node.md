@@ -1,6 +1,6 @@
 # Hedera Mirror Node
 
-The Hedera Consensus Service (HCS) gRPC API is a public mirror node managed by Hedera. It offers the ability to subscribe to HCS topics and receive messages for the topic subscribed to. API docs for the mirror nodes can be found here:
+The Hedera Consensus Service (HCS) is a gRPC API endpoint on the mirror node to stream HCS messages. It offers the ability to subscribe to HCS topics and receive messages for the topic subscribed to. API docs for the mirror nodes can be found here:
 
 {% content-ref url="../../sdks-and-apis/rest-api.md" %}
 [rest-api.md](../../sdks-and-apis/rest-api.md)
@@ -72,37 +72,3 @@ The endpoints provided below allow developers to access the previewnet mirror no
 
 **REST API Preview Testnet Root Endpoint:** [https://previewnet.mirrornode.hedera.com](https://previewnet.mirrornode.hedera.com)
 {% endhint %}
-
-## FAQ
-
-<details>
-
-<summary>How is data stored in a Hedera Mirror Node? Is it a specific type of database, or does it use a unique data structure?</summary>
-
-Hedera Mirror Node uses a PostgreSQL database to store the transaction and event data organized in a structure that mirrors the Hedera Network. Once the mirror node receives record files from Hedera Consensus nodes, the data is validated and loaded into the database.&#x20;
-
-</details>
-
-<details>
-
-<summary>How can I set up a Hedera Mirror Node? What are the hardware and software requirements?</summary>
-
-Setting up a Hedera Mirror Node involves both hardware and software components. The requirements can be found [here](run-your-own-beta-mirror-node/).
-
-</details>
-
-<details>
-
-<summary>Are there costs associated with running a mirror node?</summary>
-
-No, Hedera does not charge for running a mirror node. However, there are costs associated with purchasing the hardware, internet connection, and potential cloud service fees. The hardware and software requirements can be found [here](run-your-own-beta-mirror-node/).
-
-</details>
-
-<details>
-
-<summary>How can I provide feedback or create an issue to log errors?</summary>
-
-To provide feedback or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide.md) and submit an issue in the Hedera Docs [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
-
-</details>

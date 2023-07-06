@@ -2,19 +2,15 @@
 
 The EthereumJ virtual machine was replaced with the [Hyperledger Besu](https://besu.hyperledger.org/en/stable/) virtual machine in the Hedera Services release [0.19](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.4) as a result of [HIP-26](https://hips.hedera.com/hip/hip-26). This migration enables Hedera to maintain parity with Ethereum Mainnet evolutions such as the EVM container formats, new opcodes, and precompiled contracts.&#x20;
 
-{% hint style="warning" %}
-The Besu integration is configured to use the “Shanghai” hard fork of Ethereum Mainnet as of the `0.38.6` June 2023 Hedera Mainnet release.
-{% endhint %}
+### Shanghai Hard Fork
 
-### London Hard Fork
+The smart contract platform is upgraded to support the EVM visible changes for the “Shanghai” hard fork. This includes changes introduced in the "London", “Istanbul”, and “Berlin” hard forks. Changes relating to block production, data serialization, and the fee market will not be implemented because they are not relevant to Hedera’s architecture.
 
-The smart contract platform is upgraded to support the EVM visible changes for the “London” hard fork. This includes changes introduced in the “Istanbul” and “Berlin” hard forks. Changes relating to block production, data serialization, and the fee market will not be implemented because they are not relevant to Hedera’s architecture.
+Starting in the Hedera Services 0.22 release, the \_\_ intrinsic gas cost and input data will be charged. The intrinsic gas cost is a constant that is charged before any code is executed. The intrinsic gas cost is 21,000 gas. The input data is 16 gas per non-zero byte and 4 gas per zero byte. The input data is the data provided to the external contract function parameters when calling a contract. To learn more about gas fees, check out this [page](gas-and-fees.md).
 
-Starting in the Hedera Services 0.22 release, the \_\_ intrinsic gas cost and input data will be charged. The intrinsic gas cost is a constant that is charged before any code is executed. The intrinsic gas cost is 21,000 gas. The input data is 16 gas per non-zero byte and 4 gas per zero byte. The input data is the data provided to the external contract function parameters when calling a contract. To learn more about gas fees check out this [page](gas-and-fees.md).
+#### Gas Schedule
 
-### Gas Schedule
-
-The Hedera Smart Contract Service will use the Gas Schedule from the "London" hard fork. Notable changes include warm/cold account access and refund reductions.
+The Hedera Smart Contract Service will use the Gas Schedule from the "Shanghai" hard fork. Notable changes include warm/cold account access and refund reductions.
 
 #### **Warm and Cold Account and Slot Access**
 
@@ -24,15 +20,15 @@ Hedera does not at this time allow for "pre-warming" addresses and storage slots
 
 #### **Gas Refund Reductions and Eliminations**
 
-In the London gas schedule, the amount of gas that can be returned from storage access usage patterns has been significantly reduced. Account refunds from `SELFDESTRUCT` have been completely removed.
+In the Shanghai gas schedule, the amount of gas that can be returned from storage access usage patterns has been significantly reduced. Account refunds from `SELFDESTRUCT` have been completely removed.
 
 **Table of Gas Cost Changes**
 
 The current opcode gas fees are reflective of the 0.22 Hedera Service release.
 
-| Operation                                                               | London Cost (Gas)                      | Current Hedera (Gas)                   |
+| Operation                                                               | Shanghai Cost (Gas)                    | Current Hedera (Gas)                   |
 | ----------------------------------------------------------------------- | -------------------------------------- | -------------------------------------- |
-| Code deposit                                                            | 200 \* bytes                           | <p>Max of London<br>or Hedera</p>      |
+| Code deposit                                                            | 200 \* bytes                           | <p>Max of Shanghai<br>or Hedera</p>    |
 | <p><code>BALANCE</code><br>(cold account)</p>                           | 2600                                   | 2600                                   |
 | <p><code>BALANCE</code><br>(warm account)</p>                           | 100                                    | 100                                    |
 | `EXP`                                                                   | 10 + 50/byte                           | 10 + 50/byte                           |
@@ -42,10 +38,10 @@ The current opcode gas fees are reflective of the 0.22 Hedera Service release.
 | <p><code>EXTCODEHASH</code><br>(warm account)</p>                       | 100                                    | 100                                    |
 | <p><code>EXTCODESIZE</code><br>(cold account)</p>                       | 2600                                   | 2600                                   |
 | <p><code>EXTCODESIZE</code><br>(warm account)</p>                       | 100                                    | 100                                    |
-| <p><code>LOG0, LOG1, LOG2,</code><br><code>LOG3, LOG4</code></p>        | <p>375 + 375*topics<br>+ data Mem</p>  | <p>Max of London<br>or Hedera</p>      |
+| <p><code>LOG0, LOG1, LOG2,</code><br><code>LOG3, LOG4</code></p>        | <p>375 + 375*topics<br>+ data Mem</p>  | <p>Max of Shanghai<br>or Hedera</p>    |
 | <p><code>SLOAD</code><br>(cold slot)</p>                                | 2100                                   | 2100                                   |
 | <p><code>SLOAD</code><br>(warm slot)</p>                                | 100                                    | 100                                    |
-| <p><code>SSTORE</code><br>(new slot)</p>                                | 22,100                                 | <p>Max of London<br>or Hedera</p>      |
+| <p><code>SSTORE</code><br>(new slot)</p>                                | 22,100                                 | <p>Max of Shanghai<br>or Hedera</p>    |
 | <p><code>SSTORE</code><br>(existing slot,<br>cold access)</p>           | 2,900                                  | 2,900                                  |
 | <p><code>SSTORE</code><br>(existing slot,<br>warm access)</p>           | 100                                    | 100                                    |
 | <p><code>SSTORE</code><br>refund</p>                                    | <p>Only transient<br>storage slots</p> | <p>Only transient<br>storage slots</p> |
@@ -58,6 +54,6 @@ The current opcode gas fees are reflective of the 0.22 Hedera Service release.
 
 The terms 'warm' and 'cold' in the above table correspond with whether the account or storage slot has been read or written to within the current smart contract transaction, even if within a child call frame.
 
-'CALL _et al._' includes with limitation CALL, CALLCODE, DELEGATECALL, and STATICCALL
+'CALL _et al._' includes with limitation `CALL`, `CALLCODE`, `DELEGATECALL`, and `STATICCALL`
 
 Reference [HIP-206](https://hips.hedera.com/hip/hip-206)

@@ -10,8 +10,8 @@
 
 ## ConsensusSubmitMessageTransactionBody
 
-| Field       | Type                                                                             | Description                                                                         |
-| ----------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `topicID`   | [TopicID](../basic-types/topicid.md)                                             | Topic to submit message to.                                                         |
-| `message`   | bytes                                                                            | Message to be submitted. Max size of the Transaction (including signatures) is 6kB. |
-| `chunkInfo` | [ConsensusMessageChunkInfo](consensussubmitmessage.md#consensusmessagechunkinfo) | Optional information of the current chunk in a fragmented message.                  |
+| Field       | Type                                                                             | Description                                                                                |
+| ----------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `topicID`   | [TopicID](../basic-types/topicid.md)                                             | Topic to submit message to.                                                                |
+| `message`   | bytes                                                                            | Message to be submitted. Max size of the Transaction (including signatures) is 1024 bytes. |
+| `chunkInfo` | [ConsensusMessageChunkInfo](consensussubmitmessage.md#consensusmessagechunkinfo) | Optional information of the current chunk in a fragmented message.                         |

@@ -163,7 +163,7 @@ _**Note:** Testnet **HBAR** is required for this next step. Please follow the in
 
 ## Step 3: **Create your .env File**
 
-Create the `.env` file in your project's root directory. The `.env` file stores your environment variables, account ID, and private key (DER encoded).&#x20;
+Create the `.env` file in your project's root directory. The `.env` file stores your environment variables, account ID, and private key (DER encoded).
 
 ```
 MY_ACCOUNT_ID=ENTER TESTNET ACCOUNT ID 
@@ -262,10 +262,10 @@ go run hedera_examples.go
 
 ## Step 4: Create your Hedera Testnet client
 
-Create a _Hedera Testnet_ client and set the operator information using the testnet account ID and private key for transaction and query fee authorization. The _operator_ is the default account that will pay for the transaction and query fees in HBAR. You will need to sign the transaction or query with the private key of that account to authorize the payment. In this case, the operator ID is your testnet account ID**,** and the operator private key is the corresponding testnet account private key.
+Create a Hedera Testnet [client](../support-and-community/glossary.md#client) and set the operator information using the testnet account ID and private key for transaction and query fee authorization. The _operator_ is the default account that will pay for the transaction and query fees in HBAR. You will need to sign the transaction or query with the private key of that account to authorize the payment. In this case, the operator ID is your testnet `account ID**.**` and the operator private key is the corresponding testnet account private key.
 
 {% hint style="warning" %}
-To avoid encountering the **`INSUFFICIENT_TX_FEE`** error while conducting transactions,  you can adjust the maximum transaction fee limit through the **`.setDefaultMaxTransactionFee()`** method. Similarly, the maximum query payment can be adjusted using the **`.setDefaultMaxQueryPayment()`** method.&#x20;
+To avoid encountering the **`INSUFFICIENT_TX_FEE`** error while conducting transactions, you can adjust the maximum transaction fee limit through the **`.setDefaultMaxTransactionFee()`** method. Similarly, the maximum query payment can be adjusted using the **`.setDefaultMaxQueryPayment()`** method.
 {% endhint %}
 
 <details>
@@ -282,7 +282,7 @@ const maxTransactionFee = new Hbar(XX); // replace XX with desired fee in Hbar
 
 In this example, you can set `maxTransactionFee` to any value greater than 5 HBAR (or 500,000,000 tinybars) to avoid the "_INSUFFICIENT\_TX\_FEE_" error for transactions greater than 5 HBAR. Please replace `XX` with the desired value.
 
-To implement this new max transaction fee, you use the  `setDefaultMaxTransactionFee()` method as shown below:
+To implement this new max transaction fee, you use the `setDefaultMaxTransactionFee()` method as shown below:
 
 ```javascript
 client.setDefaultMaxTransactionFee(maxTransactionFee);
@@ -479,8 +479,6 @@ func main() {
 {% endcode %}
 
 </details>
-
-
 
 {% hint style="info" %}
 Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)

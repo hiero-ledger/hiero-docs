@@ -1,7 +1,5 @@
 # Staking Program
 
-The Hedera public ledger uses a proof-of-stake consensus mechanism, in which each node’s influence on consensus is proportional to the amount of cryptocurrency it has staked to it. A transaction is validated and placed into consensus after it is validated by nodes representing an aggregate stake of over two-thirds of the total amount of HBAR currently staked and dedicated to securing the network. Stake is expressed as an amount in HBAR. It is important to ensure that most of the cryptocurrency is actually being staked, so that the network continues to run. This information can be referenced from the latest Hedera [whitepaper](https://hedera.com/hh\_whitepaper\_v2.1-20200815.pdf).
-
 The staking feature will be rolled out in four phases; the first two phases are described below; the final two phases will be made available at the start of Phase I.
 
 **Phase I: Technical Availability \[Complete]**
@@ -72,8 +70,4 @@ This staking system offers additional unique functionality: **indirect staking**
 
 An account can optionally decline to earn rewards when staked. The account will still be counted towards meeting the node’s minimum stake value.
 
-#### **If you're interested in checking out the wallets and exchanges supporting staking HBAR, head to the Stake HBAR page:**
-
-{% content-ref url="stake-hbar.md" %}
-[stake-hbar.md](stake-hbar.md)
-{% endcontent-ref %}
+**📣 If you're interested in checking out the wallets and exchanges supporting staking HBAR, head to the** [**Stake HBAR**](stake-hbar.md) **page.**

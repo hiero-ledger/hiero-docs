@@ -52,3 +52,47 @@ Anyone can run a Hedera Mirror Node by downloading and configuring the software 
 {% content-ref url="one-click-mirror-node-deployment.md" %}
 [one-click-mirror-node-deployment.md](one-click-mirror-node-deployment.md)
 {% endcontent-ref %}
+
+## FAQ
+
+<details>
+
+<summary>How is data stored in a Hedera Mirror Node? Is it a specific type of database, or does it use a unique data structure?</summary>
+
+Hedera Mirror Nodes use [PostgreSQL](../../support-and-community/glossary.md#postgresql) databases to store the transaction and event data organized in a structure that mirrors the Hedera Network. Once the mirror node receives record files from Hedera Consensus nodes, the data is validated and loaded into the database.&#x20;
+
+</details>
+
+<details>
+
+<summary>How do I run my own Hedera Mirror Node? What are the hardware and software requirements?</summary>
+
+Setting up a Hedera Mirror Node involves both hardware and software components. The requirements can be found [here](run-your-own-beta-mirror-node/).
+
+To run your mirror node, follow the steps in the "[Run Your Own Mirror Node](run-your-own-beta-mirror-node/)" guide.
+
+</details>
+
+<details>
+
+<summary>Are there costs associated with running a mirror node?</summary>
+
+No, Hedera does not charge for running a mirror node. However, there are costs associated with purchasing the hardware, internet connection, and potential cloud service fees. The hardware and software requirements can be found [here](run-your-own-beta-mirror-node/).
+
+</details>
+
+<details>
+
+<summary>How do I configure a mirror node and query data?</summary>
+
+You can configure your own Hedera Mirror Node by following the step-by-step instructions provided in the "[How to Configure a Mirror Node and Query Data](../../tutorials/more-tutorials/how-to-configure-a-mirror-node-and-query-specific-data.md)" guide. The guide provides instructions on prerequisites, node setup, configuration, and querying the node. Additionally, you can find more details about retention and transaction and entity filtering in the guide.
+
+</details>
+
+<details>
+
+<summary>How can I provide feedback or create an issue to log errors?</summary>
+
+To provide feedback or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide.md) and submit an issue in the Hedera Docs [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
+
+</details>

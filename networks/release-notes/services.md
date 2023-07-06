@@ -12,11 +12,30 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 **MAINNET UPDATE: JULY 11, 2023**
 {% endhint %}
 
-{% hint style="info" %}
+{% hint style="success" %}
 **TESTNET UPDATE: JUNE 21, 2023**
 {% endhint %}
 
-Coming soon...
+Services v0.39.0 adds the following features:
+
+* VirtualRootNode constructor creates a cache object that doesn't get reused [#6321](https://github.com/hashgraph/hedera-services/pull/6321)
+* Implement blocklisting of EVM addresses [#5799](https://github.com/hashgraph/hedera-services/pull/5799)
+* Optimize virtual node cache flush strategy [#5568](https://github.com/hashgraph/hedera-services/pull/5568)
+* HIP-721: 06026 - add software version to events [#6236](https://github.com/hashgraph/hedera-services/pull/6236)
+* Implement CryptoCreate handle method [#6112](https://github.com/hashgraph/hedera-services/pull/6112)
+* UtilPrng handle Implementation [#6310](https://github.com/hashgraph/hedera-services/pull/6310)
+* Add a PCLI sub command to sign services stream files [#6309](https://github.com/hashgraph/hedera-services/pull/6309)
+* Implement token freeze handling [#6467](https://github.com/hashgraph/hedera-services/pull/6467)
+* Implement token unfreeze handle() [#6502](https://github.com/hashgraph/hedera-services/pull/6502)
+* Combine Admin and Network modules [#6511](https://github.com/hashgraph/hedera-services/pull/6511)
+* Implement the modular Pre-Handle Workflow [#6291](https://github.com/hashgraph/hedera-services/pull/6291)
+* Move hashes out of leaves node in VirtualMap [#5825](https://github.com/hashgraph/hedera-services/pull/5825)
+* TokenFeeScheduleUpdate handle() implementation [#6582](https://github.com/hashgraph/hedera-services/pull/6582)
+* Basic File service implementation [#6522](https://github.com/hashgraph/hedera-services/pull/6522)
+* Implement Token Association to Account [#6609](https://github.com/hashgraph/hedera-services/pull/6609)
+* Implementation of handle workflow [#6476](https://github.com/hashgraph/hedera-services/pull/6476)
+* Implement the modular record cache [#6754](https://github.com/hashgraph/hedera-services/pull/6754)
+* CryptoDelete handle implementation [#6694](https://github.com/hashgraph/hedera-services/pull/6694)
 
 ## [v0.38](https://github.com/hashgraph/hedera-services/releases/tag/v0.38.0)
 
@@ -116,7 +135,7 @@ Changes from services v0.35.2 have also been ported to v0.36.0.
   * The grandfather logic will be maintained for an approximate period of 3 months from this release. In a future release in July 2023, the network will remove the grandfather logic, and all contracts will follow the new security model.
   * Developers are encouraged to test their DApps with new contracts and UX using the new security model to avoid unintended consequences. If any DApp developers fail to modify their applications or upgrade their contracts (as applicable) to adhere to the new security model, they may experience issues in their applications.
 
-<figure><img src="../../.gitbook/assets/0.36_Performance Measurement Results_Extract.001.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/0.36_Performance Measurement Results_Extract.001 (1).png" alt=""><figcaption></figcaption></figure>
 
 ## [v0.35](https://github.com/hashgraph/hedera-services/releases)
 

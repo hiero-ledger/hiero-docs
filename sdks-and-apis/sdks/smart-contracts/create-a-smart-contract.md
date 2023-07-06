@@ -1,6 +1,6 @@
 # Create a smart contract
 
-A transaction that creates a new smart contract instance. After the contract is created you can get the new contract ID by requesting the receipt of the transaction. To create the solidity smart contract, you can use [remix](https://remix.ethereum.org/#optimize=false\&runs=200\&evmVersion=null\&version=soljson-v0.8.7+commit.e28d00a7.js) or another [Solidity](https://docs.soliditylang.org/en/v0.8.9/) compiler. After you have the hex-encoded bytecode of the smart contract you need to store that on a file using the [Hedera File Service](../file-service/create-a-file.md). Then you will create the smart contract instance that will run the bytecode stored in the Hedera file, referenced by file ID. Alternatively, you can use the <mark style="color:purple;">`ContractCreateFlow()`</mark> API to create the file storing the bytecode and contract in a single step.
+A transaction that creates a new smart contract instance. After the contract is created you can get the new contract ID by requesting the receipt of the transaction. To create the solidity smart contract, you can use [remix](https://remix.ethereum.org/#optimize=false\&runs=200\&evmVersion=null\&version=soljson-v0.8.7+commit.e28d00a7.js) or another [Solidity](https://docs.soliditylang.org/en/v0.8.9/) compiler. After you have the hex-encoded bytecode of the smart contract you need to store that on a file using the [Hedera File Service](../file-storage/create-a-file.md). Then you will create the smart contract instance that will run the bytecode stored in the Hedera file, referenced by file ID. Alternatively, you can use the <mark style="color:purple;">`ContractCreateFlow()`</mark> API to create the file storing the bytecode and contract in a single step.
 
 The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs are passed in the `constructorParameters`.
 
@@ -59,7 +59,7 @@ The <mark style="color:purple;">`ContractCreateFlow()`</mark>streamlines the cre
 
 First, a <mark style="color:purple;">`FileCreateTransaction()`</mark> will be executed to create a file on Hedera to store the specified contract bytecode. Second, the <mark style="color:purple;">`ContractCreateTransaction()`</mark> will be executed to create the contract instance on Hedera.
 
-The response will return the contract create transaction information like the new contract ID. You will not get the ID of the file that was created that stored your contract bytecode. If you would like to know the file ID of your contract bytecode, you can [create a file](../file-service/create-a-file.md) and use the <mark style="color:purple;">`ContractCreateTransaction()`</mark> API directly.
+The response will return the contract create transaction information like the new contract ID. You will not get the ID of the file that was created that stored your contract bytecode. If you would like to know the file ID of your contract bytecode, you can [create a file](../file-storage/create-a-file.md) and use the <mark style="color:purple;">`ContractCreateTransaction()`</mark> API directly.
 
 ### Methods
 

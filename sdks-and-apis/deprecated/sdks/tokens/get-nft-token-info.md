@@ -38,9 +38,9 @@ new TokenNftInfoQuery()
 
 {% tabs %}
 {% tab title="V1" %}
-| Method             | Type                                    | Description                                                                                                                                        | Requirement |
-| ------------------ | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `byNftId(<nftId>)` | [NftId](../../../sdks/tokens/nft-id.md) | Applicable only to tokens of type `NON_FUNGIBLE_UNIQUE`. Gets info on a NFT for a given TokenID (of type `NON_FUNGIBLE_UNIQUE`) and serial number. | Optional    |
+| Method             | Type                                      | Description                                                                                                                                        | Requirement |
+| ------------------ | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `byNftId(<nftId>)` | [NftId](../../../sdks/readme-1/nft-id.md) | Applicable only to tokens of type `NON_FUNGIBLE_UNIQUE`. Gets info on a NFT for a given TokenID (of type `NON_FUNGIBLE_UNIQUE`) and serial number. | Optional    |
 
 {% code title="Java" %}
 ```java
