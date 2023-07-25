@@ -18,6 +18,8 @@
     * [Deploy a Subgraph Using The Graph and JSON-RPC](tutorials/smart-contracts/deploy-a-subgraph-using-the-graph-and-json-rpc.md)
     * [How to Set Up Foundry to Test Smart Contracts on Hedera](tutorials/smart-contracts/how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md)
     * [Deploy Smart Contracts on Hedera Using Truffle](tutorials/smart-contracts/deploy-smart-contracts-on-hedera-using-truffle.md)
+    * [Hedera Smart Contracts Workshop](tutorials/smart-contracts/hscs-workshop/README.md)
+      * [Setup](tutorials/smart-contracts/hscs-workshop/setup.md)
   * [Consensus](tutorials/consensus/README.md)
     * [Submit Your First Message](tutorials/consensus/submit-your-first-message.md)
     * [Submit Message to Private Topic](tutorials/consensus/submit-message-to-private-topic.md)
