@@ -114,11 +114,11 @@ To ensure accurate conformity with the minimum requirements, please provide node
 
 Access to the node via public APIs must be mediated by an in-line proxy. Below are the specifications for establishing this proxy.
 
-* 2-CPU
+* 2- core-x86/x64 CPU
 * 2GB RAM
-* 100GB storage
-* 200Mb/S internet network connectivity with public static IP address
-* Docker 18 or higher (Hedera to provide Docker image with HAProxy)
+* 100GB SSD storage
+* 200Mb/s sustained internet network connectivity with public static IP address
+* Supported Docker (Hedera to provide Docker image with HAProxy)
 
 ### Network Connectivity
 
@@ -159,11 +159,11 @@ Interface Bonding (optional)
 ### Software & Installation
 
 * Any 64-bit Long Term Support (LTS) Linux distribution
-  * Ubuntu
-  * Red Hat Enterprise
-  * Debian
-  * BSD not supported
-  * CentOS deprecated for 2022
+  * Approved distributions:
+    * Ubuntu
+    * Red Hat Enterprise
+    * Oracle Linux
+    * CentOS (Only through 2023)
 
 ## Network Topology /(Typical Corporate Datacenter Configuration/)
 
