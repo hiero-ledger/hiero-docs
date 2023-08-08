@@ -39,7 +39,6 @@ System setup:
 - POSIX-compliant shell
 	- For Linux & Mac: The shell that ships with the operating system will work. Either `bash` or `zsh` will work.
 	- For Windows: The shell that ships with the operating system (`cmd.exe`, `powershell.exe`) will *not* work. Recommended alternatives: WSL/2, or git-bash which ships with git-for-windows.
-- Google chrome installed: [Chrome](https://www.google.com/chrome/)
 - Internet connection
 
 Optional system setup:
@@ -47,7 +46,7 @@ Optional system setup:
 - `jq`
 	- For Linux: Use OS package manager
 	- For Mac: `brew install jq`
-	-  For Windows: Install `.exe` file manually: [JQ releases (Github)](https://github.com/jqlang/jq/releases)
+	- For Windows: Install `.exe` file manually: [JQ releases (Github)](https://github.com/jqlang/jq/releases)
 
 ## Software libraries and developer tools
 

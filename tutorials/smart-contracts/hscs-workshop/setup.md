@@ -77,6 +77,13 @@ Visit the [Hedera Portal](https://portal.hedera.com/) to get started.
 	<figcaption>Hedera Portal - Account Details</figcaption>
 </figure>
 
+{% hint style="info" %}
+Note that private keys should be stored and managed securely.
+For the purposes of a tutorial, secure key management has been skipped,
+and you are storing your private keys in plain text on disk.
+Do **not** do this in production applications.
+{% endhint %}
+
 * (6) From the same screen, copy the value of "**Account ID**" and replace the value of the `OPERATOR_ID` variable in the `.env` file with it.
 
 ### Step B3: Seed phrase
@@ -91,11 +98,13 @@ and funded with HBAR from your operator account.
 
 To do so, we will utilise something called a **seed phrase**,
 which is a sequence of selected dictionary words chosen at random.
-This process is defined in BIP-39.
+This process is defined in
+[BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
 
 Subsequently, we will use that seed phrase as an input and generate multiple accounts;
 each of which consists of a private key, a public key, and an address.
-This process is defined in BIP-44.
+This process is defined in
+[BIP-44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
 
 {% hint style="info" %}
 - "BIP" stands for Bitcoin Improvement Proposal.
@@ -123,10 +132,18 @@ and Hedera EVM accounts use ECDSA with secp256k1.
 Enough theory - let's generate a seed phrase!
 
 Visit [`iancoleman.io/bip39`](https://iancoleman.io/bip39/),
-and you can generate your seed phrase there.
+and you can generate a BIP39 seed phrase there:
+`
+<figure><img src="../../../.gitbook/assets/bip39-seed-phrase-generate-iancolemanio.png" alt="Screenshot highlighting steps to generate a BIP39 seed phrase (using iancoleman.io/bip39)."><figcaption></figcaption></figure>`
 
-Copy these words, and replace the value of the `BIP39_SEED_PHRASE` variable
-in the `.env` file with this.
+- Locate the line that is labelled "Generate a random mnemonic"
+- Select any number from the dropdown that is more than or equal to `12`
+- Press "GENERATE"
+- Locate the section that is labelled "BIP39 Mnemonic"
+- Copy these words from the text box - this will be your BIP39 seed phrase
+
+Replace the value of the `BIP39_SEED_PHRASE` variable
+in the `.env` file with this phrase.
 
 [Ref: BIP-39 Mnemonic code for generating deterministic keys](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
 
@@ -159,8 +176,8 @@ const HD_PATH = "m/44'/60'/0'/0";
 
 {% hint style="info" %}
 Above, we're using `m/44'/60'/0'/0` as the derivation path.
-This is the Ethereum derivation path, and we need it because Metamask
-hardcodes this value as a constant, and does not allow it to be configured.
+This value is the Ethereum derivation path,
+and we need to use this because Metamask does not allow it to be configured.
 {% endhint %}
 
 Run this script.
@@ -182,36 +199,28 @@ EVM account #1 generated.
 #1 Private key: 3030020100300706052b8104000a042204206e3ff9f1f1ae58248a5838ec877acc55d103009586224d76ab74a652d408cf12
 #1  Public key: 302d300706052b8104000a03220002c4c2ed7a682a601c9c61dec42e87442b63893a6e5efdf6dc327a4b3bcc62aba9
 #1 EVM address: 1c29e31d241f0d06f3763221f5224a6b82f09cce
-EVM account #2 generated.
-#2     HD path: m/44'/60'/0'/0/2
-#2 Private key: 3030020100300706052b8104000a042204203ccfcb41922c242e955cdba0245c3cddc88c45ea84eab4f2a0416a7978b2f897
-#2  Public key: 302d300706052b8104000a03220002fa66a7e8c206f1678457524690011a1deedbea413eadec83cf7d2cb1d3b6fece
-#2 EVM address: 9a814b5afd6b0fff1e9548dcba4d09cdd8c81568
-EVM account #3 generated.
-#3     HD path: m/44'/60'/0'/0/3
-#3 Private key: 3030020100300706052b8104000a0422042054c156c865a054c6134a1bd282d6803f60763326c3293fbea33853919532e2e2
-#3  Public key: 302d300706052b8104000a03220002cb32b5529854dc2c754b8c365d6060de0cb8a209aab44fedf4e74efa74460fcd
-#3 EVM address: a80eb8ed3c3c78bee1de8391f89ddd6873bf695d
 Transfer transaction ID 0.0.3996280@1690161480.080071857
 ```
 
 ### Check funding of EVM accounts on Hashscan
 
 Copy the transaction ID from (the final line of) the output from the previous step,
-and visit Hashscan, and search for that ID.
-You should get to a "Transaction" page,
+and visit [Hashscan](https://hashscan.io/testnet/dashboard),
+and search for that ID. You should get to a "Transaction" page,
 e.g. `https://hashscan.io/testnet/transaction/1689772989.212011003`.
 
+<figure><img src="../../../.gitbook/assets/hbar-transaction-multi-account-hbar-transfer-example-hashscanio.png" alt="Screenshot showing a single transaction with mulitple recipients transferring HBAR (on hashscan.io)."><figcaption></figcaption></figure>
+
 Scroll down to the "Transfers" section,
-which should graphically depict the flow of HBAR between various accounts.
-In this case `-400` (and a fractional amount of `-0.00185217`)
+which should show the flow of HBAR between various accounts.
+In this case `-200` (and a fractional amount of `-0.00185217`)
 from the operator account,
-`+100.00000000` to each of the 4 EVM accounts,
+`+100.00000000` to each of the 2 EVM accounts,
 and fractional amounts to a couple of other accounts to pay for transaction processing.
 (Note that the fractional amounts may vary, they won't necessarily be `0.00185217` as above.)
 
 Now you should have 1 Hedera-native account (previously funded),
-plus 4 new EVM accounts (freshly funded).
+plus 2 new EVM accounts (freshly funded).
 
 ### Address formats
 
@@ -237,6 +246,8 @@ While you may choose to interact with the Hedera network using any of the addres
 when interacting with smart contracts, the *EVM Address Alias* is the most useful,
 as that is what is visible and understood by smart contracts when they are invoked.
 
+[Ref: Hedera - Account Properties](https://docs.hedera.com/hedera/core-concepts/accounts/account-properties)
+
 [Ref: HIP-583 - Expand alias support in CryptoCreate & CryptoTransfer Transactions](https://hips.hedera.com/hip/hip-583)
 
 [Ref: hedera-code-snippets - Convert address from Hedera-native (`S.R.N`) format to EVM (`0x...`) format](https://github.com/hedera-dev/hedera-code-snippets/tree/main/convert-hedera-native-address-to-evm-address)
@@ -249,9 +260,6 @@ For this step, you have a choice:
 
 - Run your own Hedera RPC Relay server: [Configuring Hedera JSON-RPC Relay endpoints](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections/hedera-json-rpc-relay)
 - Use an RPC service provider, Arkhia: [Configuring Arkhia RPC endpoints](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections/arkhia)
-
-Copy these words, and replace the value of the `BIP39_SEED_PHRASE` variable
-in the `.env` file with this.
 
 Whichever method you choose,
 obtain the JSON-RPC URL for Hedera Testnet,
