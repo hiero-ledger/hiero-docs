@@ -1,9 +1,7 @@
 ---
 description: >-
-  Solidity tutorial - Hedera Smart Contract Service workshop.
-  Smart contracts are a means to enable custom logic and processing in a DLT.
-  Developers can harness their power to build their own decentralised applications (DApps).
-  Learn how to get started with the Hedera Smart Contract Service (HSCS) in this workshop. 
+  Solidity tutorial - HSCS workshop.
+  Learn how to enable custom logic & processing on Hedera through smart contracts.
 ---
 
 # Solidity - Hedera Smart Contracts Workshop
@@ -22,7 +20,7 @@ What makes them different from "regular" computer programs?
 The biggest one, that you probably know already, is that they are executed on blockchains/ DLTs.
 But there are a few others to be aware of:
 
-- They are typically executed within a VM
+- They are typically executed within a Virtual Machine (VM)
 - Any state changes need to be agreed upon through network consensus
 - Any state queries return values agreed upon by network consensus
 - While their state is mutable, their code is not
@@ -73,7 +71,7 @@ Near the top of the file, you should see the following comment:
 
 Note that this type of comment will be present throughout the
 tutorial repo that accompanies this written tutorial.
-Each numbered step in of a *section heading* here
+Each numbered step of a *section heading* here
 corresponds to the the same number in a *comment* there.
 In the subsequent steps of this tutorial, you will follow the same pattern as above. However, this tutorial does not repeat the comments marking the steps for the remainder of the tutorial and instead only include the new/changed lines of code.
 {% endhint %}
@@ -88,7 +86,9 @@ pragma solidity 0.8.17;
 Here we simply specify that this file should be compiled with version `0.8.17` only.
 You may specify more complex rules, similar to `semver` used by npm.
 
-[Ref: Solidity version pragma](https://docs.soliditylang.org/en/develop/layout-of-source-files.html#version-pragma)
+{% hint style="info" %}
+- [Ref: Solidity version pragma](https://docs.soliditylang.org/en/develop/layout-of-source-files.html#version-pragma)
+{% endhint %}
 
 ## Step A2: Specify name of smart contract
 
@@ -106,7 +106,7 @@ contract Trogdor {
 A smart contract persists its state on the virtual machine,
 and may only be modified during a successful transaction on the network.
 Solidity supports many different primitive types,
-here let's use `uint256` as we'll be representing a an unsigned integer value.
+here let's use `uint256` as we'll be representing an unsigned integer value.
 
 ```solidity
 	uint256 public MIN_FEE = 100;
@@ -122,7 +122,9 @@ This is achieved by adding the `constant` keyword to it.
 	uint256 public constant MIN_FEE = 100;
 ```
 
-[Ref: Solidity value types](https://docs.soliditylang.org/en/develop/types.html#value-types)
+{% hint style="info" %}
+- [Ref: Solidity value types](https://docs.soliditylang.org/en/develop/types.html#value-types)
+{% endhint %}
 
 ## Step A4: Dynamic type state variable
 
@@ -138,12 +140,16 @@ and is analogous to a Hashmap in other programming languages.
 This mapping stores key-value pairs where the keys are of type `address`,
 and the values are of type `uint256`.
 
-[Ref: Solidity mapping type](https://docs.soliditylang.org/en/develop/types.html#mapping-types)
+{% hint style="info" %}
+- [Ref: Solidity mapping type](https://docs.soliditylang.org/en/develop/types.html#mapping-types)
+{% endhint %}
 
 Note that both `MIN_FEE` and `amounts` have a visibility modifier of `public`.
 In other cases you might want `internal` or `private`,
 
-[Ref: Solidity State Variable Visibility](https://docs.soliditylang.org/en/develop/contracts.html#state-variable-visibility)
+{% hint style="info" %}
+- [Ref: Solidity State Variable Visibility](https://docs.soliditylang.org/en/develop/contracts.html#state-variable-visibility)
+{% endhint %}
 
 ## Functions
 
@@ -165,14 +171,10 @@ function doSomething(uint256 param1)
 In the above example:
 
 - Name: `doSomething`
-- Modifiers: `public`, `pure`
+- Modifiers: `public` and `pure`
 - Parameter name: `param1`
 - Parameter type: `uint256`
 - Return type: `uint256`
-
-- function
-- function syntax
-
 
 ## Step A5: Specify function modifiers
 
@@ -201,7 +203,9 @@ Just like state variables, functions may have the have visibility modifiers
 `public`, `private`, and `internal`;
 however `external` is a new one, and may apply only to functions.
 
-[Ref: Solidity function visibility modifiers](https://docs.soliditylang.org/en/develop/cheatsheet.html#function-visibility-specifiers)
+{% hint style="info" %}
+- [Ref: Solidity function visibility modifiers](https://docs.soliditylang.org/en/develop/cheatsheet.html#function-visibility-specifiers)
+{% endhint %}
 
 
 ## Step A6: Specify function return values
@@ -232,7 +236,9 @@ specific to the current block (group of transactions)
 or specific to the current transaction that are also accessible.
 Two of these are `msg.sender` and `msg.value`.
 
-[Ref: Solidity block and transaction properties]
+{% hint style="info" %}
+- [Ref: Solidity block and transaction properties](https://docs.soliditylang.org/en/stable/units-and-global-variables.html#block-and-transaction-properties)
+{% endhint %}
 
 ## Step A7: Specify condition for require
 
@@ -247,7 +253,7 @@ as if the function invocation was never made.
 ```
 
 Within the `burninate` function, we use a `require` to ensure that
-the transaction is not ostensibly from the null address,
+the transaction is seemingly not from the null address,
 also known as the zero address.
 This essentially disallows any transactions sent from that particular address
 
@@ -256,7 +262,9 @@ Technically it should not be possible for a transaction to be sent by the zero a
 This is done here purely for illustrative purposes.
 {% endhint %}
 
-[Ref: Solidity panic and require](https://docs.soliditylang.org/en/develop/control-structures.html#panic-via-assert-and-error-via-require)
+{% hint style="info" %}
+- [Ref: Solidity panic and require](https://docs.soliditylang.org/en/develop/control-structures.html#panic-via-assert-and-error-via-require)
+{% endhint %}
 
 ## Step A8: Specify error message for require
 
@@ -288,9 +296,10 @@ Whereas in functions which are `payable`, `msg.value` could be zero **or more**.
 In this case, the intent is for the function to reject any function invocations
 which do not pay enough.
 
-[Ref: Solidity Ether units](https://docs.soliditylang.org/en/develop/units-and-global-variables.html#ether-units)
-
-[Ref: Stackoverflow full unit of HBAR](https://stackoverflow.com/q/76123094/194982)
+{% hint style="info" %}
+- [Ref: Solidity Ether units](https://docs.soliditylang.org/en/develop/units-and-global-variables.html#ether-units)
+- [Ref: Stackoverflow full unit of HBAR](https://stackoverflow.com/q/76123094/194982)
+{% endhint %}
 
 ## Step A9: Update state
 
@@ -306,9 +315,10 @@ of the total amount paid by each different address that this function has been i
 This statement increments the current value by the amount paid into the function,
 keyed on the address that invoked this function.
 
-[Ref: Solidity operators](https://docs.soliditylang.org/en/develop/types.html#operators)
-
-[Ref: Solidity mapping types](https://docs.soliditylang.org/en/develop/types.html#mapping-types)
+{% hint style="info" %}
+- [Ref: Solidity operators](https://docs.soliditylang.org/en/develop/types.html#operators)
+- [Ref: Solidity mapping types](https://docs.soliditylang.org/en/develop/types.html#mapping-types)
+{% endhint %}
 
 ## Step A10: Specify an event
 

@@ -1,9 +1,7 @@
 ---
 description: >-
-  Hedera SDK JS tutorial - Hedera Smart Contract Service workshop.
-  Smart contracts are a means to enable custom logic and processing in a DLT.
-  Developers can harness their power to build their own decentralised applications (DApps).
-  Learn how to get started with the Hedera Smart Contract Service (HSCS) in this workshop. 
+  Hedera SDK JS tutorial - HSCS workshop.
+  Learn how to enable custom logic & processing on Hedera through smart contracts.
 ---
 
 # Hedera SDK JS - Hedera Smart Contracts Workshop
@@ -156,7 +154,7 @@ sometimes also referred to as *init bytecode*.
 The bytecode that is stored on the network is *runtime bytecode*,
 sometimes also referred to as *deployed bytecode*.
 
-[Ref: Stackoverflow: What is the difference between bytecode, init code, deployed bytecode, creation bytecode, and runtime bytecode?](https://ethereum.stackexchange.com/a/76335/48984)
+- [Ref: Stackoverflow: What is the difference between bytecode, init code, deployed bytecode, creation bytecode, and runtime bytecode?](https://ethereum.stackexchange.com/a/76335/48984)
 {% endhint %}
 
 ### Examine the ABI output
@@ -176,7 +174,9 @@ This interface will include any functions and events,
 which are need by any clients (e.g. DApps), or other smart contracts,
 to be able to interact with it.
 
-[Ref: Solidity - Contract ABI specification](https://docs.soliditylang.org/en/latest/abi-spec.html)
+{% hint style="info" %}
+- [Ref: Solidity - Contract ABI specification](https://docs.soliditylang.org/en/latest/abi-spec.html)
+{% endhint %}
 
 ```json
 [

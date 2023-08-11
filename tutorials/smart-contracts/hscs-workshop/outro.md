@@ -1,9 +1,7 @@
 ---
 description: >-
-  Outro - Hedera Smart Contract Service workshop.
-  Smart contracts are a means to enable custom logic and processing in a DLT.
-  Developers can harness their power to build their own decentralised applications (DApps).
-  Learn how to get started with the Hedera Smart Contract Service (HSCS) in this workshop. 
+  Outro - HSCS workshop.
+  Learn how to enable custom logic & processing on Hedera through smart contracts.
 ---
 
 # Outro - Hedera Smart Contracts Workshop

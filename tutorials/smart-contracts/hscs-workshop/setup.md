@@ -1,9 +1,7 @@
 ---
 description: >-
-  Setup tutorial - Hedera Smart Contract Service workshop.
-  Smart contracts are a means to enable custom logic and processing in a DLT.
-  Developers can harness their power to build their own decentralised applications (DApps).
-  Learn how to get started with the Hedera Smart Contract Service (HSCS) in this workshop. 
+  Setup tutorial - HSCS workshop.
+  Learn how to enable custom logic & processing on Hedera through smart contracts.
 ---
 
 # Setup - Hedera Smart Contracts Workshop
@@ -145,9 +143,10 @@ and you can generate a BIP39 seed phrase there:
 Replace the value of the `BIP39_SEED_PHRASE` variable
 in the `.env` file with this phrase.
 
-[Ref: BIP-39 Mnemonic code for generating deterministic keys](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
-
-[Ref: BIP-44: Multi-Account Hierarchy for Deterministic Wallets](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+{% hint style="info" %}
+- [Ref: BIP-39 Mnemonic code for generating deterministic keys](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
+- [Ref: BIP-44: Multi-Account Hierarchy for Deterministic Wallets](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+{% endhint %}
 
 ### Step B4: Fund several Hedera EVM accounts
 
@@ -246,13 +245,12 @@ While you may choose to interact with the Hedera network using any of the addres
 when interacting with smart contracts, the *EVM Address Alias* is the most useful,
 as that is what is visible and understood by smart contracts when they are invoked.
 
-[Ref: Hedera - Account Properties](https://docs.hedera.com/hedera/core-concepts/accounts/account-properties)
-
-[Ref: HIP-583 - Expand alias support in CryptoCreate & CryptoTransfer Transactions](https://hips.hedera.com/hip/hip-583)
-
-[Ref: hedera-code-snippets - Convert address from Hedera-native (`S.R.N`) format to EVM (`0x...`) format](https://github.com/hedera-dev/hedera-code-snippets/tree/main/convert-hedera-native-address-to-evm-address)
-
-[Ref: Stackoverflow - How to convert a Hedera native address into a non-long-zero EVM address?](https://stackoverflow.com/q/76680532/194982)
+{% hint style="info" %}
+- [Ref: Hedera - Account Properties](https://docs.hedera.com/hedera/core-concepts/accounts/account-properties)
+- [Ref: HIP-583 - Expand alias support in CryptoCreate & CryptoTransfer Transactions](https://hips.hedera.com/hip/hip-583)
+- [Ref: hedera-code-snippets - Convert address from Hedera-native (`S.R.N`) format to EVM (`0x...`) format](https://github.com/hedera-dev/hedera-code-snippets/tree/main/convert-hedera-native-address-to-evm-address)
+- [Ref: Stackoverflow - How to convert a Hedera native address into a non-long-zero EVM address?](https://stackoverflow.com/q/76680532/194982)
+{% endhint %}
 
 ### Step B5: RPC endpoint
 

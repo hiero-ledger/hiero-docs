@@ -1,9 +1,7 @@
 ---
 description: >-
-  Hardhat and EthersJs tutorial - Hedera Smart Contract Service workshop.
-  Smart contracts are a means to enable custom logic and processing in a DLT.
-  Developers can harness their power to build their own decentralised applications (DApps).
-  Learn how to get started with the Hedera Smart Contract Service (HSCS) in this workshop. 
+  Hardhat and EthersJs tutorial - HSCS workshop.
+  Learn how to enable custom logic & processing on Hedera through smart contracts.
 ---
 
 # Hardhat - Hedera Smart Contracts Workshop
@@ -95,9 +93,10 @@ In effect it simply deems all transactions successfully added to the network
 to be part of the same block based on their timestamp,
 once approximately every 2 seconds.
 
-[Ref: Hedera: What is Hashgraph Consensus](https://hedera.com/learning/hedera-hashgraph/what-is-hashgraph-consensus)
-
-[Ref: HIP-415: Introduction of Blocks](https://hips.hedera.com/hip/hip-415)
+{% hint style="info" %}
+- [Ref: Hedera: What is Hashgraph Consensus](https://hedera.com/learning/hedera-hashgraph/what-is-hashgraph-consensus)
+- [Ref: HIP-415: Introduction of Blocks](https://hips.hedera.com/hip/hip-415)
+{% endhint %}
 
 JSON-RPC is a Remote Procedure Call protocol,
 where the requests and responses are serialised in JSON.
@@ -105,9 +104,10 @@ Importantly, Ethereum has defined a JSON-RPC API,
 and this API has become the de-facto standard API
 to interact with EVM-compatible networks.
 
-[Ref: JSON-RPC: Specification](https://www.jsonrpc.org/specification)
-
-[Ref: Ethereum: JSON-RPC API](https://ethereum.org/en/developers/docs/apis/json-rpc/)
+{% hint style="info" %}
+- [Ref: JSON-RPC: Specification](https://www.jsonrpc.org/specification)
+- [Ref: Ethereum: JSON-RPC API](https://ethereum.org/en/developers/docs/apis/json-rpc/)
+{% endhint %}
 
 Let's verify that we are able to interact with Hedera Testnet using JSON-RPC
 by issuing an `eth_getBlockByNumber` JSON-RPC request.
@@ -257,7 +257,9 @@ and even end use software such as wallets,
 which were originally designed to work with Ethereum, to also work on Hedera,
 and is an integral part of Hedera's EVM-compatibility.
 
-[Ref: HIP-410 - Wrapping Ethereum Transaction Bytes in a Hedera Transaction](https://hips.hedera.com/hip/hip-410)
+{% hint style="info" %}
+- [Ref: HIP-410 - Wrapping Ethereum Transaction Bytes in a Hedera Transaction](https://hips.hedera.com/hip/hip-410)
+{% endhint %}
 
 In this section of the tutorial, you are using Hardhat and EthersJs,
 and this framework/ software library are unaware of HAPIs,
@@ -548,7 +550,7 @@ Now this is redundant, because JavaScript has since added
 a `bigint` primitive type, which is able to comfortably handle `uint256` values.
 Future versions of EthersJs and Web3Js are likely to deprecate the use of `BigNumber`.
 
-[Ref: MDN - BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
+- [Ref: MDN - BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
 {% endhint %}
 
 ```javascript
@@ -605,7 +607,9 @@ The *Value of gas price and value fields* part of HIP-410 offers this explanatio
 > When calculating gas prices and transferred value the fractional parts
 > below a tiny bar are dropped when converted to tinyBars.
 
-[Ref: HIP-410 - Wrapping Ethereum Transaction Bytes in a Hedera Transaction - Value of gas price and value fields](https://hips.hedera.com/hip/hip-410#value-of-gas-price-and-value-fields)
+{% hint style="info" %}
+- [Ref: HIP-410 - Wrapping Ethereum Transaction Bytes in a Hedera Transaction - Value of gas price and value fields](https://hips.hedera.com/hip/hip-410#value-of-gas-price-and-value-fields)
+{% endhint %}
 
 The *compatibility* above  refers to may software libraries, developer tools,
 developer frameworks, and even end user software such as wallets,
