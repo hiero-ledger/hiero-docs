@@ -40,7 +40,7 @@ We have already written the smart contract in the Intro section of this tutorial
 Let's copy that into this directory so that we may continue working on it.
 
 ```shell
-cp ../intro/trogdor.sol ./trogdor.sol
+cp ../intro/trogdor.sol ./contracts/trogdor.sol
 ```
 
 ## Hardhat REPL
@@ -48,8 +48,8 @@ cp ../intro/trogdor.sol ./trogdor.sol
 A Read-Evaluate-Print Loop (REPL) is an environment which takes input from you,
 executes that input, and prints the result as output;
 then start over again.
-The POSIX-compliant shell that that you have been using,
-such as `bash` or `zsh` is an example of this.
+The POSIX-compliant shell that you have been using,
+such as `bash` or `zsh`, is an example of this.
 
 Hardhat has its own REPL feature, which executes commands
 in the context of the smart contract project you are developing,
@@ -136,6 +136,22 @@ This time it will not be a JSON-RPC request,
 but rather querying Hardhat itself to see which account
 we'll be using by default when performing any requests.
 
+{% hint style="info" %}
+The accounts that Hardhat uses are generated from the seed phrase
+in the `.env` file, plus the derivation path,
+using logic similar to the following code.
+
+```javascript
+const seedPhrase = process.env.BIP39_SEED_PHRASE;
+const accounts = {
+  mnemonic: seedPhrase,
+  path: "m/44'/60'/0'/0",
+};
+```
+
+Note that this has already been done for you in `hardhat.config.js`.
+{% endhint %}
+
 ```js
 (await hre.ethers.getSigners())[0].address
 ```
@@ -156,7 +172,7 @@ This outputs an EVM address of a Hedera EVM account.
 ```
 
 If you have completed the Hedera SDK JS section of this tutorial,
-you will notice that this is different from the account used there,
+you will notice that this is **different** from the account used there,
 which was `0x7394111093687e9710b7a7aeba3ba0f417c54474`.
 This is because the script used for the Hedera SDK JS account
 was configured to use the operator account.
@@ -172,22 +188,16 @@ this was its filtered output:
 ```text
 #0 EVM address: 07ffaadfe3a598b91ee08c88e5924be3eff35796
 #1 EVM address: 1c29e31d241f0d06f3763221f5224a6b82f09cce
-#2 EVM address: 9a814b5afd6b0fff1e9548dcba4d09cdd8c81568
-#3 EVM address: a80eb8ed3c3c78bee1de8391f89ddd6873bf695d
 ```
 
-If you run the signer address query 4 times,
-changing only the index with each query, you will get exact matches.
+If you run the signer address query 2 times,
+changing only the **index** with each query, you will get exact matches.
 
 ```javascript
 > (await hre.ethers.getSigners())[0].address
 '0x07ffAaDFe3a598b91ee08C88e5924be3EfF35796'
 > (await hre.ethers.getSigners())[1].address
 '0x1C29e31D241F0D06F3763221F5224A6b82f09Cce'
-> (await hre.ethers.getSigners())[2].address
-'0x9a814B5AFd6B0fFF1e9548dCbA4d09cDD8c81568'
-> (await hre.ethers.getSigners())[3].address
-'0xa80eb8eD3c3c78BEE1dE8391F89ddD6873Bf695d'
 ```
 {% endhint %}
 
@@ -206,12 +216,15 @@ You'll now return to your regular shell.
 
 - Copy the EVM address that Hardhat uses by default
 - Go to Hashscan, and search for that address
-- You should get redirected to an Account page: https://hashscan.io/testnet/account/0x07ffAaDFe3a598b91ee08C88e5924be3EfF35796 --> https://hashscan.io/testnet/account/0.0.3996359
+- You should get redirected to an Account page
+  - For example, from: `https://hashscan.io/testnet/account/0x07ffAaDFe3a598b91ee08C88e5924be3EfF35796`
+  - to: `https://hashscan.io/testnet/account/0.0.3996359`
 - This verifies that the account exists
 - Check that the account has a balance of HBAR
 - If does not exist, or does not have balance, you'll need to create or fund it before proceeding
-	- To do so, you'll need to repeat *Step B4: Fund several Hedera EVM accounts*
-	  from the Intro section of this tutorial.
+  - To do so, you'll need to repeat
+    [*Step B4: Fund several Hedera EVM accounts*](../setup#step-b4-fund-several-hedera-evm-accounts)
+    from the Setup section of this tutorial.
 
 ## Compiling smart contracts
 
