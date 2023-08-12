@@ -18,9 +18,8 @@ that improve the developer experience of smart contract development.
 
 ## Prerequisites
 
-Complete the [Introduction](./00-intro.md) section of this same tutorial.
-
-Optionally, complete the [Hedera SDK JS](./01-hederasdkjs.md) section of this tutorial.
+- ✅ Complete the [Introduction](./00-intro.md) section of this same tutorial.
+- ✅ Optionally, complete the [Hedera SDK JS](./01-hederasdkjs.md) section of this tutorial.
 
 ## Set up the project
 

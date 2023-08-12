@@ -22,26 +22,24 @@ Smart contracts are a means to enable custom logic and processing in a DLT. Deve
 
 Prior knowledge:
 
-- Javascript syntax
-- Hedera network core concepts
+- ✅ Javascript syntax
+- ✅ Hedera network core concepts
 
 System setup:
 
-- `git` installed
+- ✅ `git` installed
 	- Minimum version: 2.37
 	- [Install Git (Github)](https://github.com/git-guides/install-git)
-- NodeJs + `npm` installed
+- ✅ NodeJs + `npm` installed
 	- Minimum version of NodeJs: 18
+	- Minimum version of `npm`: 9.5
 	- Recommended for Linux & Mac: [`nvm`](https://github.com/nvm-sh/nvm)
 	- Recommended for Windows: [`nvm-windows`](https://github.com/coreybutler/nvm-windows)
-- POSIX-compliant shell
+- ✅ POSIX-compliant shell
 	- For Linux & Mac: The shell that ships with the operating system will work. Either `bash` or `zsh` will work.
 	- For Windows: The shell that ships with the operating system (`cmd.exe`, `powershell.exe`) will *not* work. Recommended alternatives: WSL/2, or git-bash which ships with git-for-windows.
-- Internet connection
-
-Optional system setup:
-
-- `jq`
+- ✅ Internet connection
+- ✅ Optionally, `jq`
 	- For Linux: Use OS package manager
 	- For Mac: `brew install jq`
 	- For Windows: Install `.exe` file manually: [JQ releases (Github)](https://github.com/jqlang/jq/releases)

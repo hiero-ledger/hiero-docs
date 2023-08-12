@@ -19,10 +19,21 @@ Each service defines a number of different ways you can interact with it as a de
 and these comprise the Hedera Application Programming Interfaces (HAPIs).
 However, HAPIs are very close to the metal, and a developer needs to
 handle gRPCs and protocol buffers (among other things) to work with them successfully.
-Thankfully there are Hedera SDKs, which abstract these low-level complexities away,
-allowing you to interact with the various Hedera services,
-via APIs exposed in a variety of different programming languages:
-Javascript, Java, Go, and Swift at the time of writing, July 2023.
+Thankfully there are Hedera SDKs, which abstract these low-level complexities away.
+These SDKs allow you to interact with the various Hedera services
+via APIs exposed in a variety of different programming languages.
+
+{% hint style="info" %}
+At the time of writing, July 2023, these Hedera SDKs are available in the following languages:
+
+- [Hedera SDK JavaScript/ TypeScript](https://github.com/hashgraph/hedera-sdk-js)
+- [Hedera SDK Java](https://github.com/hashgraph/hedera-sdk-java)
+- [Hedera SDK Go](https://github.com/hashgraph/hedera-sdk-go)
+- [Hedera SDK Swift](https://github.com/hashgraph/hedera-sdk-swift)
+
+Please refer to [SDKs](../../../../hedera/sdks-and-apis/sdks)
+for an up to date list of SDKs, including additional community-maintained SDKs.
+{% endhint %}
 
 In this tutorial, you will be using Hedera SDK JS to interact with HSCS.
 Specifically, you will use it to deploy a smart contract,
@@ -31,13 +42,13 @@ and modify its state by invoking other functions.
 
 ## Prerequisites
 
-Complete the [Introduction](./00-intro.md) section of this same tutorial.
+- ✅ Complete the [Introduction](./00-intro.md) section of this same tutorial.
 
 ## Set up the project
 
 To follow along, enter the `hederasdkjs` directory within the
 [accompanying tutorial GitHub repository](https://github.com/hedera-dev/hedera-smart-contracts-workshop),
-which you should already have cloned in the Intro section earlier.
+which you should already have cloned in the [Intro section](../) earlier.
 
 ```shell
 cd ./hederasdkjs
@@ -120,7 +131,9 @@ solcjs --bin --abi ./trogdor.sol
 ls
 ```
 
-Those flags instruct it to output both EVM bytecode and ABI.
+Those flags instruct `solcjs` to output both EVM bytecode and ABI.
+The `ls` command lists the files that are in the directory,
+and the following files should be present.
 
 ```text
 # input file
@@ -269,7 +282,7 @@ In this script, you'll use Hedera SDK JS to deploy your smart contract onto Hede
 ### Step E1: Initialise operator account
 
 This script has already been set up to read in environment variables
-from the `.env` file that you have set up in the Intro section of this tutorial
+from the `.env` file that you have set up in the [Intro section](../) of this tutorial
 via the `dotenv` npm package, and they are now accessible using `process.env`.
 
 We will use the `OPERATOR_ID` and `OPERATOR_KEY` environment variables
@@ -339,6 +352,83 @@ as `scId` - you will need it later.
 
 The smart contract is now deployed, and ready to be interacted with.
 
+Run the script.
+
+```shell
+node ./deploy-sc.js
+```
+
+You should see output similar to the following, which contains:
+
+- `HFS FileCreateTransaction TransactionReceipt`
+- `HSCS ContractCreateTransaction TransactionReceipt`
+- `Deployed to`
+
+```text
+HFS FileCreateTransaction TransactionReceipt {
+  status: Status { _code: 22 },
+  accountId: null,
+  fileId: FileId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 474925, high: 0, unsigned: false },
+    _checksum: null
+  },
+  contractId: null,
+  topicId: null,
+  tokenId: null,
+  scheduleId: null,
+  exchangeRate: ExchangeRate {
+    hbars: 30000,
+    cents: 169431,
+    expirationTime: 2023-08-12T03:00:00.000Z,
+    exchangeRateInCents: 5.6477
+  },
+  topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+  topicRunningHash: Uint8Array(0) [],
+  totalSupply: Long { low: 0, high: 0, unsigned: false },
+  scheduledTransactionId: null,
+  serials: [],
+  duplicates: [],
+  children: []
+}
+HSCS ContractCreateTransaction TransactionReceipt {
+  status: Status { _code: 22 },
+  accountId: null,
+  fileId: null,
+  contractId: ContractId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 474926, high: 0, unsigned: false },
+    evmAddress: null,
+    _checksum: null
+  },
+  topicId: null,
+  tokenId: null,
+  scheduleId: null,
+  exchangeRate: ExchangeRate {
+    hbars: 30000,
+    cents: 169431,
+    expirationTime: 2023-08-12T03:00:00.000Z,
+    exchangeRateInCents: 5.6477
+  },
+  topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+  topicRunningHash: Uint8Array(0) [],
+  totalSupply: Long { low: 0, high: 0, unsigned: false },
+  scheduledTransactionId: null,
+  serials: [],
+  duplicates: [],
+  children: []
+}
+Deployed to 0.0.474926
+```
+
+For both of the `TransactionReceipt` check that their `status` is `{ _code: 22 }`,
+which means that the transaction was successful.
+
+The `Deployed to` outputs the account ID of the smart contract
+that you have just deployed.
+
 ###  Check smart contract deployment using Hashscan
 
 - Copy the output smart contract account ID, e.g. `0.0.15388539`.
@@ -356,7 +446,8 @@ In this script, you'll use Hedera SDK JS to interact with your smart contract on
 ### Step F1: Specify deployed contract ID
 
 Copy the smart contract ID, obtained during the previous step,
-and add paste this into this file, where the `main` function is invoked.
+and add paste this into this file, where the `main` function is invoked
+(at the bottom of the file).
 
 ```js
   contractId: '0.0.15388539',
@@ -568,6 +659,129 @@ extract the its return value using the getter function with the appropriate type
 The `amounts` mapping specifies `uint256` as its value type,
 this is equivalent to a function specifying `returns(uint256)` in its signature.
 Use `getUint256()` to extract that return value.
+
+Run the script.
+
+```shell
+node ./interact-sc.js
+```
+
+You should get output similar to the following:
+- `ContractExecuteTransaction #1 ReceiptStatusError`
+- `ContractExecuteTransaction #2 TransactionReceipt`
+- `ContractCallQuery #1 ContractFunctionResult`
+- `return value`
+
+```text
+ContractExecuteTransaction #1 ReceiptStatusError: receipt for transaction 0.0.1186@1691806933.486622108 contained error status CONTRACT_REVERT_EXECUTED
+    at new ReceiptStatusError (/Users/user/code/hedera/hedera-smart-contracts-workshop/hederasdkjs/node_modules/@hashgraph/sdk/lib/ReceiptStatusError.cjs:43:5)
+    at TransactionReceiptQuery._mapStatusError (/Users/user/code/hedera/hedera-smart-contracts-workshop/hederasdkjs/node_modules/@hashgraph/sdk/lib/transaction/TransactionReceiptQuery.cjs:276:12)
+    at TransactionReceiptQuery.execute (/Users/user/code/hedera/hedera-smart-contracts-workshop/hederasdkjs/node_modules/@hashgraph/sdk/lib/Executable.cjs:671:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async TransactionResponse.getReceipt (/Users/user/code/hedera/hedera-smart-contracts-workshop/hederasdkjs/node_modules/@hashgraph/sdk/lib/transaction/TransactionResponse.cjs:86:21)
+    at async main (/Users/user/code/hedera/hedera-smart-contracts-workshop/hederasdkjs/interact-sc.js:48:29) {
+  status: Status { _code: 33 },
+  transactionId: TransactionId {
+    accountId: AccountId {
+      shard: [Long],
+      realm: [Long],
+      num: [Long],
+      aliasKey: null,
+      evmAddress: null,
+      _checksum: null
+    },
+    validStart: Timestamp { seconds: [Long], nanos: [Long] },
+    scheduled: false,
+    nonce: null
+  },
+  transactionReceipt: TransactionReceipt {
+    status: Status { _code: 33 },
+    accountId: null,
+    fileId: null,
+    contractId: ContractId {
+      shard: [Long],
+      realm: [Long],
+      num: [Long],
+      evmAddress: null,
+      _checksum: null
+    },
+    topicId: null,
+    tokenId: null,
+    scheduleId: null,
+    exchangeRate: ExchangeRate {
+      hbars: 30000,
+      cents: 169431,
+      expirationTime: 2023-08-12T03:00:00.000Z,
+      exchangeRateInCents: 5.6477
+    },
+    topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+    topicRunningHash: Uint8Array(0) [],
+    totalSupply: Long { low: 0, high: 0, unsigned: false },
+    scheduledTransactionId: null,
+    serials: [],
+    duplicates: [],
+    children: []
+  }
+}
+ContractExecuteTransaction #2 TransactionReceipt {
+  status: Status { _code: 22 },
+  accountId: null,
+  fileId: null,
+  contractId: ContractId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 474926, high: 0, unsigned: false },
+    evmAddress: null,
+    _checksum: null
+  },
+  topicId: null,
+  tokenId: null,
+  scheduleId: null,
+  exchangeRate: ExchangeRate {
+    hbars: 30000,
+    cents: 169431,
+    expirationTime: 2023-08-12T03:00:00.000Z,
+    exchangeRateInCents: 5.6477
+  },
+  topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+  topicRunningHash: Uint8Array(0) [],
+  totalSupply: Long { low: 0, high: 0, unsigned: false },
+  scheduledTransactionId: null,
+  serials: [],
+  duplicates: [],
+  children: []
+}
+ContractCallQuery #1 ContractFunctionResult {
+  _createResult: false,
+  contractId: ContractId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 474926, high: 0, unsigned: false },
+    evmAddress: null,
+    _checksum: null
+  },
+  bytes: <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7b>,
+  errorMessage: '',
+  bloom: <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... 206 more bytes>,
+  gasUsed: Long { low: 80000, high: 0, unsigned: true },
+  logs: [],
+  createdContractIds: [],
+  evmAddress: null,
+  stateChanges: [],
+  gas: Long { low: 0, high: 0, unsigned: false },
+  amount: Long { low: 0, high: 0, unsigned: false },
+  functionParameters: <Buffer >,
+  senderAccountId: null
+}
+return value 123
+```
+
+Note that the first `ContractExecuteTransaction` fails, and this is expected.
+On the other hand, the second `ContractExecuteTransaction` passes, because this time we sent
+the `payable` the required number of HBAR.
+
+The `ContractFunctionResult` has queried the data, and `return value` simply extracts
+the relevant value from it.
 
 ## Check smart contract interactions using Hashscan
 
