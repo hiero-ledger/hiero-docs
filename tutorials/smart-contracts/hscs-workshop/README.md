@@ -6,16 +6,14 @@ description: >-
 
 # Hedera Smart Contracts Workshop
 
-Smart contracts are a means to enable custom logic and processing in a DLT. Developers can harness their power to build their own decentralised applications (DApps). Learn how to get started with the Hedera Smart Contract Service (HSCS) in this workshop. 
+Smart contracts are a means to enable custom logic and processing in a DLT. Developers can harness their power to build their own decentralized applications (DApps). Learn how to get started with the Hedera Smart Contract Service (HSCS) in this workshop.
 
 ## What we will cover
 
 - Syntax of Solidity, a programming language used to write smart contracts
 - Using the Solidity compiler
-- Using Hedera SDK JS to deploy smart contracts onto Hedera networks
-- Using Hedera SDK JS to interact with smart contracts on Hedera networks
-- Using Hardhat + EthersJs to deploy smart contracts onto Hedera networks
-- Using Hardhat + EthersJs to interact with smart contracts on Hedera networks
+- Using Hedera SDK JS to deploy and interact with smart contracts on Hedera networks
+- Using Hardhat + EthersJs to deploy and interact with smart contracts on Hedera networks
 - Where to go from here
 
 ## Prerequisites

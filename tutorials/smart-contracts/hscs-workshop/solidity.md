@@ -25,7 +25,7 @@ But there are a few others to be aware of:
 - Any state queries return values agreed upon by network consensus
 - While their state is mutable, their code is not
 
-Combine the above with the decentralised nature of blockchains/ DLTs,
+Combine the above with the decentralized nature of blockchains/ DLTs,
 and you get a special breed of computer programs like no other:
 Deterministic, p2p execution, that is censorship resistant and interruption resistant.
 

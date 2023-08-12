@@ -40,35 +40,35 @@ This includes everything from basic transactions, to gas fees for HSCS interacti
 
 Visit the [Hedera Portal](https://portal.hedera.com/) to get started.
 
-* (1) Create a Testnet account.
+(1) Create a Testnet account.
 
 <figure>
 	<img src="https://i.stack.imgur.com/tgkvS.png" alt="" width="375">
 	<figcaption>Hedera Portal  - Create Testnet Account</figcaption>
 </figure>
 
-* (2) Copy-paste the confirmation code sent to your email.
+(2) Copy-paste the confirmation code sent to your email.
 
 <figure>
 	<img src="https://i.stack.imgur.com/4H9XT.png" alt="" width="375">
 	<figcaption>Hedera Portal - Email Verification</figcaption>
 </figure>
 
-* (3) Fill out this form with details for your profile.
+(3) Fill out this form with details for your profile.
 
 <figure>
 	<img src="https://i.stack.imgur.com/atW69.png" alt="" width="375">
 	<figcaption>Hedera Portal - Profile Details</figcaption>
 </figure>
 
-* (4) In the top-left there is a drop down menu, select between Hedera Testnet (default) and Previewnet:
+(4) In the top-left there is a drop down menu, select between Hedera Testnet (default) and Previewnet:
 
 <figure>
 	<img src="https://i.stack.imgur.com/2A2ua.png" alt="" width="563">
 	<figcaption>Hedera Portal - Select Network</figcaption>
 </figure>
 
-* (5) From the next screen that shows your accounts, copy the value of the "**DER-encoded private key**" and replace `OPERATOR_KEY` in the `.env` file with it.
+(5) From the next screen that shows your accounts, copy the value of the "**DER-encoded private key**" and replace `OPERATOR_KEY` in the `.env` file with it.
 
 <figure>
 	<img src="https://i.stack.imgur.com/MrBx0.png" alt="" width="563">
@@ -82,7 +82,7 @@ and you are storing your private keys in plain text on disk.
 Do **not** do this in production applications.
 {% endhint %}
 
-* (6) From the same screen, copy the value of "**Account ID**" and replace the value of the `OPERATOR_ID` variable in the `.env` file with it.
+(6) From the same screen, copy the value of "**Account ID**" and replace the value of the `OPERATOR_ID` variable in the `.env` file with it.
 
 ### Step B3: Seed phrase
 
