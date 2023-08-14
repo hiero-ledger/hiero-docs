@@ -198,17 +198,19 @@ EVM account #1 generated.
 #1 Private key: 3030020100300706052b8104000a042204206e3ff9f1f1ae58248a5838ec877acc55d103009586224d76ab74a652d408cf12
 #1  Public key: 302d300706052b8104000a03220002c4c2ed7a682a601c9c61dec42e87442b63893a6e5efdf6dc327a4b3bcc62aba9
 #1 EVM address: 1c29e31d241f0d06f3763221f5224a6b82f09cce
-Transfer transaction ID 0.0.3996280@1690161480.080071857
+Transfer transaction ID: 0.0.3996280@1690161480.080071857
+HashScan URL: https://hashscan.io/testnet/transaction/0.0.3996280@1690161480.080071857
 ```
 
 ### Check funding of EVM accounts on Hashscan
 
-Copy the transaction ID from (the final line of) the output from the previous step,
-and visit [Hashscan](https://hashscan.io/testnet/dashboard),
-and search for that ID. You should get to a "Transaction" page,
-e.g. `https://hashscan.io/testnet/transaction/1689772989.212011003`.
+Copy the HashScan URL, paste it into a browser,
+and you will be see a "Transaction" page on HashScan.
 
-<figure><img src="../../../.gitbook/assets/hbar-transaction-multi-account-hbar-transfer-example-hashscanio.png" alt="Screenshot showing a single transaction with mulitple recipients transferring HBAR (on hashscan.io)."><figcaption></figcaption></figure>
+<figure>
+    <img src="../../../.gitbook/assets/hbar-transaction-multi-account-hbar-transfer-example-hashscanio.png" alt="Screenshot showing a single transaction with multiple recipients transferring HBAR (on hashscan.io).">
+    <figcaption>Screenshot showing a single transaction with multiple recipients transferring HBAR (on hashscan.io).</figcaption>
+</figure>
 
 Scroll down to the "Transfers" section,
 which should show the flow of HBAR between various accounts.

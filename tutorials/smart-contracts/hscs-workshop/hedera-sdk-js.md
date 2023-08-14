@@ -575,6 +575,13 @@ extract the its return value using the getter function with the appropriate type
 Since the `totalBurnt` function specifies `returns(uint256)` in its signature,
 use `getUint256()` to extract that return value.
 
+{% hint style="info" %}
+The `ContractCallQuery` has `setQueryPayment`,
+which is to pay for the costs of querying the data.
+Note that this is different from other EVM-compatible networks,
+which allow you to query smart contract state without paying any fee.
+{% endhint %}
+
 ### Step F6: Convert account ID to EVM address
 
 In the subsequent step, we will use the operator account
@@ -789,20 +796,45 @@ the relevant value from it.
 - Scroll down to the "Recent Contract Calls" section
 - If you see "REFRESH PAUSED" at the top right of this section, press the "play" button next to it to unpause (otherwise it does not load new transactions)
 - You should see a list of transactions, with most recent at the top
+
+<figure>
+	<img src="../../../.gitbook/assets/hashscan--smart-contract--recent-contract-calls.png" alt="Screenshot showing Recent Contract Calls - Smart Contract (on hashscan.io).">
+	<figcaption>Screenshot showing Recent Contract Calls - Smart Contract (on hashscan.io).</figcaption>
+</figure>
+
 - There should be a failed transaction, denoted by an exclamation mark in a red triangle, e.g. `https://hashscan.io/testnet/transaction/1689235951.444001003`
 - Click on the row for that failed transaction to navigate to its "Transaction" page
 - Scroll down to the "Contract Result" section
 - You should see "Result" as `CONTRACT_REVERT_EXECUTED`
 - You should also see "Error Message" as `pay at least minimum fee`
+
+<figure>
+	<img src="../../../.gitbook/assets/hashscan--transaction--contract-result--contract-revert-executed.png" alt="Screenshot showing Contract Result CONTRACT_REVERT_EXECUTED - Transaction (on hashscan.io).">
+	<figcaption>Screenshot showing Contract Result CONTRACT_REVERT_EXECUTED - Transaction (on hashscan.io).</figcaption>
+</figure>
+
 - Go back to the "Contract" page
 - Scroll down to the "Recent Contract Calls" section
 - There should be a successful transaction, denoted by the absence of an exclamation mark in a red triangle, e.g. `https://hashscan.io/testnet/transaction/1689235952.436013392`
 - Scroll down to the "Contract Result" section
 - You should see "Result" as `SUCCESS`
 - You should also see "Error Message" as `None`
+
+<figure>
+	<img src="../../../.gitbook/assets/hashscan--transaction--contract-result--success.png" alt="Screenshot showing Contract Result SUCCESS - Transaction (on hashscan.io).">
+	<figcaption>Screenshot showing Contract Result SUCCESS - Transaction (on hashscan.io).</figcaption>
+</figure>
+
 - Scroll down to the "Logs" section
 - You should see a single log entry (address, data, index, and topics)
 	- The "Address" field matches that of the smart contract
 	- The "Index" field should be `0` since there was only a single event that was emitted
 	- The "Topics" field corresponds to the hash of the signature of the event that was emitted, e.g. `Burnination(address,uint256)`
-	- The "Data" field corresponds to the values of the event parameters, e.g. `0x0000000000000000000000007394111093687e9710b7a7aeba3ba0f417c54474000000000000000000000000000000000000000000000000000000000000007b` is `0x7394111093687e9710b7a7aeba3ba0f417c54474` (your address) and `0x7b` is the amount (`123` when converted to decimal)
+	- The "Data" field corresponds to the values of the event parameters, e.g. `0x00000000000000000000000000000000000000000000000000000000000004a2000000000000000000000000000000000000000000000000000000000000007b` is:
+    - `0x00000000000000000000000000000000000004a2` (your address) and
+    - `0x007b` is the amount (`123` when converted to decimal)
+
+<figure>
+	<img src="../../../.gitbook/assets/hashscan--transaction--logs.png" alt="Screenshot showing Logs - Transaction (on hashscan.io).">
+	<figcaption>Screenshot showing Logs - Transaction (on hashscan.io).</figcaption>
+</figure>
