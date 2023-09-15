@@ -722,8 +722,8 @@ _**Note:** Check out our_ [_smart contract mirror node rest APIs_](../../sdks-an
 #### Congratulations :tada:! You have learned how to deploy a contract using the Hedera Token Service and completed the following:
 
 * Created a smart contract that calls HTS transactions
-* Associated an HTS token by using the deployed contract
-* Requested a transaction record for a nested transaction
+* Associated an HTS token by using the SDK
+* Approved the token allowance so that the contract can transfer tokens
 * Transferred tokens using the deployed contract
 
 ## Code Check ✅
