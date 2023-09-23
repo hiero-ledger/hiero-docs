@@ -125,7 +125,7 @@ This outputs an EVM address of a Hedera EVM account.
 '0x07ffAaDFe3a598b91ee08C88e5924be3EfF35796'
 ```
 
-If you have completed the Hedera SDK JS section of this tutorial, you will notice that this is **different** from the account used there, which was `0x7394111093687e9710b7a7aeba3ba0f417c54474`. This i-s because the script used for the Hedera SDK JS account was configured to use the operator account. Hardhat, on the other hand, uses one of the EVM accounts generated using the BIP-39 seed phrase. These were generated during _Step B4: Fund several Hedera EVM accounts_ in the Intro section of this tutorial.
+If you have completed the Hedera SDK JS section of this tutorial, you will notice that this is **different** from the account used there, which was `0x7394111093687e9710b7a7aeba3ba0f417c54474`. This is because the script used for the Hedera SDK JS account was configured to use the operator account. Hardhat, on the other hand, uses one of the EVM accounts generated using the BIP-39 seed phrase. These were generated during _Step B4: Fund several Hedera EVM accounts_ in the Intro section of this tutorial.
 
 <details>
 
@@ -168,7 +168,7 @@ You'll now return to your regular shell.
   * to: `https://hashscan.io/testnet/account/0.0.3996359`
 * This verifies that the account exists
 * Check that the account has a balance of HBAR
-* If does not exist, or does not have balance, you'll need to create or fund it before proceeding
+* If it does not exist, or does not have balance, you'll need to create or fund it before proceeding
   * To do so, you'll need to repeat [_Step B4: Fund several Hedera EVM accounts_](../setup/#step-b4-fund-several-hedera-evm-accounts) from the Setup section of this tutorial.
 
 ## Compiling smart contracts
@@ -189,7 +189,7 @@ Let's take a look at the compiled outputs, and where Hardhat stores them.
 * ABI: `hardhat/artifacts/contracts/trogdor.sol/Trogdor.json`
 * Bytecode + other compiler outputs: `hardhat/artifacts/build-info/${SOME_HASH}.json`
 
-You do no need to do anything with these, just good to know what is happening behind the scenes.
+You do not need to do anything with these, just good to know what is happening behind the scenes.
 
 ## HAPIs and EVM transactions
 
@@ -478,7 +478,7 @@ This returns a value of `0`, which is to be expected, because we have yet to inv
 [ BigNumber { value: "0" } ]
 ```
 
-That is precisely what we'll do next: Invoke `burninate`. This is a `payable` function, which expects a the transaction to contain a minimum of `100` tinybars sent along with it. Let's sent `123` tinybars.
+That is precisely what we'll do next: Invoke `burninate`. This is a `payable` function, which expects the transaction to contain a minimum of `100` tinybars sent along with it. Let's sent `123` tinybars.
 
 ```javascript
 await trogdor.functions.burninate({ value: 123n * 10_000_000_000n });
