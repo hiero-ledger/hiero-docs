@@ -178,7 +178,7 @@ HashScan URL: https://hashscan.io/testnet/transaction/0.0.3996280@1690161480.080
 
 ### Check funding of EVM accounts on Hashscan
 
-Copy the HashScan URL, paste it into a browser, and you will be see a "Transaction" page on HashScan.
+Copy the HashScan URL, paste it into a browser, and you will see a "Transaction" page on HashScan.
 
 <figure><img src="../../../.gitbook/assets/hbar-transaction-multi-account-hbar-transfer-example-hashscanio.png" alt="Screenshot showing a single transaction with multiple recipients transferring HBAR (on hashscan.io)."><figcaption><p>Screenshot showing a single transaction with multiple recipients transferring HBAR (on hashscan.io).</p></figcaption></figure>
 
