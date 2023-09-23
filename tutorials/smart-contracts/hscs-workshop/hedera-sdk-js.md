@@ -73,7 +73,7 @@ Let's install the Solidity compiler, `solc` from npm.
 npm install --global solc@0.8.17
 ```
 
-You can verify that it has installed successfully by asking it to output its version. Note that while the package name on npm is `solc`, the executable present on `PATH` is spelled slightly diffently: `solcjs`.
+You can verify that it has installed successfully by asking it to output its version. Note that while the package name on npm is `solc`, the executable present on `PATH` is spelled slightly differently: `solcjs`.
 
 ```shell
 solcjs --version
@@ -173,7 +173,7 @@ If you are using a POSIX-compliant shell, and have `jq` installed, you can view 
 jq < ./trogdor_sol_Trogdor.abi
 ```
 
-The ABI essentially tells any user/ developer who wishes to interact with the EVM bytecode, what the exposed interface is. In fact ABI stands for Application Binary Interface. This interface will include any functions and events, which are need by any clients (e.g. DApps), or other smart contracts, to be able to interact with it.
+The ABI essentially tells any user/ developer who wishes to interact with the EVM bytecode, what the exposed interface is. In fact ABI stands for Application Binary Interface. This interface will include any functions and events, which are needed by any clients (e.g. DApps), or other smart contracts, to be able to interact with it.
 
 {% hint style="info" %}
 * [Ref: Solidity - Contract ABI specification](https://docs.soliditylang.org/en/latest/abi-spec.html)
