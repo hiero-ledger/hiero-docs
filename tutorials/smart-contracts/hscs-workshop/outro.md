@@ -50,4 +50,4 @@ Since a smart contract's code is immutable once deployed, it is extremely import
 
 Owing to the same immutable aspect mentioned above, smart contract security is also very important. Look into security audits, static analysis, and dynamic analysis methods.
 
-Finally, verifying smart contracts such that their code and ABI are publicly available on the network explorer is important in building trust in the ecosystem. However, this feature is a still a work in progress on Hashscan at the time of writing (July 2023). When this feature lands, we'll have other niceties as well, for example event logs displayed on transactions can show their parsed values, instead of their raw form.
+Finally, verifying smart contracts such that their code and ABI are publicly available on the network explorer is important in building trust in the ecosystem. However, this feature is still a work in progress on Hashscan at the time of writing (July 2023). When this feature lands, we'll have other niceties as well, for example event logs displayed on transactions can show their parsed values, instead of their raw form.
