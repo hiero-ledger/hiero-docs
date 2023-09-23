@@ -102,7 +102,7 @@ The above would work, but in this case, we know that we will not be modifying it
 
 ## Step A4: Dynamic type state variable
 
-Smart contracts can also persist more complex types of data in its state, and this is accomplished using dynamic state variables. A `mapping` is used to represents key-value pairs, and is analogous to a Hashmap in other programming languages.
+Smart contracts can also persist more complex types of data in its state, and this is accomplished using dynamic state variables. A `mapping` is used to represent key-value pairs, and is analogous to a Hashmap in other programming languages.
 
 ```solidity
 	mapping(address => uint256) public amounts;
