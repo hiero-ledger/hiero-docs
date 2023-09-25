@@ -1,6 +1,9 @@
 # The power of native Hedera tokens as ERC-20 tokens: A step-by-step guide 
 
-In this tutorial you’ll learn how to make Hedera native tokens work just like Ethereum's ERC-20 tokens using the **[Hashio](https://swirldslabs.com/hashio/)** JSON-RPC instance.
+In this tutorial you’ll learn how to make Hedera native tokens work just like Ethereum's ERC-20 tokens using the [Hashio](https://swirldslabs.com/hashio/) JSON-RPC instance.
+
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="use-native-tokens-as-erc20-tokens.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="use-native-tokens-as-erc20-tokens.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="use-native-tokens-as-erc20-tokens.md#project-setup"><strong>PROJECT SETUP</strong></a></td><td><a href="use-native-tokens-as-erc20-tokens.md#project-setup">#project-setup</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="use-native-tokens-as-erc20-tokens.md#project-contents"><strong>PROJECT CONTENTS</strong></a></td><td><a href="use-native-tokens-as-erc20-tokens.md#project-contents">#project-contents</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="use-native-tokens-as-erc20-tokens.md#running-the-project"><strong>RUNNING THE PROJECT</strong></a></td><td><a href="use-native-tokens-as-erc20-tokens.md#running-the-project">#running-the-project</a></td></tr></tbody></table>
 
 ## Prerequisites
 
@@ -15,9 +18,7 @@ Open a terminal window and navigate to your preferred directory where your proje
 
 ```bash
 git clone https://github.com/Swiss-Digital-Assets-Institute/token-wrapper.git
-
 cd token-wrapper
-
 npm install
 ```
 
@@ -42,7 +43,7 @@ JSON_RPC_RELAY_URL = https://testnet.hashio.io/api
 
 ## Project Contents
 
-In this step, you'll examine the descriptions of the project contents in your existing project. If you don't need to review the project contents, you can proceed directly to "Running the project”
+In this step, you'll examine the descriptions of the project contents in your existing project. If you don't need to review the project contents, you can proceed directly to [Running the project](use-native-tokens-as-erc20-tokens.md#running-the-project).
 
 `artifacts/`
 
@@ -208,6 +209,10 @@ ts-node scripts/ERC20.ts
 The first command compiles the smart contracts and generates the typescript bindings. The second command runs the ERC20 script.
 
 To see the transactions on the Hedera network, you can use the [**Hedera Testnet Explorer**](https://hashscan.io/testnet).
+
+> _**Note:** At the top of the explorer page, remember to switch the network to **TESTNET** before you search for the transaction._
+
+<details>
 
 <summary>console check ✅</summary>    
 
@@ -385,3 +390,10 @@ To see the transactions on the Hedera network, you can use the [**Hedera Testnet
 }
 - Balance of the Vault contract after the withdraw 0
 ```
+
+</details>
+
+
+#### **Congratulations! 🎉 You have successfully learned how to use native tokens as ERC20 tokens.** Feel free to reach out if you have any questions:
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer and Editor: Lucía, Developer</p><p><a href="https://github.com/luciamunozdev">GitHub</a> | <a href="https://twitter.com/luciamunozdev">Twitter</a></p></td><td><a href="https://twitter.com/luciamunozdev">https://twitter.com/luciamunozdev</a></td></tr><tr><td align="center"><p>Editor: Lucía, Developer</p><p> <a href="https://www.linkedin.com/in/luciamunozmartinez/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/luciamunozmartinez/">https://www.linkedin.com/in/luciamunozmartinez/</a></td></tr></tbody></table>
