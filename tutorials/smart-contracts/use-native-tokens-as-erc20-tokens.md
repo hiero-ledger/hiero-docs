@@ -45,7 +45,7 @@ JSON_RPC_RELAY_URL = https://testnet.hashio.io/api
 
 In this step, you'll examine the descriptions of the project contents in your existing project. If you don't need to review the project contents, you can proceed directly to [Running the project](use-native-tokens-as-erc20-tokens.md#running-the-project).
 
-<span style="color:#cf3717;">artifacts/</span>
+`artifacts/`
 
 This directory contains compiled smart contracts used for generating TypeScript bindings with Typechain. We compile these contracts using Hardhat, a versatile Ethereum development tool. You'll find the configuration in **`hardhat.config.js`**. 
 
