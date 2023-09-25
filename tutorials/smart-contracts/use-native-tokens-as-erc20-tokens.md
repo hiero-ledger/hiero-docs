@@ -1,4 +1,4 @@
-# Unlocking the Full Potential of Hedera Native Tokens: A Step-by-Step Guide to Using Them as ERC-20 Tokens
+# The power of native Hedera tokens as ERC-20 tokens: A step-by-step guide 
 
 In this tutorial you’ll learn how to make Hedera native tokens work just like Ethereum's ERC-20 tokens using the **[Hashio](https://swirldslabs.com/hashio/)** JSON-RPC instance.
 
