@@ -74,7 +74,8 @@ With our environment ready, we dive into interactions with the contracts. We dem
 
 In our second example, we deposit 1000 tokens into the ***Vault contract*** and then withdraw them. We keep an eye on how this affects the Vault contract's balance. It's worth noting that in Hedera, you need to associate the recipient account with the token before making transfers. To handle this requirement, we use the **`associate`** function from the ***HederaTokenService*** contract, which establishes the connection between the ***Vault contract*** and the token. Once associated, we can easily deposit and withdraw tokens.
 
-```tsx
+
+```typescript, { "file": "scripts/ERC20.ts" }
 console.clear();
 import { AccountId, PrivateKey, TokenAssociateTransaction, Client, AccountBalanceQuery } from "@hashgraph/sdk";
 import { ethers } from "ethers";
