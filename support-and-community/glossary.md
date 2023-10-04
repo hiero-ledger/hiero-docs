@@ -42,6 +42,10 @@ An algorithm is a sequence of instructions that ensures a task or computation is
 
 A set of regulations and laws to help prevent crimes that produce monetary gain, such as tax evasion, fraud, selling stolen goods, drug and human trafficking, and corruption. Similar laws are being created for the blockchain industry to prevent money laundering activity.
 
+### Application Binary Interface (ABI)
+
+The contract Application Binary Interface (ABI) is the standard way to interact with contracts in the Ethereum ecosystem, both from outside the blockchain and for contract-to-contract interaction. Data is encoded according to its type, as described in this specification.
+
 ### Asynchronous Byzantine Fault Tolerance (aBFT)
 
 Asynchronous Byzantine fault tolerance (aBFT) is a property of Byzantine fault tolerant consensus algorithms, which allow for honest nodes of a network to guarantee to agree on the timing and order of a set of transactions fairly and securely. It's considered the highest degree of security in distributed systems.
@@ -80,7 +84,15 @@ A successive number assigned to each record file, incremented by one for each ne
 
 The [consensus](glossary.md#consensus) [timestamp](glossary.md#timestamp) of the first transaction in the Record file.
 
+### Bytecode
+
+Bytecode is the information that Solidity code gets "translated" into. It contains instructions to the computer in binary. Bytecode is generally compact numeric codes, constants, and other pieces of information.
+
 ## C
+
+### Call Trace
+
+Contract call trace information captures the input, output, and gas details of all the nested smart contracts functions executed in a transaction. On Ethereum, these are occasionally called inner transactions but they simply capture snapshots of the message frame consideration the EVM encounters when processing a smart contract execution at each depth for all involved functions.
 
 ### Central Bank Digital Currency (CBDC)
 
@@ -214,13 +226,13 @@ In the context of Hedera, Ed25519 is one of the signature schemes supported for 
 
 ### ERC-20
 
-A technical standard for fungible tokens created using the Ethereum blockchain. A fungible token is interchangeable with another token—where the well-known non-fungible tokens (NFTs) are not interchangeable. ERC-20 allows developers to create smart-contract-enabled tokens that can be used with other products and services. These tokens represent an asset, right, ownership, access, cryptocurrency, or anything else that is not unique in and of itself but can be transferred.
+A technical standard for fungible tokens created using the Ethereum blockchain. A fungible token is interchangeable with another token—where the well-known non-fungible tokens (NFTs) are not interchangeable. ERC-20 allows developers to create smart-contract-enabled tokens that can be used with other products and services. These tokens represent an asset, right, ownership, access, cryptocurrency, or anything else that is not unique in and of itself but can be transferred. Check out the details of the ERC-20 standards [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/).
 
 Hedera supports the creation and management of custom tokens through the [Hedera Token Service (HTS)](glossary.md#hedera-token-service-hts).&#x20;
 
 ### ERC-721
 
-A type of token standard — a template or format that other developers agree to follow. Following the same standards makes writing code easier, more predictable, and reusable. Each ERC-721 token is unique and not interchangeable with any other token - hence the term non-fungible. This unique characteristic allows ERC-721 tokens to represent ownership of unique items like a particular piece of real estate or a specific piece of art.&#x20;
+A type of token standard — a template or format that other developers agree to follow. Following the same standards makes writing code easier, more predictable, and reusable. Each ERC-721 token is unique and not interchangeable with any other token - hence the term non-fungible. This unique characteristic allows ERC-721 tokens to represent ownership of unique items like a particular piece of real estate or a specific piece of art. Check out the details of the ERC-721 standard [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/).
 
 Hedera supports the creation and management of both [fungible](glossary.md#fungible-token) and [non-fungible tokens](glossary.md#non-fungible-token-nft) using the [ERC-721 token standard](https://eips.ethereum.org/EIPS/eip-721).&#x20;
 
@@ -322,7 +334,7 @@ A governance token is a utility token that can help democratize decision-making 
 
 ### Hardhat
 
-A development environment for Ethereum software. It consists of different components for editing, compiling, debugging, and deploying smart contracts and dApps, all working together to create a complete development environment.
+A development environment for Ethereum software. It consists of different components for editing, compiling, debugging, and deploying smart contracts and dApps, all working together to create a complete development environment. Learn more about it [here](https://hardhat.org/).
 
 ### Hash
 
@@ -370,7 +382,7 @@ A [cryptocurrency wallet](glossary.md#cryptocurrency-wallet) that is _always_ co
 
 ### Hyperledger Besu EVM
 
-An open-source [Ethereum](glossary.md#ethereum) client developed under the Hyperledger project and a virtual machine that replaced the EthereumJ virtual machine in the [Hedera Services release 0.19](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.1) as a result of [HIP-26](https://hips.hedera.com/hip/hip-26). This migration enables Hedera to maintain parity with Ethereum Mainnet evolutions, such as the EVM container formats, new opcodes, and precompiled contracts. The Besu integration is configured to use the [“London” hard fork](../core-concepts/smart-contracts/hyperledger-besu-evm.md#london-hard-fork) of Ethereum Mainnet.
+An open-source [Ethereum](glossary.md#ethereum) client developed under the Hyperledger project and a virtual machine that replaced the EthereumJ virtual machine in the [Hedera Services release 0.19](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.1) as a result of [HIP-26](https://hips.hedera.com/hip/hip-26). This migration enables Hedera to maintain parity with Ethereum Mainnet evolutions, such as the EVM container formats, new opcodes, and precompiled contracts. The Besu integration is configured to use the [“London” hard fork](broken-reference) of Ethereum Mainnet.
 
 ## I
 
@@ -420,6 +432,10 @@ A collection of shared cryptocurrency coins/tokens locked under a smart contract
 
 Mainnet (main network) is a distributed ledger network that is developed, tested, and fully deployed for public use. In contrast, a [testnet](glossary.md#testnet) (test network) is a distributed ledger network used by developers to test [smart contracts](glossary.md#smart-contract) and [dApps](glossary.md#decentralized-application-dapp) before they are deployed to the live mainnet.
 
+### Mempool
+
+An Unordered Transaction Pool or Memory Pool, also referred to as mempool (a combination of the words memory and pool), is a list of cryptocurrency transactions that have not yet been validated by a node. Once a transaction is added to a block, it disappears from the mempool. The larger the mempool size, the more congestion in network traffic, and the longer the confirmation time, which results in higher transaction fees. Hedera uses aBFT consensus (aBFT) algorithms, and the most important aspect of aBFT networks is that there is no memory pool of transactions. Learn more about it [here](https://hedera.com/blog/unblocking-and-unloading-the-speed-secrets-behind-hedera-smart-contracts-2-0).
+
 ### Merkle Root
 
 Merkle root is a mathematical method of confirming [Merkle tree](glossary.md#merkle-tree) hashes. It is the root hash of all other hashes in the Merkle tree.
@@ -430,7 +446,7 @@ A Merkle tree, a hash tree, is a data structure used in distributed ledger techn
 
 ### MetaMask
 
-A [non-custodial wallet](glossary.md#non-custodial-wallet) used to interact with [Ethereum](glossary.md#ethereum) and other EVM-compatible networks. It allows users to access their wallets through a browser extension or mobile app, which can then be used to interact with decentralized applications.
+A [non-custodial wallet](glossary.md#non-custodial-wallet) used to interact with [Ethereum](glossary.md#ethereum) and other EVM-compatible networks. It allows users to access their wallets through a browser extension or mobile app, which can then be used to interact with decentralized applications. Learn more about it [here](https://metamask.io/).
 
 ### Mint
 
@@ -486,7 +502,7 @@ On-chain refers to transactions that occur _on_ the distributed ledger, and as a
 
 ### **Opcodes**
 
-Short for operation codes, [opcodes](../core-concepts/smart-contracts/solidity-variables-and-opcodes.md) are the low-level human-readable instructions of the program.
+Short for operation codes, [opcodes](broken-reference) are the low-level human-readable instructions of the program.
 
 ### Oracles
 
@@ -570,6 +586,10 @@ Queries are requests processed only by the single node to which they are sent. [
 
 A record file is a file that contains the details of a transaction that occurred on the Hedera Network. It provides greater detail about the transaction than a receipt, such as a consensus timestamp it received or the results of a smart contract function call. Hedera Mirror Nodes store the record file and can be accessed through the [mirror node REST API](../sdks-and-apis/rest-api.md).
 
+### Remix IDE
+
+The Remix IDE is a user-friendly platform that allows you to easily write and compile your smart contracts and perform other tasks such as debugging and testing. Learn more about it [here](https://remix-project.org/).
+
 ### REST API
 
 REST APIs are used for interactions with services provided by Hedera, such as account balance checks, transaction submissions, and other actions related to the consensus service, token service, and file service.
@@ -598,7 +618,7 @@ A Software Development Kit (SDK), sometimes called a devkit, is a set of tools p
 
 ### Solidity
 
-Solidity is a Turing-complete object-oriented programming language for developing smart contracts on the Ethereum Virtual Machine (EVM) and other compatible distributed networks. It supports various functions necessary for operating decentralized applications and systems, including facilitating transactions, voting, multi-signature wallets, creating dApps, and crowdfunding.
+Solidity is a Turing-complete object-oriented programming language for developing smart contracts on the Ethereum Virtual Machine (EVM) and other compatible distributed networks. It supports various functions necessary for operating decentralized applications and systems, including facilitating transactions, voting, multi-signature wallets, creating dApps, and crowdfunding. To learn more about the Solidity programming language, check out the documentation maintained by the Solidity team [here](https://docs.soliditylang.org/en/v0.8.19/).
 
 ### Soul-Bound Token (SBT)
 
@@ -624,7 +644,11 @@ A state machine represents the state of the Hedera Network, including the balanc
 
 ### State Proof
 
-State proofs are a cryptographically secure, transferable, and storable mechanism for enabling trust and confidence in representations of the state of Hedera. The fundamental value proposition of a distributed ledger is that participants need not have special trust in any single node maintaining the state. Hedera’s state proofs ensure that clients querying the state can be given the necessary confidence that any data, even if returned by a single node, does indeed accurately represent the consensus state as maintained by the full network.
+State proofs are a cryptographically secure, transferable, and storable mechanism for enabling trust and confidence in representations of the state of Hedera. The fundamental value proposition of a distributed ledger is that participants need not have special trust in any single node maintaining the state. Hedera’s state proofs ensure that clients querying the state can be given the necessary confidence that any data, even if returned by a single node, accurately represents the consensus state maintained by the full network.
+
+### System Smart Contracts
+
+System smart contracts are smart contracts that are implemented and maintained on the Hedera network as part of the core codebase that other contracts can invoke. These contracts have a permanent contract address in the Hedera network, meaning they will always be available at the same contract address.&#x20;
 
 ## T
 
@@ -638,7 +662,7 @@ A timestamp is a piece of recorded data that verifies the data existed at a spec
 
 ### Token
 
-A token generally refers to a type of cryptocurrency representing an asset or a specific use and resides on its own blockchain. Tokens can represent any assets that are fungible and tradable, from commodities to loyalty points to even other cryptocurrencies.
+A token generally refers to a type of cryptocurrency representing an asset or a specific use and resides on its own blockchain. Tokens can represent any fungible and tradable assets, from commodities to loyalty points to even other cryptocurrencies.
 
 ### Tokenization
 
@@ -650,7 +674,7 @@ In distributed ledger technology, a transaction (tx or TX) refers to an exchange
 
 ### Transaction Fee
 
-A fee associated with a transaction that compensates the Hedera Network for processing and maintaining the transaction in a consensus state.&#x20;
+A fee associated with a transaction that compensates the Hedera network for processing and maintaining the transaction in a consensus state.&#x20;
 
 ### Transactions Per Second (TPS)
 
@@ -682,6 +706,10 @@ A virtual [Merkle tree](glossary.md#merkle-tree), as proposed in [HIP-25](https:
 
 A mechanism for achieving consensus in a distributed system, which can be used in some forms of distributed ledger technology. Virtual Voting is one of two consensus components created for the Hedera (the other consensus component is gossip about gossip). These two components function dynamically to build a fair (linear) ordering of transactions without explicitly casting ballots.
 
+### Vyper
+
+Vyper is an experimental, statically typed contract programming language meant to resemble Python. Like objects in OOP, each contract contains state variables, functions, and common data types. Contract-specific features include event notifiers for listeners, and custom global variables, and global constants. To learn more about Vyper, check out the documentation maintained by the Vyper team [here](https://docs.vyperlang.org/en/stable/).
+
 ## W
 
 ### Web1
@@ -695,6 +723,10 @@ The second generation of the internet, the current state of the internet, also r
 ### Web3
 
 The envisioned next generation of the internet is characterized by decentralization, distributed ledger technology, and real-time, persistent data, also referred to as the _read-write-own_ web. Web3 is the Internet, plus added decentralization components such as DLTs & blockchains, cryptocurrencies, and NFTs. Whereas web2 is centralized or operated by companies that control servers that serve customers, web3 is decentralized, built, and operated by users.
+
+### Weibar
+
+The EVM returns gas information in Weibar (introduced in [HIP-410](https://hips.hedera.com/hip/hip-410)). One weibar is 10^-18th HBARs, which translates to 1 tinybar is 10^10 weibars. As noted in HIP-410, this is to maximize compatibility with third-party tools that expect ether units to be operated on in fractions of 10^18, also known as a Wei.
 
 ### White Paper
 

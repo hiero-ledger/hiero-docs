@@ -488,8 +488,8 @@ Update the keys set on a token. The key type is defined in the key parameter.
 
 ## Gas Cost
 
-{% content-ref url="../../../core-concepts/smart-contracts/gas-and-fees.md" %}
-[gas-and-fees.md](../../../core-concepts/smart-contracts/gas-and-fees.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ## Examples

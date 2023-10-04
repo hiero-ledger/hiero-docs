@@ -28,10 +28,6 @@ Mainnet transaction and query fees can be estimated using the [Hedera Fee Estima
 
 All fees are subject to change. The fees below reflect a base price for the transaction or query. Transaction characteristics may increase the price from the base price shown below. Transaction characteristics include having more than one signature, a memo field, etc. Please reference the [Hedera fee estimator](https://hedera.com/fees) to estimate the transaction or query fee.
 
-{% hint style="info" %}
-🔔 **NOTE:** Reflecting significant growth in Hedera's NFT ecosystem, network fee changes for bulk minting NFTs will be implemented in the v0.41 release. See [this](https://hedera.com/blog/hederas-expanding-nft-ecosystem-new-pricing-to-meet-growing-demand) blog post for more details.
-{% endhint %}
-
 ### Cryptocurrency Service
 
 | Operations                   | USD ($)  |
@@ -61,29 +57,30 @@ All fees are subject to change. The fees below reflect a base price for the tran
 
 ### Token Service
 
-| Operations                | USD ($) |
-| ------------------------- | ------- |
-| TokenCreate               | $1.00   |
-| TokenCreate (custom fees) | $2.00   |
-| TokenUpdate               | $0.001  |
-| TokenFeeScheduleUpdate    | $0.001  |
-| TokenDelete               | $0.001  |
-| TokenAssociate            | $0.05   |
-| TokenDissociate           | $0.05   |
-| TokenMint (fungible)      | $0.001  |
-| TokenMint (non-fungible)  | $0.05   |
-| TokenBurn                 | $0.001  |
-| TokenGrantKyc             | $0.001  |
-| TokenRevokeKyc            | $0.001  |
-| TokenFreeze               | $0.001  |
-| TokenUnfreeze             | $0.001  |
-| TokenPause                | $0.001  |
-| TokenUnpause              | $0.001  |
-| TokenWipe                 | $0.001  |
-| TokenGetInfo              | $0.0001 |
-| TokenGetNftInfo           | $0.0001 |
-| TokenGetNftInfos          | $0.0001 |
-| TokenGetAccountNftInfos   | $0.0001 |
+| Operations                     | USD ($) |
+| ------------------------------ | ------- |
+| TokenCreate                    | $1.00   |
+| TokenCreate (custom fees)      | $2.00   |
+| TokenUpdate                    | $0.001  |
+| TokenFeeScheduleUpdate         | $0.001  |
+| TokenDelete                    | $0.001  |
+| TokenAssociate                 | $0.05   |
+| TokenDissociate                | $0.05   |
+| TokenMint (fungible)           | $0.001  |
+| TokenMint (non-fungible)       | $0.02   |
+| TokenMint (bulk mint 10k NFTs) | $200    |
+| TokenBurn                      | $0.001  |
+| TokenGrantKyc                  | $0.001  |
+| TokenRevokeKyc                 | $0.001  |
+| TokenFreeze                    | $0.001  |
+| TokenUnfreeze                  | $0.001  |
+| TokenPause                     | $0.001  |
+| TokenUnpause                   | $0.001  |
+| TokenWipe                      | $0.001  |
+| TokenGetInfo                   | $0.0001 |
+| TokenGetNftInfo                | $0.0001 |
+| TokenGetNftInfos               | $0.0001 |
+| TokenGetAccountNftInfos        | $0.0001 |
 
 ### Schedule Transaction
 

@@ -6,6 +6,21 @@ description: Hedera Services release information
 
 Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
+## [v0.42](https://github.com/hashgraph/hedera-services/releases/tag/v0.42.1)
+
+{% hint style="success" %}
+**TESTNET UPDATE: SEPTEMBER 26, 2023**
+{% endhint %}
+
+* Add EIP 2930 support to EthTXData ([#7696](https://github.com/hashgraph/hedera-services/pull/7696))
+* Provide entity and throttle dashboards ([#7774](https://github.com/hashgraph/hedera-services/pull/7774))
+* 07748 Postconsensus signature gathering ([#7776](https://github.com/hashgraph/hedera-services/pull/7776))
+* Enable EIP-2930 transactions by default ([#7786](https://github.com/hashgraph/hedera-services/pull/7786))
+* 7570: Remove JasperDB ([#7803](https://github.com/hashgraph/hedera-services/pull/7803))
+* Remove support for legacy sync gossip. ([#8059](https://github.com/hashgraph/hedera-services/pull/8059))
+* Disable account balance exports ([#8272](https://github.com/hashgraph/hedera-services/pull/8272))
+* Modify config to support state on disk by default ([#8510](https://github.com/hashgraph/hedera-services/pull/8510))
+
 ## [v0.41](https://github.com/hashgraph/hedera-services/releases/tag/v0.41.0)
 
 {% hint style="success" %}

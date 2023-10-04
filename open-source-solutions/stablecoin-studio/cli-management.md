@@ -33,15 +33,19 @@ The Command Line Interface (CLI) is a core component of Stablecoin Studio and es
 
 ## Install Stablecoin Studio
 
-Open a new terminal and navigate to your preferred directory where you want your Stablecoin Studio project to live. Clone the repo, `cd` into the cloned directory, and install dependencies (this may take a few minutes):
+Open a new terminal and navigate to your preferred directory where you want your Stablecoin Studio project to live. Clone the repo using this command:
 
 {% code fullWidth="false" %}
 ```bash
 git clone https://github.com/hashgraph/stablecoin-studio.git
-cd stablecoin-studio
-npm install
 ```
 {% endcode %}
+
+Install the `npm` package globally:
+
+```bash
+npm install -g @hashgraph/stablecoin-npm-cli
+```
 
 {% embed url="https://youtu.be/eThs08nUsLI?si=52IX_yl74R8rilVr" %}
 How to Issue Stablecoins on Hedera: Studio Intro & Installation\
@@ -56,18 +60,20 @@ To use the CLI correctly, it is necessary to generate a configuration file where
 
 #### Create a config file
 
-From the root of the CLI project workspace, start the command line tool and create a config file using the `wizard` command:
+From the root of the `cli` directory, start the command line tool and create a configuration file using the `wizard` command:
 
 ```bash
-cd cli
-npm run start:wizard
+cd stablecoin-studio/cli
+accelerator wizard
 ```
 
-The first time you execute the `wizard` command in your terminal, if you haven't added your default configuration path, the interface will ask you whether you want to create a new configuration file in the default path. This will create a new `hsca-config.yaml` file. Let's go over the configuration details:
+The first time you execute the `wizard` command in your terminal, if you haven't added your default configuration path, the interface will prompt you to "Write your config path." To use the default configuration path, hit `enter`. This will walk you through the prompts where you will input your configuration settings and create your `hsca-config-yaml` file.&#x20;
+
+Let's go over the configuration details:
 
 **`defaultNetwork`**
 
-This sets the default network the application will connect to when it starts. It’s essential for defining the environment where transactions will occur (e.g., `testnet` for testing, `mainnet` for production).&#x20;
+This sets the default network the application will connect to when it starts. It’s essential for defining the environment where transactions will occur (e.g., `testnet` for testing, `mainnet` for production). We will be using `testnet` for this tutorial. &#x20;
 
 ```yaml
 defaultNetwork: testnet
@@ -255,10 +261,10 @@ If you want to deploy your own factory contract with custom logic tailored to yo
 Start the CLI tool using the `wizard` command:
 
 ```bash
-npm run start:wizard
+accelerator wizard
 ```
 
-When the CLI is started with the config file properly configured, the first action will be to select the account you want to operate with. The list of configured accounts belonging to the default network indicated in the configuration file is displayed by default.
+When the CLI is started with the configuration file properly configured, the first action will be to select the account you want to operate with. The list of configured accounts belonging to the default network indicated in the configuration file is displayed by default.
 
 If there are no accounts in the file for the default network, a warning message will be displayed and a list of all the accounts in the file will be displayed.
 
@@ -380,7 +386,7 @@ This last option allows the user to display the current configuration file, modi
 Start the CLI tool using the wizard command:
 
 ```bash
-npm run start:wizard
+accelerator wizard
 ```
 
 Select "Create a new stablecoin" and proceed through the prompts to fill in the details of your new stablecoin.
@@ -401,7 +407,7 @@ by Developer Advocate: Michiel Mulders
 Start the CLI using the wizard command:
 
 ```bash
-npm run start:wizard
+accelerator wizard
 ```
 
 Select the "Operate with an existing stablecoin" option and proceed through the prompts to operate your stablecoin.
@@ -422,7 +428,7 @@ by Developer Advocate: Pathorn Tengkiattrakul
 Start the CLI using the wizard command:
 
 ```bash
-npm run start:wizard
+accelerator wizard
 ```
 
 Select the "Create a new stablecoin" option, then proceed through the prompts.&#x20;
@@ -451,3 +457,5 @@ Hedera Non-Custodial Wallet
 {% embed url="https://hashscan.io" %}
 Hedera Network Explorer
 {% endembed %}
+
+{% embed url="https://www.npmjs.com/package/@hashgraph/stablecoin-npm-cli" %}

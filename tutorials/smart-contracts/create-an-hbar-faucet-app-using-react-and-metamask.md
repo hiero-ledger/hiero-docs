@@ -124,7 +124,7 @@ export const switchToHederaNetwork = async (ethereum: any) => {
 
 Let’s digest this function a little further. This function starts by submitting a request to change to the network to Hedera Testnet. If it fails to connect due to the Hedera Testnet network not being configured in MetaMask, then we will submit a request to add a new chain.\
 \
-In the request to add a new chain, the decimal value is set to 18 even though HBAR has 8 decimals. The reason for this is that MetaMask only supports chains that have 18 decimals. The RPC URL we use is [**https://testnet.hashio.io/api**](https://testnet.hashio.io/api), which comes from [Hashio](https://swirldslabs.com/hashio/), the SwirldsLabs-hosted version of the [JSON-RPC Relay](../../core-concepts/smart-contracts/json-rpc-relay.md).
+In the request to add a new chain, the decimal value is set to 18 even though HBAR has 8 decimals. The reason for this is that MetaMask only supports chains that have 18 decimals. The RPC URL we use is [**https://testnet.hashio.io/api**](https://testnet.hashio.io/api), which comes from [Hashio](https://swirldslabs.com/hashio/), the SwirldsLabs-hosted version of the [JSON-RPC Relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md).
 
 ## Connect Our dApp to MetaMask and Retrieve Wallet Address
 

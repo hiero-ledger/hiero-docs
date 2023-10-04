@@ -233,7 +233,7 @@ This menu option displays stablecoin details and allows the user to update some 
 
  
 
-<figure><img src="../../.gitbook/assets/hashscan.png" alt=""><figcaption><p>HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/hashscan (2).png" alt=""><figcaption><p>HashScan</p></figcaption></figure>
 
 </div>
 
@@ -256,3 +256,5 @@ Hedera Non-Custodial Wallet
 {% embed url="https://hashscan.io" %}
 Hedera Network Explorer
 {% endembed %}
+
+{% embed url="https://www.npmjs.com/package/@hashgraph/stablecoin-npm-sdk" %}

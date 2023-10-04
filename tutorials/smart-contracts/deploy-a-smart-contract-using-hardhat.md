@@ -4,13 +4,13 @@ In this tutorial, you'll be guided through setting up a Hardhat project and depl
 
 **Hardhat** is a development environment for Ethereum smart contracts. It consists of different components for editing, compiling, debugging, and deploying your smart contracts and dApps, all working together to create a complete development environment. By the end of this tutorial, you'll have learned how to deploy smart contracts using Hardhat on the Hedera Testnet.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#hardhat-project-setup"><strong>HARDHAT SETUP</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#hardhat-project-setup">#hardhat-project-setup</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#project-contents"><strong>PROJECT CONTENTS</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#project-contents">#project-contents</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#deploy-contract"><strong>DEPLOY CONTRACT</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#test-and-deploy-contract">#test-and-deploy-contract</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#hardhat-project-setup"><strong>HARDHAT SETUP</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#hardhat-project-setup">#hardhat-project-setup</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#project-contents"><strong>PROJECT CONTENTS</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#project-contents">#project-contents</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="deploy-a-smart-contract-using-hardhat.md#test-and-deploy"><strong>DEPLOY CONTRACT</strong></a></td><td><a href="deploy-a-smart-contract-using-hardhat.md#test-and-deploy-contract">#test-and-deploy-contract</a></td></tr></tbody></table>
 
 ## Prerequisites
 
 * Basic understanding of smart contracts.
 * Basic understanding of Node.js or Javascript.
-* Basic understanding of the [Hedera JSON RPC Relay](../../core-concepts/smart-contracts/json-rpc-relay.md).
+* Basic understanding of the [Hedera JSON RPC Relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md).
 * Basic understanding of [Hardhat Ethereum Development Tool](https://hardhat.org/hardhat-runner/docs/guides/project-setup).
 
 ## Hardhat Project Setup
@@ -330,7 +330,7 @@ The Hardhat project configuration file. This file includes information about the
 
 ## Test and Deploy
 
-Now that you have your project set up and configured, let's deploy the `Greeter.sol` smart contract to the Hedera Testnet using [Hash](https://swirldslabs.com/hashio/)[io](https://swirldslabs.com/hashio/). Hashio is an instance of the [Hedera JSON-RPC relay](../../core-concepts/smart-contracts/json-rpc-relay.md) hosted by [Swirlds Labs](https://swirldslabs.com/) and provides convenient access to the Hedera network for transactions and data querying. You can use any JSON-RPC instance supported by the community.
+Now that you have your project set up and configured, let's deploy the `Greeter.sol` smart contract to the Hedera Testnet using [Hash](https://swirldslabs.com/hashio/)[io](https://swirldslabs.com/hashio/). Hashio is an instance of the [Hedera JSON-RPC relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md) hosted by [Swirlds Labs](https://swirldslabs.com/) and provides convenient access to the Hedera network for transactions and data querying. You can use any JSON-RPC instance supported by the community.
 
 Run the following command in your terminal to run the `hedera-hardhat-example-project/test/rpc.js` test file on the Hedera testnet.
 
