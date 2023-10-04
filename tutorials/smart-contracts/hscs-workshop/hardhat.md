@@ -478,7 +478,7 @@ This returns a value of `0`, which is to be expected, because we have yet to inv
 [ BigNumber { value: "0" } ]
 ```
 
-That is precisely what we'll do next: Invoke `burninate`. This is a `payable` function, which expects a the transaction to contain a minimum of `100` tinybars sent along with it. Let's sent `123` tinybars.
+That is precisely what we'll do next: Invoke `burninate`. This is a `payable` function, which expects the transaction to contain a minimum of `100` tinybars sent along with it. Let's sent `123` tinybars.
 
 ```javascript
 await trogdor.functions.burninate({ value: 123n * 10_000_000_000n });
