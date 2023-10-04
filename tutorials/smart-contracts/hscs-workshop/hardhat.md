@@ -168,7 +168,7 @@ You'll now return to your regular shell.
   * to: `https://hashscan.io/testnet/account/0.0.3996359`
 * This verifies that the account exists
 * Check that the account has a balance of HBAR
-* If does not exist, or does not have balance, you'll need to create or fund it before proceeding
+* If it does not exist, or does not have balance, you'll need to create or fund it before proceeding
   * To do so, you'll need to repeat [_Step B4: Fund several Hedera EVM accounts_](../setup/#step-b4-fund-several-hedera-evm-accounts) from the Setup section of this tutorial.
 
 ## Compiling smart contracts
@@ -189,7 +189,7 @@ Let's take a look at the compiled outputs, and where Hardhat stores them.
 * ABI: `hardhat/artifacts/contracts/trogdor.sol/Trogdor.json`
 * Bytecode + other compiler outputs: `hardhat/artifacts/build-info/${SOME_HASH}.json`
 
-You do no need to do anything with these, just good to know what is happening behind the scenes.
+You do not need to do anything with these, just good to know what is happening behind the scenes.
 
 ## HAPIs and EVM transactions
 
