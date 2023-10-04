@@ -125,7 +125,7 @@ This outputs an EVM address of a Hedera EVM account.
 '0x07ffAaDFe3a598b91ee08C88e5924be3EfF35796'
 ```
 
-If you have completed the Hedera SDK JS section of this tutorial, you will notice that this is **different** from the account used there, which was `0x7394111093687e9710b7a7aeba3ba0f417c54474`. This i-s because the script used for the Hedera SDK JS account was configured to use the operator account. Hardhat, on the other hand, uses one of the EVM accounts generated using the BIP-39 seed phrase. These were generated during _Step B4: Fund several Hedera EVM accounts_ in the Intro section of this tutorial.
+If you have completed the Hedera SDK JS section of this tutorial, you will notice that this is **different** from the account used there, which was `0x7394111093687e9710b7a7aeba3ba0f417c54474`. This is because the script used for the Hedera SDK JS account was configured to use the operator account. Hardhat, on the other hand, uses one of the EVM accounts generated using the BIP-39 seed phrase. These were generated during _Step B4: Fund several Hedera EVM accounts_ in the Intro section of this tutorial.
 
 <details>
 
