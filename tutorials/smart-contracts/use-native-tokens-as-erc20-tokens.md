@@ -30,14 +30,14 @@ In this step, you will update and configure the Hardhat configuration file that 
 
 **Environment Variables**
 
-The `.env` file defines environment variables used in the project. The `OPERATOR_ID` and `OPERATOR_KEY` variables contains the *ECDSA* ***Account ID*** and ***DER Encoded Private Key,*** respectively for the Hedera Testnet account. The `ETH_PRIVATE_KEY` variable contains the HEX ***Encoded Private Key.***
+The `.env` file defines environment variables used in the project. The `OPERATOR_ID` and `OPERATOR_KEY` variables contains the *ECDSA* ***Account ID*** and ***DER Encoded Private Key,*** respectively for the Hedera Testnet account. The `HEX_ENCODED_PRIVATE_KEY` variable contains the HEX ***Encoded Private Key.***
 
 The `JSON_RPC_RELAY_URL` variable contains the [HashIO](https://swirldslabs.com/hashio/) Testnet endpoint URL. This is the JSON-RPC instance that will submit the transactions to the Hedera test network to test, create and deploy your smart contract.
 
 ```bash
 OPERATOR_ID =
 OPERATOR_KEY =
-ETH_PRIVATE_KEY = 
+HEX_ENCODED_PRIVATE_KEY = 
 JSON_RPC_RELAY_URL = https://testnet.hashio.io/api
 ```
 
@@ -91,11 +91,11 @@ config();
 const provider = new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_RELAY_URL!);
 
 // Wallet to sign the transactions
-const wallet = new ethers.Wallet(process.env.ETH_PRIVATE_KEY!, provider);
+const wallet = new ethers.Wallet(process.env.HEX_ENCODED_PRIVATE_KEY!, provider);
 
 // Client to interact with the Hedera network
 const client = Client.forTestnet();
-const operatorPrKey = PrivateKey.fromStringECDSA(process.env.ETH_PRIVATE_KEY!);
+const operatorPrKey = PrivateKey.fromStringECDSA(process.env.HEX_ENCODED_PRIVATE_KEY!);
 const operatorAccountId = AccountId.fromString(process.env.OPERATOR_ID!);
 client.setOperator(operatorAccountId, operatorPrKey);
 
