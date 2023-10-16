@@ -453,48 +453,28 @@ console.log("The associate transaction was " + txStatus.toString())
 
 {% tab title="Go" %}
 ```go
-//Construct a Solidity address from token ID
-tokenIdToSol := tokenId.ToSolidityAddress()
-
-//Construct a Solidity address from account ID
-accountIdToSol := accountIdTest.ToSolidityAddress()
-
-//Add the function parameters in order for tokenAssociate
-contractParamsAccount, err := hedera.NewContractFunctionParameters().AddAddress(accountIdToSol)
-
-contractParamsToken, err := contractParamsAccount.AddAddress(tokenIdToSol)
-
 //Associate an account with a token
-associateTx, err := hedera.NewContractExecuteTransaction().
-	//The contract ID
-	SetContractID(contractId).
-	//The max gas
-	SetGas(2000000).
-	//The contract function to call and parameters
-	SetFunction("tokenAssociate", contractParamsToken).
-	Execute(client)
-
 associateTx, err := hedera.NewTokenAssociateTransaction().
-        SetAccountID(accountId).
-        SetTokenIDs(tokenId).
-        FreezeWith(client)
+    SetAccountID(accountIdTest).
+    SetTokenIDs(tokenId).
+    FreezeWith(client)
 
 if err != nil {
-    panic(err)
+  panic(err)
 }
 
 //Sign with the private key of the account that is being associated to a token, submit the transaction to a Hedera network
-associatetxResponse, err = associateTx.Sign(accountKey).Execute(client)
+associateTxResponse, err := associateTx.Sign(privateKeyTest).Execute(client)
 
 if err != nil {
-    panic(err)
+  panic(err)
 }
 
 //Get the receipt
-associateTxReceipt, err := associatetxResponse.GetReceipt(client)
+associateTxReceipt, err := associateTxResponse.GetReceipt(client)
 
 if err != nil {
-    panic(err)
+  panic(err)
 }
 
 //Get transaction status
@@ -514,12 +494,15 @@ Using the <mark style="color:blue;">`approveTokenAllowance`</mark> function is a
 {% tab title="Java" %}
 ```java
 
-//Approve the token allowance
-AccountAllowanceApproveTransaction transaction = new AccountAllowanceApproveTransaction()
-    .approveHbarAllowance(treasuryAccountId, newContractId, Hbar.from(100));
+// Convert the contract ID to an account ID
+AccountId contractIdAsAccountId = AccountId.fromString(newContractId.toString());
 
-//Sign the transaction with the owner account key and the transaction fee payer key (client)  
-TransactionResponse txResponse = transaction.freezeWith(client).sign(ownerAccountKey).execute(client);
+//Approve the token allowance so that the contract can transfer tokens from the treasury account
+AccountAllowanceApproveTransaction transaction = new AccountAllowanceApproveTransaction()
+        .approveTokenAllowance(tokenId, treasuryAccountId, contractIdAsAccountId, 100);
+
+//Sign the transaction with the owner account key and the transaction fee payer key (client)
+TransactionResponse txResponse = transaction.freezeWith(client).sign(treasuryKey).execute(client);
 
 //Request the receipt of the transaction
 TransactionReceipt receipt = txResponse.getReceipt(client);
@@ -528,7 +511,6 @@ TransactionReceipt receipt = txResponse.getReceipt(client);
 Status transactionStatus = receipt.status;
 
 System.out.println("The transaction consensus status is " +transactionStatus);
-
 ```
 {% endtab %}
 
@@ -553,7 +535,6 @@ System.out.println("The transaction consensus status is " +transactionStatus);
 	const transactionStatus = receipt.status;
 
 	console.log("The transaction consensus status for the allowance function is " + transactionStatus.toString());
-
 ```
 {% endtab %}
 
@@ -561,28 +542,27 @@ System.out.println("The transaction consensus status is " +transactionStatus);
 ```go
 
 //Create the transaction
-transaction := hedera.NewAccountAllowanceApproveTransaction().
-     ApproveHbarAllowance(ownerAccount, spenderAccountId, Hbar.fromTinybars(100))
-        FreezeWith(client)
+transaction, err := hedera.NewAccountAllowanceApproveTransaction().
+  ApproveTokenAllowance(tokenId, accountIdTest, contractId, 100).
+  FreezeWith(client)
 
 if err != nil {
-    panic(err)
+  panic(err)
 }
 
 //Sign the transaction with the owner account private key   
-txResponse, err := transaction.Sign(ownerAccountKey).Execute(client)
+txResponse, err := transaction.Sign(privateKeyTest).Execute(client)
 
 //Request the receipt of the transaction
 receipt, err := txResponse.GetReceipt(client)
 if err != nil {
-    panic(err)
+  panic(err)
 }
 
 //Get the transaction consensus status
 transactionStatus := receipt.Status
 
 println("The transaction consensus status is ", transactionStatus)
-
 ```
 
 
@@ -733,6 +713,7 @@ _**Note:** Check out our_ [_smart contract mirror node rest APIs_](../../sdks-an
 <summary>Java</summary>
 
 ```java
+package org.example;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.hedera.hashgraph.sdk.*;
@@ -742,6 +723,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.concurrent.TimeoutException;
 
 
@@ -844,20 +826,23 @@ public class HTS {
 
         //Associate a token to an account using the SDK
         TokenAssociateTransaction associateToken = new TokenAssociateTransaction()
-        .setAccountId(accountIdTest)
-        .setTokenIds(Collections.singletonList(tokenId));
+                .setAccountId(accountIdTest)
+                .setTokenIds(Collections.singletonList(tokenId));
 
         //Sign with the account key to associate and submit to the Hedera network
         TransactionResponse associateTokenResponse = associateToken.freezeWith(client).sign(privateKeyTest).execute(client);
 
         System.out.println("The transaction status: " +associateTokenResponse.getReceipt(client).status);
 
+        //Convert the contract ID to an account ID
+        AccountId contractIdAsAccountId = AccountId.fromString(newContractId.toString());
+
         //Approve the token allowance so that the contract can transfer tokens from the treasury account
         AccountAllowanceApproveTransaction transaction = new AccountAllowanceApproveTransaction()
-            .approveHbarAllowance(treasuryAccountId, newContractId, Hbar.from(100));
+                .approveTokenAllowance(tokenId, treasuryAccountId, contractIdAsAccountId, 100);
 
-        //Sign the transaction with the owner account key and the transaction fee payer key (client)  
-        TransactionResponse txResponse = transaction.freezeWith(client).sign(ownerAccountKey).execute(client);
+        //Sign the transaction with the owner account key and the transaction fee payer key (client)
+        TransactionResponse txResponse = transaction.freezeWith(client).sign(treasuryKey).execute(client);
 
         //Request the receipt of the transaction
         TransactionReceipt receipt = txResponse.getReceipt(client);
@@ -1259,78 +1244,58 @@ func main() {
 	//Log the contract ID
 	fmt.Printf("The contract ID %v\n", contractId)
 
-	//Construct a Solidity address from token ID
-  tokenIdToSol := tokenId.ToSolidityAddress()
+  	//Associate an account with a token
+	associateTx, err := hedera.NewTokenAssociateTransaction().
+			SetAccountID(accountIdTest).
+			SetTokenIDs(tokenId).
+			FreezeWith(client)
 
-  //Construct a Solidity address from account ID
-  accountIdToSol := accountIdTest.ToSolidityAddress()
+	if err != nil {
+		panic(err)
+	}
 
-  //Add the function parameters in order for tokenAssociate
-  contractParamsAccount, err := hedera.NewContractFunctionParameters().AddAddress(accountIdToSol)
+	//Sign with the private key of the account that is being associated to a token, submit the transaction to a Hedera network
+	associateTxResponse, err := associateTx.Sign(privateKeyTest).Execute(client)
 
-  contractParamsToken, err := contractParamsAccount.AddAddress(tokenIdToSol)
+	if err != nil {
+		panic(err)
+	}
 
-  //Associate an account with a token
-  associateTx, err := hedera.NewContractExecuteTransaction().
-    //The contract ID
-    SetContractID(contractId).
-    //The max gas
-    SetGas(2000000).
-    //The contract function to call and parameters
-    SetFunction("tokenAssociate", contractParamsToken).
-    Execute(client)
+	//Get the receipt
+	associateTxReceipt, err := associateTxResponse.GetReceipt(client)
 
-  associateTx, err := hedera.NewTokenAssociateTransaction().
-          SetAccountID(accountId).
-          SetTokenIDs(tokenId).
-          FreezeWith(client)
+	if err != nil {
+		panic(err)
+	}
 
-  if err != nil {
-      panic(err)
-  }
+	//Get transaction status
+	txStatus := associateTxReceipt.Status
 
-  //Sign with the private key of the account that is being associated to a token, submit the transaction to a Hedera network
-  associatetxResponse, err = associateTx.Sign(accountKey).Execute(client)
+	fmt.Printf("The associate transaction status %v\n", txStatus)
 
-  if err != nil {
-      panic(err)
-  }
+	//Create the transaction
+	transaction, err := hedera.NewAccountAllowanceApproveTransaction().
+		ApproveTokenAllowance(tokenId, accountIdTest, contractId, 100).
+		FreezeWith(client)
 
-  //Get the receipt
-  associateTxReceipt, err := associatetxResponse.GetReceipt(client)
+	if err != nil {
+		panic(err)
+	}
 
-  if err != nil {
-      panic(err)
-  }
+	//Sign the transaction with the owner account private key   
+	txResponse, err := transaction.Sign(privateKeyTest).Execute(client)
 
-  //Get transaction status
-  txStatus := associateTxReceipt.Status
+	//Request the receipt of the transaction
+	receipt, err := txResponse.GetReceipt(client)
+	if err != nil {
+		panic(err)
+	}
 
-  fmt.Printf("The associate transaction status %v\n", txStatus)
+	//Get the transaction consensus status
+	transactionStatus := receipt.Status
 
-  //Create the transaction
-  transaction := hedera.NewAccountAllowanceApproveTransaction().
-      ApproveHbarAllowance(ownerAccount, spenderAccountId, Hbar.fromTinybars(100))
-          FreezeWith(client)
-
-  if err != nil {
-      panic(err)
-  }
-
-  //Sign the transaction with the owner account private key   
-  txResponse, err := transaction.Sign(ownerAccountKey).Execute(client)
-
-  //Request the receipt of the transaction
-  receipt, err := txResponse.GetReceipt(client)
-  if err != nil {
-      panic(err)
-  }
-
-  //Get the transaction consensus status
-  transactionStatus := receipt.Status
-
-  println("The transaction consensus status is ", transactionStatus)
-	
+	println("The transaction consensus status is ", transactionStatus)
+		
 	//Transfer the token
 	transferTx := hedera.NewContractExecuteTransaction().
 		//The contract ID
