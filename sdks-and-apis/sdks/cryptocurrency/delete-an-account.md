@@ -13,7 +13,7 @@ A transaction that deletes an existing account from the Hedera network. Before d
 
 ### Methods
 
-<table><thead><tr><th width="347">Method</th><th>Type</th><th>Description</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setAccountId(&#x3C;accountId>)</code></td><td>AccountId</td><td>The ID of the account to delete.</td><td>Required</td></tr><tr><td><code>setTransferAccountId(&#x3C;transferAccountId>)</code></td><td>AccountId</td><td>The ID of the account to transfer the remaining funds to.</td><td>Optional</td></tr></tbody></table>
+<table><thead><tr><th width="347">Method</th><th>Type</th><th>Description</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setAccountId(&#x3C;accountId>)</code></td><td>AccountId</td><td>The ID of the account to delete.</td><td>Required</td></tr><tr><td><code>setTransferAccountId(&#x3C;transferAccountId>)</code></td><td>AccountId</td><td>The ID of the account to transfer the remaining funds to.</td><td>Required</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
