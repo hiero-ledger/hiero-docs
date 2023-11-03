@@ -6,13 +6,57 @@ description: Hedera Services release information
 
 Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
-## v0.41
+## [v0.43](https://github.com/hashgraph/hedera-services/releases/tag/v0.43.0)
 
-{% hint style="info" %}
+Services v0.43.0 adds the following features:
+
+* HIP-786 ([#8620](https://github.com/hashgraph/hedera-services/pull/8620))
+
+### Enhancements
+
+Services v0.43.0 adds the following enhancements:
+
+* Update Besu to 23.10.0 - cherry pick ([#9199](https://github.com/hashgraph/hedera-services/pull/9199))
+* Update the Besu EVM library to version 23.7.2 ([#8472](https://github.com/hashgraph/hedera-services/pull/8472))
+* "Productizing" contract disassembler at last ([#8563](https://github.com/hashgraph/hedera-services/pull/8563))
+* Auto sidecar validations ([#8404](https://github.com/hashgraph/hedera-services/pull/8404))
+* Create fat jar with services CLI so it can be run standalone ([#8519](https://github.com/hashgraph/hedera-services/pull/8519))
+
+## [v0.42](https://github.com/hashgraph/hedera-services/releases/tag/v0.42.1)
+
+{% hint style="success" %}
+**MAINNET UPDATE: OCTOBER 24, 2023**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE: SEPTEMBER 26, 2023**
+{% endhint %}
+
+* Add EIP 2930 support to EthTXData ([#7696](https://github.com/hashgraph/hedera-services/pull/7696))
+* Provide entity and throttle dashboards ([#7774](https://github.com/hashgraph/hedera-services/pull/7774))
+* 07748 Postconsensus signature gathering ([#7776](https://github.com/hashgraph/hedera-services/pull/7776))
+* Enable EIP-2930 transactions by default ([#7786](https://github.com/hashgraph/hedera-services/pull/7786))
+* 7570: Remove JasperDB ([#7803](https://github.com/hashgraph/hedera-services/pull/7803))
+* Remove support for legacy sync gossip. ([#8059](https://github.com/hashgraph/hedera-services/pull/8059))
+* Disable account balance exports ([#8272](https://github.com/hashgraph/hedera-services/pull/8272))
+* Modify config to support state on disk by default ([#8510](https://github.com/hashgraph/hedera-services/pull/8510))
+
+<figure><img src="../../.gitbook/assets/0.42_Performance Measurement Results.001.png" alt=""><figcaption></figcaption></figure>
+
+## [v0.41](https://github.com/hashgraph/hedera-services/releases/tag/v0.41.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE: SEPTEMBER 20, 2023**
+{% endhint %}
+
+{% hint style="success" %}
 **TESTNET UPDATE: AUGUST 22, 2023**
 {% endhint %}
 
-Coming soon...
+* Ethereum transaction type support is expanded to include type 1 transactions ([#7670](https://github.com/hashgraph/hedera-services/issues/7670)) which follow EIP 2930 RLP encoding. This increases the number of native EVM tools and scenarios the Hedera Smart Contract Service supports.
+* NFT mint pricing is changed to linearly scale based on number of serials minted. Also, minting a single NFT in collection is changed to cost $0.02 from $0.05. [#7769](https://github.com/hashgraph/hedera-services/issues/7769)
+
+<figure><img src="../../.gitbook/assets/0.41_Performance Measurement.png" alt=""><figcaption></figcaption></figure>
 
 ## [v0.40](https://github.com/hashgraph/hedera-services/releases/tag/v0.40.0)
 
@@ -31,6 +75,8 @@ Coming soon...
 The 0.40 release of Hedera Services delivers [HIP-729 \~ "Contract Accounts Nonce Externalization"](https://hips.hedera.com/hip/hip-729). Smart contract developers using the Hedera public mirror node can now track contract nonces as they would on e.g., Ethereum. Use cases might include troubleshooting failed contract calls or writing unit tests that validate transaction ordering based on `CREATE1` addresses (once these are set by default in release 0.41+).
 
 Open source contributors to the project will notice major refinements in the Gradle build, thanks to [@jjohannes](https://github.com/jjohannes)'s expert touch.
+
+<figure><img src="../../.gitbook/assets/0.40_Performance Measurement.png" alt=""><figcaption></figcaption></figure>
 
 ## [v0.39](https://github.com/hashgraph/hedera-services/tags)
 
@@ -63,6 +109,8 @@ Services v0.39.0 adds the following features:
 * Implement the modular record cache [#6754](https://github.com/hashgraph/hedera-services/pull/6754)
 * CryptoDelete handle implementation [#6694](https://github.com/hashgraph/hedera-services/pull/6694)
 
+<figure><img src="../../.gitbook/assets/0.39_Performance Measurement.png" alt=""><figcaption></figcaption></figure>
+
 ## [v0.38](https://github.com/hashgraph/hedera-services/releases/tag/v0.38.0)
 
 {% hint style="success" %}
@@ -82,8 +130,6 @@ Services v0.39.0 adds the following features:
 * Turn on the Shanghai version of the EVM in previewnet [#6212](https://github.com/hashgraph/hedera-services/pull/6212)
 * Update hedera-protobufs-java version to 0.38.10 [#6579](https://github.com/hashgraph/hedera-services/pull/6579)
 * Add PCLI command to sign account balance files [#6264](https://github.com/hashgraph/hedera-services/pull/6264)
-
-
 
 <figure><img src="../../.gitbook/assets/0.38_Performance Measurement Results_Extract.001.jpeg" alt=""><figcaption></figcaption></figure>
 
@@ -202,7 +248,7 @@ This includes,
 
 Use cases for HIP-583 that work in this release :
 
-1. As a user with an ECDSA based account from another chain I can have a new Hedera account created based on on my evm-address alias.
+1. As a user with an ECDSA based account from another chain I can have a new Hedera account created based on my evm-address alias.
 2. As a developer, I can create a new account using a evm-address alias via the CryptoTransfer transaction.
 3. As a developer, I can transfer HBAR or tokens to a Hedera account using their evm-address alias.
 4. As a Hedera user with an Ethereum-native wallet, I can receive HBAR or tokens in my account by sharing only my evm-address alias.
@@ -533,7 +579,7 @@ Highlights of this release include:
 
 We expect more progress in these directions over the coming releases. Do note that the gas usage of the HTS integrations is still evolving; follow [this issue](https://github.com/hashgraph/hedera-services/issues/2786) to track the finalized gas charges leading up to mainnet release.
 
-There are two other HIP's included in this release not related to the smart contract service. First, [HIP-33](https://hips.hedera.com/hip/hip-33) enhances queries like `CryptoGetInfo` with a _ledger id_ that marks which Hedera network answered the query. Second, [HIP-31](https://hips.hedera.com/hip/hip-31) allows a client to include the expected decimals for a token in a `CryptoTransfer`. This means a hardware wallet can guarantee its token transactions will have the precision seen by the the user in the device display.
+There are two other HIP's included in this release not related to the smart contract service. First, [HIP-33](https://hips.hedera.com/hip/hip-33) enhances queries like `CryptoGetInfo` with a _ledger id_ that marks which Hedera network answered the query. Second, [HIP-31](https://hips.hedera.com/hip/hip-31) allows a client to include the expected decimals for a token in a `CryptoTransfer`. This means a hardware wallet can guarantee its token transactions will have the precision seen by the user in the device display.
 
 While we are gaining momentum in our smart contracts roadmap, we are also deeply committed to improving the developer experience, and welcome issues and ideas in our [GitHub repository](https://github.com/hashgraph/hedera-services) and [Discord](https://hedera.com/discord)!
 

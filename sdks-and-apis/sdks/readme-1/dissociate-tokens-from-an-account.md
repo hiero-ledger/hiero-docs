@@ -1,16 +1,16 @@
 # Dissociate tokens from an account
 
-Disassociates the provided Hedera account from the provided Hedera tokens. This transaction must be signed by the provided account's key. Once the association is removed, no token related operation can be performed to that account. AccountBalanceQuery and AccountInfoQuery will not return anything related to the token that was disassociated.
+Dissociates the provided Hedera account from the provided Hedera tokens. This transaction must be signed by the provided account's key. Once the association is removed, no token-related operation can be performed to that account. AccountBalanceQuery and AccountInfoQuery will not return anything related to the dissociated token.
 
-* If the provided account is not found, the transaction will resolve to INVALID\_ACCOUNT\_ID.
-* If the provided account has been deleted, the transaction will resolve to ACCOUNT\_DELETED.
-* If any of the provided tokens is not found, the transaction will resolve to INVALID\_TOKEN\_REF.
-* If an association between the provided account and any of the tokens does not exist, the transaction will resolve to TOKEN\_NOT\_ASSOCIATED\_TO\_ACCOUNT.
-* If the provided account has a nonzero balance with any of the provided tokens, the transaction will resolve to TRANSACTION\_REQUIRES\_ZERO\_TOKEN\_BALANCES.
+* If the provided account is not found, the transaction will resolve to `INVALID_ACCOUNT_ID`.
+* If the provided account has been deleted, the transaction will resolve to `ACCOUNT_DELETED`.
+* If any of the provided tokens is not found, the transaction will resolve to `INVALID_TOKEN_REF`.
+* If an association between the provided account and any of the tokens does not exist, the transaction will resolve to `TOKEN_NOT_ASSOCIATED_TO_ACCOUNT`.
+* If the provided account has a nonzero balance with any of the provided tokens, the transaction will resolve to `TRANSACTION_REQUIRES_ZERO_TOKEN_BALANCES`.
 * On success, associations between the provided account and tokens are removed.
 
 {% hint style="info" %}
-The account is required to have a zero balance of the token you wish to disassociate. If a token balance is present, you will receive a TRANSACTION\_REQUIRES\_ZERO\_TOKEN\_BALANCES error.
+The account is required to have a zero balance of the token you wish to dissociate. If a token balance is present, you will receive a `TRANSACTION_REQUIRES_ZERO_TOKEN_BALANCES` error.
 {% endhint %}
 
 **Transaction Signing Requirements**
@@ -33,7 +33,7 @@ The account is required to have a zero balance of the token you wish to disassoc
 {% tabs %}
 {% tab title="Java" %}
 ```java
-//Disassociate a token from an account
+//Dissociate a token from an account
 TokenDissociateTransaction transaction = new TokenDissociateTransaction()
     .setAccountId(accountId)
     .setTokenIds(tokenId);

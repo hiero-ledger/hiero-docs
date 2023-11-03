@@ -31,7 +31,7 @@ The mirror node and consensus node test network are scheduled to reset once a qu
 
 Developers will no longer have access to the state data from test network consensus nodes. For example, you will not be able to perform transactions or queries on an account that existed before the reset.
 
-The testnet resets do not include version updates to the network.&#x20;
+The testnet mirror node will be available for developers for two weeks after the date of the reset to store any data before access is completely removed. You will be able to query old testnet information for the two-week period if is it available.
 
 What you should do:
 
@@ -40,8 +40,8 @@ What you should do:
 * After the reset, you will need to visit the [Hedera Developer Portal](https://portal.hedera.com/register) to get your new testnet account ID
   * The public and private key pair will remain the same after resets
 * Subscribe to the [Hedera status page](https://status.hedera.com/) to receive reset notifications
-* Mirror Node operators can reference the instructions [here](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/database#reset) to set-up your mirror node
-  * GCP GCS and AWS S3 buckets: `hedera-testnet-streams-2023-07`
+* Mirror Node operators can reference the instructions [here](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#reset) to set-up your mirror node
+  * GCP GCS and AWS S3 buckets: `hedera-testnet-streams-2023-01`
 
 If you have any questions or concerns, please connect with us via [Discord](https://hedera.com/discord).
 
@@ -49,10 +49,10 @@ If you have any questions or concerns, please connect with us via [Discord](http
 
 **2023**
 
-* January 26, 2023
-* April 27, 2023
-* July 27, 2023
-* October 26, 2023
+* January 26, 2023 - Completed&#x20;
+* April 27, 2023 - Skipped&#x20;
+* July 27, 2023 - Completed
+* October 26, 2023 - Skipped
 
 ### Test Network Throttles
 

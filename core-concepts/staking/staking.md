@@ -12,7 +12,7 @@ During this phase, supported exchanges and wallets will be able to integrate the
 
 #### **Phase III: Staking Rewards Program Launch \[Complete]**
 
-The Hedera Governing Council will determine when the Hedera ecosystem has reached a minimum viable set of integrations to enable staking rewards. Once this is determined, the council (through CoinCom) will vote to update the reward rate, and subsequently, the mainnet will be updated with the agreed-upon reward rate. The staking reward rate voted on by CoinComm is 1 billion HBAR/year.\
+The Hedera Governing Council will determine when the Hedera ecosystem has reached a minimum viable set of integrations to enable staking rewards. Once this is determined, the council (through CoinCom) will vote to update the reward rate, and subsequently, the mainnet will be updated with the agreed-upon reward rate. The latest staking reward rate voted on by CoinComm can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).\
 \
 Once updated, the staking reward account (0.0.800) will be eligible to distribute rewards earned by stakers, once the rewards threshold of 250M total HBAR has been met. Rewards will continue to be distributed even if, after this time, the balance of account 0.0.800 goes below 250M.
 
@@ -46,7 +46,7 @@ The staking reward account is the account that will distribute rewards to the el
 
 The staking reward account needs to meet a minimum balance before rewards can begin to distribute rewards earned to the eligible staked accounts. The minimum HBAR balance threshold for the reward account is 250 million HBAR voted on by the Hedera Governing Council. If this balance is not met staking rewards will not be distributed. You can view the balance of this account by visiting any of the Hedera network explorers.
 
-Once the minimum threshold is met, rewards will continue to be distributed to staked accounts as long as there is a balance in the rewards account even if it falls below the initial minimum threshold. The reward rate will initially be set to zero. The Hedera Governing Council will vote and update the reward rate when the Hedera Staking Reward Program goes live.
+Once the minimum threshold is met, rewards will continue to be distributed to staked accounts as long as there is a balance in the rewards account even if it falls below the initial minimum threshold. The reward rate will initially be set to zero. The Hedera Governing Council will vote and update the reward rate when the Hedera Staking Reward Program goes live. The latest reward rate can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).&#x20;
 
 ### **Staking Rewards**
 
@@ -64,7 +64,7 @@ In order for a staked account to be eligible to earn rewards the following must 
 * The account needs to be staked for the minimum staking period
 * The reward rate is voted on by the Hedera Governing Council and updated on mainnet
 
-Rewards will continue to be earned when a node is down or inactive in the first phase. The Council (through CoinCom) has voted to implement a maximum cap of 6.5% annual reward rate. The actual reward rate will vary depending on how many HBAR are staked for rewards, but the rate will not exceed the cap. In the future, when nodes are down or inactive the staked account will not be eligible to earn rewards.
+Rewards will continue to be earned when a node is down or inactive in the first phase. The Council (through CoinCom) has voted to implement a maximum cap of [2.5% annual reward rate](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm). The actual reward rate will vary depending on how many HBAR are staked for rewards, but the rate will not exceed the cap. In the future, when nodes are down or inactive the staked account will not be eligible to earn rewards.
 
 This staking system offers additional unique functionality: **indirect staking**. If account A stakes to node N, then the stake increases the consensus weight of N, and account A is rewarded for every 24-hour period that it stakes. If account A stakes to account B, and account B stakes to node N, then the stake from both A and B will increase the consensus weight of N, but the rewards for both A and B will be received by B.
 

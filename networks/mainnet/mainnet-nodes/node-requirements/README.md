@@ -8,7 +8,7 @@ description: >-
 
 The following is provided to help [_Hedera Governing Council_](https://hedera.com/council) members deploy their permissioned mainnet consensus node. Please note, this information is not intended to apply to Hedera's transition to a permissionless network.
 
-## Minimum Node Requirements
+## Minimum Node Platform Requirements
 
 Currently, the Hedera Mainnet will perform at a rate determined by the lowest-performing node. To ensure a common level of performance minimum hardware, connectivity, and hosting requirements have been defined for the initial permissioned, Governing Council nodes.
 
@@ -16,36 +16,41 @@ Currently, the Hedera Mainnet will perform at a rate determined by the lowest-pe
 To ensure accurate conformity with the minimum requirements, please provide node hardware, connectivity, and hosting details to Hedera prior to purchase (devops@hedera.com).
 {% endhint %}
 
-Chassis (hardware nodes only)
-
-* Dual Power - 1600W minimum, 2000W recommended
-
-All nodes
-
-Network Connectivity: Single 1-Gigabit / 10-Gigabit Ethernet (physical connectivity subject to network infrastructure)
-
-24-core or better CPU hyperthreaded (48 threads) - Intel Xeon Silver class or higher / AMD EPYC 74xx class or higher Virtual hosts must have 48vCPU (single threaded)
-
-256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM
-
-2 x 240GB SSD with RAID 1 for OS Storage
-
-5TB SSD NVMe usable storage
-
-* Single Drive recommended
-* Endurance / Mixed Use (Not Read Intensive)
-
-Storage performance specifications (within 10% of performance parameters below)
-
-* Sequential read: 6200 MB/s
-* Random read: 1.08M IOPS
-* Sequential write: 3000 MB/s
-* Random write: 170K IOPS
-
-Considerations for future expansion (hardware-based deployments):
-
-* Chassis should be [Nvidia Tesla V100 PCIe certified](https://www.nvidia.com/en-us/data-center/tesla/tesla-qualified-servers-catalog/)
-* 1x Nvidia Tesla V100 PCIe 16GB/32GB GPU
+* CPU: X86/X64 compatible (Intel Xeon or AMD EPYC); 24 cores/48 threads meeting or exceeding the following benchmarks:
+    - Geekbench 6 single-core score
+      - Minimum: 1000 or greater
+      - Recommended: 1500 or greater
+    - Passmark single thread rating: 
+      - Minimum to remain on Mainnet: 2300 or greater
+      - Recommended: 2800 or greater
+* Network Connectivity: Sustained 1Gb/s internet bandwidth via a single 1-Gigabit / 10-Gigabit Ethernet interface
+* Memory: 256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM or faster (minimum), 320GB or higher PC4-25600 3200MHz (recommended)
+* Storage: It is recommended to mount 240 GB SSD with Raid 1 as a root volume `/` and then provide usable storage via different
+  devices later mounted during installation. This may not be possible on your hardware, so alternatively all required 
+  storage may be allocated to the root volume.
+  - Minimum: 5TB of SSD NVMe usable storage
+  - Recommended:
+    - 2 x 240GB SSD with RAID 1 for OS Storage
+    - 2 x NVMe devices as a 7.5TB RAID 0 (or 4x as RAID 10 array)
+* Storage performance: If mounted to root volume, the root volume must meet these requirements. If provisioned via RAID,
+  the RAID array should meet these requirements:
+  - Sequential write sustained:
+    - Minimum: 2,000GB/s
+    - Recommended: 3,000GB/s
+  - Sequential read sustained:
+    - Minimum: 3,000GB/s
+    - Recommended: 4,500GB/s
+  - Random read, synchronous: 
+    - Minimum: 250,000 IOPS
+    - Recommended: 375,000 IOPS
+  - Random read, AIO:
+    - Minimum: 500,000 IOPS
+    - Recommended: 750,000 IOPS
+  - Random write, synchronous:
+    - Minimum 100,000 IOPS
+    - Recommended: 150,000 IOPS
+  - Less than 200µs random read latency, average
+* Nodes must pass the Hedera performance test suite performed at installation time
 
 ### **Node Operating System:**
 
@@ -109,11 +114,11 @@ Considerations for future expansion (hardware-based deployments):
 
 Access to the node via public APIs must be mediated by an in-line proxy. Below are the specifications for establishing this proxy.
 
-* 2-CPU
+* 2- core-x86/x64 CPU
 * 2GB RAM
-* 100GB storage
-* 200Mb/S internet network connectivity with public static IP address
-* Docker 18 or higher (Hedera to provide Docker image with HAProxy)
+* 100GB SSD storage
+* 200Mb/s sustained internet network connectivity with public static IP address
+* Supported Docker (Hedera to provide Docker image with HAProxy)
 
 ### Network Connectivity
 
@@ -154,11 +159,11 @@ Interface Bonding (optional)
 ### Software & Installation
 
 * Any 64-bit Long Term Support (LTS) Linux distribution
-  * Ubuntu
-  * Red Hat Enterprise
-  * Debian
-  * BSD not supported
-  * CentOS deprecated for 2022
+  * Approved distributions:
+    * Ubuntu
+    * Red Hat Enterprise
+    * Oracle Linux
+    * CentOS (Only through 2023)
 
 ## Network Topology /(Typical Corporate Datacenter Configuration/)
 

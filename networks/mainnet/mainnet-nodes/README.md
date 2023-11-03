@@ -46,7 +46,7 @@ For node status, please visit the Hedera status page [here](https://status.heder
 | Ubisoft             | 25      | **0.0.28**      | <p>35.198.220.75</p><p>18.139.47.5</p>                                                                | 50211, 50212 (TLS) | b02c9e85f49da18147fd1353773baf0e71d72e22a007f1df9051aa8a4761ae87ad4f90ea4c3409811a1c4777cc2fc61f |
 | abrdn               | 26      | **0.0.29**      | <p>34.142.71.129</p><p>54.74.60.120</p> <p>80.85.70.197</p>                                           | 50211, 50212 (TLS) | fff800ea4280d62c9c1ff333cf430194e0f8af282b813b45211328533cf72f9f14644c0604aacf12b165b5a6b059acc3 |
 | Dell                | 27      | **0.0.30**      | <p>35.234.249.150</p><p>34.201.177.212</p>                                                            | 50211, 50212 (TLS) | 9773691c2995551932e052e7dc80532b31d8470ec2db37956ce88036817965436300f00d95ba5a750c2b7891c8b66a9a |
-| cofra Holdings      | 28      | **0.0.31**      | <p>34.107.78.179</p><p>3.77.94.254</p>                                                                | 50211, 50212 (TLS) | f7313bc08b9d4bc794cb1404d1f482a73ac5fe0c0293b5c73647de3841b0591066624e9922172d54212b1b9e6a790908 |
+| COFRA Holding      | 28      | **0.0.31**      | <p>34.107.78.179</p><p>3.77.94.254</p>                                                                | 50211, 50212 (TLS) | f7313bc08b9d4bc794cb1404d1f482a73ac5fe0c0293b5c73647de3841b0591066624e9922172d54212b1b9e6a790908 |
 
 ### Mainnet Node Public Keys
 

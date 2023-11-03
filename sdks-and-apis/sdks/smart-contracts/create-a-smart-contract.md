@@ -18,12 +18,12 @@ The latest version of Solidity is supported on all networks (v0.8.9).
 The contract state size limit is 10 MB and the system gas throttle is 15 million gas per second. Contract call and contract create are throttled at 8 million gas per second.
 {% endhint %}
 
-{% content-ref url="../../../core-concepts/smart-contracts/gas-and-fees.md" %}
-[gas-and-fees.md](../../../core-concepts/smart-contracts/gas-and-fees.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
-{% content-ref url="../../../core-concepts/smart-contracts/solidity-variables-and-opcodes.md" %}
-[solidity-variables-and-opcodes.md](../../../core-concepts/smart-contracts/solidity-variables-and-opcodes.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 **Transaction Signing Requirements**

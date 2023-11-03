@@ -1,19 +1,23 @@
 # Delete an account
 
-A transaction that deletes an existing account from the Hedera network. Before deleting an account, the existing HBARs must be transferred to another account. If you fail to transfer the HBARs, you will receive an error message "setTransferAccountId() required." Transfers cannot be made into a deleted account. A record of the deleted account will remain in the ledger until it expires. The expiration of a deleted account can be extended. The account that is being deleted is required to sign the transaction.
+A transaction that deletes an existing account from the Hedera network. Before deleting an account, the existing HBAR must be transferred to another account. Submitting a transaction to delete an account without assigning a beneficiary via `setTransferAccountId()` will result in a `ACCOUNT_ID_DOES_NOT_EXIST` error. Transfers cannot be made into a deleted account. A record of the deleted account will remain in the ledger until it expires. The expiration of a deleted account can be extended. The account that is being deleted is required to sign the transaction.
+
+{% hint style="info" %}
+**Note**: The `setTransferAccountId()` method is required, regardless of whether the account has a zero balance.
+{% endhint %}
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
-* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost.
 
 **Transaction Signing Requirements**
 
-* The account that is being deleted is required to sign the transaction
+* The account that is being deleted is required to sign the transaction.
 
 ### Methods
 
-<table><thead><tr><th width="347">Method</th><th>Type</th><th>Description</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setAccountId(&#x3C;accountId>)</code></td><td>AccountId</td><td>The ID of the account to delete.</td><td>Required</td></tr><tr><td><code>setTransferAccountId(&#x3C;transferAccountId>)</code></td><td>AccountId</td><td>The ID of the account to transfer the remaining funds to.</td><td>Optional</td></tr></tbody></table>
+<table><thead><tr><th width="374">Method</th><th width="115">Type</th><th width="134">Description</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setAccountId(&#x3C;accountId>)</code></td><td>AccountId</td><td>The ID of the account to delete.</td><td>Required</td></tr><tr><td><code>setTransferAccountId(&#x3C;transferAccountId>)</code></td><td>AccountId</td><td>The ID of the account to transfer the remaining funds to.</td><td>Required</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -97,7 +101,7 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 
 ## Get transaction values
 
-<table><thead><tr><th width="306.3333333333333">Method</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>getAccountId(&#x3C;accountId>)</code></td><td>AccountId</td><td>The account to delete</td></tr><tr><td><code>getTransferAccountId(&#x3C;transferAccountId>)</code></td><td>AccountId</td><td>The account to transfer the remaining funds to</td></tr></tbody></table>
+<table><thead><tr><th width="370.3333333333333">Method</th><th width="124.7980179329873">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>getAccountId(&#x3C;accountId>)</code></td><td>AccountId</td><td>The account to delete</td></tr><tr><td><code>getTransferAccountId(&#x3C;transferAccountId>)</code></td><td>AccountId</td><td>The account to transfer the remaining funds to</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}

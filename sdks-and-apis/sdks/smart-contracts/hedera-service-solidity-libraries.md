@@ -263,11 +263,11 @@ Returns whether or not the operator account is approved to spend on behalf of th
 
 Enable or disable approval for a third party ("operator") to manage all of `msg.sender`'s assets.
 
-| **Param**  | **Type** | **Description**                           |
-| ---------- | -------- | ----------------------------------------- |
-| `token`    | address  | The Hedera token ID in Solidity format.   |
-| `operator` | address  | The Hedera account ID in Solidity format. |
-| `approved` | bool     | The Hedera account ID in Solidity format. |
+| **Param**  | **Type** | **Description**                             |
+| ---------- | -------- | ------------------------------------------- |
+| `token`    | address  | The Hedera token ID in Solidity format.     |
+| `operator` | address  | The Hedera account ID in Solidity format.   |
+| `approved` | bool     | The Boolean data type in `true` or `false`. |
 
 ### <mark style="color:purple;">`isFrozen(token, account)`</mark>
 
@@ -488,8 +488,8 @@ Update the keys set on a token. The key type is defined in the key parameter.
 
 ## Gas Cost
 
-{% content-ref url="../../../core-concepts/smart-contracts/gas-and-fees.md" %}
-[gas-and-fees.md](../../../core-concepts/smart-contracts/gas-and-fees.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ## Examples

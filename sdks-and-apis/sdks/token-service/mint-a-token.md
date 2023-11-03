@@ -18,12 +18,8 @@ Minting fungible token allows you to increase the total supply of the token. Min
 
 **Transaction Fees**
 
-{% hint style="info" %}
-🔔 **NOTE:** Reflecting significant growth in Hedera's NFT ecosystem, network fee changes for bulk minting NFTs will be implemented in the v0.41 release. See [this](https://hedera.com/blog/hederas-expanding-nft-ecosystem-new-pricing-to-meet-growing-demand) blog post for more details.
-{% endhint %}
-
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
-* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost.
 
 ### Methods
 

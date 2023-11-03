@@ -16,7 +16,7 @@ By the end of this tutorial, you'll be able to configure a mirror node, query da
 
 * Basic understanding of JavaScript and NPM installed.
 * Basic understanding of subgraphs and the [Graph CLI](deploy-a-subgraph-using-the-graph-and-json-rpc.md#graph-cli-installation) installed.
-* The deployed Greeter smart contract address from the [Hardhat tutorial](deploy-a-smart-contract-using-hardhat.md).
+* The deployed Greeter smart contract address from the [Hardhat tutorial](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md).
 * The [start block](deploy-a-subgraph-using-the-graph-and-json-rpc.md#find-start-block) number of when the Greeter smart contract was first deployed.
 * [Docker](https://www.docker.com/) `>= v20.10.x` installed and open on your machine. Run `docker -v` in your terminal to check the version you have installed.
 
@@ -96,7 +96,7 @@ In the `testnet.json` file, under the `config` folder, replace the `startBlock` 
 
 ## Project Contents and Configuration
 
-In this step, you will use the `Greeter` contract from the [Hardhat tutorial](deploy-a-smart-contract-using-hardhat.md) as an example subgraph, to configure four main project files: the subgraph manifest, GraphQL schema, event mappings, and Docker compose configuration. The manifest specifies which events the subgraph will listen for, while mappings map each event emitted by the smart contract into entities that can be indexed.
+In this step, you will use the `Greeter` contract from the [Hardhat tutorial](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md) as an example subgraph, to configure four main project files: the subgraph manifest, GraphQL schema, event mappings, and Docker compose configuration. The manifest specifies which events the subgraph will listen for, while mappings map each event emitted by the smart contract into entities that can be indexed.
 
 #### Subgraph Manifest
 
@@ -179,7 +179,7 @@ export function handleGreetingSet(event: GreetingSet): void {
 
 #### Graph Node Configuration
 
-To connect a local graph node to a remote network, such as testnet, mainnet, or previewnet, use a [docker-compose](https://github.com/graphprotocol/graph-node/tree/master/docker#docker-compose) setup. The API endpoint that connects the graph node to the network is specified within the `environment` object of the `docker-compose.yaml` file [here](https://github.com/hashgraph/hedera-subgraph-example/blob/main/graph-node/docker-compose.yaml). Add the API endpoint URL in the `ethereum` field in the `environment` object. For this tutorial, we will use the [Hashio Testnet ](https://swirldslabs.com/hashio/)instance of the Hedera JSON-RPC relay, but _any_ [JSON-RPC provider](../../core-concepts/smart-contracts/json-rpc-relay.md) supported by the community can be used.
+To connect a local graph node to a remote network, such as testnet, mainnet, or previewnet, use a [docker-compose](https://github.com/graphprotocol/graph-node/tree/master/docker#docker-compose) setup. The API endpoint that connects the graph node to the network is specified within the `environment` object of the `docker-compose.yaml` file [here](https://github.com/hashgraph/hedera-subgraph-example/blob/main/graph-node/docker-compose.yaml). Add the API endpoint URL in the `ethereum` field in the `environment` object. For this tutorial, we will use the [Hashio Testnet ](https://swirldslabs.com/hashio/)instance of the Hedera JSON-RPC relay, but _any_ [JSON-RPC provider](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md) supported by the community can be used.
 
 This is what the `ethereum` field should look like after you enter your API endpoint URL:
 

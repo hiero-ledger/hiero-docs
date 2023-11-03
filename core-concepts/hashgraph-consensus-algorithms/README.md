@@ -6,7 +6,7 @@ description: Distributed consensus algorithm
 
 The hashgraph consensus algorithm enables distributed consensus in an innovative, efficient way. Hashgraph is a distributed consensus algorithm and data structure that is fast, fair, and secure. This indirectly creates a trusted community, even when members do not necessarily trust each other.
 
-The [hashrgaph consensus algorithm](./) and platform code are open-source under an Apache 2.0 license.
+The [hashgraph consensus algorithm](./) and platform code are open-source under an Apache 2.0 license.
 
 {% embed url="https://www.youtube.com/watch?v=cje1vuVKhwY&t=5s" %}
 

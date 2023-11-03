@@ -123,7 +123,7 @@ npm install dotenv
 yarn add dotenv
 ```
 
-Navigate to the project root directory and create a _`index.js`_ file by running the following command:
+Create a _`index.js`_ file by running the following command:
 
 ```bash
 touch index.js

@@ -1,66 +1,36 @@
 # Custom token fees
 
-When you create a token, you have the ability to set one or many custom fees (up to 10). Custom fees are fees that are distributed to the specified accounts each time the token is transferred programmatically. These custom fees can be either a fixed fee, fractional fee, or royalty fee.\
-\
-All fee collectors can be exempt from being charged custom fees. To exempt all fee collectors from being charged a custom fee you must set all custom fee collectors from being exempt when creating the custom fees ([HIP-573](https://hips.hedera.com/hip/hip-573)). If this is not enabled then custom fees are only exempt for a fee collector account for which it is the collector.
+When creating a token, you can configure up to 10 custom fees, automatically disbursed to specified [fee collector accounts](../../../support-and-community/glossary.md#fee-collector-account) each time the token is transferred programmatically. These fees can be _fixed_, _fractional_, or _royalty_-based, offering revenue generation, profit-sharing, and behavior incentivization for creators. This guide is your comprehensive resource for understanding types, implementation, and best practices for custom fees on Hedera.
 
-* A **fixed fee** transfers a specified amount of the token, to the specified collection account(s), each time a token transfer is initiated. The custom token fee does not depend on the amount of the token that is being transferred. You have the option to collect the fee in HBAR or another fungible Hedera token. An NFT cannot be used as a token type to collect the fee. You can set a custom fixed fee for both fungible and non-fungible token types.
-* A **fractional fee** transfers the specified fraction of the total value of the tokens that are being transferred to the specified fee-collecting account. Along with setting a custom fractional fee, you can impose minimum and maximum fee limits per transfer transaction. Applicable to fungible tokens only.
-* A **royalty fee** is a fractional fee that is assessed each time the ownership of an NFT is transferred from person A to person B. The fee collector account ID defined in the royalty fee schedule will receive the royalty fee each time. The royalty fee charged is a fraction of the value exchanged for the NFT. If there is no value exchanged for the NFT, a fallback fee can be used to charge the receiving account. Applicable to non-fungible tokens only.
+***
 
-**Token Custom Fee Payment**
+## Types of Custom Fees
 
-* Fractional fees are by default charged to the token transfer receiver. This means the receiving account of the fungible token will receive less than the transfer amount (transfer amount - custom fees). If the `net_of_transfers` field is set to true, the fractional fees are then charged to the sending account. In this case, the receiving account will receive the full amount of the token transfer value.
-* Fixed fees are paid by the sending account in the fungible or non-fungible token transfer transaction.
-* Royalty fees are paid by the account exchanging the fungible value. When the NFT sender does not receive any fungible value, the fallback fee is charged to the NFT receiver
-  * Users must understand that native royalty fees are _strictly_ a convenience feature and that the network cannot enforce inescapable royalties on the exchange of a non-fractional NFT.
-  * For example, if the counterparties agree to split their value transfer and NFT exchange into separate transactions, the network cannot possibly intervene. (And note the counterparties could use a smart contract to make this split transaction atomic if they do not trust each other.)
-  * Counter-parties that _do_ wish to respect creator royalties should follow the pattern the network recognizes: The NFT sender and receiver should both sign a single `CryptoTransfer` that credits the sender with all the fungible value the receiver is exchanging for the NFT. Similarly, a marketplace using an approved spender account for an escrow transaction should credit the account selling the NFT in the same `CryptoTransfer` that deducts fungible value from the buying account.
-  * There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578) that proposes to broaden the class of transactions for which the network automatically collects royalties. If this interests or concerns you, please add your voice to that discussion. A custom fee schedule can include a mix of fee types. You can optionally set a token's fee schedule during the [creation of a token](define-a-token.md).
-* The accounts transferring the token to the receiving accounts are responsible for paying the transfer transaction fee in HBAR.
+**Fixed Fee:** Paid by the _sender_ of the fungible or non-fungible tokens. A fixed fee transfers a set amount to a fee collector account each time a token is transferred, independent of the transfer size. This fee can be collected in HBAR or another Hedera token but not in NFTs.&#x20;
 
-In addition to the custom token fee payment, the sender account is required to pay for the token transfer transaction fee in HBAR.
+**Fractional Fee:** Take a specific portion of the transferred fungible tokens, with optional minimum and maximum limits. The token _receiver_ (fee collector account) pays these fees by default. However, if [`net_of_transfers`](../../hedera-api/token-service/customfees/fractionalfee.md) is set to true, the sender pays the fees and the receiver collects the full token transfer amount. If this field is set to false, the receiver pays for the token custom fees and gets the remaining token balance.&#x20;
 
-**Limits**
+**Royalty Fee:** Paid by the _receiver_ account that is exchanging the fungible value for the NFT. When the NFT sender does not receive any fungible value, the [fallback fee](../../../support-and-community/glossary.md#fallback-fee) is charged to the NFT receiver.&#x20;
 
-* You can add up to 10 custom fees for a given token
-* A token's treasury account is exempt from paying any custom transaction fees when the token is transferred.
-* At most, two "levels" of custom token fees are allowed. In other words, a token being transferred may have a custom fee schedule (first layer) which requires you to pay fees in another token that has its own fee schedule (second layer). If that’s the case, a token paid as a fee within the second layer cannot have its own fee schedule, otherwise, that would create a third layer.
-* Fees cannot be a negative value
+{% hint style="info" %}
+**Note:** In addition to the custom token fee payment, the sender account must pay for the token transfer transaction fee in HBAR. The "[_Payment of Custom Fees & Transaction Fees in HBAR_](custom-token-fees.md#payment-of-custom-fees-vs.-transaction-fees-in-hbar)_"_ section below covers the distinction between custom fees and transaction fees.
+{% endhint %}
 
-**Transaction Fees**
+***
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
-* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
-
-## Custom Fee
+## Implementation Methods
 
 ### Fixed Fee
 
-* The fee collector account collects the defined custom fee amount
-* The amount is the amount of the token the fee collecting account will collect each time the token with the custom fee schedule is transferred
-* The denominating token is the token to charge the custom fee in
-  * To use the ID of the fungible token generated in the transaction, enter "0.0.0" for the token ID
-    * If the token being generated is an NFT, you cannot use it in the fee schedule
-  * If this field is left blank, the default token is hbar
+A [fixed fee](../../hedera-api/token-service/customfees/fixedfee.md) entails transferring a specified token amount to predefined fee collector accounts each time a token transfer is initiated. This fee amount doesn't depend on the volume of tokens being transferred. The creator has the flexibility to collect the fee in HBAR or another fungible Hedera token. However, it's important to note that NFTs cannot be used as a token type to collect this fee. A custom fixed fee can be set for fungible and non-fungible token types.
 
-| Constructor            | Description                           |
-| ---------------------- | ------------------------------------- |
-| `new CustomFixedFee()` | Initializes the CustomFixedFee object |
+<table><thead><tr><th width="409">Constructor</th><th>Description</th></tr></thead><tbody><tr><td><code>new CustomFixedFee()</code></td><td>Initializes the <code>CustomFixedFee</code> object</td></tr></tbody></table>
 
 ```java
 new CustomFixedFee()
 ```
 
-#### Methods
-
-| Method                                                | Type                                                                                                                      | Requirement |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `setFeeCollectorAccountId(<accountId>)`               | [AccountId](https://github.com/theekrystallee/hedera-style-guide/blob/sdk-v1/docs/sdks/tokens/broken-reference/README.md) | Required    |
-| `setHbarAmount(<amount>)`                             | [HBAR](https://github.com/theekrystallee/hedera-style-guide/blob/sdk-v1/docs/sdks/tokens/broken-reference/README.md)      | Optional    |
-| `setAmount(<amount>)`                                 | long                                                                                                                      | Optional    |
-| `setDenominatingTokenId(<tokenId>)`                   | [TokenId](https://github.com/theekrystallee/hedera-style-guide/blob/sdk-v1/docs/sdks/tokens/broken-reference/README.md)   | Optional    |
-| `setAllCollectorsAreExempt(<allCollectorsAreExempt>)` | boolean                                                                                                                   | Optional    |
+<table data-full-width="false"><thead><tr><th width="306.3333333333333">Methods</th><th width="213">Description</th><th width="118" align="center">Type</th><th align="center">Requirement</th></tr></thead><tbody><tr><td><code>setFeeCollectorAccountId</code></td><td>Sets the fee collector account ID that collects the fee.</td><td align="center"><a href="../../deprecated/sdks/specialized-types.md#accountid">AccountId</a></td><td align="center">Required</td></tr><tr><td><code>setHbarAmount</code></td><td>Set the amount of HBAR to be collected.</td><td align="center"><a href="../hbars.md">HBAR</a></td><td align="center">Optional</td></tr><tr><td><code>setAmount</code></td><td>Sets the amount of tokens to be collected as the fee.</td><td align="center">int64</td><td align="center">Optional</td></tr><tr><td><code>setDenominatingTokenId</code></td><td>The ID of the token used to charge the fee. The denomination of the fee is taken as HBAR if left unset.</td><td align="center"><a href="token-id.md">TokenID</a></td><td align="center">Optional</td></tr><tr><td><code>setAllCollectorsAreExempt</code></td><td>If true, exempts all the token's fee collector accounts from this fee.</td><td align="center">boolean</td><td align="center">Optional</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -71,7 +41,7 @@ new CustomFixedFee()
     .setDenominatingTokenId(tokenId) // The token to charge the fee in 
     .setFeeCollectorAccountId(feeCollectorAccountId); // 1 token is sent to this account everytime it is transferred
 
-//Version: 2.0.14
+//Version: 2.0.143
 ```
 {% endtab %}
 
@@ -102,26 +72,11 @@ new CustomFixedFee()
 {% endtab %}
 {% endtabs %}
 
-### Fractional Fee
+### **Fractional Fee**
 
-* The fee collector account is the account that will collect the specified fee amount
-* The denominator of the fractional fee cannot be zero
-* The fractional fee has to be less than or equal to 1
-* You can apply a minimum or maximum fee to charge in cases the percentage of the transfer amount is too low or too high
-* Cannot exceed the fractional range of a 64-bit signed integer
-* If the assessment method field is set, the token's custom fee is charged to the sending account and the receiving account receives the full token transfer amount. If this field is set to false, the receiver pays for the token custom fees and gets the remaining token balance.
+[Fractional fees](../../hedera-api/token-service/customfees/fractionalfee.md) involve the transfer of a specified fraction of the tokens' total value to the designated fee collector account. You can set a custom fractional fee and impose minimum and maximum fee limits per transfer transaction. The fractional fee has to be less than or equal to 1. It cannot exceed the fractional range of a 64-bit signed integer. Applicable to fungible tokens only.
 
-#### Methods
-
-| Method                                                | Type                                                              | Requirement |
-| ----------------------------------------------------- | ----------------------------------------------------------------- | ----------- |
-| `setFeeCollectorAccountId(<accountId>)`               | [AccountId](../../deprecated/sdks/specialized-types.md#accountid) | Required    |
-| `setNumerator(<numerator>)`                           | long                                                              | Required    |
-| `setDenominator(<amount>)`                            | long                                                              | Required    |
-| `setMax(<max>)`                                       | long                                                              | Optional    |
-| `setMin(<min>)`                                       | long                                                              | Optional    |
-| `setAssessmentMethod(<assessmentMethod>)`             | FeeAssessmentMethod                                               | Optional    |
-| `setAllCollectorsAreExempt(<allCollectorsAreExempt>)` | boolean                                                           | Optional    |
+<table><thead><tr><th width="280.33333333333326">Methods</th><th width="222">Description</th><th width="110" align="center">Type</th><th align="center">Requirement</th><th data-hidden>Type</th></tr></thead><tbody><tr><td><code>setFeeCollectorAccountId</code></td><td>Sets the fee collector account ID that collects the fee.</td><td align="center"><a href="../../deprecated/sdks/specialized-types.md#accountid">AccountId</a></td><td align="center">Required</td><td><a href="../../deprecated/sdks/specialized-types.md#accountid">AccountId</a></td></tr><tr><td><code>setNumerator</code></td><td>Sets the numerator of the fraction.</td><td align="center">long</td><td align="center">Required</td><td>long</td></tr><tr><td><code>setDenominator</code></td><td>Sets the denominator of the fraction. Cannot be zero.</td><td align="center">long</td><td align="center">Required</td><td>long</td></tr><tr><td><code>setMax</code></td><td>The maximum fee that can be charged, regardless of the fractional value.</td><td align="center">long</td><td align="center">Optional</td><td>long</td></tr><tr><td><code>setMin</code></td><td>The minimum fee that can be charged, regardless of the fractional value.</td><td align="center">long</td><td align="center">Optional</td><td>long</td></tr><tr><td><code>setAssessmentMethod</code></td><td>If true, sender pays fees and the receiver collects the full token transfer amount. If false, receiver pays fees and gets remaining token balance.</td><td align="center">boolean</td><td align="center">Optional</td><td><code>FeeAssessmentMethod</code></td></tr><tr><td><code>setAllCollectorsAreExempt</code></td><td>If true, exempts all the token's fee collector accounts from this fee.</td><td align="center">boolean</td><td align="center">Optional</td><td>boolean</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -163,32 +118,21 @@ new CustomFractionalFee()
 {% endtab %}
 {% endtabs %}
 
-## Royalty Fee
+### **Royalty Fee**
 
-* Royalty fee charges a fraction of the value exchanged in an NFT transfer transaction. The fractional value is set by designating the numerator and denominator of the fraction.
-* The fallback fee is a [fixed fee](custom-token-fees.md#fixed-fee) that is charged to the NFT receiver when there is no fungible value exchanged with the sender of the NFT
+The [royalty fee](../../hedera-api/token-service/customfees/royaltyfee.md) is assessed and applied each time the ownership of an NFT is transferred and is a fraction of the value exchanged for the NFT. If no value is exchanged for the NFT, a [fallback fee](../../../support-and-community/glossary.md#fallback-fee) can be imposed on the receiving account. This fee type only applies to non-fungible tokens.
 
 {% hint style="info" %}
-Royalty fees are only applicable to non-fungible tokens (NFTs).
+🔔 **NOTE:** Royalty fees are _strictly_ a convenience feature. The network can't enforce royalties if counterparties decide to split their NFT exchange into separate transactions. The NFT sender and receiver must both sign a single `CryptoTransfer` to ensure the proper application of royalties. There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578) about broadening the class of transactions for which the network automatically collects royalties. If this topic interests or concerns you, your participation in the discussion is welcome.
 {% endhint %}
 
-| Constructor              | Description                             |
-| ------------------------ | --------------------------------------- |
-| `new CustomRoyaltyFee()` | Initializes the CustomRoyaltyFee object |
+<table><thead><tr><th width="394">Constructor</th><th>Description</th></tr></thead><tbody><tr><td><code>new CustomRoyaltyFee()</code></td><td>Initializes the <code>CustomRoyaltyFee</code> object</td></tr></tbody></table>
 
 ```java
 new CustomRoyaltyFee()
 ```
 
-#### Methods
-
-| Method                                                | Type                                                              | Requirement |
-| ----------------------------------------------------- | ----------------------------------------------------------------- | ----------- |
-| `setNumerator(<numerator>)`                           | long                                                              | Required    |
-| `setDenominator(<denominator>)`                       | long                                                              | Required    |
-| `setFallbackFee(<fallbackFee>)`                       | [CustomFixedFee](custom-token-fees.md#fixed-fee)                  | Optional    |
-| `setFeeCollectorAccountId(<feeCollectorAccountId>)`   | [AccountId](../../deprecated/sdks/specialized-types.md#accountid) | Required    |
-| `setAllCollectorsAreExempt(<allCollectorsAreExempt>)` | boolean                                                           | Optional    |
+<table><thead><tr><th width="287.33333333333326">Methods</th><th width="223">Description</th><th width="110" align="center">Type</th><th align="center">Requirement</th></tr></thead><tbody><tr><td><code>setFeeCollectorAccountId</code></td><td>Sets the fee collector account ID that collects the fee.</td><td align="center"><a href="../../deprecated/sdks/specialized-types.md#accountid">AccountId</a></td><td align="center">Required</td></tr><tr><td><code>setNumerator</code></td><td>Sets the numerator of the fraction.</td><td align="center">long</td><td align="center">Required</td></tr><tr><td><code>setDenominator</code></td><td>Sets the denominator of the fraction.</td><td align="center">long</td><td align="center">Required</td></tr><tr><td><code>setFallbackFee</code></td><td>If present, the fixed fee to assess to the NFT receiver when no fungible value is exchanged with the sender</td><td align="center"><a href="../../hedera-api/token-service/customfees/fixedfee.md">FixedFee</a></td><td align="center">Optional</td></tr><tr><td><code>setAllCollectorsAreExempt</code></td><td>If true, exempts all the token's fee collector accounts from this fee.</td><td align="center">boolean</td><td align="center">Optional</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -236,3 +180,26 @@ new CustomRoyaltyFee()
 ```
 {% endtab %}
 {% endtabs %}
+
+***
+
+## Payment of Custom Fees vs. Transaction Fees in HBAR
+
+Understanding the difference between custom fees and standard transaction fees in HBAR is crucial for token issuers and developers working with Hedera. **Custom fees** are designed to enforce complex fee structures, such as royalties and fractional ownership. These fees ca n be fixed, fractional, or royalty-based and are usually paid in the token being transferred, although other Hedera tokens or HBAR can also be used. You can configure up to 10 custom fees automatically disbursed to designated fee collector accounts.
+
+On the other hand, **transaction fees** in HBAR serve a different purpose: they compensate network nodes for processing transactions. These fees are uniform across all transaction types and are paid exclusively in HBAR. Unlike custom fees, which can be configured by the user, transaction fees are fixed by the network.
+
+The key differences lie in their flexibility, payee, currency, and configurability. Custom fees offer greater flexibility and can be paid to any account in various tokens, and are user-defined. Transaction fees are network-defined, less flexible, and go solely to network nodes, paid only in HBAR.
+
+#### Fee Exemptions
+
+Fee collector accounts can be exempt from paying custom fees. To enable this, you need to set the exemption during the creation of the custom fees ([HIP-573](https://hips.hedera.com/hip/hip-573)). If not enabled, custom fees will only be exempt for an account if that account is set as a fee collector.
+
+#### Limits and Constraints
+
+When it comes to setting custom fees, there are a few limits and constraints to keep in mind:
+
+* First, fees cannot be set to a negative value.&#x20;
+* Each token can have up to 10 different custom fees.&#x20;
+* Additionally, the treasury account for a given token is automatically exempt from paying these custom transaction fees.&#x20;
+* The system also permits, at most, two "levels" of custom fees. That means a token being transferred might require fees in another token that also has its own fee schedule; however, this can only be nested two layers deep to prevent excessive complexity.

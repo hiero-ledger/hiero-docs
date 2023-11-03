@@ -61,7 +61,7 @@ const query = new FileInfoQuery()
 //Sign the query with the client operator private key and submit to a Hedera network
 const getInfo = await query.execute(client);
 
-console.log("File info response: " +getInfo);
+console.log("File info response: " + getInfo);
 ```
 {% endtab %}
 
@@ -115,7 +115,7 @@ FileId getFileId = query.getFileId();
 {% tab title="JavaScript" %}
 ```javascript
 //Create the query
-FileInfoQuery query = new FileInfoQuery()
+const query = new FileInfoQuery()
   .setFileId(fileId);
 
 //Get file ID

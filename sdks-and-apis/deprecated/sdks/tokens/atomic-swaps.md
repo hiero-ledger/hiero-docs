@@ -7,7 +7,7 @@ An atomic swap is when you swap tokens between two accounts without using a thir
 The private keys for the accounts which are being debited tokens are required to sign the transaction.
 
 {% hint style="info" %}
-Hedera accounts must be associated to the specified token before you can transfer a token to their account. Please see how to associate a token to an account [here](../../../sdks/token-service/associate-tokens-to-an-account.md).
+Hedera accounts must be associated to the specified token before you can transfer a token to their account. Please see how to associate a token to an account [here](../../../sdks/readme-1/associate-tokens-to-an-account.md).
 {% endhint %}
 
 {% tabs %}

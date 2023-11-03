@@ -17,7 +17,7 @@ AccountUpdateTransaction freezeTransaction = transaction.freezeWith(client);
 
 //Sign the transaction with a private key
 AccountCreateTransaction signedTransaction = freezeTransaction
-    .sign(PrivateKey.fromString("302e020100300506032b65700422042012a4a4add3d885bd61d7ce5cff88c5ef2d510651add00a7f64cb90de3359bc5c");
+    .sign(PrivateKey.fromString("302e020100300506032b65700422042012a4a4add3d885bd61d7ce5cff88c5ef2d510651add00a7f64cb90de3359bc5c"));
 
 //v2.0.0    
 ```
@@ -33,7 +33,7 @@ const transaction = await new AccountUpdateTransaction()
 
 //Sign the transaction with a private key
 const signedTransaction = transaction
-    .sign(PrivateKey.fromString("302e020100300506032b65700422042012a4a4add3d885bd61d7ce5cff88c5ef2d510651add00a7f64cb90de3359bc5c");
+    .sign(PrivateKey.fromString("302e020100300506032b65700422042012a4a4add3d885bd61d7ce5cff88c5ef2d510651add00a7f64cb90de3359bc5c"));
 ```
 {% endtab %}
 
