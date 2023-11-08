@@ -8,6 +8,8 @@
   * [Transfer HBAR](getting-started/transfer-hbar.md)
   * [Query Ledger Data](getting-started/query-data.md)
 * [Tutorials](tutorials/README.md)
+  * [Hello World](tutorials/hello-world/README.md)
+    * [Create and fund account](tutorials/hello-world/create-fund-account.md)
   * [Smart Contracts](tutorials/smart-contracts/README.md)
     * [Deploy a Smart Contract Using Hardhat and Hedera JSON-RPC Relay](tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md)
     * [How to Verify a Smart Contract on HashScan (Beta)](tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan-beta.md)
