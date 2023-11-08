@@ -17,21 +17,17 @@ coverY: -150
 
 ## Hello World Sequences
 
-<!--
 There are multiple Hello World sequences for you to follow along.
 
 To start, you **must** do the first sequence,
 as you will need a **funded account** to do any other tasks on Hedera.
 Subsequently, you can do the remaining sequences in any order.
--->
 
 - [Create and fund an account](./create-fund-account/)
+- [HFS: Files](./hfs-files/)
 <!-- TODO
-- [HFS: Files with SDK](./hfs-files-sdk/)
-- [HSCS: Smart contract with SDK](./hscs-smart-contract-sdk/)
-- [HSCS: Smart contract with EthersJs](./hscs-smart-contract-ethersjs/)
-- [HTS: Fungible token with SDK](./hts-ft-sdk/)
-- [HTS: Non-fungible token with SDK](./hts-nft-sdk/)
+- [HSCS: Smart contract](./hscs-smart-contract/)
+- [HTS: Non-fungible token](./hts-nft/)
 -->
 
 ## Next
