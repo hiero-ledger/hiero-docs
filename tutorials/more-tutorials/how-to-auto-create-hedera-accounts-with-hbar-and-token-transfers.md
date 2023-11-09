@@ -12,7 +12,7 @@ The figure below highlights the transaction flow before HIP-542 and after.
 
 In this tutorial, a treasury account will be created to transfer HTS tokens to Bob's ECDSA public key alias, involving a transfer of 10 FT and 1 NFT. The tutorial will also cover creating fungible tokens and an NFT collection (1000 FT / 5 NFT), creating Bob's ECDSA public key alias, and returning Bob's new account ID while confirming their ownership of the transferred tokens and NFT.
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong>  <a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-treasury-account"><strong>CREATE TREASURY</strong></a></td><td><a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-treasury-account">#create-treasury-account</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-fts-and-create-an-nft-collection"><strong>CREATE TOKENS</strong></a></td><td><a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-fts-and-create-an-nft-collection">#create-fts-and-create-an-nft-collection</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-bobs-ecdsa-public-key-alias"><strong>CREATE ECDSA</strong></a></td><td><a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-bobs-ecdsa-public-key-alias">#create-bobs-ecdsa-public-key-alias</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#return-new-account-id"><strong>RETURN ACCOUNT ID</strong></a></td><td><a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#return-new-account-id">#return-new-account-id</a></td></tr><tr><td align="center"><strong>6.</strong> <a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#get-the-example-code-on-github"><strong>PROJECT REPO</strong></a></td><td><a href="how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#get-the-example-code-on-github">#get-the-example-code-on-github</a></td></tr></tbody></table>
+***
 
 ## **Prerequisites**
 
@@ -27,6 +27,17 @@ In this tutorial, a treasury account will be created to transfer HTS tokens to B
 * [auto-create account by sending NFT](https://github.com/a-ridley/hedera-auto-create-account-with-nft)
 
 </details>
+
+***
+
+## Table of Contents
+
+1. [Create Treasury Account](how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-treasury-account)
+2. [Create FTs and NFT Collection](how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-fts-and-an-nft-collection)
+3. [Create Bob's ECDSA Public Key Alias](how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#create-bobs-ecdsa-public-key-alias)
+4. [Return New Account ID](how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md#return-new-account-id)
+
+***
 
 ## Create Treasury Account
 
@@ -201,7 +212,9 @@ export const createNewNftCollection = async (
 {% endtab %}
 {% endtabs %}
 
-## Create FTs and Create an NFT Collection
+***
+
+## Create FTs and an NFT Collection
 
 Leverage the _**createFungibleToken**_ helper function defined above to create 10000 "Hip-542 example" fungible tokens. Use the code tab switch on the upper left of the code block to see how we use _**createNewNftCollection**_ to create our new NFT collection consisting of 5 NFTs.
 
@@ -231,6 +244,8 @@ const tokenId = await createFungibleToken(client, treasuryAccId, supplyKey, trea
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## Create Bob's ECDSA Public Key Alias
 
@@ -321,6 +336,8 @@ const nftTokenId = nftCreateTxnResponse.tokenId;
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## Return New Account ID
 
@@ -421,4 +438,4 @@ Join and collaborate with Hedera Developers on the [Hedera Discord Server](https
 \
 Happy Building! 🛠️
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

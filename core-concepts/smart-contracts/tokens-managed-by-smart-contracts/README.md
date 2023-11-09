@@ -10,7 +10,7 @@ Implementing these interfaces simplifies the process of integrating tokens into 
 
 **➡** [**ERC-721: Non-Fungible Tokens (NFTs)**](erc-721-non-fungible-tokens-nfts.md)
 
-**Token Associations**
+## **Token Associations**
 
 Before sending a token to a smart contract, you need to confirm whether you need to associate the token with the smart contract before transferring it. The transfer will fail if you transfer a token to a smart contract that was not associated with it first or does not have an open auto-association slot.&#x20;
 
@@ -22,6 +22,10 @@ You can associate a smart contract with a token in the following ways:
 {% hint style="info" %}
 **Note:** `Token association` is for HTS tokens only.
 {% endhint %}
+
+## Synthetic Events
+
+Smart contract tokens like ERC-20 and ERC-721 emit events, creating contract logs that developers can query or subscribe to. Hedera Token Service (HTS) tokens are not inherently equipped with such event logs. As a solution to this limitation, Hedera Mirror Nodes now generates synthetic event logs for HTS tokens. Learn more [here](../../mirror-nodes/#synthetic-smart-contract-contract-logs).&#x20;
 
 ## FAQs
 

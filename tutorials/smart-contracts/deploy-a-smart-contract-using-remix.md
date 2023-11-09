@@ -118,12 +118,16 @@ If you're up for it, you can verify your deployed contract using the HashScan Sm
 [how-to-verify-a-smart-contract-on-hashscan-beta.md](how-to-verify-a-smart-contract-on-hashscan-beta.md)
 {% endcontent-ref %}
 
+**Congratulations! 🎉 You have successfully deployed a smart contract on the Hedera network using Remix IDE. Feel free to reach out in** [**Discord**](https://hedera.com/discord) **if you have any questions!**
+
 ***
 
 ## Additional Resources
 
-{% embed url="https://remix-ide.readthedocs.io/en/latest/index.html" %}
+**➡** [**Remix IDE Documentation**](https://remix-ide.readthedocs.io/en/latest/index.html)
 
-{% embed url="https://hashscan.io/" %}
+**➡** [**HashScan Network Explorer**](https://hashscan.io/)
 
-{% embed url="https://docs.hedera.com/hedera/tutorials/smart-contracts/deploy-by-leveraging-ethereum-developer-tools-on-hedera" %}
+**➡** [**Deploy Leveraging EVM Dev Tools** ](deploy-by-leveraging-ethereum-developer-tools-on-hedera.md)
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://hashnode.com/@theekrystallee">https://hashnode.com/@theekrystallee</a></td></tr><tr><td align="center"><p>Editor: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr></tbody></table>

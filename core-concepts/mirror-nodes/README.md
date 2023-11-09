@@ -33,6 +33,19 @@ Once a record file is closed, the consensus nodes generate a signature file. The
 
 Hedera consensus nodes push new record files and signature files to the cloud storage provider – currently AWS S3 and Google File Storage are supported. Mirror nodes download these files, verify their signatures based on their hashes, and only then make them available to be processed.
 
+### Smart Contract Synthetic Logs
+
+Starting with [v0.79](../../networks/release-notes/mirror-node.md#v0.79) of Hedera Mirror Node release, synthetic event logs for Hedera Token Service (HTS) token transactions have been introduced to mimic the behavior of smart contract tokens. Synthetic events are generated for transactions such as:
+
+* `CryptoTransfer`
+* `CryptoApproveAllowance`
+* `CryptoDeleteAllowance`
+* `TokenMint`
+* `TokenWipe`
+* `TokenBurn`
+
+This feature enables developers to effectively monitor HTS token activities as if they were smart contract tokens. An example code implementation demonstrating using ethers.js to listen to synthetic events can be found [here](https://github.com/ed-marquez/hedera-example-hts-synthetic-events-sdk-ethers).&#x20;
+
 ### REST API from Hedera
 
 Hedera provides REST APIs to easily query a mirror node that is hosted by Hedera, removing the complexity of having to run your own. Check out the mirror node REST API docs below.

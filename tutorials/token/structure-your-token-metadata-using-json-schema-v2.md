@@ -6,7 +6,7 @@ When you create a new fungible or non-fungible token, you have the ability to ad
 
 Therefore, Hedera has developed the ["Token Metadata JSON Schema V2](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md#reference-implementation)" for developers and creators who want to structure their metadata in an organized way. The biggest benefit of using this community-accepted standard is that most of the tooling on the Hedera network can scrape and interpret your metadata, like NFT explorers listing rarity attributes based on your metadata.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="structure-your-token-metadata-using-json-schema-v2.md#how-do-you-connect-metadata-to-a-token"><strong>CONNECT METADATA</strong></a></td><td><a href="structure-your-token-metadata-using-json-schema-v2.md#how-do-you-connect-metadata-to-a-token">#how-do-you-connect-metadata-to-a-token</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="structure-your-token-metadata-using-json-schema-v2.md#what-does-the-token-metadata-json-schema-v2-look-like"><strong>METADATA SCHEMA</strong></a></td><td><a href="structure-your-token-metadata-using-json-schema-v2.md#what-does-the-token-metadata-json-schema-v2-look-like">#what-does-the-token-metadata-json-schema-v2-look-like</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="structure-your-token-metadata-using-json-schema-v2.md#how-to-verify-your-token-metadata-is-correct"><strong>VERIFY METADATA</strong></a></td><td><a href="structure-your-token-metadata-using-json-schema-v2.md#how-to-verify-your-token-metadata-is-correct">#how-to-verify-your-token-metadata-is-correct</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="structure-your-token-metadata-using-json-schema-v2.md#want-to-learn-more-about-token-metadata"><strong>VIDEO TUTORIAL</strong></a></td><td><a href="structure-your-token-metadata-using-json-schema-v2.md#want-to-learn-more-about-token-metadata">#want-to-learn-more-about-token-metadata</a></td></tr></tbody></table>
+***
 
 ## Prerequisites
 
@@ -19,6 +19,17 @@ We recommend you complete one of the two tutorials below that teach you how to c
 {% content-ref url="create-and-transfer-your-first-fungible-token.md" %}
 [create-and-transfer-your-first-fungible-token.md](create-and-transfer-your-first-fungible-token.md)
 {% endcontent-ref %}
+
+***
+
+## Table of Contents
+
+1. [Connect Metadata](structure-your-token-metadata-using-json-schema-v2.md#how-do-you-connect-metadata-to-a-token)
+2. [Metadata Schema](structure-your-token-metadata-using-json-schema-v2.md#what-does-the-token-metadata-json-schema-v2-look-like)
+3. [Verify Metadata](structure-your-token-metadata-using-json-schema-v2.md#how-to-verify-your-token-metadata-is-correct)
+4. [Video Tutorial](structure-your-token-metadata-using-json-schema-v2.md#want-to-learn-more-about-token-metadata)
+
+***
 
 ## How do you connect metadata to a token?
 
@@ -66,6 +77,8 @@ mintTx, err := hedera.NewTokenMintTransaction().
 </code></pre>
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## What does the Token Metadata JSON schema V2 look like?
 
@@ -311,6 +324,8 @@ This is what a full Token Metadata JSON Schema V2 specification looks like.
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## How to verify your token metadata is correct?
 
 When you create token metadata for the first time, you want to verify your metadata against the Token Metadata JSON Schema V2. To help you in this, Hedera has created an [NFT utilities SDK](https://github.com/hashgraph/hedera-nft-utilities#token-metadata-validator) **(only for JavaScript)** to verify your metadata against the JSON Schema V2.&#x20;
@@ -356,6 +371,8 @@ The package will return errors and warnings using the below interface. This snip
     ]
 }
 ```
+
+***
 
 ## Want to learn more about token metadata?
 

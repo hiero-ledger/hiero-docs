@@ -8,6 +8,26 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.92.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.92.0)
+
+[HIP-584](https://hips.hedera.com/hip/hip-584) Mirror EVM Archive node saw further refinements in this release. Memory usage was optimized by making most classes stateless and leveraging `ThreadLocal` where appropriate. Work continues on making `/api/v1/contracts/call` support historical blocks with lower level support for historical contract state, account, and contract information added. Additional test coverage for estimate gas was introduced to compare gas estimation is close to the actual gas used via HAPI. Finally, an issue with the `blockhash` operation returning `0x0` was resolved.
+
+We added an option to deduplicate account and token balance data for Citus that can dramatically reduce the size of the balance tables. Balance tables currently consume 50% of the database. In the next release, we will bring this capability to regular PostgreSQL to realize those cost savings there as well. We now no longer update the token history for supply change operations like mint, burn, or wipe thus reducing the amount of data in this table.
+
+## [v0.91.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.91.0)
+
+This release adds support for ad-hoc transaction filters using the [Spring Expression Language](https://docs.spring.io/spring-framework/reference/core/expressions.html) (SpEL). SpEL filters can be used for both including or excluding transactions from being persisted to the database. Previous filtering [capability](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#transaction-and-entity-filtering) allowed mirror node operators to include or exclude certain entity IDs or transaction types, but if they needed something more custom they were out of luck. SpEL itself is pretty powerful and allows access to any bean or class on the classpath, so to reduce the attack surface we limit it to only allow filtering on the [TransactionBody](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_body.proto) and the [TransactionRecord](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_record.proto) contained within the record file. See the [docs](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#spring-expression-language-support) for additional details and examples. Below is an example that only includes transactions with certain memos:
+
+```
+hedera.mirror.importer.parser.include[0].expression=transactionBody.memo.contains("hedera")
+```
+
+Monitoring saw improvements this release with newly added metrics for the size of table and indexes on disk to help track the growing size of the database. Likewise, new cache metrics were implemented to monitor the cache hit rate and size. Dashboards were updated to visualize these new metrics.
+
+[HIP-584](https://hips.hedera.com/hip/hip-584) EVM archive node saw support for `block.prevrandao` implemented. Also, support for `pending`, `safe`, and `finalized` block types were added with all three being equivalent to `latest` since Hedera's blocks are always final. Work has started on historical support for `/api/v1/contracts/call` so that specific blocks in the past can be queried. This release saw the lower level queries for token balance implemented.
+
+[HIP-794](https://hips.hedera.com/hip/hip-794) Sunset account balance saw a couple of remaining items completed. The balance timestamp that was added in v0.89.0 was put to use to provide more accurate timestamps for the accounts and balances REST API. Finally, the reconciliation job was disabled since it doesn't make sense to reconcile from balance data that mirror node generates itself.
+
 ## [v0.90.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.90.0)
 
 This release was mainly focused on testing and bug fixes. Acceptance tests saw a number of improvements including a reduction in overall costs by caching contract creation used in multiple tests. Acceptance tests were added to verify support for HIP-786 staking properties in network stake REST API. An issue with exchange rates varying in different environments was solved by querying the exchange rate REST API and using that to calculate fees to HAPI. The importer had an option added to fail on recoverable errors to find record stream issues earlier in the lifecycle.

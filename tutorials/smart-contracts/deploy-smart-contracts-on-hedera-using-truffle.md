@@ -10,7 +10,7 @@ This tutorial shows you how to deploy smart contracts on Hedera using Truffle an
 
 You can find more examples using Truffle, Web3JS, and Hardhat in [this GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/tree/main/tools).
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="deploy-smart-contracts-on-hedera-using-truffle.md#try-it-yourself"><strong>PREREQUISITES</strong></a></td><td><a href="deploy-smart-contracts-on-hedera-using-truffle.md#try-it-yourself">#try-it-yourself</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="deploy-smart-contracts-on-hedera-using-truffle.md#create-an-account-that-has-ecdsa-keys"><strong>CREATE</strong></a></td><td><a href="deploy-smart-contracts-on-hedera-using-truffle.md#create-an-account-that-has-ecdsa-keys">#create-an-account-that-has-ecdsa-keys</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="deploy-smart-contracts-on-hedera-using-truffle.md#compile-a-smart-contract-using-truffle"><strong>COMPILE</strong></a></td><td><a href="deploy-smart-contracts-on-hedera-using-truffle.md#compile-a-smart-contract-using-truffle">#compile-a-smart-contract-using-truffle</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="deploy-smart-contracts-on-hedera-using-truffle.md#deploy-the-smart-contract-to-hedera-using-truffle"><strong>DEPLOY</strong></a></td><td><a href="deploy-smart-contracts-on-hedera-using-truffle.md#deploy-the-smart-contract-to-hedera-using-truffle">#deploy-the-smart-contract-to-hedera-using-truffle</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="https://codesandbox.io/s/hedera-example-json-rpc-truffle-q6kibt?file=/create-account.js"><strong>CODESANDBOX</strong></a></td><td><a href="https://codesandbox.io/s/hedera-example-json-rpc-truffle-q6kibt?file=/create-account.js">https://codesandbox.io/s/hedera-example-json-rpc-truffle-q6kibt?file=/create-account.js</a></td></tr><tr><td align="center"><strong>6.</strong> <a href="https://github.com/ed-marquez/hedera-example-json-rpc-truffle"><strong>PROJECT REPO</strong></a></td><td><a href="https://github.com/ed-marquez/hedera-example-json-rpc-truffle">https://github.com/ed-marquez/hedera-example-json-rpc-truffle</a></td></tr></tbody></table>
+***
 
 ## **Prerequisites**
 
@@ -22,6 +22,17 @@ You can find more examples using Truffle, Web3JS, and Hardhat in [this GitHub re
     * _**npm install -g truffle**_ (this installation may take a few minutes)
     * _**node create-account.js**_
 * Get[ ](https://github.com/ed-marquez/hedera-example-staking)[the example code from GitHub](https://github.com/ed-marquez/hedera-example-json-rpc-truffle)
+
+***
+
+## Table of Contents
+
+1. [Create an ECDSA Account](deploy-smart-contracts-on-hedera-using-truffle.md#create-an-account-that-has-ecdsa-keys)
+2. [Compile Smart Contract](deploy-smart-contracts-on-hedera-using-truffle.md#compile-a-smart-contract-using-truffle)
+3. [Deploy Smart Contract](deploy-smart-contracts-on-hedera-using-truffle.md#deploy-the-smart-contract-to-hedera-using-truffle)
+4. [Additional Resources](deploy-smart-contracts-on-hedera-using-truffle.md#additional-resources)
+
+***
 
 ## Create an Account that Has ECDSA Keys
 
@@ -109,6 +120,8 @@ async function mirrorQueryFcn(publicKey) {
 }
 ```
 
+***
+
 ## Compile a Smart Contract Using Truffle
 
 Now it’s time to compile _**SimpleStorage**_, which is a basic smart contract that allows anyone to set and get data.
@@ -139,6 +152,8 @@ truffle compile
 _**Console Output:**_
 
 <figure><img src="https://images.hedera.com/2022-How-to-Deploy-Smart-Contracts-on-Hedera-Using-Truffle-Image-2.png?w=2028&#x26;auto=compress%2Cformat&#x26;fit=crop&#x26;dm=1676318297&#x26;s=18f4b0794b3b98c309126d644a8ce114" alt=""><figcaption></figcaption></figure>
+
+***
 
 ## Deploy the Smart Contract to Hedera Using Truffle
 
@@ -176,8 +191,18 @@ You can obtain more information about the newly deployed contract using the [mir
 
 Now you know how to deploy smart contracts on Hedera using Truffle and the JSON RPC Relay. The first part of this example used the Hedera [JavaScript SDK](../../sdks-and-apis/sdks/#hedera-services-code-sdks). However, you can try this with the other officially supported SDKs for Java and Go.&#x20;
 
-Feel free to reach out if you have any questions:
+***
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Ed, DevRel Engineer</p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/ed-marquez/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/ed-marquez/">https://www.linkedin.com/in/ed-marquez/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+## Additional Resources
 
-a
+**➡** [**Project Repository**](https://github.com/ed-marquez/hedera-example-json-rpc-truffle)
+
+**➡** [**CodeSandbox**](https://codesandbox.io/s/hedera-example-json-rpc-truffle-q6kibt?file=/create-account.js)
+
+**➡** [**Truffle Documentation**](https://trufflesuite.com/docs/)
+
+**➡ Feel free to reach out in** [**Discord**](https://hedera.com/discord)
+
+**➡ Have a question? Ask on** [**StackOverflow**](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Ed, DevRel Engineer</p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/ed-marquez/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/ed-marquez/">https://www.linkedin.com/in/ed-marquez/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

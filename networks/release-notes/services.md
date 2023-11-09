@@ -8,6 +8,10 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 
 ## [v0.43](https://github.com/hashgraph/hedera-services/releases/tag/v0.43.0)
 
+{% hint style="success" %}
+**TESTNET UPDATE: NOVEMBER 2, 2023**
+{% endhint %}
+
 Services v0.43.0 adds the following features:
 
 * HIP-786 ([#8620](https://github.com/hashgraph/hedera-services/pull/8620))

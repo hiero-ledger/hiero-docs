@@ -6,11 +6,24 @@ In the previous tutorial, "Submit Your First Message," you have learned how to s
 
 When setting a _Submit Key,_ your topic becomes a **private topic** because each message needs to be signed by the Submit Key. Therefore, you can control who can submit messages to your topic. Of course, the data is still public, as is all data on a public ledger, but we say the topic is private because the topic is restricted by who can submit messages to it.
 
+***
+
 ## Prerequisites
 
 We recommend you complete the "Submit Your First Message" tutorial [here](submit-your-first-message.md) to get a basic understanding of the Hedera Consensus Service. This example does not build upon the previous examples.
 
 ✅ _You can find a full_ [_code check_](submit-message-to-private-topic.md#code-check) _for this tutorial at the bottom of this page._
+
+***
+
+## Table of Contents
+
+1. [Create Private Topic](submit-message-to-private-topic.md#1.-create-a-private-topic)
+2. [Subscribe to Topic](submit-message-to-private-topic.md#2.-subscribe-to-a-topic)
+3. [Submit Message](submit-message-to-private-topic.md#3.-submit-a-message)
+4. [Code Check](submit-message-to-private-topic.md#code-check)
+
+***
 
 ## 1. Create a private topic
 
@@ -83,6 +96,8 @@ fmt.Printf("topicID: %v\n", topicID)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 2. Subscribe to a topic
 
 The code used to subscribe to a public or private topic doesn't change. Anyone can listen to the messages you send to your private topic. You need to provide the [_<mark style="color:purple;">**`TopicMessageQuery()`**</mark>_](../../sdks-and-apis/sdks/consensus-service/get-topic-message.md) with your topic ID to subscribe to it.&#x20;
@@ -125,6 +140,8 @@ _, err = hedera.NewTopicMessageQuery().
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## 3. Submit a message
 
@@ -207,6 +224,8 @@ time.Sleep(30000)
 {% endtabs %}
 
 To conclude: The total cost to create a topic and send a message to it is **$0.0101.**
+
+***
 
 ## Code Check ✅
 
@@ -450,5 +469,9 @@ func main() {
 ```
 
 </details>
+
+{% hint style="info" %}
+Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+{% endhint %}
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Michiel, Developer Advocate</p><p><a href="https://github.com/michielmulders">GitHub</a> | <a href="https://www.linkedin.com/in/michielmulders/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/michielmulders/">https://www.linkedin.com/in/michielmulders/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

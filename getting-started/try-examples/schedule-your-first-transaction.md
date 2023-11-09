@@ -4,11 +4,26 @@
 
 In this tutorial, you'll learn how to create and sign a scheduled transaction. Scheduled Transactions enable multiple parties to easily, inexpensively, and natively schedule and execute any type of Hedera transaction together. Once a transaction is scheduled, additional signatures can be submitted via a ScheduleSign transaction. After the last signature is received within the allotted timeframe, the scheduled transaction will execute.
 
+***
+
 ## Prerequisites
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center">➡ <a href="../introduction.md"><mark style="color:purple;"><strong>INTRODUCTION</strong></mark></a><mark style="color:purple;"><strong></strong></mark></td><td><a href="../introduction.md">introduction.md</a></td></tr><tr><td align="center">➡ <a href="../environment-set-up.md"><mark style="color:purple;"><strong>ENVIRONMENT SETUP</strong></mark></a><mark style="color:purple;"><strong></strong></mark></td><td><a href="../environment-set-up.md">environment-set-up.md</a></td></tr></tbody></table>
+* Get a [Hedera testnet account](../introduction.md).
+* Set up your environment [here](../environment-set-up.md).
+
+***
+
+## Table of Contents
+
+1. [Create Transaction](schedule-your-first-transaction.md#1.-create-a-transaction-to-schedule)
+2. [Schedule Transaction](schedule-your-first-transaction.md#2.-schedule-the-transfer-transaction)
+3. [Submit Signatures](schedule-your-first-transaction.md#3.-submit-signatures)
+4. [Verify Schedule was Triggered](schedule-your-first-transaction.md#4.-verify-the-schedule-was-triggered)
+5. [Verify Scheduled Transaction Executed](schedule-your-first-transaction.md#5.-verify-the-scheduled-transaction-executed)
+
+***
 
 ## 1. Create a transaction to schedule
 
@@ -43,6 +58,8 @@ transaction := hedera.NewTransferTransaction().
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## 2. Schedule the transfer transaction
 
@@ -129,7 +146,11 @@ fmt.Printf("The scheduled transaction ID is %v\n", scheduleTxId)
 {% endtab %}
 {% endtabs %}
 
-## 3. Submit one of the required signatures for the transfer transaction
+***
+
+## 3. Submit Signatures
+
+### Submit one of the required signatures for the transfer transaction
 
 The signatures are submitted to the network via a [ScheduleSign](../../sdks-and-apis/sdks/schedule-transaction/sign-a-schedule-transaction.md) transaction. The [ScheduleSign ](../../sdks-and-apis/sdks/schedule-transaction/sign-a-schedule-transaction.md)transaction requires the schedule ID of the schedule and the signature of one or more of the required keys. The scheduled transaction has 30 minutes from the time it is scheduled to receive all of its signatures; if the signature requirements are not met, the scheduled transaction will expire.
 
@@ -215,7 +236,7 @@ fmt.Print(query1)
 {% endtab %}
 {% endtabs %}
 
-## 4. Submit the second signature
+### Submit the second signature
 
 Next, you will submit the second signature and verify the transaction was successful by requesting the receipt. For example purposes, you have access to all three signing keys. But the idea here is that each signer can independently submit their signature to the network.
 
@@ -280,7 +301,9 @@ fmt.Printf("The transaction status is %v\n", status2)
 {% endtab %}
 {% endtabs %}
 
-## 5. Verify the schedule was triggered
+***
+
+## 4. Verify the schedule was triggered
 
 The schedule is triggered after it meets its minimum signing requirements. As soon as the last required signature is submitted, the schedule executes the scheduled transaction. To verify the schedule was triggered, query for the schedule info. When the schedule info is returned, you should notice both public keys that signed in the `signatories` field and the timestamp recorded for when the schedule transaction was executed in the `executedAt` field.
 
@@ -319,7 +342,9 @@ fmt.Print(query2)
 {% endtab %}
 {% endtabs %}
 
-## 6. Verify the scheduled transaction executed
+***
+
+## 5. Verify the scheduled transaction executed
 
 When the scheduled transaction (transfer transaction) executes a record is produced that contains the transaction details. The scheduled transaction record can be requested immediately after the transaction has executed and includes the corresponding schedule ID. If you do not know when the scheduled transaction will execute, you can always query a [mirror node](../../core-concepts/mirror-nodes/hedera-mirror-node.md) using the scheduled transaction ID without the `?scheduled` flag to get a copy of the transaction record.
 

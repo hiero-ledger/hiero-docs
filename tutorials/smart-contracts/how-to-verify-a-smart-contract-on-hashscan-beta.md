@@ -82,16 +82,18 @@ Once you click _**View Contract**_, you'll be directed to the Contract Lookup pa
 
 <figure><img src="../../.gitbook/assets/contract lookup (1).png" alt=""><figcaption></figcaption></figure>
 
+**Congratulations! 🎉 You have successfully learned how to verify a smart contract. Feel free to reach out on** [**Discord**](https://hedera.com/discord) **if you have any questions!**
+
 ***
 
 ## Additional Resources
 
-{% embed url="https://verify.hashscan.io/" %}
-[verify.hashscan.io/](https://verify.hashscan.io/)
-{% endembed %}
+**➡** [**HashScan Network Explorer**](https://hashscan.io/)
 
-{% embed url="https://hashscan.io/" %}
+**➡** [**Smart Contract Verifier Page**](https://verify.hashscan.io/)
 
-{% embed url="https://docs.sourcify.dev/" %}
+**➡** [**Sourcify Documentation**](https://docs.sourcify.dev/docs/intro)
 
-{% embed url="https://docs.soliditylang.org/" %}
+**➡** [**Smart Contract Documentation**](../../core-concepts/smart-contracts/verifying-smart-contracts-beta.md)
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://hashnode.com/@theekrystallee">https://hashnode.com/@theekrystallee</a></td></tr><tr><td align="center"><p>Editor: Nana, Sr. Software Manager</p><p><a href="https://github.com/Nana-EC">GitHub</a> | <a href="https://www.linkedin.com/in/nconduah/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/nconduah/">https://www.linkedin.com/in/nconduah/</a></td></tr></tbody></table>

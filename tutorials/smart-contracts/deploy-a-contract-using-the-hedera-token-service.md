@@ -10,14 +10,16 @@ The example does not cover the environment setup or creating certain variables t
 _Smart contract entity auto renewal and expiry will be enabled in a future release. Please check out_ [_HIP-16_](https://hips.hedera.com/hip/hip-16) _for more information._
 {% endhint %}
 
+***
+
 ## Prerequisites
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"> <a href="../../getting-started/introduction.md"><mark style="color:purple;"><strong>INTRODUCTION</strong></mark></a></td><td><a href="../../getting-started/introduction.md">introduction.md</a></td></tr><tr><td align="center"><a href="../../getting-started/environment-set-up.md"><mark style="color:purple;"><strong>ENVIRONMENT SETUP</strong></mark></a></td><td><a href="../../getting-started/environment-set-up.md">environment-set-up.md</a></td></tr></tbody></table>
-
-* Get a [Hedera testnet account](https://portal.hedera.com/register).
+* Get a [Hedera testnet account](../../getting-started/introduction.md).
 * Set up your environment [here](../../getting-started/environment-set-up.md).
+
+***
 
 ## 1. Create Your "HTS" Smart Contract
 
@@ -210,6 +212,8 @@ contract HTS is HederaTokenService {
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 2. Store the Smart Contract Bytecode on Hedera
 
 Create a file using the <mark style="color:blue;">`FileCreateTransaction()`</mark> API to store the hex-encoded byte code of the "HTS" contract. Once the file is created, you can obtain the file ID from the receipt of the transaction.
@@ -324,6 +328,8 @@ fmt.Printf("The contract bytecode file ID: %v\n", byteCodeFileID)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 3. Deploy a Hedera Smart Contract
 
 Create the contract and set the file ID to the file that contains the hex-encoded bytecode from the previous step. You will need to set the gas high enough to deploy the contract. The gas should be estimated to be within 25% of the actual gas cost to avoid paying extra gas. You can read more about gas and fees [here](broken-reference).
@@ -407,6 +413,8 @@ fmt.Printf("The contract ID %v\n", contractId)
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## 4. Call the <mark style="color:purple;">`tokenAssociate`</mark> Contract Function
 
@@ -505,6 +513,8 @@ fmt.Printf("The associate transaction status %v\n", txStatus)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 5. Get the <mark style="color:purple;">`tokenAssociate`</mark> Transaction Record
 
 The contract execute transaction that triggered a subsequent token associate transaction in the contract is an example of a **nested transaction.** The contract execute transaction is the parent transaction and the token associate transaction is referred to as the child transaction. Both parent and child transactions share the same payer account ID and transaction valid duration with the exception of the child transaction having a nonce value at the end. The nonce value increments for each subsequent child transaction.
@@ -593,6 +603,8 @@ fmt.Printf("The account token balance %v\n", accountBalance.Tokens)
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## 6. Call the <mark style="color:purple;">`tokenTransfer`</mark> Contract Function
 
@@ -733,6 +745,8 @@ _**Note:** Check out our_ [_smart contract mirror node rest APIs_](../../sdks-an
 * Associated an HTS token by using the deployed contract
 * Requested a transaction record for a nested transaction
 * Transferred tokens using the deployed contract
+
+***
 
 ## Code Check ✅
 
@@ -1392,10 +1406,12 @@ func main() {
 
 </details>
 
-Happy Building! Feel free to reach out if you have any questions:
+***
 
-{% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
-{% endhint %}
+## Additional Resources
+
+**➡ Have a question? Ask on** [**StackOverflow**](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+
+**➡ Feel free to reach out in** [**Discord**](https://hedera.com/discord)**!**
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Simi, Sr. Software Manager </p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan </a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td></td><td></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

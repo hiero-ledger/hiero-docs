@@ -2,11 +2,11 @@
 
 [Foundry](https://book.getfoundry.sh/forge/) provides tools to developers who are developing smart contracts. One of the 3 main components of Foundry is _**Forge**: Foundry’s testing framework_. Tests are written in Solidity and are easily run with the forge test command. This tutorial will dive into configuring Foundry with Hedera to use Forge in order to write and run tests for smart contracts.
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#create-a-hedera-project-and-install-the-hashgraph-js-sdk"><strong>CREATE PROJECT</strong></a></td><td><a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#create-a-hedera-project-and-install-the-hashgraph-js-sdk">#create-a-hedera-project-and-install-the-hashgraph-js-sdk</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#configure-foundry-in-your-hedera-project"><strong>CONFIGURE FOUNDRY</strong></a></td><td><a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#configure-foundry-in-your-hedera-project">#configure-foundry-in-your-hedera-project</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#create-tests-written-in-solidity"><strong>TEST CONTRACT</strong></a></td><td><a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#create-tests-written-in-solidity">#create-tests-written-in-solidity</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#deploy-your-smart-contract"><strong>DEPLOY CONTRACT</strong></a></td><td><a href="how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#deploy-your-smart-contract">#deploy-your-smart-contract</a></td></tr><tr><td align="center"><strong>6.</strong> <a href="https://github.com/a-ridley/hedera-smart-contract-testing-with-foundry"><strong>PROJECT REPO</strong></a></td><td><a href="https://github.com/a-ridley/hedera-smart-contract-testing-with-foundry">https://github.com/a-ridley/hedera-smart-contract-testing-with-foundry</a></td></tr></tbody></table>
-
 {% hint style="info" %}
 **Note:** [Hashio](https://swirldslabs.com/hashio/), the SwirldsLabs hosted version of the [JSON-RPC Relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md), is in beta. If issues are encountered while using Foundry and Hashio, please create an issue in the JSON-RPC Relay GitHub [repository](https://github.com/hashgraph/hedera-json-rpc-relay).
 {% endhint %}
+
+***
 
 ## Prerequisites
 
@@ -14,6 +14,20 @@
 * Basic understanding of [TypeScript](https://www.typescriptlang.org/) and [Solidity](https://docs.soliditylang.org/en/latest/).
 * Basic understanding of [Foundry](https://book.getfoundry.sh/) and [Forge](https://book.getfoundry.sh/forge/) framework.&#x20;
 * Basic understanding of the Hedera [JSON-RPC Relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md).
+
+***
+
+## Table of Contents
+
+1. [Create Hedera Project](how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#create-a-hedera-project-and-install-the-hedera-js-sdk)
+2. [Configure Foundry](how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#configure-foundry-in-your-hedera-project)
+3. [Create Tests](how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#create-tests)
+4. [Deploy Smart Contract](how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#deploy-your-smart-contract)
+5. [Forge Gas Reports](how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#forge-gas-reports)
+6. [Summary](how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#summary)
+7. [Additional Resources](how-to-set-up-foundry-to-test-smart-contracts-on-hedera.md#additional-resources)
+
+***
 
 ## Create a Hedera Project and Install the Hedera JS SDK
 
@@ -120,6 +134,8 @@ Foundry manages dependencies using git submodules by default. Hedera manages dep
 └── tsconfig.json
 ```
 
+***
+
 ## Configure Foundry in your Hedera project
 
 Foundry’s default directory for contracts is `src/`, but we will need it to map to contracts. Tests will map to our `test/foundry` path, and the `cache_path` will map to our `cache/forge-cache` directory.
@@ -148,6 +164,8 @@ And what these remappings translate to is:
 
 * To import from `ds-test` we write import “ds-test/TodoList.sol”;
 * To import from `forge-std` we write import “forge-std/Contract.sol”;
+
+***
 
 ## Create Tests
 
@@ -262,6 +280,8 @@ forge test
 
 <figure><img src="https://images.hedera.com/forge-test.png?w=531&#x26;auto=compress%2Cformat&#x26;fit=crop&#x26;dm=1680223875&#x26;s=48aa3022e94b7c2d04206d2bea7e5822" alt=""><figcaption></figcaption></figure>
 
+***
+
 ## Deploy Your Smart Contract
 
 #### Step 1: Compile your smart contract using solc
@@ -326,6 +346,8 @@ const hederaFoundryExample = async () => {
 hederaFoundryExample();
 ```
 
+***
+
 ## Forge Gas Reports
 
 Forge has functionality built in to give you [gas reports](https://book.getfoundry.sh/forge/gas-reports) of your contracts. First, configure your `foundry.toml` to specify which contracts should generate a gas report.
@@ -348,10 +370,22 @@ forge test –gas-report
 
 Your output will show you an estimated gas average, median, and max for each contract function and total deployment cost and size.
 
+***
+
 ## Summary
 
 In this tutorial, we have learned how to configure Foundry to work with a Hedera project to test our smart contracts using the [forge](https://book.getfoundry.sh/forge/) framework. We also learned how to generate gas reports for our smart contracts.&#x20;
 
-Happy Building! Feel free to reach out if you have any questions:
+Happy Building! Feel free to reach out in [Discord](https://hedera.com/discord) if you have any questions!
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+***
+
+## Additional Resources
+
+**➡** [**Project Repository**](https://github.com/hedera-dev/hedera-smart-contract-testing-with-foundry)
+
+**➡** [**Foundry Documentation**](https://book.getfoundry.sh/)
+
+**➡ Have a question? Ask on** [**StackOverflow**](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

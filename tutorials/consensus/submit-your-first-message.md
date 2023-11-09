@@ -6,7 +6,7 @@ With the Hedera Consensus Service (HCS), you can develop applications like stock
 
 In short, HCS offers the validity of the order of events and transparency into the history of events without requiring a persistent history of transactions. To achieve this, [Mirror nodes](../../core-concepts/mirror-nodes/) store all transaction data so you can retrieve it to audit events.
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="submit-your-first-message.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="submit-your-first-message.md#1.-create-your-first-topic">#1.-create-your-first-topic</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="submit-your-first-message.md#1.-create-your-first-topic"><strong>CREATE TOPIC</strong></a></td><td><a href="submit-your-first-message.md#1.-create-your-first-topic">#1.-create-your-first-topic</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="submit-your-first-message.md#java"><strong>SUBSCRIBE</strong></a></td><td><a href="submit-your-first-message.md#2.-subscribe-to-a-topic">#2.-subscribe-to-a-topic</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="submit-your-first-message.md#3.-submit-a-message"><strong>SUBMIT</strong></a></td><td><a href="submit-your-first-message.md#3.-submit-a-message">#3.-submit-a-message</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="https://codesandbox.io/s/hedera-example-json-rpc-truffle-q6kibt?file=/create-account.js"><strong>CODESANDBOX</strong></a></td><td><a href="https://codesandbox.io/s/hedera-example-json-rpc-truffle-q6kibt?file=/create-account.js">https://codesandbox.io/s/hedera-example-json-rpc-truffle-q6kibt?file=/create-account.js</a></td></tr><tr><td align="center"><strong>6.</strong> <a href="https://github.com/ed-marquez/hedera-example-json-rpc-truffle"><strong>PROJECT REPO</strong></a></td><td><a href="https://github.com/ed-marquez/hedera-example-json-rpc-truffle">https://github.com/ed-marquez/hedera-example-json-rpc-truffle</a></td></tr></tbody></table>
+***
 
 ## Prerequisites
 
@@ -16,6 +16,17 @@ We recommend you complete the following introduction to get a basic understandin
 * Set up your environment [here](../../getting-started/environment-set-up.md).
 
 ✅ _You can find a full_ [_code check_](submit-your-first-message.md#code-check) _for this tutorial at the bottom of this page._
+
+***
+
+## Table of Contents
+
+1. Create Topic
+2. Subscribe to Topic
+3. Submit Message
+4. Code Check
+
+***
 
 ## 1. Create your first topic
 
@@ -89,6 +100,8 @@ fmt.Printf("topicID: %v\n", topicID)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 2. Subscribe to a topic
 
 After you create the topic, you will want to subscribe to the topic via a Hedera mirror node. Subscribing to a topic via a Hedera mirror node allows you to receive the stream of messages that are being submitted to it.
@@ -136,6 +149,8 @@ _, err = hedera.NewTopicMessageQuery().
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## 3. Submit a message
 
@@ -202,6 +217,8 @@ time.Sleep(30000)
 {% endtabs %}
 
 To conclude: The total cost to create a topic and send a message to it is **$0.0101.**
+
+***
 
 ## Code Check ✅
 

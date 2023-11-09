@@ -12,12 +12,26 @@ Follow these main 3 steps:
 
 Throughout the tutorial, you also learn how to check the HBAR balance of the contract by calling a function of the contract itself and by using the SDK query. The last step is to review the transaction history for the contract and the operator account in a mirror node explorer, like [HashScan](https://hashscan.io/#/mainnet/dashboard).
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="send-and-receive-hbar-using-solidity-smart-contracts.md#prerequisites-try-it-yourself"><strong>PREREQUISITES</strong></a></td><td><a href="send-and-receive-hbar-using-solidity-smart-contracts.md#prerequisites-try-it-yourself">#prerequisites-try-it-yourself</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="send-and-receive-hbar-using-solidity-smart-contracts.md#1.-create-accounts-and-deploy-a-contract"><strong>CREATE ACCOUNTS</strong></a></td><td><a href="send-and-receive-hbar-using-solidity-smart-contracts.md#1.-create-accounts-and-deploy-a-contract">#1.-create-accounts-and-deploy-a-contract</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="send-and-receive-hbar-using-solidity-smart-contracts.md#2.-getting-hbar-to-the-contract"><strong>HBAR ➡ CONTRACT</strong></a></td><td><a href="send-and-receive-hbar-using-solidity-smart-contracts.md#2.-getting-hbar-to-the-contract">#2.-getting-hbar-to-the-contract</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="send-and-receive-hbar-using-solidity-smart-contracts.md#3.-getting-hbar-from-the-contract"><strong>HBAR ⬅ CONTRACT</strong></a></td><td><a href="send-and-receive-hbar-using-solidity-smart-contracts.md#3.-getting-hbar-from-the-contract">#3.-getting-hbar-from-the-contract</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="send-and-receive-hbar-using-solidity-smart-contracts.md#summary"><strong>SUMMARY</strong></a></td><td><a href="send-and-receive-hbar-using-solidity-smart-contracts.md#summary">#summary</a></td></tr><tr><td align="center"><strong>6.</strong> <a href="https://github.com/ed-marquez/hedera-smart-contracts/tree/examples/examples/transfer-hbar2contracts-solidity"><strong>PROJECT REPO</strong></a></td><td><a href="https://github.com/ed-marquez/hedera-smart-contracts/tree/examples/examples/transfer-hbar2contracts-solidity">https://github.com/ed-marquez/hedera-smart-contracts/tree/examples/examples/transfer-hbar2contracts-solidity</a></td></tr></tbody></table>
+***
 
 ## **Prerequisites**&#x20;
 
-* Get a [Hedera testnet account](https://portal.hedera.com/register).
-* Get the [example code from GitHub](https://github.com/ed-marquez/hedera-smart-contracts/tree/examples/examples/transfer-hbar2contracts-solidity).
+We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
+
+* Get a [Hedera testnet account](../../getting-started/introduction.md).
+* Set up your environment [here](../../getting-started/environment-set-up.md).
+
+***
+
+## Table of Contents
+
+1. [Create Accounts and Deploy a Contract](send-and-receive-hbar-using-solidity-smart-contracts.md#create-accounts-and-deploy-a-contract)
+2. [Get HBAR to ➡ Contract](send-and-receive-hbar-using-solidity-smart-contracts.md#getting-hbar-to-the-contract)
+3. [Get HBAR from ⬅ Contract](send-and-receive-hbar-using-solidity-smart-contracts.md#getting-hbar-from-the-contract)
+4. [Summary](send-and-receive-hbar-using-solidity-smart-contracts.md#summary)
+5. [Additional Resources ](send-and-receive-hbar-using-solidity-smart-contracts.md#additional-resources)
+
+***
 
 ## **Create Accounts and Deploy a Contract**
 
@@ -178,6 +192,8 @@ async function contractDeployFcn(bytecode, gasLim) {
 * _Token ID (for association with contract later): 0.0.47931765_
 
 </details>
+
+***
 
 ## **Getting HBAR to the Contract**
 
@@ -353,6 +369,8 @@ async function hbar2ContractSdkFcn(sender, receiver, amount, pKey) {
 
 </details>
 
+***
+
 ## **Getting HBAR from the Contract**
 
 In this section the contract transfers HBAR to Alice using three different methods: _**transfer**_, _**send**_, _**call**_. Each transfer is of 20 HBAR, so by the end the contract should have 1 HBAR left in its balance.
@@ -463,16 +481,24 @@ https://hashscan.io/#/testnet/account/${operatorId}`);
 
 </details>
 
+***
+
 ## **Summary**
 
 If you run the entire example successfully, your console should look something like:
 
 <figure><img src="https://images.hedera.com/2022-How-to-Send-and-Receive-HBAR-Using-Smart-Contracts-2-Image-1_2022-08-19-160324_onge.png?w=1395&#x26;auto=compress%2Cformat&#x26;fit=crop&#x26;dm=1676318312&#x26;s=5df20c93e5b39a04550b023da6acb3ee" alt=""><figcaption></figcaption></figure>
 
-Congratulations! 🎉 Now you know how to send HBAR to and from a contract on Hedera using both the SDK and Solidity!
-
 This tutorial used the Hedera JavaScript SDK. However, you can try this with the other officially supported [SDKs](../../sdks-and-apis/sdks/) for Java and Go.
 
-Feel free to reach out if you have any questions:
+**Congratulations! 🎉 Now you know how to send HBAR to and from a contract on Hedera using both the SDK and Solidity! Feel free to reach out in** [**Discord**](https://hedera.com/discord) **if you have any questions!**
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Ed, DevRel Engineer</p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/ed-marquez/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/ed-marquez/">https://www.linkedin.com/in/ed-marquez/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+***
+
+## Additional Resources
+
+**➡** [**Project Repository**](https://github.com/ed-marquez/hedera-smart-contracts/tree/examples/examples/transfer-hbar2contracts-solidity)
+
+**➡ Have a question? Ask on** [**StackOverflow**](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Ed, DevRel Engineer</p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/ed-marquez/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/ed-marquez/">https://www.linkedin.com/in/ed-marquez/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://github.com/theekrystallee">https://github.com/theekrystallee</a></td></tr></tbody></table>

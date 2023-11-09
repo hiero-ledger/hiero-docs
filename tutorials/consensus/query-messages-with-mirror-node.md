@@ -6,9 +6,22 @@ In the first tutorial, "Submit Your First Message," you have learned how to subm
 
 In this tutorial, you will learn how to query the Hedera Mirror Node API to retrieve and filter messages.&#x20;
 
+***
+
 ## Prerequisites
 
 We recommend that you complete the "Submit Your First Message" tutorial [here](submit-your-first-message.md) to get a basic understanding of the Hedera Consensus Service. **This example does not build upon the previous examples.**
+
+***
+
+## Table of Contents
+
+1. [Create Topic and Submit Messages](query-messages-with-mirror-node.md#1.-create-a-topic-and-submit-three-messages)
+2. [Query Hedera Mirror Node API](query-messages-with-mirror-node.md#2.-query-the-hedera-mirror-node-api)
+3. [Retrieve Message](query-messages-with-mirror-node.md#3.-retrieve-a-specific-message-by-sequence-number)
+4. [Advanced Filtering](query-messages-with-mirror-node.md#4.-advanced-filtering-methods-for-hcs-messages)
+
+***
 
 ## 1. Create a topic and submit three messages
 
@@ -147,6 +160,8 @@ Your topic ID is: 0.0.<4603900>
 
 Next, let's query the mirror node to retrieve data.
 
+***
+
 ## 2. Query the Hedera Mirror Node API
 
 Now all three messages have been submitted to your topic ID on testnet, let's query the mirror node. Let's use the testnet endpoint for the Hedera Mirror Node API to query for all messages for your topic ID. Make sure to replace the topic ID with the topic ID you've written down and execute the request in your browser or tool of choice.
@@ -201,6 +216,8 @@ The result should look similar to the API result below, with three messages bein
 
 </details>
 
+***
+
 ## 3. Retrieve a specific message by sequence number
 
 In this section, you'll learn how to query messages by a sequence number. Each message you submit to a topic receives a sequence number starting from 1.&#x20;
@@ -243,6 +260,8 @@ Only message two is returned by the Hedera Mirror Node.
 ```
 
 </details>
+
+***
 
 ## 4. Advanced filtering methods for HCS messages
 
@@ -300,5 +319,9 @@ Only message two is returned by the Hedera Mirror Node.
 ```
 
 </details>
+
+{% hint style="info" %}
+Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+{% endhint %}
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Michiel, Developer Advocate</p><p><a href="https://github.com/michielmulders">GitHub</a> | <a href="https://www.linkedin.com/in/michielmulders/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/michielmulders/">https://www.linkedin.com/in/michielmulders/</a></td></tr><tr><td align="center"><p>Editor: Simi, Sr. Software Manager</p><p><a href="https://github.com/SimiHunjan">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan </a></td></tr></tbody></table>

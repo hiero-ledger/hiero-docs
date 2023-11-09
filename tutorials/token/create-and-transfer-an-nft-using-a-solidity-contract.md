@@ -11,6 +11,8 @@ Besides creating NFTs using Hedera SDK, you can use a Solidity Contract to creat
 * FeeHelper.sol
 * KeyHelper.sol
 
+***
+
 ## Prerequisites
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
@@ -23,6 +25,8 @@ If you are interested in creating, minting, and transferring NFTs using Hedera S
 {% hint style="warning" %}
 In this example, you will set gas for smart contract transactions multiple times. If you don't have enough gas you will receive an<mark style="color:blue;">`INSUFFICIENT_GAS`</mark> response. If you set the value too high you will be refunded a maximum of 20% of the amount that was set for the transaction.
 {% endhint %}
+
+***
 
 ## 1. Create an “NFT Creator” Smart Contract
 
@@ -411,6 +415,8 @@ fmt.Printf("Minted NFT with serial: %v\n", serial)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 5. Execute the Contract to Transfer the NFT
 
 The NFT is minted to the contract address because the contract is the treasury for the token. Now transfer the NFT to another account or contract address. In this example, you will transfer the NFT to Alice. For the transfer, you must specify the token address and NFT serial number.
@@ -504,6 +510,8 @@ fmt.Printf("Transfer status: %v\n", transferRecord.Status)
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## Code Check ✅
 
@@ -978,3 +986,7 @@ func main() {
 ```
 
 </details>
+
+{% hint style="info" %}
+Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+{% endhint %}
