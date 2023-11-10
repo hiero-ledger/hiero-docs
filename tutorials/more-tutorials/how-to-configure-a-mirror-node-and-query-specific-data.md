@@ -10,7 +10,7 @@ Hedera Mirror Node is a useful tool that lets developers and users access past t
 
 This guide provides step-by-step instructions on how to configure and use a Hedera Mirror Node to access past transaction data on the Hedera network. You will learn how to configure your mirror node to store only the latest 90 days of data or data for a specific entity (account, smart contract, etc.) and how to use basic SQL queries to analyze the data.
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="how-to-configure-a-mirror-node-and-query-specific-data.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="how-to-configure-a-mirror-node-and-query-specific-data.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="how-to-configure-a-mirror-node-and-query-specific-data.md#set-up-mirror-node"><strong>NODE SETUP</strong></a></td><td><a href="how-to-configure-a-mirror-node-and-query-specific-data.md#set-up-mirror-node">#set-up-mirror-node</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="how-to-configure-a-mirror-node-and-query-specific-data.md#configure-mirror-node"><strong>CONFIGURE NODE</strong></a></td><td><a href="how-to-configure-a-mirror-node-and-query-specific-data.md#configure-mirror-node">#configure-mirror-node</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="how-to-configure-a-mirror-node-and-query-specific-data.md#start-mirror-node"><strong>START NODE</strong></a></td><td><a href="how-to-configure-a-mirror-node-and-query-specific-data.md#start-mirror-node">#start-mirror-node</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="how-to-configure-a-mirror-node-and-query-specific-data.md#query-mirror-node"><strong>QUERY NODE</strong></a></td><td><a href="how-to-configure-a-mirror-node-and-query-specific-data.md#query-mirror-node">#query-mirror-node</a></td></tr><tr><td align="center"><a href="https://emojipedia.org/">📙</a> <a href="https://github.com/hashgraph/hedera-mirror-node"><strong>MIRROR NODE REPO</strong></a></td><td><a href="https://github.com/hashgraph/hedera-mirror-node">https://github.com/hashgraph/hedera-mirror-node</a></td></tr></tbody></table>
+***
 
 ## Prerequisites
 
@@ -18,6 +18,18 @@ This guide provides step-by-step instructions on how to configure and use a Hede
 * Basic understanding of terminal commands and SQL.
 * [Java](https://www.java.com/en/) (openjdk@17: Java version 17), [Gradle](https://gradle.org/install/) (the latest version), and [PostgreSQL](https://www.postgresql.org/) (the latest version) are installed on your machine.
 * [Docker](https://www.docker.com/) (`>= v20.10.x)` installed and open on your machine. Run `docker -v` in your terminal to check the version you have installed.
+
+***
+
+## Table of Contents
+
+1. [Set Up Mirror Node](how-to-configure-a-mirror-node-and-query-specific-data.md#set-up-mirror-node)
+2. [Configure Mirror Node](how-to-configure-a-mirror-node-and-query-specific-data.md#configure-mirror-node)
+3. [Start Mirror Node](how-to-configure-a-mirror-node-and-query-specific-data.md#start-mirror-node)
+4. [Query Mirror Node](how-to-configure-a-mirror-node-and-query-specific-data.md#query-output-verification)
+5. [Additional Resources](how-to-configure-a-mirror-node-and-query-specific-data.md#additional-resources)
+
+***
 
 ## Set Up Mirror Node
 
@@ -31,6 +43,8 @@ cd hedera-mirror-node
 {% hint style="info" %}
 **Note:** Cloning the mirror node repository could require some time to complete.
 {% endhint %}
+
+***
 
 ## Configure Mirror Node
 
@@ -148,6 +162,8 @@ HEDERA_MIRROR_IMPORTER_RECORD_ENTITY_PERSIST_TOPICS=false
 
 More details about retention [here](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#retention) and transaction and entity filtering [here](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#transaction-and-entity-filtering).
 
+***
+
 ## Start Mirror Node
 
 The PostgreSQL container is responsible for creating the database for the mirror node instance, and the REST API container allows you to use the REST APIs to query the mirror node instance. The database stores the transaction data retrieved by the importer component of the mirror node, and the REST API provides an interface for accessing that data using HTTP requests. The importer component is responsible for retrieving the transaction data from the Hedera network and storing it in the database. Let's start up the database!
@@ -204,6 +220,8 @@ Type "help" for help.
 
 mirror_node=> <ENTER YOUR SQL QUERIES GO HERE>
 ```
+
+***
 
 ## Query Mirror Node
 
@@ -331,6 +349,12 @@ Lastly, run the following command to stop and remove the created containers:
 docker compose down
 ```
 
-#### **Congratulations! 🎉 You have successfully learned how to configure the Hedera Mirror Node to query specific data.** Feel free to reach out if you have any questions:
+**Congratulations! 🎉 You have successfully learned how to configure the Hedera Mirror Node to query specific data. Feel free to reach out on** [**Discord**](https://hedera.com/discord) **if you have any questions!**
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td><td></td></tr><tr><td align="center"><p>Editor: Michiel, Developer Advocate</p><p><a href="https://github.com/michielmulders">GitHub</a> | <a href="https://www.linkedin.com/in/michielmulders/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/michielmulders/">https://www.linkedin.com/in/michielmulders/</a></td><td></td></tr></tbody></table>
+***
+
+## Additional Resources
+
+**➡** [**Mirror Node Repository**](https://github.com/hashgraph/hedera-mirror-node)
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td><td></td></tr><tr><td align="center"><p>Editor: Michiel, Developer Advocate</p><p><a href="https://github.com/michielmulders">GitHub</a> | <a href="https://www.linkedin.com/in/michielmulders/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/michielmulders/">https://www.linkedin.com/in/michielmulders/</a></td><td></td></tr></tbody></table>

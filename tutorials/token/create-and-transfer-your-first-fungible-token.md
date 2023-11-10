@@ -4,11 +4,16 @@
 
 Fungible tokens share a single set of properties and have interchangeable value with one another. Use cases for fungible tokens include applications like stablecoins, in-game rewards systems, crypto tokens, loyalty program points, and much more.
 
+***
+
 ## Prerequisites
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"> <a href="../../getting-started/introduction.md"><mark style="color:purple;"><strong>INTRODUCTION</strong></mark></a></td><td><a href="../../getting-started/introduction.md">introduction.md</a></td></tr><tr><td align="center"><a href="../../getting-started/environment-set-up.md"><mark style="color:purple;"><strong>ENVIRONMENT SETUP</strong></mark></a></td><td><a href="../../getting-started/environment-set-up.md">environment-set-up.md</a></td></tr></tbody></table>
+* Get a [Hedera testnet account](../../getting-started/introduction.md).
+* Set up your environment [here](../../getting-started/environment-set-up.md).
+
+***
 
 ## 1. Create a Fungible Token
 
@@ -113,6 +118,8 @@ fmt.Println("Created fungible token with token ID", tokenId)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 2. Associate User Accounts with Token
 
 Before an account that is not the treasury for a token can receive or send this specific token ID, the account must become “associated” with the token.
@@ -180,6 +187,8 @@ fmt.Println("Non-fungible token association with Alice's account:", associateAli
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## 3. Transfer the Token
 
@@ -288,6 +297,8 @@ gofmt.Println("Alice's balance:", balanceCheckAlice2.Tokens, "units of token", t
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## Code Check ✅
 

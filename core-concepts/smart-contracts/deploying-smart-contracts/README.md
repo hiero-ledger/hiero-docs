@@ -178,6 +178,6 @@ Hardhat can be used to deploy your smart contract by pointing to a community-hos
 
 If you need to set any of the above properties for your contract, you will have to call the `ContractCreateTransaction` API using one of the [Hedera SDKs.](../../../sdks-and-apis/sdks/)
 
-{% content-ref url="../../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md" %}
-[deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md](../../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md)
+{% content-ref url="../../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md" %}
+[deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md](../../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md)
 {% endcontent-ref %}

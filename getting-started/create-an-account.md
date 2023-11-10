@@ -111,7 +111,7 @@ You can view transactions successfully submitted to the network by getting the t
 //Create new account and assign the public key
 TransactionResponse newAccount = new AccountCreateTransaction()
      .setKey(newAccountPublicKey)
-     .setInitialBalance( Hbar.fromTinybars(1000))
+     .setInitialBalance(Hbar.fromTinybars(1000))
      .execute(client);
 ```
 {% endtab %}
@@ -148,7 +148,7 @@ The _account ID_ for the new account is returned in the receipt of the transacti
 AccountId newAccountId = newAccount.getReceipt(client).accountId;
 
 //Log the account ID
-System.out.println("The new account ID is: " +newAccountId);
+System.out.println("New account ID is: " +newAccountId);
 ```
 {% endtab %}
 
@@ -192,7 +192,7 @@ AccountBalance accountBalance = new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .execute(client);
 
-System.out.println("The new account balance is: " +accountBalance.hbars);
+System.out.println("New account balance: " +accountBalance.hbars);
 ```
 {% endtab %}
 
@@ -259,8 +259,8 @@ import java.util.concurrent.TimeoutException;
 ​
 public class HederaExamples {
 ​
-    public static void main(String[] args) throws TimeoutException, HederaPreCheckStatusException, HederaReceiptStatusException {
-​
+    public static void main(String[] args) throws TimeoutException, HederaPreCheckStatusException, HederaReceiptStatusException {​
+        
         //Grab your Hedera Testnet account ID and private key
         AccountId myAccountId = AccountId.fromString(Dotenv.load().get("MY_ACCOUNT_ID"));
         PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load().get("MY_PRIVATE_KEY"));
@@ -268,11 +268,11 @@ public class HederaExamples {
         //Create your Hedera Testnet client
         Client client = Client.forTestnet();
         client.setOperator(myAccountId, myPrivateKey);
-
+        
         // Set default max transaction fee & max query payment
         client.setDefaultMaxTransactionFee(new Hbar(100)); 
         client.setMaxQueryPayment(new Hbar(50)); 
-​
+        
         // Generate a new key pair
         PrivateKey newAccountPrivateKey = PrivateKey.generateED25519();
         PublicKey newAccountPublicKey = newAccountPrivateKey.getPublicKey();
@@ -293,7 +293,7 @@ public class HederaExamples {
                 .setAccountId(newAccountId)
                 .execute(client);
 ​
-        System.out.println("The new account balance: " +accountBalance.hbars);
+        System.out.println("New account balance: " +accountBalance.hbars);
 ​
     }
 }

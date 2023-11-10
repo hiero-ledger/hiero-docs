@@ -24,7 +24,7 @@ Create a new Gradle project and name it `HederaExamples`. Add the following depe
 ```gradle
 dependencies {
 
-    implementation 'com.hedera.hashgraph:sdk:2.19.0'
+    implementation 'com.hedera.hashgraph:sdk:2.29.0'
     implementation 'io.grpc:grpc-netty-shaded:1.46.0'
     implementation 'io.github.cdimascio:dotenv-java:2.3.2'
     implementation 'org.slf4j:slf4j-nop:2.0.3'
@@ -361,24 +361,23 @@ import com.hedera.hashgraph.sdk.AccountCreateTransaction;
 import com.hedera.hashgraph.sdk.Hbar;
 import com.hedera.hashgraph.sdk.AccountBalanceQuery;
 import com.hedera.hashgraph.sdk.AccountBalance;
-
 import java.util.concurrent.TimeoutException;
-​
+
 public class HederaExamples {
-​
-    public static void main(String[] args) {
-​
-        //Grab your Hedera Testnet account ID and private key
-        AccountId myAccountId = AccountId.fromString(Dotenv.load().get("MY_ACCOUNT_ID"));+
-        PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load().get("MY_PRIVATE_KEY"));
-​
-        //Create your Hedera Testnet client
-<strong>        Client client = Client.forTestnet();
-</strong>        client.setOperator(myAccountId, myPrivateKey);
+
+        public static void main(String[] args) {
+                
+                //Grab your Hedera Testnet account ID and private key
+                AccountId myAccountId = AccountId.fromString(Dotenv.load().get("MY_ACCOUNT_ID"));+
+                PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load().get("MY_PRIVATE_KEY"));
+                //Create your Hedera Testnet client
         
-        // Set default max transaction fee &#x26; max query payment
-        client.setDefaultMaxTransactionFee(new Hbar(100)); 
-        client.setMaxQueryPayment(new Hbar(50)); 
+<strong>                Client client = Client.forTestnet();
+</strong>                client.setOperator(myAccountId, myPrivateKey);
+        
+                // Set default max transaction fee &#x26; max query payment
+                client.setDefaultMaxTransactionFee(new Hbar(100)); 
+                client.setMaxQueryPayment(new Hbar(50)); 
     }
 }
 </code></pre>

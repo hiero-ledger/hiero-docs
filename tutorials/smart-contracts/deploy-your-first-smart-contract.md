@@ -1,19 +1,26 @@
 # Deploy Your First Smart Contract
 
-## Summary
-
 In this tutorial, you will learn how to create a simple smart contract on Hedera using Solidity.
 
-We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
+***
 
 ## Prerequisites
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><a href="../../getting-started/introduction.md"><mark style="color:purple;"><strong>INTRODUCTION</strong></mark></a></td><td><a href="../../getting-started/introduction.md">introduction.md</a></td></tr><tr><td align="center"><a href="../../getting-started/environment-set-up.md"><mark style="color:purple;"><strong>ENVIRONMENT SETUP</strong></mark></a></td><td><a href="../../getting-started/environment-set-up.md">environment-set-up.md</a></td></tr></tbody></table>
-
-* Get a [Hedera testnet account](https://portal.hedera.com/register).
+* Get a [Hedera testnet account](../../getting-started/introduction.md).
 * Set up your environment [here](../../getting-started/environment-set-up.md).
+
+***
+
+## Table of Contents
+
+1. [Create Smart Contract](deploy-your-first-smart-contract.md#1.-create-a-hello-hedera-smart-contract)
+2. [Store Bytecode on Hedera](deploy-your-first-smart-contract.md#2.-store-the-smart-contract-bytecode-on-hedera)
+3. [Deploy Hedera Smart Contract](deploy-your-first-smart-contract.md#3.-deploy-a-hedera-smart-contract)
+4. [Call Contract Functions](deploy-your-first-smart-contract.md#4.-call-contract-functions)
+
+***
 
 ## 1. Create a "Hello Hedera" Smart Contract
 
@@ -165,6 +172,8 @@ contract HelloHedera {
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 2. Store the Smart Contract Bytecode on Hedera
 
 Create a file using the <mark style="color:blue;">`FileCreateTransaction()`</mark> API to store the hex-encoded byte code of the "Hello Hedera" contract. Once the file is created, you can obtain the file ID from the receipt of the transaction.
@@ -284,6 +293,8 @@ fmt.Printf("contract bytecode file: %v\n", bytecodeFileID)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## 3. Deploy a Hedera Smart Contract
 
 Create the contract and set the file ID to the file ID that stores the hex-encoded byte code from the previous step. You will also need to set gas the value that will create the contract and pass the constructor parameters using <mark style="color:blue;">`ContractFunctionParameters()`</mark> API<mark style="color:purple;">.</mark> In this example, "hello from Hedera!" was passed to the constructor. After the transaction is successfully executed, you can get the contract ID from the receipt.
@@ -380,7 +391,11 @@ newContractID := *contractReceipt.ContractID
 {% endtab %}
 {% endtabs %}
 
-## 4. Call the <mark style="color:purple;">`get_message`</mark> contract function
+***
+
+## 4. Call Contract Functions
+
+### Call the <mark style="color:purple;">`get_message`</mark> contract function
 
 In the previous step, the contract message variable was set to "hello from Hedera!." You can return this message from the contract by submitting a query that will return the stored message string. The <mark style="color:blue;">`ContractCallQuery()`</mark> similarly does not modify the state of the contract like other Hedera queries. It only reads stored values.
 
@@ -470,7 +485,7 @@ fmt.Printf("The contract message: ", getMessage)
 {% endtab %}
 {% endtabs %}
 
-## 5. Call the <mark style="color:purple;">`set_message`</mark> contract function
+### Call the <mark style="color:purple;">`set_message`</mark> contract function
 
 Call the <mark style="color:blue;">`set_message`</mark> function of the contract. To do this you will need to use the <mark style="color:blue;">`ContractExecuteTransaction()`</mark> API. This transaction will update the contract message. Once the transaction is successfully submitted you can verify the message was updated by requesting <mark style="color:blue;">`ContractCallQuery()`</mark>. The message returned from the contract should now log "Hello from Hedera again!"
 
@@ -626,8 +641,10 @@ fmt.Printf("The updated contract message: ", getMessage2)
 Video tutorial
 {% endembed %}
 
-{% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
-{% endhint %}
+***
+
+## Additional Resources
+
+**➡ Have a question? Ask on** [**StackOverflow**](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Simi, Sr. Software Manager </p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan</a></td></tr></tbody></table>

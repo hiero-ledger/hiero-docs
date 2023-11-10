@@ -1,8 +1,8 @@
 ---
 description: >-
   Hello World sequence:
-  Create a new account on Hedera Testnet, and fund it.
-  Do this before any of the other Hello World sequences.
+  Write a smart contract in Solidity, compile it,
+  then use Hedera Smart Contract Service (HSCS) to deploy it and interact with it.
 ---
 
 # HSCS: Smart contract
@@ -68,8 +68,8 @@ npm install --global solc@0.8.17
 ```
 
 {% hint style="info" %}
-Note that although the package is named `solc`,
-the executable file exposed on your command line is named `solcjs`.
+Note that although the `npm` package is named `solc`,
+the executable exposed on your command line is named `solcjs`.
 {% endhint %}
 
 ***
@@ -104,8 +104,9 @@ HSCS executes a virtual machine - the Ethereum Virtual Machine (EVM) -
 which runs the smart contracts.
 The EVM executes EVM bytecode that is deployed onto the network.
 The Solidity compiler outputs Solidity bytecode,
-which is transformed during the deployment process,
-into something that the EVM can execute.
+which is is deployed to the network.
+Note that compiled bytecode and deployed bytecode,
+while *similar*, are not the same.
 {% endhint %}
 
 Invoke the compiler on your Solidity file.
@@ -128,7 +129,7 @@ my_contract_sol_MyContract.bin
 The `.abi` file contains JSON,
 and describes the interface used to interact with the smart contract.
 
-The `.bin` gile contains EVM bytecode,
+The `.bin` file contains EVM bytecode,
 and this is used in the deployment of the smart contract.
 Note that this is not intended to be human readable.
 {% endhint %}
@@ -163,12 +164,12 @@ Create a new line in the `.env` file
 with the key as `YOUR_JSON_RPC_URL`,
 and with the "JSON-RPC" value followed by the "API key" value.
 
-For example, if the API key field is `XYZ`,
+For example, if the API key field is `ABC123`,
 and the JSON-RPC field is `https://pool.arkhia.io/hedera/testnet/json-rpc/v1`,
 the new line in your `.env` file should look similar to this:
 
 ```text
-RPC_URL=https://pool.arkhia.io/hedera/testnet/json-rpc/v1/XYZ
+RPC_URL=https://pool.arkhia.io/hedera/testnet/json-rpc/v1/ABC123
 ```
 
 ***
@@ -211,9 +212,9 @@ you may do so in two different ways:
 - (2) Without a transaction → Smart contract state may be queried, but may not be changed.
 
 The `introduce` function requires a single parameter of type `string`,
-and updates the state of the smart contract to store this value.
+and changes the state of the smart contract to store this value.
 Enter your name (or other moniker) as the parameter.
-For example, if you want "bguiz", the invocation should look like this:
+For example, if you wish to use "bguiz", the invocation should look like this:
 
 ```js
     const myContractWriteTxRequest = await myContract.functions.introduce('bguiz');
@@ -296,13 +297,13 @@ Congratulations, you have completed this Hello World sequence! 🎉🎉🎉
 
 Now that you have completed this Hello World sequence,
 you have interacted with Hedera Smart Contract Service (HSCS).
-There are [other Hello World sequences](../) for
+There are [other Hello World sequences](/tutorials/hello-world/) for
 Hedera File Service (HFS),
 and Hedera Token Service (HTS),
 which you may wish to check out next.
 
 You may also wish to check out the more detailed
-[HSCS workshop](https://docs.hedera.com/hedera/tutorials/smart-contracts/hscs-workshop/hedera-sdk-js),
+[HSCS workshop](https://docs.hedera.com/hedera/tutorials/smart-contracts/hscs-workshop/),
 which goes into much more depth.
 
 ***

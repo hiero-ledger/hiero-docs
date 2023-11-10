@@ -1002,4 +1002,4 @@ Reference: [HIP-351](https://hips.hedera.com/hip/hip-351).
 
 ### Compiling Smart Contract Example
 
-* [Hardhat](../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md)
+* [Hardhat](../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md)

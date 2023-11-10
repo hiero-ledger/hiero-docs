@@ -8,15 +8,29 @@ In this tutorial, you will learn how to generate random numbers on Hedera using 
 
 This[ resource](https://www.wolfssl.com/true-random-vs-pseudorandom-number-generation/) is helpful if you want to learn more about the difference between pseudorandom and random numbers. For simplicity, we’ll use both terms interchangeably throughout this tutorial.&#x20;
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="how-to-generate-a-random-number-on-hedera.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="how-to-generate-a-random-number-on-hedera.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="how-to-generate-a-random-number-on-hedera.md#generate-random-numbers-using-the-sdk"><strong>GENERATE (SDK)</strong></a></td><td><a href="how-to-generate-a-random-number-on-hedera.md#generate-random-numbers-using-the-sdk">#generate-random-numbers-using-the-sdk</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="how-to-generate-a-random-number-on-hedera.md#generate-random-numbers-using-solidity"><strong>GENERATE (SOLIDITY)</strong></a></td><td><a href="how-to-generate-a-random-number-on-hedera.md#generate-random-numbers-using-solidity">#generate-random-numbers-using-solidity</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="how-to-generate-a-random-number-on-hedera.md#deploy-contract"><strong>DEPLOY CONTRACT</strong></a></td><td><a href="how-to-generate-a-random-number-on-hedera.md#deploy-contract">#deploy-contract</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="how-to-generate-a-random-number-on-hedera.md#query-results"><strong>QUERY RESULTS</strong></a></td><td><a href="how-to-generate-a-random-number-on-hedera.md#query-results">#query-results</a></td></tr><tr><td align="center"><strong>6.</strong> <a href="https://github.com/ed-marquez/hedera-example-random-number"><strong>PROJECT REPO</strong></a></td><td><a href="https://github.com/ed-marquez/hedera-example-random-number">https://github.com/ed-marquez/hedera-example-random-number</a></td></tr></tbody></table>
-
-> _**Note: This tutorial requires the use of the following tools: Hedera**_ [_**JavaScript SDK**_](../../sdks-and-apis/sdks/)_**, Solidity with libraries for random number generation (**_[_**HIP-351**_](https://hips.hedera.com/hip/hip-351)_**), and the Mirror Node REST API (**_[_**learn more**_](https://hedera.com/blog/how-to-look-up-transaction-history-on-hedera-using-mirror-nodes-back-to-the-basics)_**) and explorer (**_[_**HashScan**_](https://hashscan.io/#/mainnet/dashboard)_**).**_
+***
 
 ## **Prerequisites**
 
 * Get a [Hedera Testnet](https://portal.hedera.com/register) account [here](../../getting-started/introduction.md).&#x20;
 * Get the [example code from GitHub](https://github.com/ed-marquez/hedera-example-random-number/blob/master/index.js).
 * Set up your environment and create a client [here](../../getting-started/environment-set-up.md).&#x20;
+
+_**📣 Note:** This tutorial requires the use of the following tools: Hedera_ [_JavaScript SDK_](../../sdks-and-apis/sdks/)_, Solidity with libraries for random number generation (_[_HIP-351_](https://hips.hedera.com/hip/hip-351)_), and the Mirror Node REST API (_[_learn more_](https://hedera.com/blog/how-to-look-up-transaction-history-on-hedera-using-mirror-nodes-back-to-the-basics)_) and explorer (_[_HashScan_](https://hashscan.io/#/mainnet/dashboard)_)._
+
+***
+
+## Table of Contents
+
+1. [Generate Random Numbers (SDK)](how-to-generate-a-random-number-on-hedera.md#generate-random-numbers-using-the-sdk)
+2. [Generate Random Numbers (Solidity)](how-to-generate-a-random-number-on-hedera.md#generate-random-numbers-using-solidity)
+   1. [Deploy Contract](how-to-generate-a-random-number-on-hedera.md#deploy-contract)
+   2. [Execute Contract](how-to-generate-a-random-number-on-hedera.md#execute-contract)
+   3. [Query Results](how-to-generate-a-random-number-on-hedera.md#query-results)
+3. [Summary](how-to-generate-a-random-number-on-hedera.md#summary)
+4. [Additional Resources](how-to-generate-a-random-number-on-hedera.md#additional-resources)
+
+***
 
 ## **Generate Random Numbers Using the SDK**
 
@@ -68,6 +82,8 @@ STEP 1 ===================================
 \- Run #5: Random number = 27
 
 </details>
+
+***
 
 ## **Generate Random Numbers Using Solidity**
 
@@ -315,10 +331,20 @@ STEP 2 ===================================
 
 </details>
 
+***
+
 ## **Summary**
 
 Now you know how to generate a random number on Hedera using the JavaScript SDK and Solidity libraries. Try this example with the other officially supported [SDKs](../../sdks-and-apis/sdks/#hedera-services-code-sdks) for Java, Go, and Swift (coming soon).
 
-**Congratulations! 🎉 You have successfully learned how to generate a random number on Hedera. Feel free to reach out if you have any questions:**
+**Congratulations! 🎉 You have successfully learned how to generate a random number on Hedera. Feel free to reach out on** [**Discord**](https://hedera.com/discord) **if you have any questions!**
+
+***
+
+## Additional Resources
+
+**➡** [**Project Repository**](https://github.com/ed-marquez/hedera-example-random-number)
+
+**➡** [**WolfSSL Random Number Guide**](https://www.wolfssl.com/true-random-vs-pseudorandom-number-generation/)
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Ed, DevRel Engineer</p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/ed-marquez/">LinkedIn</a></p></td><td><a href="https://twitter.com/ed__marquez">https://twitter.com/ed__marquez</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

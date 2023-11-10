@@ -202,11 +202,15 @@ Congratulations, you have completed this Hello World sequence! 🎉🎉🎉
 Now that you have an account on Hedera Testnet, and it is funded,
 you will be able to interact with the Hedera network.
 Continue by following along with
-[the other Hello World sequences](../).
+[the other Hello World sequences](/tutorials/hello-world/).
 
 ***
 
 ## Cheat sheet
+
+<details>
+
+<summary>Skip to final state</summary>
 
 To skip ahead to the final state, use the `completed` branch.
 This gives you the final state with which you can compare
@@ -235,6 +239,8 @@ Note that the branch names are delimited by `..`, and not by `...`,
 as the latter finds the `diff` with the latest common ancestor commit,
 which *is not* what we want in this case.
 {% endhint %}
+
+</details>
 
 ***
 

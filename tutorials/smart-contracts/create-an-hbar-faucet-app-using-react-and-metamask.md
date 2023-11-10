@@ -2,15 +2,6 @@
 
 Enabling the opportunity to connect to a decentralized application (dApp) with different wallets provides more control to the user. Recently, [HIP-583](https://hips.hedera.com/hip/hip-583) added the necessary network infrastructure to support Ethereum Virtual Machine (EVM) wallets on the Hedera network. This added functionality, combined with the auto-create flow described in [HIP-32](https://hips.hedera.com/hip/hip-32), enables developers to transfer native Hedera Token Service (HTS) tokens to EVM addresses that do not yet exist on the Hedera network. In this tutorial, we start out with a Hedera react app, connect our dApp to MetaMask, and finally transfer HBAR to the connected MetaMask account.
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="create-an-hbar-faucet-app-using-react-and-metamask.md#prerequisites"><strong>PREREQUISITES</strong></a></td><td><a href="create-an-hbar-faucet-app-using-react-and-metamask.md#prerequisites">#prerequisites</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="create-an-hbar-faucet-app-using-react-and-metamask.md#create-react-app"><strong>CREATE REACT APP</strong></a></td><td><a href="create-an-hbar-faucet-app-using-react-and-metamask.md#create-react-app">#create-react-app</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="create-an-hbar-faucet-app-using-react-and-metamask.md#configure-metamask-with-hedera-testnet-network"><strong>CONFIGURE METAMASK</strong></a></td><td><a href="create-an-hbar-faucet-app-using-react-and-metamask.md#configure-metamask-with-hedera-testnet-network">#configure-metamask-with-hedera-testnet-network</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="create-an-hbar-faucet-app-using-react-and-metamask.md#connect-our-dapp-to-metamask-and-retrieve-wallet-address"><strong>CONNECT METAMASK</strong></a></td><td><a href="create-an-hbar-faucet-app-using-react-and-metamask.md#connect-our-dapp-to-metamask-and-retrieve-wallet-address">#connect-our-dapp-to-metamask-and-retrieve-wallet-address</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="create-an-hbar-faucet-app-using-react-and-metamask.md#send-hbar-to-metamask-wallet"><strong>SEND HBAR</strong></a></td><td><a href="create-an-hbar-faucet-app-using-react-and-metamask.md#send-hbar-to-metamask-wallet">#send-hbar-to-metamask-wallet</a></td></tr><tr><td align="center"><strong>6.</strong> <a href="create-an-hbar-faucet-app-using-react-and-metamask.md#project-repos"><strong>PROJECT REPOS</strong></a></td><td><a href="create-an-hbar-faucet-app-using-react-and-metamask.md#project-repos">#project-repos</a></td></tr></tbody></table>
-
-## Prerequisites
-
-* Create a Hedera Testnet account [here](../../getting-started/introduction.md).
-* Install the [MetaMask Chrome extension](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en).&#x20;
-* Basic understanding of [TypeScript](https://www.typescriptlang.org/) and [React](https://react.dev/).
-* Set up your environment and create your client [here](../../getting-started/environment-set-up.md).&#x20;
-
 #### What we will do:
 
 This tutorial will show you how to create a Hedera React app using TypeScript and Material UI. You'll install the MetaMask Chrome extension, add the Hedera Testnet network, connect your dApp to it, and even send some HBAR to your MetaMask wallet.
@@ -24,6 +15,30 @@ The complete TypeScript project can be found on GitHub [here](https://github.com
 The complete JavaScript project can be found on GitHub [here](https://github.com/a-ridley/hbar-faucet-for-metamask-JS).
 
 </details>
+
+***
+
+## Prerequisites
+
+* Create a Hedera Testnet account [here](../../getting-started/introduction.md).
+* Install the [MetaMask Chrome extension](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en).&#x20;
+* Basic understanding of [TypeScript](https://www.typescriptlang.org/) and [React](https://react.dev/).
+* Set up your environment and create your client [here](../../getting-started/environment-set-up.md).&#x20;
+
+***
+
+## Table of Contents
+
+1. [Create React App](create-an-hbar-faucet-app-using-react-and-metamask.md#create-react-app)
+2. [Configure MetaMask](create-an-hbar-faucet-app-using-react-and-metamask.md#configure-metamask-with-hedera-testnet-network)
+3. [Connect MetaMask](create-an-hbar-faucet-app-using-react-and-metamask.md#connect-our-dapp-to-metamask-and-retrieve-wallet-address)
+4. [Install Dependencies](create-an-hbar-faucet-app-using-react-and-metamask.md#install-dependencies)
+5. [Create Your Client](create-an-hbar-faucet-app-using-react-and-metamask.md#create-your-client)
+6. [Send HBAR to MetaMask](create-an-hbar-faucet-app-using-react-and-metamask.md#send-hbar-to-metamask-wallet)
+7. [Summary](create-an-hbar-faucet-app-using-react-and-metamask.md#summary)
+8. [Additional Resources](create-an-hbar-faucet-app-using-react-and-metamask.md#additional-resources)
+
+***
 
 ## Create React App
 
@@ -49,6 +64,8 @@ Open the project in Visual Studio code or your IDE of choice. Your project direc
 ```
 
 **If you have not already installed the MetaMask Chrome extension, please install it** [**here**](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)**.**
+
+***
 
 ## Configure MetaMask with Hedera Testnet Network
 
@@ -126,6 +143,8 @@ Let’s digest this function a little further. This function starts by submittin
 \
 In the request to add a new chain, the decimal value is set to 18 even though HBAR has 8 decimals. The reason for this is that MetaMask only supports chains that have 18 decimals. The RPC URL we use is [**https://testnet.hashio.io/api**](https://testnet.hashio.io/api), which comes from [Hashio](https://swirldslabs.com/hashio/), the SwirldsLabs-hosted version of the [JSON-RPC Relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md).
 
+***
+
 ## Connect Our dApp to MetaMask and Retrieve Wallet Address
 
 We have added the code necessary to configure MetaMask with the Hedera test network. Now, it's time to focus on adding the code that will allow us to connect our dApp to MetaMask.
@@ -156,11 +175,9 @@ If MetaMask is installed, _connectToMetamask()_ will call _switchToHederaNetwork
 
 Before we do any kind of work or testing, it is important to ensure we are connected to the correct network.
 
-## Install Hedera JS SDK and Create Your Client
+## Install Dependencies
 
 We’ve written the code to connect our application to MetaMask. Now it’s time to send HBAR to our MetaMask wallet.
-
-### Install Dependencies
 
 Install the Hedera JavaScript SDK and dotenv by running the following command in the project root directory:
 
@@ -181,7 +198,7 @@ In a react-app, the environment variables in your .env file must start with REAC
 
 _**Note**: If you need to create a Hedera Testnet account, visit_ [_portal.hedera.com_](https://portal.hedera.com/) _and register to receive 10,000 test HBAR._
 
-### Create Your Client
+## Create Your Client
 
 A client is used to communicate with the network. We create our client for the Hedera Testnet, which enables us to submit transactions and pay for them. Let’s create our client in our `Home.tsx` file.
 
@@ -410,10 +427,20 @@ Once connected, send HBAR by clicking on the ‘_SEND HBAR TO METAMASK_’ butto
 
 ## Summary
 
-Congratulations! **🎉** You successfully followed the tutorial to create an HBAR faucet for MetaMask and a Hedera React application that integrates with MetaMask!
-
 You learned how to build a transfer transaction that sends an amount of HBAR through the Hedera Testnet to a MetaMask account. This can also be applied to other applications, and I encourage all to keep building.&#x20;
 
-Feel free to reach out if you have any questions:
+Congratulations! 🎉 You successfully followed the tutorial to create an HBAR faucet for MetaMask and a Hedera React application that integrates with MetaMask! Feel free to reach out in [Discord](https://hedera.com/discord) if you have any questions!
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+***
+
+## Additional Resources
+
+**➡** [**TypeScript Project Repository**](https://github.com/a-ridley/hbar-faucet-for-metamask)
+
+**➡** [**JavaScript Project Repository**](https://github.com/a-ridley/hbar-faucet-for-metamask-JS)
+
+**➡** [**Download MetaMask Wallet**](https://metamask.io/download/)
+
+**➡ Have a question? Ask on** [**StackOverflow**](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

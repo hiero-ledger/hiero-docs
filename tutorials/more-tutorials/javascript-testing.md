@@ -14,7 +14,7 @@ Developing [DApps](../../support-and-community/glossary.md#decentralized-applica
 
 Looking at the latter three, suffice it to say that learning testing with JavaScript is a fundamental skill for DApp developers. Unfortunately, it is one that is often overlooked. This tutorial aims to fill that gap. If you're planning to create a DApp on Hedera, but wish to brush up on the basics of testing first, start here!
 
-### What we will cover
+#### What we will cover
 
 A test runner is a developer tool that helps you to:
 
@@ -48,7 +48,9 @@ For each scenario, you'll cover what to look out for and how to handle it proper
 
 Let's begin!
 
-### Prerequisites
+***
+
+## Prerequisites
 
 Prior knowledge
 
@@ -65,7 +67,9 @@ System
   * Recommended setup method for Linux & Mac: [`nvm`](https://github.com/nvm-sh/nvm)
   * Recommended setup method for Windows: [`nvm-windows`](https://github.com/coreybutler/nvm-windows)
 
-### Step 1: Set up the project
+***
+
+## Step 1: Set up the project
 
 This has already been (mostly) done. All that's left for you to do is clone the [accompanying tutorial GitHub repository](https://github.com/hedera-dev/js-testing) and install the dependencies:
 
@@ -99,7 +103,9 @@ Open this repository in your code editor, and you'll find the following files:
 * The tests, also referred to as _the specification._
 * These specify what the behavior of the implementation should be.
 
-### Step 2: Implement the system under test
+***
+
+## Step 2: Implement the system under test
 
 In the `add` function within `my-app.js,` you should see a comment marking _Step 2_. It looks like this:
 
@@ -129,7 +135,9 @@ It should now look like this:
 
 Now you have completed your system under test!
 
-### Step 3: Implement the tests
+***
+
+## Step 3: Implement the tests
 
 In `my-app.spec.js`, find the test block with the title `works with known values`, and add the following implementation where indicated with the comment.
 
@@ -171,7 +179,9 @@ So all the tests have passed: One that you have just added ('known values'), and
 
 You could wrap up here... but you're not quite done yet. This is a **true positive scenario**, where both the implementation and the specification are correct. But there are three other possible scenarios that you're likely to encounter when writing tests, so let's go through them in the next few steps!
 
-### Step 4: Switch to a true negative scenario
+***
+
+## Step 4: Switch to a true negative scenario
 
 In the **true negative scenario**, the implementation is wrong, and the specification is correct. This is probably the most common test failure scenario you'll encounter during development.
 
@@ -227,7 +237,9 @@ Interestingly, the tests for associativity and commutativity do not fail, even w
 
 As a developer, at this point, you would typically _fix_ the error in the _implementation_, and then _re-run the tests_ to ensure that they pass once again. You will do so eventually, towards the end of this tutorial. However, for now, you'll move on to another scenario.
 
-### Step 5: Switch to a false negative scenario
+***
+
+## Step 5: Switch to a false negative scenario
 
 In the **false negative scenario**,  the implementation is correct, and the specification is wrong. This is not as common of a scenario that you'll encounter during development as the false positive, but it is nonetheless important to be able to recognize it when it does occur and rectify it accordingly.
 
@@ -279,7 +291,9 @@ This time, the error shows that the `actual` value was `3`, while the `expected`
 
 As a developer, at this point, you would typically _fix_ the error in the _specification_, and then _re-run the tests_ to see if they pass once again. Instead, let's move on to another scenario.
 
-### Step 6: Switch to a false positive scenario
+***
+
+## Step 6: Switch to a false positive scenario
 
 In the **false positive scenario**,  the implementation is wrong, and the specification is also wrong. This is typically the least common scenario that you'll encounter during development. And it can be extremely tricky to even identify, as you'll see shortly.
 
@@ -326,7 +340,9 @@ False positive scenarios are typically spotted through manual reviews of the bot
 
 Now let's finally fix the code, and go back to the true positive scenario, where you started off.&#x20;
 
-### Step 7: Switch back to a true positive scenario
+***
+
+## Step 7: Switch back to a true positive scenario
 
 In the **true positive scenario**,  the implementation is correct, and the specification is correct as well. This is the **ideal** scenario among the 4 possible ones that you've covered thus far. Whenever there are errors identified in either the implementation or specification, the goal is to fix them such that you _return_ to this true positive scenario.
 
@@ -365,7 +381,9 @@ You should now see some output that looks similar to the following:
 
 Back to all tests passing (for the right reasons)!
 
-### Step 8: Bonus - Add generative testing
+***
+
+## Step 8: Bonus - Add generative testing
 
 Thus far, all the tests that you have written (in `my-app.spec.js`) are example based tests. Essentially your tests consist of one or more interactions with the system under test actual value, an expected value, and an assertion that the actual value matches the expected value. In this step, we'll add a _different type of tests_ to this project: Generative testing.
 
@@ -421,7 +439,7 @@ bas
 
 These generative tests are passing as well and form an additional layer of verification of the system under test. You can now be extra sure that the implementation is indeed correct.
 
-### Congrats!
+#### Congrats!
 
 You've completed this tutorial! :tada: :tada: :tada:
 

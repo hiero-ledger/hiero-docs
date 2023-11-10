@@ -73,7 +73,7 @@ AccountBalance accountBalanceNew = new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .execute(client);
 
-System.out.println("The new account balance is: " +accountBalanceNew.hbars);
+System.out.println("The account balance after the transfer: " +accountBalanceNew.hbars);
 ```
 {% endtab %}
 
@@ -150,7 +150,7 @@ public class HederaExamples {
         PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load().get("MY_PRIVATE_KEY"));
         
         // Create your connection to the Hedera network
-        const client = Client.forTestnet();
+        Client client = Client.forTestnet();
 
         //Set your account as the client's operator
         client.setOperator(myAccountId, myPrivateKey);
@@ -178,6 +178,9 @@ public class HederaExamples {
         AccountBalance accountBalance = new AccountBalanceQuery()
                 .setAccountId(newAccountId)
                 .execute(client);
+        
+        System.out.println("New account balance is: " +accountBalance.hbars);
+
 
         //Transfer HBAR
         TransactionResponse sendHbar = new TransferTransaction()
@@ -185,7 +188,7 @@ public class HederaExamples {
                 .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000))
                 .execute(client);
 
-        System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client).status);
+        System.out.println("The transfer transaction from my account to the new account was: " +sendHbar.getReceipt(client).status);
 
         //Request the cost of the query
         Hbar queryCost = new AccountBalanceQuery()
@@ -199,7 +202,7 @@ public class HederaExamples {
                 .setAccountId(newAccountId)
                 .execute(client);
 
-        System.out.println("The new account balance: " +accountBalanceNew.hbars);
+        System.out.println("The account balance after the transfer: " +accountBalanceNew.hbars);
 
     }
 }

@@ -24,14 +24,14 @@ By the end of this tutorial, you'll be equipped to deploy smart contracts on the
 
 ## Table of Contents&#x20;
 
-1. [Project Setup](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#step-1-set-up-project)
-2. [Project Configuration](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#step-2-configure-project)
-   1. [Environment Variables](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#environment-variables)
-   2. [Hardhat Config File](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#hardhat-configuration-file)
-3. [Compile Smart Contract](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#step-3-compile-contract)
-4. [Deploy Smart Contract](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#step-4-test-and-deploy-contract)
-   1. [Next Steps](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#next-steps)
-5. [Additional Resources](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#additional-resources)
+1. [Project Setup](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#step-1-set-up-project)
+2. [Project Configuration](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#step-2-configure-project)
+   1. [Environment Variables](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#environment-variables)
+   2. [Hardhat Config File](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#hardhat-configuration-file)
+3. [Compile Smart Contract](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#step-3-compile-contract)
+4. [Deploy Smart Contract](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#step-4-test-and-deploy-contract)
+   1. [Next Steps](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#next-steps)
+5. [Additional Resources](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#additional-resources)
 
 ***
 
@@ -275,7 +275,7 @@ describe("RPC", function () {
 
 <summary>.env.example</summary>
 
-A file that stores your environment variables like your accounts, private keys, and references to Hedera network. Details of this file are available in [Step 2](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#environment-variables) of this tutorial.
+A file that stores your environment variables like your accounts, private keys, and references to Hedera network. Details of this file are available in [Step 2](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#environment-variables) of this tutorial.
 
 </details>
 
@@ -283,7 +283,7 @@ A file that stores your environment variables like your accounts, private keys, 
 
 <summary>hardhat.config.js</summary>
 
-The Hardhat configuration file. This file includes information about the Hedera network RPC URLs, accounts, and tasks defined. Details of this file are available in [Step 2](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#hardhat-configuration-file) of this tutorial.
+The Hardhat configuration file. This file includes information about the Hedera network RPC URLs, accounts, and tasks defined. Details of this file are available in [Step 2](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#hardhat-configuration-file) of this tutorial.
 
 </details>
 
@@ -316,11 +316,15 @@ LOCAL_NODE_ENDPOINT='http://localhost:7546/'
 
 **Variables explained**
 
-* **`LOCAL_NODE_OPERATOR_PRIVATE_KEY`**: This is your Alias ECDSA hex-encoded private key for your Hedera Local Node. Replace the example value with your actual private key. Once you set up your local node and run the command to start, the accounts list for alias ECDSA private keys will be generated and returned to your console (see screenshot below). Replace the example value with your actual private key.
+**`LOCAL_NODE_OPERATOR_PRIVATE_KEY`**: This is your Alias ECDSA hex-encoded private key for your Hedera Local Node. Replace the example value with your actual private key. Once you set up your local node and run the command to start, the accounts list for alias ECDSA private keys will be generated and returned to your console (see screenshot below). Replace the example value with your actual private key.&#x20;
+
+{% hint style="info" %}
+📣  **Note**: _EVM tools, including Hardhat, Truffle, and Foundry, are compatible exclusively with Alias ECDSA keys. Utilizing an ED25519 key or an unaliased ECDSA key will lead to errors._
+{% endhint %}
 
 <figure><img src="../../.gitbook/assets/ecdsa account alias cli.png" alt="" width="563"><figcaption></figcaption></figure>
 
-* **`LOCAL_NODE_ENDPOINT`**: This is the URL endpoint for your Hedera Local Node's JSON-RPC Relay. Typically, this would be your `localhost` followed by the port number (`http://localhost:7546/`).
+**`LOCAL_NODE_ENDPOINT`**: This is the URL endpoint for your Hedera Local Node's JSON-RPC Relay. Typically, this would be your `localhost` followed by the port number (`http://localhost:7546/`).
 
 <figure><img src="../../.gitbook/assets/local node address 7546.png" alt="" width="563"><figcaption></figcaption></figure>
 {% endtab %}
@@ -341,13 +345,13 @@ TESTNET_ENDPOINT='https://testnet.hashio.io/api'
 
 **Variables explained**
 
-* **`TESTNET_OPERATOR_PRIVATE_KEY`**: This is your ECDSA hex-encoded private key for the Hedera Testnet. Replace the example value with your actual private key.
+**`TESTNET_OPERATOR_PRIVATE_KEY`**: This is your ECDSA hex-encoded private key for the Hedera Testnet. Replace the example value with your actual private key.
 
 <figure><img src="../../.gitbook/assets/portal hex.png" alt="" width="563"><figcaption></figcaption></figure>
 
 
 
-* **`TESTNET_ENDPOINT`**: This is the URL endpoint for the Hedera Testnet's JSON-RPC Relay. Replace the example URL with the one you're using.&#x20;
+**`TESTNET_ENDPOINT`**: This is the URL endpoint for the Hedera Testnet's JSON-RPC Relay. Replace the example URL with the one you're using.&#x20;
 
 For this tutorial, we'll use Hashio, an instance of the [Hedera JSON-RPC relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md) hosted by [Swirlds Labs](https://swirldslabs.com/). You can use any JSON-RPC instance the community supports.
 
@@ -378,7 +382,7 @@ require("dotenv").config(); // Import dotenv library to access the .env file
 
 #### Hardhat Tasks
 
-These lines define tasks that are accessed and executed from the [`test/`](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#test) or [`scripts/`](deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md#scripts) folders.
+These lines define tasks that are accessed and executed from the [`test/`](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#test) or [`scripts/`](deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md#scripts) folders.
 
 {% code title="hardhat.config.js" %}
 ```javascript
@@ -504,6 +508,10 @@ The compiled artifacts will be saved in the `artifacts/` directory by default, o
 
 After the initial compilation, if you don't modify any files, nothing will be compiled when you run the `compile` command. To force a compilation you can use the `--force` flag or run `npx hardhat clean` to clear the cache and delete the artifacts to recompile.
 
+{% hint style="info" %}
+_**📣 Note**: This step is optional, as the contract automatically compiles when executing the test and deploy commands._
+{% endhint %}
+
 ***
 
 ## Step 4: Test and Deploy Contract
@@ -612,7 +620,7 @@ _**Note:** At the top of the explorer page, remember to switch the network to **
 {% endtab %}
 {% endtabs %}
 
-#### **Congratulations! 🎉 You have successfully learned how to deploy a smart contract using Hardhat and Hedera JSON-RPC Relay.** Feel free to reach out in [Discord](https://hedera.com/discord)!
+**Congratulations! 🎉 You have successfully learned how to deploy a smart contract using Hardhat and Hedera JSON-RPC Relay. Feel free to reach out in** [**Discord**](https://hedera.com/discord)**!**
 
 ***
 
@@ -628,4 +636,4 @@ _**Note:** At the top of the explorer page, remember to switch the network to **
 
 **➡**[ **Hardhat Documentation**](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr><tr><td align="center"><p>Editor: Simi, Sr. Software Manager</p><p><a href="https://github.com/SimiHunjan">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/shunjan/">https://www.linkedin.com/in/shunjan/</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://github.com/theekrystallee">https://github.com/theekrystallee</a></td></tr><tr><td align="center"><p>Editor: Simi, Sr. Software Manager</p><p><a href="https://github.com/SimiHunjan">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/shunjan/">https://www.linkedin.com/in/shunjan/</a></td></tr><tr><td align="center"><p>Editor: Nana, Sr Software Manager </p><p><a href="https://github.com/Nana-EC">GitHub</a> | <a href="https://www.linkedin.com/in/nconduah/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/nconduah/">https://www.linkedin.com/in/nconduah/</a></td></tr><tr><td align="center"><p>Editor: Georgi, Sr Software Dev (LimeChain) </p><p><a href="https://github.com/georgi-l95">GitHub</a> | <a href="https://www.linkedin.com/in/georgi-dimitorv-lazarov/">LinkedIn</a></p></td><td><a href="https://github.com/georgi-l95">https://github.com/georgi-l95</a></td></tr></tbody></table>

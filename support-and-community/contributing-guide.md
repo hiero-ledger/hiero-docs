@@ -98,7 +98,7 @@ Do not use the singular form of the noun, as any reference should be plural sinc
 
 <details>
 
-<summary>America English</summary>
+<summary>American English</summary>
 
 Follow the American English spelling standard. This means that words should follow the American English conventions, employing **'z'** instead of **'s'** in words such as 'decentralized,' 'realized,' and 'organized.'
 

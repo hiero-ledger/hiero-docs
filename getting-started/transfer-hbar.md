@@ -77,7 +77,7 @@ To verify the transfer transaction reached consensus by the network, you will su
 {% tabs %}
 {% tab title="Java" %}
 ```java
-System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client).status);
+System.out.println("The transfer transaction from my account to the new account was: " +sendHbar.getReceipt(client).status);
 ```
 {% endtab %}
 
@@ -169,6 +169,8 @@ public class HederaExamples {
         AccountBalance accountBalance = new AccountBalanceQuery()
                 .setAccountId(newAccountId)
                 .execute(client);
+        
+        System.out.println("New account balance: " +accountBalance.hbars);
 
         //Transfer HBAR
         TransactionResponse sendHbar = new TransferTransaction()
@@ -176,7 +178,7 @@ public class HederaExamples {
                 .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000))
                 .execute(client);
 
-        System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client).status);
+        System.out.println("The transfer transaction from my account to the new account was: " +sendHbar.getReceipt(client).status);
 
     }
 }
