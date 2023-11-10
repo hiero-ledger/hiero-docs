@@ -1,11 +1,4 @@
----
-cover: >-
-  ../.gitbook/assets/Hero-Desktop-EnterpriseApplications_2022-12-08-192047_ivzd
-  (1) (1).webp
-coverY: -150
----
-
-# Ħello World, Ħello Future
+# Hello World
 
 ❓ So you want to develop on [Hedera](https://hedera.com/).
 
@@ -29,9 +22,3 @@ Subsequently, you can do the remaining sequences in any order.
 <!-- TODO
 - [HTS: Non-fungible token](./hts-nft/)
 -->
-
-## Next
-
-Ok now what?
-
-👉 [docs.hedera.com](https://docs.hedera.com/) 👈

@@ -452,44 +452,42 @@ Wipes a non-fungible token from the specified account.
 
 Updates the properties of a token including the name, symbol, treasury account, memo, etc.
 
-| **Param**   | **Type**                                                                                                                                            | **Description**                         |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| `token`     | address                                                                                                                                             | The Hedera token ID in Solidity format. |
-| `tokenInfo` | [IHederaTokenService.HederaToken](https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/IHederaTokenService.sol#L120) memory | The token properties to update.         |
+| **Param**   | **Type**                                                                                                                                                 | **Description**                         |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `token`     | address                                                                                                                                                  | The Hedera token ID in Solidity format. |
+| `tokenInfo` | [IHederaTokenService.HederaToken](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The token properties to update.         |
 
 ### <mark style="color:purple;">`updateTokenExpiryInfo(token, expiryInfo)`</mark>
 
 Update the token expiration time.
 
-| **Param**    | **Type**                                                                                                                                      | **Description**                         |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| `token`      | address                                                                                                                                       | The Hedera token ID in Solidity format. |
-| `expiryInfo` | [IHederaTokenService.Expiry](https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/IHederaTokenService.sol#L53) memory | The expiry properties of a token.       |
+| **Param**    | **Type**                                                                                                                                            | **Description**                         |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `token`      | address                                                                                                                                             | The Hedera token ID in Solidity format. |
+| `expiryInfo` | [IHederaTokenService.Expiry](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The expiry properties of a token.       |
 
 ### <mark style="color:purple;">`updateTokenKeys(token, keys)`</mark>
 
 Update the keys set on a token. The key type is defined in the key parameter.
 
-| **Param** | **Type**                                                                                                                                             | **Description**                         |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| `token`   | address                                                                                                                                              | The Hedera token ID in Solidity format. |
-| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/IHederaTokenService.sol#L100) memory | The token key type.                     |
+| **Param** | **Type**                                                                                                                                                  | **Description**                         |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `token`   | address                                                                                                                                                   | The Hedera token ID in Solidity format. |
+| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The token key type.                     |
 
 ### <mark style="color:purple;">`updateTokenKeys(token, keys)`</mark>
 
 Update the keys set on a token. The key type is defined in the key parameter.
 
-| **Param** | **Type**                                                                                                                                             | **Description**                         |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| `token`   | address                                                                                                                                              | The Hedera token ID in Solidity format. |
-| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/IHederaTokenService.sol#L100) memory | The token key type.                     |
-
-##
+| **Param** | **Type**                                                                                                                                                  | **Description**                         |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `token`   | address                                                                                                                                                   | The Hedera token ID in Solidity format. |
+| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The token key type.                     |
 
 ## Gas Cost
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
+{% content-ref url="../../../networks/mainnet/fees/" %}
+[fees](../../../networks/mainnet/fees/)
 {% endcontent-ref %}
 
 ## Examples
