@@ -13,7 +13,7 @@ The **address book** contains the list of consensus nodes that can submit transa
 For node status, please visit the Hedera status page [here](https://status.hedera.com).
 
 {% hint style="info" %}
-**Note:** TLS port is currently not supported by Hedera SDKs.
+**Note:** The TLS port (50212) is currently not supported by Hedera SDKs.
 {% endhint %}
 
 |                     | Node ID | Node Account ID | IP Address                                                                                            | Port               | Node Certificate Thumbprint                                                                      |
@@ -33,7 +33,7 @@ For node status, please visit the Hedera status page [here](https://status.heder
 | Deutsche Telekom    | 12      | **0.0.15**      | <p>35.228.11.53</p><p>3.121.238.26</p>                                                                | 50211, 50212 (TLS) | c6713d87e3c1f6859a3a3663ebb1b7e1bd1da14fcf076ce51d36464b5682a5df7cfadd440197564f498842313091c2bd |
 | UCL                 | 13      | **0.0.16**      | <p>34.91.181.183</p><p>18.157.223.230</p>                                                             | 50211, 50212 (TLS) | a53c8eb70bdd89edb6be5fec50cfabc081002a477af478eefa355ea6ee572e4ae50e84988f8ea2c068afa78967b2caf0 |
 | Avery Dennison      | 14      | **0.0.17**      | <p>34.86.212.247</p><p>18.232.251.19</p><p>34.86.212.247</p><p>18.232.251.19</p>                      | 50211, 50212 (TLS) | b5b28e6f57240730cda802c56e53b8837a7d63dab9b3b3ab156a04d9e2e6e24b6790c38a5fd335be67a951b77beec748 |
-| Dentons             | 15      | **0.0.18**      | <p>172.105.247.67</p><p>141.94.175.187</p>                | 50211, 50212 (TLS) | eb976995e5d2a9da69c44b06df3c29ecca5eba5008f054077c0ee87b08813314c4fd91ec834d3b868fb7ee7794f4cbeb |
+| Dentons             | 15      | **0.0.18**      | <p>172.105.247.67</p><p>141.94.175.187</p>                                                            | 50211, 50212 (TLS) | eb976995e5d2a9da69c44b06df3c29ecca5eba5008f054077c0ee87b08813314c4fd91ec834d3b868fb7ee7794f4cbeb |
 | Standard Bank       | 16      | **0.0.19**      | <p>34.89.87.138</p><p>18.168.4.59</p><p>13.246.51.42<br>13.244.166.210</p>                            | 50211, 50212 (TLS) | d5ce6f4378d6d547239486efd6a702a74fca9e965723f0ea43eefa32be98179508c42185fa23750d20e8c0f1ca1d563a |
 | eftpos              | 17      | **0.0.20**      | 34.82.78.255                                                                                          | 50211, 50212 (TLS) | b0d760b75396bd80292cf751dc43832a01426fc79e2940aa9d2839525ffda1db04bd47d4e2ed3b46088373800504ce13 |
 | EDF                 | 18      | **0.0.21**      | <p>34.76.140.109<br>13.36.123.209</p>                                                                 | 50211, 50212 (TLS) | c32b80403febe31c4ba1eb46cfa93cbc9169f28597a30ca01365cb3e179672a755a38450ce6aaabf40ad9e36048fd8d4 |
@@ -46,7 +46,7 @@ For node status, please visit the Hedera status page [here](https://status.heder
 | Ubisoft             | 25      | **0.0.28**      | <p>35.198.220.75</p><p>18.139.47.5</p>                                                                | 50211, 50212 (TLS) | b02c9e85f49da18147fd1353773baf0e71d72e22a007f1df9051aa8a4761ae87ad4f90ea4c3409811a1c4777cc2fc61f |
 | abrdn               | 26      | **0.0.29**      | <p>34.142.71.129</p><p>54.74.60.120</p> <p>80.85.70.197</p>                                           | 50211, 50212 (TLS) | fff800ea4280d62c9c1ff333cf430194e0f8af282b813b45211328533cf72f9f14644c0604aacf12b165b5a6b059acc3 |
 | Dell                | 27      | **0.0.30**      | <p>35.234.249.150</p><p>34.201.177.212</p>                                                            | 50211, 50212 (TLS) | 9773691c2995551932e052e7dc80532b31d8470ec2db37956ce88036817965436300f00d95ba5a750c2b7891c8b66a9a |
-| COFRA Holding      | 28      | **0.0.31**      | <p>34.107.78.179</p><p>3.77.94.254</p>                                                                | 50211, 50212 (TLS) | f7313bc08b9d4bc794cb1404d1f482a73ac5fe0c0293b5c73647de3841b0591066624e9922172d54212b1b9e6a790908 |
+| COFRA Holding      | 28      | **0.0.31**      | <p>217.76.57.165</p><p>34.107.78.179</p><p>3.77.94.254</p>                                             | 50211, 50212 (TLS) | f7313bc08b9d4bc794cb1404d1f482a73ac5fe0c0293b5c73647de3841b0591066624e9922172d54212b1b9e6a790908 |
 
 ### Mainnet Node Public Keys
 
