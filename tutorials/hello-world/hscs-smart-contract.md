@@ -332,7 +332,7 @@ cd 03-hscs-smart-contract-ethersjs/
 git diff main..completed -- ./
 ```
 
-Alternatively, you may view the `diff`` rendered on Github:
+Alternatively, you may view the `diff` rendered on Github:
 [`hedera-dev/hello-future-world/compare/main..completed`](https://github.com/hedera-dev/hello-future-world/compare/main..completed)
 (This will show the `diff` for *all* sequences.)
 

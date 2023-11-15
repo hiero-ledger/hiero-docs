@@ -18,5 +18,5 @@ Subsequently, you can do the remaining sequences in any order.
 
 - [Create and fund an account](./create-fund-account/)
 - [HFS: Files](./hfs-files/)
-- [HSCS: Smart contract](./hscs-smart-contract/)
 - [HTS: Fungible token](./hts-fungible-token/)
+- [HSCS: Smart contract](./hscs-smart-contract/)
