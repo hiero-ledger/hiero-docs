@@ -431,12 +431,13 @@ System.out.println("The transaction status: " +associateTokenResponse.getReceipt
 {% tab title="JavaScript" %}
 ```javascript
 //Associate the token to an account using the SDK
-const associateToken = new TokenAssociateTransaction()
-		.setAccountId(accountIdTest)
-		.setTokenIds([tokenId])
+const transaction = new TokenAssociateTransaction()
+    .setAccountId(accountIdTest)
+    .setTokenIds([tokenId])
+    .freezeWith(client);
 
 //Sign with the account key and submit to the Hedera network
-const signTx = await associateToken.freezeWith(client).sign(accountKeyTest);
+const signTx = await transaction.sign(accountKeyTest);
     
 //Submit the transaction
 const submitAssociateTx = await signTx.execute(client);
@@ -518,23 +519,23 @@ System.out.println("The transaction consensus status is " +transactionStatus);
 ```javascript
 
   //Approve the token allowance
-	const transaction = new AccountAllowanceApproveTransaction()
+	const transactionAllowance = new AccountAllowanceApproveTransaction()
 		.approveTokenAllowance(tokenId, treasuryAccountId, newContractId, 100)
 		.freezeWith(client);
 
 	//Sign the transaction with the owner account key
-	const signTx = await transaction.sign(treasuryKey);
+	const signTxAllowance = await transactionAllowance.sign(treasuryKey);
 
 	//Sign the transaction with the client operator private key and submit to a Hedera network
-	const txResponse = await signTx.execute(client);
+	const txResponseAllowance = await signTxAllowance.execute(client);
 
 	//Request the receipt of the transaction
-	const receipt = await txResponse.getReceipt(client);
+	const receiptAllowance = await txResponseAllowance.getReceipt(client);
 
 	//Get the transaction consensus status
-	const transactionStatus = receipt.status;
+	const transactionStatusAllowance = receiptAllowance.status;
 
-	console.log("The transaction consensus status for the allowance function is " + transactionStatus.toString());
+	console.log("The transaction consensus status for the allowance function is " + transactionStatusAllowance.toString());
 ```
 {% endtab %}
 
@@ -1012,12 +1013,13 @@ async function htsContract() {
     console.log("The smart contract ID is " + newContractId);
 
     //Associate the token to an account using the SDK
-    const associateToken = new TokenAssociateTransaction()
+    const transaction = new TokenAssociateTransaction()
         .setAccountId(accountIdTest)
-        .setTokenIds([tokenId])
+        .setTokenIds([tokenId]).
+		    .freezeWith(client)
 
     //Sign with the account key and submit to the Hedera network
-    const signTx = await associateToken.freezeWith(client).sign(accountKeyTest);
+    const signTx = await transaction.sign(accountKeyTest);
         
     //Submit the transaction
     const submitAssociateTx = await signTx.execute(client);
@@ -1031,23 +1033,23 @@ async function htsContract() {
     console.log("The associate transaction was " + txStatus.toString())
 
     //Approve the token allowance so that the contract can transfer tokens from the treasury account
-    const transaction = new AccountAllowanceApproveTransaction()
+    const transactionAllowance = new AccountAllowanceApproveTransaction()
       .approveTokenAllowance(tokenId, treasuryAccountId, newContractId, 100)
       .freezeWith(client);
 
     //Sign the transaction with the owner account key
-    const signTx = await transaction.sign(treasuryKey);
+    const signTxAllowance = await transactionAllowance.sign(treasuryKey);
 
     //Sign the transaction with the client operator private key and submit to a Hedera network
-    const txResponse = await signTx.execute(client);
+    const txResponseAllowance = await signTxAllowance.execute(client);
 
     //Request the receipt of the transaction
-    const receipt = await txResponse.getReceipt(client);
+    const receiptAllowance = await txResponseAllowance.getReceipt(client);
 
     //Get the transaction consensus status
-    const transactionStatus = receipt.status;
+    const transactionStatusAllowance = receiptAllowance.status;
 
-    console.log("The transaction consensus status for the allowance function is " + transactionStatus.toString());
+    console.log("The transaction consensus status for the allowance function is " + transactionStatusAllowance.toString());
 
     //Transfer the new token to the account
     //Contract function params need to be in the order of the parameters provided in the tokenTransfer contract function
