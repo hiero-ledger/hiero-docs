@@ -33,7 +33,7 @@ The complete JavaScript project can be found on GitHub [here](https://github.com
 2. [Configure MetaMask](create-an-hbar-faucet-app-using-react-and-metamask.md#configure-metamask-with-hedera-testnet-network)
 3. [Connect MetaMask](create-an-hbar-faucet-app-using-react-and-metamask.md#connect-our-dapp-to-metamask-and-retrieve-wallet-address)
 4. [Install Dependencies](create-an-hbar-faucet-app-using-react-and-metamask.md#install-dependencies)
-5. [Create Your Client](create-an-hbar-faucet-app-using-react-and-metamask.md#create-your-client)
+5. [Create Client](create-an-hbar-faucet-app-using-react-and-metamask.md#create-your-client)
 6. [Send HBAR to MetaMask](create-an-hbar-faucet-app-using-react-and-metamask.md#send-hbar-to-metamask-wallet)
 7. [Summary](create-an-hbar-faucet-app-using-react-and-metamask.md#summary)
 8. [Additional Resources](create-an-hbar-faucet-app-using-react-and-metamask.md#additional-resources)
@@ -175,6 +175,8 @@ If MetaMask is installed, _connectToMetamask()_ will call _switchToHederaNetwork
 
 Before we do any kind of work or testing, it is important to ensure we are connected to the correct network.
 
+***
+
 ## Install Dependencies
 
 We’ve written the code to connect our application to MetaMask. Now it’s time to send HBAR to our MetaMask wallet.
@@ -197,6 +199,8 @@ REACT_APP_MY_PRIVATE_KEY=
 In a react-app, the environment variables in your .env file must start with REACT\_APP\_. Set the values to the testnet account you created through the Hedera developer portal.
 
 _**Note**: If you need to create a Hedera Testnet account, visit_ [_portal.hedera.com_](https://portal.hedera.com/) _and register to receive 10,000 test HBAR._
+
+***
 
 ## Create Your Client
 
@@ -275,6 +279,8 @@ When a transaction is executed, the result is of type [TransactionResponse](http
 You can learn and read more about [parent and child transactions ](https://docs.hedera.com/hedera/core-concepts/transactions-and-queries#nested-transactions)on our documentation site.
 
 _**Note: For security purposes, the account sending the tokens should be on a backend server, but for simplicity, it will be on the frontend. This is a reminder that private keys should never be exposed on the frontend, as that is the easiest way to lose control of your account.**_
+
+***
 
 ## Send HBAR to MetaMask Wallet
 
@@ -425,6 +431,8 @@ Once connected, send HBAR by clicking on the ‘_SEND HBAR TO METAMASK_’ butto
 
 <figure><img src="https://images.hedera.com/image7.png?w=360&#x26;auto=compress%2Cformat&#x26;fit=crop&#x26;dm=1680226531&#x26;s=fad7bfdfc0d0a3e10e05220d2eda86f7" alt=""><figcaption></figcaption></figure>
 
+***
+
 ## Summary
 
 You learned how to build a transfer transaction that sends an amount of HBAR through the Hedera Testnet to a MetaMask account. This can also be applied to other applications, and I encourage all to keep building.&#x20;
@@ -443,4 +451,4 @@ Congratulations! 🎉 You successfully followed the tutorial to create an HBAR f
 
 **➡ Have a question? Ask on** [**StackOverflow**](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://hashnode.com/@theekrystallee">Hashnode</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://www.linkedin.com/in/a-ridley/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/a-ridley/">https://www.linkedin.com/in/a-ridley/</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>

@@ -370,7 +370,7 @@ This service enables developers to create a verifiable timestamp and order of ev
 
 ### Hedera File Service
 
-The [Hedera File Service](../sdks-and-apis/hedera-api/readme-1/) provides a decentralized file storage platform that allows developers to securely store and access files on a distributed network of computers using hash as a file identifier.
+The [Hedera File Service](../sdks-and-apis/deprecated/sdks/readme-1-1/) provides a decentralized file storage platform that allows developers to securely store and access files on a distributed network of computers using hash as a file identifier.
 
 ### Hedera Improvement Proposal (HIP)
 

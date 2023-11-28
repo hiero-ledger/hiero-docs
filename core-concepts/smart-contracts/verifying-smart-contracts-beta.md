@@ -1,8 +1,8 @@
-# Verifying Smart Contracts (Beta)
+# Verifying Smart Contracts
 
 Smart contract verification is the process of verifying that the smart contract bytecode uploaded to the network matches the expected smart contract source files. Verification is _not_ required for contracts that are deployed on the Hedera but it is best practice and essential to maintaining the contract's security and integrity by identifying vulnerabilities that could be exploited, as smart contracts are immutable once deployed. It also enables transparency and builds trust within the user community by proving that the deployed bytecode matches the contract's original source code.&#x20;
 
-To initiate verification, you can use a community-hosted Hedera Mirror Node Explorer, like [HashScan](https://hashscan.io/) ([Arkhia](https://explorer.arkhia.io/) and [Dragon Glass](https://app.dragonglass.me/) do not currently support this feature), that integrates with [Sourcify](../../support-and-community/glossary.md#sourcify): A Solidity source code and metadata verification tool. Once you upload your files to the verification tool, Sourcify recompiles the submitted source code and metadata files to check them against the deployed bytecode. If a match is found, the contract's verification status is updated to either a [_<mark style="color:green;">Full (Perfect) Match</mark>_](https://docs.sourcify.dev/docs/full-vs-partial-match/#full-perfect-matches) or a [_<mark style="color:green;">Partial</mark>_ ](https://docs.sourcify.dev/docs/full-vs-partial-match/#partial-matches)_<mark style="color:green;">Match.</mark>_
+To initiate verification, you can use a community-hosted Hedera Mirror Node Explorer, like [HashScan](https://hashscan.io/) ([Arkhia](https://explorer.arkhia.io/) and [Dragon Glass](https://app.dragonglass.me/) do not currently support this feature), that integrates with [Sourcify](../../support-and-community/glossary.md#sourcify): A Solidity source code and metadata verification tool. Once you upload your files to the verification tool, Sourcify recompiles the submitted source code and metadata files to check them against the deployed bytecode. If a match is found, the contract's verification status is updated to either a [_<mark style="color:green;">Full (Perfect) Match</mark>_](https://docs.sourcify.dev/docs/full-vs-partial-match/#full-perfect-matches) or a [_<mark style="color:green;">Partial Match</mark>_](https://docs.sourcify.dev/docs/full-vs-partial-match/#partial-matches)_<mark style="color:green;">.</mark>_
 
 The verification status is then publicly available across all community-hosted Hedera Mirror Node Explorers. To learn what differentiates a _Full (Perfect) Match_ from a _Partial Match_, check out the Sourcify documentation [here](https://docs.sourcify.dev/docs/full-vs-partial-match/).
 
@@ -69,13 +69,13 @@ You have options for generating the metadata file. The recommended skill levels 
 
 <summary>Remix IDE (beginner)</summary>
 
-To create a metadata file in Remix, compile your smart contract and the compiled artifacts will be saved in the `artifacts/` directory and the `<dynamic_hash.json` metadata file will be under `artifacts/build-info` and used for verification. Alternatively, you can copy and paste it from the Solidity compiler tab. Please see the image below.&#x20;
+To create a metadata file in Remix, compile your smart contract and the compiled artifacts will be saved in the `artifacts/` directory and the `<dynamic_hash>.json` metadata file will be under `artifacts/build-info` and used for verification. Alternatively, you can copy and paste it from the Solidity compiler tab. Please see the image below.&#x20;
 
 ![](<../../.gitbook/assets/remix metadata.png>)
 
 See the Remix IDE docs for more detailed documentation [here](https://remix-ide.readthedocs.io/en/latest/contract\_metadata.html).
 
-**Note:** Taking the bytecode and metadata from Remix and then deploying that on Hedera results in a _**full (perfect) match**_. Taking the bytecode and metadata from Remix _after_ deploying the contract on Hedera results in a _**partial match**_ or _**The deployed and recompiled bytecode don't match**_ error.
+**Note:** Taking the bytecode and metadata from Remix and then deploying that on Hedera results in a _**full (perfect) match**_. Taking the bytecode and metadata from Remix _after_ deploying the contract on Hedera results in a _**partial match**_ or _**The deployed and recompiled bytecode don't match**_ error. _The requirement for verification with a contract compiled in Remix is just the smart contract's Solidity file._&#x20;
 
 </details>
 
@@ -86,6 +86,8 @@ See the Remix IDE docs for more detailed documentation [here](https://remix-ide.
 To create the `.json` metadata file with Hardhat, compile the contract using the `npx hardhat compile` command. The compiled artifacts will be saved in the `artifacts/` directory and the `<dynamic_hash>.json` metadata file will be under `artifacts/build-info` and used for verification. See Sourcify Hardhat metadata [here](https://docs.sourcify.dev/docs/metadata/#hardhat).&#x20;
 
 <img src="../../.gitbook/assets/hardhat contract artifacts.png" alt="" data-size="original">
+
+**Note**: The requirement for verification with a contract compiled with Hardhat is only the `build-info` JSON file.
 
 </details>
 
@@ -163,8 +165,6 @@ An example metadata file for the `HelloWorld` smart contract:
 }
 ```
 
-
-
 ***
 
 ## Deployed Smart Contract Address
@@ -189,8 +189,8 @@ _**Note**: The `0.0.XXXXXXX` smart contract address format can not be used in th
 
 Learn how to verify your smart contract:
 
-{% content-ref url="../../tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan-beta.md" %}
-[how-to-verify-a-smart-contract-on-hashscan-beta.md](../../tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan-beta.md)
+{% content-ref url="../../tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan.md" %}
+[how-to-verify-a-smart-contract-on-hashscan.md](../../tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan.md)
 {% endcontent-ref %}
 
 #### Different Instances of Sourcify: Hedera's Custom Approach
@@ -207,14 +207,14 @@ An essential detail to remember is that smart contracts verified on Hedera's Sou
 
 ## Additional Resources
 
-{% embed url="https://docs.sourcify.dev/docs/full-vs-partial-match/" %}
+**➡** [**Sourcify Documentation**](https://docs.sourcify.dev/docs/intro)
 
-{% embed url="https://verify.hashscan.io/" %}
-[verify.hashscan.io](https://verify.hashscan.io/)
-{% endembed %}
+**➡** [**HashScan Network Explorer**](https://hashscan.io/)
 
-{% embed url="https://hashscan.io" %}
+**➡** [**Smart Contract Verifier Page**](https://verify.hashscan.io/)
 
-{% embed url="https://hardhat.org/hardhat-runner/docs/guides/compile-contracts" %}
+**➡** [**Full vs Partial Match Documentation**](https://docs.sourcify.dev/docs/full-vs-partial-match/)
 
-{% embed url="https://docs.soliditylang.org/" %}
+**➡** [**Hardhat Documentation**](https://hardhat.org/hardhat-runner/docs/guides/compile-contracts)
+
+**➡** [**Solidity Documentation**](https://docs.soliditylang.org/en/v0.8.23/)

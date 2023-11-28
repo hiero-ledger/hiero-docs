@@ -108,14 +108,12 @@ Navigate to the [HashScan](https://hashscan.io/) network explorer and use the co
 
 <figure><img src="../../.gitbook/assets/remix hashscan contract details.png" alt=""><figcaption></figcaption></figure>
 
-***
-
-## Next Steps: Verify Your Smart Contract
+### Next Steps: Verify Your Smart Contract
 
 If you're up for it, you can verify your deployed contract using the HashScan Smart Contract Verifier tool. Learn how:
 
-{% content-ref url="how-to-verify-a-smart-contract-on-hashscan-beta.md" %}
-[how-to-verify-a-smart-contract-on-hashscan-beta.md](how-to-verify-a-smart-contract-on-hashscan-beta.md)
+{% content-ref url="how-to-verify-a-smart-contract-on-hashscan.md" %}
+[how-to-verify-a-smart-contract-on-hashscan.md](how-to-verify-a-smart-contract-on-hashscan.md)
 {% endcontent-ref %}
 
 **Congratulations! 🎉 You have successfully deployed a smart contract on the Hedera network using Remix IDE. Feel free to reach out in** [**Discord**](https://hedera.com/discord) **if you have any questions!**
