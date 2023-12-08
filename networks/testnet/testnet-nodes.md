@@ -1,6 +1,6 @@
 # Testnet Consensus Nodes
 
-Testnet nodes belong to the test network and run the same code as the Hedera Mainnet nodes.
+Testnet nodes belong to the test network and run the same code, or an updated version of it, as the Hedera Mainnet nodes. Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
 | Node ID | Node Account ID | Node IP Address                                                                         | Port               |
 | ------- | --------------- | --------------------------------------------------------------------------------------- | ------------------ |
