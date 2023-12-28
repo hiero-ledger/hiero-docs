@@ -6,7 +6,7 @@ description: Hedera Services release information
 
 Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
-## [v.045](https://github.com/hashgraph/hedera-services/releases/tag/v0.45.0)
+## [v0.45](https://github.com/hashgraph/hedera-services/releases/tag/v0.45.0)
 
 * Populate evm function result on failing eth transaction by [@stoqnkpL](https://github.com/stoqnkpL) in [#9453](https://github.com/hashgraph/hedera-services/pull/9453)
 * Disable compression. by [@cody-littley](https://github.com/cody-littley) in [#9554](https://github.com/hashgraph/hedera-services/pull/9554)
