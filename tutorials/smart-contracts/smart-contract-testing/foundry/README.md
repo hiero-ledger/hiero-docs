@@ -1,4 +1,4 @@
-# Hedera Smart Contract Testing with Foundry
+# Smart Contract Testing with Foundry
 
 Foundry empowers developers with tools for smart contract development. One of the 3 main components of Foundry is Forge. Forge is Foundry command-line tool that allows developers to run tests, build, and deploy smart contracts. 
 
