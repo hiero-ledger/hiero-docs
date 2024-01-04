@@ -1,8 +1,7 @@
 ---
 description: >-
-Using an existing Hedera node project with the JavaScript SDK, learn how to set up Foundry to be able to leverage [Forge](https://book.getfoundry.sh/forge/), their command-line tool, to run your smart contract tests written in Solidity. 
+  Using an existing Hedera node project with the JavaScript SDK, learn how to set up Foundry to be able to leverage [Forge](https://book.getfoundry.sh/forge/), their command-line tool, to run your smart contract tests written in Solidity. 
 ---
-
 
 # How to Setup Foundry and Write a Basic Unit Test
 
