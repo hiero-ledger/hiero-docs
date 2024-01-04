@@ -1,6 +1,6 @@
 ---
 description: >-
-  Using an existing Hedera node project with the JavaScript SDK, learn how to set up Foundry to be able to leverage [Forge](https://book.getfoundry.sh/forge/), their command-line tool, to run your smart contract tests written in Solidity. 
+  Using an existing Hedera node project with the JavaScript SDK, learn how to set up Foundry to be able to leverage Forge, their command-line tool, to run your smart contract tests written in Solidity. 
 ---
 
 # How to Setup Foundry and Write a Basic Unit Test
@@ -16,7 +16,8 @@ description: >-
 
 Before you begin, you should be familiar with the following:
 
-* [ ] JavaScript synax and [Solidity](https://docs.soliditylang.org/en/latest/).
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Solidity](https://docs.soliditylang.org/en/latest/)
 - [Foundry](https://book.getfoundry.sh/)
 
 Have the following set up on your computer:
@@ -103,7 +104,7 @@ cd 00-setup-foundry-and-write-a-basic-unit-test/
 ```
 
 ### Add a submodule
-Forge manages dependencies by using git submodules. Run the steps below to add and install the git submodules necessary to use Forge.
+Forge manages dependencies by using [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Run the steps below to add and install the git submodules necessary to use Forge.
 
 Add the Forge Standard Librbary repository as a submodule
 
@@ -164,31 +165,36 @@ contract TodoListTest is Test {
 }
 ```
 
-On line 7 we see our TodoListTest contract inherits Forge Standard Library's Test contract which provides us access to the necessary functionality to test our smart contracts.
+On line 7 we see our `TodoListTest` contract inherits Forge Standard Library's Test contract which provides us access to the necessary functionality to test our smart contracts.
 
 
-<figure><img src="../../../../.gitbook/assets/test-contract-img.png" alt=""><figcaption><p>TodoList Test Contract</p></figcaption></figure>
+<figure><img src="./foundry-test-contract.svg" alt="TodoList.t.sol is a test contract that imports forge standard library test contract and our contract."><figcaption><p>TodoList Test Contract</p></figcaption></figure>
 
  
 ### Write a test
 
 **Step 1: Create your test instance**
 
-Create an instance of the TodoList smart contract in order to be able to test its functionality. 
+Create an instance of the contract `TodoList.sol` in order to be able to test it.
 
-`TodoList public todoList;`
+```solidity
+TodoList public todoList;
+```
 
-> [!NOTE]
-> Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, in this step, look for this:
+{% hint style="warning" %}
+Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, in this step, look for this:
     // Step (1) in the accompanying tutorial
 You will need to delete the inline comment that looks like this: /* ... */. Replace it with the correct code.
+{% endhint %}
 
 
 **Step 2: Deploy a new contract everytime you run a test**
 
-The `setup()` function is invoked before each test case is run and is optional. Have the TodoList.t.sol test contract deploy a new TodoList contract by adding the following code in the `setUp()` function.
+The `setup()` function is invoked before each test case is run and is optional. Have the `TodoList.t.sol` test contract deploy a new TodoList contract by adding the following code in the `setUp()` function.
 
-`todoList = new TodoList();`
+```solidity
+todoList = new TodoList();
+```
 
 **Step 3: Test CreateTodo() function**
 
@@ -274,9 +280,9 @@ Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 
 ## Forge Gas Reports
 
-Forge has functionality built in to give you [gas reports](https://book.getfoundry.sh/forge/gas-reports) of your contracts. You can specify which contract should generate a gas report in the foundry.toml file.
+Forge has functionality built in to give you [gas reports](https://book.getfoundry.sh/forge/gas-reports) of your contracts. You can specify which contract should generate a gas report in the `foundry.toml` file.
 
-The foundry.toml file is a configuration file that is used to configure Forge. 
+The `foundry.toml` file is a configuration file that is used to configure forge. 
 
 Create a new file in the root directory named `foundry.toml`. Paste the following contents.
 
@@ -295,7 +301,9 @@ h_mainnet = "https://mainnet.hashio.io/api"
 
 **Step 5: Add the following line to your foundry.toml file.**
 
-`gas_reports = ["TodoList"]`
+```toml
+gas_reports = ["TodoList"]
+```
 
 In the terminal, generate a gas report.
 
@@ -311,13 +319,13 @@ Your output will show you an estimated gas average, median, and max for each con
 
 ## Complete
 
-Congratulations, you have completed how to setup foundry and write a basic unit test.
+Congratulations, you have completed how to setup Foundry and write a basic unit test.
 
 You have learned how to:
-- ✅ Configure Foundry and Forge with a Hedera Project
+- ✅ Configure Foundry and forge with a hedera project
 - ✅ Write unit tests in Solidity
-- ✅ Run your tests using Foundry `Forge` command
-- ✅ Create a Forge Gas Report
+- ✅ Run your tests using Foundry `forge` command
+- ✅ Create a forge gas report
 
 ***
 
