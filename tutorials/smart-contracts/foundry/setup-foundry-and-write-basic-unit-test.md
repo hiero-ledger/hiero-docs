@@ -168,7 +168,7 @@ contract TodoListTest is Test {
 On line 7 we see our `TodoListTest` contract inherits Forge Standard Library's Test contract which provides us access to the necessary functionality to test our smart contracts.
 
 
-<figure><img src="./foundry-test-contract.svg" alt="TodoList.t.sol is a test contract that imports forge standard library test contract and our contract."><figcaption><p>TodoList Test Contract</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/foundry-test-contract.svg" alt="TodoList.t.sol is a test contract that imports forge standard library test contract and our contract."><figcaption><p>TodoList Test Contract</p></figcaption></figure>
 
  
 ### Write a test
