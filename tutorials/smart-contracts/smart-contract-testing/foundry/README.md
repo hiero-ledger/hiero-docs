@@ -2,7 +2,7 @@
 
 Foundry empowers developers with tools for smart contract development. One of the 3 main components of Foundry is Forge. Forge is Foundry command-line tool that allows developers to run tests, build, and deploy smart contracts. 
 
-Using Foundry Key benefits:
+Foundry Key benefits:
 * Write tests in Solidity & limit your context switching
 * EVM Cheatcodes giving you more conntrol over smart contract development
 
@@ -10,7 +10,7 @@ This series of mini-tutorials demonstrates how to set up Foundry and use Forge f
 
 The tutorials are self-contained and can be done in any order.
 
-{% content-ref url="./setup-foundry-and-write-basic-unit-test" %} . {% endcontent-ref %}
+{% content-ref url="./setup-foundry-and-write-basic-unit-test.md" %} . {% endcontent-ref %}
 
 ***
 
