@@ -106,7 +106,30 @@ cd 00-setup-foundry-and-write-a-basic-unit-test/
 ### Add a submodule
 Forge manages dependencies by using [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Run the steps below to add and install the git submodules necessary to use Forge.
 
-Add the Forge Standard Librbary repository as a submodule
+#### Overview
+Managing Git submodules at the top level is usually straightforward. In some cases, submodules are nested, requiring extra steps for each new clone. Git doesn't automatically save nested repositories, causing the submodule structure not to persist. In our case, we will be working with submodules within a nested directory and in order to set them up will require the following steps.
+
+Create a .gitmodules file with the content listed below:
+
+```
+[submodule "lib/forge-std"]
+	path = lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+```
+
+Initialize as a Git repository
+
+```shell
+git init
+```
+
+Remove any existing submodule direcotires in the `lib` folder to ensure we are starting from a clean state
+
+```shell
+rm -rf lib/*
+```
+
+Add the Forge Standard Library repository as a submodule
 
 ```shell
 git submodule add https://github.com/foundry-rs/forge-std lib/forge-std
