@@ -81,7 +81,7 @@ If the version number that is output is **same or higher** than the required ver
 To follow along, start with the main branch, which is the _default branch_ of this repository. This gives you the intial state from which you can follow along with the steps as described in the tutorial.
 
 ```shell
-git clone git@github.com:hedera-dev/hedera-smart-contract-testing-with-foundry.git
+git clone git@github.com:hedera-dev/setup-foundry-and-write-basic-unit-test.git
 ```
 
 <details>
@@ -92,42 +92,14 @@ If you have [configured SSH](https://docs.github.com/en/authentication/connectin
 to work with `git`, you may wish use this command instead:
 
 ```shell
-git clone git@github.com:hedera-dev/hello-future-world.git
+git clone git@github.com:hedera-dev/setup-foundry-and-write-basic-unit-test.git
 ```
 
 </details>
 
-In the terminal, from the `hedera-smart-contract-testing-with-foundry` directory, enter the subdirectory for this tutorial.
-
-```shell
-cd 00-setup-foundry-and-write-a-basic-unit-test/
-```
 
 ### Add a submodule
 Forge manages dependencies by using [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Run the steps below to add and install the git submodules necessary to use Forge.
-
-#### Overview
-Managing Git submodules at the top level is usually straightforward. In some cases, submodules are nested, requiring extra steps for each new clone. Git doesn't automatically save nested repositories, causing the submodule structure not to persist. In our case, we will be working with submodules within a nested directory and in order to set them up will require the following steps.
-
-Create a .gitmodules file with the content listed below:
-
-```
-[submodule "lib/forge-std"]
-	path = lib/forge-std
-	url = https://github.com/foundry-rs/forge-std
-```
-
-Initialize as a Git repository
-
-```shell
-git init
-```
-
-Remove any existing submodule direcotires in the `lib` folder to ensure we are starting from a clean state
-
-```shell
-rm -rf lib/*
-```
 
 Add the Forge Standard Library repository as a submodule
 
@@ -166,7 +138,7 @@ When we  want to import from `forge-std` we will write: `import "forge-std/Contr
 mkdir test
 ```
 
- **Step 2: Open the project `hedera-smart-contract-testing-with-foundry`, in a code editor.**
+ **Step 2: Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
 
 
 **Step 3: Create a file named TodoList.t.sol under the `test` folder**
