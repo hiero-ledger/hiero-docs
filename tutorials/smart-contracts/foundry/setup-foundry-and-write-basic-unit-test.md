@@ -128,10 +128,11 @@ forge-std/=lib/forge-std/src/
 
 When we  want to import from `forge-std` we will write: `import "forge-std/Contract.sol"`
 
-**Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
 
 ### Setup the test
- 
+
+**Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
+
 A test file named `TodoList.t.sol` has been provided to you under the `test` folder.
 
 On line 7 we see our `TodoListTest` contract inherits Forge Standard Library's Test contract which provides us access to the necessary functionality to test our smart contracts.
@@ -173,7 +174,6 @@ Assert that the `numberOfTodosAfter` executing `createTodo()` is equal to the `n
 ```
 
 ### Build and run your test
-All tests that you want to run must be prefixed with the `test` keyword.
 
 In the terminal, ensure you are in the root project directory and build the project.
 
@@ -195,6 +195,8 @@ In the terminal, run your test.
 ```shell
 forge test
 ```
+
+Foundry expects the `test` keyword as a prefix to distinguiash a test. Therefore, all tests that you want to run must be prefixed with the `test` keyword.
 
 You should see output similar to the following:
 
