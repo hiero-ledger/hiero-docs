@@ -78,7 +78,7 @@ If the version number that is output is **same or higher** than the required ver
 ## Get started
 
 ### Set up project
-To follow along, start with the main branch, which is the _default branch_ of this repository. This gives you the intial state from which you can follow along with the steps as described in the tutorial.
+To follow along, start with the `main` branch, which is the _default branch_ of this repository. This gives you the initial state from which you can follow along with the steps as described in the tutorial.
 
 ```shell
 git clone git@github.com:hedera-dev/setup-foundry-and-write-basic-unit-test.git
