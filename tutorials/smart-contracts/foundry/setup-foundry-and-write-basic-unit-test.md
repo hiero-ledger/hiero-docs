@@ -107,7 +107,7 @@ Add the Forge Standard Library repository as a submodule
 git submodule add https://github.com/foundry-rs/forge-std lib/forge-std
 ```
 
-This command will add the forge standard library into our Hedera project by creating a folder named `lib`. The forge standard library is the preferred testing library when working with Fonudry.
+This command will add the forge standard library into our Hedera project by creating a folder named `lib`. The forge standard library is the preferred testing library when working with Foundry.
 
 Install the submodule dependencies 
 
