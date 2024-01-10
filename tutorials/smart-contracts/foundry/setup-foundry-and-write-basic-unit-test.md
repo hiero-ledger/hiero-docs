@@ -128,49 +128,20 @@ forge-std/=lib/forge-std/src/
 
 When we  want to import from `forge-std` we will write: `import "forge-std/Contract.sol"`
 
-### Setup the test file
+**Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
+
+### Setup the test
  
- A complete smart contract named `TodoList.sol` has already been prepared for you and is under the `src` directory. This is the contract we are going to test in this tutorial.
-
-**Step 1: Create a new directory named `test` in the root directory**
-
-```shell
-mkdir test
-```
-
- **Step 2: Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
-
-
-**Step 3: Create a file named TodoList.t.sol under the `test` folder**
-
-Paste the following code in the newly created file. 
-
-```sol
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
-
-import "forge-std/Test.sol";
-import "src/TodoList.sol";
-
-contract TodoListTest is Test {
-
-      function setUp() public {
-
-    }  
-}
-```
+A test file named `TodoList.t.sol` has been provided to you under the `test` folder.
 
 On line 7 we see our `TodoListTest` contract inherits Forge Standard Library's Test contract which provides us access to the necessary functionality to test our smart contracts.
 
 
 <figure><img src="../../../../.gitbook/assets/foundry-test-contract.svg" alt="TodoList.t.sol is a test contract that imports forge standard library test contract and our contract."><figcaption><p>TodoList Test Contract</p></figcaption></figure>
 
- 
-### Write a test
-
 **Step 1: Create your test instance**
 
-Create an instance of the contract `TodoList.sol` in order to be able to test it.
+Create an instance of the contract `TodoList.sol` in `TodoList.t.sol` order to be able to test it.
 
 ```solidity
 TodoList public todoList;
@@ -182,6 +153,7 @@ Look for a comment in the code to locate the specific lines of code which you wi
 You will need to delete the inline comment that looks like this: /* ... */. Replace it with the correct code.
 {% endhint %}
 
+### Write a test
 
 **Step 2: Deploy a new contract everytime you run a test**
 
@@ -191,23 +163,17 @@ The `setup()` function is invoked before each test case is run and is optional. 
 todoList = new TodoList();
 ```
 
-**Step 3: Test CreateTodo() function**
+**Step 3: Confirm that the number of todos increases by one after calling `createTodo()`**
 
- Create a test that ensures the `createTodo()` function is working as expected. All tests that you want to run must be prefixed with the `test` keyword.
+Assert that the `numberOfTodosAfter` executing `createTodo()` is equal to the `numberOftodosBefore` + 1.
+
 
 ```solidity
-   function test_createTodo_returnsNumberOfTodosIncrementedByOne() public {
-     // get the current number of todos
-     uint256 numberOfTodosBefore = todoList.getNumberOfTodos();
-
-     // create a new todo and save the number of todos
-     uint256 numberOfTodosAfter = todoList.createTodo("A new todo for you!");
-
      assertEq(numberOfTodosAfter, (numberOfTodosBefore + 1), "create todo test");
-   }
 ```
 
 ### Build and run your test
+All tests that you want to run must be prefixed with the `test` keyword.
 
 In the terminal, ensure you are in the root project directory and build the project.
 
@@ -232,7 +198,7 @@ forge test
 
 You should see output similar to the following:
 
-```
+```text
 [⠢] Compiling...
 No files changed, compilation skipped
 
@@ -253,7 +219,7 @@ forge test -vvvv
 
 You should see output similar to the following:
 
-```
+```text
 [⠢] Compiling...
 No files changed, compilation skipped
 
@@ -294,7 +260,7 @@ h_mainnet = "https://mainnet.hashio.io/api"
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 ```
 
-**Step 5: Add the following line to your foundry.toml file.**
+**Step 7: Add the following line to your foundry.toml file.**
 
 ```toml
 gas_reports = ["TodoList"]
@@ -325,7 +291,7 @@ You have learned how to:
 ***
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th>
-<tr><td align="center"><p>Writer: Abi Castro, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://twitter.com/ridley___">Twitter</a></p></td><td><a href="https://twitter.com/ridley___">https://twitter.com/ridley___</a></td></tr>
+<tr><td align="center"><p>Writer: Abi Castro, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://twitter.com/ridley___">Twitter</a></p></td><td><a href="https://twitter.com/ridley___">https://twitter.com/ridley___</a></td></tr><tr><td align="center"><p>Editor: Brendan, DevRel Engineer</p><p><a href="https://github.com/bguiz">GitHub</a> | <a href="https://blog.bguiz.com">Blog</a></p></td><td><a href="https://blog.bguiz.com">https://blog.bguiz.com</a></td></tr>
 </tbody></table>
 
 ***
