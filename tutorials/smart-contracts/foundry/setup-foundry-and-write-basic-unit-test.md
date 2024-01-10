@@ -232,6 +232,8 @@ After a successful build, run your test.
 forge test
 ```
 
+Foundry expects the `test` keyword as a prefix to distinguiash a test. Therefore, all tests that you want to run must be prefixed with the `test` keyword.
+
 You should see output similar to the following:
 
 ```text
