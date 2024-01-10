@@ -75,7 +75,6 @@ npm --version
 ## Get started
 
 ### Set up project
-
 To follow along, start with the `main` branch, which is the _default branch_ of this repository. This gives you the initial state from which you can follow along with the steps as described in the tutorial.
 
 ```shell
