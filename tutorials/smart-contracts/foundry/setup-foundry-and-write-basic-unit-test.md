@@ -234,7 +234,7 @@ forge test
 
 You should see output similar to the following:
 
-```
+```text
 [⠢] Compiling...
 No files changed, compilation skipped
 
@@ -259,7 +259,7 @@ forge test -vvvv
 
 You should see output similar to the following:
 
-```
+```text
 [⠢] Compiling...
 No files changed, compilation skipped
 
