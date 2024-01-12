@@ -262,7 +262,7 @@ h_mainnet = "https://mainnet.hashio.io/api"
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 ```
 
-**Step 7: Add the following line to your foundry.toml file.**
+**Step 4: Add the following line to your foundry.toml file.**
 
 ```toml
 gas_reports = ["TodoList"]
