@@ -183,7 +183,7 @@ forge build
 
 You should see output similar to the following:
 
-```
+```text
 [⠒] Compiling...
 [⠔] Compiling 22 files with 0.8.23
 [⠑] Solc 0.8.23 finished in 3.44s
