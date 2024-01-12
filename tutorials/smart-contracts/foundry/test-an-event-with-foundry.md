@@ -1,22 +1,87 @@
+---
+description: >-
+  Foundry supports the use of cheatcodes. Cheatcodes allow you to go beyond testing the outputs of your smart contracts. They allow developers to manipulate the state of the blockchain, test for reverts, and events. 
+---
+
 # How to Test a Solidity Event with Foundry 
 
-Foundry supports the use of cheatcodes. Cheatcodes allow you to go beyond testing the outputs of your smart contracts. They allow developers to manipulate the state of the blockchain, test for reverts, 
-and events. In this tutorial, we will focus on the cheatcode `vm.expectEmit` to test a solidity event.
+In this tutorial, we will focus on the cheatcode `vm.expectEmit` to test a solidity event.
 
 ## What you will accomplish
 
-- ✅ Use the vm.expectEmit Cheatcode
-- ✅ Test a Solidity event
+* [ ] Use the vm.expectEmit Cheatcode
+* [ ] Test a Solidity event
+
+## Prerequisites
+
+Before you begin, you should be familiar with the following:
+
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Solidity](https://docs.soliditylang.org/en/latest/)
+- [Foundry](https://book.getfoundry.sh/)
+
+Have the following set up on your computer:
+
+* [ ] git installed
+    * Minimum version: 2.37
+    * Recommended: [Install Git (Github)](https://github.com/git-guides/install-git)
+* [ ] A code editor or IDE
+    * Recommended: [VS Code. Install VS Code (Visual Studio)](https://code.visualstudio.com/docs/setup/setup-overview)
+* [ ] NodeJs + npm installed
+    * Minimum version of NodeJs: 18
+    * Minimum version of npm: 9.5
+    * Recommended for Linux & Mac: [nvm](https://github.com/nvm-sh/nvm)
+    * Recommended for Windows: [nvm-windows](https://github.com/coreybutler/nvm-windows)
+
+<details>
+
+<summary>Check your prerequisites set up</summary>
+
+Open your terminal, and enter the following commands.
+
+```shell
+git --version
+code --version
+node --version
+npm --version
+```
+
+Each of these commands should output some text that includes a version number, for example:
+
+```text
+git --version
+git version 2.39.2 (Apple Git-143)
+
+code --version
+1.81.1
+6c3e3dba23e8fadc360aed75ce363ba185c49794
+arm64
+
+node --version
+v20.6.1
+
+npm --version
+9.8.1
+
+```
+
+If the output contains text similar to `command not found`, please install that item.
+
+If the version number that is output is **lower** than the required versions, please re-install or update that item.
+
+If the version number that is output is **same or higher** than the required versions, you have met the prequisites! 🎉
+
+</details>
 
 
----
+***
 
-### Steps
+## Get started
 
 ### Set up project
 
 To follow along, start with the `main` branch,
-which is the *default branch* of this repo.
+which is the _default branch_ of this repository.
 This gives you the initial state from which you can follow along
 with the steps as described in the tutorial.
 
@@ -124,7 +189,7 @@ forge test --match-test test_emit_createTodoEvent -vvvv
 
 You should see output similar to the following:
 
-```
+```text
 [⠢] Compiling...
 No files changed, compilation skipped
 
@@ -151,5 +216,5 @@ Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 
 Congratulations, you have completed how to test a solidity event using Foundry.
 You have learned how to:
-- ✅ Use the vm.expectEmit Cheatcode
-- ✅ Test a Solidity event
+* [x] Use the vm.expectEmit Cheatcode
+* [x] Test a Solidity event
