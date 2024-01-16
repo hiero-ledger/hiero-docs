@@ -5,7 +5,6 @@ In this tutorial, you'll learn how to use Foundry's 'cheatcodes'—special comma
 
 # How to Test a Solidity Event with Foundry 
 
-In this tutorial, we will focus on the cheatcode `vm.expectEmit` to test a solidity event.
 
 ## What you will accomplish
 
