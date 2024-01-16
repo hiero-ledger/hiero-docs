@@ -84,20 +84,6 @@ To follow along, start with the `main` branch, which is the _default branch_ of 
 git clone git@github.com:hedera-dev/setup-foundry-and-write-basic-unit-test.git
 ```
 
-<details>
-
-<summary>Alternative with `git` and SSH</summary>
-
-If you have [configured SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-to work with `git`, you may wish use this command instead:
-
-```shell
-git clone git@github.com:hedera-dev/setup-foundry-and-write-basic-unit-test.git
-```
-
-</details>
-
-
 ### Add a submodule
 Forge manages dependencies by using [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Run the steps below to add and install the git submodules necessary to use Forge.
 
