@@ -21,7 +21,7 @@ _**Note:** You can always check the "_[_Code Check ✅_](environment-set-up.md#c
 Open your IDE of choice and follow the below steps to create your new project directory.
 
 {% tabs %}
-{% tab title="Java" %}
+{% tab title="Java Gradle" %}
 Create a new Gradle project and name it `HederaExamples`. Add the following dependencies to your `build.gradle` file.
 
 {% code title="build.gradle " %}
@@ -35,6 +35,42 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.8'
 
 }
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Java Maven" %}
+Create a new Gradle project and name it `HederaExamples`. Add the following dependencies to your `pom.xml` file.
+
+{% code title="pom.xml " %}
+```maven
+<dependencies>
+        <dependency>
+            <groupId>com.hedera.hashgraph</groupId>
+            <artifactId>sdk</artifactId>
+            <version>2.29.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>1.46.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.8</version>
+        </dependency>
+</dependencies>
 ```
 {% endcode %}
 {% endtab %}
