@@ -46,7 +46,7 @@ node --version
 npm --version
 ```
 
-Each of these commands should output some text that includes a version number, for example:
+Ensure these versions meet or exceed the minimum requirements:
 
 ```text
 git --version
@@ -65,12 +65,6 @@ npm --version
 
 ```
 
-If the output contains text similar to `command not found`, please install that item.
-
-If the version number that is output is **lower** than the required versions, please re-install or update that item.
-
-If the version number that is output is **same or higher** than the required versions, you have met the prequisites! 🎉
-
 </details>
 
 ***
@@ -87,7 +81,7 @@ git clone git@github.com:hedera-dev/setup-foundry-and-write-basic-unit-test.git
 ### Add a submodule
 Forge manages dependencies by using [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Run the steps below to add and install the git submodules necessary to use Forge.
 
-Add the Forge Standard Library repository as a submodule
+Next, add the Forge Standard Library to your project:
 
 ```shell
 git submodule add https://github.com/foundry-rs/forge-std lib/forge-std
@@ -161,6 +155,8 @@ Assert that the `numberOfTodosAfter` executing `createTodo()` is equal to the `n
 
 ### Build and run your test
 
+Foundry expects the `test` keyword as a prefix to distinguiash a test. Therefore, all tests that you want to run must be prefixed with the `test` keyword.
+
 In the terminal, ensure you are in the root project directory and build the project.
 
 ```shell
@@ -176,13 +172,11 @@ You should see output similar to the following:
 Compiler run successful!
 ```
 
-In the terminal, run your test.
+After a successful build, run your test.
 
 ```shell
 forge test
 ```
-
-Foundry expects the `test` keyword as a prefix to distinguiash a test. Therefore, all tests that you want to run must be prefixed with the `test` keyword.
 
 You should see output similar to the following:
 
@@ -204,6 +198,9 @@ In the terminal, re-run your test but include a verbosity level 4. This will dis
 ```shell
 forge test -vvvv
 ```
+<details>
+
+<summary>Level 4 verbosity output</summary>
 
 You should see output similar to the following:
 
@@ -225,6 +222,7 @@ Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 580.08µs
  
 Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
+</details>
 
 
 ## Forge Gas Reports
