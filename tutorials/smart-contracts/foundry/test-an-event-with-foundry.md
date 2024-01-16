@@ -81,7 +81,7 @@ This gives you the initial state from which you can follow along
 with the steps as described in the tutorial.
 
 {% hint style="warning" %}
-Learn how to `Setup Foundry and Write a Basic Unit Test` by completing the linked tutorial. This tutorial will not walkthrough setting up Foundry.
+Learn how to setup foundry by completing the Setup Foundry and Write a Basic Unit Test tutorial. This tutorial will not walkthrough setting up Foundry.
 {% endhint %}
 
 `forge` manages dependencies by using git submodules. Clone the following project and pass `--recurse-submodules` to the `git clone` command to automatically initialize and update the submodule in the repository.
@@ -92,10 +92,7 @@ git clone --recurse-submodules git@github.com:hedera-dev/test-an-event-with-foun
 
 Open the project `test-an-event-with-foundry`, in a code editor.
 
- 
- Open the contract located in  `src/TodoList.sol` in your code editor.
-
- If you completed the previous tutorial, you may notice the contents of the contract `TodoList.sol` have changed. Specifcally, there is a CreateTodo event that has been declared and is emitted in the `createTodo()` function.
+If you completed the previous tutorial, you may notice the contents of the contract `TodoList.sol` have changed. Specifcally, there is a CreateTodo event that has been declared and is emitted in the `createTodo()` function.
 
 
 ### Write the test
@@ -112,7 +109,7 @@ You will need to delete the inline comment that looks like this: /* ... */. Repl
 
 #### Step 1: Define the expected event
 
-Declare the CreateTodo event in your test contract. This CreateTodo is identical to the one that is declared in `TodoList.sol`.
+Declare the `CreateTodo` event in your test contract. This event is identical to the one that is declared in `TodoList.sol`.
 
 ```solidity
 event CreateTodo(address indexed creator, uint256 indexed todoIndex, string description);
