@@ -66,10 +66,6 @@ npm --version
 
 If the output contains text similar to `command not found`, please install that item.
 
-If the version number that is output is **lower** than the required versions, please re-install or update that item.
-
-If the version number that is output is **same or higher** than the required versions, you have met the prequisites! 🎉
-
 </details>
 
 
