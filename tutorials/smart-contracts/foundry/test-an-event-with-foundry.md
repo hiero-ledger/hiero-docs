@@ -8,7 +8,7 @@ In this tutorial, you'll learn how to use Foundry's 'cheatcodes'—special comma
 
 ## What you will accomplish
 
-* [ ] Use the vm.expectEmit Cheatcode
+* [ ] Use the `vm.expectEmit` Cheatcode
 * [ ] Test a Solidity event
 
 ## Prerequisites
