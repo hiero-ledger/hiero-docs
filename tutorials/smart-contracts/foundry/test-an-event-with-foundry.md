@@ -1,6 +1,6 @@
 ---
 description: >-
-In this tutorial, you'll learn how to use Foundry's 'cheatcodes'—special commands that allow you to test and manipulate blockchain states. We'll focus on the `vm.expectEmit` cheatcode to test Solidity events.
+  In this tutorial, you'll learn how to use Foundry's 'cheatcodes'—special commands that allow you to test and manipulate blockchain states. We'll focus on the `vm.expectEmit` cheatcode to test Solidity events.
 ---
 
 # How to Test a Solidity Event with Foundry 
@@ -89,19 +89,6 @@ Learn how to `Setup Foundry and Write a Basic Unit Test` by completing the linke
 ```shell
 git clone --recurse-submodules git@github.com:hedera-dev/test-an-event-with-foundry.git
 ```
-
-<details>
-
-<summary>Alternative with `git` and SSH</summary>
-
-If you have [configured SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-to work with `git`, you may wish use this command instead:
-
-```shell
-git clone --recurse-submodules https://github.com/hedera-dev/test-an-event-with-foundry.git
-```
-
-</details>
 
 Open the project `test-an-event-with-foundry`, in a code editor.
 
