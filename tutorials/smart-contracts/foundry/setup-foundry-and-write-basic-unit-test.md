@@ -211,6 +211,8 @@ Assert that the `numberOfTodosAfter` executing `createTodo()` is equal to the `n
 
 Foundry expects the `test` keyword as a prefix to distinguish a test. Therefore, all tests you want to run must be prefixed with the `test` keyword.
 
+Foundry expects the `test` keyword as a prefix to distinguiash a test. Therefore, all tests that you want to run must be prefixed with the `test` keyword.
+
 In the terminal, ensure you are in the root project directory and build the project.
 
 ```shell
@@ -232,8 +234,6 @@ After a successful build, run your test.
 forge test
 ```
 
-Foundry expects the `test` keyword as a prefix to distinguiash a test. Therefore, all tests that you want to run must be prefixed with the `test` keyword.
-
 You should see output similar to the following:
 
 ```text
@@ -254,6 +254,9 @@ In the terminal, re-run your test but include a verbosity level 4. This will dis
 ```shell
 forge test -vvvv
 ```
+<details>
+
+<summary>Level 4 verbosity output</summary>
 
 <details>
 
@@ -279,6 +282,7 @@ Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 580.08µs
  
 Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
+</details>
 
 </details>
 
