@@ -334,7 +334,6 @@ Your output will show you an estimated gas average, median, and max for each con
 Congratulations, you have completed how to setup Foundry and write a basic unit test.
 
 You have learned how to:
-
 * [x] Configure Foundry and forge with a hedera project
 * [x] Write unit tests in Solidity
 * [x] Run your tests using Foundry `forge` command
