@@ -1,6 +1,6 @@
 ---
 description: >-
-  Integrate Foundry with your existing Hedera Node project and use Forge, Foundry's command-line tool, to run Solidity smart contract tests. 
+  Learn how to set up Foundry and use the Forge command-line tool to run your smart contract tests written in Solidity. 
 ---
 
 # How to Setup Foundry and Write a Basic Unit Test
