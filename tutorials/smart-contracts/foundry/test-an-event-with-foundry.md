@@ -197,3 +197,14 @@ Congratulations, you have completed how to test a solidity event using Foundry.
 You have learned how to:
 * [x] Use the vm.expectEmit Cheatcode
 * [x] Test a Solidity event
+
+***
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th>
+<tr><td align="center"><p>Writer: Abi Castro, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://twitter.com/ridley___">Twitter</a></p></td><td><a href="https://twitter.com/ridley___">https://twitter.com/ridley___</a></td></tr><tr><td align="center"><p>Editor: Michael Garber, Developer Advocate</p><p><a href="https://github.com/mgarbs">GitHub</a> | <a href="https://twitter.com/michaelgarber87
+">Twitter</a></p></td><td><a href="https://twitter.com/michaelgarber87
+">https://twitter.com/michaelgarber87
+</a></td></tr>
+</tbody></table>
+
+***
