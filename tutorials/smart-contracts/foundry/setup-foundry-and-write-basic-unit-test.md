@@ -84,12 +84,59 @@ Forge manages dependencies by using [git submodules](https://git-scm.com/book/en
 Next, add the Forge Standard Library to your project:
 
 ```shell
+cd setup-foundry-and-write-basic-unit-test
+```
+
+```shell
 git submodule add https://github.com/foundry-rs/forge-std lib/forge-std
 ```
 
-This command will add the forge standard library into our Hedera project by creating a folder named `lib`. The forge standard library is the preferred testing library when working with Foundry.
+This command will add the forge standard library into our project by creating a folder named `lib`. The forge standard library is the preferred testing library when working with Foundry.
 
-Install the submodule dependencies 
+### Install Foundryup
+
+Foundryup is Foundry's way of managing their tools. This command will install `forge` along with other foundry cli-command line tools.
+
+```shell
+curl -L https://foundry.paradigm.xyz | bash
+```
+
+{% hint style="warning" %}
+Ensure you follow the instructions output on-screen to make the `foundryup` command available.
+{% endhint %}
+
+
+<details>
+
+<summary>Once you've installed foundry you should get a similar output</summary>
+
+
+```text
+xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx
+ ╔═╗ ╔═╗ ╦ ╦ ╔╗╔ ╔╦╗ ╦═╗ ╦ ╦         Portable and modular toolkit
+ ╠╣  ║ ║ ║ ║ ║║║  ║║ ╠╦╝ ╚╦╝    for Ethereum Application Development
+ ╚   ╚═╝ ╚═╝ ╝╚╝ ═╩╝ ╩╚═  ╩                 written in Rust.
+.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx
+Repo       : https://github.com/foundry-rs/
+Book       : https://book.getfoundry.sh/                      
+Chat       : https://t.me/foundry_rs/                         
+Support    : https://t.me/foundry_support/
+Contribute : https://github.com/orgs/foundry-rs/projects/2/
+.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx
+foundryup: installing foundry (version nightly, tag nightly)
+foundryup: downloading latest forge, cast, anvil, and chisel
+######################################################################### 100.0%
+foundryup: downloading manpages
+######################################################################### 100.0%
+foundryup: installed - forge 0.2.0 (5ea2c5e 2024-01-22T00:24:09.322705000Z)
+foundryup: installed - cast 0.2.0 (5ea2c5e 2024-01-22T00:24:09.341247000Z)
+foundryup: installed - anvil 0.2.0 (5ea2c5e 2024-01-22T00:24:09.359481000Z)
+foundryup: installed - chisel 0.2.0 (5ea2c5e 2024-01-22T00:24:09.377345000Z)
+foundryup: done!
+```
+</details>
+
+### Install the submodule dependencies 
 
 ```shell
 forge install
@@ -97,6 +144,8 @@ forge install
 
 ### Remap dependencies
 In order to make the import of the forge standard library easier to write, we will remap the dependecy. 
+
+**Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
 
 Create a new text file under the root directory named `remappings.txt`
 
@@ -110,8 +159,6 @@ When we  want to import from `forge-std` we will write: `import "forge-std/Contr
 
 
 ### Setup the test
-
-**Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
 
 A test file named `TodoList.t.sol` has been provided to you under the `test` folder.
 
