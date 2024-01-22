@@ -95,7 +95,7 @@ This command will add the forge standard library into our project by creating a 
 
 ### Install Foundryup
 
-Foundryup is Foundry's way of managing their tools. This command will install `forge` along with other foundry cli-command line tools.
+Foundryup represents Foundry's tool management approach. Executing this command will install `forge` and other essential Foundry CLI tools.
 
 ```shell
 curl -L https://foundry.paradigm.xyz | bash
