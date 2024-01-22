@@ -151,6 +151,8 @@ In order to make the import of the forge standard library easier to write, we wi
 
 **Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
 
+**Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
+
 Create a new text file under the root directory named `remappings.txt`
 
 Paste in the following line of code
