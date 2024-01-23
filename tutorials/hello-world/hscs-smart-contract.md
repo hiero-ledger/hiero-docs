@@ -50,6 +50,38 @@ Reuse the `.env` file by copying the one that you have previously created into t
 cp ../00-create-fund-account/.env ./
 ```
 
+<details>
+
+<summary>Check that you have copied the `.env` file correctly</summary>
+
+To do so, use the `pwd` command to check that you are indeed in the right subdirectory within the repo.
+
+```shell
+pwd
+```
+
+This should output a path that ends with `/hello-future-world/03-hscs-smart-contract-ethersjs`. If not, you will need to start over.
+
+```text
+/some/path/hello-future-world/03-hscs-smart-contract-ethersjs
+```
+
+Next, use the `ls` command to check that the `.env` file has been copied into this subdirectory.
+
+```shell
+ls -a
+```
+
+The first few line of the output should look display `.env`. If not, you'll need to start over.
+
+```text
+.
+..
+.env
+```
+
+</details>
+
 Next, install the dependencies using `npm`.
 
 ```shell
@@ -64,7 +96,9 @@ npm install --global solc@0.8.17
 
 {% hint style="info" %}
 [Solidity](https://docs.soliditylang.org/) is a programming language that was designed specifically for writing smart contracts in. The Solidity compiler outputs bytecode that can be run by an [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) implementation.
+{% endhint %}
 
+{% hint style="info" %}
 Note that although the `npm` package is named `solc`, the executable exposed on your command line is named `solcjs`.
 {% endhint %}
 
@@ -86,6 +120,10 @@ Within the `greet()` function, we would like to access the `names` mapping and r
 ```js
         string memory name = names[msg.sender];
 ```
+
+{% hint style="info" %}
+This smart contract has two functions, `introduce` and `greet`. You will invoke both of them later on.
+{% endhint %}
 
 ***
 
@@ -137,19 +175,22 @@ Click on the "Manage" button on the right side of your newly created project.
 
 Now you should see the project details.
 
-* (1) In the "Services" section, under "Network", select "Hedera Testnet".
+* (1) Under "Network", select "Hedera Testnet".
 * (2) Copy the "JSON-RPC" field.
 * (3) In the "Security" section, copy the "API Key" field.
 
 <img src="../../.gitbook/assets/hello-world--hscs--arkhia-04-project-details.drawing.svg" alt="Arkhia RPC Configuration - 04 - Project Details" class="gitbook-drawing">
 
-In the `.env` file, edit the property with the key `RPC_URL`, replacing `YOUR_JSON_RPC_URL` with the "JSON-RPC" value followed by the "API key" value that you have just copied.
+In the `.env` file, edit the property with the key `RPC_URL`, replacing `YOUR_JSON_RPC_URL` with the "JSON-RPC" value, followed by `/`, and finally the "API key" value that you have just copied.
 
 For example, if the API key field is `ABC123`, and the JSON-RPC field is `https://pool.arkhia.io/hedera/testnet/json-rpc/v1`, the line in your `.env` file should look like to this:
 
 ```
 RPC_URL=https://pool.arkhia.io/hedera/testnet/json-rpc/v1/ABC123
 ```
+{% hint style="info" %}
+Ensure that you have a `/` just before in fornt of the API key.
+{% endhint %}
 
 <details>
 
@@ -167,23 +208,20 @@ An almost-complete script has already been prepared for you, `script-hscs-smart-
 
 #### Step 2: Prepare smart contract for deployment
 
-This script uses `ContractFactory` and `Contract` from EthersJs.
-
-The `ContractFactory` class is used to prepare a smart contract for deployment. To do so, pass in the ABI and bytecode that were output by the Solidity compiler earlier. Also pass in the `accountWallet` object, which is used to authorised transactions, and needed for the deployment transaction.
+Initialise an instance of `ContractFactory` from EthersJs.
 
 ```js
     const myContractFactory = new ContractFactory(
         abi, evmBytecode, accountWallet);
 ```
 
+{% hint style="info" %}
+The `ContractFactory` class is used to prepare a smart contract for deployment. To do so, pass in the ABI and bytecode that were output by the Solidity compiler earlier. Also pass in the `accountWallet` object, which is used to authorised transactions, and needed for the deployment transaction.
+
 Upon preparation, it sends a deployment transaction to the network, and an instance of a `Contract` object is created based on the result of the deployment transaction. This is stored in a variable, `myContract`, which will be used in the next steps. This has already been done for you in the script.
+{% endhint %}
 
 #### Step 3: Invoke a smart contract transaction
-
-When invoking functions in a smart contract, you may do so in two different ways:
-
-* (1) With a transaction → Smart contract state may be changed.
-* (2) Without a transaction → Smart contract state may be queried, but may not be changed.
 
 The `introduce` function requires a single parameter of type `string`, and changes the state of the smart contract to store this value. Enter your name (or nickname) as the parameter. For example, if you wish to use "bguiz", the invocation should look like this:
 
@@ -200,6 +238,13 @@ Invoke the `greet` function and save its response to a variable, `myContractQuer
 ```js
     const [myContractQueryResult] = await myContract.functions.greet();
 ```
+
+{% hint style="info" %}
+When invoking functions in a smart contract, you may do so in two different ways:
+
+* (1) With a transaction → Smart contract state may be changed.
+* (2) Without a transaction → Smart contract state may be queried, but may not be changed.
+{% endhint %}
 
 ***
 
@@ -227,22 +272,30 @@ myContractQueryResult: Hello future - bguiz
 Open `myContractExplorerUrl` in your browser and check that:
 
 * (1) The contract exists
-* (2) Under the "Contract Details" section, its "Compiler Version" field matches the version of the Solidity compiler that you used (`0.8.17`)
+* (2) Under the "Contract Bytecode" section, its "Compiler Version" field matches the version of the Solidity compiler that you used (`0.8.17`)
 * (3) Under the "Recent Contract Calls" section, There should be 2 transactions:
   * (A) The transaction with the earlier timestamp (bottom) should be the deployment transaction.
     * Navigate to this transaction by clicking on the timestamp.
-    * Under the "Contract Result" section, the "Input - Function & Args" field should be a _fairly long_ set of hexadecimal values.
+    * Under the "Contract Result" section, the "Input - Function & Args" field should be a _relatively long_ set of hexadecimal values.
     * This is the EVM bytecode output by the Solidity compiler.
     * Navigate back to the Contract page (browser `⬅` button).
   * (B) The transaction with the later timestamp (top) should be the transaction in which the `introduce` function was invoked.
     * Navigate to this transaction by clicking on the timestamp.
-    * Under the "Contract Result" section, the "Input - Function & Args" field should be a _fairly short_ set of hexadecimal values.
-    * This is the representation of the function identifier (first 8 characters), and the input string value (e.g. `0x5626775697a0` for `bguiz`).
+    * Under the "Contract Result" section, the "Input - Function & Args" field should be a _relatively short_ set of hexadecimal values.
+    * This is the representation of
+      * the function identifier as the first 8 characters (e.g. `0xc63193f6` for the `introduce` function), and
+      * the input string value (e.g. `0x5626775697a0` for `bguiz`).
     * Navigate back to the Contract page (browser `⬅` button).
 
 <img src="../../.gitbook/assets/hello-world--hscs--contract.drawing.svg" alt="HSCS contract in Hashscan, with annotated items to check." class="gitbook-drawing">
 
-Open `myContractWriteTxExplorerUrl` in your browser. Note that this should be the same page as "the transaction with the later timestamp". Check that:
+<details>
+
+<summary>Additional checks</summary>
+
+The steps above are sufficient to check that you have deployed and interacted with the samrt contract successfully. You may optionally wish to perform these additional checks as well.
+
+Open `myContractWriteTxExplorerUrl` in your browser. Note that this should be the same page as "the transaction with the later timestamp" in **3B** from previous set of checks. Check that:
 
 * (1) The transaction exists
 * (2) Its "Type" field is "ETHEREUM TRANSACTION"
@@ -250,6 +303,8 @@ Open `myContractWriteTxExplorerUrl` in your browser. Note that this should be th
 * (4) Under the "Contract Result" section, its "To" field matches the value of `myContractAddress`
 
 <img src="../../.gitbook/assets/hello-world--hscs--transaction.drawing.svg" alt="HSCS transaction in Hashscan, with annotated items to check." class="gitbook-drawing">
+
+</details>
 
 ***
 

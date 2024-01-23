@@ -47,6 +47,38 @@ Reuse the `.env` file by copying the one that you have previously created into t
 cp ../00-create-fund-account/.env ./
 ```
 
+<details>
+
+<summary>Check that you have copied the `.env` file correctly</summary>
+
+To do so, use the `pwd` command to check that you are indeed in the right subdirectory within the repo.
+
+```shell
+pwd
+```
+
+This should output a path that ends with `/hello-future-world/04-hts-ft-sdk`. If not, you will need to start over.
+
+```text
+/some/path/hello-future-world/04-hts-ft-sdk
+```
+
+Next, use the `ls` command to check that the `.env` file has been copied into this subdirectory.
+
+```shell
+ls -a
+```
+
+The first few line of the output should look display `.env`. If not, you'll need to start over.
+
+```text
+.
+..
+.env
+```
+
+</details>
+
 Next, install the dependencies using `npm`.
 
 ```shell

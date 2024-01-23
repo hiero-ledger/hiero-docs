@@ -131,6 +131,14 @@ cp .env.sample .env
 
 Then open the `.env` file in a code editor, such as VS Code.
 
+### Why you need to create and fund an account
+
+Hedera is a distributed ledger technology (DLT). To interact with it, you will need to send transactions to the network, which will then process them, and add them to the ledger if they are deemed to be valid.
+
+On most web services (web2), you need to authenticate using usernames and passwords to operate your account. On DLTs such as Hedera it is similar, except that you will need to use cryptographic keys instead of passwords to operate your account.
+
+One key difference is that unlike web2, each interaction needs to be paid for using the native currency of the DLT, similar to microtransactions. On Hedera, this currency is HBAR.
+
 ### Create account
 
 If you already have an account on the [Hedera Portal](https://portal.hedera.com), you may skip the following steps.
@@ -143,13 +151,14 @@ Visit the [Hedera Portal](https://portal.hedera.com), and create a Testnet accou
 
 [![](../../.gitbook/assets/hello-world--account--portal-01-create-account.png)](../../.gitbook/assets/hello-world--account--portal-01-create-account.png "Hedera Portal - 01 - Create Account")
 
-Copy-paste the confirmation code sent to your email.
+Check your email for a confirmation code.
+Copy and paste this confirmation code to verify your Hedera portal account.
 
 [![](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png)](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png "Hedera Portal - 02 - Email Verification")
 
 Fill out this form.
 
-[![](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form"
+[![](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form")
 
 In the top-left select Hedera Testnet from the drop-down.
 
@@ -206,7 +215,7 @@ Initialize the `client` instance by invoking the `setOperator` method, and passi
 Now the `client` instance represents and operates your account.
 
 {% hint style="info" %}
-Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, in this step, look for this:
+Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, for this step, look for this:
 
 ```javascript
     // Step (1) in the accompanying tutorial
@@ -226,6 +235,10 @@ Use the `AccountBalanceQuery` method to obtain the Testnet HBAR balance of your 
 ```javascript
     const accountBalance = await new AccountBalanceQuery()
 ```
+
+{% hint style="info" %}
+Be sure to check that the line of code matches the above exactly. It is easy to miss the `await` when copy-pasting!
+{% endhint %}
 
 Note that the return value is an object, and needs to be parsed.
 
