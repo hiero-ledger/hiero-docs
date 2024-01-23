@@ -49,7 +49,7 @@ If you have any questions or concerns, please connect with us via [Discord](http
 
 **2024**
 
-* January 25, 2024
+* February 1, 2024
 * April 25, 2024
 * July 25, 2024
 * Oct 31, 2024

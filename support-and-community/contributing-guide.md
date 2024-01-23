@@ -78,6 +78,14 @@ Thank you for your valuable contribution to the Hedera community! We look forwar
 
 <details>
 
+<summary>GitBook Markdown Syntax</summary>
+
+Please refer to the [GitBook Markdown Syntax guide](https://raw.githubusercontent.com/audacity/audacity-support/main/community/contributing/tutorials/gitbook-markdown-syntax.md).&#x20;
+
+</details>
+
+<details>
+
 <summary>Use of HBAR</summary>
 
 When referring to the Hedera native currency, use the singular form of the noun **HBAR**. For example:
