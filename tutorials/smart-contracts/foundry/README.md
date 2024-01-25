@@ -11,8 +11,12 @@ This series of mini-tutorials demonstrates how to set up Foundry and use Forge f
 
 The tutorials are self-contained and can be done in any order.
 
-{% content-ref url="./setup-foundry-and-write-basic-unit-test.md" %} . {% endcontent-ref %}
-{% content-ref url="./test-an-event-with-foundry.md" %} . {% endcontent-ref %}
+{% content-ref url="setup-foundry-and-write-basic-unit-test.md" %}
+[setup-foundry-and-write-basic-unit-test.md](setup-foundry-and-write-basic-unit-test.md)
+{% endcontent-ref %}
+{% content-ref url="./test-an-event-with-foundry.md" %}
+[test-an-event-with-foundry.md](test-an-event-with-foundry.md)
+{% endcontent-ref %}
 
 
 ***
