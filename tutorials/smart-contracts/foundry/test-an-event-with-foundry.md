@@ -1,6 +1,6 @@
 ---
 description: >-
-  In this tutorial, you'll learn how to use Foundry's 'cheatcodes'—special commands that allow you to test and manipulate blockchain states. We'll focus on the `vm.expectEmit` cheatcode to test Solidity events.
+  In this tutorial, you'll learn how to use Foundry's 'cheatcodes'—special commands that allow you to test and manipulate blockchain states. We'll focus on the `vm.expectEmit` cheatcode to test events.
 ---
 
 # How to Test a Solidity Event with Foundry 
