@@ -81,7 +81,7 @@ This gives you the initial state from which you can follow along
 with the steps as described in the tutorial.
 
 {% hint style="warning" %}
-Learn how to setup foundry by completing the Setup Foundry and Write a Basic Unit Test tutorial. This tutorial will not walkthrough setting up Foundry.
+Learn how to setup foundry by completing the [Setup Foundry and Write a Basic Unit Test tutorial](https://docs.hedera.com/hedera/tutorials/smart-contracts/foundry/setup-foundry-and-write-basic-unit-test). This tutorial will not walkthrough setting up Foundry.
 {% endhint %}
 
 `forge` manages dependencies by using git submodules. Clone the following project and pass `--recurse-submodules` to the `git clone` command to automatically initialize and update the submodule in the repository.
@@ -117,7 +117,7 @@ event CreateTodo(address indexed creator, uint256 indexed todoIndex, string desc
 
 #### Step 2: Get the current number of todos
 
-Get the number of todos in order to generate the expected event based on the current state of the contract.
+Grab the number of todos, as it will be used to create the expected event according to the current state of the contract.
 
 ```solidity
 uint256 numberOfTodosBefore = todoList.getNumberOfTodos();
@@ -144,7 +144,11 @@ vm.expectEmit(true, true, false, true, address(todoList));
 
 #### Step 4: Emit the expected event
 
-Emit the expected event with the following parameters: the `creator` of the todo is this test contract, the `todoIndex` is the current `numberOfTodos` + 1, and the `description` is set to "a new todo."
+Emit the expected event with the following parameters:
+
+- the `creator` of the todo is this test contract with address `0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496`, 
+- the `todoIndex` is the current `numberOfTodos` + 1, 
+- the `description` is set to "a new todo."
 
 ```solidity
 emit CreateTodo(address(this), numberOfTodosBefore + 1, 'a new todo');
@@ -190,6 +194,8 @@ Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.10ms
  
 Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
+
+The test passed and shows the event is working as expected.
 
 ## Complete
 
