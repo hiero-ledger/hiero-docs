@@ -1,6 +1,6 @@
 ---
 description: >-
-  Foundry's forking mode lets you interact with contracts and run tests as if on a real network. Learn how to fork Hedera testnet and test your TodoList.sol contract on the latest block.
+  Foundry's forking mode lets you interact with contracts and run tests as if on a real network. Learn how to fork Hedera testnet and test your contracts on the latest block.
 ---
 
 # Fork Hedera Testnet: Interact with Deployed Contracts on Latest Block
@@ -217,7 +217,7 @@ function test_createTodo_returnsNumberOfTodosIncrementedByOne() public {
 Using the `--fork-url` flag you will run your test against a forked Hedera Testnet enviornment at the latest block.
 
 {% hint style="warning" %}
-Currently testing at the latest block is only supported. Be aware everytime you run your test it is against the latest state of the network.
+If you'd like to test a contract deployed on mainnet use the [Hashio](https://swirldslabs.com/hashio/) Mainnet URL. Currently fork testing at the latest block is only supported. Be aware everytime you run your test it is against the latest state of the network.
 {% endhint %}
 
 ```shell
