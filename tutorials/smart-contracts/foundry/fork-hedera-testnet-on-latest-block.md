@@ -192,7 +192,7 @@ You will need to delete the inline comment that looks like this: /* ... */. Repl
 
 #### Step 1: Target your deployed contract
 
-Replace "Deployed_Contract_EVM_Address with your deployed contract's EVM address".
+Replace "Deployed_Contract_EVM_Address" with your deployed contract's EVM address".
 
 ```solidity
     TodoList public todoList =
