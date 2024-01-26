@@ -102,7 +102,7 @@ Copy-paste the confirmation code sent to your email.
 
 Fill out this form.
 
-[![](../../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form"
+[![](../../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form")
 
 In the top-left select Hedera Testnet from the drop-down.
 
