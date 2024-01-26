@@ -139,7 +139,10 @@ Deployed to: 0xc1E551Eb1B3430A8D373C43e8804561fca5ce90D
 Transaction hash: 0x8709443db7b60df7b563c83514ce8b03e54c341a5fe9844e01c72b05fc50950e
 ```
 
-Copy the **Deployed to** EVM address, as that is your deployed contracts address.
+Open the Hashscan link to your deployed contract by
+copying the **Deployed to** EVM address and replacing <Deployed_Contract_EVM_Addres> in the link below:
+
+https://hashscan.io/testnet/contract/<Deployed_Contract_EVM_Addres>
 
 ### Execute a contract call and create a new todo
 
@@ -189,11 +192,11 @@ You will need to delete the inline comment that looks like this: /* ... */. Repl
 
 #### Step 1: Target your deployed contract
 
-Copy your deployed contract's EVM address and replace /* ... */.
+Replace "Deployed_Contract_EVM_Address with your deployed contract's EVM address".
 
 ```solidity
-  // Step (1) - target the deployed contract by using the evm address
-   /* ... */
+    TodoList public todoList =
+        TodoList("Deployed_Contract_EVM_Address");
 ```
 
 #### Step 2: Testing CreateTodo()
