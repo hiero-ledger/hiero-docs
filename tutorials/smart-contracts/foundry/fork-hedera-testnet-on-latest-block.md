@@ -9,7 +9,7 @@ description: >-
 ## What you will accomplish
 
 * [ ] Deploy your smart contract to Hedera Testnet using `forge create`
-* [ ] Use `cast` command-line tool to execute the `createTodo` function in `TodoList.sol`
+* [ ] Use `cast` command-line tool to execute a contract call
 * [ ] Fork Hedera Testnet on the latest block & run your tests against your deployed contract
 
 ## Prerequisites
@@ -94,19 +94,19 @@ If you already have an account on the [Hedera Portal](https://portal.hedera.com)
 
 Visit the [Hedera Portal](https://portal.hedera.com), and create a Testnet account.
 
-[![](../../.gitbook/assets/hello-world--account--portal-01-create-account.png)](../../.gitbook/assets/hello-world--account--portal-01-create-account.png "Hedera Portal - 01 - Create Account")
+[![](../../../.gitbook/assets/hello-world--account--portal-01-create-account.png)](../../.gitbook/assets/hello-world--account--portal-01-create-account.png "Hedera Portal - 01 - Create Account")
 
 Copy-paste the confirmation code sent to your email.
 
-[![](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png)](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png "Hedera Portal - 02 - Email Verification")
+[![](../../../.gitbook/assets/hello-world--account--portal-02-email-verification.png)](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png "Hedera Portal - 02 - Email Verification")
 
 Fill out this form.
 
-[![](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form"
+[![](../../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form"
 
 In the top-left select Hedera Testnet from the drop-down.
 
-[![](../../.gitbook/assets/hello-world--account--portal-04-select-network.png)](../../.gitbook/assets/hello-world--account--portal-04-select-network.png "Hedera Portal - 04 - Select Network")
+[![](../../../.gitbook/assets/hello-world--account--portal-04-select-network.png)](../../.gitbook/assets/hello-world--account--portal-04-select-network.png "Hedera Portal - 04 - Select Network")
 
 </details>
 
