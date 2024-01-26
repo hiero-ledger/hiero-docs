@@ -14,6 +14,9 @@ The tutorials are self-contained and can be done in any order.
 {% content-ref url="setup-foundry-and-write-basic-unit-test.md" %}
 [setup-foundry-and-write-basic-unit-test.md](setup-foundry-and-write-basic-unit-test.md)
 {% endcontent-ref %}
+{% content-ref url="fork-hedera-testnet-on-latest-block.md" %}
+[fork-hedera-testnet-on-latest-block.md](fork-hedera-testnet-on-latest-block.md)
+{% endcontent-ref %}
 
 ***
 
