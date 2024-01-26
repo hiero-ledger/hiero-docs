@@ -1,6 +1,6 @@
 ---
 description: >-
-  Foundry's forking mode lets you interact with contracts and run tests as if on a real network. Learn how to fork Hedera Testnet on the latest block and test your contracts with the latest state of the network.
+  Forking lets you interact with contracts and run tests as if on a real network. Learn how to fork Hedera Testnet on the latest block and test your contracts with the latest state of the network.
 ---
 
 # Fork Hedera Testnet: Interact with Deployed Contracts on Latest Block
