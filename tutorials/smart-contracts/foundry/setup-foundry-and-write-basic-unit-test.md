@@ -322,7 +322,7 @@ h_mainnet = "https://mainnet.hashio.io/api"
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 ```
 
-### **Step 4: Configure foundry to produce a gas report for `TodoList.sol`
+### Step 4: Configure foundry to produce a gas report for `TodoList.sol`
 
 Replace the comment `#/* ... */` with the line below:
 
