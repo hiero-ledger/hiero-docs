@@ -106,8 +106,23 @@ Foundryup represents Foundry's tool management approach. Executing this command 
 curl -L https://foundry.paradigm.xyz | bash
 ```
 
+You should see output similar to the following:
+
+```shell
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1942  100  1942    0     0   3336      0 --:--:-- --:--:-- --:--:--     0
+Installing foundryup...
+######################################################################## 100.0%
+
+Detected your preferred shell is zsh and added foundryup to PATH. Run 'source /Users/abi/.zshenv' or start a new terminal session to use foundryup.
+Then, simply run 'foundryup' to install Foundry.
+
+```
+
 {% hint style="warning" %}
-Ensure you follow the instructions output on-screen to make the `foundryup` command available.
+You may need to add foundry to PATH and open a new terminal to make the `foundryup` command available. Then run `foundryup` to install Foundry.
 {% endhint %}
 
 <details>
@@ -297,6 +312,9 @@ src = 'src'
 out = 'out'
 libs = ['lib']
 
+# Step 4 - Configure foundry to produce a gas report for `TodoList.sol`
+#/* ... */
+
 [rpc_endpoints]
 h_testnet = "https://testnet.hashio.io/api"
 h_mainnet = "https://mainnet.hashio.io/api"
@@ -304,7 +322,9 @@ h_mainnet = "https://mainnet.hashio.io/api"
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 ```
 
-### **Step 4: Add the following line to your `foundry.toml` file.**
+### **Step 4: Configure foundry to produce a gas report for `TodoList.sol`
+
+Replace the comment `#/* ... */` with the line below:
 
 ```toml
 gas_reports = ["TodoList"]
@@ -313,7 +333,7 @@ gas_reports = ["TodoList"]
 In the terminal, generate a gas report.
 
 ```shell
-forge test -gas-report
+forge test --gas-report
 ```
 
 You should see output similar to the following:
