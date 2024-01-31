@@ -174,7 +174,7 @@ for it to run successfully.
 {% hint style="warning" %}
 Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, in this step, look for this:
     `// Step (1) in the accompanying tutorial`
-You will need to delete the inline comment that looks like this: /* ... */. Replace it with the correct code.
+You will need to delete the inline comment that looks like this: `/* ... */`. Replace it with the correct code.
 {% endhint %}
 
 #### Step 1: Target your deployed contract
