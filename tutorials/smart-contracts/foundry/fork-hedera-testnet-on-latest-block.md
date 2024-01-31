@@ -16,26 +16,34 @@ description: >-
 
 Before you begin, you should be familiar with the following:
 
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [Solidity](https://docs.soliditylang.org/en/latest/)
-- [Foundry](https://book.getfoundry.sh/)
+* [x] [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* [x] [Solidity](https://docs.soliditylang.org/en/latest/)
+* [x] [Foundry](https://book.getfoundry.sh/)
 
-Have the following set up on your computer:
+<details>
 
-* [ ] git installed
+<summary>Also, you should have the following set up on your computer ⬇ </summary>
+
+
+* [x] `git` installed
     * Minimum version: 2.37
     * Recommended: [Install Git (Github)](https://github.com/git-guides/install-git)
-* [ ] A code editor or IDE
+* [x] A code editor or IDE
     * Recommended: [VS Code. Install VS Code (Visual Studio)](https://code.visualstudio.com/docs/setup/setup-overview)
-* [ ] NodeJs + npm installed
+* [x] NodeJs + npm installed
     * Minimum version of NodeJs: 18
     * Minimum version of npm: 9.5
     * Recommended for Linux & Mac: [nvm](https://github.com/nvm-sh/nvm)
     * Recommended for Windows: [nvm-windows](https://github.com/coreybutler/nvm-windows)
+* [x] foundry `forge` and `cast` installed
+    * `forge` Minimum version: 0.2.0
+    * `cast` Minimum version: 0.2.0
+
+</details>
 
 <details>
 
-<summary>Check your prerequisites set up</summary>
+<summary>Check your prerequisites set up ⬇ </summary>
 
 Open your terminal, and enter the following commands.
 
@@ -44,6 +52,8 @@ git --version
 code --version
 node --version
 npm --version
+forge --version
+cast --version
 ```
 
 Each of these commands should output some text that includes a version number, for example:
@@ -63,7 +73,14 @@ v20.6.1
 npm --version
 9.8.1
 
+forge --version
+0.2.0 (6fcbbd8 2023-12-15T00:29:51.472038000Z)
+
+cast --version
+0.2.0 (6fcbbd8 2023-12-15T00:29:51.851258000Z)
+
 ```
+If the output contains text similar to `command not found`, please install that item.
 
 </details>
 
@@ -81,45 +98,15 @@ with the steps as described in the tutorial.
 `forge` manages dependencies by using git submodules. Clone the following project and pass `--recurse-submodules` to the `git clone` command to automatically initialize and update the submodule in the repository.
 
 ```shell
-git clone --recurse-submodules <insert-github-repo-with-code>
+git clone --recurse-submodules git@github.com:hedera-dev/fork-hedera-testnet.git
 ```
 
-### Create account
+### Copy Your ECDSA Hex Encoded Private Key
 
-If you already have an account on the [Hedera Portal](https://portal.hedera.com), you may skip down to **Deploy your contract to Hedera Testnet**.
+Grab your ECDSA hex encoded private key by logging into [Hedera Portal](https://portal.hedera.com).
 
-<details>
+If you need to create a Hedera account, follow the [create a hedera portal profile faucet](https://docs.hedera.com/hedera/getting-started/introduction#create-hedera-portal-profile-faucet) tutorial.
 
-<summary>Set up a Hedera Portal account</summary>
-
-Visit the [Hedera Portal](https://portal.hedera.com), and create a Testnet account.
-
-[![](../../../.gitbook/assets/hello-world--account--portal-01-create-account.png)](../../.gitbook/assets/hello-world--account--portal-01-create-account.png "Hedera Portal - 01 - Create Account")
-
-Copy-paste the confirmation code sent to your email.
-
-[![](../../../.gitbook/assets/hello-world--account--portal-02-email-verification.png)](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png "Hedera Portal - 02 - Email Verification")
-
-Fill out this form.
-
-[![](../../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form")
-
-In the top-left select Hedera Testnet from the drop-down.
-
-[![](../../../.gitbook/assets/hello-world--account--portal-04-select-network.png)](../../.gitbook/assets/hello-world--account--portal-04-select-network.png "Hedera Portal - 04 - Select Network")
-
-</details>
-
-The main screen of the [Hedera Portal](https://portal.hedera.com), should show you your accounts.
-
-{% hint style="info" %}
-Note that there are 2 separate accounts on this page.
-
-* (1) Account Ed25519
-* (2) Account ECDSA
-
-To follow along, use **Account ECDSA**.
-{% endhint %}
 
 ### Deploy your contract to Hedera Testnet
 
@@ -186,7 +173,7 @@ for it to run successfully.
 
 {% hint style="warning" %}
 Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, in this step, look for this:
-    // Step (1) in the accompanying tutorial
+    `// Step (1) in the accompanying tutorial`
 You will need to delete the inline comment that looks like this: /* ... */. Replace it with the correct code.
 {% endhint %}
 
@@ -215,7 +202,7 @@ function test_createTodo_returnsNumberOfTodosIncrementedByOne() public {
 }
 ```
 
-### Fork test Hedera testnet and run your test
+### Fork test Hedera Testnet and run your test
 
 Using the `--fork-url` flag you will run your test against a forked Hedera Testnet enviornment at the latest block.
 
