@@ -270,7 +270,7 @@ If you'd like to test a contract deployed on mainnet use a Mainnet RPC URL. Curr
 
 ## Complete
 
-Congratulations, you have completed how to fork Hedera testnet and fork test your Hedera smart contract.
+Congratulations, on completing the tutorial on how to fork Hedera Testnet on the latest block.
 
 You have learned how to:
 * [x] Deploy your smart contract to Hedera Testnet using `forge create`
