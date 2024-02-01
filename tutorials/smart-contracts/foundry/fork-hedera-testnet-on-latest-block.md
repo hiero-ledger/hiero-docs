@@ -229,7 +229,7 @@ function test_createTodo_returnsNumberOfTodosIncrementedByOne() public {
 
 ### Fork test Hedera Testnet and run your test
 
-Using the `--fork-url` flag you will run your test against a forked Hedera Testnet enviornment at the latest block. 
+Using the `--fork-url` flag you will run your test against a forked Hedera Testnet environment at the latest block. 
 
 Replace "RPC_URL" with a tesnet URL by choosing on of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
 
