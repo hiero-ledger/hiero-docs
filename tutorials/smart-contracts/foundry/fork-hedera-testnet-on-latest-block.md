@@ -110,16 +110,23 @@ If you need to create a Hedera account, follow the [create a hedera portal profi
 
 ### Deploy your contract to Hedera Testnet
 
-Copy the value of "Hex Encoded Private Key" from your `ECDSA` account and replace `"HEX_Encoded_Private_Key"`in the command below:
+Replace "RPC_URL" with a tesnet URL by choosing on of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
+
+Next, copy the value of "Hex Encoded Private Key" from your `ECDSA` account and replace `"HEX_Encoded_Private_Key"`in the command below:
+
+{% hint style="warning" %} Your hex encoded private key is prefiex with '0x' and is needed. {% endhint %}
 
 ```shell
-forge create --rpc-url https://testnet.hashio.io/api --private-key "HEX_Encoded_Private_Key" src/TodoList.sol:TodoList
+forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" src/TodoList.sol:TodoList
 ```
 
 You should see output similar to the following:
 
 ```text
-[⠢] Compiling...
+[⠒] Compiling...
+[⠔] Compiling 22 files with 0.8.23
+[⠑] Solc 0.8.23 finished in 3.44s
+Compiler run successful!
 No files changed, compilation skipped
 Deployer: 0xdfAb7899aFaBd146732c84eD83250889C40d6A00
 Deployed to: 0xc1E551Eb1B3430A8D373C43e8804561fca5ce90D
@@ -129,7 +136,14 @@ Transaction hash: 0x8709443db7b60df7b563c83514ce8b03e54c341a5fe9844e01c72b05fc50
 Open the Hashscan link to your deployed contract by
 copying the **Deployed to** EVM address and replacing <Deployed_Contract_EVM_Address> in the link below:
 
+```text
 https://hashscan.io/testnet/contract/<Deployed_Contract_EVM_Address>
+```
+
+{% hint style="success" %}
+Example: https://hashscan.io/testnet/contract/0xc1E551Eb1B3430A8D373C43e8804561fca5ce90D
+{% endhint %}
+
 
 ### Execute a contract call and create a new todo
 
@@ -137,8 +151,10 @@ Use Foundry's `cast send` command to sign and publish a transaction to Hedera Te
 
 Replace `"deployed-contract-EVM-address"` with your deployed contracts EVM address and `"HEX_Encoded_Private_Key"` with your "Hex Encoded Private Key".
 
+Next, replace "RPC_URL" with a tesnet URL.
+
 ```shell
-cast send "deployed-contract-EVM-address" --private-key "HEX_Encoded_Private_Key" "createTodo(string)(uint256)" "Buy camping supplies"  --rpc-url https://testnet.hashio.io/api 
+cast send "deployed-contract-EVM-address" --private-key "HEX_Encoded_Private_Key" "createTodo(string)(uint256)" "Buy camping supplies"  --rpc-url "RPC_URL" 
 ```
 
 You should see output similar to the following:
@@ -162,8 +178,17 @@ type                    2
 Use `cast call` to execute `TodoList.sol`'s `numberOfTodos()`. You should see `numberOftodos` has incremented by 1. 
 
 ```shell
-cast call "deployed-contract-EVM-address" "numberOfTodos()(uint256)" --rpc-url https://testnet.hashio.io/api
+cast call "deployed-contract-EVM-address" "numberOfTodos()(uint256)" --rpc-url "RPC_URL"
 ```
+
+{% hint style="warning" %} 
+
+`cast send` signs and publish a transaction and changes the state.
+
+`cast call` performs a call without changing state. Essentially a read transaction.
+
+{% endhint %}
+
 
 ### Write your test
 
@@ -238,7 +263,7 @@ Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 
 Your output will show you the state of `numberOfTodos` before you created a new todo and after. It also shows whether the test passed, failed or was skipped.
 
-{% hint style="warning" %}
+{% hint style="info" %}
 If you'd like to test a contract deployed on mainnet use the Mainnet PRC URL. Currently fork testing at the latest block is only supported. Be aware everytime you run your test it is against the latest state of the network.
 {% endhint %}
 
