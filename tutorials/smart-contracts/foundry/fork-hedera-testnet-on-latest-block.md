@@ -127,9 +127,9 @@ Transaction hash: 0x8709443db7b60df7b563c83514ce8b03e54c341a5fe9844e01c72b05fc50
 ```
 
 Open the Hashscan link to your deployed contract by
-copying the **Deployed to** EVM address and replacing <Deployed_Contract_EVM_Addres> in the link below:
+copying the **Deployed to** EVM address and replacing <Deployed_Contract_EVM_Address> in the link below:
 
-https://hashscan.io/testnet/contract/<Deployed_Contract_EVM_Addres>
+https://hashscan.io/testnet/contract/<Deployed_Contract_EVM_Address>
 
 ### Execute a contract call and create a new todo
 
