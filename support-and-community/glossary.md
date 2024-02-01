@@ -88,6 +88,9 @@ The [consensus](glossary.md#consensus) [timestamp](glossary.md#timestamp) of the
 
 Bytecode is the information that Solidity code gets "translated" into. It contains instructions to the computer in binary. Bytecode is generally compact numeric codes, constants, and other pieces of information.
 
+* **Compiled Bytecode**: This is the result of compiling your high-level code (like Solidity for Ethereum smart contracts). This compiled bytecode is what the Ethereum Virtual Machine (EVM) can understand and execute. It includes everything your contract needs to run, including constructor logic, which is the code that runs when you deploy your contract.
+* **Deployed Bytecode**: After you deploy your contract to the blockchain, the deployed bytecode is what resides on the blockchain. It's a version of the compiled bytecode but without the constructor logic. The deployed bytecode represents the final, immutable code of your contract as it lives on the blockchain.
+
 ## C
 
 ### Call Trace
@@ -370,7 +373,7 @@ This service enables developers to create a verifiable timestamp and order of ev
 
 ### Hedera File Service
 
-The [Hedera File Service](../sdks-and-apis/hedera-api/readme-1/) provides a decentralized file storage platform that allows developers to securely store and access files on a distributed network of computers using hash as a file identifier.
+The [Hedera File Service](../sdks-and-apis/deprecated/sdks/readme-1-1/) provides a decentralized file storage platform that allows developers to securely store and access files on a distributed network of computers using hash as a file identifier.
 
 ### Hedera Improvement Proposal (HIP)
 
@@ -708,7 +711,7 @@ Trustless is a term associated with distributed ledger technology such as [block
 
 ### Turing Complete
 
-Turing Complete refers to a computer or a programming language that can run and solve any problem that a Turing machine could solve. A Turing machine can solve anything computable, given enough physical resources. The importance of Turing completeness as it pertains to distributed ledger technology is that it allows for the programmatic development of smart contracts.
+Turing complete means a system or a language has the ability to simulate any computer algorithm, no matter how complex. It's like saying if you give this system enough time and memory, it can run any program a computer can execute, whether it's a simple calculator or a complex video game. The importance of Turing completeness as it pertains to distributed ledger technology is that it allows for the programmatic development of smart contracts.
 
 ## V
 

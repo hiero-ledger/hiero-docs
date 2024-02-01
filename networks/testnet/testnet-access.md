@@ -1,17 +1,17 @@
 # Testnet Accounts
 
-You will need a Hedera **testnet account** or **preview testnet** **account** to interact with and pay for any of the network services (cryptocurrency, consensus, tokens, files, and smart contracts). Your Hedera testnet account is what holds a balance of _HBAR_ to be used for transfers to other accounts or payments for network services.
+You will need a Hedera **Testnet** or **Previewnet** account to interact with and pay for any network services (cryptocurrency, consensus, tokens, files, and smart contracts). Your Hedera Testnet account holds a balance of HBAR for transfers to other accounts or payments for network services.
 
-### Step 1: Create Hedera Portal Profile (Faucet)
+### Step 1: Create Hedera Portal Profile
 
-To create your Hedera Portal profile, register [here](https://portal.hedera.com/register) and complete your profile. The Hedera Portal works like a regular faucet. The Portal will top up your account's balance daily to 10,000 testnet _HBAR_.
+To create your Hedera Portal profile, register [here](https://portal.hedera.com/register) and complete your profile. Once you've completed setting up your profile, select the test network (Testnet or Previewnet) from the network drop-down menu and create an account. After account creation, your portal account will automatically receive 1000 HBAR.&#x20;
 
-Once you've completed setting up your profile, select the test network from the network drop-down menu and create an account. You can easily copy your `accountId`, `public key`, and `private key` information to your clipboard to use when configuring your SDK environment for testnet. The "NETWORK" section contains the node ID and node address of testnet nodes that can be configured in your application to submit transactions.
+You can easily copy your `accountId`, `public key`, and `private key` information to your clipboard to use when configuring your SDK environment for testnet.&#x20;
 
 {% hint style="info" %}
-_**Note:** When previewnet or testnet is reset, new account IDs will be generated. The public and private key pair remain consistent during previewnet and testnet resets. If you receive an invalid account ID response from the network it is likely you need to update your previewnet or testnet account ID._
+_**Note:** When previewnet or testnet is reset, new account IDs will be generated. The public and private key pair remain consistent during previewnet and testnet resets. If you receive an invalid account ID response from the network it is likely you need to update your previewnet or testnet account ID._ [_Create an Personal Access Token/API key_](../../tutorials/more-tutorials/how-to-create-a-personal-access-token-api-key-on-the-hedera-portal.md) _to streamline the process of account recreation and management when there is a network reset._&#x20;
 {% endhint %}
 
-![](../../.gitbook/assets/testnet.png)
+![](../../.gitbook/assets/portal-testnet-dashboard.png)
 
 You're now ready to build your application on testnet!

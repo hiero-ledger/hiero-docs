@@ -602,7 +602,7 @@ You can view the contract you deployed by searching the smart contract _public_ 
 
 The Network Explorer will return the information about the contract created and deployed to the Hedera Testnet. The "EVM Address" field is the public address of the contract that was returned to you in your terminal. The terminal returned the public address with the "0x" hex encoding appended to the public address. You will also notice a contract ID in `0.0.contractNumber` (`0.0.3478001`) format. This is the _contract ID_ used to reference the contract entity in the Hedera Network.
 
-<img src="../../.gitbook/assets/new hashscan (1).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/new hashscan (2).png" alt="" data-size="original">
 
 **Verify Contract**
 

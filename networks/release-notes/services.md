@@ -6,9 +6,73 @@ description: Hedera Services release information
 
 Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
-## v0.46
+## [v0.46](https://github.com/hashgraph/hedera-services/releases/tag/v0.46.0)
 
-Coming soon...
+### [**0.46.3**](https://github.com/hashgraph/hedera-services/releases/tag/v0.46.3)
+
+### What's Changed
+
+* chore: bump HAPI proto version by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#11232](https://github.com/hashgraph/hedera-services/pull/11232)
+
+### [**0.46.2**](https://github.com/hashgraph/hedera-services/releases/tag/v0.46.2)
+
+### What's Changed
+
+* fix: Ensure that the pending creation customizer applies to the address being created by [@lukelee-sl](https://github.com/lukelee-sl) in [#11213](https://github.com/hashgraph/hedera-services/pull/11213)
+
+### [**0.46.1**](https://github.com/hashgraph/hedera-services/releases/tag/v0.46.1)
+
+### What's Changed
+
+* chore: bump HAPI proto version by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#11232](https://github.com/hashgraph/hedera-services/pull/11232)
+
+### 0.46.0
+
+{% hint style="success" %}
+**TESTNET UPDATE: JANUARY 23, 2024**
+{% endhint %}
+
+#### What's Changed
+
+* feat: wiring diagram improvements by [@cody-littley](https://github.com/cody-littley) in [#10233](https://github.com/hashgraph/hedera-services/pull/10233)
+* chore: Change `HashMap` to `LinkedHashMap` in custom fees assessment by [@Neeharika-Sompalli](https://github.com/Neeharika-Sompalli) in [#10240](https://github.com/hashgraph/hedera-services/pull/10240)
+* feat: add implementation in throttling facility to handle N-Of-Unscaled type of throttling by [@MiroslavGatsanoga](https://github.com/MiroslavGatsanoga) in [#10142](https://github.com/hashgraph/hedera-services/pull/10142)
+* build: do not publish test fixtures by [@jjohannes](https://github.com/jjohannes) in [#10147](https://github.com/hashgraph/hedera-services/pull/10147)
+* build: patch everything we use to be a real Java Module by [@jjohannes](https://github.com/jjohannes) in [#10056](https://github.com/hashgraph/hedera-services/pull/10056)
+* chore!: More common tests moved to correct module by [@hendrikebbers](https://github.com/hendrikebbers) in [#10133](https://github.com/hashgraph/hedera-services/pull/10133)
+* feat: Config constants created & used by [@hendrikebbers](https://github.com/hendrikebbers) in [#10117](https://github.com/hashgraph/hedera-services/pull/10117)
+* feat: script for cleaning build files by [@cody-littley](https://github.com/cody-littley) in [#10190](https://github.com/hashgraph/hedera-services/pull/10190)
+* fix: Compact last PCES file at boot time by [@cody-littley](https://github.com/cody-littley) in [#10257](https://github.com/hashgraph/hedera-services/pull/10257)
+* feat: sync++- by [@cody-littley](https://github.com/cody-littley) in [#10260](https://github.com/hashgraph/hedera-services/pull/10260)
+* feat: roster change objects by [@cody-littley](https://github.com/cody-littley) in [#9908](https://github.com/hashgraph/hedera-services/pull/9908)
+* chore(ci): change the trigger on the PR Formatting workflow by [@nathanklick](https://github.com/nathanklick) in [#10267](https://github.com/hashgraph/hedera-services/pull/10267)
+* feat(migration): Migrate contract store (contract's slots) from monservice to modular-service representation by [@david-bakin-sl](https://github.com/david-bakin-sl) in [#10252](https://github.com/hashgraph/hedera-services/pull/10252)
+* chore: ensure the pull request check workflow properly handles forks by [@nathanklick](https://github.com/nathanklick) in [#10268](https://github.com/hashgraph/hedera-services/pull/10268)
+* fix: fix failing PCES unit test. by [@cody-littley](https://github.com/cody-littley) in [#10290](https://github.com/hashgraph/hedera-services/pull/10290)
+* fix: 2098 metadata clone by [@mmalik-al](https://github.com/mmalik-al) in [#10108](https://github.com/hashgraph/hedera-services/pull/10108)
+* feat: don't link parents if relationship to child is invalid by [@alittley](https://github.com/alittley) in [#10235](https://github.com/hashgraph/hedera-services/pull/10235)
+* feat: move SignedStateFileManagerWiring into PlatformWiring by [@alittley](https://github.com/alittley) in [#10207](https://github.com/hashgraph/hedera-services/pull/10207)
+* chore: disable sync++- by [@cody-littley](https://github.com/cody-littley) in [#10304](https://github.com/hashgraph/hedera-services/pull/10304)
+* fix: enable contract hapi-tests, eliminate v1 security model by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#10155](https://github.com/hashgraph/hedera-services/pull/10155)
+* fix: suite test in `TokenAndTypeCheckSuite` by [@petreze](https://github.com/petreze) in [#10140](https://github.com/hashgraph/hedera-services/pull/10140)
+* fix: tests from LeakyContractTestsSuite by [@MrValioBg](https://github.com/MrValioBg) in [#9997](https://github.com/hashgraph/hedera-services/pull/9997)
+* fix: fuzzy match records with mono-service for ContractMintHTSSuite by [@thenswan](https://github.com/thenswan) in [#10282](https://github.com/hashgraph/hedera-services/pull/10282)
+* fix: remove incompatible ip printing in linux by [@mxtartaglia-sl](https://github.com/mxtartaglia-sl) in [#10296](https://github.com/hashgraph/hedera-services/pull/10296)
+* feat(event serialization): add `birthRound`, `EventDescriptor` and multiple other parents to serialized event by [@edward-swirldslabs](https://github.com/edward-swirldslabs) in [#9344](https://github.com/hashgraph/hedera-services/pull/9344)
+* fix(migration): Migrate contract slots from mono- to modular- in deterministic order by [@david-bakin-sl](https://github.com/david-bakin-sl) in [#10310](https://github.com/hashgraph/hedera-services/pull/10310)
+* chore(ci): add a new CI workflow to ensure release artifact determinism by [@nathanklick](https://github.com/nathanklick) in [#10347](https://github.com/hashgraph/hedera-services/pull/10347)
+* feat: Implement lazyCreationCostInGas method by [@lukelee-sl](https://github.com/lukelee-sl) in [#10337](https://github.com/hashgraph/hedera-services/pull/10337)
+* fix(ci): disable Gradle configuration cache before executing Snyk by [@nathanklick](https://github.com/nathanklick) in [#10349](https://github.com/hashgraph/hedera-services/pull/10349)
+* fix: 10227 use dev config with modrun by [@jamesnguyentech](https://github.com/jamesnguyentech) in [#10249](https://github.com/hashgraph/hedera-services/pull/10249)
+* fix(ci): snyk workflow should not run on dependabot or forked pull requests by [@nathanklick](https://github.com/nathanklick) in [#10355](https://github.com/hashgraph/hedera-services/pull/10355)
+* chore(ci): drop upgrade test support for Ubuntu 18.04 by [@JeffreyDallas](https://github.com/JeffreyDallas) in [#10344](https://github.com/hashgraph/hedera-services/pull/10344)
+* feat: make branch more visually distinct in JTR report. by [@cody-littley](https://github.com/cody-littley) in [#10329](https://github.com/hashgraph/hedera-services/pull/10329)
+* fix: ContractCallLocalSuite Fix by [@ilko-iliev-lime](https://github.com/ilko-iliev-lime) in [#10038](https://github.com/hashgraph/hedera-services/pull/10038)
+* fix: fix some sonar bugs and suppress others by [@povolev15](https://github.com/povolev15) in [#10261](https://github.com/hashgraph/hedera-services/pull/10261)
+* fix: disassociate deleted nft does not commit a transfer list by [@georgi-l95](https://github.com/georgi-l95) in [#10097](https://github.com/hashgraph/hedera-services/pull/10097)
+* feat: Implement synthetic records for immediate genesis reconnect scenario by [@mhess-swl](https://github.com/mhess-swl) in [#10176](https://github.com/hashgraph/hedera-services/pull/10176)
+* chore: Fix `HashMap` in token service `CryptoTransfer` to `LinkedHashMap` by [@Neeharika-Sompalli](https://github.com/Neeharika-Sompalli) in [#10361](https://github.com/hashgraph/hedera-services/pull/10361)
+* chore: Fix ContractKeysHTSSuite records by [@thenswan](https://github.com/thenswan) in [#10110](https://github.com/hashgraph/hedera-services/pull/10110)
 
 ## [v0.45](https://github.com/hashgraph/hedera-services/releases/tag/v0.45.0)
 

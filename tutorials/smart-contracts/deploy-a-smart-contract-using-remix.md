@@ -30,7 +30,7 @@ Before deploying a smart contract to the Hedera network using Remix, add Hedera 
 
 2. Switch the network to **Hedera Testnet** and add your account by importing your hex-encoded ECDSA private key to MetaMask.
 
-<figure><img src="../../.gitbook/assets/remix metamask import (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/remix metamask import (3).png" alt="" width="563"><figcaption></figcaption></figure>
 
 **➡** [Here](https://docs.hedera.com/hedera/tutorials/smart-contracts/deploy-by-leveraging-ethereum-developer-tools-on-hedera#import-hedera-account-into-metamask) is a more comprehensive guide on importing a Hedera account into MetaMask.
 

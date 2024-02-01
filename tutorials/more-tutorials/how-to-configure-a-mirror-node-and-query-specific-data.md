@@ -190,7 +190,7 @@ Now the database is ready, let's import demo data. Run the importer in the same 
 
 This process may take some time, but once you see this in your console and the process is at 92%, you kill the process with `control + c`. If you let the process run, it will import more data that you don't need for this tutorial.
 
-<figure><img src="../../.gitbook/assets/importer hedera console (1).png" alt=""><figcaption><p>Mirror Importer process console</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/mirror-node-importer-hedera-console.png" alt=""><figcaption><p>Mirror Importer process console</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Note:** Should you encounter an error during this step or if the command doesn't execute successfully, it's recommended to run the command again.

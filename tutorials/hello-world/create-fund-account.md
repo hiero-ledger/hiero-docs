@@ -6,7 +6,11 @@ description: >-
 
 # Create and fund account
 
-## What you will accomplish
+## Why you need to create and fund an account
+
+Hedera is a distributed ledger technology (DLT). To interact with it, you will need to send transactions to the network, which will then process them and add them to the ledger if they are deemed to be valid. On most web services (web2), you need to authenticate using usernames and passwords to operate your account. On DLTs such as Hedera, it is similar, except that you will need to use cryptographic keys instead of passwords to operate your account. One key difference is that unlike web2, each interaction needs to be paid for using the native currency of the DLT, which is similar to microtransactions. On Hedera, this currency is HBAR.&#x20;
+
+### What you will accomplish
 
 * [ ] Create an account on Hedera Testnet
 * [ ] Fund this new account with Testnet HBAR
@@ -17,29 +21,33 @@ description: >-
 
 Before you begin, you should be familiar with the following:
 
-* [ ] Javascript syntax
+* [x] [JavaScript syntax](https://www.w3schools.com/js/js\_syntax.asp)
 
-Also, you should have the following set up on your computer:
+<details>
 
-* [ ] POSIX-compliant shell
+<summary>Also, you should have the following set up on your computer <strong>⬇</strong></summary>
+
+* [x] POSIX-compliant shell
   * For Linux & Mac: The shell that ships with the operating system will work. Either `bash` or `zsh` will work.
   * For Windows: The shells that ship with the operating system (`cmd.exe`, `powershell.exe`) _will not_ work.
     * Recommended: `git-bash` which ships with `git-for-windows`. [Install Git for Windows (Git for Windows)](https://gitforwindows.org/)
     * Recommended (alternative): Windows Subsystem for Linux. [Install WSL (Microsoft)](https://learn.microsoft.com/en-us/windows/wsl/install)
-* [ ] `git` installed
+* [x] `git` installed
   * Minimum version: 2.37
   * Recommended: [Install Git (Github)](https://github.com/git-guides/install-git)
-* [ ] A code editor or IDE
+* [x] A code editor or IDE
   * Recommended: VS Code. [Install VS Code (Visual Studio)](https://code.visualstudio.com/docs/setup/setup-overview)
-* [ ] NodeJs + `npm` installed
+* [x] NodeJs + `npm` installed
   * Minimum version of NodeJs: 18
   * Minimum version of `npm`: 9.5
   * Recommended for Linux & Mac: [`nvm`](https://github.com/nvm-sh/nvm)
   * Recommended for Windows: [`nvm-windows`](https://github.com/coreybutler/nvm-windows)
 
+</details>
+
 <details>
 
-<summary>Check your prerequisites set up</summary>
+<summary>Check your prerequisites set up <strong>⬇</strong></summary>
 
 Open your terminal, and enter the following commands.
 
@@ -54,7 +62,7 @@ npm --version
 
 Each of these commands should output some text that includes a version number, for example:
 
-```text
+```
 bash --version
 GNU bash, version 3.2.57(1)-release (arm64-apple-darwin22)
 Copyright (C) 2007 Free Software Foundation, Inc.
@@ -88,9 +96,7 @@ If the version number that is output is **same or higher** than the required ver
 
 ***
 
-## Get started
-
-### Set up project
+## Get started: Set up project
 
 To follow along, start with the `main` branch, which is the _default branch_ of this repo. This gives you the initial state from which you can follow along with the steps as described in the tutorial.
 
@@ -102,8 +108,7 @@ git clone https://github.com/hedera-dev/hello-future-world.git
 
 <summary>Alternative with `git` and SSH</summary>
 
-If you have [configured SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-to work with `git`, you may wish use this command instead:
+If you have [configured SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to work with `git`, you may wish use this command instead:
 
 ```shell
 git clone git@github.com:hedera-dev/hello-future-world.git
@@ -123,13 +128,13 @@ Install the dependencies using `npm`.
 npm install
 ```
 
-Make a `.env` file by copying the provided `.env.sample` file.
+### Create your .env file
+
+Make a `.env` file by copying the provided `.env.sample` file. Then open the `.env` file in a code editor, such as VS Code.&#x20;
 
 ```shell
 cp .env.sample .env
 ```
-
-Then open the `.env` file in a code editor, such as VS Code.
 
 ### Create account
 
@@ -137,65 +142,50 @@ If you already have an account on the [Hedera Portal](https://portal.hedera.com)
 
 <details>
 
-<summary>Set up a Hedera Portal account</summary>
+<summary>Set up a Hedera Portal account ⬇</summary>
 
-Visit the [Hedera Portal](https://portal.hedera.com), and create a Testnet account.
+1. Visit the [Hedera Portal](https://portal.hedera.com) and create a Testnet account.
 
-[![](../../.gitbook/assets/hello-world--account--portal-01-create-account.png)](../../.gitbook/assets/hello-world--account--portal-01-create-account.png "Hedera Portal - 01 - Create Account")
+<img src="../../.gitbook/assets/hello-world--account--portal-01-create-account.png" alt="" data-size="original">
 
-Copy-paste the confirmation code sent to your email.
+2. Check your email for a confirmation code. Copy and paste this confirmation code to verify your Hedera portal account.
 
-[![](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png)](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png "Hedera Portal - 02 - Email Verification")
+![](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png)
 
-Fill out this form.
+3. Fill out this form.
 
-[![](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png "Hedera Portal - 03 - Profile Form"
+![](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)
 
-In the top-left select Hedera Testnet from the drop-down.
+4. In the top-left, select Hedera Testnet from the drop-down.
 
-[![](../../.gitbook/assets/hello-world--account--portal-04-select-network.png)](../../.gitbook/assets/hello-world--account--portal-04-select-network.png "Hedera Portal - 04 - Select Network")
+![](../../.gitbook/assets/hello-world--account--portal-04-select-network.png)
 
 </details>
 
-The main screen of the [Hedera Portal](https://portal.hedera.com), should show you your accounts.
+Once your portal testnet account is created, copy the Hedera Testnet **Account ID** and **HEX-encoded private key** from your [Hedera portal](https://portal.hedera.com/) dashboard (see screenshot below) and assign them to the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` variables in your `.env` file:
 
-{% hint style="info" %}
-Note that there are 2 separate accounts on this page.
+<figure><img src="../../.gitbook/assets/hello-world--account--portal-05-copy-fields.png" alt="" width="563"><figcaption></figcaption></figure>
 
-* (1) Account Ed25519
-* (2) Account ECDSA
+For example, if your **Account ID** is `0.0.123`, and your **HEX-encoded private key** is `0xabcd1234`, your `.env` file should look like this:
 
-To follow along, use **Account ECDSA**.
-{% endhint %}
-
-Copy the value of "HEX Encoded Private Key", and replace `ACCOUNT_PRIVATE_KEY` in the `.env` file with it.
-
-[![](../../.gitbook/assets//hello-world--account--portal-05-copy-fields.png)](../../.gitbook/assets/hello-world--account--portal-05-copy-fields.png "Hedera Portal - 05 - Copy Fields")
-
-From the same screen, copy the value of "Account ID", and replace `ACCOUNT_ID` in the `.env` file with it.
-
-For example, if your Account ID is `0.0.123`, and your HEX-encoded private key is `0xabcd1234`, the 2 lines in your `.env` file should look like this:
-
+{% code title=".env" %}
 ```
 ACCOUNT_ID=0.0.123
 ACCOUNT_PRIVATE_KEY=0xabcd1234
 ```
+{% endcode %}
 
-🎉 Now you are ready to start using your Hedera Testnet account from the portal within script files on your computer! 🎉
-
-{% hint style="info" %}
-Be sure to save your files before moving on to the next step!
-{% endhint %}
+_**🎉 Now you are ready to start using your Hedera Testnet account from the portal within script files on your computer! Be sure to save your files before moving on to the next step.**_&#x20;
 
 ***
 
-### Write the script
+## Write the script
 
-An almost-complete script has already been prepared for you, and you will only need to make a few modifications (outlined below) for it to run successfully.
+An almost complete script has already been prepared for you, and you will only need to make a few modifications (outlined below) for it to run successfully.
 
 Then open the script file, `script-create-fund-account.js`, in a code editor.
 
-#### Step 1: Initialize account using `Client`
+### Step 1: Initialize the account using `Client`
 
 Initialize the `client` instance by invoking the `setOperator` method, and passing in `accountId` and `accountKey` as parameter.
 
@@ -206,7 +196,7 @@ Initialize the `client` instance by invoking the `setOperator` method, and passi
 Now the `client` instance represents and operates your account.
 
 {% hint style="info" %}
-Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, in this step, look for this:
+Look for a comment in the code to locate the specific lines of code that you will need to edit. For example, for this step, look for this:
 
 ```javascript
     // Step (1) in the accompanying tutorial
@@ -219,7 +209,7 @@ accountId, accountKey
 ```
 {% endhint %}
 
-#### Step 2: Obtain the balance of the account
+### Step 2: Obtain the balance of the account
 
 Use the `AccountBalanceQuery` method to obtain the Testnet HBAR balance of your account.
 
@@ -227,17 +217,23 @@ Use the `AccountBalanceQuery` method to obtain the Testnet HBAR balance of your 
     const accountBalance = await new AccountBalanceQuery()
 ```
 
-Note that the return value is an object, and needs to be parsed.
+{% hint style="info" %}
+Be sure to check that the line of code matches the above exactly. It is easy to miss the `await` when copy-pasting!
+{% endhint %}
 
-#### Step 3: Convert balance result object to Hbars
+_**Note**: The return value is an object and needs to be parsed._
 
-Parse that return value to extract its Testnet HBAR balance, so that you may convert into a string for display purposes.
+### Step 3: Convert the balance result object to HBARs
+
+Parse that return value to extract its Testnet HBAR balance so that you may convert it into a string for display purposes.
 
 ```javascript
     const accountBalanceHbars = accountBalance.hbars.toBigNumber();
 ```
 
-### Run the script
+***
+
+## Run the script
 
 In the terminal, run the script using the following command:
 
@@ -255,8 +251,8 @@ accountExplorerUrl: https://hashscan.io/testnet/account/0.0.1201
 
 Open `accountExplorerUrl` in your browser and check that:
 
-* (1) The account exists, and its "account ID" should match `accountId`.
-* (2) The "balances" should match `accountBalanceTinybars`.
+* The account exists, and its "account ID" should match `accountId`.
+* The "balances" should match `accountBalanceTinybars`.
 
 <img src="../../.gitbook/assets/hello-world--account--account.drawing.svg" alt="Account in Hashscan, with annotated items to check." class="gitbook-drawing">
 
@@ -273,9 +269,9 @@ You have learned how to:
 
 ***
 
-### Next Steps
+## Next Steps
 
-Now that you have an account on Hedera Testnet, and it is funded, you can interact with the Hedera network. Continue by following along with [the other Hello World sequences](./).
+Now that you have an account on Hedera Testnet and it is funded, you can interact with the Hedera network. Continue by following along with [the other Hello World sequences](./).
 
 ***
 
@@ -309,11 +305,4 @@ Note that the branch names are delimited by `..`, and not by `...`, as the latte
 
 ***
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody>
-<tr><td align="center"><p>Writer: Brendan, DevRel Engineer</p><p><a href="https://github.com/bguiz">GitHub</a> | <a href="https://blog.bguiz.com">Blog</a></p></td><td><a href="https://blog.bguiz.com">https://blog.bguiz.com</a></td></tr>
-<tr><td align="center"><p>Editor: Abi Castro, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://twitter.com/ridley___">Twitter</a></p></td><td><a href="https://twitter.com/ridley___">https://twitter.com/ridley___</a></td></tr>
-<tr><td align="center"><p>Editor: Michiel, Developer Advocate</p><p><a href="https://github.com/michielmulders">GitHub</a> | <a href="https://www.linkedin.com/in/michielmulders/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/michielmulders/">https://www.linkedin.com/in/michielmulders/</a></td></tr>
-<tr><td align="center"><p>Editor: Ryan Arndt, DevRel Education</p><p><a href="https://github.com/swirlds-ryan">GitHub</a> | <a href="https://www.linkedin.com/in/ryaneh/">LinkedIn</a></p></td><td><a href="https://www.linkedin.com/in/ryaneh/">https://www.linkedin.com/in/ryaneh/</a></td></tr>
-</tbody></table>
-
-***
+**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**:[ Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)

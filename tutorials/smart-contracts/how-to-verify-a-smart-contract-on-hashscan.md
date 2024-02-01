@@ -40,7 +40,7 @@ _**📣 Note**: This is an initial release. API functionalities will see enhance
 
 Open a web browser and navigate to [HashScan](https://hashscan.io/). Make sure you are on the correct Hedera network (Mainnet, Testnet, or Previewnet), and search for the deployed contract address in the search bar at the top of the page. In the _**Contract Bytecode**_ section click on _**Verify Contract**_. The source code file importer popup window will open.
 
-<figure><img src="../../.gitbook/assets/hashscan find contract (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/hashscan find contract (2).png" alt=""><figcaption></figcaption></figure>
 
 ***
 

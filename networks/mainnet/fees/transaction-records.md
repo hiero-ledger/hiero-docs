@@ -143,7 +143,7 @@ As the remittance value exceeds these thresholds, both sender and receiver will 
 
 **R3**
 
-![](../../../.gitbook/assets/r3.jpg)
+![](broken-reference)
 
 **R4**
 

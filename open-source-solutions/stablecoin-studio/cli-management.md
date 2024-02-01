@@ -268,7 +268,7 @@ When the CLI is started with the configuration file properly configured, the fir
 
 If there are no accounts in the file for the default network, a warning message will be displayed and a list of all the accounts in the file will be displayed.
 
-<figure><img src="../../.gitbook/assets/cli start wizard stablecoin studio new banner.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-cli-wizard-new-banner.png" alt=""><figcaption></figcaption></figure>
 
 #### Main Menu
 
@@ -433,7 +433,7 @@ accelerator wizard
 
 Select the "Create a new stablecoin" option, then proceed through the prompts.&#x20;
 
-<figure><img src="../../.gitbook/assets/POR config cli.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/POR config cli (1).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://youtu.be/a7sNXD5GKWA?si=i__uPkensCQu23P0" %}
 How to Issue Stablecoins on Hedera: Create a Stablecoin\

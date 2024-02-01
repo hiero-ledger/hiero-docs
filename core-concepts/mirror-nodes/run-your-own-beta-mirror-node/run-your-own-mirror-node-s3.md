@@ -119,7 +119,7 @@ After the mirror node is run successfully, it downloads data from the Hedera Net
 docker ps
 ```
 
-<figure><img src="../../../.gitbook/assets/docker ps.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/docker ps (1).png" alt=""><figcaption></figcaption></figure>
 
 * Run the following command to enter the `hedera-mirror-node-db-1` container:
 

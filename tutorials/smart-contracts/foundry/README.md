@@ -5,7 +5,7 @@ Foundry empowers developers with tools for smart contract development. One of th
 Foundry Key benefits:
 
 * Write tests in Solidity & limit your context switching.
-* EVM cheat codes give you more control over smart contract development.
+* EVM cheatcodes give you more control over smart contract development.
 
 This series of mini-tutorials demonstrates how to set up Foundry and use Forge for seamless integration with your Hedera project to test your smart contracts & how to fork Hedera Mainnet to test against deployed contracts.
 
@@ -14,9 +14,15 @@ The tutorials are self-contained and can be done in any order.
 {% content-ref url="setup-foundry-and-write-basic-unit-test.md" %}
 [setup-foundry-and-write-basic-unit-test.md](setup-foundry-and-write-basic-unit-test.md)
 {% endcontent-ref %}
+
+{% content-ref url="./test-an-event-with-foundry.md" %}
+[test-an-event-with-foundry.md](test-an-event-with-foundry.md)
+{% endcontent-ref %}
+
 {% content-ref url="fork-hedera-testnet-on-latest-block.md" %}
 [fork-hedera-testnet-on-latest-block.md](fork-hedera-testnet-on-latest-block.md)
 {% endcontent-ref %}
+
 
 ***
 

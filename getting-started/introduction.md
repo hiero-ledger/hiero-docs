@@ -1,17 +1,43 @@
 # Introduction
 
-Through this short _Getting Started_ coding series, you will learn the basics of creating an account, transferring HBAR, signing, and submitting transactions to the _Hedera Testnet_. The Hedera test network allows you to play with our APIs in a non-production environment. You will see how easy it is to get started with one of our [Hedera SDKs](../sdks-and-apis/) in the programming language of your choice. First, you must create a Hedera Portal profile to receive test HBAR.
+Through this short _Getting Started_ series, you will learn the basics of creating an account, transferring HBAR, signing, and submitting transactions to the Hedera Testnet. The Hedera Testnet allows you to play with the Hedera APIs in a non-production environment. You will see how easy it is to get started with one of our [Hedera SDKs](../sdks-and-apis/) in the programming language of your choice. Below are two paths to creating testnet accounts and receiving HBAR to build, test, and deploy Hedera dApps:
 
-### Create Hedera Portal Profile (Faucet)
+**➡** [**Hedera Faucet**](introduction.md#hedera-faucet)
 
-The _Hedera Testnet_ account allows you to interact with our [APIs](../sdks-and-apis/) and pay for the transaction fees. Visit the [Hedera portal](https://portal.hedera.com/register) to create your _Hedera Testnet_ account and follow the instructions.
+**➡** [**Hedera Developer Portal**](introduction.md#hedera-developer-portal-profile)
+
+***
+
+### Hedera Faucet
+
+The Hedera faucet allows you to anonymously receive testnet HBAR without the hassle of creating a developer portal account. To use the anonymous faucet, visit the [Hedera faucet](https://dev.portal.hedera.com/faucet) and connect your wallet, or enter an EVM wallet address or Hedera account ID to initiate the process.&#x20;
+
+<figure><img src="../.gitbook/assets/faucet-receive-hbar.png" alt=""><figcaption></figcaption></figure>
+
+Entering an EVM address will facilitate an account creation using the [auto account creation flow](../core-concepts/accounts/auto-account-creation.md#auto-account-creation-evm-address-alias). Copy and save the new Hedera account ID and the private key you're managing for your coding environment setup on the next page.
+
+<figure><img src="../.gitbook/assets/faucet-success-account-id.png" alt=""><figcaption></figcaption></figure>
+
+The faucet has a maximum dispense limit of **100 HBAR** every 24 hours.&#x20;
+
+<figure><img src="../.gitbook/assets/faucet-wallet-timer.png" alt=""><figcaption></figcaption></figure>
+
+You will receive an error message and be prompted to return when your account is eligible for a refill if you attempt it more than once within a 24-hour period.
+
+<figure><img src="../.gitbook/assets/faucet-receive-error.png" alt=""><figcaption></figcaption></figure>
+
+***
+
+### Hedera Developer Portal Profile
+
+The Hedera developer portal allows you to create a testnet account to receive HBAR upon creation. Visit the [Hedera developer portal](https://portal.hedera.com/register) and follow the instructions to create an account.&#x20;
 
 <figure><img src="../.gitbook/assets/portal testnet account.png" alt="Screenshot of the Hedera Developer portal (portal.hedera.com/register) account creation page."><figcaption></figcaption></figure>
 
-Once you have completed the instructions, you will receive a _Hedera Testnet_ account ID (0.0.x) and your private/public key pair on your testnet page. You will need to copy over your **account ID** and the _**DER**_**-encoded private key** information when you set up your coding environment in the following steps.
+After account creation, your portal testnet account will automatically receive **1000 HBAR,** and you'll see your account ID and key pair from the portal dashboard (see image below). Copy your account ID and DER-encoded private key for the coding environment setup step.&#x20;
 
-![](<../.gitbook/assets/DER portal (2).png>)
+<figure><img src="../.gitbook/assets/faucet-der-account-id.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-_**Note:** Your Hedera Testnet account will be credited with 10,000 test_ **HBAR** _upon creation that can only be utilized on the Hedera test network. Your balance will be topped up daily to 10,000 test_ **HBAR** _when you use your funds._
+**Note**: Testnet accounts on your developer portal profile have a maximum daily top-up limit of 1000 HBAR. For example, if you have 500 HBAR in your account, your balance will be topped up to 1000 HBAR every 24-hour period. Accounts don't automatically get topped up. You have to manually refill them from the portal dashboard every 24 hours.&#x20;
 {% endhint %}

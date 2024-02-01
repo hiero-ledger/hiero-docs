@@ -21,7 +21,7 @@ _**Note:** You can always check the "_[_Code Check ✅_](environment-set-up.md#c
 Open your IDE of choice and follow the below steps to create your new project directory.
 
 {% tabs %}
-{% tab title="Java" %}
+{% tab title="Java Gradle" %}
 Create a new Gradle project and name it `HederaExamples`. Add the following dependencies to your `build.gradle` file.
 
 {% code title="build.gradle " %}
@@ -35,6 +35,42 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.8'
 
 }
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Java Maven" %}
+Create a new Maven project and name it `HederaExamples`. Add the following dependencies to your `pom.xml` file.
+
+{% code title="pom.xml " %}
+```xml
+<dependencies>
+        <dependency>
+            <groupId>com.hedera.hashgraph</groupId>
+            <artifactId>sdk</artifactId>
+            <version>2.29.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>1.46.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.8</version>
+        </dependency>
+</dependencies>
 ```
 {% endcode %}
 {% endtab %}
@@ -171,16 +207,33 @@ _**Note:** Testnet **HBAR** is required for this next step. Please follow the in
 
 ## Step 3: **Create your .env File**
 
-Create the `.env` file in your project's root directory. The `.env` file stores your environment variables, account ID, and private key (DER encoded).
+Create the `.env` file in your project's root directory. The `.env` file stores your environment variables, such as your account ID and private key.&#x20;
 
-```
-MY_ACCOUNT_ID=ENTER TESTNET ACCOUNT ID 
-MY_PRIVATE_KEY=ENTER TESTNET PRIVATE KEY
-```
+_**📣 Note**: If you have not created an account, please do so_ [_here_](introduction.md) _before this step._
 
-Grab the Hedera Testnet account ID and DER-encoded private key from your [Hedera portal profile](https://portal.hedera.com/)(see screenshot below) and assign them to the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` environment variables in your `.env` file:
+{% tabs %}
+{% tab title="Hedera Developer Portal" %}
+If you created your testnet account through the developer portal, grab the Hedera Testnet account ID and DER-encoded private key from your [Hedera portal profile](https://portal.hedera.com/) (see screenshot below) and assign them to the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` environment variables in your `.env` file:&#x20;
 
 <figure><img src="../.gitbook/assets/DER portal (1).png" alt="" width="563"><figcaption><p>Hedera Developer Portal</p></figcaption></figure>
+
+```markdown
+MY_ACCOUNT_ID=0.0.1234
+MY_PRIVATE_KEY=302e020100300506032b657004220420ed5a93073.....
+```
+{% endtab %}
+
+{% tab title="Hedera Faucet" %}
+Alternatively, if you used the faucet to create a testnet account, grab your faucet account ID and the private key (how to export a private key from MetaMask [here](https://support.metamask.io/hc/en-us/articles/360015289632-How-to-export-an-account-s-private-key))  and assign them to the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` environment variables in your `.env` file:
+
+<figure><img src="../.gitbook/assets/faucet-success-account-id.png" alt="" width="563"><figcaption></figcaption></figure>
+
+```
+MY_ACCOUNT_ID=0.0.1234
+MY_PRIVATE_KEY=0xfd154395435c81233b2fc906486f35e068...
+```
+{% endtab %}
+{% endtabs %}
 
 Next, you will load your account ID and private key variables from the `.env` file created in the previous step.
 
@@ -352,9 +405,9 @@ client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
 
 Next, you will learn how to [create an account](create-an-account.md).
 
-***
-
 ## Code Check :white\_check\_mark:
+
+***
 
 <details>
 
@@ -494,3 +547,7 @@ func main() {
 {% hint style="info" %}
 Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}
+
+***
+
+**Contributors:** [fabianstraubinger99](https://github.com/fabianstraubinger99)

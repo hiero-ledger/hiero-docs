@@ -23,7 +23,7 @@ Ensure the **`VirtioFS`** file sharing implementation is enabled in the docker s
 
 **Note:** The image may look different if you are on a different version
 
-![](../../.gitbook/assets/docker-compose-settings.png)
+![](broken-reference)
 
 Ensure the following configurations are set at minimum in Docker **Settings** -> **Resources** and are available for use:
 

@@ -1,5 +1,5 @@
 ---
-cover: ../.gitbook/assets/meetups (1).jpeg
+cover: ../.gitbook/assets/meetups.jpeg
 coverY: -32
 ---
 

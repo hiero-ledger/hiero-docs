@@ -75,7 +75,6 @@ npm --version
 ## Get started
 
 ### Set up project
-
 To follow along, start with the `main` branch, which is the _default branch_ of this repository. This gives you the initial state from which you can follow along with the steps as described in the tutorial.
 
 ```shell
@@ -106,8 +105,23 @@ Foundryup represents Foundry's tool management approach. Executing this command 
 curl -L https://foundry.paradigm.xyz | bash
 ```
 
+You should see output similar to the following:
+
+```shell
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1942  100  1942    0     0   3336      0 --:--:-- --:--:-- --:--:--     0
+Installing foundryup...
+######################################################################## 100.0%
+
+Detected your preferred shell is zsh and added foundryup to PATH. Run 'source /Users/abi/.zshenv' or start a new terminal session to use foundryup.
+Then, simply run 'foundryup' to install Foundry.
+
+```
+
 {% hint style="warning" %}
-Ensure you follow the instructions output on-screen to make the `foundryup` command available.
+You may need to add foundry to PATH and open a new terminal to make the `foundryup` command available. Then run `foundryup` to install Foundry.
 {% endhint %}
 
 <details>
@@ -149,6 +163,8 @@ forge install
 ### Remap dependencies
 
 In order to make the import of the forge standard library easier to write, we will remap the dependency.
+
+**Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
 
 **Open the project `setup-foundry-and-write-basic-unit-test`, in a code editor.**
 
@@ -212,6 +228,8 @@ Assert that the `numberOfTodosAfter` executing `createTodo()` is equal to the `n
 
 Foundry expects the `test` keyword as a prefix to distinguish a test. Therefore, all tests you want to run must be prefixed with the `test` keyword.
 
+Foundry expects the `test` keyword as a prefix to distinguiash a test. Therefore, all tests that you want to run must be prefixed with the `test` keyword.
+
 In the terminal, ensure you are in the root project directory and build the project.
 
 ```shell
@@ -220,7 +238,7 @@ forge build
 
 You should see output similar to the following:
 
-```
+```text
 [⠒] Compiling...
 [⠔] Compiling 22 files with 0.8.23
 [⠑] Solc 0.8.23 finished in 3.44s
@@ -235,7 +253,7 @@ forge test
 
 You should see output similar to the following:
 
-```
+```text
 [⠢] Compiling...
 No files changed, compilation skipped
 
@@ -253,6 +271,9 @@ In the terminal, re-run your test but include a verbosity level 4. This will dis
 ```shell
 forge test -vvvv
 ```
+<details>
+
+<summary>Level 4 verbosity output</summary>
 
 <details>
 
@@ -260,7 +281,7 @@ forge test -vvvv
 
 You should see output similar to the following:
 
-```
+```text
 [⠢] Compiling...
 No files changed, compilation skipped
 
@@ -278,6 +299,7 @@ Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 580.08µs
  
 Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
+</details>
 
 </details>
 
@@ -297,6 +319,9 @@ src = 'src'
 out = 'out'
 libs = ['lib']
 
+# Step 4 - Configure foundry to produce a gas report for `TodoList.sol`
+#/* ... */
+
 [rpc_endpoints]
 h_testnet = "https://testnet.hashio.io/api"
 h_mainnet = "https://mainnet.hashio.io/api"
@@ -304,7 +329,9 @@ h_mainnet = "https://mainnet.hashio.io/api"
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 ```
 
-### **Step 4: Add the following line to your `foundry.toml` file.**
+### Step 4: Configure foundry to produce a gas report for `TodoList.sol`
+
+Replace the comment `#/* ... */` with the line below:
 
 ```toml
 gas_reports = ["TodoList"]
@@ -313,7 +340,7 @@ gas_reports = ["TodoList"]
 In the terminal, generate a gas report.
 
 ```shell
-forge test -gas-report
+forge test --gas-report
 ```
 
 You should see output similar to the following:
@@ -329,7 +356,6 @@ Your output will show you an estimated gas average, median, and max for each con
 Congratulations, you have completed how to setup Foundry and write a basic unit test.
 
 You have learned how to:
-
 * [x] Configure Foundry and forge with a hedera project
 * [x] Write unit tests in Solidity
 * [x] Run your tests using Foundry `forge` command
