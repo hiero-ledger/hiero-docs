@@ -204,14 +204,13 @@ function test_createTodo_returnsNumberOfTodosIncrementedByOne() public {
 
 ### Fork test Hedera Testnet and run your test
 
-Using the `--fork-url` flag you will run your test against a forked Hedera Testnet enviornment at the latest block.
+Using the `--fork-url` flag you will run your test against a forked Hedera Testnet enviornment at the latest block. 
 
-{% hint style="warning" %}
-If you'd like to test a contract deployed on mainnet use the [Hashio](https://swirldslabs.com/hashio/) Mainnet URL. Currently fork testing at the latest block is only supported. Be aware everytime you run your test it is against the latest state of the network.
-{% endhint %}
+Replace "RPC_URL" with a tesnet URL by choosing on of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
+
 
 ```shell
-forge test --fork-url https://testnet.hashio.io/api -vvvv
+forge test --fork-url "RPC_URL" -vvvv
 ```
 
 You should see output similar to the following:
@@ -237,7 +236,11 @@ Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.13s
 Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
 
-Your output will show you the state of numberOfTodos before you created a new todo and after. It also shows whether the test passed, failed or was skipped.
+Your output will show you the state of `numberOfTodos` before you created a new todo and after. It also shows whether the test passed, failed or was skipped.
+
+{% hint style="warning" %}
+If you'd like to test a contract deployed on mainnet use the Mainnet PRC URL. Currently fork testing at the latest block is only supported. Be aware everytime you run your test it is against the latest state of the network.
+{% endhint %}
 
 
 ## Complete
