@@ -114,7 +114,7 @@ Replace "RPC_URL" with a tesnet URL by choosing on of the options over at [How t
 
 Next, copy the value of "Hex Encoded Private Key" from your `ECDSA` account and replace `"HEX_Encoded_Private_Key"`in the command below:
 
-{% hint style="warning" %} Your hex encoded private key is prefiex with '0x' and is needed. {% endhint %}
+{% hint style="warning" %} Your hex encoded private key must be prefixed with `0x`. {% endhint %}
 
 ```shell
 forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" src/TodoList.sol:TodoList
