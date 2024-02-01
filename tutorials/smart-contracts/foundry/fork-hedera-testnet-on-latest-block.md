@@ -183,9 +183,9 @@ cast call "deployed-contract-EVM-address" "numberOfTodos()(uint256)" --rpc-url "
 
 {% hint style="warning" %} 
 
-`cast send` signs and publish a transaction and changes the state.
+```cast send``` signs/publishes a transaction and changes the state.
 
-`cast call` performs a call without changing state. Essentially a read transaction.
+```cast call``` performs a call without changing state. Essentially a read transaction.
 
 {% endhint %}
 
@@ -264,7 +264,7 @@ Ran 1 test suites: 1 tests passed, 0 failed, 0 skipped (1 total tests)
 Your output will show you the state of `numberOfTodos` before you created a new todo and after. It also shows whether the test passed, failed or was skipped.
 
 {% hint style="info" %}
-If you'd like to test a contract deployed on mainnet use the Mainnet PRC URL. Currently fork testing at the latest block is only supported. Be aware everytime you run your test it is against the latest state of the network.
+If you'd like to test a contract deployed on mainnet use a Mainnet RPC URL. Currently fork testing at the latest block is only supported. Be aware everytime you run your test it is against the latest state of the network.
 {% endhint %}
 
 
