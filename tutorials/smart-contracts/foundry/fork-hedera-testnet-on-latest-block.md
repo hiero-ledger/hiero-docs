@@ -9,16 +9,17 @@ description: >-
 ## What you will accomplish
 
 * [ ] Deploy your smart contract to Hedera Testnet using `forge create`
-* [ ] Use `cast` command-line tool to execute a contract call
+* [ ] Use `cast send` to sign and publish a transaction that changes the state.
+* [ ] Use `cast call` to perform a call without changing state.
 * [ ] Fork Hedera Testnet on the latest block & run your tests against your deployed contract
 
 ## Prerequisites
 
 Before you begin, you should be familiar with the following:
 
-* [x] [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-* [x] [Solidity](https://docs.soliditylang.org/en/latest/)
-* [x] [Foundry](https://book.getfoundry.sh/)
+* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* [Solidity](https://docs.soliditylang.org/en/latest/)
+* [Foundry](https://book.getfoundry.sh/)
 
 <details>
 
@@ -101,24 +102,31 @@ with the steps as described in the tutorial.
 git clone --recurse-submodules git@github.com:hedera-dev/fork-hedera-testnet.git
 ```
 
+### Install the submodule dependencies
+
+```shell
+forge install
+```
+
 ### Copy Your ECDSA Hex Encoded Private Key
 
 Grab your ECDSA hex encoded private key by logging into [Hedera Portal](https://portal.hedera.com).
 
+{% hint style="info" %}
 If you need to create a Hedera account, follow the [create a hedera portal profile faucet](https://docs.hedera.com/hedera/getting-started/introduction#create-hedera-portal-profile-faucet) tutorial.
-
+{% endhint %}
 
 ### Deploy your contract to Hedera Testnet
 
-Replace "RPC_URL" with a tesnet URL by choosing on of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
+In your terminal, replace the value of `"HEX_Encoded_Private_Key"` with your `ECDSA` account's private key in the command below:
 
-Next, copy the value of "Hex Encoded Private Key" from your `ECDSA` account and replace `"HEX_Encoded_Private_Key"`in the command below:
-
-{% hint style="warning" %} Your hex encoded private key must be prefixed with `0x`. {% endhint %}
+Next, Replace "RPC_URL" with a Tesnet URL by choosing one of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
 
 ```shell
 forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" src/TodoList.sol:TodoList
 ```
+
+{% hint style="warning" %} Your hex encoded private key must be prefixed with `0x`. {% endhint %}
 
 You should see output similar to the following:
 
@@ -149,9 +157,11 @@ Example: https://hashscan.io/testnet/contract/0xc1E551Eb1B3430A8D373C43e8804561f
 
 Use Foundry's `cast send` command to sign and publish a transaction to Hedera Tesnet.
 
-Replace `"deployed-contract-EVM-address"` with your deployed contracts EVM address and `"HEX_Encoded_Private_Key"` with your "Hex Encoded Private Key".
+In your terminal, you will need to replace the following items in the command below:
 
-Next, replace "RPC_URL" with a tesnet URL.
+* Replace `"deployed-contract-EVM-address"` with your deployed contracts EVM address 
+* Replace`"HEX_Encoded_Private_Key"` with your hex encoded private key.
+* Replace `"RPC_URL"` with a Tesnet URL.
 
 ```shell
 cast send "deployed-contract-EVM-address" --private-key "HEX_Encoded_Private_Key" "createTodo(string)(uint256)" "Buy camping supplies"  --rpc-url "RPC_URL" 
@@ -175,11 +185,13 @@ transactionIndex        2
 type                    2
 ```
 
-Use `cast call` to execute `TodoList.sol`'s `numberOfTodos()`. You should see `numberOftodos` has incremented by 1. 
+Use `cast call` to execute `TodoList.sol`'s `numberOfTodos()`. 
 
 ```shell
 cast call "deployed-contract-EVM-address" "numberOfTodos()(uint256)" --rpc-url "RPC_URL"
 ```
+
+You should see `numberOftodos` has incremented by 1.
 
 {% hint style="warning" %} 
 
@@ -203,6 +215,8 @@ You will need to delete the inline comment that looks like this: `/* ... */`. Re
 {% endhint %}
 
 #### Step 1: Target your deployed contract
+
+Open the TodoList.t.sol file and copy the line below.
 
 Replace "Deployed_Contract_EVM_Address" with your deployed contract's EVM address".
 
@@ -231,8 +245,7 @@ function test_createTodo_returnsNumberOfTodosIncrementedByOne() public {
 
 Using the `--fork-url` flag you will run your test against a forked Hedera Testnet environment at the latest block. 
 
-Replace "RPC_URL" with a tesnet URL by choosing on of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
-
+In your terminal, replace "RPC_URL" with a Tesnet URL
 
 ```shell
 forge test --fork-url "RPC_URL" -vvvv
@@ -274,7 +287,8 @@ Congratulations, on completing the tutorial on how to fork Hedera Testnet on the
 
 You have learned how to:
 * [x] Deploy your smart contract to Hedera Testnet using `forge create`
-* [x] Use `cast` command-line tool to execute the `createTodo` function in `TodoList.sol`
+* [x] Use `cast send` to sign and publish a transaction that changes the state.
+* [x] Use `cast call` to perform a call without changing state.
 * [x] Fork Hedera Testnet on the latest block & run your tests against your deployed contract
 
 ***
