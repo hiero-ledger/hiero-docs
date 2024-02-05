@@ -12,8 +12,8 @@ Hedera is a distributed ledger technology (DLT). To interact with it, you will n
 
 ### What you will accomplish
 
-* [ ] Create an account on Hedera Testnet
-* [ ] Fund this new account with Testnet HBAR
+* [ ] Generate cryptographic keys to be used by a Hedera account
+* [ ] Use the Hedera Faucet to create and fund a new account with Testnet HBAR
 
 ***
 
@@ -96,7 +96,9 @@ If the version number that is output is **same or higher** than the required ver
 
 ***
 
-## Get started: Set up project
+## Get started
+
+### Set up project
 
 To follow along, start with the `main` branch, which is the _default branch_ of this repo. This gives you the initial state from which you can follow along with the steps as described in the tutorial.
 
@@ -130,110 +132,87 @@ npm install
 
 ### Create your .env file
 
-Make a `.env` file by copying the provided `.env.sample` file. Then open the `.env` file in a code editor, such as VS Code.&#x20;
+Make a `.env` file by copying the provided `.env.sample` file. Then open the `.env` file in a code editor, such as VS Code.
 
 ```shell
 cp .env.sample .env
 ```
 
-### Create account
+### Generate seed phrase
 
-If you already have an account on the [Hedera Portal](https://portal.hedera.com), you may skip the following steps.
+In the terminal, run the following command:
 
-<details>
-
-<summary>Set up a Hedera Portal account ⬇</summary>
-
-1. Visit the [Hedera Portal](https://portal.hedera.com) and create a Testnet account.
-
-<img src="../../.gitbook/assets/hello-world--account--portal-01-create-account.png" alt="" data-size="original">
-
-2. Check your email for a confirmation code. Copy and paste this confirmation code to verify your Hedera portal account.
-
-![](../../.gitbook/assets/hello-world--account--portal-02-email-verification.png)
-
-3. Fill out this form.
-
-![](../../.gitbook/assets/hello-world--account--portal-03-profile-form.png)
-
-4. In the top-left, select Hedera Testnet from the drop-down.
-
-![](../../.gitbook/assets/hello-world--account--portal-04-select-network.png)
-
-</details>
-
-Once your portal testnet account is created, copy the Hedera Testnet **Account ID** and **HEX-encoded private key** from your [Hedera portal](https://portal.hedera.com/) dashboard (see screenshot below) and assign them to the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` variables in your `.env` file:
-
-<figure><img src="../../.gitbook/assets/hello-world--account--portal-05-copy-fields.png" alt="" width="563"><figcaption></figcaption></figure>
-
-For example, if your **Account ID** is `0.0.123`, and your **HEX-encoded private key** is `0xabcd1234`, your `.env` file should look like this:
-
-{% code title=".env" %}
+```shell
+npx mnemonics@1.1.3
 ```
-ACCOUNT_ID=0.0.123
-ACCOUNT_PRIVATE_KEY=0xabcd1234
-```
-{% endcode %}
 
-_**🎉 Now you are ready to start using your Hedera Testnet account from the portal within script files on your computer! Be sure to save your files before moving on to the next step.**_&#x20;
+This should output a **seed phrase**, a list of 12 randomly selected dictionary words, for example:
+
+```text
+artefact gasp crop double silk grid visual gather argue glow melody net
+```
+
+{% hint style="info" %}
+Note that your seed phrase will be different from above.
+
+This seed phrase, will be used to generate the cryptographic keys for the accounts that you are about to create.
+{% endhint %}
+
+Copy the seed phrase. Replace `SEED_PHRASE` in the `.env` file with it. The file contents should now look similar to this:
+
+```shell
+SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
+ACCOUNT_PRIVATE_KEY=YOUR_HEX_ENCODED_PRIVATE_KEY
+ACCOUNT_ID=YOUR_ACCOUNT_ID
+RPC_URL=YOUR_JSON_RPC_URL
+```
+
+(You do not need to modify the other values in the `.env` file yet.)
+
+_**Be sure to save your files before moving on to the next step.**_
 
 ***
 
-## Write the script
+### Write the script
 
-An almost complete script has already been prepared for you, and you will only need to make a few modifications (outlined below) for it to run successfully.
+An almost-complete script has already been prepared for you, and you will only need to make a few modifications (outlined below) for it to run successfully.
 
-Then open the script file, `script-create-fund-account.js`, in a code editor.
+Open the script file, `script-create-fund-account.js`, in a code editor.
 
-### Step 1: Initialize the account using `Client`
+#### Step 1: Derive private key
 
-Initialize the `client` instance by invoking the `setOperator` method, and passing in `accountId` and `accountKey` as parameter.
+The `ethersHdNode` module has been imported from EthersJs. This takes a seed phrase as input, and outputs a private key. To do so, invoke the `fromMnemonic` method and pass in `process.env.SEED_PHRASE` as the parameter:
 
 ```javascript
-    const client = Client.forTestnet().setOperator(accountId, accountKey);
+    const hdNodeRoot = ethersHdNode.fromMnemonic(process.env.SEED_PHRASE);
 ```
 
-Now the `client` instance represents and operates your account.
+The `hdNodeRoot` instance is subsequenctly used to generate the private keys.
 
 {% hint style="info" %}
-Look for a comment in the code to locate the specific lines of code that you will need to edit. For example, for this step, look for this:
+Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, for this step, look for this:
 
 ```javascript
     // Step (1) in the accompanying tutorial
 ```
 
-You will need to delete the inline comment that looks like this: `/* ... */`. Replace it with the correct code. For example, in this step, insert this:
+You will need to delete the inline comment that looks like this: `/* ... */`. Replace it with the correct code. For example, in this step, the change looks like this:
 
-```javascript
-accountId, accountKey
+```diff
+-    const hdNodeRoot = ethersHdNode.fromMnemonic(/* ... */);
++    const hdNodeRoot = ethersHdNode.fromMnemonic(process.env.SEED_PHRASE);
 ```
 {% endhint %}
 
-### Step 2: Obtain the balance of the account
+#### Step 2: Derive EVM address
 
-Use the `AccountBalanceQuery` method to obtain the Testnet HBAR balance of your account.
-
-```javascript
-    const accountBalance = await new AccountBalanceQuery()
-```
-
-{% hint style="info" %}
-Be sure to check that the line of code matches the above exactly. It is easy to miss the `await` when copy-pasting!
-{% endhint %}
-
-_**Note**: The return value is an object and needs to be parsed._
-
-### Step 3: Convert the balance result object to HBARs
-
-Parse that return value to extract its Testnet HBAR balance so that you may convert it into a string for display purposes.
+A `privateKey` instance has been initialized. This requires no further input to derive an EVM address - read its `publicKey` property, and then invoke its `toEvmAddress` method:
 
 ```javascript
-    const accountBalanceHbars = accountBalance.hbars.toBigNumber();
+    const evmAddress = `0x${privateKey.publicKey.toEvmAddress()}`;
 ```
 
-***
-
-## Run the script
+### Run the script
 
 In the terminal, run the script using the following command:
 
@@ -241,20 +220,92 @@ In the terminal, run the script using the following command:
 node script-create-fund-account.js
 ```
 
-You should see output similar to the following:
+This should produce output similar to the following:
 
+```text
+privateKeyHex: 0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
+evmAddress: 0x61b47b6aa6595a6546873fc831331f36639c906f
+accountExplorerUrl: https://hashscan.io/testnet/account/0x61b47b6aa6595a6546873fc831331f36639c906f
+accountId: undefined
+accountBalanceHbar: undefined
 ```
-accountId: 0.0.1201
-accountBalanceTinybars: 10,000.00000000
-accountExplorerUrl: https://hashscan.io/testnet/account/0.0.1201
+
+Note that `accountId` and `accountBalanceHbar` are both `undefined`, because generating cryptographic keys alone is not enough to create an account - that only happens upon the first transaction.
+
+Copy the value of `privateKeyHex`. Replace `YOUR_HEX_ENCODED_PRIVATE_KEY` in the `.env` file with it. The file contents should now look similar to this:
+
+```shell
+SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
+ACCOUNT_PRIVATE_KEY=0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
+ACCOUNT_ID=YOUR_ACCOUNT_ID
+RPC_URL=YOUR_JSON_RPC_URL
 ```
 
-Open `accountExplorerUrl` in your browser and check that:
+Copy the value of `accountExplorerUrl` and visit this in your browser.
 
-* The account exists, and its "account ID" should match `accountId`.
-* The "balances" should match `accountBalanceTinybars`.
+TODO annotate
+![Alt text](image.png)
 
-<img src="../../.gitbook/assets/hello-world--account--account.drawing.svg" alt="Account in Hashscan, with annotated items to check." class="gitbook-drawing">
+You should see a page with the title "Inactive EVM Address", "Account ID: Assigned upon activation", and "EVM Address:" matching the value of `evmAddress` output earlier.
+
+There is also a helpful hint saying "Own this account? Activate it by transferring any amount of ℏ or tokens to ..." This is precisely the next step!
+
+### Transfer and activate account
+
+Visit [`portal.hedera.com/faucet`](https://portal.hedera.com/faucet "Hedera Testnet Faucet"). Paste the value of `evmAddress` output earlier into the "enter wallet address" field. Then press the "receive testnet HBAR" button.
+
+TODO annotate
+![Alt text](image-1.png)
+
+Complete the ReCaptcha, then press the "confirm transaction" button.
+
+TODO annotate
+![Alt text](image-2.png)
+
+This transfers an amount of Testnet HBAR to the account, and in the process creates the account.
+
+TODO screenshot
+![Alt text](image-3.png)
+
+Copy the account ID. Replace `YOUR_ACCOUNT_ID` in the `.env` file with it. The file contents should now look similar to this:
+
+```shell
+SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
+ACCOUNT_PRIVATE_KEY=0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
+ACCOUNT_ID=0.0.2667268
+RPC_URL=YOUR_JSON_RPC_URL
+```
+
+Refresh the page in your browser (navigated to `accountExplorerUrl` from earlier).
+
+TODO annotate
+![Alt text](image-4.png)
+
+This time, you should see a page with the title "Account" (instead of "Inactive EVM Address"), "Account ID:", matching the value of `ACCOUNT_ID` above, and "EVM Address:" matching the value of `evmAddress` output earlier.
+
+### Re-run the script
+
+In the terminal, run the script using the following command:
+
+```shell
+node script-create-fund-account.js
+```
+
+This should produce output similar to the following:
+
+```text
+privateKeyHex: 0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
+evmAddress: 0x61b47b6aa6595a6546873fc831331f36639c906f
+accountExplorerUrl: https://hashscan.io/testnet/account/0x61b47b6aa6595a6546873fc831331f36639c906f
+accountId: 0.0.2667268
+accountBalanceHbar: 100.00000000
+```
+
+Note that this is almost the same as when you first ran the same script. The difference is that previously both `accountId` and `accountBalanceHbar` were `undefined`; and now `accountId` should now show a value (in the format of `0.0.XYZ`), and `accountBalanceHbar` should now show a number (with 8 decimal places). This is because the account has been created and funded.
+
+***
+
+🎉 _**Now you are ready to start using your Hedera Testnet account from the portal within script files on your computer!**_ 🎉
 
 ***
 
@@ -264,8 +315,8 @@ Congratulations, you have completed the **create and fund account** Hello World 
 
 You have learned how to:
 
-* [x] Create an account on Hedera Testnet
-* [x] Fund this new account with Testnet HBAR
+* [x] Generate cryptographic keys to be used by a Hedera account
+* [x] Use the Hedera Faucet to create and fund a new account with Testnet HBAR
 
 ***
 
