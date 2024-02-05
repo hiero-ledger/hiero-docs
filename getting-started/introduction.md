@@ -10,7 +10,7 @@ Through this short _Getting Started_ series, you will learn the basics of creati
 
 ### Hedera Faucet
 
-The Hedera faucet allows you to anonymously receive testnet HBAR without the hassle of creating a developer portal account. To use the anonymous faucet, visit the [Hedera faucet](https://dev.portal.hedera.com/faucet) and connect your wallet, or enter an EVM wallet address or Hedera account ID to initiate the process.&#x20;
+The Hedera faucet allows you to anonymously receive testnet HBAR without the hassle of creating a developer portal account. To use the anonymous faucet, visit the [Hedera faucet](https://portal.hedera.com/faucet) and connect your wallet, or enter an EVM wallet address or Hedera account ID to initiate the process.&#x20;
 
 <figure><img src="../.gitbook/assets/faucet-receive-hbar.png" alt=""><figcaption></figcaption></figure>
 
