@@ -243,31 +243,42 @@ RPC_URL=YOUR_JSON_RPC_URL
 
 Copy the value of `accountExplorerUrl` and visit this in your browser.
 
-TODO annotate
-![Alt text](image.png)
+<img src="../../.gitbook/assets/hello-world--account--faucet-hashscan-before.drawing.svg" alt="Account EVM address in Hashscan, before account is created, with annotated items to check." class="gitbook-drawing">
 
-You should see a page with the title "Inactive EVM Address", "Account ID: Assigned upon activation", and "EVM Address:" matching the value of `evmAddress` output earlier.
+You should see a page with:
+- The title "Inactive EVM Address" (1)
+- "Account ID: Assigned upon activation" (2)
+- "EVM Address:" matching the value of `evmAddress` output earlier (3)
+- A helpful hint saying "Own this account? Activate it by transferring any amount of ℏ or tokens to ..." (4)
 
-There is also a helpful hint saying "Own this account? Activate it by transferring any amount of ℏ or tokens to ..." This is precisely the next step!
+This is precisely the next step!
 
 ### Transfer and activate account
 
-Visit [`portal.hedera.com/faucet`](https://portal.hedera.com/faucet "Hedera Testnet Faucet"). Paste the value of `evmAddress` output earlier into the "enter wallet address" field. Then press the "receive testnet HBAR" button.
+Visit [`portal.hedera.com/faucet`](https://portal.hedera.com/faucet "Hedera Testnet Faucet").
 
-TODO annotate
-![Alt text](image-1.png)
+<img src="../../.gitbook/assets/hello-world--account--faucet-input-address.drawing.svg" alt="Input EVM address in Hedera Faucet, with annotated items." class="gitbook-drawing">
 
-Complete the ReCaptcha, then press the "confirm transaction" button.
+- Paste the value of `evmAddress` output earlier into the "enter wallet address" field (1)
+- Press the "receive testnet HBAR" button (2)
 
-TODO annotate
-![Alt text](image-2.png)
+A confirmation dialog will pop up.
 
-This transfers an amount of Testnet HBAR to the account, and in the process creates the account.
+<img src="../../.gitbook/assets/hello-world--account--faucet-confirm.drawing.svg" alt="Confirm transaction in Hedera Faucet, with annotated items." class="gitbook-drawing">
 
-TODO screenshot
-![Alt text](image-3.png)
+- Complete the ReCaptcha (1)
+- Press the "confirm transaction" button. (2)
 
-Copy the account ID. Replace `YOUR_ACCOUNT_ID` in the `.env` file with it. The file contents should now look similar to this:
+A success dialog will pop up.
+
+<img src="../../.gitbook/assets/hello-world--account--faucet-transfer-complete.drawing.svg" alt="Success dialog upon create and fund account in Hedera Faucet, with annotated items." class="gitbook-drawing">
+
+- The account ID is displayed (1)
+  - This indicates that the Testnet HBAR has been transferred, and in the process a new account has been created.
+  - Note that the EVM address is **not the same** as the account ID - instead the EVM address is **an alias** of the account ID.
+- Press the icon to copy the account ID (2)
+
+Replace `YOUR_ACCOUNT_ID` in the `.env` file with it. The file contents should now look similar to this:
 
 ```shell
 SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
@@ -276,12 +287,15 @@ ACCOUNT_ID=0.0.2667268
 RPC_URL=YOUR_JSON_RPC_URL
 ```
 
-Refresh the page in your browser (navigated to `accountExplorerUrl` from earlier).
+Refresh the page in your browser (navigated to `accountExplorerUrl` from earlier). This time you should see:
 
-TODO annotate
-![Alt text](image-4.png)
+<img src="../../.gitbook/assets/hello-world--account--faucet-hashscan-after.drawing.svg" alt="Account EVM address in Hashscan, after account is created and funded, with annotated items to check." class="gitbook-drawing">
 
-This time, you should see a page with the title "Account" (instead of "Inactive EVM Address"), "Account ID:", matching the value of `ACCOUNT_ID` above, and "EVM Address:" matching the value of `evmAddress` output earlier.
+- The title is "Account" (1)
+  - instead of "Inactive EVM Address"
+- The "Account ID" field should matching the value of `ACCOUNT_ID` above (2)
+  - instead of "Assigned upon activation"
+- The "Create Transaction" field displays a transaction ID (3)
 
 ### Re-run the script
 
