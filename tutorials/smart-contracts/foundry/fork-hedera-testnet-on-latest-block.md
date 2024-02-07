@@ -216,7 +216,7 @@ You will need to delete the inline comment that looks like this: `/* ... */`. Re
 
 #### Step 1: Target your deployed contract
 
-Open the TodoList.t.sol file and copy the line below.
+Open the TodoList.t.sol file and copy and paste the line below.
 
 Replace "Deployed_Contract_EVM_Address" with your deployed contract's EVM address".
 
@@ -225,20 +225,14 @@ Replace "Deployed_Contract_EVM_Address" with your deployed contract's EVM addres
         TodoList("Deployed_Contract_EVM_Address");
 ```
 
-#### Step 2: Testing CreateTodo()
+#### Step 2: Assert number of todos increases by one after calling createTodo()
 
-Copy the below test and paste it in  `TodoList.t.sol`
+Assert that the numberOfTodosAfter executing createTodo() is equal to the numberOftodosBefore + 1.
+
+Copy the below line and paste it in `TodoList.t.sol`
 
 ```solidity
-function test_createTodo_returnsNumberOfTodosIncrementedByOne() public {
-    // get the current number of todos
-    uint256 numberOfTodos = todoList.getNumberOfTodos();
-
-    // create a new todo and save the number of todos
-    uint256 todoCountAfterCreate = todoList.createTodo("A new todo for you!");
-
-    assertEq(todoCountAfterCreate, (numberOfTodos + 1));
-}
+assertEq(todoCountAfterCreate, (numberOfTodos + 1));
 ```
 
 ### Fork test Hedera Testnet and run your test
