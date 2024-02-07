@@ -23,7 +23,10 @@ Before you begin, you should be familiar with the following:
 * [Solidity](https://docs.soliditylang.org/en/latest/)
 * [Foundry](https://book.getfoundry.sh/)
 
-Have the following set up on your computer:
+<details>
+
+<summary>Also, you should have the following set up on your computer ⬇ </summary>
+
 
 * [ ] git installed
   * Minimum version: 2.37
@@ -36,9 +39,11 @@ Have the following set up on your computer:
   * Recommended for Linux & Mac: [nvm](https://github.com/nvm-sh/nvm)
   * Recommended for Windows: [nvm-windows](https://github.com/coreybutler/nvm-windows)
 
+</details>
+
 <details>
 
-<summary>Check your prerequisites set up</summary>
+<summary>Check your prerequisites set up ⬇ </summary>
 
 Open your terminal, and enter the following commands.
 
@@ -75,6 +80,7 @@ npm --version
 ## Get started
 
 ### Set up project
+
 To follow along, start with the `main` branch, which is the _default branch_ of this repository. This gives you the initial state from which you can follow along with the steps as described in the tutorial.
 
 ```shell
