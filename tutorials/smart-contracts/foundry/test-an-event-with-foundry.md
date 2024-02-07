@@ -19,7 +19,10 @@ Before you begin, you should be familiar with the following:
 - [Solidity](https://docs.soliditylang.org/en/latest/)
 - [Foundry](https://book.getfoundry.sh/)
 
-Have the following set up on your computer:
+<details>
+
+<summary>Also, you should have the following set up on your computer ⬇ </summary>
+
 
 * [ ] git installed
     * Minimum version: 2.37
@@ -31,10 +34,16 @@ Have the following set up on your computer:
     * Minimum version of npm: 9.5
     * Recommended for Linux & Mac: [nvm](https://github.com/nvm-sh/nvm)
     * Recommended for Windows: [nvm-windows](https://github.com/coreybutler/nvm-windows)
+* [x] foundry `forge` and `cast` installed
+    * `forge` Minimum version: 0.2.0
+    * `cast` Minimum version: 0.2.0
+
+</details>
+
 
 <details>
 
-<summary>Check your prerequisites set up</summary>
+<summary>Check your prerequisites set up ⬇ </summary>
 
 Open your terminal, and enter the following commands.
 
@@ -43,6 +52,8 @@ git --version
 code --version
 node --version
 npm --version
+forge --version
+cast --version
 ```
 
 Each of these commands should output some text that includes a version number, for example:
@@ -61,6 +72,12 @@ v20.6.1
 
 npm --version
 9.8.1
+
+forge --version
+0.2.0 (6fcbbd8 2023-12-15T00:29:51.472038000Z)
+
+cast --version
+0.2.0 (6fcbbd8 2023-12-15T00:29:51.851258000Z)
 
 ```
 
@@ -88,6 +105,12 @@ Learn how to setup foundry by completing the [Setup Foundry and Write a Basic Un
 
 ```shell
 git clone --recurse-submodules git@github.com:hedera-dev/test-an-event-with-foundry.git
+```
+
+### Install the submodule dependencies
+
+```shell
+forge install
 ```
 
 Open the project `test-an-event-with-foundry`, in a code editor.
