@@ -28,12 +28,12 @@ Before you begin, you should be familiar with the following:
 <summary>Also, you should have the following set up on your computer ⬇ </summary>
 
 
-* [ ] git installed
+* [x] git installed
   * Minimum version: 2.37
   * Recommended: [Install Git (Github)](https://github.com/git-guides/install-git)
-* [ ] A code editor or IDE
+* [x] A code editor or IDE
   * Recommended: [VS Code. Install VS Code (Visual Studio)](https://code.visualstudio.com/docs/setup/setup-overview)
-* [ ] NodeJs + npm installed
+* [x] NodeJs + npm installed
   * Minimum version of NodeJs: 18
   * Minimum version of npm: 9.5
   * Recommended for Linux & Mac: [nvm](https://github.com/nvm-sh/nvm)
