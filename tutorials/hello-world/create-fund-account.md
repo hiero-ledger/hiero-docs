@@ -153,27 +153,37 @@ artefact gasp crop double silk grid visual gather argue glow melody net
 ```
 
 {% hint style="info" %}
-Note that your seed phrase will be different from above.
+Note that [`mnemonics`](https://www.npmjs.com/package/mnemonics/v/1.1.3) is a tool that generates [BIP-39 seed phrases](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), and your seed phrase will be different from above.
+
+If this is your first time running this command, you need to enter `y` to agree to do so:
+
+```text
+Need to install the following packages:
+mnemonics@1.1.3
+Ok to proceed? (y)
+```
 
 This seed phrase, will be used to generate the cryptographic keys for the accounts that you are about to create.
 {% endhint %}
 
 Copy the seed phrase. Replace `SEED_PHRASE` in the `.env` file with it. The file contents should now look similar to this:
 
+{% code title=".env" overflow="wrap" lineNumbers="false" %}
 ```shell
 SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
 ACCOUNT_PRIVATE_KEY=YOUR_HEX_ENCODED_PRIVATE_KEY
 ACCOUNT_ID=YOUR_ACCOUNT_ID
 RPC_URL=YOUR_JSON_RPC_URL
 ```
+{% endcode %}
 
-(You do not need to modify the other values in the `.env` file yet.)
+You do not need to modify the other values in the `.env` file yet.
 
 _**Be sure to save your files before moving on to the next step.**_
 
 ***
 
-### Write the script
+## Write the script
 
 An almost-complete script has already been prepared for you, and you will only need to make a few modifications (outlined below) for it to run successfully.
 
@@ -189,13 +199,15 @@ For example, the comment for **Step 1** looks like this:
 ```
 {% endhint %}
 
-#### Step 1: Derive private key
+### Step 1: Derive private key
 
-The `ethersHdNode` module has been imported from EthersJs. This takes a seed phrase as input, and outputs a private key. To do so, invoke the `fromMnemonic` method and pass in `process.env.SEED_PHRASE` as the parameter:
+The `ethersHdNode` module has been imported from [EthersJs](https://docs.ethers.org/v5/). This takes a seed phrase as input, and outputs a private key. To do so, invoke the `fromMnemonic()` method and pass in `process.env.SEED_PHRASE` as the parameter:
 
+{% code title="script-create-fund-account.js" overflow="wrap" lineNumbers="false" %}
 ```javascript
     const hdNodeRoot = ethersHdNode.fromMnemonic(process.env.SEED_PHRASE);
 ```
+{% endcode %}
 
 {% hint style="info" %}
 You will need to delete the inline comment that looks like this: `/* ... */`. Replace it with the correct code. For example, in this step, the change looks like this:
@@ -208,15 +220,19 @@ You will need to delete the inline comment that looks like this: `/* ... */`. Re
 
 The `hdNodeRoot` instance is subsequently used to generate the private keys.
 
-#### Step 2: Derive EVM address
+### Step 2: Derive EVM address
 
 A `privateKey` instance has been initialized. This requires no further input to derive an EVM address - read its `publicKey` property, and then invoke its `toEvmAddress` method:
 
+{% code title="script-create-fund-account.js" overflow="wrap" lineNumbers="false" %}
 ```javascript
     const evmAddress = `0x${privateKey.publicKey.toEvmAddress()}`;
 ```
+{% endcode %}
 
-### Run the script
+***
+
+## Run the script
 
 In the terminal, run the script using the following command:
 
@@ -238,72 +254,89 @@ Note that `accountId` and `accountBalanceHbar` are both `undefined`, because gen
 
 Copy the value of `privateKeyHex`. Replace `YOUR_HEX_ENCODED_PRIVATE_KEY` in the `.env` file with it. The file contents should now look similar to this:
 
+{% code title=".env" overflow="wrap" lineNumbers="false" %}
 ```shell
 SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
 ACCOUNT_PRIVATE_KEY=0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
 ACCOUNT_ID=YOUR_ACCOUNT_ID
 RPC_URL=YOUR_JSON_RPC_URL
 ```
+{% endcode %}
 
 Copy the value of `accountExplorerUrl` and visit this in your browser.
 
 <img src="../../.gitbook/assets/hello-world--account--faucet-hashscan-before.drawing.svg" alt="Account EVM address in Hashscan, before account is created, with annotated items to check." class="gitbook-drawing">
 
 You should see a page with:
-- The title "Inactive EVM Address" (1)
-- "Account ID: Assigned upon activation" (2)
-- "EVM Address:" matching the value of `evmAddress` output earlier (3)
-- A helpful hint saying "Own this account? Activate it by transferring any amount of ℏ or tokens to ..." (4)
+- The title "Inactive EVM Address" **(1)**
+- "Account ID: Assigned upon activation" **(2)**
+- "EVM Address:" matching the value of `evmAddress` output earlier **(3)**
+- A helpful hint saying "Own this account? Activate it by transferring any amount of ℏ or tokens to ..." **(4)**
 
 This is precisely the next step!
 
-### Transfer and activate account
+***
+
+## Transfer and activate account
 
 Visit [`portal.hedera.com/faucet`](https://portal.hedera.com/faucet "Hedera Testnet Faucet").
 
+{% hint style="info" %}
+The faucet dispenses Testnet HBAR to any account on Hedera Testnet. When it is asked to dispense to an EVM address that does not yet have an account, the account gets created as part of the HBAR transfer transaction.
+{% endhint %}
+
 <img src="../../.gitbook/assets/hello-world--account--faucet-input-address.drawing.svg" alt="Input EVM address in Hedera Faucet, with annotated items." class="gitbook-drawing">
 
-- Paste the value of `evmAddress` output earlier into the "enter wallet address" field (1)
-- Press the "receive testnet HBAR" button (2)
+- Paste the value of `evmAddress` output earlier into the "enter wallet address" field **(1)**
+- Press the "receive testnet HBAR" button **(2)**
 
 A confirmation dialog will pop up.
 
 <img src="../../.gitbook/assets/hello-world--account--faucet-confirm.drawing.svg" alt="Confirm transaction in Hedera Faucet, with annotated items." class="gitbook-drawing">
 
-- Complete the ReCaptcha (1)
-- Press the "confirm transaction" button. (2)
+- Complete the ReCaptcha **(1)**
+- Press the "confirm transaction" button. **(2)**
 
 A success dialog will pop up.
 
 <img src="../../.gitbook/assets/hello-world--account--faucet-transfer-complete.drawing.svg" alt="Success dialog upon create and fund account in Hedera Faucet, with annotated items." class="gitbook-drawing">
 
-- The account ID is displayed (1)
+- The account ID is displayed **(1)**
   - This indicates that the Testnet HBAR has been transferred, and in the process a new account has been created.
   - Note that the EVM address is **not the same** as the account ID - instead the EVM address is **an alias** of the account ID.
-- Press the icon to copy the account ID (2)
+- Press the icon to copy the account ID **(2)**
 
 Replace `YOUR_ACCOUNT_ID` in the `.env` file with it. The file contents should now look similar to this:
 
+{% code title=".env" overflow="wrap" lineNumbers="false" %}
 ```shell
 SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
 ACCOUNT_PRIVATE_KEY=0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
 ACCOUNT_ID=0.0.2667268
 RPC_URL=YOUR_JSON_RPC_URL
 ```
+{% endcode %}
+
+{% hint style="info" %}
+You may have noticed that `RPC_URL` is unused throughout. This is intentional - as it will be used in some of the other Hello World sequences, so be sure to check them out after completing this one!
+{% endhint %}
+
 
 Refresh the page in your browser (navigated to `accountExplorerUrl` from earlier). This time you should see:
 
 <img src="../../.gitbook/assets/hello-world--account--faucet-hashscan-after.drawing.svg" alt="Account EVM address in Hashscan, after account is created and funded, with annotated items to check." class="gitbook-drawing">
 
-- The title is "Account" (1)
+- The title is "Account" **(1)**
   - instead of "Inactive EVM Address"
-- The "Account ID" field should matching the value of `ACCOUNT_ID` above (2)
+- The "Account ID" field should matching the value of `ACCOUNT_ID` above **(2)**
   - instead of "Assigned upon activation"
-- The "Create Transaction" field displays a transaction ID (3)
+- The "Create Transaction" field displays a transaction ID **(3)**
 
-### Re-run the script
+***
 
-In the terminal, run the script using the following command:
+## Verify account creation and funding
+
+In the terminal, re-run the script using the following command:
 
 ```shell
 node script-create-fund-account.js
