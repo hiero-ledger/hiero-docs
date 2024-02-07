@@ -8,7 +8,7 @@ description: >-
 
 ## Why you need to create and fund an account
 
-Hedera is a distributed ledger technology (DLT). To interact with it, you will need to send transactions to the network, which will then process them and add them to the ledger if they are deemed to be valid. On most web services (web2), you need to authenticate using usernames and passwords to operate your account. On DLTs such as Hedera, it is similar, except that you will need to use cryptographic keys instead of passwords to operate your account. One key difference is that unlike web2, each interaction needs to be paid for using the native currency of the DLT, which is similar to microtransactions. On Hedera, this currency is HBAR.&#x20;
+Hedera is a distributed ledger technology (DLT). To interact with it, you will need to send transactions to the network, which will then process them and add them to the ledger if they are deemed to be valid. On most web services (web2), you need to authenticate using usernames and passwords to operate your account. On DLTs such as Hedera, it is similar, except that you will need to use cryptographic keys instead of passwords to operate your account. One key difference is that unlike web2, each interaction needs to be paid for using the native currency of the DLT, which is similar to micro-transactions. On Hedera, this currency is HBAR.
 
 ### What you will accomplish
 
@@ -90,7 +90,7 @@ If the output contains text similar to `command not found`, please install that 
 
 If the version number that is output is **lower** than the required versions, please re-install or update that item.
 
-If the version number that is output is **same or higher** than the required versions, you have met the prequisites! 🎉
+If the version number that is output is **same or higher** than the required versions, you have met the prerequisites! 🎉
 
 </details>
 
@@ -179,6 +179,16 @@ An almost-complete script has already been prepared for you, and you will only n
 
 Open the script file, `script-create-fund-account.js`, in a code editor.
 
+{% hint style="info" %}
+To follow along in the tutorial, when asked to modify code, look for a comment to locate the specific lines of code which you will need to edit.
+
+For example, the comment for **Step 1** looks like this:
+
+```javascript
+    // Step (1) in the accompanying tutorial
+```
+{% endhint %}
+
 #### Step 1: Derive private key
 
 The `ethersHdNode` module has been imported from EthersJs. This takes a seed phrase as input, and outputs a private key. To do so, invoke the `fromMnemonic` method and pass in `process.env.SEED_PHRASE` as the parameter:
@@ -187,15 +197,7 @@ The `ethersHdNode` module has been imported from EthersJs. This takes a seed phr
     const hdNodeRoot = ethersHdNode.fromMnemonic(process.env.SEED_PHRASE);
 ```
 
-The `hdNodeRoot` instance is subsequenctly used to generate the private keys.
-
 {% hint style="info" %}
-Look for a comment in the code to locate the specific lines of code which you will need to edit. For example, for this step, look for this:
-
-```javascript
-    // Step (1) in the accompanying tutorial
-```
-
 You will need to delete the inline comment that looks like this: `/* ... */`. Replace it with the correct code. For example, in this step, the change looks like this:
 
 ```diff
@@ -203,6 +205,8 @@ You will need to delete the inline comment that looks like this: `/* ... */`. Re
 +    const hdNodeRoot = ethersHdNode.fromMnemonic(process.env.SEED_PHRASE);
 ```
 {% endhint %}
+
+The `hdNodeRoot` instance is subsequently used to generate the private keys.
 
 #### Step 2: Derive EVM address
 
