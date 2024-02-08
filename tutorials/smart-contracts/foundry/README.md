@@ -15,6 +15,10 @@ The tutorials are self-contained and can be done in any order.
 [setup-foundry-and-write-basic-unit-test.md](setup-foundry-and-write-basic-unit-test.md)
 {% endcontent-ref %}
 
+{% content-ref url="deploy-and-verify-smart-contract.md" %}
+[deploy-and-verify-smart-contract.md](deploy-and-verify-smart-contract.md)
+{% endcontent-ref %}
+
 {% content-ref url="./test-an-event-with-foundry.md" %}
 [test-an-event-with-foundry.md](test-an-event-with-foundry.md)
 {% endcontent-ref %}
