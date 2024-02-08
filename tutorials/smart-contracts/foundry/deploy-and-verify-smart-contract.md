@@ -8,7 +8,7 @@ description: >-
 ## What you will accomplish
 * [ ] Deploy your smart contract to Hedera Testnet and automatically verify
 * [ ] Verify a pre-existing smart contract on Hedera Testnet
-* [ ] Check the verificaiton status of a smart contract
+* [ ] Check the verification status of a smart contract
 
 ## Prerequisites
 
@@ -96,7 +96,7 @@ with the steps as described in the tutorial.
 `forge` manages dependencies by using git submodules. Clone the following project and pass `--recurse-submodules` to the `git clone` command to automatically initialize and update the submodule in the repository.
 
 ```shell
-git clone --recurse-submodules <github-repo>
+git clone --recurse-submodules git@github.com:hedera-dev/foundry-deploy-and-verify-smart-contract.git
 ```
 
 ### Install the submodule dependencies
@@ -117,13 +117,13 @@ If you need to create a Hedera account, follow the [create a hedera portal profi
 Keep your private key accessible as it will be needed in the following steps.
 {% endhint %}
 
-### Choose your RPC_URL
+### Choose your Tesnet RPC_URL
 
 Choose one of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
 
 
-{% hint style="info" %}
-Keep the RPC_URL accessible as it will be needed in the next step.
+{% hint style="warning" %}
+Keep the Tesnet RPC_URL accessible as it will be needed in the next step.
 {% endhint %}
 
 ### Deploy and Automatically Verify Your Contract on Hedera Testnet
@@ -183,6 +183,15 @@ You should see a page with:
 ### Verify A Pre-Existing Contract on Testnet
 
 You may have a pre-existing contract that has not been verified.
+
+{% hint style="info" %}
+Deploy a contract without verifying by running this command in your terminal:
+
+```shell
+forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" src/TodoList.sol:TodoList
+
+```
+{% endhint %}
 
 In order to verify a pre-existing smart contract you will need:
 
