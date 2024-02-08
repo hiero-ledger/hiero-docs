@@ -58,7 +58,7 @@ pwd
 
 This should output a path that ends with `/hello-future-world/03-hscs-smart-contract-ethersjs`. If not, you will need to start over.
 
-```
+```text
 /some/path/hello-future-world/03-hscs-smart-contract-ethersjs
 ```
 
@@ -70,7 +70,7 @@ ls -a
 
 The first few line of the output should look display `.env`. If not, you'll need to start over.
 
-```
+```text
 .
 ..
 .env
@@ -91,14 +91,14 @@ npm install --global solc@0.8.17
 ```
 
 {% hint style="info" %}
-[Solidity](https://docs.soliditylang.org/) is a programming language that was designed specifically for writing smart contracts in. The Solidity compiler outputs bytecode that can be run by an [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) implementation.
+[Solidity](https://docs.soliditylang.org/) is a programming language that was designed specifically for writing smart contracts in. The Solidity compiler outputs bytecode that can be run by an [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) implementation; including Hyperledger Besu's EVM, which powers Hedera Smart Contract Service.
 {% endhint %}
 
 {% hint style="info" %}
 Note that although the `npm` package is named `solc`, the executable exposed on your command line is named `solcjs`.
 {% endhint %}
 
-Then, open both these files in a code editor, such as VS Code.
+Then, open both of the following files in a code editor, such as VS Code.
 
 * `my_contract.sol`
 * `script-hscs-smart-contract-ethersjs.js`
@@ -113,9 +113,11 @@ An almost-complete smart contract has already been prepared for you, `my_contrac
 
 Within the `greet()` function, we would like to access the `names` mapping and retrieve the name of the account that is invoking this function. The account is identified by its EVM account alias, which is available as `msg.sender` within the Solidity code.
 
-```js
+{% code title="my_contract.sol" overflow="wrap" %}
+```solidity
         string memory name = names[msg.sender];
 ```
+{% endcode %}
 
 {% hint style="info" %}
 _**Note**: This smart contract has two functions, `introduce` and `greet`. You will invoke both of them later on._
@@ -127,7 +129,7 @@ _**Note**: This smart contract has two functions, `introduce` and `greet`. You w
 
 Once you have completed writing the smart contract in Solidity, you will need to compile it using the Solidity compiler installed earlier.
 
-Invoke the compiler on your Solidity file. Then, list files in the current directory.
+Invoke the compiler on your Solidity file. Then list files in the current directory.
 
 ```shell
 solcjs --bin --abi ./my_contract.sol
@@ -136,7 +138,7 @@ ls
 
 You should see an output similar to the following:
 
-```
+```text
 my_contract.sol
 my_contract_sol_MyContract.abi
 my_contract_sol_MyContract.bin
@@ -172,23 +174,25 @@ Now, you should see the project details.
 * Copy the "JSON-RPC" field.
 * In the "Security" section, copy the "API Key" field.
 
-In the `.env` file, edit the property with the key `RPC_URL`, replacing `YOUR_JSON_RPC_URL` with the "JSON-RPC" value, followed by `/`, and finally, the "API key" value that you have just copied.
+In the `.env` file, edit the property with the key `RPC_URL`, to replace `YOUR_JSON_RPC_URL` with the "JSON-RPC" value, followed by a `/` character, and finally, the "API key" value that you have just copied.
 
-For example, if the API key field is `ABC123`, and the JSON-RPC field is `https://pool.arkhia.io/hedera/testnet/json-rpc/v1`, the line in your `.env` file should look like this:
+For example, if the JSON-RPC field is `https://pool.arkhia.io/hedera/testnet/json-rpc/v1`, and if the API key field is `ABC123`, the line in your `.env` file should look like this:
 
-```
+{% code title=".env" overflow="wrap" %}
+```shell
 RPC_URL=https://pool.arkhia.io/hedera/testnet/json-rpc/v1/ABC123
 ```
+{% endcode %}
 
 {% hint style="warning" %}
-**Note**: Ensure that you have a **`/`** just before the API key.&#x20;
+**Note**: Ensure that you have a **`/`** just before the API key.
 {% endhint %}
 
 <details>
 
 <summary>Alternative RPC configuration</summary>
 
-Arkhia is one of several different options for JSON-RPC connections. This tutorial covers all of the different options: [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections).
+Arkhia is one of multiple options for JSON-RPC connections. This tutorial covers the available options: [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections).
 
 </details>
 
@@ -202,10 +206,12 @@ An almost complete script has already been prepared for you, `script-hscs-smart-
 
 Initialize an instance of `ContractFactory` from EthersJs.
 
+{% code title="script-hscs-smart-contract-ethersjs.js" overflow="wrap" %}
 ```js
     const myContractFactory = new ContractFactory(
         abi, evmBytecode, accountWallet);
 ```
+{% endcode %}
 
 {% hint style="info" %}
 **Note**: The `ContractFactory` class is used to prepare a smart contract for deployment. To do so, pass in the ABI and bytecode output by the Solidity compiler earlier. Also, pass in the `accountWallet` object, which is used to authorize transactions and is needed for the deployment transaction.
@@ -217,19 +223,23 @@ Upon preparation, it sends a deployment transaction to the network, and an insta
 
 The `introduce` function requires a single parameter of type `string`, and changes the state of the smart contract to store this value. Enter your name (or nickname) as the parameter. For example, if you wish to use "bguiz", the invocation should look like this:
 
+{% code title="script-hscs-smart-contract-ethersjs.js" overflow="wrap" %}
 ```js
     const myContractWriteTxRequest = await myContract.functions.introduce('bguiz');
 ```
+{% endcode %}
 
 ### Step 4: Invoke a smart contract query
 
-In the previous step, you changed some state of the smart contract, which involved submitting a transaction to the network. This time, you are going to read some state of the smart contract. This is much simpler to do as no transaction is needed.
+In the previous step, you **changed** some state of the smart contract, which involved submitting a transaction to the network. This time, you are going to **read** some state of the smart contract. This is much simpler to do as no transaction is needed.
 
 Invoke the `greet` function and save its response to a variable, `myContractQueryResult`. This function does not take any parameters.
 
+{% code title="script-hscs-smart-contract-ethersjs.js" overflow="wrap" %}
 ```js
     const [myContractQueryResult] = await myContract.functions.greet();
 ```
+{% endcode %}
 
 {% hint style="info" %}
 When invoking functions in a smart contract, you may do so in two different ways:
@@ -250,7 +260,7 @@ node script-hscs-smart-contract-ethersjs.js
 
 You should see output similar to the following:
 
-```
+```text
 accountId: 0.0.1201
 accountAddress: 0x7394111093687e9710b7a7aEBa3BA0f417C54474
 accountExplorerUrl: https://hashscan.io/testnet/address/0x7394111093687e9710b7a7aEBa3BA0f417C54474
@@ -263,23 +273,23 @@ myContractQueryResult: Hello future - bguiz
 
 Open `myContractExplorerUrl` in your browser and check that:
 
-1. The contract exists
-2. Under the "Contract Bytecode" section, its "Compiler Version" field matches the version of the Solidity compiler that you used (`0.8.17`)
-3. Under the "Recent Contract Calls" section, There should be _two_ transactions:
-   * (**3A**) The transaction with the earlier timestamp (bottom) should be the deployment transaction.
+<img src="../../.gitbook/assets/hello-world--hscs--contract.drawing.svg" alt="HSCS contract in Hashscan, with annotated items to check." class="gitbook-drawing">
+
+* The contract exists
+* Under the "Contract Bytecode" section, its "Compiler Version" field matches the version of the Solidity compiler that you used (`0.8.17`) **(2)**
+* Under the "Recent Contract Calls" section, There should be _two_ transactions:
+   * The transaction with the *earlier timestamp* (bottom) should be the *deployment* transaction. **(3A)**
      * Navigate to this transaction by clicking on the timestamp.
      * Under the "Contract Result" section, the "Input - Function & Args" field should be a _relatively long_ set of hexadecimal values.
      * This is the EVM bytecode output by the Solidity compiler.
      * Navigate back to the Contract page (browser `⬅` button).
-   * (**3B**) The transaction with the later timestamp (top) should be the transaction in which the `introduce` function was invoked.
+   * The transaction with the *later timestamp* (top) should be the *function invocation* transaction, of the `introduce` function. **(3B)**
      * Navigate to this transaction by clicking on the timestamp.
      * Under the "Contract Result" section, the "Input - Function & Args" field should be a _relatively short_ set of hexadecimal values.
      * This is the representation of
        * the function identifier as the first _eight_ characters (e.g. `0xc63193f6` for the `introduce` function), and
        * the input string value (e.g. `0x5626775697a0` for `bguiz`).
      * Navigate back to the Contract page (browser `⬅` button).
-
-<img src="../../.gitbook/assets/hello-world--hscs--contract.drawing.svg" alt="HSCS contract in Hashscan, with annotated items to check." class="gitbook-drawing">
 
 <details>
 
@@ -316,7 +326,7 @@ You have learned how to:
 
 Now that you have completed this Hello World sequence, you have interacted with Hedera Smart Contract Service (HSCS). There are [other Hello World sequences](./) for Hedera File Service (HFS), and Hedera Token Service (HTS), which you may wish to check out next.
 
-You may also wish to check out the more detailed [HSCS workshop](https://docs.hedera.com/hedera/tutorials/smart-contracts/hscs-workshop/), which goes into much more depth.
+You may also wish to check out the more detailed [HSCS workshop](https://docs.hedera.com/hedera/tutorials/smart-contracts/hscs-workshop/), which goes into greater depth.
 
 ***
 
@@ -350,4 +360,4 @@ Note that the branch names are delimited by `..`, and not by `...`, as the latte
 
 ***
 
-**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**:[ Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)
+**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**: [Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)

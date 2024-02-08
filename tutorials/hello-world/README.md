@@ -2,13 +2,13 @@
 
 ## Hedera Quickstart Guide
 
-So, you want to develop on Hedera but are unsure where to start? Why not start with something you could complete in 10 minutes? This quick start guide is designed to kickstart your Hedera development journey.&#x20;
+So, you want to develop on Hedera but are unsure where to start? Why not start with something you could complete in 10 minutes? This quick start guide is designed to kickstart your Hedera development journey.
 
 Let's begin!
 
 ## Hello World Sequences
 
-There are multiple Hello World sequences for you to follow along. To start, you **must** complete the first sequence, as you will need a **funded account** to do any other tasks on Hedera.&#x20;
+There are multiple Hello World sequences for you to follow along. To start, you **must** complete the first sequence, as you will need a **funded account** to do any other tasks on Hedera.
 
 <table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p><strong>START HERE</strong></p><p>⬇</p><p><a href="create-fund-account.md"><strong>Create &#x26; fund account</strong></a></p></td><td><a href="../../.gitbook/assets/create-an-account-icon.png">create-an-account-icon.png</a></td><td><a href="create-fund-account.md">create-fund-account.md</a></td></tr></tbody></table>
 

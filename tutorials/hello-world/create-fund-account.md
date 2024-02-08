@@ -163,12 +163,12 @@ mnemonics@1.1.3
 Ok to proceed? (y)
 ```
 
-This seed phrase, will be used to generate the cryptographic keys for the accounts that you are about to create.
+This seed phrase will be used to generate the cryptographic keys for the accounts that you are about to create.
 {% endhint %}
 
 Copy the seed phrase. Replace `SEED_PHRASE` in the `.env` file with it. The file contents should now look similar to this:
 
-{% code title=".env" overflow="wrap" lineNumbers="false" %}
+{% code title=".env" overflow="wrap" %}
 ```shell
 SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
 ACCOUNT_PRIVATE_KEY=YOUR_HEX_ENCODED_PRIVATE_KEY
@@ -203,7 +203,7 @@ For example, the comment for **Step 1** looks like this:
 
 The `ethersHdNode` module has been imported from [EthersJs](https://docs.ethers.org/v5/). This takes a seed phrase as input, and outputs a private key. To do so, invoke the `fromMnemonic()` method and pass in `process.env.SEED_PHRASE` as the parameter:
 
-{% code title="script-create-fund-account.js" overflow="wrap" lineNumbers="false" %}
+{% code title="script-create-fund-account.js" overflow="wrap" %}
 ```javascript
     const hdNodeRoot = ethersHdNode.fromMnemonic(process.env.SEED_PHRASE);
 ```
@@ -224,7 +224,7 @@ The `hdNodeRoot` instance is subsequently used to generate the private keys.
 
 A `privateKey` instance has been initialized. This requires no further input to derive an EVM address - read its `publicKey` property, and then invoke its `toEvmAddress` method:
 
-{% code title="script-create-fund-account.js" overflow="wrap" lineNumbers="false" %}
+{% code title="script-create-fund-account.js" overflow="wrap" %}
 ```javascript
     const evmAddress = `0x${privateKey.publicKey.toEvmAddress()}`;
 ```
@@ -254,7 +254,7 @@ Note that `accountId` and `accountBalanceHbar` are both `undefined`, because gen
 
 Copy the value of `privateKeyHex`. Replace `YOUR_HEX_ENCODED_PRIVATE_KEY` in the `.env` file with it. The file contents should now look similar to this:
 
-{% code title=".env" overflow="wrap" lineNumbers="false" %}
+{% code title=".env" overflow="wrap" %}
 ```shell
 SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
 ACCOUNT_PRIVATE_KEY=0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
@@ -308,7 +308,7 @@ A success dialog will pop up.
 
 Replace `YOUR_ACCOUNT_ID` in the `.env` file with it. The file contents should now look similar to this:
 
-{% code title=".env" overflow="wrap" lineNumbers="false" %}
+{% code title=".env" overflow="wrap" %}
 ```shell
 SEED_PHRASE="artefact gasp crop double silk grid visual gather argue glow melody net"
 ACCOUNT_PRIVATE_KEY=0x0ac20a3c1573ba9a5c6c69349fa51f40bd502cf250e226a7100869338f15aae2
@@ -320,7 +320,6 @@ RPC_URL=YOUR_JSON_RPC_URL
 {% hint style="info" %}
 You may have noticed that `RPC_URL` is unused throughout. This is intentional - as it will be used in some of the other Hello World sequences, so be sure to check them out after completing this one!
 {% endhint %}
-
 
 Refresh the page in your browser (navigated to `accountExplorerUrl` from earlier). This time you should see:
 
@@ -407,4 +406,4 @@ Note that the branch names are delimited by `..`, and not by `...`, as the latte
 
 ***
 
-**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**:[ Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)
+**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**: [Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)

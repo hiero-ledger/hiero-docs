@@ -55,7 +55,7 @@ pwd
 
 This should output a path that ends with `/hello-future-world/04-hts-ft-sdk`. If not, you will need to start over.
 
-```
+```text
 /some/path/hello-future-world/04-hts-ft-sdk
 ```
 
@@ -67,7 +67,7 @@ ls -a
 
 The first few line of the output should look display `.env`. If not, you'll need to start over.
 
-```
+```text
 .
 ..
 .env
@@ -98,6 +98,7 @@ To create a new HTS token, we will use `TokenCreateTransaction`. This transactio
 * Set the decimal property to `2`.
 * Set the initial supply to 1 million.
 
+{% code title="script-hts-ft.js" overflow="wrap" %}
 ```js
         .setTokenType(TokenType.FungibleCommon)
         .setTokenName("bguiz coin")
@@ -105,6 +106,7 @@ To create a new HTS token, we will use `TokenCreateTransaction`. This transactio
         .setDecimals(2)
         .setInitialSupply(1_000_000)
 ```
+{% endcode %}
 
 <details>
 
@@ -132,9 +134,11 @@ You will want to use the Mirror Node API with the path `/api/v1/accounts/{idOrAl
 
 Using string interpolation, construct `accountBalanceFetchApiUrl` like so:
 
+{% code title="script-hts-ft.js" overflow="wrap" %}
 ```js
     const accountBalanceFetchApiUrl = `https://testnet.mirrornode.hedera.com/api/v1/accounts/${accountId}/tokens?token.id=${tokenId}&limit=1&order=desc`;
 ```
+{% endcode %}
 
 <details>
 
@@ -162,7 +166,7 @@ node script-hts-ft.js
 
 You should see output similar to the following:
 
-```
+```text
 accountId: 0.0.1201
 tokenId: 0.0.5878530
 tokenExplorerUrl: https://hashscan.io/testnet/token/0.0.5878530
@@ -172,12 +176,12 @@ accountBalanceFetchApiUrl: https://testnet.mirrornode.hedera.com/api/v1/accounts
 
 Open `tokenExplorerUrl` in your browser and check that:
 
-* The token should exist, and its "token ID" should match `tokenId`.
-* The "name" and "symbol" should be shown as the same values derived from your name (or nickname) that you chose earlier.
-* The "treasury account" should match `accountId`.
-* Both the "total supply" and "initial supply" should be `10,000`.
-
 <img src="../../.gitbook/assets/hello-world--hts--token.drawing.svg" alt="HTS transaction in Hashscan, with annotated items to check." class="gitbook-drawing">
+
+* The token should exist, and its "token ID" should match `tokenId`. **(1)**
+* The "name" and "symbol" should be shown as the same values derived from your name (or nickname) that you chose earlier. **(2)**
+* The "treasury account" should match `accountId`. **(3)**
+* Both the "total supply" and "initial supply" should be `10,000`. **(4)**
 
 {% hint style="info" %}
 **Note**: "total supply" and "initial supply" are not displayed as `1,000,000` because of the two decimal places configured. Instead, these are displayed as `10,000.00`.
@@ -232,4 +236,4 @@ Note that the branch names are delimited by `..`, and not by `...`, as the latte
 
 ***
 
-**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**:[ Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)
+**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**: [Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)

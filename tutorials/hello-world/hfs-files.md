@@ -55,7 +55,7 @@ pwd
 
 This should output a path that ends with `/hello-future-world/01-hfs-files-sdk`. If not, you will need to start over.
 
-```
+```text
 /some/path/hello-future-world/01-hfs-files-sdk
 ```
 
@@ -67,7 +67,7 @@ ls -a
 
 The first few line of the output should look display `.env`. If not, you'll need to start over.
 
-```
+```text
 .
 ..
 .env
@@ -103,9 +103,11 @@ The contents of `my-file.txt` have been read from disk and stored in a `Buffer` 
 
 Set the contents of `localFileContents` in `FileCreateTransaction`, to write your file onto Hedera Testnet.
 
+{% code title="script-hfs-files-sdk.js" overflow="wrap" %}
 ```js
         .setContents(localFileContents.toString())
 ```
+{% endcode %}
 
 ### Step 2: File contents query
 
@@ -113,9 +115,11 @@ After the `FileCreateTransaction` has been executed, the response will contain a
 
 Set the file ID in `FileContentsQuery`.
 
+{% code title="script-hfs-files-sdk.js" overflow="wrap" %}
 ```js
         .setFileId(fileId);
 ```
+{% endcode %}
 
 ***
 
@@ -129,7 +133,7 @@ node script-hfs-files-sdk.js
 
 You should see output similar to the following:
 
-```
+```text
 fileId: 0.0.5835692
 fileCreateTxId: 0.0.1186@1699277862.561525871
 txExplorerUrl: https://hashscan.io/testnet/transaction/0.0.1186@1699277862.561525871
@@ -143,10 +147,10 @@ To verify that both the `FileCreateTransaction` and `FileContentsQuery` have wor
 
 Open `txExplorerUrl` in your browser and check that:
 
-* The transaction exists
-* The "type" is shown as "FILE CREATE"
-
 <img src="../../.gitbook/assets/hello-world--hfs--transaction.drawing.svg" alt="HFS transaction in Hashscan, with annotated items to check." class="gitbook-drawing">
+
+* The transaction exists **(1)**
+* The "type" is shown as "FILE CREATE" **(2)**
 
 ***
 
@@ -197,4 +201,4 @@ Note that the branch names are delimited by `..`, and not by `...`, as the latte
 
 ***
 
-**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**:[ Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)
+**Writer**: [Brendan](https://blog.bguiz.com/) **Editors**: [Abi](https://github.com/a-ridley), [Michiel](https://www.linkedin.com/in/michielmulders/), [Ryan](https://www.linkedin.com/in/ryaneh/), [Krystal](https://www.linkedin.com/in/theekrystallee/)
