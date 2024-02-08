@@ -189,7 +189,6 @@ Deploy a contract without verifying by running this command in your terminal:
 
 ```shell
 forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" src/TodoList.sol:TodoList
-
 ```
 {% endhint %}
 
