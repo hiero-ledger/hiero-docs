@@ -1,14 +1,14 @@
 ---
 description: >-
-  Discover how to deploy and automatically verify your Hedera smart contract using the forge create command.
+  Discover how to deploy and automatically verify your Hedera smart contract. Learn how to verify a pre-existing contract and check a contracts verification status.
 ---
 
 # How to Deploy and Verify a Hedera Smart Contract with Foundry
 
 ## What you will accomplish
-* [ ] Deploy your smart contract to Hedera Testnet and Automatically Verify
+* [ ] Deploy your smart contract to Hedera Testnet and automatically verify
 * [ ] Verify a pre-existing smart contract on Hedera Testnet
-* [ ] Check a smart contracts verificaiton status
+* [ ] Check the verificaiton status of a smart contract
 
 ## Prerequisites
 
@@ -107,16 +107,14 @@ forge install
 
 ### Obtain your ECDSA Hex Encoded Private Key
 
-In order to deploy your smart contract you will need access to your ECDSA hex encoded private key. 
+In order to deploy your smart contract you will need access to your ECDSA hex encoded private key. You can find your ECDSA hex encoded private key by logging into [Hedera Portal](https://portal.hedera.com).
 
-{% hint style="info" %}
+
 If you need to create a Hedera account, follow the [create a hedera portal profile faucet](https://docs.hedera.com/hedera/getting-started/introduction#create-hedera-portal-profile-faucet) tutorial.
-{% endhint %}
 
-You can find your ECDSA hex encoded private key by logging into [Hedera Portal](https://portal.hedera.com).
 
-{% hint style="info" %}
-Keep your private key accessible as it will be needed in the final step.
+{% hint style="warning" %}
+Keep your private key accessible as it will be needed in the following steps.
 {% endhint %}
 
 ### Choose your RPC_URL
@@ -130,11 +128,19 @@ Keep the RPC_URL accessible as it will be needed in the next step.
 
 ### Deploy and Automatically Verify Your Contract on Hedera Testnet
 
-In your terminal, replace the value of `"HEX_Encoded_Private_Key"` with your `ECDSA` account's private key and replace "RPC_URL" with a Tesnet URL in the command below:
+In your terminal, replace the value of `"HEX_Encoded_Private_Key"` with your `ECDSA` account's private key and replace `"RPC_URL"` with a Tesnet URL in the command below:
 
 ```shell
 forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" --verify --verifier sourcify --verifier-url https://server-verify.hashscan.io src/TodoList.sol:TodoList
 ```
+
+{% hint style="info" %}
+Sourcify is a solidity source code and metadata verification tool.
+
+Hashscan is a Hedera Mirror Node Explorer that integrates with Sourcify to provide a verification serivce located at https://server-verify.hashscan.io.
+
+[Learn more](https://docs.hedera.com/hedera/core-concepts/smart-contracts/verifying-smart-contracts-beta)
+{% endhint %}
 
 You should see output similar to the following:
 
@@ -155,7 +161,7 @@ Contract successfully verified
 ```
 
 Open the Hashscan explorer in your browser by
-copying the **Deployed to** EVM address and replacing <Deployed_Contract_EVM_Address> in the link below:
+copying the **Deployed to** EVM address and replacing `<Deployed_Contract_EVM_Address>` in the link below:
 
 ```text
 https://hashscan.io/testnet/contract/<Deployed_Contract_EVM_Address>
@@ -171,7 +177,7 @@ You should see a page with:
 
 * The title "Contract" (1)
 * "EVM Address": matching the value of `Deployed To` in the output above. (2)
-* The title "Contract Bytecode" with a green `verified` tag (3)
+* A section titled "Contract Bytecode" with a green `verified` tag (3)
 * Two tabs titled "Source" and "Bytecode" (4)
 
 ### Verify A Pre-Existing Contract on Testnet
@@ -184,7 +190,7 @@ In order to verify a pre-existing smart contract you will need:
 * the contract name or path to the contract
 * the chain ID
 
-In your termianl, replace <CONTRACT_ADDRESS> with the contract EVM address you wish to verify.
+In your termianl, replace `<CONTRACT_ADDRESS>` with the contract EVM address you wish to verify.
 
 ```shell
 forge verify-contract --chain-id 296 --verifier sourcify --verifier-url https://server-verify.hashscan.io  <CONTRACT_ADDRESS> src/TodoList.sol:TodoList 
@@ -207,7 +213,7 @@ Contract successfully verified
 
 ### Check Contract Verification Status
 
-In your termianl, replace <CONTRACT_ADDRESS> with the contract EVM address you wish to check verification.
+In your termianl, replace `<CONTRACT_ADDRESS>` with the contract EVM address you wish to check verification.
 
 ```shell
 forge verify-check --chain-id 296 --verifier sourcify --verifier-url https://server-verify.hashscan.io/ <CONTRACT_ADDRESS>
