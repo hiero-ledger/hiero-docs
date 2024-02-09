@@ -99,6 +99,18 @@ with the steps as described in the tutorial.
 git clone --recurse-submodules git@github.com:hedera-dev/foundry-deploy-and-verify-smart-contract.git
 ```
 
+<details>
+
+<summary>Alternative with `git` and HTTPS</summary>
+
+If you haven't [configured SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to work with `git`, you may wish use this command instead:
+
+```shell
+git clone --recurse-submodules https://github.com/hedera-dev/foundry-deploy-and-verify-smart-contract.git
+```
+
+</details>
+
 ### Install the submodule dependencies
 
 ```shell
@@ -128,11 +140,26 @@ Keep the Testnet RPC_URL accessible as it will be needed in the next step.
 
 ### Deploy and Automatically Verify Your Contract on Hedera Testnet
 
+In your terminal, enter the projects root directory
+
+```shell
+cd foundry-deploy-and-verify-smart-contract  
+```
+
 In your terminal, replace the value of `"HEX_Encoded_Private_Key"` with your `ECDSA` account's private key and replace `"RPC_URL"` with a Testnet URL in the command below:
 
 ```shell
 forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" --verify --verifier sourcify --verifier-url https://server-verify.hashscan.io src/TodoList.sol:TodoList
 ```
+
+<details>
+
+<summary>Example `forge create` command </summary>
+
+```shell
+forge create --rpc-url https://testnet.hashio.io/api --private-key 0x348ce564d427a3317b6536bbcff9290d69395b06ed6c486954e971d960fe87ac --verify --verifier sourcify --verifier-url https://server-verify.hashscan.io src/TodoList.sol:TodoList
+```
+</details>
 
 {% hint style="info" %}
 Sourcify is a Solidity source code and metadata verification tool.
