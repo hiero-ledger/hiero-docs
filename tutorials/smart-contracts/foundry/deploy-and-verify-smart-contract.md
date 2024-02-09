@@ -117,27 +117,27 @@ If you need to create a Hedera account, follow the [create a hedera portal profi
 Keep your private key accessible as it will be needed in the following steps.
 {% endhint %}
 
-### Choose your Tesnet RPC_URL
+### Choose your Testnet RPC_URL
 
 Choose one of the options over at [How to Connect to Hedera Networks Over RPC](https://docs.hedera.com/hedera/tutorials/more-tutorials/json-rpc-connections)
 
 
 {% hint style="warning" %}
-Keep the Tesnet RPC_URL accessible as it will be needed in the next step.
+Keep the Testnet RPC_URL accessible as it will be needed in the next step.
 {% endhint %}
 
 ### Deploy and Automatically Verify Your Contract on Hedera Testnet
 
-In your terminal, replace the value of `"HEX_Encoded_Private_Key"` with your `ECDSA` account's private key and replace `"RPC_URL"` with a Tesnet URL in the command below:
+In your terminal, replace the value of `"HEX_Encoded_Private_Key"` with your `ECDSA` account's private key and replace `"RPC_URL"` with a Testnet URL in the command below:
 
 ```shell
 forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" --verify --verifier sourcify --verifier-url https://server-verify.hashscan.io src/TodoList.sol:TodoList
 ```
 
 {% hint style="info" %}
-Sourcify is a solidity source code and metadata verification tool.
+Sourcify is a Solidity source code and metadata verification tool.
 
-Hashscan is a Hedera Mirror Node Explorer that integrates with Sourcify to provide a verification serivce located at https://server-verify.hashscan.io.
+Hashscan is a Hedera Mirror Node Explorer that integrates with Sourcify to provide a verification service located at `https://server-verify.hashscan.io`.
 
 [Learn more](https://docs.hedera.com/hedera/core-concepts/smart-contracts/verifying-smart-contracts-beta)
 {% endhint %}
@@ -168,21 +168,21 @@ https://hashscan.io/testnet/contract/<Deployed_Contract_EVM_Address>
 ```
 
 {% hint style="success" %}
-Example: https://hashscan.io/testnet/contract/0x3b096B1c56A48119CB4fe140F1D26196590aF46C
+Example: `https://hashscan.io/testnet/contract/0x3b096B1c56A48119CB4fe140F1D26196590aF46C`
 {% endhint %}
 
 <figure><img src="../../../.gitbook/assets/contract-verified-foundry.svg" alt="Hashscan explorer showing TodoList.sol is verified."><figcaption><p>Hashscan shows verified smart contract</p></figcaption></figure>
 
 You should see a page with:
 
-* The title "Contract" (1)
-* "EVM Address": matching the value of `Deployed To` in the output above. (2)
-* A section titled "Contract Bytecode" with a green `verified` tag (3)
-* Two tabs titled "Source" and "Bytecode" (4)
+* The title "Contract" **(1)**
+* An "EVM Address" field that matches the value of `Deployed To` in the output above. **(2)**
+* A section titled "Contract Bytecode" with a green `verified` tag. **(3)**
+* Two tabs titled "Source" and "Bytecode". **(4)**
 
 ### Verify A Pre-Existing Contract on Testnet
 
-You may have a pre-existing contract that has not been verified.
+You may have a pre-existing contract that has not been verified yet.
 
 {% hint style="info" %}
 Deploy a contract without verifying by running this command in your terminal:
@@ -198,16 +198,16 @@ In order to verify a pre-existing smart contract you will need:
 * the contract name or path to the contract
 * the chain ID
 
-In your termianl, replace `<CONTRACT_ADDRESS>` with the contract EVM address you wish to verify.
+In your terminal, replace `<CONTRACT_ADDRESS>` with the contract EVM address you wish to verify.
 
 ```shell
-forge verify-contract --chain-id 296 --verifier sourcify --verifier-url https://server-verify.hashscan.io  <CONTRACT_ADDRESS> src/TodoList.sol:TodoList 
+forge verify-contract --chain-id 296 --verifier sourcify --verifier-url https://server-verify.hashscan.io  <CONTRACT_ADDRESS> src/TodoList.sol:TodoList
 ```
 
 {% hint style="info" %}
-- The chain ID for Testnet is 296. 
-- The chain ID for Mainnet is 295
-- The chain ID for Previewnet is 297
+- The chain ID for Mainnet is `295`.
+- The chain ID for Testnet is `296`, which is what you are using.
+- The chain ID for Previewnet is `297`.
 {% endhint %}
 
 You should see output similar to the following:
@@ -221,14 +221,14 @@ Contract successfully verified
 
 ### Check Contract Verification Status
 
-In your termianl, replace `<CONTRACT_ADDRESS>` with the contract EVM address you wish to check verification.
+In your terminal, replace `<CONTRACT_ADDRESS>` with the contract EVM address you wish to verify.
 
 ```shell
 forge verify-check --chain-id 296 --verifier sourcify --verifier-url https://server-verify.hashscan.io/ <CONTRACT_ADDRESS>
 ```
 
 {% hint style="warning" %}
-Ensure the `verifier-url` has a trailing slash. 
+Ensure the `verifier-url` has a trailing slash.
 
 ```
 https://server-verify.hashscan.io/
@@ -249,7 +249,7 @@ Congratulations, on completing the tutorial on how to verify smart contracts on 
 You have learned how to:
 * [x] Deploy your smart contract to Hedera Testnet and Automatically Verify
 * [x] Verify a pre-existing smart contract on Hedera Testnet
-* [x] Check a smart contracts verificaiton status
+* [x] Check a smart contracts verification status
 
 ***
 
