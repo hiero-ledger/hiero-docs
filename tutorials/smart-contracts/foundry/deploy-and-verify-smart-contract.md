@@ -113,6 +113,14 @@ git clone --recurse-submodules https://github.com/hedera-dev/foundry-deploy-and-
 
 ### Install the submodule dependencies
 
+In your terminal, enter the projects root directory
+
+```shell
+cd foundry-deploy-and-verify-smart-contract  
+```
+
+Next, run the following command to install the dependencies
+
 ```shell
 forge install
 ```
@@ -139,12 +147,6 @@ Keep the Testnet RPC_URL accessible as it will be needed in the next step.
 {% endhint %}
 
 ### Deploy and Automatically Verify Your Contract on Hedera Testnet
-
-In your terminal, enter the projects root directory
-
-```shell
-cd foundry-deploy-and-verify-smart-contract  
-```
 
 In your terminal, replace the value of `"HEX_Encoded_Private_Key"` with your `ECDSA` account's private key and replace `"RPC_URL"` with a Testnet URL in the command below:
 
