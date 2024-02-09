@@ -154,7 +154,7 @@ forge create --rpc-url "RPC_URL" --private-key "HEX_Encoded_Private_Key" --verif
 
 <details>
 
-<summary>Example `forge create` command </summary>
+<summary>Example forge create command </summary>
 
 ```shell
 forge create --rpc-url https://testnet.hashio.io/api --private-key 0x348ce564d427a3317b6536bbcff9290d69395b06ed6c486954e971d960fe87ac --verify --verifier sourcify --verifier-url https://server-verify.hashscan.io src/TodoList.sol:TodoList
