@@ -34,8 +34,8 @@ Before you begin, you should be familiar with the following:
     * Recommended for Linux & Mac: [nvm](https://github.com/nvm-sh/nvm)
     * Recommended for Windows: [nvm-windows](https://github.com/coreybutler/nvm-windows)
 * [x] foundry `forge` and `cast` installed
-    * `forge` Minimum version: 0.2.0
-    * `cast` Minimum version: 0.2.0
+    * `forge` Minimum version: 0.2.0 (3cdee82 2024-02-15T00:19:38.655803000Z)
+    * `cast` Minimum version: 0.2.0 (3cdee82 2024-02-15T00:19:38.543163000Z)
 
 </details>
 
@@ -72,10 +72,10 @@ npm --version
 9.8.1
 
 forge --version
-0.2.0 (6fcbbd8 2023-12-15T00:29:51.472038000Z)
+0.2.0 (3cdee82 2024-02-15T00:19:38.655803000Z)
 
 cast --version
-0.2.0 (6fcbbd8 2023-12-15T00:29:51.851258000Z)
+0.2.0 (3cdee82 2024-02-15T00:19:38.543163000Z)
 
 ```
 If the output contains text similar to `command not found`, please install that item.
@@ -253,16 +253,8 @@ Contract successfully verified
 In your terminal, replace `<CONTRACT_ADDRESS>` with the contract EVM address you wish to verify.
 
 ```shell
-forge verify-check --chain-id 296 --verifier sourcify --verifier-url https://server-verify.hashscan.io/ <CONTRACT_ADDRESS>
+forge verify-check --chain-id 296 --verifier sourcify --verifier-url https://server-verify.hashscan.io <CONTRACT_ADDRESS>
 ```
-
-{% hint style="warning" %}
-Ensure the `verifier-url` has a trailing slash.
-
-```
-https://server-verify.hashscan.io/
-```
-{% endhint %}
 
 You should see output similar to the following:
 
