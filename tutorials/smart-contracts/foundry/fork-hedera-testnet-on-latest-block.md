@@ -37,8 +37,8 @@ Before you begin, you should be familiar with the following:
     * Recommended for Linux & Mac: [nvm](https://github.com/nvm-sh/nvm)
     * Recommended for Windows: [nvm-windows](https://github.com/coreybutler/nvm-windows)
 * [x] foundry `forge` and `cast` installed
-    * `forge` Minimum version: 0.2.0
-    * `cast` Minimum version: 0.2.0
+    * `forge` Minimum version: 0.2.0 (3cdee82 2024-02-15T00:19:38.655803000Z)
+    * `cast` Minimum version: 0.2.0 (3cdee82 2024-02-15T00:19:38.543163000Z)
 
 </details>
 
@@ -75,10 +75,10 @@ npm --version
 9.8.1
 
 forge --version
-0.2.0 (6fcbbd8 2023-12-15T00:29:51.472038000Z)
+0.2.0 (3cdee82 2024-02-15T00:19:38.655803000Z)
 
 cast --version
-0.2.0 (6fcbbd8 2023-12-15T00:29:51.851258000Z)
+0.2.0 (3cdee82 2024-02-15T00:19:38.543163000Z)
 
 ```
 If the output contains text similar to `command not found`, please install that item.
@@ -216,18 +216,20 @@ You will need to delete the inline comment that looks like this: `/* ... */`. Re
 
 #### Step 1: Target your deployed contract
 
-Open the TodoList.t.sol file and copy and paste the line below.
+Open the `TodoList.t.sol` file and copy and paste the line below.
 
-Replace "Deployed_Contract_EVM_Address" with your deployed contract's EVM address".
+Replace `"Deployed_Contract_EVM_Address"` with your deployed contract's EVM address".
 
 ```solidity
     TodoList public todoList =
         TodoList("Deployed_Contract_EVM_Address");
 ```
 
-#### Step 2: Assert number of todos increases by one after calling createTodo()
+#### Step 2: Perform an assertion
 
-Assert that the numberOfTodosAfter executing createTodo() is equal to the numberOftodosBefore + 1.
+This test saves the current number of todos as `numberOfTodos`, then executes `createTodo()`, and finally performs an assertion to check that the new number of todos has increased.
+
+Write a statement which asserts that the `todoCountAfterCreate` is equal to the `numberOfTodos + 1`.
 
 Copy the below line and paste it in `TodoList.t.sol`
 
