@@ -218,7 +218,7 @@ You will need to delete the inline comment that looks like this: `/* ... */`. Re
 
 Open the `TodoList.t.sol` file and copy and paste the line below.
 
-Replace `"Deployed_Contract_EVM_Address"` with your deployed contract's EVM address".
+Replace `"Deployed_Contract_EVM_Address"` with your deployed contract's EVM address.
 
 ```solidity
     TodoList public todoList =
