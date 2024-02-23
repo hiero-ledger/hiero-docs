@@ -14,7 +14,7 @@ In the pull model, developers should integrate Pyth into both their on-chain and
 
 Please note that it is possible to replicate the legacy oracle design with the Pyth scheduler (previously known as "price pusher"). It is an off-chain application that regularly pulls price updates on to a blockchain that you can [find here](https://docs.pyth.network/price-feeds/schedule-price-updates/using-scheduler).
 
-## Demonstation: How to integrate with the Pyth Network on Hedera?
+## Demonstration: How to integrate with the Pyth Network on Hedera?
 
 This demo is a simple example of how to use Pyth prices in Hedera and is based on the [tutorial here](https://docs.pyth.network/price-feeds/create-your-first-pyth-app/evm). Follow the instructions in the tutorial to build and deploy and use this demo.
 
