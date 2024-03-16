@@ -75,7 +75,7 @@ Note: It is required to set the initial supply for an NFT to 0.
 | `setKycKey(<key>)`                    | Key                                                               | Optional    |
 | `setFreezeKey(<key>)`                 | Key                                                               | Optional    |
 | `setWipeKey(<key>)`                   | Key                                                               | Optional    |
-| `setSupplyKey(<key>)`                 | Key                                                               | Optional    |
+| `setSupplyKey(<key>)`                 | Key                                                               | Conditional |
 | `setPauseKey(<key>)`                  | Key                                                               | Optional    |
 | `setFreezeDefault(<freeze>`)          | boolean                                                           | Optional    |
 | `setExpirationTime(<expirationTime>)` | Instant                                                           | Optional    |
@@ -86,6 +86,8 @@ Note: It is required to set the initial supply for an NFT to 0.
 | `setTokenMemo(<memo>)`                | String                                                            | Optional    |
 | `setAutoRenewAccountId(<account>)`    | [AccountId](../../deprecated/sdks/specialized-types.md#accountid) | Optional    |
 | `setAutoRenewPeriod(<period>)`        | Duration                                                          | Optional    |
+
+Note: Where the Admin, Pause, Freeze, and Wipe keys are left blank, the Supply key will be required as a minimum.
 
 {% tabs %}
 {% tab title="Java" %}
