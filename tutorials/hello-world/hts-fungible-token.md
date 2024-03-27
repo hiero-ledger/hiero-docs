@@ -214,23 +214,14 @@ Now that you have completed this Hello World sequence, you have interacted with 
 
 The repo, [`github.com/hedera-dev/hello-future-world`](https://github.com/hedera-dev/hello-future-world/), is intended to be used alongside this tutorial.
 
-To skip ahead to the final state, use the `completed` branch. This gives you the final state with which you can compare your implementation to the completed steps of the tutorial.
+To skip ahead to the final state, use the `completed` branch. You may use this to compare your implementation to the completed steps of the tutorial.
 
 ```shell
 git fetch origin completed:completed
 git checkout completed
 ```
 
-To see the full set of differences between the initial and final states of the repo, you can use `diff`.
-
-```shell
-cd 04-hts-ft-sdkdir/
-git diff main..completed -- ./
-```
-
-Alternatively, you may view the `diff` rendered on Github: [`hedera-dev/hello-future-world/compare/main..completed`](https://github.com/hedera-dev/hello-future-world/compare/main..completed) (This will show the `diff` for _all_ sequences.)
-
-Note that the branch names are delimited by `..`, and not by `...`, as the latter finds the `diff` with the latest common ancestor commit, which _is not_ what we want in this case.
+Alternatively, you may view the `completed` branch on Github: [`github.com/hedera-dev/hello-future-world/tree/completed/04-hts-ft-sdk`](https://github.com/hedera-dev/hello-future-world/tree/completed/04-hts-ft-sdk)
 
 </details>
 
