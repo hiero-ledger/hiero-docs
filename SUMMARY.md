@@ -13,6 +13,7 @@
     * [HTS: Fungible Token](tutorials/hello-world/hts-fungible-token.md)
     * [HSCS: Smart Contract](tutorials/hello-world/hscs-smart-contract.md)
     * [HFS: Files](tutorials/hello-world/hfs-files.md)
+    * [HCS: Topic](tutorials/hello-world/hcs-topic.md)
   * [Smart Contracts](tutorials/smart-contracts/README.md)
     * [How to Verify a Smart Contract on HashScan](tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan.md)
     * [Deploy a Smart Contract Using Remix](tutorials/smart-contracts/deploy-a-smart-contract-using-remix.md)

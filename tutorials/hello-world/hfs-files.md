@@ -139,7 +139,7 @@ node script-hfs-files-sdk.js
 
 You should see output similar to the following:
 
-```
+```text
 fileId: 0.0.5835692
 fileCreateTxId: 0.0.1186@1699277862.561525871
 txExplorerUrl: https://hashscan.io/testnet/transaction/0.0.1186@1699277862.561525871
