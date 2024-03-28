@@ -80,7 +80,7 @@ Next, install the dependencies using `npm`.
 npm install
 ```
 
-Then open the `script-hfs-files-sdk.js` file in a code editor, such as VS Code.
+Then open the `script-hcs-topic.js` file in a code editor, such as VS Code.
 
 ***
 
@@ -140,7 +140,7 @@ node script-hcs-topic.js
 You should see output similar to the following:
 
 ```text
-Topic created. Waiting 5s...
+Topic created. Waiting a few seconds for propagation...
 accountId: 0.0.3643569
 topicId: 0.0.3791978
 topicExplorerUrl: https://hashscan.io/testnet/topic/0.0.3791978
