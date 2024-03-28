@@ -733,7 +733,7 @@ Approved operators can manage an owner's tokens on their behalf; this is necessa
 
 Any permissions granted in a contract through `approve()` or `setApprovalForAll()` have an equivalent HAPI `cryptoApproveAllowance` or `cryptoDeleteAllowance` expression---and this expression is externalized as a HAPI `TransactionBody` in the record stream. That is, the HIP-376 system contracts expose a subset of the native HAPI operations, only within the EVM.
 
-![](<../../.gitbook/assets/image (4).png>)
+![](<../../.gitbook/assets/hedera-release-0-26-2-performance-measurements.png>)
 
 ## [v0.25](https://github.com/hashgraph/hedera-services/releases/tag/v0.25.0)
 
@@ -765,7 +765,7 @@ In a harbinger of [more upcoming HTS precompile support](https://hips.hedera.com
 
 * ERC `view` functions now usable in `ContractCallLocalQuery` [#3061](https://github.com/hashgraph/hedera-services/issues/3061)
 
-![](<../../.gitbook/assets/image (11).png>)
+![](<../../.gitbook/assets/hedera-release-0-25-3-performance-measurements.png>)
 
 ## [v0.24](https://github.com/hashgraph/hedera-services/releases/tag/v0.24.0)
 
@@ -834,7 +834,7 @@ There are two other HIP's included in this release not related to the smart cont
 
 While we are gaining momentum in our smart contracts roadmap, we are also deeply committed to improving the developer experience, and welcome issues and ideas in our [GitHub repository](https://github.com/hashgraph/hedera-services) and [Discord](https://hedera.com/discord)!
 
-![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1).jpeg>)
+![](<../../.gitbook/assets/hedera-release-0-22-3-performance-measurements.png>)
 
 ## [v0.21.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.21.0-rc.1)
 
@@ -923,7 +923,7 @@ Third, please note that the `TokenService` `getTokenNftInfos` and `getAccountNft
 
 Developers will likely appreciate two other release 0.18.1 items. First, we have migrated to [Dagger2](https://dagger.dev/) for dependency injection. Second, there is a new `getExecutionTime` query in the [`NetworkService`](https://hashgraph.github.io/hedera-protobufs/#proto.NetworkService) that supports granular performance testing in development environments.
 
-![](<../../.gitbook/assets/image (5).png>)
+![](<../../.gitbook/assets/hedera-release-0-18-0-performance-measurements.png>)
 
 ## v0.18.0
 
@@ -1086,7 +1086,7 @@ The new protobuf avoid this duplication, letting us represent node 0 in a protob
     "nodeId" : 0,
     "certHash" : "337390d8fea144afc12e81254a28dac6ea82893836ac072effd85e0a7748580ef28096648c5a7f8dbb4ce81476815137",
     "nodeAccount" : "0.0.3",
-    "serviceEndpoints" : [ { 
+    "serviceEndpoints" : [ {
       "ipAddressV4" : "13.82.40.153",
       "port" : 50211
     }, {
@@ -1095,7 +1095,7 @@ The new protobuf avoid this duplication, letting us represent node 0 in a protob
     }, {
       "ipAddressV4" : "35.237.200.180",
       "port" : 50211
-    } ] 
+    } ]
 }
 ```
 
