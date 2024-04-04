@@ -1,8 +1,8 @@
 # Update a token
 
-A transaction that updates the properties of an existing token. The admin key must sign this transaction to update any of the token properties. The admin key can update exisitng keys, but cannot add new keys if they were not set during the creation of the token. If no value is given for a field, that field is left unchanged.
-
-For an immutable token (that is, a token created without an admin key), only the expiry may be updated. Setting any other field, in that case, will cause the transaction status to resolve to `TOKEN_IS_IMMUTABlE`.
+A transaction that updates the properties of an existing token. The admin key must sign this transaction to update any of the token properties. With one exception. All secondary keys can sign a transaction to change themselves. The admin key can update exisitng keys, but cannot add new keys if they were not set during the creation of the token.
+If no value is given for a field, that field is left unchanged.
+If a TokenUpdateTx is performed we will keep returning `TOKEN_IS_IMMUTABLE` when it tries to change non-key properties or the expiry without an admin key
 
 | Property               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -23,7 +23,9 @@ For an immutable token (that is, a token created without an admin key), only the
 
 #### Transaction Signing Requirements
 
-* Admin key is required to sign to update any token properties.
+* Admin key is required to sign to update any token properties. (except for the expiry and all low priority keys)
+* A secondary key can update itself. Meaning it can sign a transaction that changes itself. 
+    Example: Wipe Key can sign a transaction that changes only the Wipe Key
 * Updating the admin key requires the new admin key to sign.
 * If a new treasury account is set, the new treasury key is required to sign.
 * The account that is paying for the transaction fee.
