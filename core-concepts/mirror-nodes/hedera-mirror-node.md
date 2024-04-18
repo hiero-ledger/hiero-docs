@@ -19,7 +19,7 @@ The non-production public mainnet mirror node serves to help developers build th
 * **Go:** v2.1.9+
 
 {% hint style="warning" %}
-Requests are throttled at 100 requests per second (rps). This may change in the future depending on performance or security considerations. At this time, no authentication is required.
+Public mainnet mirror node requests per second (RPS) are currently throttled at **50 per IP address**. These configurations may change in the future depending on performance or security considerations. At this time, no authentication is required.
 {% endhint %}
 
 {% tabs %}

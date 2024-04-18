@@ -37,7 +37,7 @@ You may also check out [DragonGlass](https://app.dragonglass.me/hedera/pricing),
 {% endhint %}
 
 {% hint style="warning" %}
-**Note**: Public mainnet mirror node requests per second (RPS) are throttled at _50 per IP address_. These configurations may change in the future depending on performance or security considerations. At this time, no authentication is required.
+Public mainnet mirror node requests per second (RPS) are currently throttled at **50 per IP address**. These configurations may change in the future depending on performance or security considerations. At this time, no authentication is required.
 {% endhint %}
 
 ## Accounts <a href="#accounts" id="accounts"></a>
