@@ -938,7 +938,7 @@ Disconnect as the Sender account and reconnect as the Receiver account.
 
 Check the dropdown menu and ensure the Receiver account has NFT serial number 5.
 
-<figure><img src="../../../.gitbook/assets/transfer-successfull-dapp.png" alt="Homepage showing the transfer of NFT serial number 5 was received by Receiver account"><figcaption><p>Transfer NFT to Receiver Account Success</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/transfer-successful-dapp.png" alt="Homepage showing the transfer of NFT serial number 5 was received by Receiver account"><figcaption><p>Transfer NFT to Receiver Account Success</p></figcaption></figure>
 
 
 ### Try with HashPack, Blade or Kabila
