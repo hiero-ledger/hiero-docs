@@ -59,7 +59,7 @@
       * [Configuring Arkhia RPC endpoints](tutorials/more-tutorials/json-rpc-connections/arkhia.md)
       * [Configuring Hedera JSON-RPC Relay endpoints](tutorials/more-tutorials/json-rpc-connections/hedera-json-rpc-relay.md)
     * [JavaScript Testing](tutorials/more-tutorials/javascript-testing.md)
-    * [Create a Hedera DApp Integrated with WalletConnect](developer-a-hedera-dapp-integrated-with-walletconnect.md)
+    * [Create a Hedera DApp Integrated with WalletConnect](tutorials/more-tutorials/developer-a-hedera-dapp-integrated-with-walletconnect.md)
   * [Demo Applications](tutorials/demo-applications.md)
   * [Starter Projects](tutorials/starter-projects.md)
   * [Building on Hedera (course)](https://hashgraphdev.com/?code=docs.hedera.com)
