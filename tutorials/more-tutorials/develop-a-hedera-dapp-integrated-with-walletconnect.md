@@ -954,3 +954,7 @@ You have learned how to:
 * [x] Query the mirror node to check if the receiver has associated with a token ID
 * [x] Associate an HTS token with HashPack, Blade, and MetaMask through a UI
 * [x] Transfer an HTS token through a UI
+
+***
+
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Abi Castro, DevRel Engineer</p><p><a href="https://github.com/a-ridley">GitHub</a> | <a href="https://linkedin.com/in/abixcastro">LinkedIn</a></p></td><td><a href="https://linkedin.com/in/abixcastro">https://linkedin.com/in/abixcastro</a></td></tr></tbody></table>
