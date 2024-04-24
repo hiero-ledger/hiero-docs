@@ -128,7 +128,7 @@ In vscode open the file located at `src/services/wallets/mirrorNodeClient.ts`.
 This file creates a mirror node client and is used to fetch data from the mirror nodes. We will add new code to help us obtain information about the tokens we currently own.
 
 {% hint style="info" %}
-This client is configured for the Testnet network. For further configuration, go to `src/config/network.ts.`
+This client is configured for the Hedera Testnet. For further configuration, go to `src/config/network.ts.`
 {% endhint %}
 
 #### 2.1 Query Account Token Balances by Account ID
