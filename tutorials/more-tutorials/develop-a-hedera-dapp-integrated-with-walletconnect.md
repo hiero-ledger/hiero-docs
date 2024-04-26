@@ -10,7 +10,7 @@ Explore DApp development using the Mirror Node API and Hedera Token Service (HTS
 ## What you will accomplish
 * [ ] Query the mirror node for account token balance, token information, and Non-fungible information.
 * [ ] Query the mirror node to check if the receiver has associated with a token ID
-* [ ] Associate an HTS token with HashPack, Blade, and MetaMask through a UI
+* [ ] Associate an HTS token with HashPack, Kabila, Blade, or MetaMask through a UI
 * [ ] Transfer an HTS token through a UI
 
 <figure><img src="../../../.gitbook/assets/completed-react-dapp-walletconnect.png" alt="Completed dapp user interface to transfer and associate a token."><figcaption><p>Completed DAPP User Interface</p></figcaption></figure>
@@ -952,7 +952,7 @@ Optionally, import your accounts into any of the above Hedera native wallets and
 You have learned how to:
 * [x] Query the mirror node for account token balance, token information, and Non-fungible information.
 * [x] Query the mirror node to check if the receiver has associated with a token ID
-* [x] Associate an HTS token with HashPack, Blade, and MetaMask through a UI
+* [x] Associate an HTS token with HashPack, Kabila, Blade, or MetaMask through a UI
 * [x] Transfer an HTS token through a UI
 
 ***
