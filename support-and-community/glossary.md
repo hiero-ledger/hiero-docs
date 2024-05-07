@@ -160,7 +160,7 @@ Custody refers to the secure storage of digital assets by a specialized provider
 
 A fundamental concept in [distributed ledger technology](glossary.md#distributed-ledger-technology-dlt) that refer to the distribution of power and decision-making across a network or system rather than being controlled by a single entity or authority. Decentralization is a key feature that allows for trustless and transparent transactions without intermediaries.
 
-Hedera, for example, is governed by a decentralized council of diverse organizations. A distributed network of nodes validates transactions on the Hedera Network, and the source code for the Hedera protocol is open review.
+Hedera, for example, is governed by a decentralized council of diverse organizations. A distributed network of nodes processes transactions on the Hedera Network, and the source code for the Hedera protocol is open review.
 
 ### **Decentralized Application (DApp)**
 
