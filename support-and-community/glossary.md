@@ -10,7 +10,7 @@ This glossary intends to provide a reference for Hedera and general web3 key ter
 
 ## \#
 
-### 51% and 1/3 Attacks&#x20;
+### 51% and 1/3 Attacks
 
 A 51% attack, also known as a majority or double-spend attack, is a recognized threat in distributed networks like blockchains. This occurs when a miner or group gains control of more than half the network's mining power, thereby gaining the ability to disrupt transactions. While this is a widely acknowledged issue in the blockchain community, all DLTs are susceptible to 1/3 attacks when an attacker can establish a firewall.
 
@@ -22,7 +22,7 @@ A 1/3 attack is a less discussed threat in distributed networks such as Hedera, 
 
 ### Account Alias
 
-An account alias is a user-friendly identifier that can be classified as either a public key or an [Ethereum Virtual Machine (EVM) address](../core-concepts/accounts/account-properties.md#evm-address-account-alias). It serves as a reference to the account object, in addition to its account number, and is assigned during the auto account creation process. The purpose of an account alias is to facilitate easier management and recall of accounts, particularly in distributed ledger technology and cryptocurrency contexts where addresses are often complex and difficult to remember. Instead of inputting a long string of characters, users can use simpler and more memorable aliases.&#x20;
+An account alias is a user-friendly identifier that can be classified as either a public key or an [Ethereum Virtual Machine (EVM) address](../core-concepts/accounts/account-properties.md#evm-address-account-alias). It serves as a reference to the account object, in addition to its account number, and is assigned during the auto account creation process. The purpose of an account alias is to facilitate easier management and recall of accounts, particularly in distributed ledger technology and cryptocurrency contexts where addresses are often complex and difficult to remember. Instead of inputting a long string of characters, users can use simpler and more memorable aliases.
 
 📒 For more information, refer to the [Account Alias section](../core-concepts/accounts/account-properties.md#account-alias) on the [Account Properties](../core-concepts/accounts/account-properties.md) page.
 
@@ -70,7 +70,7 @@ In the context of Hedera, as per [HIP-415](https://hips.hedera.com/hip/hip-415),
 
 ### Blockchain
 
-A type of distributed ledger technology (DLT) that maintains a growing list of records, called blocks, which are linked using cryptography. Each block contains a cryptographic hash of the previous block, a timestamp, and transaction data. The design of a blockchain is inherently resistant to data modification, making it secure and reliable for recording transactions across many computers. Please note that Hedera is a [directed acyclic graph (DAG)](glossary.md#directed-acyclic-graph-dag) and _not_ a blockchain.&#x20;
+A type of distributed ledger technology (DLT) that maintains a growing list of records, called blocks, which are linked using cryptography. Each block contains a cryptographic hash of the previous block, a timestamp, and transaction data. The design of a blockchain is inherently resistant to data modification, making it secure and reliable for recording transactions across many computers. Please note that Hedera is a [directed acyclic graph (DAG)](glossary.md#directed-acyclic-graph-dag) and _not_ a blockchain.
 
 ### Block Hash
 
@@ -145,7 +145,7 @@ The use of cryptography in conjunction with distributed networks allows for thes
 
 ### Crypto Wallet
 
-A form of digital wallet designed for [web3](glossary.md#web3). Crypto wallets help you manage permissions with whom you share data, store, and send cryptocurrency, NFTs, and more. Your crypto wallet contains a private key that identifies and assesses the assets that are yours.  In this way, you can think of a wallet like [MetaMask](https://metamask.io/) or [HashPack](https://www.hashpack.app/) as a digital identity management system.
+A form of digital wallet designed for [web3](glossary.md#web3). Crypto wallets help you manage permissions with whom you share data, store, and send cryptocurrency, NFTs, and more. Your crypto wallet contains a private key that identifies and assesses the assets that are yours. In this way, you can think of a wallet like [MetaMask](https://metamask.io/) or [HashPack](https://www.hashpack.app/) as a digital identity management system.
 
 Examples: [non-custodial walle](glossary.md#non-custodial-wallet)t, [hardware wallet](glossary.md#cold-wallet), [custodial wallet](glossary.md#custodial-wallet)
 
@@ -161,7 +161,7 @@ Custody refers to the secure storage of digital assets by a specialized provider
 
 ### Decentralization
 
-A fundamental concept in [distributed ledger technology](glossary.md#distributed-ledger-technology-dlt) that refer to the distribution of power and decision-making across a network or system rather than being controlled by a single entity or authority. Decentralization is a key feature that allows for trustless and transparent transactions without intermediaries.&#x20;
+A fundamental concept in [distributed ledger technology](glossary.md#distributed-ledger-technology-dlt) that refer to the distribution of power and decision-making across a network or system rather than being controlled by a single entity or authority. Decentralization is a key feature that allows for trustless and transparent transactions without intermediaries.
 
 Hedera, for example, is governed by a decentralized council of diverse organizations. A distributed network of nodes processes transactions on the Hedera Network, and the source code for the Hedera protocol is open review.
 
@@ -207,7 +207,7 @@ A distributed ledger is a database shared by multiple participants in which each
 
 ### Distributed Ledger Technology (DLT)
 
-A technology that allows the existence of distributed ledgers, such as blockchains and [DAGs](glossary.md#directed-acyclic-graph-dag), that use distributed ledgers stored on separate, connected devices in a network to ensure data accuracy and security. Unlike traditional databases, [distributed ledgers](glossary.md#distributed-ledger) have no central [data store](https://www.techtarget.com/whatis/definition/data-store) or administration functionality.&#x20;
+A technology that allows the existence of distributed ledgers, such as blockchains and [DAGs](glossary.md#directed-acyclic-graph-dag), that use distributed ledgers stored on separate, connected devices in a network to ensure data accuracy and security. Unlike traditional databases, [distributed ledgers](glossary.md#distributed-ledger) have no central [data store](https://www.techtarget.com/whatis/definition/data-store) or administration functionality.
 
 ### Double Spend Problem
 
@@ -231,13 +231,13 @@ In the context of Hedera, Ed25519 is one of the signature schemes supported for 
 
 A technical standard for fungible tokens created using the Ethereum blockchain. A fungible token is interchangeable with another token—where the well-known non-fungible tokens (NFTs) are not interchangeable. ERC-20 allows developers to create smart-contract-enabled tokens that can be used with other products and services. These tokens represent an asset, right, ownership, access, cryptocurrency, or anything else that is not unique in and of itself but can be transferred. Check out the details of the ERC-20 standards [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/).
 
-Hedera supports the creation and management of custom tokens through the [Hedera Token Service (HTS)](glossary.md#hedera-token-service-hts).&#x20;
+Hedera supports the creation and management of custom tokens through the [Hedera Token Service (HTS)](glossary.md#hedera-token-service-hts).
 
 ### ERC-721
 
 A type of token standard — a template or format that other developers agree to follow. Following the same standards makes writing code easier, more predictable, and reusable. Each ERC-721 token is unique and not interchangeable with any other token - hence the term non-fungible. This unique characteristic allows ERC-721 tokens to represent ownership of unique items like a particular piece of real estate or a specific piece of art. Check out the details of the ERC-721 standard [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/).
 
-Hedera supports the creation and management of both [fungible](glossary.md#fungible-token) and [non-fungible tokens](glossary.md#non-fungible-token-nft) using the [ERC-721 token standard](https://eips.ethereum.org/EIPS/eip-721).&#x20;
+Hedera supports the creation and management of both [fungible](glossary.md#fungible-token) and [non-fungible tokens](glossary.md#non-fungible-token-nft) using the [ERC-721 token standard](https://eips.ethereum.org/EIPS/eip-721).
 
 ### Ether (ETH)
 
@@ -275,7 +275,7 @@ A fee collector account is an account designated to receive transaction fees and
 
 ### Fiat Currency
 
-A term widely used across the financial industry (and even beyond) to refer to government-backed national currencies such as the U.S. dollar or the British pound. Even so, the concept of fiat currency is deeply intertwined with multiple aspects of distributed ledger technology and cryptocurrency usage. One of those aspects concerns how individuals and organizations onboard themselves into the worlds of DLTs and [cryptocurrency](glossary.md#cryptocurrency).&#x20;
+A term widely used across the financial industry (and even beyond) to refer to government-backed national currencies such as the U.S. dollar or the British pound. Even so, the concept of fiat currency is deeply intertwined with multiple aspects of distributed ledger technology and cryptocurrency usage. One of those aspects concerns how individuals and organizations onboard themselves into the worlds of DLTs and [cryptocurrency](glossary.md#cryptocurrency).
 
 ### Finality
 
@@ -283,7 +283,7 @@ The assurance or guarantee that completed transactions or blocks can't be revers
 
 ### Fixed Fee
 
-A fixed fee refers to a predetermined amount of tokens or HBAR that is transferred to a specified fee collection account each time a token transfer occurs. Fixed fees are one of the types of custom fees you can define when creating a token on Hedera.&#x20;
+A fixed fee refers to a predetermined amount of tokens or HBAR that is transferred to a specified fee collection account each time a token transfer occurs. Fixed fees are one of the types of custom fees you can define when creating a token on Hedera.
 
 ### Fork
 
@@ -325,7 +325,7 @@ Several [DLTs](glossary.md#distributed-ledger-technology-dlt), such as [blockcha
 
 ### Governance
 
-The system of proposing, managing, and implementing changes to distributed ledgers, including management of transaction fee allocation, user interface changes, developer recruitment, licensing, product roadmaps, development fund distribution, and other policies.&#x20;
+The system of proposing, managing, and implementing changes to distributed ledgers, including management of transaction fee allocation, user interface changes, developer recruitment, licensing, product roadmaps, development fund distribution, and other policies.
 
 <details>
 
@@ -393,7 +393,7 @@ A [cryptocurrency wallet](glossary.md#cryptocurrency-wallet) that is _always_ co
 
 ### Hyperledger Besu EVM
 
-An open-source [Ethereum](glossary.md#ethereum) client developed under the Hyperledger project and a virtual machine that replaced the EthereumJ virtual machine in the [Hedera Services release 0.19](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.1) as a result of [HIP-26](https://hips.hedera.com/hip/hip-26). This migration enables Hedera to maintain parity with Ethereum Mainnet evolutions, such as the EVM container formats, new opcodes, and precompiled contracts. The Besu integration is configured to use the [“London” hard fork](broken-reference) of Ethereum Mainnet.
+An open-source [Ethereum](glossary.md#ethereum) client developed under the Hyperledger project and a virtual machine that replaced the EthereumJ virtual machine in the [Hedera Services release 0.19](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.1) as a result of [HIP-26](https://hips.hedera.com/hip/hip-26). This migration enables Hedera to maintain parity with Ethereum Mainnet evolutions, such as the EVM container formats, new opcodes, and precompiled contracts. The Besu integration is configured to use the [“London” hard fork](https://github.com/hashgraph/hedera-docs/blob/master/support-and-community/broken-reference/README.md) of Ethereum Mainnet.
 
 ## I
 
@@ -415,7 +415,7 @@ InterPlanetary File System (IPFS) is a hypermedia protocol and [peer-to-peer](ht
 
 ### ISO 20022
 
-ISO 20022 is a global standards scheme for financial industry messaging which includes methodology, process, and repository standards. It covers financial information transferred between financial institutions that includes payment transactions, securities trading and settlement information, credit and debit card transactions, and other financial information.&#x20;
+ISO 20022 is a global standards scheme for financial industry messaging which includes methodology, process, and repository standards. It covers financial information transferred between financial institutions that includes payment transactions, securities trading and settlement information, credit and debit card transactions, and other financial information.
 
 Currently, seven DLTs adhere to ISO 20022 standards: Algorand (ALGO), [Hedera (HBAR)](glossary.md#hbar), IOTA (MIOTA), Quant (QNT), Ripple (XRP), Stellar (XLM), XDC Network (XDC).
 
@@ -437,7 +437,7 @@ A standard for the investment industry in which an investor’s identity can be 
 
 A collection of shared cryptocurrency coins/tokens locked under a smart contract, ensuring liquidity that allows participants to trade easily. They are used for trading in [decentralized exchanges (DEX)](glossary.md#decentralized-exchange-dex), and for providing liquidity to [decentralized financed (DeFi) protocols](glossary.md#decentralized-finance-defi), which makes them an important part of yield farming.
 
-## &#x20;M
+## M
 
 ### Mainnet
 
@@ -469,7 +469,7 @@ A mirror node is used to store and cost-effectively query historical data from t
 
 ### Multisig
 
-The requirement for a transaction to have two or more signatures before it can be executed, often used in DAOs. Multisig provides more security than single-signature transactions.&#x20;
+The requirement for a transaction to have two or more signatures before it can be executed, often used in DAOs. Multisig provides more security than single-signature transactions.
 
 ## N
 
@@ -479,7 +479,7 @@ Native cryptocurrency is the digital currency inherent to a DLT such as a blockc
 
 ### Network Explorer
 
-A network explorer, sometimes called a blockchain or ledger explorer, is an online tool or application that allows users to browse and search the blocks, transactions, addresses, and other data on a distributed network.&#x20;
+A network explorer, sometimes called a blockchain or ledger explorer, is an online tool or application that allows users to browse and search the blocks, transactions, addresses, and other data on a distributed network.
 
 ### Node
 
@@ -491,11 +491,11 @@ A non-custodial wallet is a [decentralized](glossary.md#decentralization) wallet
 
 ### Non-Fungible Token (NFT)
 
-A unique digital asset with ownership rights that are stored on a distributed network. An NFT can be a one-of-a-kind image, video, composed music, game asset, medical record, event ticket, domain, or other creative media that is tokenized, therefore, can be bought, sold, or traded on a distributed ledger using various cryptocurrencies.&#x20;
+A unique digital asset with ownership rights that are stored on a distributed network. An NFT can be a one-of-a-kind image, video, composed music, game asset, medical record, event ticket, domain, or other creative media that is tokenized, therefore, can be bought, sold, or traded on a distributed ledger using various cryptocurrencies.
 
 ### Nonce
 
-A [cryptographic](glossary.md#cryptography) nonce is an arbitrary, single-use, whole, binary number used for communication in security functions. The acronym “nonce” is an abbreviation of "number only used once." A basic nonce in [Bitcoin](glossary.md#bitcoin) is 32-bit (4-byte). A strong nonce has at least 128 bits of entropy. Solving the hash on a block is how a miner finds the nonce.&#x20;
+A [cryptographic](glossary.md#cryptography) nonce is an arbitrary, single-use, whole, binary number used for communication in security functions. The acronym “nonce” is an abbreviation of "number only used once." A basic nonce in [Bitcoin](glossary.md#bitcoin) is 32-bit (4-byte). A strong nonce has at least 128 bits of entropy. Solving the hash on a block is how a miner finds the nonce.
 
 Uses for a nonce: authentication, initialization vectors, hashing, indexing, smart contracts, and block validation.
 
@@ -517,7 +517,7 @@ On-chain refers to transactions that occur _on_ the distributed ledger, and as a
 
 ### **Opcodes**
 
-Short for operation codes, [opcodes](broken-reference) are the low-level human-readable instructions of the program.
+Short for operation codes, [opcodes](https://github.com/hashgraph/hedera-docs/blob/master/support-and-community/broken-reference/README.md) are the low-level human-readable instructions of the program.
 
 ### Oracles
 
@@ -527,13 +527,13 @@ In distributed ledger technology, oracles are third-party services that connect 
 
 Bitcoin Ordinals is a protocol that allows individual satoshis (SATs) in a Bitcoin blockchain to be assigned a unique identifier and transacted with extra data attached. This protocol became the foundation for a unique collaborative venture between [Hgraph](https://www.hgraph.io/), a developer tooling and Web3 consulting entity, and [Turtle Moon](https://twitter.com/TurtleMoonCC), a pioneer in NFT services. Together, they orchestrated the first token-gated vote on Bitcoin using the [H4NGRY](https://twitter.com/H444NGRY)'s Ordinals NFT collection titled "[Kid Pepes](https://magiceden.io/ordinals/marketplace/kidpepes)." Every vote cast during this initiative was instantaneously recorded on Hedera, serving as the trust layer of the voting system, with the final vote outcomes being inscribed back onto Bitcoin.
 
-The integration showcases a groundbreaking application of distributed ledger technology by initiating the voting process on Bitcoin, where ballot details including start and end times, a unique identifier, and a Hedera Consensus Service topic ID are inscribed. This process transitioned to Hedera for recording votes, offering a transparent, tamper-proof voting system. The final ballot results, which are recorded back on Bitcoin, can be validated against the original data points, embodying a robust, transparent, and innovative use of blockchain technology for democratic processes. Read more about this integration [here](https://medium.com/@hgraph\_io/hgraph-powers-the-first-token-gated-vote-on-ordinals-42829fd50d5b).&#x20;
+The integration showcases a groundbreaking application of distributed ledger technology by initiating the voting process on Bitcoin, where ballot details including start and end times, a unique identifier, and a Hedera Consensus Service topic ID are inscribed. This process transitioned to Hedera for recording votes, offering a transparent, tamper-proof voting system. The final ballot results, which are recorded back on Bitcoin, can be validated against the original data points, embodying a robust, transparent, and innovative use of blockchain technology for democratic processes. Read more about this integration [here](https://medium.com/@hgraph\_io/hgraph-powers-the-first-token-gated-vote-on-ordinals-42829fd50d5b).
 
 ## P
 
 ### Peer-to-Peer (P2P)
 
-A decentralized network interaction model where individual nodes ("peers") connect directly with each other instead of through centralized servers or authorities.&#x20;
+A decentralized network interaction model where individual nodes ("peers") connect directly with each other instead of through centralized servers or authorities.
 
 In a peer-to-peer network, each node can act both as a client and as a server. This contrasts with the traditional client-server model, where client nodes request resources or services, and server nodes fulfill those requests.
 
@@ -585,7 +585,7 @@ When the puzzle gets solved and verified, PoW consensus is established, as the s
 
 In the blockchain industry, the word “protocol” refers to any distributed ledger-based service, including the blockchains themselves and any services or applications that run on them, that can programmatically receive and respond to specially formatted requests.
 
-For example, if a public ledger can programmatically (via software as opposed to a user interface for humans) receive a request (and respond to it accordingly) to transfer cryptocurrency from one ledger account to another (which most chains can do), then it’s a protocol.&#x20;
+For example, if a public ledger can programmatically (via software as opposed to a user interface for humans) receive a request (and respond to it accordingly) to transfer cryptocurrency from one ledger account to another (which most chains can do), then it’s a protocol.
 
 ### Public Key
 
@@ -629,7 +629,7 @@ A royalty fee refers to a specific type of custom fee that is applied to the tra
 
 ### Security Model
 
-A security model outlines network security measures designed to protect a network from threats and ongoing attacks. In distributed ledger technology, a security model includes consensus mechanisms, cryptographic techniques, permissions, and smart contract security.&#x20;
+A security model outlines network security measures designed to protect a network from threats and ongoing attacks. In distributed ledger technology, a security model includes consensus mechanisms, cryptographic techniques, permissions, and smart contract security.
 
 For example, [Hedera's security model](../core-concepts/smart-contracts/security.md) relies on the unique Hashgraph consensus algorithm that ensures fairness, security, and speed. It utilizes digital signatures for transaction verification, and it operates a permissioned network with trusted entities as nodes. Hedera also provides services like the Hedera Token Service (HTS) and Hedera Smart Contract Service (HSCS), built with security considerations in mind.
 
@@ -681,7 +681,7 @@ State proofs are a cryptographically secure, transferable, and storable mechanis
 
 ### System Smart Contracts
 
-System smart contracts are smart contracts that are implemented and maintained on the Hedera network as part of the core codebase that other contracts can invoke. These contracts have a permanent contract address in the Hedera network, meaning they will always be available at the same contract address.&#x20;
+System smart contracts are smart contracts that are implemented and maintained on the Hedera network as part of the core codebase that other contracts can invoke. These contracts have a permanent contract address in the Hedera network, meaning they will always be available at the same contract address.
 
 ## T
 
@@ -707,7 +707,7 @@ In distributed ledger technology, a transaction (tx or TX) refers to an exchange
 
 ### Transaction Fee
 
-A fee associated with a transaction that compensates the Hedera network for processing and maintaining the transaction in a consensus state.&#x20;
+A fee associated with a transaction that compensates the Hedera network for processing and maintaining the transaction in a consensus state.
 
 ### Transactions Per Second (TPS)
 
@@ -729,7 +729,7 @@ A distributed network maintains its integrity and security through validation. T
 
 ### Virtual Machine
 
-A virtual machine (VM) is a software representation of a computer and VM technology related to distributed ledger technology as a platform for digital transformation, business innovation, and industry disruption. A VM can run software that’s independent of the underlying machine (aka the host) that it runs on.&#x20;
+A virtual machine (VM) is a software representation of a computer and VM technology related to distributed ledger technology as a platform for digital transformation, business innovation, and industry disruption. A VM can run software that’s independent of the underlying machine (aka the host) that it runs on.
 
 ### Virtual Merkle Tree
 
@@ -769,4 +769,4 @@ In the DLT world, a white paper is a document containing technical information a
 
 ### Zk-SNARK
 
-zk-SNARK is an acronym for Zero-Knowledge _S_uccinct Non-Interactive Argument of Knowledge. In a ledger, zk-SNARK is a multi-theorem proof system that grants the power to control access to validated transaction information. This means that ledger data can be gated.
+zk-SNARK is an acronym for Zero-Knowledge \_S\_uccinct Non-Interactive Argument of Knowledge. In a ledger, zk-SNARK is a multi-theorem proof system that grants the power to control access to validated transaction information. This means that ledger data can be gated.
