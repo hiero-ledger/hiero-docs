@@ -13,7 +13,7 @@ The following is provided to help [_Hedera Governing Council_](https://hedera.co
 Currently, the Hedera Mainnet will perform at a rate determined by the lowest-performing node. To ensure a common level of performance minimum hardware, connectivity, and hosting requirements have been defined for the initial permissioned, Governing Council nodes.
 
 {% hint style="warning" %}
-To ensure accurate conformity with the minimum requirements, please provide node hardware, connectivity, and hosting details to Hedera prior to purchase (devops@swirldslabs.com).
+To ensure accurate conformity with the minimum requirements, please provide node hardware, connectivity, and hosting details to Hedera prior to purchase (devops@hedera.com).
 {% endhint %}
 
 * CPU: X86/X64 compatible (Intel Xeon or AMD EPYC); 24 cores/48 threads meeting or exceeding the following benchmarks:
@@ -54,8 +54,8 @@ To ensure accurate conformity with the minimum requirements, please provide node
 * Linux
   * Kernel minimum version 3.10+
   * Actively Support Long-Term-Support Release
-    * Ubuntu LTS 22.04
-    * RHEL 8
+    * Ubuntu LTS 18.04+
+    * RHEL 7/8
 
 ### **Node Software:**
 

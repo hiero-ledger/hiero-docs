@@ -14,9 +14,9 @@ Smart contract rent is a recurring payment mechanism designed to maintain resour
 
 ## Contract Auto-Renewal
 
-Auto-renewal is a feature that automatically renews the life of non-deleted smart contracts by a minimum of 90 days. Contract authors are encouraged to establish an auto-renew account specifically for this purpose.&#x20;
+Auto-renewal is a feature that automatically renews the life of non-deleted smart contracts by a minimum of 90 days. Contract authors are encouraged to establish an auto-renew account specifically for this purpose.
 
-The network will attempt to automatically charge the **renewal payment** to the expired contract's auto-renew account. The network will attempt to charge the contract if an auto-renew account has zero balance.&#x20;
+The network will attempt to automatically charge the **renewal payment** to the expired contract's auto-renew account. The network will attempt to charge the contract if an auto-renew account has zero balance.
 
 If the account lacks sufficient funds for renewal, the contract goes into a one-week grace period. During this time, the contract is inoperable unless funds are added, its expiry is extended (via `ContractUpdate`), or it receives HBAR. Failing to renew will result in the contract being purged from the state.
 
@@ -26,7 +26,7 @@ If the account lacks sufficient funds for renewal, the contract goes into a one-
 
 Contract storage payments on Hedera will activate once **100 million key-value pairs** are stored cumulatively across the network. The Hedera Coin Economics Committee is expected to set a rate of **$0.02 per key-value pair per year**. This applies to all contracts on Hedera, regardless of the contract being created before or after the rent payments go live.
 
-Once storage payments are enabled on Hedera, each contract has **100 free key-value pairs** of storage available. Then, once a contract exceeds the first 100 free key-value pairs, it must pay storage fees.&#x20;
+Once storage payments are enabled on Hedera, each contract has **100 free key-value pairs** of storage available. Then, once a contract exceeds the first 100 free key-value pairs, it must pay storage fees.
 
 > _Storage fees will be part of the rent payment collected when a contract is auto-renewed. Valid renewal windows are between \~30 and \~92 days (see_ [_HIP-372_](https://hips.hedera.com/hip/hip-372)_)._
 
@@ -63,7 +63,7 @@ Rent is defined as the recurring payment required for contracts (and, eventually
 * **Auto-renewal payments** The auto-renewal fee for a contract is $0.026 USD per 90 days.
 * **Storage payments** will start once a total of **100 million key-value pairs** are stored cumulatively across the network. These storage fees will be part of the rent payment collected when a contract is auto-renewed. The storage fee rate is $0.02 per key-value pair per year.
 
-<img src="../../.gitbook/assets/smart-contracts-rent-storage-payments.png" alt="" data-size="original">
+<img src="../../.gitbook/assets/image.png" alt="" data-size="original">
 
 </details>
 

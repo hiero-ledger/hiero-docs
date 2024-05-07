@@ -28,7 +28,9 @@ The request returns the following information:
 
 ### Methods
 
-<table><thead><tr><th width="235">Method</th><th width="75">Type</th><th width="308">Description</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setNftId(&#x3C;nftId>)</code></td><td><a href="nft-id.md">NftId</a></td><td>Applicable only to tokens of type <code>NON_FUNGIBLE_UNIQUE</code>. Gets info on a NFT for a given TokenID (of type <code>NON_FUNGIBLE_UNIQUE</code>) and serial number.</td><td>Optional</td></tr></tbody></table>
+| Method              | Type               | Description                                                                                                                                        | Requirement |
+| ------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `setNftId(<nftId>)` | [NftId](nft-id.md) | Applicable only to tokens of type `NON_FUNGIBLE_UNIQUE`. Gets info on a NFT for a given TokenID (of type `NON_FUNGIBLE_UNIQUE`) and serial number. | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

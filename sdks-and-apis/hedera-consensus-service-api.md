@@ -11,7 +11,7 @@ description: >-
 **HCS Mirror Node Endpoints:**\
 **PREVIEWNET:** previewnet.mirrornode.hedera.com:443\
 **TESTNET**: testnet.mirrornode.hedera.com:443\
-**MAINNET**: mainnet.mirrornode.hedera.com:443
+**MAINNET**: mainnet-public.mirrornode.hedera.com:443
 {% endhint %}
 
 {% hint style="warning" %}
@@ -34,7 +34,7 @@ If you building your client with a predefined Hedera network (previewnet, testne
 ```java
 // You will need to upgrade to v2.0.6 or higher
 Client client = Client.forMainnet();
-client.setMirrorNetwork(Collections.singletonList("mainnet.mirrornode.hedera.com:443"))
+client.setMirrorNetwork(Collections.singletonList("mainnet-public.mirrornode.hedera.com:443"))
 ```
 {% endcode %}
 {% endtab %}
@@ -43,14 +43,14 @@ client.setMirrorNetwork(Collections.singletonList("mainnet.mirrornode.hedera.com
 ```javascript
 // You will need to upgrade to v2.0.23 or higher
 const client = Client.forMainnet()
-client.setMirrorNetwork("mainnet.mirrornode.hedera.com:443")
+client.setMirrorNetwork("mainnet-public.mirrornode.hedera.com:443")
 ```
 {% endtab %}
 
 {% tab title="Go" %}
 ```go
 hedera.ClientForMainnet()
-client.SetMirrorNetwork([]string{"mainnet.mirrornode.hedera.com:443"})
+client.SetMirrorNetwork([]string{"mainnet-public.mirrornode.hedera.com:443"})
 ```
 {% endtab %}
 {% endtabs %}
