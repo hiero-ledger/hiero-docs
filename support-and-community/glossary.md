@@ -714,7 +714,7 @@ Turing Complete refers to a computer or a programming language that can run and 
 
 ### Validation
 
-A distributed network maintains its integrity and security through validation. The nodes in the network validate transactions before adding them to the ledger. This includes checking that the transaction is properly signed, that the sender's account has enough HBAR to cover the transaction and its fees, and that the transaction doesn't conflict with the current state of the ledger. By ensuring that all transactions adhere to the network's rules, validation helps prevent fraud, double-spending, and other forms of abuse.
+A distributed network maintains its integrity and security through validation. The nodes in the network process transactions before adding them to the ledger. This includes checking that the transaction is properly signed, that the sender's account has enough HBAR to cover the transaction and its fees, and that the transaction doesn't conflict with the current state of the ledger. By ensuring that all transactions adhere to the network's rules, validation helps prevent fraud, double-spending, and other forms of abuse.
 
 ### Virtual Machine
 
