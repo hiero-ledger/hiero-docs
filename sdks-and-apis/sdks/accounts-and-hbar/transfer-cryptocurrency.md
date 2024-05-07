@@ -29,10 +29,6 @@ An account can have [another account](approve-an-allowance.md) spend tokens on i
 
 The debiting account is the owner's account when using this feature.
 
-{% hint style="info" %}
-**Note**: The allowance spender must pay the fee for the transaction.
-{% endhint %}
-
 **Transaction Signing Requirements**
 
 * The accounts the tokens are being debited from are required to sign the transaction

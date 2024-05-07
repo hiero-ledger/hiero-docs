@@ -1,6 +1,6 @@
 # Approve an allowance
 
-A transaction that allows a token owner to delegate a token spender to spend the specified token amount on behalf of the token owner. A Hedera account owner can provide an allowance for HBAR, non-fungible, and fungible tokens.&#x20;
+A transaction that allows a token owner to delegate a token spender to spend the specified token amount on behalf of the token owner. A Hedera account owner can provide an allowance for HBAR, non-fungible, and fungible tokens.
 
 The **owner** is the Hedera account that owns the tokens and grants the token allowance to the spender. The **spender** is the account that spends tokens, authorized by the owner, from the owner's account. The spender pays for the transaction fees when transferring tokens from the owner's account to another recipient. This means that the transaction fee payer for the `TransferTransaction` is required to set the spender account ID as the transaction fee payer. If the spender account ID is not set as the transaction fee payer, the system will error with `SPENDER_DOES_NOT_HAVE_ALLOWANCE`.
 
@@ -8,7 +8,7 @@ The maximum number of token approvals for the `AccountAllowanceApproveTransactio
 
 A single NFT serial number can only be granted to one spender at a time. If an approval assigns a previously approved NFT serial number to a new user, the old user will have their approval removed.
 
-Each owner account is limited to granting 100 allowances. This limit spans HBAR, fungible token allowances, and non-fungible token `approved_for_all` grants. No limit exists on the number of NFT serial number approvals an owner may grant.
+Each account is limited to 100 allowances. This limit spans HBAR, fungible token allowances, and non-fungible token `approved_for_all` grants. No limit exists on the number of NFT serial number approvals an owner may grant.
 
 The number of allowances set on an account will increase the auto-renewal fee for the account. Conversely, removing allowances will decrease the auto-renewal fee for the account.
 

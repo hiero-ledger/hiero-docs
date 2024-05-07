@@ -19,7 +19,7 @@ The non-production public mainnet mirror node serves to help developers build th
 * **Go:** v2.1.9+
 
 {% hint style="warning" %}
-Public mainnet mirror node requests per second (RPS) are currently throttled at **50 per IP address**. These configurations may change in the future depending on performance or security considerations. At this time, no authentication is required.
+Requests are throttled at 100 requests per second (rps). This may change in the future depending on performance or security considerations. At this time, no authentication is required.
 {% endhint %}
 
 {% tabs %}
@@ -27,7 +27,7 @@ Public mainnet mirror node requests per second (RPS) are currently throttled at 
 ```java
 //You will need to upgrade to v2.0.6 or higher
 Client client = Client.forMainnet();
-client.setMirrorNetwork(Collections.singletonList("mainnet.mirrornode.hedera.com:443"))
+client.setMirrorNetwork(Collections.singletonList("mainnet-public.mirrornode.hedera.com:443"))
 ```
 {% endtab %}
 
@@ -35,22 +35,22 @@ client.setMirrorNetwork(Collections.singletonList("mainnet.mirrornode.hedera.com
 ```javascript
 //You will need to upgrade to v2.0.23 or higher
 const client = Client.forMainnet()
-client.setMirrorNetwork("mainnet.mirrornode.hedera.com:443")
+client.setMirrorNetwork("mainnet-public.mirrornode.hedera.com:443")
 ```
 {% endtab %}
 
 {% tab title="Go" %}
 ```go
 client := hedera.ClientForMainnet()
-client.SetMirrorNetwork([]string{"mainnet.mirrornode.hedera.com:443"})
+client.SetMirrorNetwork([]string{"mainnet-public.mirrornode.hedera.com:443"})
 ```
 {% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
-**Mainnet Mirror Node Endpoint:** mainnet.mirrornode.hedera.com:443\
+**Mainnet Mirror Node Endpoint:** mainnet-public.mirrornode.hedera.com:443\
 \
-**REST API Mainnet Root Endpoint:**[ https://mainnet.mirrornode.hedera.com](https://mainnet-public.mirrornode.hedera.com/)
+**REST API Mainnet Root Endpoint:**[ https://mainnet-public.mirrornode.hedera.com](https://mainnet-public.mirrornode.hedera.com/)
 {% endhint %}
 
 ## Testnet

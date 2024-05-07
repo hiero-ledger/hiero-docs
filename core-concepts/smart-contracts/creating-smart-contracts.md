@@ -63,11 +63,7 @@ Contracts have the option to have an [admin key](https://github.com/hashgraph/he
 * [`staked_id`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L116)
 * [`decline_reward`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L134)
 
-You cannot set the admin key field if you deploy a contract via tools like Hardhat. This field can be set if desired by deploying a contract using one of the Hedera [SDKs](../../sdks-and-apis/sdks/).&#x20;
-
-**Max Contract Storage Size**
-
-Contracts on Hedera have  a storage size limit of 16,384,000 key value pairs (\~100MB).&#x20;
+You cannot set the admin key field if you deploy a contract via tools like Hardhat. This field can be set if desired by deploying a contract using one of the Hedera [SDKs](../../sdks-and-apis/sdks/).
 
 **Rent**
 
@@ -99,9 +95,9 @@ Hedera supports Solidity and Vyper.
 
 <details>
 
-<summary>Can I write and compile my smart contracts using Remix IDE or other Ethereum ecosystem tools? </summary>
+<summary>Can I write and compile my smart contracts using Remix IDE or other Ethereum ecosystem tools?</summary>
 
-You can use Remix IDE or other Ethereum ecosystem tools to write, compile, and deploy your smart contract on Hedera. Check out our EVM-compatible tools [here](../../#evm-compatible-tools).&#x20;
+You can use Remix IDE or other Ethereum ecosystem tools to write, compile, and deploy your smart contract on Hedera. Check out our EVM-compatible tools [here](../../#evm-compatible-tools).
 
 </details>
 
@@ -109,7 +105,7 @@ You can use Remix IDE or other Ethereum ecosystem tools to write, compile, and d
 
 <summary>Where can I find the smart contracts that are deployed to each Hedera network (previewnet, testnet, mainnet)?</summary>
 
-On your favorite trusted Block Explorer (also called Mirror Node Explorer on Hedera). To view community-hosted explorers check out the network explorer tools page [here](../../networks/community-mirror-nodes.md).&#x20;
+On your favorite trusted Block Explorer (also called Mirror Node Explorer on Hedera). To view community-hosted explorers check out the network explorer tools page [here](../../networks/community-mirror-nodes.md).
 
 </details>
 

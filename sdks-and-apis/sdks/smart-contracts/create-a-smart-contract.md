@@ -15,8 +15,16 @@ The latest version of Solidity is supported on all networks (v0.8.9).
 {% hint style="info" %}
 **Smart Contract State Size and Gas Limits**
 
-The [max contract key](https://github.com/hashgraph/hedera-services/pull/9592/files) value pairs are 16,384,000 (\~100 MB).  The system gas throttle is 15 million gas per second. Contract call and contract create are throttled at 8 million gas per second.
+The contract state size limit is 10 MB and the system gas throttle is 15 million gas per second. Contract call and contract create are throttled at 8 million gas per second.
 {% endhint %}
+
+{% content-ref url="https://github.com/hashgraph/hedera-docs/blob/branch-test/sdks-and-apis/sdks/smart-contracts/broken-reference/README.md" %}
+[https://github.com/hashgraph/hedera-docs/blob/branch-test/sdks-and-apis/sdks/smart-contracts/broken-reference/README.md](https://github.com/hashgraph/hedera-docs/blob/branch-test/sdks-and-apis/sdks/smart-contracts/broken-reference/README.md)
+{% endcontent-ref %}
+
+{% content-ref url="https://github.com/hashgraph/hedera-docs/blob/branch-test/sdks-and-apis/sdks/smart-contracts/broken-reference/README.md" %}
+[https://github.com/hashgraph/hedera-docs/blob/branch-test/sdks-and-apis/sdks/smart-contracts/broken-reference/README.md](https://github.com/hashgraph/hedera-docs/blob/branch-test/sdks-and-apis/sdks/smart-contracts/broken-reference/README.md)
+{% endcontent-ref %}
 
 **Transaction Signing Requirements**
 
@@ -31,7 +39,7 @@ The [max contract key](https://github.com/hashgraph/hedera-services/pull/9592/fi
 
 **Smart Contract Properties**
 
-| Field                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **Field**                        | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Admin Key**                    | Sets the state of the instance and its fields can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance. Note that if it is created with no admin keys, then there is no administrator to authorize changing the admin keys, so there can never be any admin keys for that instance. |
 | **Gas**                          | The gas to run the constructor.                                                                                                                                                                                                                                                                                                                                                                                                                                      |

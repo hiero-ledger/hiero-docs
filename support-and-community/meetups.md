@@ -3,8 +3,6 @@ description: >-
   Hedera Hashgraph Meetups offer a great opportunity for community members to
   learn about how to use Hedera network services, best development practices,
   and much more.
-cover: ../.gitbook/assets/28_ultraviolet (1).jpg
-coverY: 0
 ---
 
 # Meetups

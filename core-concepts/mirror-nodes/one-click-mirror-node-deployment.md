@@ -2,7 +2,7 @@
 
 ## Google Cloud Platform Marketplace
 
-Deploy your own mirror node with just a few clicks! The Hedera Mirror Node is open-source software and does not carry an associated license or deployment fee. However, users are responsible for paying for the compute resource used, the data retrieved from Google Cloud Storage buckets, and any other Google Cloud Platform services used during this deployment.&#x20;
+Deploy your own mirror node with just a few clicks! The Hedera Mirror Node is open-source software and does not carry an associated license or deployment fee. However, users are responsible for paying for the compute resource used, the data retrieved from Google Cloud Storage buckets, and any other Google Cloud Platform services used during this deployment.
 
 ► Before you proceed to the next step, obtain the GCP requester pay information:
 
@@ -26,12 +26,12 @@ Click [here](https://console.cloud.google.com/marketplace/details/mirror-node-pu
 
 * Importer GCP access key
 * Importer GCS bucket name
-  * Mainnet: `hedera-mainnet-streams`
-  * Testnet: `hedera-stable-testnet-streams-2024-02`
+  * Mainnet: hedera-mainnet-streams
+  * Testnet: hedera-stable-testnet-streams-2020-08-27
 * Importer GCP billing project ID
 * Importer GCP secret key
 
-Once you deploy your mirror node, you can access the mirror node via the [gRPC API](../../sdks-and-apis/hedera-consensus-service-api.md) or the [REST API](../../sdks-and-apis/rest-api.md).
+Once you deploy your mirror node, you can access the mirror node via the [gRPC API](../../sdks-and-apis/hedera-consensus-service-api.md) or the R[EST API](../../sdks-and-apis/rest-api.md).
 
 #### **gRPC API**
 

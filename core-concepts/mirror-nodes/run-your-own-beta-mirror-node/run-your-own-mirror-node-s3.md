@@ -119,7 +119,7 @@ After the mirror node is run successfully, it downloads data from the Hedera Net
 docker ps
 ```
 
-<figure><img src="../../../.gitbook/assets/docker ps (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/docker ps.png" alt=""><figcaption></figcaption></figure>
 
 * Run the following command to enter the `hedera-mirror-node-db-1` container:
 
@@ -153,4 +153,4 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 docker compose down
 ```
 
-#### Congratulations! You have successfully run and deployed a Hedera Mirror Node with Amazon Web Services S3 (AWS)  🚀
+#### Congratulations! You have successfully run and deployed a Hedera Mirror Node with Amazon Web Services S3 (AWS) 🚀

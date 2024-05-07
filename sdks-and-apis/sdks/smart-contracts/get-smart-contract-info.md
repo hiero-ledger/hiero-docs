@@ -4,7 +4,7 @@ A query that returns the current state of a smart contract instance, including i
 
 **Smart Contract Info Response**
 
-| Field                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **Field**               | The byte code file ID                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Contract ID**         | ID of the contract instance, in the format used in transactions.                                                                                                                                                                                                                                                                                                                                                                                                |
 | **Account ID**          | ID of the cryptocurrency account owned by the contract instance.                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -27,7 +27,7 @@ A query that returns the current state of a smart contract instance, including i
 **Query Fees**
 
 * Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
-* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee&#x20;
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee
 
 ### Methods
 

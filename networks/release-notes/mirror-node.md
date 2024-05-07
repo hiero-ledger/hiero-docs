@@ -8,93 +8,6 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
-## [v0.102.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.102.0)
-
-This is a smaller bug fix release with incremental improvements to some in-flight projects.
-
-For [HIP-857](https://hips.hedera.com/hip/hip-857), an alpha version of the NFT allowance REST API is now in place. It can be used to experiment with while we work towards implementing the remaining query parameters and squashing any bugs. The Jooq library was integrated into the rest-java module to allow for dynamic SQL querying based upon user input. The next release should leverage this functionality to fully implement the remaining parts of the API.
-
-Our Citus implementation was successfully deployed to the performance environment and it is passing initial benchmarks. Preliminary results show that Citus improves ingest performance by 600ms while sharding the data across multiple nodes. Promtail was enabled on Citus nodes to capture database logs and a new ZFS dashboard was added to Grafana.
-
-## [v0.101.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.101.0)
-
-This release adds support for storing the new mutable metadata information available in [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-657](https://hips.hedera.com/hip/hip-657), and [HIP-765](https://hips.hedera.com/hip/hip-765). For now, it just persists the data and in future releases we'll expose it via the REST APIs.
-
-The `/api/v1/tokens` REST API now supports multiple `token.id` parameters. This allows users to efficiently query for multiple tokens in a single call.
-
-The `/api/v1/contracts/call` REST API saw some major performance improvements this release. The first change was to switch the Kubernetes node pools to a different machine class that provides dedicated resource allocation. The endpoint was also switched from a reactive MVC stack to a synchronous MVC stack. Simultaneously, the module enabled the new virtual thread technology that replaces platform threads. These changes combined to improve the request throughput by 1-2x.
-
-Another important change was to enable batching between the download and parser threads in the importer. For now, this functionality is configured to behave as before with no batching. When configured manually, this can reduce sync times for historical data by at least 12x. In the future, we'll look at ways to automatically enable this functionality when the importer is attempting to catch up.
-
-## [v0.100.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.100.0)
-
-This release implements [HIP-859](https://hips.hedera.com/hip/hip-859), adding support for returning gas consumed in the contract result REST APIs. The current `gasUsed` field in the API holds the amount of gas charged, while the new `gasConsumed` field holds the amount of gas actually used during EVM execution. Providing this extra data will allow users to provide a more accurate gas when invoking a contract and reduce the fees they are charged.
-
-`/api/v1/contracts/call` now supports a configurable max gas limit property `hedera.mirror.web3.evm.maxGas`. The default value remains at 15 million but operators can now choose to increase it to suite their needs. The EVM version and features have been upgraded to `v0.46`. This brings feature parity with the latest consensus node software for EVM execution.
-
-There was a large amount of work to improve our integration with Citus. Three repeatable migrations were enhanced to work optimally with Citus: account balance migration, token balance migration, and synthetic transfer approval migration. Token account insertion was optimized to improve its performance by removing the join on the token table. Range partitioning was removed for entity related tables since it caused degraded performance due to having sparse partitions. Finally, the deployment now supports different sized disks for individual workers to optimize for unbalanced data.
-
-## [v0.99.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.99.0)
-
-This release contains the implementation of [HIP-873](https://hips.hedera.com/hip/hip-873) adding token decimals to the REST API. Previously users had to make `N + 1` queries to determine accurate token balance information by querying `/api/v1/accounts/{id}/tokens` once and `/api/v1/tokens/{id}` `N` times to get the relevant decimal information. This HIP adds `decimals` to both `/api/v1/tokens/{tokenId}/balances` and `/api/v1/accounts/{id}/tokens` so that decimal information is directly returned alongside the token relationships and the additional `N` queries are unnecessary. It also adds `name` and `decimals` fields to the `/api/v1/tokens` response to expose more of the existing token information on that API.
-
-The `/api/v1/contracts/call` REST API now supports a configurable `hedera.mirror.web3.evm.maxDataSize` property so that mirror node operators can adjust how large of a payload they wish to support. The default value for the max data size was increased from `24 KiB` to `25 KiB` for creates and from `6 KiB` to `25 KiB` for calls. This change makes it possible for view functions with large inputs like [oracles](https://hedera.com/blog/supras-dora-price-feeds-now-live-on-hedera) to now work on the network.
-
-There were a few items to improve the performance and security of the mirror node. A new `hedera.mirror.importer.downloader.maxSize=50MiB` property controls the maximum stream file size it will attempt to download. This protects the mirror node against large files uploaded accidentally or via malicious actors. The importer was refactored to support batch stream file ingestion so that it is possible to process multiple stream files in one transaction. This will help pave the way for future enhancements like improving historical synchronization times.
-
-The database saw a number of improvements including new [setup documentation](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database/README.md#setup) with recommendations for how to configure the database. Our Citus deployment had some notable additions including a huge improvement in performance by adjusting its resource configuration. The Stackgres version was upgraded to 1.8 and ZFS to 2.4.1. The entity stake calculation was optimized for Citus so it runs efficiently in a sharded database. Finally, database metrics were fixed so that partitioned tables are appropriately aggregated under the parent table name.
-
-## [v0.98.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.98.0)
-
-This release saw the implementation of [HIP-844](https://hips.hedera.com/hip/hip-844) Handling and externalization improvements for account nonce updates. This HIP resolve issues where the consensus nodes and the mirror nodes are account nonces are out of sync. The consensus nodes now sends the mirror node the up-to-date account nonce instead of the mirror node attempting to increment the nonce based upon its prior state.
-
-There were two important changes to the database that helped to reduce its size substantially. The `topic_message` table primary key index was dropped in favor of relying upon a similar index on the `transaction` table. This simple change shaved 800 GiB off the mainnet database. The staking reward calculation performance was improved to only write accounts that elected to receive rewards. This reduces the staking reward calculation runtime from 47 minutes down to less than 2 minutes. A migration also removes the existing staking rows that did not have a staking reward election, shrinking those tables by 155 GiB. Note that to realize these disks savings mirror node operators will need to manually perform a full vacuum on the `entity_stake` and `entity_stake_history` tables. So in total the size of the mirror node database was reduced by almost 1 TB this release!
-
-There was quite a bit of technical debt paid down in this release. We've removed support for the event file format from the importer. This format was never fully implemented in the mirror node, didn't support the latest version, and no user interest in this data was expressed during its 4 years of existence. The acceptance tests were refactored to use the OpenAPI generated models, ensuring we dogfood our own API specification. The brittle `MockPool` tests were removed in favor of additional coverage in other, easier to maintain tests. The REST API tests now uses the correct read only user and common database setup that the other modules use. Finally, the unused `RestoreClientIntegrationTest` and associated test images were removed.
-
-Our Citus deployment saw a number of improvements. Performance was optimized for hash insertions by reducing the shard count for hash tables. Entity upserts saw improvement by increasing the number of CPU resources to the database. Finally, the transactions list and accounts by ID endpoints saw their read performance improved for Citus.
-
-\
-[v0.97.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.97.0)
--------------------------------------------------------------------------------
-
-This release sees some incremental changes to the REST API. The REST API now supports a [RFC5988](https://www.rfc-editor.org/rfc/rfc5988) compliant `Link` header in its response as an alternative to the `links.next`in the response body. Either link can now be used for pagination, but the `Link` header provides a standard approach that's supported by more tools. The `/api/v1/accounts/{id}?timestamp` endpoint now shows historically accurate staking information in its response so that users can view their past pending rewards. The timestamp in the response of the `/api/v1/tokens/{id}/balances` endpoint is now more accurate by reflecting the max balance timestamp of the tokens in its response.
-
-The helm chart was verified to be compatible with Kubernetes 1.28 and saw its dependencies all bumped to the latest release. The new rest-java module was converted from WebFlux to servlets with virtual threads. This should increase its scalability once we implement HIP-857 NFT allowance REST API in a future relase. Some internal refactoring of `BatchEntityListener` to `BatchPublisher` will enable future improvements to historical syncing and batch processing.
-
-The `/api/v1/contracts/call` endpoint saw a lot of important bug fixes this release. Support for historical blocks should be complete with some remaining bugs ironed out. The supported operations [documentation](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/web3#supportedunsupported-operations) was updated to reflect this increased level of compatibility.
-
-## [v0.96.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.96.0)
-
-With a lot of the developers taking some time off for the holiday season, this release is a bit smaller than normal but still contains some important changes. The previewnet and testnet bootstrap address books were updated to reflect the current state of the network. The default volume size for Loki was increased from 100 GB to 250 GB to account for increasing amounts of log activity. The processing of `EthereumTransaction` was made more resilient so that the importer does not halt if encounters a badly encoded transaction. Finally, a memory leak in the REST API should greatly reduce out of memory errors and improve request throughput.
-
-To improve ingest performance of entity tables when used with a distributed SQL database we introduced a new `temporary` database [schema](https://www.postgresql.org/docs/current/ddl-schemas.html). This schema is used to hold the temporary data inserted when processing entities from a record file. Previously this information was added to temporary tables created within the transaction scope, but these temporary tables could not be made distributed in Citus. With the temporary schema, this information can now be distributed appropriately to ensure optimal ingest performance. This change does require manual DDL statements be ran before the next upgrade (see next section).
-
-### Breaking Changes
-
-As previously mentioned, a new database schema was introduced to handle the processing of upsertable entities. This change\
-doesn't require any manual steps for new operators that use one of our initialization scripts or helm charts to\
-configure the database. However, existing operators upgrading to 0.96.0 or later are required to create the schema by\
-configuring and executing a [script](https://github.com/hashgraph/hedera-mirror-node/blob/v0.96.0/hedera-mirror-importer/src/main/resources/db/scripts/init-temp-schema.sh) _**before**_ the upgrade.
-
-```
-PGHOST=127.0.0.1 ./init-temp-schema.sh
-```
-
-Another breaking change concerns operators using our `hedera-mirror-common` chart. The aforementioned Loki volume size increase was made to the embedded `PersistentVolumeClaim` on the Loki `StatefulSet`. Kubernetes does not allow changes to this immutable field so to workaround the `StatefulSet` will need to be manually deleted for the upgrade of the common chart.
-
-## [v0.95.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.95.0)
-
-This release saw the Java components upgraded to use [Java 21](https://www.oracle.com/news/announcement/ocw-oracle-releases-java-21-2023-09-19/). In a future release, we will explore the new language features in 21 like virtual threads to unlock additional scalability. Some technical debt items were tackled including removing redundant test configuration by creating a common test hierarchy. Explicit `@Autowired` annotations on test constructors were removed, reducing boilerplate. Finally, various classes were renamed to align to our naming standards including the removal of the `Mirror` prefix from classes that were not used across modules.
-
-[HIP-584](https://hips.hedera.com/hip/hip-584) EVM archive node for historical blocks saw some major additions including initial support for historical blocks. EVM Configuration is now loaded based upon block number instead of always utilizing the latest EVM. This ensures that `/api/v1/contracts/call` simulates the execution as it would've been on consensus nodes at that point in time. Database queries were adapted to work with timestamp filters to allow for returning historical block information.
-
-Our distributed database effort saw some notable improvements including upgrading the version of Citus to 12.1. PostgreSQL 16 support was tested confirming compatibility with both regular PostgreSQL and Citus. Both `/api/v1/topics/{id}/messages/{sequenceNumber}` and `/api/v1/topics/{id}/messages` saw optimizations implemented when used with Citus.
-
-### Upgrading
-
-If you're compiling locally, ensure you have upgraded to Java 21 in your terminal and IDE. For MacOS, we recommend using [SDKMAN!](https://sdkman.io/) to manage Java versions so that upgrading is as simple as `sdk install java 21-tem`. If you're using a custom `Dockerfile` ensure it is also updated to Java 21. We recommend [Eclipse Temurin](https://hub.docker.com/\_/eclipse-temurin) as the base image for our Java components.
-
 ## [v0.94.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.94.1)
 
 Provides an important fix to pending reward calculation that regressed due to the balance deduplication work. The database migration for this will take approximately 17 minutes on mainnet.
@@ -356,8 +269,6 @@ The `/api/v1/contracts/{id}/state` REST API shows the current state of a contrac
 {% hint style="success" %}
 **TESTNET UPDATE COMPLETED: MARCH 13, 2023**
 {% endhint %}
-
-
 
 The new `/api/v1/contracts/call` REST API as specified in [HIP-584](https://hips.hedera.com/HIP/hip-584.html) is finally ready for initial production use. This release adds support for rate limiting the API with an initial value of 100 requests per second per instance. Tags were added to the gas per second metric to indicate if the request was a call, an estimate, or resulted in an error for increased observability. Various bug fixes were also addressed.
 
