@@ -2,7 +2,8 @@
 description: >-
   Learn how to submit a demo application, create pull requests, or log issues in
   the Hedera Contributing Guide.
-cover: broken-reference
+cover: >-
+  https://github.com/hashgraph/hedera-docs/blob/staging-test-3/support-and-community/broken-reference
 coverY: 31
 ---
 

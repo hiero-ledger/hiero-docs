@@ -393,7 +393,7 @@ A [cryptocurrency wallet](glossary.md#cryptocurrency-wallet) that is _always_ co
 
 ### Hyperledger Besu EVM
 
-An open-source [Ethereum](glossary.md#ethereum) client developed under the Hyperledger project and a virtual machine that replaced the EthereumJ virtual machine in the [Hedera Services release 0.19](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.1) as a result of [HIP-26](https://hips.hedera.com/hip/hip-26). This migration enables Hedera to maintain parity with Ethereum Mainnet evolutions, such as the EVM container formats, new opcodes, and precompiled contracts. The Besu integration is configured to use the [“London” hard fork](broken-reference/) of Ethereum Mainnet.
+An open-source [Ethereum](glossary.md#ethereum) client developed under the Hyperledger project and a virtual machine that replaced the EthereumJ virtual machine in the [Hedera Services release 0.19](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.1) as a result of [HIP-26](https://hips.hedera.com/hip/hip-26). This migration enables Hedera to maintain parity with Ethereum Mainnet evolutions, such as the EVM container formats, new opcodes, and precompiled contracts. The Besu integration is configured to use the [“London” hard fork](https://github.com/hashgraph/hedera-docs/blob/staging-test-3/support-and-community/broken-reference/README.md) of Ethereum Mainnet.
 
 ## I
 
@@ -517,7 +517,7 @@ On-chain refers to transactions that occur _on_ the distributed ledger, and as a
 
 ### **Opcodes**
 
-Short for operation codes, [opcodes](broken-reference/) are the low-level human-readable instructions of the program.
+Short for operation codes, [opcodes](https://github.com/hashgraph/hedera-docs/blob/staging-test-3/support-and-community/broken-reference/README.md) are the low-level human-readable instructions of the program.
 
 ### Oracles
 

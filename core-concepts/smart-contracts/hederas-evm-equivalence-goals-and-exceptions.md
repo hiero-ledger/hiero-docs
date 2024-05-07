@@ -16,7 +16,7 @@ Hedera plans to integrate its native services with the EVM seamlessly. This will
 
 #### Leverage Existing Expertise
 
-Hedera's strategy involves leveraging the [HyperLedger Besu EVM](broken-reference) client, which allows developers to capitalize on their existing Solidity expertise. This means that developers already familiar with [Solidity](../../support-and-community/glossary.md#solidity) and the EVM can easily transition to developing on Hedera, taking advantage of its unique strengths such as faster transactions, low and fixed fees, fair transaction ordering, immediate finality, and heightened security.
+Hedera's strategy involves leveraging the [HyperLedger Besu EVM](https://github.com/hashgraph/hedera-docs/blob/staging-test-3/core-concepts/smart-contracts/broken-reference/README.md) client, which allows developers to capitalize on their existing Solidity expertise. This means that developers already familiar with [Solidity](../../support-and-community/glossary.md#solidity) and the EVM can easily transition to developing on Hedera, taking advantage of its unique strengths such as faster transactions, low and fixed fees, fair transaction ordering, immediate finality, and heightened security.
 
 #### Smooth Transition
 
@@ -31,7 +31,7 @@ Hedera plans to support familiar [EVM tools](../../#evm-compatible-tools), libra
 Hedera encourages developers to contribute to its EVM development and join the community discussions in the official [Hedera Discord](https://www.hedera.com/discord). This goal aims to foster a vibrant and engaged developer community, which is crucial for the long-term success and sustainability of the Hedera network.
 
 {% hint style="info" %}
-🔔 Detailed [blog post](https://hedera.com/blog/evm-equivalence-unveiling-hederas-strategy-for-enhanced-programmability-and-network-adoption) of Hedera's EVM Equivalence strategy.&#x20;
+🔔 Detailed [blog post](https://hedera.com/blog/evm-equivalence-unveiling-hederas-strategy-for-enhanced-programmability-and-network-adoption) of Hedera's EVM Equivalence strategy.
 {% endhint %}
 
 ## Key Differences and Exceptions between Hedera and Ethereum
@@ -55,7 +55,7 @@ While Hedera strives for EVM equivalence, it's important to recognize certain un
 
 ### Transactions and Queries Differences
 
-<table><thead><tr><th width="244.33333333333331">Function</th><th width="252">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Transaction Size Limit</strong></td><td>6kb</td><td>No limit</td></tr><tr><td><strong>Transaction Throttling</strong></td><td><a href="broken-reference">Transactions may be throttled by gas limits</a></td><td>Transactions pending until future submission</td></tr><tr><td><strong>Query Costs</strong></td><td>Not free, can use mirror node for free queries</td><td>Free read-only calls</td></tr><tr><td><strong>Mempools</strong></td><td>No <a href="../../support-and-community/glossary.md#mempool">mempools</a></td><td>Mempools available</td></tr></tbody></table>
+<table><thead><tr><th width="244.33333333333331">Function</th><th width="252">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Transaction Size Limit</strong></td><td>6kb</td><td>No limit</td></tr><tr><td><strong>Transaction Throttling</strong></td><td><a href="https://github.com/hashgraph/hedera-docs/blob/staging-test-3/core-concepts/smart-contracts/broken-reference/README.md">Transactions may be throttled by gas limits</a></td><td>Transactions pending until future submission</td></tr><tr><td><strong>Query Costs</strong></td><td>Not free, can use mirror node for free queries</td><td>Free read-only calls</td></tr><tr><td><strong>Mempools</strong></td><td>No <a href="../../support-and-community/glossary.md#mempool">mempools</a></td><td>Mempools available</td></tr></tbody></table>
 
 ### RPC Endpoint Differences
 
@@ -67,7 +67,7 @@ While Hedera strives for EVM equivalence, it's important to recognize certain un
 
 ### Tokens and Fee Differences
 
-<table><thead><tr><th width="230.33333333333331">Function</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td> <strong>Native Tokens</strong></td><td>Supports native tokens in addition to <a href="broken-reference">ERC-20 and ERC-721 token standards</a></td><td>All ERC token standards but primarily ERC-20 and ERC-721 tokens.</td></tr><tr><td><strong>Fee Structure</strong></td><td><a href="broken-reference">Complex with two different gas prices</a></td><td>Single gas price</td></tr><tr><td><strong>Token Association**</strong></td><td><a href="../../sdks-and-apis/sdks/token-service/associate-tokens-to-an-account.md">Concept of token association </a></td><td>No concept of token association</td></tr></tbody></table>
+<table><thead><tr><th width="230.33333333333331">Function</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Native Tokens</strong></td><td>Supports native tokens in addition to <a href="https://github.com/hashgraph/hedera-docs/blob/staging-test-3/core-concepts/smart-contracts/broken-reference/README.md">ERC-20 and ERC-721 token standards</a></td><td>All ERC token standards but primarily ERC-20 and ERC-721 tokens.</td></tr><tr><td><strong>Fee Structure</strong></td><td><a href="https://github.com/hashgraph/hedera-docs/blob/staging-test-3/core-concepts/smart-contracts/broken-reference/README.md">Complex with two different gas prices</a></td><td>Single gas price</td></tr><tr><td><strong>Token Association**</strong></td><td><a href="../../sdks-and-apis/sdks/token-service/associate-tokens-to-an-account.md">Concept of token association</a></td><td>No concept of token association</td></tr></tbody></table>
 
 {% hint style="info" %}
 **\*\*Note:** Token Association only applies to _native_ HTS tokens and does not affect ERC-20/721 tokens.
