@@ -8,6 +8,14 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.103.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.103.0)
+
+This release adds support for making metadata information from [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-657](https://hips.hedera.com/hip/hip-657), and [HIP-765](https://hips.hedera.com/hip/hip-765) available in the REST API. In particular, this adds a base64 encoded `metadata` field to the `/api/v1/tokens` endpoint. It also adds `metadata` and `metadata_key` fields to the `/api/v1/tokens/{id}` endpoint.
+
+The contract call API saw some noticeable performance improvements with the implementation of lazy loading for nested items. Previously it was eagerly loading all the account information even for simpler calls that didn't need the data. With the switch to make these additional queries lazy, we see an improvement of 50-90% in request throughput. That change plus an improvement in the performance of the NFT count query should result in additional performance and stability of the API.
+
+Work is still underway on [HIP-857](https://hips.hedera.com/hip/hip-857) NFT allowance REST API. This release adds EVM address and alias support to the new endpoint and fixes the error response format.
+
 ## [v0.102.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.102.0)
 
 This is a smaller bug fix release with incremental improvements to some in-flight projects.
@@ -356,8 +364,6 @@ The `/api/v1/contracts/{id}/state` REST API shows the current state of a contrac
 {% hint style="success" %}
 **TESTNET UPDATE COMPLETED: MARCH 13, 2023**
 {% endhint %}
-
-
 
 The new `/api/v1/contracts/call` REST API as specified in [HIP-584](https://hips.hedera.com/HIP/hip-584.html) is finally ready for initial production use. This release adds support for rate limiting the API with an initial value of 100 requests per second per instance. Tags were added to the gas per second metric to indicate if the request was a call, an estimate, or resulted in an error for increased observability. Various bug fixes were also addressed.
 
