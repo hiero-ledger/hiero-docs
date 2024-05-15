@@ -38,8 +38,4 @@ vagrant ssh
 
 * You should now be back in the **fabric** folder
 
-Now you have your virtual environment ready to go. Please refer to **step two**: [Build Fabric Binaries and Docker Images](broken-reference) in the master tutorial to continue.
-
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
+Now you have your virtual environment ready to go. Please refer to **step two**: [Build Fabric Binaries and Docker Images](./#id-2.-build-fabric-binaries-and-docker-images) in the master tutorial to continue.

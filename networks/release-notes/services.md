@@ -9,8 +9,28 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 ## [v0.49](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.0)
 
 {% hint style="info" %}
-**MAINNET UPDATE SCHEDULED: MAY 14, 2024**
+**MAINNET UPDATE SCHEDULED: MAY 21, 2024**
 {% endhint %}
+
+### [0.49.7](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.7)
+
+{% hint style="success" %}
+**TESTNET UPDATE: MAY 14, 2024**
+{% endhint %}
+
+#### What's Changed
+
+* fix: support crypto admin keys in system contract `tokenCreate()` by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13148](https://github.com/hashgraph/hedera-services/pull/13148)
+* fix: remove balance adjustment limit from record in state, use `0` for initial gas snapshot by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13185](https://github.com/hashgraph/hedera-services/pull/13185)
+
+### [0.49.6](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.6)
+
+#### What's Changed
+
+* fix: cherry-pick midnight rate management on restart ([#13071](https://github.com/hashgraph/hedera-services/pull/13071)) by [@povolev15](https://github.com/povolev15) in [#13091](https://github.com/hashgraph/hedera-services/pull/13091)
+* feat: auto-resubmit operations with modifications ([#12811](https://github.com/hashgraph/hedera-services/pull/12811)) by [@Neeharika-Sompalli](https://github.com/Neeharika-Sompalli) in [#13088](https://github.com/hashgraph/hedera-services/pull/13088)
+* fix: ignore token expiry status in `TokenDissociate` by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13106](https://github.com/hashgraph/hedera-services/pull/13106)
+* fix: avoid NPE when migrating from genesis (non-prod) state by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13123](https://github.com/hashgraph/hedera-services/pull/13123)
 
 ### [0.49.5](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.5)
 

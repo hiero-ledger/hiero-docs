@@ -6,11 +6,11 @@ A `TokenUpdateNftsTransaction` updates the metadata property of non-fungible tok
 🚨 Metadata keys, like other [token keys](define-a-token.md#token-keys), must be set during the token creation. If metadata keys are not set when the token is created, they cannot be added later, and you won't be able to update the token's metadata.
 {% endhint %}
 
-<table><thead><tr><th width="248">Property</th><th>Description</th></tr></thead><tbody><tr><td><strong>Token ID</strong></td><td>The ID of the NFT to update.</td></tr><tr><td><strong>Serial Numbers</strong></td><td>The list of serial numbers to be updated.</td></tr><tr><td><strong>Metadata</strong></td><td>The new metadata of the NFT(s). </td></tr></tbody></table>
+<table><thead><tr><th width="248">Property</th><th>Description</th></tr></thead><tbody><tr><td><strong>Token ID</strong></td><td>The ID of the NFT to update.</td></tr><tr><td><strong>Serial Numbers</strong></td><td>The list of serial numbers to be updated.</td></tr><tr><td><strong>Metadata</strong></td><td>The new metadata of the NFT(s).</td></tr></tbody></table>
 
 **Transaction Signing Requirements**
 
-* Metadata key is required to sign.&#x20;
+* Metadata key is required to sign.
 * Transaction fee payer account key.
 
 **Transaction Fees**
@@ -54,7 +54,7 @@ System.out.println("Token metadata update status: " + transactionStatus);
 {% code overflow="wrap" %}
 ```javascript
 // Create the transaction
-const tokenUpdateNftsTx = await new TokenUpdateNftsTransaction()
+const tokenUpdateNftsTx = await new TokenNftsUpdateTransaction()
     .setTokenId(tokenId)
     .setSerialNumbers([nftSerials])
     .setMetadata(newMetadata)
@@ -118,7 +118,7 @@ fmt.Printf("Token metadata update status: ", receipt.Status)
 
 <summary>What is the transaction fee to update a token's metadata?</summary>
 
-The transaction fee to update the metadata of 1 NFT is `$0.001` To update metadata for multiple NFTs in a single call is N x `$0.001` (N being the number of NFTs to update). See the full list of token transaction fees [here](../../../networks/mainnet/fees/#token-service).&#x20;
+The transaction fee to update the metadata of 1 NFT is `$0.001` To update metadata for multiple NFTs in a single call is N x `$0.001` (N being the number of NFTs to update). See the full list of token transaction fees [here](../../../networks/mainnet/fees/#token-service).
 
 </details>
 
@@ -142,7 +142,7 @@ No, metadata keys are not required for all token types. If your use case will ne
 
 <summary>Can I still create a token without metadata keys?</summary>
 
-Yes, you can create a token without metadata keys but you won't be able to add metadata keys or update the token's metadata.&#x20;
+Yes, you can create a token without metadata keys but you won't be able to add metadata keys or update the token's metadata.
 
 </details>
 
@@ -170,4 +170,8 @@ If the `tokenId` of the NFT is not paused, and if the token has `metadataKey` th
 
 </details>
 
-* Reference: [HIP-657](https://hips.hedera.com/hip/hip-657), [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-765](https://hips.hedera.com/hip/hip-765).
+* Reference: [HIP-657](https://hips.hedera.com/hip/hip-657), [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-765](https://hips.hedera.com/hip/hip-765)
+
+***
+
+**Contributors:** [MilanWR](https://github.com/MilanWR)&#x20;

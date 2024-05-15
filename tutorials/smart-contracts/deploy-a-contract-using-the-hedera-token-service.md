@@ -332,7 +332,7 @@ fmt.Printf("The contract bytecode file ID: %v\n", byteCodeFileID)
 
 ## 3. Deploy a Hedera Smart Contract
 
-Create the contract and set the file ID to the file that contains the hex-encoded bytecode from the previous step. You will need to set the gas high enough to deploy the contract. The gas should be estimated to be within 25% of the actual gas cost to avoid paying extra gas. You can read more about gas and fees [here](broken-reference).
+Create the contract and set the file ID to the file that contains the hex-encoded bytecode from the previous step. You will need to set the gas high enough to deploy the contract. The gas should be estimated to be within 25% of the actual gas cost to avoid paying extra gas. You can read more about gas and fees [here](../../core-concepts/smart-contracts/deploying-smart-contracts/#gas-schedule-and-fees).
 
 {% hint style="warning" %}
 _**Note:** You will need to set the gas value high enough to deploy the contract. If you don't have enough gas, you will receive an <mark style="color:blue;">`INSUFFICIENT_GAS`</mark> response. If you set the value too high you will be refunded a maximum of 20% of the amount that was set for the transaction._
