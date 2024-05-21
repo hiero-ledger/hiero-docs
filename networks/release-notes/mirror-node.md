@@ -8,6 +8,14 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.104.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.104.0)
+
+This release adds a Redis cache to the REST API to improve the performance of `/api/v1/transactions`. This functionality is currently disabled by default as we fine tune it.
+
+[HIP-857](https://hips.hedera.com/hip/hip-857) NFT Allowances API made a lot of progress this release. It's taking a bit longer than a usual API since it is our first Java-based REST API that requires some extra groundwork. This release enables the rest-java Helm chart by default allowing users to test out the NFT allowances API in all environments. While most functionality is present, please be aware that some parts are still under development. A new index was added to the NFT allowance table to speed up look-ups by spender account. The existence check for numeric entity ID was removed to improve its performance and to better support partial mirror nodes. Finally, we added initial acceptance tests to verify the API end to end.
+
+Our Citus deployment is nearing the finish line. Citus is now deployed to previewnet and it now runs both PostgreSQL and Citus deployments in parallel. Internally, we've deployed it to a mainnet staging environment with a full size database for further testing. This deployment was possible due to the dramatic increase in migration time we implemented this release. Mainnet previously took more than a month to migrate but with this release it should complete within a week or so. Expect testnet to be migrated to Citus very soon as well.
+
 ## [v0.103.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.103.0)
 
 This release adds support for making metadata information from [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-657](https://hips.hedera.com/hip/hip-657), and [HIP-765](https://hips.hedera.com/hip/hip-765) available in the REST API. In particular, this adds a base64 encoded `metadata` field to the `/api/v1/tokens` endpoint. It also adds `metadata` and `metadata_key` fields to the `/api/v1/tokens/{id}` endpoint.
