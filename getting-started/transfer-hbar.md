@@ -124,19 +124,19 @@ Your complete code file should look something like this:
 
 {% code title="HederaExamples.java" %}
 ```java
-import com.hedera.hashgraph.sdk.AccountId;
-import com.hedera.hashgraph.sdk.HederaPreCheckStatusException;
-import com.hedera.hashgraph.sdk.HederaReceiptStatusException;
-import com.hedera.hashgraph.sdk.PrivateKey;
-import com.hedera.hashgraph.sdk.Client;
-import com.hedera.hashgraph.sdk.TransactionResponse;
-import com.hedera.hashgraph.sdk.PublicKey;
-import com.hedera.hashgraph.sdk.AccountCreateTransaction;
 import com.hedera.hashgraph.sdk.Hbar;
-import com.hedera.hashgraph.sdk.AccountBalanceQuery;
-import com.hedera.hashgraph.sdk.AccountBalance;
-import com.hedera.hashgraph.sdk.TransferTransaction;
+import com.hedera.hashgraph.sdk.Client;
 import io.github.cdimascio.dotenv.Dotenv;
+import com.hedera.hashgraph.sdk.AccountId;
+import com.hedera.hashgraph.sdk.PublicKey;
+import com.hedera.hashgraph.sdk.PrivateKey;
+import com.hedera.hashgraph.sdk.AccountBalance;
+import com.hedera.hashgraph.sdk.AccountBalanceQuery;
+import com.hedera.hashgraph.sdk.TransferTransaction;
+import com.hedera.hashgraph.sdk.TransactionResponse;
+import com.hedera.hashgraph.sdk.ReceiptStatusException;
+import com.hedera.hashgraph.sdk.PrecheckStatusException;
+import com.hedera.hashgraph.sdk.AccountCreateTransaction;
 
 import java.util.concurrent.TimeoutException;
 
@@ -200,16 +200,16 @@ public class HederaExamples {
 {% code title="index.js" %}
 ```javascript
 const {
+  Hbar,
   Client,
   PrivateKey,
-  AccountCreateTransaction,
   AccountBalanceQuery,
-  Hbar,
   TransferTransaction,
+  AccountCreateTransaction,
 } = require("@hashgraph/sdk");
 require("dotenv").config();
 
-async function environmentSetup() {
+async function transferHbar() {
   // Grab your Hedera testnet account ID and private key from your .env file
   const myAccountId = process.env.MY_ACCOUNT_ID;
   const myPrivateKey = process.env.MY_PRIVATE_KEY;
@@ -228,8 +228,8 @@ async function environmentSetup() {
   client.setOperator(myAccountId, myPrivateKey);
 
   // Set default max transaction fee & max query payment
-  client.setMaxTransactionFee(new Hbar(100));
-  client.setMaxQueryPayment(new Hbar(50));
+  client.setDefaultMaxTransactionFee(new Hbar(100));
+  client.setDefaultMaxQueryPayment(new Hbar(50));
 
   // Create new keys
   const newAccountPrivateKey = PrivateKey.generateED25519();
@@ -271,7 +271,7 @@ async function environmentSetup() {
       transactionReceipt.status.toString()
   );
 }
-environmentSetup();
+transferHbar();
 ```
 {% endcode %}
 
@@ -389,6 +389,10 @@ func main() {
 #### Sample output:
 
 ```bash
+New account ID: 0.0.4382765
+
+New account balance is: 1000 tinybars.
+
 The transfer transaction from my account to the new account was: SUCCESS
 ```
 

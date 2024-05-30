@@ -8,6 +8,22 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.105.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.105.0)
+
+A design document was added for the implementation of [HIP-904](https://hips.hedera.com/HIP/hip-904.html) Friction-less Airdrops on mirror node. Please watch the [epic](https://github.com/hashgraph/hedera-mirror-node/issues/8081) to monitor the progress of airdrop development.
+
+Citus, our sharded database, continues to make progress with this release making its way to one of our two testnet clusters. We'll monitor its deployment for a period and make any necessary fixes. The ZFS CSI driver we use for Citus saw an upgrade. Finally, multiples issues were fixed with the PostgreSQl to Citus migration script.
+
+For `/api/v1/contracts/call`, the maximum data size was increased to 128 KiB to provide better Ethereum compatibility. Also, additional logic and validation was added to more closely align with consensus nodes error scenarios.
+
+### Upgrading
+
+If you're using the ZFS CSI driver, please ensure its CRDs are updated before upgrading:
+
+```
+for crd in zfsbackups zfsnodes zfsrestores zfssnapshots zfsvolumes; do kubectl patch crd $crd.zfs.openebs.io --type merge -p '{"metadata": {"annotations": {"helm.sh/resource-policy": "keep", "meta.helm.sh/release-name": "mirror", "meta.helm.sh/release-namespace": "common"}, "labels": {"app.kubernetes.io/managed-by": "Helm"}}}'; done
+```
+
 ## [v0.104.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.104.0)
 
 This release adds a Redis cache to the REST API to improve the performance of `/api/v1/transactions`. This functionality is currently disabled by default as we fine tune it.

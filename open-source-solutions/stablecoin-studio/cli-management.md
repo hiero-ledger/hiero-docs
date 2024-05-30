@@ -250,7 +250,7 @@ If you want to deploy your own factory contract with custom logic tailored to yo
 
 ## CLI Flow
 
-<figure><img src="../../.gitbook/assets/CLI Flow.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-cli-flow-chart.png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -391,9 +391,9 @@ accelerator wizard
 
 Select "Create a new stablecoin" and proceed through the prompts to fill in the details of your new stablecoin.
 
-<figure><img src="../../.gitbook/assets/create main menu cli.png" alt=""><figcaption><p>CLI main menu</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-create-main-menu-cli.png" alt=""><figcaption><p>CLI main menu</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/create cli prompts.png" alt=""><figcaption><p>CLI stablecoin creation prompts</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-create-cli-prompts.png" alt=""><figcaption><p>CLI stablecoin creation prompts</p></figcaption></figure>
 
 {% embed url="https://youtu.be/gh7f_VX1iY0?si=nwVuA2YkV-cJje2A" %}
 How to Issue Stablecoins on Hedera: Create a Stablecoin\
@@ -412,7 +412,7 @@ accelerator wizard
 
 Select the "Operate with an existing stablecoin" option and proceed through the prompts to operate your stablecoin.
 
-<figure><img src="../../.gitbook/assets/operate stablecoin cli.png" alt=""><figcaption><p>CLI stablecoin operation menu</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-cli-operate.png" alt=""><figcaption><p>CLI stablecoin operation menu</p></figcaption></figure>
 
 {% embed url="https://youtu.be/41ag-y9cYck?si=RO-6P9TQJLXJdgyQ" %}
 How to Issue Stablecoins on Hedera: Stablecoin Administration\
@@ -433,7 +433,7 @@ accelerator wizard
 
 Select the "Create a new stablecoin" option, then proceed through the prompts.&#x20;
 
-<figure><img src="../../.gitbook/assets/POR config cli (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-proof-of-reserve-config-cli.png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://youtu.be/a7sNXD5GKWA?si=i__uPkensCQu23P0" %}
 How to Issue Stablecoins on Hedera: Create a Stablecoin\

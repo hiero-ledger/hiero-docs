@@ -26,7 +26,7 @@ Get firsthand experience with Stablecoin Studio's capabilities using the open-so
 
 After setting up a [Hedera testnet account](https://portal.hedera.com/), explore creating and managing stablecoins on Hedera through the interactive demo and follow along. Let's get started and explore the three paths for launching the Stablecoin Studio web application:
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><ol><li><a href="https://stablecoinstudio.com/"><strong>Code Sandbox</strong></a></li></ol></td><td>For a quick and effortless start, you can use the pre-configured Code Sandbox environment directly from StablecoinStudio.com. This approach requires no setup and provides a fully functional demo application.</td><td><a href="../../.gitbook/assets/Code Sandbox Icon.png">Code Sandbox Icon.png</a></td><td><a href="https://www.stablecoinstudio.com">https://www.stablecoinstudio.com</a></td></tr><tr><td><ol start="2"><li><a href="https://gitpod.io/new/#https://github.com/hashgraph/stablecoin-studio"><strong>GitPod Instance</strong></a></li></ol></td><td>Another easy way to get started is by launching a GitPod instance, which automates the initial setup and lets you dive into the application immediately. You can skip the p<em>rerequisites</em> and <em>installation</em> steps.</td><td><a href="../../.gitbook/assets/GitPod Icon.png">GitPod Icon.png</a></td><td><a href="https://gitpod.io/#https://github.com/hashgraph/stablecoin-studio">https://gitpod.io/#https://github.com/hashgraph/stablecoin-studio</a></td></tr><tr><td><ol start="3"><li><a href="web-ui-application.md#prerequisites"><strong>Local Environment</strong></a></li></ol></td><td>A more technical method to build and install on your local machine. This guide focuses on this method, walking you through the steps needed to set up your local environment. Start from the first step: Prerequisites.</td><td><a href="../../.gitbook/assets/Local Environment Icon.png">Local Environment Icon.png</a></td><td><a href="web-ui-application.md#prerequisites">#prerequisites</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><ol><li><a href="https://stablecoinstudio.com/"><strong>Code Sandbox</strong></a></li></ol></td><td>For a quick and effortless start, you can use the pre-configured Code Sandbox environment directly from StablecoinStudio.com. This approach requires no setup and provides a fully functional demo application.</td><td><a href="../../.gitbook/assets/stablecoin-code-sandbox-icon.png">stablecoin-code-sandbox-icon.png</a></td><td><a href="https://www.stablecoinstudio.com">https://www.stablecoinstudio.com</a></td></tr><tr><td><ol start="2"><li><a href="https://gitpod.io/new/#https://github.com/hashgraph/stablecoin-studio"><strong>GitPod Instance</strong></a></li></ol></td><td>Another easy way to get started is by launching a GitPod instance, which automates the initial setup and lets you dive into the application immediately. You can skip the p<em>rerequisites</em> and <em>installation</em> steps.</td><td><a href="../../.gitbook/assets/stablecoin-gitpod-icon.png">stablecoin-gitpod-icon.png</a></td><td><a href="https://gitpod.io/#https://github.com/hashgraph/stablecoin-studio">https://gitpod.io/#https://github.com/hashgraph/stablecoin-studio</a></td></tr><tr><td><ol start="3"><li><a href="web-ui-application.md#prerequisites"><strong>Local Environment</strong></a></li></ol></td><td>A more technical method to build and install on your local machine. This guide focuses on this method, walking you through the steps needed to set up your local environment. Start from the first step: Prerequisites.</td><td><a href="../../.gitbook/assets/stablecoin-local-environment-Icon.png">stablecoin-local-environment-Icon.png</a></td><td><a href="web-ui-application.md#prerequisites">#prerequisites</a></td></tr></tbody></table>
 
 ***
 
@@ -99,17 +99,17 @@ npm run start
 
 If the application is successfully run, the web application interface will open in a new browser:
 
-<figure><img src="../../.gitbook/assets/start web ui.png" alt=""><figcaption><p>http://localhost:3000/</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-start.png" alt=""><figcaption><p>http://localhost:3000/</p></figcaption></figure>
 
 Click "Connect your wallet" and select the wallet ([HashPack](https://www.hashpack.app/) or [MetaMask](https://metamask.io/)) and network you want to interact with. For the purposes of this demo, we will use HashPack and select Testnet.
 
 <div>
 
-<figure><img src="../../.gitbook/assets/web connect wallet.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-connect-wallet.png" alt=""><figcaption></figcaption></figure>
 
  
 
-<figure><img src="../../.gitbook/assets/select testnet.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-select-testnet.png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -127,7 +127,7 @@ To initiate the creation of your stablecoin, head to the top of the interface an
 * **Name**: This is where you name your new stablecoin, for example, "NewStableCoin."
 * **Symbol**: Enter a symbol to represent your stablecoin, like "$NSC."
 
-<figure><img src="../../.gitbook/assets/create new stablecoin.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-create-new-sc.png" alt=""><figcaption></figcaption></figure>
 
 #### Optional details
 
@@ -137,7 +137,7 @@ While the basic details are mandatory, you also have an option to further specif
 * **Max Supply**: If you chose 'Finite' in the 'Supply Type,' you might want to set an upper limit.
 * **Decimals**: You can set additional decimal places if you need more precision.
 
-<figure><img src="../../.gitbook/assets/optional details.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-optional-details.png" alt=""><figcaption></figcaption></figure>
 
 #### Manage permissions
 
@@ -147,7 +147,7 @@ If the KYC key is tied to the smart contract and the supply key isn't tied to th
 
 As for ownership settings, by default, the account that initiates the stablecoin creation also becomes the stablecoin proxy admin owner. However, you’re not locked into this default setup. You can alter this by specifying a different account ID during creation. This could be any account, including specialized accounts like a timelock controller for scheduled operations or a cold wallet for enhanced security.
 
-<figure><img src="../../.gitbook/assets/permission management.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-permission-management.png" alt=""><figcaption></figcaption></figure>
 
 #### Proof-of-reserve (PoR)
 
@@ -159,13 +159,13 @@ Choose if the stablecoin will be linked to a Proof of Reserve (PoR) contract. Yo
 
 For those using the project's demo PoR contract, you also have the option to modify its reserve amount. This can be done via the PoR admin account used during the stablecoin's deployment. Because the reserve can be changed arbitrarily in the demo, it's intended for demonstration purposes only.
 
-<figure><img src="../../.gitbook/assets/proof of reserve.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-proof-of-reserve.png" alt=""><figcaption></figcaption></figure>
 
 #### Review
 
 Final validation before creating the stablecoin. Review the stablecoin details and click the "Create stablecoin" button. Validate "Execute Smart Contract" and "Associate Token" transactions in your wallet. Once the stablecoin is created, it will be added to the drop-down list of coins you can access (with the account you used to create the stablecoin).
 
-<figure><img src="../../.gitbook/assets/review.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-review.png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -193,7 +193,7 @@ To carry out an operation, simply click on the corresponding button and follow t
 
 The "Operations" tab in Stablecoin Studio is your hub for managing every aspect of your stablecoin, so make sure you're familiar with the roles and capabilities assigned to your account to leverage the suite of operations available to you fully.
 
-<figure><img src="../../.gitbook/assets/operations.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-operations.png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -214,7 +214,7 @@ Roles you can manage include:
 
 Connect your wallet and select the stablecoin from the drop-down list you want to interact with. Once the stablecoin information loads, head to the "Role management" tab.
 
-<figure><img src="../../.gitbook/assets/role management.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-ui-role-management.png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -226,11 +226,11 @@ This menu option displays stablecoin details and allows the user to update some 
 
 <div>
 
-<figure><img src="../../.gitbook/assets/stablecoin details (1).png" alt=""><figcaption><p>HashScan Explorer link</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-details-webui.png" alt=""><figcaption><p>HashScan Explorer link</p></figcaption></figure>
 
  
 
-<figure><img src="../../.gitbook/assets/hashscan (2).png" alt=""><figcaption><p>HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/stablecoin-hashscan.png" alt=""><figcaption><p>HashScan</p></figcaption></figure>
 
 </div>
 

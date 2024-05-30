@@ -73,7 +73,7 @@ You have options for generating the metadata file. The recommended skill levels 
 
 To create a metadata file in Remix, compile your smart contract and the compiled artifacts will be saved in the `artifacts/` directory and the `<dynamic_hash>.json` metadata file will be under `artifacts/build-info` and used for verification. Alternatively, you can copy and paste it from the Solidity compiler tab. Please see the image below.&#x20;
 
-![](<../../.gitbook/assets/remix metadata.png>)
+![](../../.gitbook/assets/remix-metadata.png)
 
 See the Remix IDE docs for more detailed documentation [here](https://remix-ide.readthedocs.io/en/latest/contract\_metadata.html).
 
@@ -87,7 +87,7 @@ See the Remix IDE docs for more detailed documentation [here](https://remix-ide.
 
 To create the `.json` metadata file with Hardhat, compile the contract using the `npx hardhat compile` command. The compiled artifacts will be saved in the `artifacts/` directory and the `<dynamic_hash>.json` metadata file will be under `artifacts/build-info` and used for verification. See Sourcify Hardhat metadata documentation [here](https://docs.sourcify.dev/docs/metadata/#hardhat).&#x20;
 
-<img src="../../.gitbook/assets/hardhat contract artifacts.png" alt="" data-size="original">
+<img src="../../.gitbook/assets/hardhat-contract-artifacts.png" alt="" data-size="original">
 
 **Note**: The requirement for verification with a contract compiled with Hardhat is only the `build-info` JSON file.
 

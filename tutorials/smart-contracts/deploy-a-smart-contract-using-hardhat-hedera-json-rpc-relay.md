@@ -299,7 +299,7 @@ The `.env` file securely stores environment variables, such as your Hedera netwo
 
 {% tabs %}
 {% tab title="local node" %}
-**Prerequisite**: A Hedera Local Node set up and running ([setup tutorial](../more-tutorials/how-to-set-up-a-hedera-local-node.md)).
+**Prerequisite**: A Hedera Local Node set up and running ([setup tutorial](../local-node/how-to-set-up-a-hedera-local-node.md)).
 
 **Hedera Local Node environment variables**
 
@@ -318,11 +318,11 @@ LOCAL_NODE_ENDPOINT='http://localhost:7546/'
 
 * **`LOCAL_NODE_OPERATOR_PRIVATE_KEY`**: This is your Alias ECDSA hex-encoded private key for your Hedera Local Node. Replace the example value with your actual private key. Once you set up your local node and run the command to start, the accounts list for alias ECDSA private keys will be generated and returned to your console (see screenshot below). Replace the example value with your actual private key.
 
-<figure><img src="../../.gitbook/assets/ecdsa account alias cli.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ecdsa-account-alias-cli.png" alt="" width="563"><figcaption></figcaption></figure>
 
 * **`LOCAL_NODE_ENDPOINT`**: This is the URL endpoint for your Hedera Local Node's JSON-RPC Relay. Typically, this would be your `localhost` followed by the port number (`http://localhost:7546/`).
 
-<figure><img src="../../.gitbook/assets/local node address 7546.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/local-node-address-7546.png" alt="" width="563"><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="testnet" %}
@@ -343,7 +343,7 @@ TESTNET_ENDPOINT='https://testnet.hashio.io/api'
 
 * **`TESTNET_OPERATOR_PRIVATE_KEY`**: This is your ECDSA hex-encoded private key for the Hedera Testnet. Replace the example value with your actual private key.
 
-<figure><img src="../../.gitbook/assets/portal hex (1).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/portal-hex.png" alt="" width="563"><figcaption></figcaption></figure>
 
 
 
@@ -500,7 +500,7 @@ Compiled 1 contract successfully
 
 The compiled artifacts will be saved in the `artifacts/` directory by default, or whatever your [configured artifacts path](https://hardhat.org/hardhat-runner/docs/config#path-configuration) is. The metadata file generated in this directory will be used for the [smart contract verification process](../../core-concepts/smart-contracts/verifying-smart-contracts-beta.md) in a later step.&#x20;
 
-<figure><img src="../../.gitbook/assets/hardhat artifacts metadata file.png" alt="" width="373"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/hardhat-artifacts-metadata-file.png" alt="" width="373"><figcaption></figcaption></figure>
 
 After the initial compilation, if you don't modify any files, nothing will be compiled when you run the `compile` command. To force a compilation you can use the `--force` flag or run `npx hardhat clean` to clear the cache and delete the artifacts to recompile.
 
@@ -522,7 +522,7 @@ Before you deploy your contract, let's ensure you have all the necessary tools o
 * Have Docker open and start your local node.
   * In the `hedera-local-node` terminal, start your local node by running `hedera start -d`.
 
-_**Note**: If you have not set up your Hedera Local Node, you can do so by following_ [_this_](../more-tutorials/how-to-set-up-a-hedera-local-node.md) _tutorial and returning to this step once you complete the setup._
+_**Note**: If you have not set up your Hedera Local Node, you can do so by following_ [_this_](../local-node/how-to-set-up-a-hedera-local-node.md) _tutorial and returning to this step once you complete the setup._
 
 </details>
 
@@ -588,7 +588,7 @@ Greeter deployed to: 0x157B93c04a294AbD88cF608672059814b3ea38aE
 {% tab title="local node" %}
 **Stop Local Node**
 
-Stop your local node and remove Docker containers by running `hedera stop` or `docker compose down` in your `hedera-local-node` terminal. Reference the [_Stop Your Local Node_](../more-tutorials/how-to-set-up-a-hedera-local-node.md#stop-your-local-network) section of the local node setup tutorial.&#x20;
+Stop your local node and remove Docker containers by running `hedera stop` or `docker compose down` in your `hedera-local-node` terminal. Reference the [_Stop Your Local Node_](../local-node/how-to-set-up-a-hedera-local-node.md#stop-your-local-network) section of the local node setup tutorial.&#x20;
 
 #### Deploy on Hedera Testnet
 
@@ -624,7 +624,7 @@ _**Note:** At the top of the explorer page, remember to switch the network to **
 
 **➡** [**Hedera JSON-RPC Relay Repository**](https://github.com/hashgraph/hedera-json-rpc-relay)
 
-**➡** [**Hedera Local Node Setup Tutorial**](../more-tutorials/how-to-set-up-a-hedera-local-node.md)
+**➡** [**Hedera Local Node Setup Tutorial**](../local-node/how-to-set-up-a-hedera-local-node.md)
 
 **➡**[ **Hardhat Documentation**](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
 

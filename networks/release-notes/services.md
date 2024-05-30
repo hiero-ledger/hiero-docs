@@ -6,17 +6,27 @@ description: Hedera Services release information
 
 Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
-## [v0.49](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.0)
+## [v0.50](https://github.com/hashgraph/hedera-services/releases)
 
 {% hint style="info" %}
-**MAINNET UPDATE SCHEDULED: MAY 22, 2024**
+**MAINNET UPDATE SCHEDULED: JUNE 12, 2024**
 {% endhint %}
 
-### [0.49.7](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.7)
+{% hint style="info" %}
+**TESTNET UPDATE SCHEDULED: JUNE 5, 2024**
+{% endhint %}
+
+## [v0.49](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.0)
+
+{% hint style="success" %}
+**MAINNET UPDATE: MAY 22, 2024**
+{% endhint %}
 
 {% hint style="success" %}
 **TESTNET UPDATE: MAY 14, 2024**
 {% endhint %}
+
+### [0.49.7](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.7)
 
 #### What's Changed
 
@@ -34,19 +44,11 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 
 ### [0.49.5](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.5)
 
-{% hint style="success" %}
-**TESTNET UPDATE: MAY 2,2024**
-{% endhint %}
-
 #### What's Changed
 
 * fix: storage link management by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13056](https://github.com/hashgraph/hedera-services/pull/13056)
 
 ### [0.49.1](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.1)
-
-{% hint style="success" %}
-**TESTNET UPDATE: APRIL 24, 2024**
-{% endhint %}
 
 #### What's Changed
 
@@ -56,18 +58,17 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 
 #### What's changed&#x20;
 
-* chore: Update throttles.json by [@rbair23](https://github.com/rbair23) in [#11339](https://github.com/hashgraph/hedera-services/pull/11339)
 * feat: address cold read issue in ExtCodeHash operation by [@lukelee-sl](https://github.com/lukelee-sl) in [#11323](https://github.com/hashgraph/hedera-services/pull/11323)
 * fix: 11348: The fix for 11231 doesn't cover ParsedBucket by [@artemananiev](https://github.com/artemananiev) in [#11349](https://github.com/hashgraph/hedera-services/pull/11349)
 * chore: Create ISS detector component by [@lpetrovic05](https://github.com/lpetrovic05) in [#11075](https://github.com/hashgraph/hedera-services/pull/11075)
 * chore: Add `orderedSolderTo` method to OutputWire by [@poulok](https://github.com/poulok) in [#11330](https://github.com/hashgraph/hedera-services/pull/11330)
 * chore: remove hashgraph demo by [@lpetrovic05](https://github.com/lpetrovic05) in [#11352](https://github.com/hashgraph/hedera-services/pull/11352)
-* feat: Migrate transaction handling to framework by [@alittley](https://github.com/alittley) in [#11144](https://github.com/hashgraph/hedera-services/pull/11144)
-* fix: broken unit test by [@kfa-aguda](https://github.com/kfa-aguda) in [#11233](https://github.com/hashgraph/hedera-services/pull/11233)
-* fix: Return invalid token even if expected decimals are present by [@mhess-swl](https://github.com/mhess-swl) in [#11342](https://github.com/hashgraph/hedera-services/pull/11342)
-* fix: 11298: VirtualMapReconnectTest fails intermittently with path not in range log message by [@artemananiev](https://github.com/artemananiev) in [#11370](https://github.com/hashgraph/hedera-services/pull/11370)
 
 **➡ See the full list of changes** [**here**](https://github.com/hashgraph/hedera-services/releases/tag/v0.49.0)**.**
+
+### **Performance Results**
+
+<figure><img src="../../.gitbook/assets/0.49_Performance Measurement Results_Extract.001.png" alt=""><figcaption></figcaption></figure>
 
 ## [v0.48](https://github.com/hashgraph/hedera-services/releases/tag/v0.48.0)
 
@@ -840,7 +841,7 @@ Approved operators can manage an owner's tokens on their behalf; this is necessa
 
 Any permissions granted in a contract through `approve()` or `setApprovalForAll()` have an equivalent HAPI `cryptoApproveAllowance` or `cryptoDeleteAllowance` expression---and this expression is externalized as a HAPI `TransactionBody` in the record stream. That is, the HIP-376 system contracts expose a subset of the native HAPI operations, only within the EVM.
 
-![](../../.gitbook/assets/hedera-release-0-26-2-performance-measurements.png)
+![](<../../.gitbook/assets/image (2).png>)
 
 ## [v0.25](https://github.com/hashgraph/hedera-services/releases/tag/v0.25.0)
 
@@ -872,7 +873,7 @@ In a harbinger of [more upcoming HTS precompile support](https://hips.hedera.com
 
 * ERC `view` functions now usable in `ContractCallLocalQuery` [#3061](https://github.com/hashgraph/hedera-services/issues/3061)
 
-![](../../.gitbook/assets/hedera-release-0-25-3-performance-measurements.png)
+![](<../../.gitbook/assets/image (11).png>)
 
 ## [v0.24](https://github.com/hashgraph/hedera-services/releases/tag/v0.24.0)
 
@@ -941,7 +942,7 @@ There are two other HIP's included in this release not related to the smart cont
 
 While we are gaining momentum in our smart contracts roadmap, we are also deeply committed to improving the developer experience, and welcome issues and ideas in our [GitHub repository](https://github.com/hashgraph/hedera-services) and [Discord](https://hedera.com/discord)!
 
-![](../../.gitbook/assets/hedera-release-0-22-3-performance-measurements.png)
+![](<../../.gitbook/assets/Performance Measurement Results\_Extract.001 (1).jpeg>)
 
 ## [v0.21.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.21.0-rc.1)
 
@@ -1030,7 +1031,7 @@ Third, please note that the `TokenService` `getTokenNftInfos` and `getAccountNft
 
 Developers will likely appreciate two other release 0.18.1 items. First, we have migrated to [Dagger2](https://dagger.dev/) for dependency injection. Second, there is a new `getExecutionTime` query in the [`NetworkService`](https://hashgraph.github.io/hedera-protobufs/#proto.NetworkService) that supports granular performance testing in development environments.
 
-![](../../.gitbook/assets/hedera-release-0-18-0-performance-measurements.png)
+![](<../../.gitbook/assets/image (3).png>)
 
 ## v0.18.0
 

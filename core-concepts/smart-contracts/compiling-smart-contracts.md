@@ -2,7 +2,7 @@
 
 Compiling a smart contract involves using the contract's source code to generate its [**bytecode**](../../support-and-community/glossary.md#bytecode) and the contract [**Application** **Binary Interface (ABI)**](../../support-and-community/glossary.md#application-binary-interface-abi). The Ethereum Virtual Machine (EVM) executes the bytecode to understand and execute the smart contract. Meanwhile, other smart contracts use the ABI to understand how to interact with the deployed contracts on the Hedera network.
 
-<figure><img src="../../.gitbook/assets/compiling smart contracts image.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/compiling-smart-contracts-graphic.png" alt="" width="375"><figcaption></figcaption></figure>
 
 **Compiling Solidity**
 

@@ -321,15 +321,15 @@ public class HederaExamples {
 {% code title="index.js" %}
 ```javascript
 const {
+  Hbar,
   Client,
   PrivateKey,
-  AccountCreateTransaction,
   AccountBalanceQuery,
-  Hbar,
+  AccountCreateTransaction,
 } = require("@hashgraph/sdk");
 require("dotenv").config();
 
-async function environmentSetup() {
+async function createAccount() {
   // Grab your Hedera testnet account ID and private key from your .env file
   const myAccountId = process.env.MY_ACCOUNT_ID;
   const myPrivateKey = process.env.MY_PRIVATE_KEY;
@@ -380,7 +380,7 @@ async function environmentSetup() {
 
   return newAccountId;
 }
-environmentSetup();
+createAccount();
 ```
 {% endcode %}
 

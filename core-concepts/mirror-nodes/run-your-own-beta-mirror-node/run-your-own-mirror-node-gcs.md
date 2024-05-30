@@ -100,7 +100,7 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 \dt
 ```
 
-![](<../../../.gitbook/assets/mirror-node-database-tables (1).png>)
+![](<../../../.gitbook/assets/image (4).png>)
 
 * To exit the `psql` console, run the quit command:
 
