@@ -32,7 +32,7 @@ The smart contract platform is upgraded to support the EVM visible changes for t
 
 Starting in the Hedera Services [`0.22`](../../../networks/release-notes/services.md#v0.22) release, the intrinsic gas cost and input data will be charged. The intrinsic gas cost is a constant that is charged before any code is executed. The intrinsic gas cost is 21,000 gas. The input data is 16 gas per non-zero byte and 4 gas per zero byte. The input data is the data provided to the external contract function parameters when calling a contract. To learn more about gas fees, check out this [page](https://www.notion.so/hedera/core-concepts/smart-contracts/gas-and-fees).
 
-### EVM Opcodes
+### Solidity Variables and Opcodes
 
 The list of supported Opcodes for the Shanghai hard fork can be found [here](https://www.evm.codes/).
 
@@ -50,108 +50,21 @@ _The JSON RPC Relay **`msg.value`** uses 18 decimals when it returns HBAR._ This
 
 ## Limitation on `fallback()` / `receive()` Functions in Hedera Smart Contracts
 
-While developing smart contracts on the Hedera network, it's crucial to note some behavioral differences compared to other networks like Ethereum. When a Hedera smart contract receives HBAR through a crypto transfer, the contract's `fallback()` and `receive()` functions **do not get triggered**.&#x20;
+When developing smart contracts on Hedera, it's important to understand that the `fallback()` and `receive()` functions **do not** get triggered when a contract receives HBAR via a crypto transfer.
 
-In a typical smart contract on Ethereum,  `fallback()` and `receive()` functions serve as "catch-all" mechanisms that execute when the contract receives the native cryptocurrency (Ether in Ethereum's case). Here are the impacted variables for Hedera smart contracts and their _usual_ expected values:
+In Ethereum, these functions act as "catch-all" mechanisms when a contract receives Ether. In Hedera, however, contract balances may change through native HAPI operations, independent of EVM message calls, making it impossible to maintain balance-related invariants with just the `fallback()` or `receive()` methods.
+
+#### Impacted Variables
 
 * **`msg.sender`:** The address initiating the contract call.
 * **`msg.value`:** The amount of HBAR sent along with the call.
 
-Because the contract's balance may change through native HAPI operations, independent of EVM message calls, it is not possible to preserve balance-related invariants simply by implementing the `receive()` or `fallback()` methods. This is an important design consideration. Users who want the option to entirely disable native operations against their contract are invited to contribute a [Hedera Improvement Proposal (HIP)](https://hips.hedera.com/) for this feature.
+#### Key Points
 
-Understanding this limitation is crucial for anyone developing smart contracts on Hedera, especially for those who have deployed smart contracts on Ethereum. Developers should implement explicit functions to manage HBAR transfers, given that `fallback()` and `receive()` functions do not trigger in such scenarios.
+* Developers should implement explicit functions to handle HBAR transfers.
+* To disable native operations entirely, consider submitting a [Hedera Improvement Proposal (HIP)](https://hips.hedera.com/).
 
-***
-
-## Gas
-
-When executing the smart contract, the EVM requires the amount of work to be paid in gas. The “work” includes computation, state transitions, and storage. Gas is the unit of measurement used to charge a fee per opcode that is executed by the EVM. Each opcode code has a defined gas cost. Gas reflects the cost necessary to pay for the computational resources used to process transactions.
-
-### **Weibar**
-
-The EVM returns gas information in Weibar (introduced in [HIP-410](https://hips.hedera.com/hip/hip-410)). One weibar is 10^-18th HBAR, which translates to 1 tinybar is 10^10 weibars. As noted in HIP-410, this is to maximize compatibility with third-party tools that expect ether units to be operated on in fractions of 10^18, also known as a Wei.
-
-### **Gas Schedule and Fees**
-
-Gas fees paid for EVM transactions on Hedera can be composed of three different kinds of gas costs:
-
-* Intrinsic Gas
-* EVM opcode Gas
-* Hedera System Contract Gas
-
-<table><thead><tr><th width="226">Gas Fee Type</th><th>Description</th></tr></thead><tbody><tr><td><strong>Intrinsic Gas</strong></td><td>The minimum amount of gas required to execute a transaction. It is a fixed gas cost that is independent of the specific operations or computations performed within the transaction.<br><br>Intrinsic gas cost: 21,000 gas</td></tr><tr><td><strong>EVM Operation Code</strong></td><td>The gas required to execute the defined operation code(s) for the smart contract call</td></tr><tr><td><strong>Hedera System Contract Transaction</strong></td><td><p>The required gas that is associated with a Hedera-defined transaction like using the Hedera Token Service system contract that allows you to burn (<code>TokenBurnTransaction</code>) or mint (<code>TokenMintTransaction</code>) a token.</p><p></p><p>If you are not using a system contract that maps to one of the native Hedera services, you do not need to apply this fee.</p><p></p><p>The Hedera transaction gas calculation is: Cost of the transaction in USD x Gas Conversion gas/USD + 20%</p><p>Example System Contracts:</p><ul><li>Hedera Token Service</li><li>Pseudo Random Number Generator (PRNG)</li><li>Exchange Rate</li></ul></td></tr></tbody></table>
-
-### Gas Limit
-
-The gas limit is the maximum amount of gas you are willing to pay for an operation.
-
-The current opcode gas fees are reflective of the [0.22 Hedera Service release](https://docs.hedera.com/hedera/networks/release-notes/services#v0.22).
-
-| Operation                                                               | Shanghai Cost (Gas)                    | Current Hedera (Gas)                   |
-| ----------------------------------------------------------------------- | -------------------------------------- | -------------------------------------- |
-| Code deposit                                                            | 200 \* bytes                           | <p>Max of Shanghai<br>or Hedera</p>    |
-| <p><code>BALANCE</code><br>(cold account)</p>                           | 2600                                   | 2600                                   |
-| <p><code>BALANCE</code><br>(warm account)</p>                           | 100                                    | 100                                    |
-| `EXP`                                                                   | 10 + 50/byte                           | 10 + 50/byte                           |
-| <p><code>EXTCODECOPY</code><br>(cold account)</p>                       | 2600 + Mem                             | 2600 + Mem                             |
-| <p><code>EXTCODECOPY</code><br>(warm account)</p>                       | 100 + Mem                              | 100 + Mem                              |
-| <p><code>EXTCODEHASH</code><br>(cold account)</p>                       | 2600                                   | 2600                                   |
-| <p><code>EXTCODEHASH</code><br>(warm account)</p>                       | 100                                    | 100                                    |
-| <p><code>EXTCODESIZE</code><br>(cold account)</p>                       | 2600                                   | 2600                                   |
-| <p><code>EXTCODESIZE</code><br>(warm account)</p>                       | 100                                    | 100                                    |
-| <p><code>LOG0, LOG1, LOG2,</code><br><code>LOG3, LOG4</code></p>        | <p>375 + 375*topics<br>+ data Mem</p>  | <p>Max of Shanghai<br>or Hedera</p>    |
-| <p><code>SLOAD</code><br>(cold slot)</p>                                | 2100                                   | 2100                                   |
-| <p><code>SLOAD</code><br>(warm slot)</p>                                | 100                                    | 100                                    |
-| <p><code>SSTORE</code><br>(new slot)</p>                                | 22,100                                 | <p>Max of Shanghai<br>or Hedera</p>    |
-| <p><code>SSTORE</code><br>(existing slot,<br>cold access)</p>           | 2,900                                  | 2,900                                  |
-| <p><code>SSTORE</code><br>(existing slot,<br>warm access)</p>           | 100                                    | 100                                    |
-| <p><code>SSTORE</code><br>refund</p>                                    | <p>Only transient<br>storage slots</p> | <p>Only transient<br>storage slots</p> |
-| <p><code>CALL</code> <em>et al</em>.<br>(cold recipient)</p>            | 2,600                                  | 2,600                                  |
-| <p><code>CALL</code> <em>et al</em>.<br>(warm recipient)</p>            | 100                                    | 100                                    |
-| <p><code>CALL</code> <em>et al</em>.<br>Hbar/Eth Transfer Surcharge</p> | 9,000                                  | 9,000                                  |
-| <p><code>CALL</code> <em>et al</em>.<br>New Account Surcharge</p>       | 25,000                                 | _revert_                               |
-| <p><code>SELFDESTRUCT</code><br>(cold beneficiary)</p>                  | 2600                                   | 2600                                   |
-| <p><code>SELFDESTRUCT</code><br>(warm beneficiary)</p>                  | 0                                      | 0                                      |
-
-The terms 'warm' and 'cold' in the above table correspond with whether the account or storage slot has been read or written to within the current smart contract transaction, even if within a child call frame.
-
-'`CALL` _et al._' includes with limitation: `CALL`, `CALLCODE`, `DELEGATECALL`, and `STATICCALL`
-
-Reference: [HIP-206](https://hips.hedera.com/hip/hip-206)
-
-### Gas Per Second Throttling
-
-Most EVM-compatible networks place a gas limit per block to manage resource allocation. This is done to place a limit on the amount of time spent in block validation so that the miner nodes can produce new nodes quickly. While Hedera does not have blocks or miners, in the context of how a [Nakamoto consensus](https://golden.com/wiki/Nakamoto\_consensus-AMB5VWM) system would use it, we are constrained by the physics of time as to how many blocks we can process.
-
-For smart contract transactions, gas is a better measure of the complexity of the EVM transaction than counting all transactions the same, so metering the limits on gas provides a more reasonable limit on resource consumption.
-
-To allow for more flexibility in what transactions we accept and to mirror Ethereum Mainnet behavior, the transaction limits will be calculated on a per-gas basis for smart contract calls (`ContractCreate`, `ContractCall`, `ContractCallLocalQuery`) in addition to a per-transaction limit. This dual approach allows for better resource management, providing a nuanced way to regulate smart contract executions.&#x20;
-
-The Hedera network has implemented a system gas throttle of **15 million gas per second** in the Hedera Service release [0.22](../../../networks/release-notes/services.md#v0.22).&#x20;
-
-### Gas Reservation and Unused Gas Refund
-
-Hedera throttles transactions prior to consensus, and nodes limit the number of transactions they can submit to the network. Then, at consensus time, if the maximum number of transactions is exceeded, the excess transactions are not evaluated and are canceled with a busy state. Throttling by variable gas amounts provides some challenges to this system, where the nodes only submit a share of their transaction limit.
-
-To address this, throttling will be based on a two-tiered gas measuring system: pre-consensus and post-consensus. Pre-consensus throttling will use the `gasLimit` field specified in the transaction. Post-consensus will use the actual evaluated amount of gas consumed by the transaction, allowing for dynamic adjustments in the system. It is impossible to know the _actual_ evaluated gas pre-consensus because the network state can directly impact the flow of the transaction, which is why pre-consensus uses the `gasLimit` field and will be referred to as the **gas reservation**.
-
-Contract query requests are unique and bypass the consensus stage altogether. These requests are executed solely on the local node that receives them and only influences that specific node's precheck throttle. On the other hand, standard contract transactions go through both the precheck and consensus stages and are subject to both sets of throttle limits. The throttle limits for precheck and consensus may be set to different values.
-
-In order to ensure that the transactions can execute properly, setting a higher gas reservation than will be consumed by execution is common. On Ethereum Mainnet, the entire reservation is charged to the account prior to execution, and the unused portion of the reservation is credited back. However, Ethereum utilizes a memory pool ([mempool](../../../support-and-community/glossary.md#mempool)) and does transaction ordering at block production time, allowing the block limit to be based only on used and not reserved gas.
-
-To help prevent over-reservation, Hedera restricts the amount of unused gas that can be refunded to a maximum of 20% of the original gas reservation. This effectively means that users will be charged for at least 80% of their initial reservation, regardless of actual usage. This rule is designed to incentivize users to make more accurate gas estimates.
-
-For example, if you initially reserve 5 million gas units for creating a smart contract but end up using only 2 million, Hedera will refund you 1 million gas units, i.e., 20% of your initial reservation. This setup aims to balance the network's resource management while incentivizing users to be as accurate as possible in their gas estimations.
-
-### Maximum Gas Per Transaction
-
-Because consensus time execution is now limited by actual gas used and not based on a transaction count, raising the gas limit available for each transaction is safe. Prior to gas-based metering, it would be possible for each transaction to consume the maximum gas per transaction without regard to the other transactions, so limits were based on this worst-case scenario. Now that throttling is the aggregate gas used, we can allow each transaction to consume large amounts of gas without concern for an extreme surge.
-
-When a transaction is submitted to a node with a `gasLimit` that is greater than the per-transaction gas limit, the transaction must be rejected during precheck with a response code of `INDIVIDUAL_TX_GAS_LIMIT_EXCEEDED`. The transaction must not be submitted to consensus.
-
-Gas throttle per contract call and contract create **15 million gas per second**.
-
-Reference: [HIP-185](https://hips.hedera.com/hip/hip-185)
+Understanding these differences is crucial for anyone developing smart contracts on Hedera, particularly those familiar with Ethereum.
 
 ***
 
