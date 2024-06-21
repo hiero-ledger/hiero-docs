@@ -1,6 +1,6 @@
 # Delete an allowance
 
-A transaction called by the token owner to delete allowances for NFTs only. In order to delete an existing HBAR  or fungible token allowance the `AccountAllowanceApproveTransaction` API should be used with an `amount` of 0.
+A transaction that deletes one or more non-fungible approved allowances from an owner's account. This operation will remove the allowances granted to one or more specific non-fungible token serial numbers. Each owner account listed as wiping an allowance must sign the transaction. HBAR and fungible token allowances can be removed by setting the amount to zero in `CryptoApproveAllowance`.
 
 The total number of NFT serial number deletions within the transaction body cannot exceed 20.
 

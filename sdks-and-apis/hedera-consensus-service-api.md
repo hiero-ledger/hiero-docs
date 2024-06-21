@@ -7,6 +7,16 @@ description: >-
 
 # Hedera Consensus Service gRPC API
 
+{% hint style="warning" %}
+#### Important Notice: Deprecation of the Insecure Hedera Consensus Service (HCS) Mirror Node Endpoints
+
+We are phasing out the legacy Hedera Consensus Service (HCS) mirror node endpoints. The APIs have transitioned from the legacy _hcs_.&#x20;
+
+`<env>.mirrornode.hedera.com:5600` endpoints to the new `<env>.mirrornode.hedera.com:443` endpoints.
+
+For more details, please read our [blog post announcement](https://hedera.com/blog/deprecation-of-the-insecure-hedera-consensus-service-hcs-mirror-node-endpoints).
+{% endhint %}
+
 {% hint style="info" %}
 **HCS Mirror Node Endpoints:**\
 **PREVIEWNET:** previewnet.mirrornode.hedera.com:443\

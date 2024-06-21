@@ -10,17 +10,19 @@ The Hedera JSON RPC Relay **`msg.value`** uses 18 decimals when it returns HBAR.
 
 Anyone in the community can set up their own JSON RPC relay that applications can use to deploy, query, and execute smart contracts. The list of community-hosted Hedera JSON RPC relays and endpoints for previewnet, testnet, and mainnet can be found in the table below and in their associated docs or website.&#x20;
 
+#### JSON-RPC Relay Endpoints
+
 <table><thead><tr><th width="132">Network</th><th width="96" align="center">Chain ID</th><th width="266" align="center">Hashio RPC URL</th><th align="center">thirdweb RPC URL</th></tr></thead><tbody><tr><td><strong>Mainnet</strong></td><td align="center">295</td><td align="center"><a href="https://mainnet.hashio.io/api">https://mainnet.hashio.io/api</a></td><td align="center"><a href="https://295.rpc.thirdweb.com">https://295.rpc.thirdweb.com</a></td></tr><tr><td><strong>Testnet</strong></td><td align="center">296</td><td align="center"><a href="https://testnet.hashio.io/api">https://testnet.hashio.io/api</a></td><td align="center"><a href="https://296.rpc.thirdweb.com">https://296.rpc.thirdweb.com</a></td></tr><tr><td><strong>Previewnet</strong></td><td align="center">297</td><td align="center"><a href="https://previewnet.hashio.io/api">https://previewnet.hashio.io/api</a></td><td align="center"><a href="https://297.rpc.thirdweb.com">https://297.rpc.thirdweb.com</a></td></tr></tbody></table>
 
 <table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>Hashio</strong></td><td><a href="../../../.gitbook/assets/hashio (1).png">hashio (1).png</a></td><td><a href="https://swirldslabs.com/hashio/">https://swirldslabs.com/hashio/</a></td></tr><tr><td align="center"><strong>Arkhia</strong></td><td><a href="../../../.gitbook/assets/arkhia-logo.png">arkhia-logo.png</a></td><td><a href="https://www.arkhia.io/features/#api-services">https://www.arkhia.io/features/#api-services</a></td></tr><tr><td align="center"><strong>Validation Cloud</strong></td><td><a href="../../../.gitbook/assets/validation cloud logo.png">validation cloud logo.png</a></td><td><a href="https://docs.validationcloud.io/about/hedera/json-rpc-relay-api">https://docs.validationcloud.io/about/hedera/json-rpc-relay-api</a></td></tr><tr><td align="center"><strong>thirdweb</strong></td><td><a href="../../../.gitbook/assets/thirdweb-logo.jpg">thirdweb-logo.jpg</a></td><td><a href="https://thirdweb.com/hedera">https://thirdweb.com/hedera</a></td></tr></tbody></table>
 
-{% content-ref url="../../../tutorials/more-tutorials/json-rpc-connections/" %}
-[json-rpc-connections](../../../tutorials/more-tutorials/json-rpc-connections/)
-{% endcontent-ref %}
-
 {% hint style="info" %}
 **Note:** If you want to add your own hosted JSON-RPC relay to this list, please open an issue in the [Hedera docs GitHub repository](https://github.com/hashgraph/hedera-docs). Please be sure to visit the community-hosted websites to review any limitations specific to their instance.&#x20;
 {% endhint %}
+
+{% content-ref url="../../../tutorials/more-tutorials/json-rpc-connections/" %}
+[json-rpc-connections](../../../tutorials/more-tutorials/json-rpc-connections/)
+{% endcontent-ref %}
 
 ## FAQ
 

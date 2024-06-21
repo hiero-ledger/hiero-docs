@@ -56,7 +56,7 @@ To get started with using HashioDAO, complete these prerequisites:
 * [Download](https://www.hashpack.app/download) the HashPack wallet extension.
 
 {% hint style="info" %}
-📣 **Note**: The cost of creating a DAO is 1 HBAR. It is recommended that you test out the features of [HashioDAO on Hedera Testnet](https://dao.zilbo.com/) first. This is where you can experiment and familiarize yourself with the platform before jumping into [HashioDAO on Hedera Mainnet](https://hashiodao.swirldslabs.com/).&#x20;
+📣 **Note**: The cost of creating a DAO is 1 HBAR. It is recommended that you test out the features of [HashioDAO on Hedera Testnet](https://dao.web3nomad.org/) first. This is where you can experiment and familiarize yourself with the platform before jumping into [HashioDAO on Hedera Mainnet](https://hashiodao.swirldslabs.com/).&#x20;
 {% endhint %}
 
 Once you have completed the above, choose the governance model and follow the steps to create your first:

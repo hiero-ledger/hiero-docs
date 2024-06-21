@@ -2,7 +2,7 @@
 
 ## Hedera vs Ethereum
 
-While Hedera strives for EVM equivalence, it's important to recognize certain unique aspects and fundamental differences in its network architecture and operations, such as handling state data structures, hashing algorithms, and managing accounts and transactions. These distinctions in network behaviors are intentional design choices made to align with EVM standards, thereby achieving EVM compatibility. This approach ensures that while Hedera aligns closely with Ethereum, it also maintains its distinctive features and optimization.
+While Hedera strives for EVM equivalence, it's important to recognize certain unique aspects and fundamental differences in its network architecture and operations, such as the handling of state data structures, hashing algorithms, and the management of accounts and transactions. These distinctions in network behaviors are intentional design choices made to align with EVM standards, thereby achieving EVM compatibility. This approach ensures that while Hedera aligns closely with Ethereum, it also maintains its distinctive features and optimization.
 
 ### Network and Security Differences
 
