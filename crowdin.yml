@@ -1,3 +1,8 @@
 files:
   - source: '*.md'
     translation: '%two_letters_code%/%original_path%/%original_file_name%'
+
+
+  - name: crowdin-action
+    uses: crowdin/github-action@v2.0.0
+            
