@@ -101,7 +101,7 @@ The exchange rate contract allows you to convert from tinycents to tinybars and 
 
 | Contract Address | Source                                                                                                                                                                                               |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0x168            | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/exchange-rate](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/exchange-rate) |
+| `0x168`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/exchange-rate](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/exchange-rate) |
 
 **Example ⬇**
 
@@ -149,7 +149,7 @@ The [Hedera Token Service](../../support-and-community/glossary.md#hedera-token-
 
 | Contract Address | Source                                                                                                                                                                                                             |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 0x167            | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-token-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-token-service) |
+| `0x167`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-token-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-token-service) |
 
 **Example ⬇**
 
@@ -975,7 +975,7 @@ The `PRNG` system contract allows you to generate a pseudo-random number that ca
 
 | Contract Address | Source                                                                                                                                                                                                                                 |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0x169            | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/pseudo-random-number-generator](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/pseudo-random-number-generator) |
+| `0x169`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/pseudo-random-number-generator](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/pseudo-random-number-generator) |
 
 **Example ⬇**
 

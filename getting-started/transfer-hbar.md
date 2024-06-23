@@ -155,8 +155,8 @@ public class HederaExamples {
         client.setOperator(myAccountId, myPrivateKey);
   
         // Set default max transaction fee & max query payment
-        client.setMaxTransactionFee(new Hbar(100));
-        client.setMaxQueryPayment(new Hbar(50));
+        client.setDefaultMaxTransactionFee(new Hbar(100));
+        client.setDefaultMaxQueryPayment(new Hbar(50));
 
         // Generate a new key pair
         PrivateKey newAccountPrivateKey = PrivateKey.generateED25519();
@@ -209,7 +209,7 @@ const {
 } = require("@hashgraph/sdk");
 require("dotenv").config();
 
-async function transferHbar() {
+async function environmentSetup() {
   // Grab your Hedera testnet account ID and private key from your .env file
   const myAccountId = process.env.MY_ACCOUNT_ID;
   const myPrivateKey = process.env.MY_PRIVATE_KEY;
@@ -271,7 +271,7 @@ async function transferHbar() {
       transactionReceipt.status.toString()
   );
 }
-transferHbar();
+environmentSetup();
 ```
 {% endcode %}
 

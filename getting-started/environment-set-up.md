@@ -454,6 +454,8 @@ public class HederaExamples {
         // Set default max transaction fee &#x26; max query payment
         client.setDefaultMaxTransactionFee(new Hbar(100)); 
         client.setMaxQueryPayment(new Hbar(50)); 
+        
+        System.out.println("Client setup complete.");
     }
 }
 </code></pre>
@@ -496,6 +498,8 @@ async function environmentSetup() {
 
   //Set the maximum payment for queries (in Hbar)
   client.setDefaultMaxQueryPayment(new Hbar(50));
+  
+  console.log("Client setup complete.");
 }
 environmentSetup();
 ```
@@ -545,6 +549,8 @@ func main() {
 	// Set default max transaction fee & max query payment
 	client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
 	client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
+	
+	fmt.Println(“Client setup complete.”)
 }
 ```
 {% endcode %}
