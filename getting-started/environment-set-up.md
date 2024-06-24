@@ -176,10 +176,16 @@ Your project structure should look something like this:
 {% endtab %}
 
 {% tab title="Go" %}
-Create a `hedera_examples.go` file in `hedera-go-examples` directory. You will write all of your code in this file.
+Create a `hedera_examples.go` file in `hedera-go-examples` root directory. You will write all of your code in this file.
 
 ```bash
 touch hedera_examples.go
+```
+
+Create the Go "module" file by running the below command. The `go.mod` file defines the module's properties and dependencies and provides a way to manage versioning for Go projects.
+
+```go
+go mod init hedera_examples.go
 ```
 
 Install the [Go SDK](https://github.com/hashgraph/hedera-sdk-go):
