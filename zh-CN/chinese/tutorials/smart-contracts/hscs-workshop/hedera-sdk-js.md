@@ -32,7 +32,7 @@ At the time of writing, July 2023, these Hedera SDKs are available in the follow
 - [Hedera SDK Go](https://github.com/hashgraph/hedera-sdk-go)
 - [Hedera SDK Swift](https://github.com/hashgraph/hedera-sdk-swift)
 
-Please refer to [SDKs](../../../hedera/sdks-and-apis/sdks/) for an up to date list of SDKs, including additional community-maintained SDKs.
+Please refer to [SDKs](https://github.com/theekrystallee/hedera-docs/blob/master/hedera/sdks-and-apis/sdks/README.md) for an up to date list of SDKs, including additional community-maintained SDKs.
 
 </details>
 
@@ -40,7 +40,7 @@ In this tutorial, you will be using Hedera SDK JS to interact with HSCS. Specifi
 
 ## Prerequisites
 
-- ✅ Complete the [Introduction](00-intro.md) section of this same tutorial.
+- ✅ Complete the [Introduction](https://github.com/theekrystallee/hedera-docs/blob/master/tutorials/smart-contracts/hscs-workshop/00-intro.md) section of this same tutorial.
 
 ## Set up the project
 
@@ -509,7 +509,7 @@ The `totalBurnt` is a `view` function, and to invoke that, let's use `ContractCa
 Once the `ContractCallQuery` is executed, extract the its return value using the getter function with the appropriate type. Since the `totalBurnt` function specifies `returns(uint256)` in its signature, use `getUint256()` to extract that return value.
 
 {% hint style="info" %}
-The `ContractCallQuery` has `setQueryPayment`, which is to pay for the costs of querying the data. Note that this is different from other EVM-compatible networks, which allow you to query smart contract state without paying any fee.\
+The `ContractCallQuery` has `setQueryPayment`, which is to pay for the costs of querying the data. Note that this is different from other EVM-compatible networks, which allow you to query smart contract state without paying any fee.\\
 
 - [Ref: Hedera - Get the cost of requesting the query](https://docs.hedera.com/hedera/getting-started/query-data#get-the-cost-of-requesting-the-query)
   {% endhint %}
