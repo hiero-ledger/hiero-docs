@@ -1,0 +1,13 @@
+# SemanticVersion
+
+Hedera follows semantic versioning ([https://semver.org/](https://semver.org/)) for both the HAPI protobufs and the Services software. This type allows the getVersionInfo query in the NetworkService to return the deployed versions of both protobufs and software on the node answering the query.
+
+| Field   | Type   | Description                                                                                                                                                                                                                                                                                                    |
+| ------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `major` | int32  | Increases with incompatible API changes                                                                                                                                                                                                                                                                        |
+| `minor` | int32  | Increases with backwards-compatible new functionality                                                                                                                                                                                                                                                          |
+| `patch` | int32  | Increases with backwards-compatible bug fixes                                                                                                                                                                                                                                                                  |
+| `pre`   | string | A pre-release version MAY be denoted by appending a hyphen and a series of dot separated identifiers ([https://semver.org/#spec-item-9](https://semver.org/#spec-item-9)); so given a semver 0.14.0-alpha.1+21AF26D3, this field would contain 'alpha.1'                                                       |
+| `build` | build  | Build metadata MAY be denoted by appending a plus sign and a series of dot separated identifiers immediately following the patch or pre-release version ([https://semver.org/#spec-item-10](https://semver.org/#spec-item-10)); so given a semver 0.14.0-alpha.1+21AF26D3, this field would contain '21AF26D3' |
+
+####
