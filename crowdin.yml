@@ -1,6 +1,3 @@
 files:
   - source: '*.md'
-    translation: '%two_letters_code%/%original_path%/%original_file_name%'
-    
-  - source: '*.md'
     translation: '%language%/%original_path%/%original_file_name%'
