@@ -153,15 +153,15 @@ Note that while the `.abi` file is human-readable, the `.bin` file is _not inten
 1. Sign up for an account at [`auth.arkhia.io/signup`](https://auth.arkhia.io/signup). If prompted, click on the link in your confirmation email.
 2. Click on the <mark style="background-color:yellow;">**`+`**</mark><mark style="background-color:yellow;">`CREATE PROJECT`</mark> button in the top-right corner of the Arkhia dashboard.
 
-[![](../../.gitbook/assets/hello-world--hscs--arkhia-01-create-project.png)](../../.gitbook/assets/hello-world--account--arkhia-01-create-project.png)
+[![](../../.gitbook/assets/hello-world--hscs--arkhia-01-create-project.png)](https://github.com/theekrystallee/hedera-docs/blob/master/.gitbook/assets/hello-world--account--arkhia-01-create-project.png)
 
 3. Fill in whatever you like in the modal dialog that pops up.
 
-[![](../../.gitbook/assets/hello-world--hscs--arkhia-02-project-form.png)](../../.gitbook/assets/hello-world--account--arkhia-02-project-form/)
+[![](../../.gitbook/assets/hello-world--hscs--arkhia-02-project-form.png)](https://github.com/theekrystallee/hedera-docs/blob/master/.gitbook/assets/hello-world--account--arkhia-02-project-form/README.md)
 
 4. Click on the "Manage" button on the right side of your newly created project.
 
-[<img src="../../.gitbook/assets/hello-world--hscs--arkhia-03-manage-project.png" alt="" data-size="original">](../../.gitbook/assets/hello-world--account--arkhia-03-manage-project/)
+[<img src="../../.gitbook/assets/hello-world--hscs--arkhia-03-manage-project.png" alt="" data-size="original">](https://github.com/theekrystallee/hedera-docs/blob/master/.gitbook/assets/hello-world--account--arkhia-03-manage-project/README.md)
 
 Now, you should see the project details.
 
