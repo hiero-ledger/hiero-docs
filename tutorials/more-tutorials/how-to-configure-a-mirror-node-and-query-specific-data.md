@@ -103,7 +103,7 @@ Here's a breakdown of what each section of the configuration file does:
 * **`mirror`**: This is a sub-section that pertains specifically to the Mirror node.
 * **`importer`**: This sub-section defines settings for the Mirror node's importer, which is responsible for retrieving transaction data from the network and storing it in a local database for querying.
 * **`importer.network: DEMO`**: This specifies that the importer should connect to a bucket with demo data. It's the easiest way to experiment with the mirror node and importer. If you want to connect to the `TESTNET`, `MAINNET`, or `PREVIEWNET`, you need to follow this [tutorial](../../core-concepts/mirror-nodes/run-your-own-beta-mirror-node/).
-* **`importer.retention`**: This sub-section specifies the retention period and frequency for importing data. In this case, the importer will clean data that is older than 90 days every 60 seconds. If you omit the `frequency` key, the default behavior for cleaning data is once a day.&#x20;
+* **`importer.retention`**: This sub-section specifies the retention period and frequency for importing data. In this case, the importer will clean data that is older than 90 days every 60 seconds. If you omit the `frequency` key, the default behavior for cleaning data is once a day.
 * **`importer.retention.include`**: This specifies the database tables that should be included in the imported data. The tables specified are **`transaction`** and **`crypto_transfer`**. You can find all tables in the [GitHub repository](https://github.com/hashgraph/hedera-mirror-node/blob/main/hedera-mirror-importer/src/main/resources/db/migration/v2/V2.0.0\_\_create\_tables.sql) for the mirror node.
 * **`parser`**: This sub-section defines settings for the data parser, which determines the data that gets stored in the database or the data that should be filtered.
 * **`parser.exclude`**: This specifies the entities or transaction types that should be excluded from the imported data. In this case, the **`parser.exclude.entity`** with ID **`0.0.111478`** is excluded.
@@ -190,7 +190,7 @@ Now the database is ready, let's import demo data. Run the importer in the same 
 
 This process may take some time, but once you see this in your console and the process is at 92%, you kill the process with `control + c`. If you let the process run, it will import more data that you don't need for this tutorial.
 
-<figure><img src="../../.gitbook/assets/mirror-node-importer-hedera-console.png" alt=""><figcaption><p>Mirror Importer process console</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/importer hedera console (1).png" alt=""><figcaption><p>Mirror Importer process console</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Note:** Should you encounter an error during this step or if the command doesn't execute successfully, it's recommended to run the command again.
@@ -231,7 +231,7 @@ In this section, you can try out multiple queries that show you how to retrieve 
 Most queries include the field **`type`** which refers to a transaction type, e.g. **11** refers to`CRYPTOCREATEACCOUNT`and **14** refers to`CRYPTOTRANSFER`. The most common transaction types are:
 
 * Type 7: `CONTRACTCALL`
-* Type  11: `CRYPTOCREATEACCOUNT`
+* Type 11: `CRYPTOCREATEACCOUNT`
 * Type 14: `CRYPTOTRANSFER`
 * Type 24: `CONSENSUSCREATETOPIC`
 * Type 27: `CONSENSUSSUBMITMESSAGE`

@@ -1,6 +1,6 @@
 # CLI Management
 
-The Command Line Interface (CLI) is a core component of Stablecoin Studio and essential for developers aiming to streamline stablecoin management. This guide takes you from installing the SDK and CLI to customizing your config file and initiating stablecoin creation via CLI commands. Whether you're just getting started or already familiar with stablecoin management, this documentation provides the resources to navigate and optimize your stablecoin operations effectively.&#x20;
+The Command Line Interface (CLI) is a core component of Stablecoin Studio and essential for developers aiming to streamline stablecoin management. This guide takes you from installing the SDK and CLI to customizing your config file and initiating stablecoin creation via CLI commands. Whether you're just getting started or already familiar with stablecoin management, this documentation provides the resources to navigate and optimize your stablecoin operations effectively.
 
 ***
 
@@ -56,7 +56,7 @@ by Ed Marquez
 
 ## Configure CLI
 
-To use the CLI correctly, it is necessary to generate a configuration file where the default network, their associated accounts, and the factory contract ID will be included. These parameters can be modified later on.&#x20;
+To use the CLI correctly, it is necessary to generate a configuration file where the default network, their associated accounts, and the factory contract ID will be included. These parameters can be modified later on.
 
 #### Create a config file
 
@@ -67,13 +67,13 @@ cd stablecoin-studio/cli
 accelerator wizard
 ```
 
-The first time you execute the `wizard` command in your terminal, if you haven't added your default configuration path, the interface will prompt you to "Write your config path." To use the default configuration path, hit `enter`. This will walk you through the prompts where you will input your configuration settings and create your `hsca-config-yaml` file.&#x20;
+The first time you execute the `wizard` command in your terminal, if you haven't added your default configuration path, the interface will prompt you to "Write your config path." To use the default configuration path, hit `enter`. This will walk you through the prompts where you will input your configuration settings and create your `hsca-config-yaml` file.
 
 Let's go over the configuration details:
 
 **`defaultNetwork`**
 
-This sets the default network the application will connect to when it starts. It’s essential for defining the environment where transactions will occur (e.g., `testnet` for testing, `mainnet` for production). We will be using `testnet` for this tutorial. &#x20;
+This sets the default network the application will connect to when it starts. It’s essential for defining the environment where transactions will occur (e.g., `testnet` for testing, `mainnet` for production). We will be using `testnet` for this tutorial.
 
 ```yaml
 defaultNetwork: testnet
@@ -111,7 +111,7 @@ accounts:
 
 **`mirrors`**
 
-This property lists the available Hedera mirror nodes for each network. Mirror nodes hold historical data and can be queried for transactions, records, etc. The `selected` field indicates whether the mirror node is the default one to be used.&#x20;
+This property lists the available Hedera mirror nodes for each network. Mirror nodes hold historical data and can be queried for transactions, records, etc. The `selected` field indicates whether the mirror node is the default one to be used.
 
 ```yaml
 mirrors:
@@ -244,15 +244,13 @@ A factory contract is a specialized type of smart contract designed to generate 
 
 ### Deploy custom factory contract (optional)
 
-If you want to deploy your own factory contract with custom logic tailored to your specific needs, check out the `/contracts` folder [`README`](https://github.com/hashgraph/hedera-accelerator-stablecoin/blob/main/contracts/README.md) for a comprehensive guide.&#x20;
+If you want to deploy your own factory contract with custom logic tailored to your specific needs, check out the `/contracts` folder [`README`](https://github.com/hashgraph/hedera-accelerator-stablecoin/blob/main/contracts/README.md) for a comprehensive guide.
 
 ***
 
 ## CLI Flow
 
 <figure><img src="../../.gitbook/assets/stablecoin-cli-flow-chart.png" alt=""><figcaption></figcaption></figure>
-
-
 
 ***
 
@@ -268,7 +266,7 @@ When the CLI is started with the configuration file properly configured, the fir
 
 If there are no accounts in the file for the default network, a warning message will be displayed and a list of all the accounts in the file will be displayed.
 
-<figure><img src="../../.gitbook/assets/stablecoin-cli-wizard-new-banner.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/cli start wizard stablecoin studio new banner.png" alt=""><figcaption></figcaption></figure>
 
 #### Main Menu
 
@@ -318,9 +316,9 @@ Stablecoins that we have not created with our account but for which we have been
 Once a stablecoin is created or added, you can operate with it. The following list contains all the possible operations a user can perform if they have the appropriate role.
 
 1. **Send Tokens**: Transfer tokens to other accounts.
-2. **Cash In**: Mint tokens and transfer them to an account. If you have linked a PoR Feed to your stablecoin, this operation will fail in two cases:&#x20;
+2. **Cash In**: Mint tokens and transfer them to an account. If you have linked a PoR Feed to your stablecoin, this operation will fail in two cases:
    1. If you try to mint more tokens than the total Reserve (1 to 1 match between the token's total supply and the Reserve)
-   2.  If you try to mint tokens using more decimals than the Reserve has, for instance, minting 1.001 tokens when the Reserve only has two decimals.&#x20;
+   2.  If you try to mint tokens using more decimals than the Reserve has, for instance, minting 1.001 tokens when the Reserve only has two decimals.
 
        > _📣 This DOES NOT mean that a stablecoin can not have more decimals than the Reserve, transfers between accounts can use as many decimals as required._
 
@@ -350,7 +348,7 @@ Once a stablecoin is created or added, you can operate with it. The following li
 12. <mark style="color:red;">**Danger Zone**</mark>: This option groups high-risk stablecoin operations that either impact all token owners or are irreversible. These are placed in a sub-menu to prevent accidental execution.
 
     1. **Pause/Unpause**: Suspend or resume all token operations.
-    2. **Delete Token**: Permanently remove a token. This action is irreversible.&#x20;
+    2. **Delete Token**: Permanently remove a token. This action is irreversible.
 
     > _📣 Take caution when using operations in the "Danger Zone" as they have significant impacts and may not be reversible._
 
@@ -431,7 +429,7 @@ Start the CLI using the wizard command:
 accelerator wizard
 ```
 
-Select the "Create a new stablecoin" option, then proceed through the prompts.&#x20;
+Select the "Create a new stablecoin" option, then proceed through the prompts.
 
 <figure><img src="../../.gitbook/assets/stablecoin-proof-of-reserve-config-cli.png" alt=""><figcaption></figcaption></figure>
 

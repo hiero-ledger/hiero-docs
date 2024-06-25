@@ -18,8 +18,8 @@ Hedera Smart Contract Service Workshop Part 5/6 | Hardhat & EtherJs
 
 ## Prerequisites
 
-* ✅ Complete the [Introduction](00-intro.md) section of this same tutorial.
-* ✅ Optionally, complete the [Hedera SDK JS](01-hederasdkjs.md) section of this tutorial.
+* ✅ Complete the [Introduction](https://github.com/theekrystallee/hedera-docs/blob/master/tutorials/smart-contracts/hscs-workshop/00-intro.md) section of this same tutorial.
+* ✅ Optionally, complete the [Hedera SDK JS](https://github.com/theekrystallee/hedera-docs/blob/master/tutorials/smart-contracts/hscs-workshop/01-hederasdkjs.md) section of this tutorial.
 
 ## Set up the project
 
@@ -169,7 +169,7 @@ You'll now return to your regular shell.
 * This verifies that the account exists
 * Check that the account has a balance of HBAR
 * If it does not exist, or does not have balance, you'll need to create or fund it before proceeding
-  * To do so, you'll need to repeat [_Step B4: Fund several Hedera EVM accounts_](../setup/#step-b4-fund-several-hedera-evm-accounts) from the Setup section of this tutorial.
+  * To do so, you'll need to repeat [_Step B4: Fund several Hedera EVM accounts_](https://github.com/theekrystallee/hedera-docs/blob/master/tutorials/smart-contracts/setup/README.md#step-b4-fund-several-hedera-evm-accounts) from the Setup section of this tutorial.
 
 ## Compiling smart contracts
 

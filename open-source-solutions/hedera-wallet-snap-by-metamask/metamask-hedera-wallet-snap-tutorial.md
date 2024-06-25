@@ -4,7 +4,7 @@ description: >-
   into a dApp.
 ---
 
-# MetaMask Snaps – What Are They and How to Use Them
+# Tutorial: MetaMask Snaps – What Are They and How to Use Them
 
 ## Introduction
 
@@ -56,11 +56,9 @@ For convenience, two options are provided to run the code used in this example:
 
 This option does not require installing anything on your machine. All you need is a compatible web browser. [Click here to set up the GitPod environment](https://gitpod.io/#https://github.com/ed-marquez/hedera-example-metamask-snap). You will see the following:
 
-<img src="../../.gitbook/assets/mm-snap-tutorial-gitpod-dev-environment.png" alt="" data-size="original">
+<img src="../../.gitbook/assets/mm-snap-tutorial-gitpod-dev-environment.png" alt="" data-size="original"> <img src="../../.gitbook/assets/mm-snap-tutorial-gitpod-workspace.png" alt="" data-size="original">
 
-<img src="../../.gitbook/assets/mm-snap-tutorial-gitpod-workspace.png" alt="" data-size="original">
-
-![](../../.gitbook/assets/mm-snap-tutorial-gitpod-code-editor.png)
+<img src="../../.gitbook/assets/mm-snap-tutorial-gitpod-code-editor.png" alt="" data-size="original">
 
 </details>
 
@@ -70,7 +68,7 @@ This option does not require installing anything on your machine. All you need i
 
 If you prefer to have a copy of the code files on your machine and run the application locally, follow these steps.
 
-#### Clone the Repo
+**Clone the Repo**
 
 To clone the repository, open your terminal and navigate to the directory where you want to place the project. Then, run the following command:
 
@@ -78,7 +76,7 @@ To clone the repository, open your terminal and navigate to the directory where 
 git clone https://github.com/hedera-dev/hedera-example-metamask-snap.git
 ```
 
-#### Navigate to Directory
+**Navigate to Directory**
 
 Once the cloning process is complete, navigate to the project folder using:
 
@@ -370,7 +368,7 @@ export default walletConnectFcn;
 {% endtab %}
 {% endtabs %}
 
-When the  <mark style="background-color:purple;">**Connect Wallet**</mark> button is pressed in the dApp, the **connectWallet()** function is executed. This function checks if an account is already connected. If it is, a message displaying the connected account is shown. If no account is connected, the **walletConnectFcn()** is called to establish a connection.
+When the <mark style="background-color:purple;">**Connect Wallet**</mark> button is pressed in the dApp, the **connectWallet()** function is executed. This function checks if an account is already connected. If it is, a message displaying the connected account is shown. If no account is connected, the **walletConnectFcn()** is called to establish a connection.
 
 The **walletConnectFcn()** function performs the following steps:
 
@@ -380,7 +378,7 @@ The **walletConnectFcn()** function performs the following steps:
 
 Finally, the **connectWallet()** function in **App.jsx** updates the React state with the connected testnet account and provider information, allowing the dApp to display the connected testnet account information.
 
-This is what you see when clicking the  <mark style="background-color:purple;">**Connect Wallet**</mark>  button for the first time.
+This is what you see when clicking the <mark style="background-color:purple;">**Connect Wallet**</mark> button for the first time.
 
 {% hint style="info" %}
 **Note**: The Hedera account selected in MetaMask for this example has ECDSA keys and is created using the [Hedera Portal](https://portal.hedera.com/).
@@ -462,11 +460,11 @@ The **snapInstallFcn()** function performs the following steps:
 1. **Gets Installed Snaps**: The function requests a list of installed Snaps in the user's MetaMask wallet using the **wallet\_getSnaps** method. It logs the currently installed Snaps.
 2. **Installs Snaps**: The function checks if the Hedera Wallet Snap (identified by **snapId**) is already installed. If it's not installed, the function attempts to install it by calling **wallet\_requestSnaps** and passing the **snapId**. It then logs the result of this installation attempt. After attempting installation, it checks again for installed Snaps.
 3. **Handles Installation Outcome**: If the Snap is successfully installed (i.e., **snapId** is found in the list of installed snaps), it logs and alerts the user that the Snap installation was successful. If the installation fails (i.e., **snapId** is not found in the list), it logs and alerts the user that the connection could not be established successfully.
-4. **Returns Result**: Lastly, the function returns a text message indicating whether the Snap was installed successfully.&#x20;
+4. **Returns Result**: Lastly, the function returns a text message indicating whether the Snap was installed successfully.
 
-The text output from **snapInstallFcn()** is used by **snapInstall()** in the front end of the application to update the message seen by the user.&#x20;
+The text output from **snapInstallFcn()** is used by **snapInstall()** in the front end of the application to update the message seen by the user.
 
-This is what you see when clicking the  <mark style="background-color:purple;">**Install Snap**</mark>  button for the first time.
+This is what you see when clicking the <mark style="background-color:purple;">**Install Snap**</mark> button for the first time.
 
 <figure><img src="../../.gitbook/assets/mm-snap-tutorial-install-hedera-snap-window.png" alt=""><figcaption></figcaption></figure>
 
@@ -543,9 +541,9 @@ The **snapGetAccountInfoFcn()** function performs the following steps:
 3. **Handles Errors**: If there's an error (like the account not being created yet), the function extracts the EVM address from the error message. It then creates a message instructing the user to transfer HBAR to this address to create the Snap account.
 4. **Returns Results**: The function logs the outcome message (either the account details or the activation instruction). It then returns the EVM address of the Snap account and the outcome message.
 
-The outputs from **snapGetAccountInfoFcn()** are used by **snapGetAccountInfo()** in the front end of the application to update the message and link seen by the user.&#x20;
+The outputs from **snapGetAccountInfoFcn()** are used by **snapGetAccountInfo()** in the front end of the application to update the message and link seen by the user.
 
-This is what you see when clicking the <mark style="background-color:purple;">**Get Snap Account Info**</mark> button for the first time.&#x20;
+This is what you see when clicking the <mark style="background-color:purple;">**Get Snap Account Info**</mark> button for the first time.
 
 {% hint style="info" %}
 **Note**: When invoking a Snap method for the first time, MetaMask checks for confirmation before connecting the Hedera Wallet Snap to the account.
@@ -657,7 +655,7 @@ The **snapTransferHbarFcn()** function performs the following steps:
 * **Handles Transfer Outcome**: If the transfer is successful, the function sets a message indicating success and suggests re-checking the Snap account info for an updated balance. In case of an error or failure, it sets a different message indicating that the transaction failed and prompts trying again.
 * **Returns Output**: Finally, the function returns the outcome message, informing whether the transfer was successful or not.
 
-The text output from **snapTransferHbarFcn()** is used by **snapTransferHbar()** in the front end of the application to update the message seen by the user.&#x20;
+The text output from **snapTransferHbarFcn()** is used by **snapTransferHbar()** in the front end of the application to update the message seen by the user.
 
 This is what you see when clicking the <mark style="background-color:purple;">**Transfer HBAR w/ Snap**</mark> button after entering a valid receiver address and HBAR amount in the corresponding input fields.
 
@@ -673,13 +671,13 @@ Once the transfer of HBAR from the Snap account to the MetaMask account is compl
 
 ## Summary
 
-This tutorial provides a comprehensive guide on how to use MetaMask Snaps, focusing on the Hedera Wallet Snap.&#x20;
+This tutorial provides a comprehensive guide on how to use MetaMask Snaps, focusing on the Hedera Wallet Snap.
 
-* It starts by covering the dApp's structure and user interface, highlighting the functions of various buttons like connecting to MetaMask, installing the _Hedera Wallet Snap_, obtaining Snap account information, and transferring HBAR using the Snap.&#x20;
-* The tutorial also dives into the technical aspects, detailing the _App.jsx_ file, which includes state management, functions for button actions, and the layout of the UI components. It explains the use of React components like _MyGroup_, _MyButton_, and _MyInputBox_ to create an interactive and user-friendly interface.&#x20;
+* It starts by covering the dApp's structure and user interface, highlighting the functions of various buttons like connecting to MetaMask, installing the _Hedera Wallet Snap_, obtaining Snap account information, and transferring HBAR using the Snap.
+* The tutorial also dives into the technical aspects, detailing the _App.jsx_ file, which includes state management, functions for button actions, and the layout of the UI components. It explains the use of React components like _MyGroup_, _MyButton_, and _MyInputBox_ to create an interactive and user-friendly interface.
 * It then elaborates on MetaMask Snaps, its purpose, and how to use them, specifically focusing on the Hedera Wallet Snap for tasks like pairing the dApp with MetaMask, installing the Snap, managing the Snap account, and executing crypto transfers.
 
-&#x20;**🎉  Congratulations! You have learned about the new Hedera Wallet Snap by MetaMask and how to integrate it into a dApp. Feel free to reach out in** [**Discord**](https://hedera.com/discord) **if you have any questions!**
+**🎉 Congratulations! You have learned about the new Hedera Wallet Snap by MetaMask and how to integrate it into a dApp. Feel free to reach out in** [**Discord**](https://hedera.com/discord) **if you have any questions!**
 
 ***
 

@@ -2,13 +2,14 @@
 description: >-
   Learn how to submit a demo application, create pull requests, or log issues in
   the Hedera Contributing Guide.
-cover: broken-reference
+cover: >-
+  https://github.com/theekrystallee/hedera-docs/blob/master/support-and-community/broken-reference
 coverY: 31
 ---
 
 # Contributing & Style Guide
 
-We value every form of contribution, no matter how small. In this guide, you will find steps on submitting an issue, creating a pull request, submitting a demo application, creating Hedera Improvement Proposals (HIPs), and adhering to our style guide.  Thanks in advance for your contributions!
+We value every form of contribution, no matter how small. In this guide, you will find steps on submitting an issue, creating a pull request, submitting a demo application, creating Hedera Improvement Proposals (HIPs), and adhering to our style guide. Thanks in advance for your contributions!
 
 <table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>1.</strong> <a href="contributing-guide.md#submit-an-issue"><strong>CREATE ISSUES</strong></a></td><td><a href="contributing-guide.md#submit-an-issue">#submit-an-issue</a></td></tr><tr><td align="center"><strong>2.</strong> <a href="contributing-guide.md#creating-a-pull-request"><strong>PULL REQUESTS</strong></a></td><td><a href="contributing-guide.md#creating-a-pull-request">#creating-a-pull-request</a></td></tr><tr><td align="center"><strong>3.</strong> <a href="contributing-guide.md#hedera-improvement-proposal-hip"><strong>HIPs</strong></a></td><td><a href="contributing-guide.md#hedera-improvement-proposal-hip">#hedera-improvement-proposal-hip</a></td></tr><tr><td align="center"><strong>4.</strong> <a href="contributing-guide.md#submit-demo-applications"><strong>DEMO APPLICATIONS</strong></a></td><td><a href="contributing-guide.md#submit-demo-applications">#submit-demo-applications</a></td></tr><tr><td align="center"><strong>5.</strong> <a href="contributing-guide.md#style-guide"><strong>STYLE GUIDE</strong></a></td><td><a href="contributing-guide.md#style-guide">#style-guide</a></td></tr><tr><td align="center"><strong>📕</strong> <a href="https://github.com/hashgraph/hedera-docs"><strong>REPO</strong></a></td><td><a href="https://github.com/hashgraph/hedera-docs">https://github.com/hashgraph/hedera-docs</a></td></tr></tbody></table>
 
@@ -28,8 +29,8 @@ If you'd like to propose changes directly to the documentation, you can submit a
 
 1. **Fork the Repository:** Navigate to the `hedera-docs` [repository](https://github.com/hashgraph/hedera-docs) and click the "Fork" button at the top right. This creates a copy of the repository in your GitHub account.
 2. **Clone the Forked Repository:** Clone the forked repository to your local system and make changes. Be sure to follow the repository's coding and style guidelines.
-3. **Commit Your Changes:** Once you've made your changes, commit them with a clear, detailed message describing the changes you've made.&#x20;
-   1. Use [sign-off](https://github.com/hashgraph/.github/blob/main/CONTRIBUTING.md#sign-off) when making each of your commits.&#x20;
+3. **Commit Your Changes:** Once you've made your changes, commit them with a clear, detailed message describing the changes you've made.
+   1. Use [sign-off](https://github.com/hashgraph/.github/blob/main/CONTRIBUTING.md#sign-off) when making each of your commits.
       1. Alternatively, you can use auto sign-off by installing `cp hooks-git/prepare-commit-msg .git/hooks && chmod +x .git/hooks/prepare-commit-msg`.
    2. Use [this guide](https://pre-commit.com/#3-install-the-git-hook-scripts) to install the pre-commit hook scripts to check for files with names that would conflict on a case-insensitive filesystem like MacOS HFS+ or Windows FAT.
 4. **Push Your Changes:** Push your committed changes to your forked repository on GitHub.
@@ -52,7 +53,7 @@ Have a new feature request for consensus or mirror nodes? Looking to submit a st
 3. Create a pull request against `hashgraph/hedera-improvement-proposal` main branch.
 
 {% hint style="info" %}
-**Note:** Which category should you make the **HIPs**? See [hip-1](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-1.md) for details on the **HIP** process, or watch the following video tutorial.&#x20;
+**Note:** Which category should you make the **HIPs**? See [hip-1](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-1.md) for details on the **HIP** process, or watch the following video tutorial.
 {% endhint %}
 
 {% embed url="https://www.youtube.com/watch?v=Gbk8EbtibA0" %}
@@ -62,14 +63,14 @@ by Developer Advocate: Michael Garber
 
 ## Submit Demo Applications
 
-If you have a demo application that you'd like to share, we encourage you to follow the steps outlined below to ensure your application is showcased accurately.&#x20;
+If you have a demo application that you'd like to share, we encourage you to follow the steps outlined below to ensure your application is showcased accurately.
 
 1. Open an _Enhancement_ issue in the `hedera-docs` [repository](https://github.com/hashgraph/hedera-docs).
 2. Within the issue, please include the following details:
    1. **Demo application name:** The official name of your demo application. This is how it will be listed on the demo applications page.
    2. **Developer/Maintainer name and GitHub username:** Your name or the person maintaining the demo application. This ensures we know who to contact for any future updates or questions regarding the application.
    3. **Link to the demo application GitHub repository:** Please provide a link to the public GitHub repository where your demo application is hosted. This allows the Hedera community to access and review your application.
-3. Submit your issue once you've provided the required details within the issue. Our team will review your submission, and if approved, your demo application will be added to our list.&#x20;
+3. Submit your issue once you've provided the required details within the issue. Our team will review your submission, and if approved, your demo application will be added to our list.
 
 Remember, the aim is to showcase applications that demonstrate the potential and functionality of Hedera in various use cases. Clear, concise, and well-documented code is highly appreciated.
 
@@ -81,7 +82,7 @@ Thank you for your valuable contribution to the Hedera community! We look forwar
 
 <summary>GitBook Markdown Syntax</summary>
 
-Please refer to the [GitBook Markdown Syntax guide](https://raw.githubusercontent.com/audacity/audacity-support/main/community/contributing/tutorials/gitbook-markdown-syntax.md).&#x20;
+Please refer to the [GitBook Markdown Syntax guide](https://raw.githubusercontent.com/audacity/audacity-support/main/community/contributing/tutorials/gitbook-markdown-syntax.md).
 
 </details>
 
@@ -95,7 +96,7 @@ When referring to the Hedera native currency, use the singular form of the noun 
 
 Do not use the plural form of the noun, as this style rule applies even when referring to multiple units of **HBAR**.
 
-#### tinybars
+**tinybars**
 
 When referring to fractions of **HBAR**, use the plural form **tinybars**. For example:
 
@@ -109,7 +110,7 @@ Do not use the singular form of the noun, as any reference should be plural sinc
 
 <summary>Use of web2 and web3</summary>
 
-When documenting or referring to "web2" and "web3," it's important to maintain consistency. Both terms should be in lowercase. The only exception to this rule is when either term starts a sentence. In such cases, the initial letter should be capitalized. For example:&#x20;
+When documenting or referring to "web2" and "web3," it's important to maintain consistency. Both terms should be in lowercase. The only exception to this rule is when either term starts a sentence. In such cases, the initial letter should be capitalized. For example:
 
 * ❌ **Incorrect**: "web3 technologies are evolving rapidly."
 * ✅ **Correct**: "Web3 represents a shift towards decentralization."
@@ -207,7 +208,7 @@ Abbreviations include acronyms, initialisms, shortened words, and contractions. 
 
 **Note:** Some abbreviations can be acronyms or initialisms, depending on the speaker's preference—examples include _**FAQ**_ and _**SQL**_. In some cases, the pronunciation determines [whether to use _a_ or _an_](https://developers.google.com/style/articles).
 
-#### Long and short versions of a word <a href="#long-and-short-versions" id="long-and-short-versions"></a>
+**Long and short versions of a word**
 
 The short versions of the words are not abbreviations; if you use them, you don't need to put a period after them—for example:
 
@@ -216,15 +217,15 @@ The short versions of the words are not abbreviations; if you use them, you don'
 
 If you're unsure whether a word is an abbreviation or a shortened version of a word, look in this list of [resources](https://developers.google.com/style#editorial-resources). If that doesn't settle the issue, use the speaking test: if you speak the short version as a word (_This is a demo version of the product_), you can usually treat it as a word and not an abbreviation.
 
-### Don't create abbreviations <a href="#creating-abbreviations" id="creating-abbreviations"></a>
+#### Don't create abbreviations <a href="#creating-abbreviations" id="creating-abbreviations"></a>
 
 Use recognizable and industry-standard acronyms and initialisms. Abbreviations are intended to save the writer and the reader time. If the reader has to think twice about an abbreviation, it can slow down their reading comprehension.
 
-### Make abbreviations plural <a href="#making-abbreviations-plural" id="making-abbreviations-plural"></a>
+#### Make abbreviations plural <a href="#making-abbreviations-plural" id="making-abbreviations-plural"></a>
 
 Treat acronyms, initialisms, and other abbreviations as _regular_ words when making them plural—for example, **APIs**, **SDKs**, and **IDEs**.
 
-### When to spell out a term <a href="#spelling-out" id="spelling-out"></a>
+#### When to spell out a term <a href="#spelling-out" id="spelling-out"></a>
 
 In general, when an abbreviation is likely to be unfamiliar to the audience, spell out the first mention of the term and immediately follow with the abbreviation in parentheses, for example:
 
