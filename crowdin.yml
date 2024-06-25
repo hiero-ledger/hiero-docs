@@ -3,3 +3,5 @@ files:
     translation: /%language%/%original_path%/%original_file_name%
   - source: /networks/*.md
     translation: /%language%/%original_path%/%original_file_name%
+  - source: /core-concepts/*.md
+    translation: /%language%/%original_path%/%original_file_name%
