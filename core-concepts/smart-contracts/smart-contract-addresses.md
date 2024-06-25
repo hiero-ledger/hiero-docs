@@ -26,7 +26,7 @@ Example Contract EVM Address: [`0x86ecca95fecdb515d068975b75eac4357contractd6e86
 
 In the Hedera Network, smart contracts can also be identified by a smart contract ID. A smart contract ID is a contract identifier native to the Hedera network. Both the smart contract EVM address and smart contract ID are accepted identifiers for a smart contract when interacting with the contract on Hedera using the Hedera transactions.
 
-Example Contract ID: `0.0.123`&#x20;
+Example Contract ID: `0.0.123`
 
 In some cases, the EVM address is the hex-encoded format of the contract ID.
 
@@ -34,7 +34,7 @@ The smart contract ID is **not a compatible** address format accepted or known i
 
 When viewing the contract information, you may see both types of addresses noted in Hedera Network Explorers like [HashScan](https://hashscan.io/).
 
-<figure><img src="../../.gitbook/assets/contract-hashscan-evm-address-id-example.png" alt=""><figcaption><p>EVM address &#x26; contract ID example on HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/contract ID.png" alt=""><figcaption><p>EVM address &#x26; contract ID example on HashScan</p></figcaption></figure>
 
 ***
 
