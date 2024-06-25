@@ -1,5 +1,5 @@
 ---
-cover: .gitbook/assets/HH-Eco-Hero-Desktop-R1 (1).webp
+cover: ""
 coverY: -16.77342463378693
 ---
 
