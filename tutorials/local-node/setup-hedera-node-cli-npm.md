@@ -38,9 +38,9 @@ The command below can be used to install the official release from the [NPM](htt
 npm install @hashgraph/hedera-local -g
 ```
 
-__Note: This version may not reflect the most recent changes to the main branch of this repository. It also uses a baked in version of the Docker Compose definitions and will not reflect any local changes made to the repository.__
+> __Note: This version may not reflect the most recent changes to the main branch of this repository. It also uses a baked in version of the Docker Compose definitions and will not reflect any local changes made to the repository.__
 
-**Local development Installation**
+#### Local development Installation
 
 Install the dependencies locally.
 
@@ -110,7 +110,7 @@ npm run start -- -d
 **You should see the following response in the terminal:**
 
 ```bash
-owanate@Owanates-MacBook-Pro hedera-local-node % npm run start -- -d
+hedera-local-node % npm run start -- -d
 
 > @hashgraph/hedera-local@2.26.2 start
 > npm run build && node ./build/index.js start -d
@@ -155,15 +155,52 @@ owanate@Owanates-MacBook-Pro hedera-local-node % npm run start -- -d
 
 ![Running Hedera Node on Terminal](https://hackmd.io/_uploads/BkGA7T5IR.png)
 
+## Verify Running Node
+
+There are different ways to verify that a node is running;
+* Check Block Number using Hashscan Block Explorer
+* Send cURL request to `getBlockNumber`
+
+### Check Block Number using Hashscan Block Explorer
+Visit the local mirror node explorer endpoint ([http://localhost:8080/devnet/dashboard](http://localhost:8080/devnet/dashboard)) in your web browser. Ensure that `LOCALNET` is selected, as this will show you the Hedera network running within your local network.
+
+Select any of the listed blocks to view the details (Consensus, Block, Transaction Hash, etc) for a particular block.
+
+![Hedera Explorer](https://hackmd.io/_uploads/HJ_o76qU0.png)
+
+![Hedera Explorer](https://hackmd.io/_uploads/SyuhXTqIA.png)
+
+### Send cURL request to getBlockNumber 
+
+Let's verify that we are able to interact with Hedera Testnet using JSON-RPC by issuing an `eth_getBlockByNumber` JSON-RPC request.
+
+**Enter the curl command below:**
+
+```bash
+  curl http://localhost:7546/ \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{"method":"eth_getBlockByNumber","params":["latest",false],"id":1,"jsonrpc":"2.0"}'
+```
+
+**You should get the following response:**
+
+```bash
+curl http://localhost:7546/ \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{"method":"eth_getBlockByNumber","params":["latest",false],"id":1,"jsonrpc":"2.0"}'
+{"result":{"timestamp":"0x667c000e","difficulty":"0x0","extraData":"0x","gasLimit":"0xe4e1c0","baseFeePerGas":"0xa54f4c3c00","gasUsed":"0x0","logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","miner":"0x0000000000000000000000000000000000000000","mixHash":"0x0000000000000000000000000000000000000000000000000000000000000000","nonce":"0x0000000000000000","receiptsRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","sha3Uncles":"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347","size":"0x93d","stateRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","totalDifficulty":"0x0","transactions":[],"transactionsRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","uncles":[],"withdrawals":[],"withdrawalsRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","number":"0x1604","hash":"0xfef0932ffb429840fe765d6d87c77425e2991326ddae6747dcce5c929c69ef38","parentHash":"0xef1ef331626f4f50ba2541d440b45cac51c5d8d6b4c46407a00c15d593c31e96"},"jsonrpc":"2.0","id":1}%    
+```
 
 ### Troubleshooting
 
 Find below some common errors and how to troubleshoot them:
 
-_Error: Node cannot start properly because necessary ports are in use!_
+**Error: Node cannot start properly because necessary ports are in use!**
 
 ```js
-owanate@Owanates-MacBook-Pro hedera-local-node % npm run start -- -d
+hedera-local-node % npm run start -- -d
 
 > @hashgraph/hedera-local@2.26.2 start
 > npm run build && node ./build/index.js start -d
@@ -195,47 +232,6 @@ Instead of starting another instance of the network, use the `npm run generate-a
 
 * **Option 2:**
 If you get the above error, ensure that you terminate any existing Docker processes for the local node, and also any other processes that are bound to these port numbers,  before running the npm start command. You can run `docker compose down -v; git clean -xfd; git reset --hard` to fix this.
-
-
-## Verify Running Node
-
-There are different ways to verify that a node is running;
-* Check Block Number using Hashscan Block Explorer
-* Send cURL request to `getBlockNumber`
-
-### Check Block Number using Hashscan Block Explorer
-Visit the local mirror node explorer endpoint ([http://localhost:8080/devnet/dashboard](http://localhost:8080/devnet/dashboard)) in your web browser. Ensure that `LOCALNET` is selected, as this will show you the Hedera network running within your local network.
-
-Select any of the listed blocks to view the details (Consensus, Block, Transaction Hash, etc) for a particular block.
-
-![Hedera Explorer](https://hackmd.io/_uploads/HJ_o76qU0.png)
-
-![Hedera Explorer](https://hackmd.io/_uploads/SyuhXTqIA.png)
-
-
-
-### Send cURL request to getBlockNumber 
-
-Let's verify that we are able to interact with Hedera Testnet using JSON-RPC by issuing an `eth_getBlockByNumber` JSON-RPC request.
-
-**Enter the curl command below:**
-
-```bash
-  curl http://localhost:7546/ \
-  -X POST \
-  -H "Content-Type: application/json" \
-  --data '{"method":"eth_getBlockByNumber","params":["latest",false],"id":1,"jsonrpc":"2.0"}'
-```
-
-**You should get the following response:**
-
-```bash
-curl http://localhost:7546/ \
-  -X POST \
-  -H "Content-Type: application/json" \
-  --data '{"method":"eth_getBlockByNumber","params":["latest",false],"id":1,"jsonrpc":"2.0"}'
-{"result":{"timestamp":"0x667c000e","difficulty":"0x0","extraData":"0x","gasLimit":"0xe4e1c0","baseFeePerGas":"0xa54f4c3c00","gasUsed":"0x0","logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","miner":"0x0000000000000000000000000000000000000000","mixHash":"0x0000000000000000000000000000000000000000000000000000000000000000","nonce":"0x0000000000000000","receiptsRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","sha3Uncles":"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347","size":"0x93d","stateRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","totalDifficulty":"0x0","transactions":[],"transactionsRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","uncles":[],"withdrawals":[],"withdrawalsRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","number":"0x1604","hash":"0xfef0932ffb429840fe765d6d87c77425e2991326ddae6747dcce5c929c69ef38","parentHash":"0xef1ef331626f4f50ba2541d440b45cac51c5d8d6b4c46407a00c15d593c31e96"},"jsonrpc":"2.0","id":1}%    
-```
 
 ## Useful Terms
 
