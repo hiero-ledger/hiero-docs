@@ -1,8 +1,8 @@
 # How to Set Up a Hedera Local Node using the NPM CLI Tool
 
-Hedera is an open-source, public, proof-of-stake network. Its network services offer low & fixed fees,10k TPS, and instant transaction finality. Learn more about the [Hedera platform and how it works](https://hedera.com/how-it-works).
+Hedera is an open-source, public, proof-of-stake network. Its network services offer low and fixed fees, 10k TPS, and instant transaction finality. Learn more about the [Hedera platform and how it works](https://hedera.com/how-it-works).
 
-In this tutorial, we will adopt, set up, and run a Hedera node locally using the [@hashgraph/hedera-local](https://www.npmjs.com/package/@hashgraph/hedera-local) NPM Command Line Interface (CLI) tool with docker compose. 
+In this tutorial, we will adopt, set up, and run a Hedera node locally using the [@hashgraph/hedera-local](https://www.npmjs.com/package/@hashgraph/hedera-local) NPM Command Line Interface (CLI) tool with `docker compose`. 
 
 > This tutorial is based on the [Hedera Local Node README documentation](https://github.com/hashgraph/hedera-local-node).
 
@@ -11,10 +11,10 @@ In this tutorial, we will adopt, set up, and run a Hedera node locally using the
 ## Prerequisites
 
 To get started with this tutorial, ensure that you have the following software installed:
-* [Node.js](http://Node.js) >= v14.x (Check version: node -v)
-* NPM >= v6.14.17 (Check version: npm -v)
-* [Docker](https://www.docker.com/) >= v20.10.x (Check version: docker -v)
-* [Docker Compose](https://docs.docker.com/compose/) >= v2.12.2 (Check version: docker compose version)
+* [Node.js](https://nodejs.org/) >= v14.x (Check version: `node -v`)
+* NPM >= v6.14.17 (Check version: `npm -v`)
+* [Docker](https://www.docker.com/) >= v20.10.x (Check version: `docker -v`)
+* [Docker Compose](https://docs.docker.com/compose/) >= v2.12.2 (Check version: `docker compose version`)
 * Hardware: Minimum 16GB RAM
 
 ### Installation
@@ -23,7 +23,7 @@ To get started with this tutorial, ensure that you have the following software i
 
 ## Getting Started
 
-Clone the Github repo, navigate to the project folder using the commands below;
+Clone the GitHub repo, navigate to the project folder using the commands below;
 
 ```js
 git clone https://github.com/hashgraph/hedera-local-node.git 
@@ -231,7 +231,7 @@ hedera-local-node % npm run start -- -d
 Instead of starting another instance of the network, use the `npm run generate-accounts` to generate new accounts for an already started network.
 
 * **Option 2:**
-If you get the above error, ensure that you terminate any existing Docker processes for the local node, and also any other processes that are bound to these port numbers,  before running the npm start command. You can run `docker compose down -v; git clean -xfd; git reset --hard` to fix this.
+If you get the above error, ensure that you terminate any existing Docker processes for the local node, and also any other processes that are bound to these port numbers,  before running the npm start command. You can run `docker compose down -v`, `git clean -xfd`, `git reset --hard` to fix this.
 
 ## Useful Terms
 
