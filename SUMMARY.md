@@ -51,6 +51,7 @@
       * [Run a Local Node in Gitpod](tutorials/local-node/how-to-run-hedera-local-node-in-a-cloud-development-environment-cde/gitpod.md)
       * [Run a Local Node in Codespaces](tutorials/local-node/how-to-run-hedera-local-node-in-a-cloud-development-environment-cde/codespaces.md)
     * [How to Set Up a Hedera Local Node](tutorials/local-node/how-to-set-up-a-hedera-local-node.md)
+        * [Set Up a Hedera Local Node using the NPM CLI](tutorials/local-node/setup-hedera-node-cli-npm.md)
   * [More Tutorials](tutorials/more-tutorials/README.md)
     * [How to Create a Personal Access Token (API Key) on the Hedera Portal](tutorials/more-tutorials/how-to-create-a-personal-access-token-api-key-on-the-hedera-portal.md)
     * [How to Auto-Create Hedera Accounts with HBAR and Token Transfers](tutorials/more-tutorials/how-to-auto-create-hedera-accounts-with-hbar-and-token-transfers.md)
