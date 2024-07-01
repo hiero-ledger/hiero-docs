@@ -170,7 +170,6 @@ Select any of the listed blocks to view the details (Consensus, Block, Transacti
 
 ![Hedera Explorer - View LOCALNET Details](../../.gitbook/assets/hedera-local-node-npm-cli/03-hedera-local-node-terminal-view-localnet-details.png)
 
-
 ### Send cURL request to getBlockNumber 
 
 Let's verify that we are able to interact with Hedera Testnet using JSON-RPC by issuing an `eth_getBlockByNumber` JSON-RPC request.
