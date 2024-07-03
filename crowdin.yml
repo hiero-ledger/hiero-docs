@@ -33,3 +33,5 @@ files:
     translation: /%language%/%original_path%/%original_file_name%
   - source: /core-concepts/accounts/*.md
     translation: /%language%/%original_path%/%original_file_name%
+  - source: /networks/release-notes/*.md
+    translation: /%language%/%original_path%/%original_file_name%
