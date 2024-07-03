@@ -6,4 +6,4 @@ files:
   - source: /core-concepts/*.md
     translation: /%language%/%original_path%/%original_file_name%
   - source: /README.md
-    translation: /%language%/%original_file_name%
+    translation: /%language%/%original_path%/%original_file_name%
