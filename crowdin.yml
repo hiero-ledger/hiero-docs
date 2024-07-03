@@ -2,7 +2,7 @@ files:
   - source: /getting-started/*.md
     ignore_settings: 1
     ignore:
-      - /getting-started/page-1
+      - /getting-started/page-1.md
     translation: /%language%/%original_path%/%original_file_name%
   - source: /networks/*.md
     translation: /%language%/%original_path%/%original_file_name%
