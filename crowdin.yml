@@ -7,3 +7,15 @@ files:
     translation: /%language%/%original_path%/%original_file_name%
   - source: /README.md
     translation: /%language%/%original_path%/%original_file_name%
+  - source: /networks/mainnet/*.md
+    translation: /%language%/%original_path%/%original_file_name%
+  - source: /networks/mainnet/mainnet-nodes/node-requirements/*.md
+    translation: /%language%/%original_path%/%original_file_name%
+  - source: /networks/mainnet/mainnet-nodes/*.md
+    translation: /%language%/%original_path%/%original_file_name%
+  - source: /networks/mainnet/fees/*.md
+    translation: /%language%/%original_path%/%original_file_name%
+  - source: /networks/testnet/*.md
+    translation: /%language%/%original_path%/%original_file_name%
+  - source: /networks/localnet/*.md
+    translation: /%language%/%original_path%/%original_file_name%
