@@ -6,6 +6,8 @@ files:
   - source: /networks/*.md
     translation: /%language%/%original_path%/%original_file_name%
   - source: /core-concepts/*.md
+    ignore:
+      - /core-concepts/schedule-transaction
     translation: /%language%/%original_path%/%original_file_name%
   - source: /README.md
     translation: /%language%/%original_path%/%original_file_name%
