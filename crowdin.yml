@@ -19,3 +19,5 @@ files:
     translation: /%language%/%original_path%/%original_file_name%
   - source: /networks/localnet/*.md
     translation: /%language%/%original_path%/%original_file_name%
+  - source: /core-concepts/mirror-nodes/*.md
+    translation: /%language%/%original_path%/%original_file_name%
