@@ -52,5 +52,9 @@ You will need to replace `<YOUR_API_KEY>` with a Validation Cloud API Endpoint K
 
 Now you're ready to connect to an RPC endpoint or query a Mirror Node via Validation Cloud!
 
-You can also watch this short walk through of using Hedera with Validation Cloud which shows the process end-to-end and gives examples of making JSON RPC and Mirror Node requests:
-https://www.loom.com/share/22cb87ee589248e58c95bbba6edc1667
+You can also watch this short video showing the process end-to-end, with examples of making Hedera JSON RPC and Mirror Node requests with Validation Cloud:
+<figure>
+    <a href="https://www.loom.com/share/22cb87ee589248e58c95bbba6edc1667">
+      <img style="max-width:800px;" src="https://cdn.loom.com/sessions/thumbnails/22cb87ee589248e58c95bbba6edc1667-with-play.gif">
+    </a>
+</figure>
