@@ -38,11 +38,11 @@ You will need to replace `<YOUR_API_KEY>` with a Validation Cloud API Endpoint K
 
 * (1) Sign up for an account at [`app.validationcloud.io/api/auth/signup`](https://app.validationcloud.io/api/auth/signup)
 * (2) Accept the terms of use and then verify your email address.
-* (3) Click on the "Create endpoint" button at the top of the Validation Cloud Node API dashboard.
+* (3) Click on the "Create endpoint" button at the top of the Validation Cloud Node API dashboard:
 
 <figure><img src="https://i.imgur.com/MPqxxz9.png" alt="" width="800"><figcaption></figcaption></figure>
 
-* (4) Fill in a name for the endpoint, select Hedera and pick whether you want Testnet or Mainnet, then click Confirm
+* (4) Fill in a name for the endpoint, select Hedera and pick whether you want Testnet or Mainnet, then click Confirm:
 
 <figure><img src="https://i.imgur.com/BgOdiku.png" alt="" width="800"><figcaption></figcaption></figure>
 
