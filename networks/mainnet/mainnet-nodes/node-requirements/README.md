@@ -52,10 +52,15 @@ To ensure accurate conformity with the minimum requirements, please provide node
 ### **Node Operating System:**
 
 * Linux
-  * Kernel minimum version 3.10+
-  * Actively Support Long-Term-Support Release
+  * Minimum kernel mainline versions (not distribution version)
+    * 6.2.0
+    * 6.1.2
+    * 6.0.16
+    * 5.15.86
+  * Actively Supported Long-Term-Support (LTS) 64-bit Linux Distributions
     * Ubuntu LTS 22.04
-    * RHEL 8
+    * Red Hat Enterprise Linux (RHEL) 8 and 9
+    * Oracle Linux 8 and 9
 
 ### **Node Software:**
 
@@ -111,7 +116,7 @@ To ensure accurate conformity with the minimum requirements, please provide node
 
 Access to the node via public APIs must be mediated by an in-line proxy. Below are the specifications for establishing this proxy.
 
-* 2- core-x86/x64 CPU
+* 2-core x86/x64 CPU
 * 2GB RAM
 * 100GB SSD storage
 * 200Mb/s sustained internet network connectivity with public static IP address
@@ -152,15 +157,6 @@ Interface Bonding (optional)
   * Tier 1 Data Center Hosting facility
   * SSAE 16 /18, SOC 2 Type 2 compliant
 * Hedera will seek to avoid duplicating hosting providers across Council members
-
-### Software & Installation
-
-* Any 64-bit Long Term Support (LTS) Linux distribution
-  * Approved distributions:
-    * Ubuntu
-    * Red Hat Enterprise
-    * Oracle Linux
-    * CentOS (Only through 2023)
 
 ## Network Topology /(Typical Corporate Datacenter Configuration/)
 
