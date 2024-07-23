@@ -8,6 +8,46 @@ For the latest versions supported on each network please visit the Hedera status
 
 ## Latest Releases
 
+## [v0.108.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.108.0)
+
+[HIP-801](https://hips.hedera.com/HIP/hip-801.html) Add support for `debug_traceTransaction` RPC API saw its implementation completed this release. The new `/api/v1/contracts/results/{id}/opcodes` is now fully implemented and will re-execute the given contract transaction and return the executed opcodes. As noted in the last release, this API is not enabled on Hedera managed mirror nodes and is intended for local execution. The next release will add additional testing and refinements, but for the most part the HIP is complete.
+
+[HIP-869](https://hips.hedera.com/HIP/hip-801.html) Dynamic address book work was started this sprint with a design document added that lays out its impact on the mirror node.
+
+There was a lot of effort put into automating the mirror node deployment process. A GitOps model is already utilized to help automate a lot of the rollout process, but in the case of multi-cluster environments each cluster would have to be manually updated. We know leverage GitHub repository dispatch to automate the PR creation to update the secondary cluster whenever the first cluster completes and its automated testing completes.
+
+Citus saw further refinements in this release including work to optimize the topic message lookup migration to improve its runtime from weeks down to below an hour. The contract logs and contract result APIs were optimized to improve their performance on Citus. As a result, we felt comfortable enough to re-enable Citus in testnet and beginning work on the mainnet migration.
+
+## [v0.107.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.107.1)
+
+There was a release issue with v0.107.0 so this v0.107.1 was created to workaround it. This release contains the initial work towards [HIP-801](https://hips.hedera.com/hip/hip-801) `debug_traceTransaction` API. HIP-801 adds a new `/api/v1/contracts/results/{transactionIdOrHash}/opcodes` REST API that can be used to debug previously executed transactions. This API works by re-executing the transaction on the mirror node using the state at the time it originally reached consensus and returning the executed opcodes. Since this is a slow and resource intensive API, it will be disabled by default. It is expected that developers run a local mirror node with a forked state to debug the transaction locally. This API is still under development and currently returns 501 Not Implemented status code.
+
+[HIP-874](https://hips.hedera.com/hip/hip-874) is now fully complete with both acceptance and performance tests added and passing. This endpoint along with any other missing endpoints were added to our monitor API to improve our production monitoring capability.
+
+Most of the effort in this release went into Citus database related fixes and improvements. The accounts list and NFT transaction history APIs performance were greatly improved under Citus. The topic message lookup migration was converted to run asynchronously to reduce the overall time to migrate from PostgreSQL. A cache was added for the contract runtime bytecode, improving the performance of `/api/v1/contracts/call` under both both databases. A fix was put in place for inconsistent token balances and fungible token supply being returned in the API. The performance of various historical contract calls were improved by the addition of caches and query optimizations. Citus connection management was revisited and tuned to improve the throughput for cross shard queries.
+
+## [v0.106.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.106.0)
+
+The [HIP-857](https://hips.hedera.com/hip/hip-857) NFT Allowances REST API is now fully feature complete.
+
+Our second new Java-based REST API, [HIP-874](https://hips.hedera.com/hip/hip-874) Topic Metadata API, introduces the new `/api/v1/topics/{topicId}` endpoint for retrieving the topic metadata described in the HIP; including the memo, submit key, and deleted fields as well as additional relevant entity information.
+
+For web3 `/api/v1/contract/call`, in addition to the existing requests per second rate limiter, a maximum gas used per second limiter has been added. By default it is configured at the maximum supported value of 1,000,000,000 gas per second. This can be set to a smaller value via the `hedera.mirror.web3.throttle.gasPerSecond` property.
+
+The REST API Redis cache introduced in 0.104.0 is now enabled by default.
+
+Our sharded database, Citus, continues to make progress with this release incorporating additional enhancements to the PostgreSQL to Citus migration script as well as performance improvements around token transfers and contract log insertion.
+
+### Upgrading
+
+Refer to `docs/configuration.md` for the full spectrum of `hedera.mirror.rest.redis.*` properties that may be used to tune for your specific environment. The `uri` property must be set appropriately to interact with your Redis service.
+
+When using a managed Redis service from a cloud provider (e.g., Google Cloud Memory Store Redis), setting the parameters for the REST service programmatically via the new properties may not be supported, and manual configuration by other means may be necessary.
+
+If the Redis cache for the REST API is not desired, simply set `hedera.mirror.rest.redis.enabled` to `false`.
+
+The previous web3 requests per second rate limit property `hedera.mirror.web3.evm.rateLimit` has been renamed to `hedera.mirror.web3.throttle.requestsPerSecond`.
+
 ## [v0.105.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.105.0)
 
 A design document was added for the implementation of [HIP-904](https://hips.hedera.com/HIP/hip-904.html) Friction-less Airdrops on mirror node. Please watch the [epic](https://github.com/hashgraph/hedera-mirror-node/issues/8081) to monitor the progress of airdrop development.

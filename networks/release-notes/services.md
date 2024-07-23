@@ -6,15 +6,83 @@ description: Hedera Services release information
 
 Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
-## [v0.51](https://github.com/hashgraph/hedera-services/releases)
+## [v0.52](https://github.com/hashgraph/hedera-services/releases)
 
 {% hint style="info" %}
-**MAINNET UPDATE SCHEDULED: JULY 17, 2024**
+**MAINNET UPDATE SCHEDULED: AUGUST 14, 2024**
 {% endhint %}
 
 {% hint style="info" %}
-**TESTNET UPDATE SCHEDULED: JULY 3, 2024**
+**TESTNET UPDATE SCHEDULED: JULY 31, 2024**
 {% endhint %}
+
+## [v0.51](https://github.com/hashgraph/hedera-services/releases/tag/v0.51.5)
+
+{% hint style="success" %}
+**MAINNET UPDATE: JULY 17, 2024**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE: JULY 2, 2024**
+{% endhint %}
+
+### Release Highlights
+
+#### [HIP 206](https://hips.hedera.com/hip/hip-206)
+
+**Functionality:**
+
+* Defines a new function to the Hedera Token Service system contract that allows for the atomic transfer of HBAR, fungible tokens and non-fungible tokens.
+  * Function cryptoTransfer(TransferList transferList,TokenTransferList\[] tokenTransfer)
+* Exposes an existing HAPI call via smart contracts.
+* Transfer respects granted allowances. &#x20;
+
+**Benefits:**
+
+* Enables native royalty support on the EVM since native $hbar can now be transferred using spending allowances
+* Direct interaction with HBAR and HTS tokens
+* Eliminates the need for token wrapping.
+* Enhances efficiency and reduces complexity.
+* Cuts costs by removing intermediary steps i.e., wrapping assets to interact with them.
+* Enables native royalty support on the EVM since native HBAR can now be transferred using spending allowances
+
+#### [HIP 906](https://hips.hedera.com/hip/hip-906)
+
+**Functionality:**
+
+* Introduces a new Hedera Account Service system contract.
+* Enables querying and granting approval of HBAR to a spender account from smart contracts code
+  * hbarAllowance, hbarApprove
+* Developers do not have to context switch out of smart contract code
+
+**Benefits:**
+
+* Introduces new account proxy contract for HBAR allowances
+* Enables grant, retrieve, and manage HBAR allowances within smart contracts
+  * Developers do not have to context switch out of smart contracts code
+* Simplifies workflows and enhances security
+* Expands potential use cases, especially for DeFi and token marketplaces
+
+### [0.51.5](https://github.com/hashgraph/hedera-services/releases/tag/v0.51.5)
+
+#### What's Changed
+
+* feat(reconnect): introduce ReconnectMapStats interface by [@anthony-swirldslabs](https://github.com/anthony-swirldslabs) in [#13027](https://github.com/hashgraph/hedera-services/pull/13027)
+* chore: revert removal of CLI report tool by [@lpetrovic05](https://github.com/lpetrovic05) in [#13002](https://github.com/hashgraph/hedera-services/pull/13002)
+* docs: add design document for HIP-904 token reject operation by [@MiroslavGatsanoga](https://github.com/MiroslavGatsanoga) in [#12786](https://github.com/hashgraph/hedera-services/pull/12786)
+* feat: gossip facade by [@cody-littley](https://github.com/cody-littley) in [#12897](https://github.com/hashgraph/hedera-services/pull/12897)
+* feat: add the ability to disable the running event hasher by [@cody-littley](https://github.com/cody-littley) in [#13083](https://github.com/hashgraph/hedera-services/pull/13083)
+* fix: ignore token expiry status in `TokenDissociate` by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13104](https://github.com/hashgraph/hedera-services/pull/13104)
+* feat: add javadoc and diagram, delete dead code by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13070](https://github.com/hashgraph/hedera-services/pull/13070)
+* fix: use civilian payer for modified variants by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13020](https://github.com/hashgraph/hedera-services/pull/13020)
+* fix: 12853: Memory leak from MerkleDbDataSource.copyStatisticsFrom() by [@artemananiev](https://github.com/artemananiev) in [#13097](https://github.com/hashgraph/hedera-services/pull/13097)
+* feat: Updated hedera-services code to support DAB protobuf changes. by [@iwsimon](https://github.com/iwsimon) in [#13090](https://github.com/hashgraph/hedera-services/pull/13090)
+
+**➡ See the full list of changes** [**here**](https://github.com/hashgraph/hedera-services/releases/tag/v0.51.5)**.**
+
+### Performance Results
+
+<figure><img src="../../.gitbook/assets/‎0.51_Performance Measurement Results_Extract.‎001.png" alt=""><figcaption></figcaption></figure>
 
 ## [v0.50](https://github.com/hashgraph/hedera-services/releases/tag/v0.50.0)
 
