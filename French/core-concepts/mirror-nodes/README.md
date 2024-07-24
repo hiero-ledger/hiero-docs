@@ -1,41 +1,41 @@
 ---
-description: Store history and cost-effectively query data
+description: Stocker l'historique et les données de requête économique
 ---
 
-# Mirror Nodes
+# Nœuds miroir
 
-Mirror nodes provide a way to store and cost-effectively query historical data from the public ledger while minimizing the use of Hedera network resources. Mirror nodes support the Hedera network services currently available and can be used to retrieve the following information:
+Les nœuds miroir fournissent un moyen de stocker et d'interroger efficacement les données historiques du registre public tout en minimisant l'utilisation des ressources du réseau Hedera. Les nœuds miroir prennent en charge les services réseau Hedera actuellement disponibles et peuvent être utilisés pour récupérer les informations suivantes :
 
-- Transactions and records
-- Event files
-- Balance files
+- Transactions et enregistrements
+- Fichiers d'événements
+- Balance des fichiers
 
-## Understanding Mirror Nodes
+## Comprendre les noeuds miroir
 
-Hedera Mirror Nodes receive information from Hedera network consensus nodes, either mainnet or testnet, and provide a more effective means to perform:
+Les nœuds miroir Hedera reçoivent des informations provenant des nœuds de consensus du réseau Hedera, soit du réseau principal, soit du réseau testnet, et fournissent un moyen plus efficace pour effectuer :
 
-- Queries
-- Analytics
-- Audit support
-- Monitoring
+- Requêtes
+- Analyses
+- Support de l'audit
+- Surveillance
 
-While mirror nodes receive information from the consensus nodes, they do not contribute to consensus themselves. The trust of Hedera is derived based on the consensus reached by the consensus nodes. That trust is transferred to the mirror nodes using signatures, chain of hashes, and state proofs.
+Bien que les nœuds miroir reçoivent des informations des nœuds de consensus, ils ne contribuent pas à un consensus eux-mêmes. La confiance de Hedera est dérivée du consensus atteint par les points nodaux de consensus. Cette confiance est transférée aux noeuds miroir en utilisant des signatures, des chaînes de hachages et des preuves d'état.
 
-To make the initial deployments easier, the mirror nodes strive to take away the burden of running a full Hedera node through the creation of periodic files that contain processed information (such as account balances or transaction records) and have the full trust of the Hedera consensus nodes. The mirror node software reduces the processing burden by receiving pre-constructed files from the network, validating those, populating a database, and providing REST APIs.
+Pour faciliter les déploiements initiaux, les noeuds miroir s'efforcent d'éliminer le fardeau de l'exécution d'un noeud Hedera complet par la création de fichiers périodiques qui contiennent des informations traitées (comme des soldes de comptes ou des enregistrements de transactions) et ont la confiance totale des noeuds de consensus Hedera. Le logiciel de nœud miroir réduit la charge de traitement en recevant des fichiers préconstruits du réseau, en les validant et en remplissant une base de données et en fournissant des API REST.
 
 ![](../../.gitbook/assets/betamirrornode-overview.jpg)
 
-Mirror nodes work by validating the signature files associated with the record, balance, and event files from the consensus nodes that were uploaded to a cloud storage solution from the network.
+Les nœuds miroir fonctionnent en validant les fichiers de signature associés à l'enregistrement, l'équilibre, et les fichiers d'événements des nœuds consensuels qui ont été envoyés vers une solution de stockage cloud depuis le réseau.
 
-As transactions reach consensus on the Hedera network, either mainnet or testnet, Hedera consensus nodes add the transaction and its associated records to a record file. A record file contains a series of ordered transactions and their associated records. After a given amount of time, a record file is closed and a new one is created. This process repeats as the network continues to receive transactions.
+Au fur et à mesure que les transactions atteignent un consensus sur le réseau Hedera, soit le réseau principal, soit le réseau de testnet, Les nœuds de consensus Hedera ajoutent la transaction et les enregistrements associés à un fichier d'enregistrement. Un fichier d'enregistrement contient une série d'opérations commandées et leurs enregistrements associés. Après un certain laps de temps, un fichier d'enregistrement est fermé et un nouveau fichier est créé. Ce processus se répète lorsque le réseau continue de recevoir des transactions.
 
-Once a record file is closed, the consensus nodes generate a signature file. The signature file contains a signature for the corresponding record file’s hash. Along with the signature file of the consensus node, the record file also contains the hash of the previous record file. The former record file can now be verified by matching the hash of the previous record file.
+Une fois qu'un fichier d'enregistrement est fermé, les nœuds de consensus génèrent un fichier de signature. Le fichier de signature contient une signature pour le hachage du fichier d'enregistrement correspondant. Avec le fichier de signature du nœud de consensus, le fichier d'enregistrement contient également le hachage du fichier d'enregistrement précédent. L'ancien fichier d'enregistrement peut maintenant être vérifié en correspondant au hachage du fichier précédent de l'enregistrement.
 
-Hedera consensus nodes push new record files and signature files to the cloud storage provider – currently AWS S3 and Google File Storage are supported. Mirror nodes download these files, verify their signatures based on their hashes, and only then make them available to be processed.
+Les nœuds de consensus Hedera poussent de nouveaux fichiers d'enregistrement et de signature vers le fournisseur de stockage cloud – actuellement AWS S3 et Google File Storage sont pris en charge. Les nœuds miroir téléchargent ces fichiers, vérifient leurs signatures en fonction de leurs hachages, puis les mettent à disposition pour être traités.
 
-### Smart Contract Synthetic Logs
+### Journaux synthétiques Smart Contract
 
-Starting with [v0.79](../../networks/release-notes/mirror-node.md#v0.79) of Hedera Mirror Node release, synthetic event logs for Hedera Token Service (HTS) token transactions have been introduced to mimic the behavior of smart contract tokens. Synthetic events are generated for transactions such as:
+Commence par [v0.79](../../networks/release-notes/mirror-node.md#v0. 9) de la version de Hedera Mirror Node, les journaux d'événements synthétiques pour les transactions de jetons Hedera Token Service (HTS) ont été introduits pour imiter le comportement des jetons de smart contract tokens. Les événements synthétiques sont générés pour les transactions telles que:
 
 - `CryptoTransfer`
 - `CryptoApproveAllowance`
@@ -44,53 +44,53 @@ Starting with [v0.79](../../networks/release-notes/mirror-node.md#v0.79) of Hede
 - `TokenWipe`
 - `TokenBurn`
 
-This feature enables developers to effectively monitor HTS token activities as if they were smart contract tokens. An example code implementation demonstrating using ethers.js to listen to synthetic events can be found [here](https://github.com/ed-marquez/hedera-example-hts-synthetic-events-sdk-ethers).&#x20
+Cette fonctionnalité permet aux développeurs de surveiller efficacement les activités de jetons HTS comme s'ils étaient des jetons de contrat intelligents. Un exemple d'implémentation de code démontrant l'utilisation de ethers.js pour écouter des événements synthétiques peut être trouvé [here](https://github.com/ed-marquez/hedera-example-hts-synthetic-events-sdk-ethers).&#x20
 
-### REST API from Hedera
+### API REST de Hedera
 
-Hedera provides REST APIs to easily query a mirror node that is hosted by Hedera, removing the complexity of having to run your own. Check out the mirror node REST API docs below.
+Hedera fournit des API REST pour facilement interroger un noeud miroir qui est hébergé par Hedera, ce qui élimine la complexité d'avoir à exécuter le vôtre. Consultez les docs REST API du noeud miroir ci-dessous.
 
 {% content-ref url="../../sdks-and-apis/rest-api.md" %}
 [rest-api.md](../../sdks-and-apis/rest-api.md)
 {% endcontent-ref %}
 
-### Run a Mirror Node
+### Exécuter un noeud miroir
 
-Anyone can run a Hedera Mirror Node by downloading and configuring the software on their computer. By running a mirror node, you are able to connect to the appropriate cloud storage and store account balance files, record files, and event files as described above. Please check out the below links on how to get started.
+N'importe qui peut exécuter un nœud miroir Hedera en téléchargeant et en configurant le logiciel sur son ordinateur. En exécutant un nœud miroir, vous êtes en mesure de vous connecter au stockage nuagique approprié et de stocker les fichiers de solde du compte, enregistrer les fichiers et les fichiers d'événements comme décrit ci-dessus. Veuillez consulter les liens ci-dessous pour savoir comment commencer.
 
 {% content-ref url="run-your-own-beta-mirror-node/" %}
 [run-your-own-beta-mirror-node](run-your-own-beta-mirror-node/)
 {% endcontent-ref %}
 
 {% content-ref url="one-click-mirror-node-deployment.md" %}
-[one-click-mirror-node-deployment.md](one-click-mirror-node-deployment.md)
+[one-click-mirror-node-deployment.md](un click-mirror-node-deployment.md)
 {% endcontent-ref %}
 
-## FAQ
+## Foire Aux Questions
 
 <details>
 
-<summary>How is data stored in a Hedera Mirror Node? Is it a specific type of database, or does it use a unique data structure?</summary>
+<summary>How is data stored in a Hedera Mirror Node? S'agit-il d'un type spécifique de base de données, ou utilise-t-elle une structure de données unique ?</summary>
 
-Hedera Mirror Nodes use [PostgreSQL](../../support-and-community/glossary.md#postgresql) databases to store the transaction and event data organized in a structure that mirrors the Hedera Network. Once the mirror node receives record files from Hedera Consensus nodes, the data is validated and loaded into the database.&#x20
+Les nœuds miroir Hedera utilisent les bases de données [PostgreSQL](../../support-and-community/glossary.md#postgresql) pour stocker les données de transaction et d'événement organisées dans une structure qui reflète le réseau Hedera. Une fois que le nœud miroir reçoit des fichiers d'enregistrement des nœuds du Consensus de Hedera, les données sont validées et chargées dans la base de données.&#x20
 
 </details>
 
 <details>
 
-<summary>How do I run my own Hedera Mirror Node? What are the hardware and software requirements?</summary>
+<summary>How do I run my own Hedera Mirror Node? Quelles sont les exigences matérielles et logicielles ?</summary>
 
-Setting up a Hedera Mirror Node involves both hardware and software components. The requirements can be found [here](run-your-own-beta-mirror-node/).
+La mise en place d'un nœud miroir Hedera implique à la fois des composants matériels et logiciels. Les exigences peuvent être trouvées [here](run-your-own-beta-mirror-node/).
 
-To run your mirror node, follow the steps in the "[Run Your Own Mirror Node](run-your-own-beta-mirror-node/)" guide.
+Pour exécuter votre nœud miroir, suivez les étapes du guide "[Exécutez votre propre nœud miroir](run-your-own-beta-mirror-node/)".
 
 </details>
 
 <details>
 
-<summary>Are there costs associated with running a mirror node?</summary>
+<summary>Y a-t-il des coûts associés à l'exécution d'un nœud miroir ?</summary>
 
-No, Hedera does not charge for running a mirror node. However, there are costs associated with purchasing the hardware, internet connection, and potential cloud service fees. The hardware and software requirements can be found [here](run-your-own-beta-mirror-node/).
+Non, Hedera ne charge pas pour l'exécution d'un noeud miroir. Cependant, il y a des coûts associés à l'achat du matériel, de la connexion à Internet et des frais potentiels de service dans le cloud. Les exigences matérielles et logicielles peuvent être trouvées [here](run-your-own-beta-mirror-node/).
 
 </details>
 
@@ -98,7 +98,7 @@ No, Hedera does not charge for running a mirror node. However, there are costs a
 
 <summary>How do I configure a mirror node and query data?</summary>
 
-You can configure your own Hedera Mirror Node by following the step-by-step instructions provided in the "[How to Configure a Mirror Node and Query Data](../../tutorials/more-tutorials/how-to-configure-a-mirror-node-and-query-specific-data.md)" guide. The guide provides instructions on prerequisites, node setup, configuration, and querying the node. Additionally, you can find more details about retention and transaction and entity filtering in the guide.
+Vous pouvez configurer votre propre noeud miroir Hedera en suivant les instructions pas à pas fournies dans la section "[Comment configurer un noeud miroir et les données de requête](. /../tutorials/more-tutorials/how-to-configure-a-mirror-node-and-query-specific-data.md)" guide. Le guide fournit des instructions sur les prérequis, la configuration des nœuds, la configuration et la requête du noeud. De plus, vous trouverez plus de détails sur la rétention et le filtrage des transactions et des entités dans le guide.
 
 </details>
 
@@ -106,6 +106,6 @@ You can configure your own Hedera Mirror Node by following the step-by-step inst
 
 <summary>How can I provide feedback or create an issue to log errors?</summary>
 
-To provide feedback or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide.md) and submit an issue in the Hedera Docs [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
+Pour fournir des commentaires ou des erreurs de log, veuillez vous référer au [Guide de contribution](../../support-and-community/contributing-guide.md) et soumettre un problème dans le [dépôt GitHub](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
 
 </details>
