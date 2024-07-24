@@ -1,48 +1,48 @@
-# Smart Contract Rent
+# Location de contrats intelligents
 
 {% hint style="danger" %}
-🚨 **HEDERA COUNCIL HAS NOT ENABLED RENTS ON SMART CONTRACTS YET. RENTS PAY FOR THE ONGOING USAGE OF RESOURCES USED BY THE SMART CONTRACT. HEDERA INTENDS TO ENABLE THE RENTS IN THE FUTURE, AS DESCRIBED IN THIS SECTION. MORE DETAILS COMING SOON... 🚨**
+🚨 **HEDERA COUNCIL N'A PAS ACTIVÉ DE location SUR LES CONTRACTS DE SMART YET. Les locations sont payantes pour l’UTILISATION EN COURS DES RESSOURCES UTILISÉES PAR LE CONTRAT DE SMART. HEDERA INTENDS POUR ACTIVER LES LOCATIONS DU FUTURE, COMME DÉCRIBÉ DANS CETTE SECTION. PLUS DE DÉTAILS COMMENTAIRES BIENTÔT... 🚨**
 {% endhint %}
 
-Smart contract rent is a recurring payment mechanism designed to maintain resource allocation and is required for contracts to remain active on the network. For contracts, rent is comprised of two primary components:
+La location de contrats intelligents est un mécanisme de paiement récurrent conçu pour maintenir l'allocation des ressources et est nécessaire pour que les contrats restent actifs sur le réseau. Pour les contrats, le loyer est composé de deux composantes principales:
 
-**➡** [**Auto-Renewal**](smart-contract-rent.md#contract-auto-renewal)
+**➡️** [**Auto-Renouvellement**](smart-contract-rent.md#contract-auto-renewal)
 
-**➡** [**Storage Payments**](smart-contract-rent.md#storage-payment)
-
-***
-
-## Contract Auto-Renewal
-
-Auto-renewal is a feature that automatically renews the life of non-deleted smart contracts by a minimum of 90 days. Contract authors are encouraged to establish an auto-renew account specifically for this purpose.&#x20
-
-The network will attempt to automatically charge the **renewal payment** to the expired contract's auto-renew account. The network will attempt to charge the contract if an auto-renew account has zero balance.&#x20
-
-If the account lacks sufficient funds for renewal, the contract goes into a one-week grace period. During this time, the contract is inoperable unless funds are added, its expiry is extended (via `ContractUpdate`), or it receives HBAR. Failing to renew will result in the contract being purged from the state.
+**➡️** [**Paiements de stockage**](smart-contract-rent.md#storage-payment)
 
 ***
 
-## Storage Payments
+## Renouvellement automatique du contrat
 
-Contract storage payments on Hedera will activate once **100 million key-value pairs** are stored cumulatively across the network. The Hedera Coin Economics Committee is expected to set a rate of **$0.02 per key-value pair per year**. This applies to all contracts on Hedera, regardless of the contract being created before or after the rent payments go live.
+Le renouvellement automatique est une fonctionnalité qui renouvelle automatiquement la durée de vie des contrats intelligents non supprimés d'au moins 90 jours. Les auteurs de contrats sont encouragés à créer un compte de renouvellement automatique spécifiquement à cette fin.&#x20
 
-Once storage payments are enabled on Hedera, each contract has **100 free key-value pairs** of storage available. Then, once a contract exceeds the first 100 free key-value pairs, it must pay storage fees.&#x20
+Le réseau tentera de facturer automatiquement le **paiement de renouvellement** au compte de renouvellement automatique du contrat expiré. Le réseau tentera de facturer le contrat si un compte de renouvellement automatique a un solde nul.&#x20
 
-> _Storage fees will be part of the rent payment collected when a contract is auto-renewed. Valid renewal windows are between \~30 and \~92 days (see_ [_HIP-372_](https://hips.hedera.com/hip/hip-372)_)._
-
-If a high enough utilization threshold is reached, **congestion pricing applies.** In this case, prices charged will be inversely proportional to the remaining system capacity of the network (lower remaining capacity means higher pricing). This applies to all transactions.
+Si le compte manque de fonds suffisants pour le renouvellement, le contrat entrera en période de grâce d’une semaine. Pendant ce temps, le contrat est inopérant à moins que des fonds ne soient ajoutés, son expiration est prolongée (via `ContractUpdate`), ou il reçoit HBAR. En cas de non-renouvellement, le contrat sera purgé de l'État.
 
 ***
 
-## Smart Contract Rent - Frequently Asked Questions (FAQ)
+## Paiements de stockage
+
+Les paiements de stockage contractuels sur Hedera seront activés une fois que **100 millions de paires clés** seront stockées cumulativement sur le réseau. Le comité économique de Hedera Coin devrait fixer un taux de **0,02 $ par paire de valeur clé par an**. Ceci s'applique à tous les contrats sur Hedera, quel que soit le contrat en cours de création avant ou après le paiement du loyer en direct.
+
+Une fois que les paiements de stockage sont activés sur Hedera, chaque contrat a **100 paires clés-valeurs** gratuites de stockage. Puis, une fois qu'un contrat dépasse les 100 premières paires clé-valeur, il doit payer des frais de stockage.&#x20
+
+> _Les frais de stockage feront partie du paiement du loyer perçu lorsqu'un contrat est renouvelé automatiquement. Les fenêtres de renouvellement valides sont entre \~30 et \~92 jours (voir_ [_HIP-372_](https://hips.hedera.com/hip/hip-372)_)._
+
+Si un seuil d'utilisation assez élevé est atteint, \*\*prix d'encombrement s'applique. \* Dans ce cas, les prix facturés seront inversement proportionnels à la capacité du réseau restante (la capacité restante inférieure signifie une tarification plus élevée). Cela s'applique à toutes les transactions.
+
+***
+
+## Smart Contract Rent - Foire Aux Questions (FAQ)
 
 <details>
 
 <summary>Why do contracts have to pay rent on Hedera?</summary>
 
-Distributed networks like Hedera have a finite amount of computational resources. When entities like smart contracts are deployed on a decentralized network, a portion of those resources are consumed. Thus, it is unfeasible to maintain an unlimited number of entities for an infinite amount of time on finite resources. Solving this problem is necessary, and it’s a key topic of discussion by Leemon and [others](https://www.coindesk.com/markets/2018/03/27/vitalik-wants-you-to-pay-to-slow-ethereums-growth/) in the layer 1 network space.
+Les réseaux distribués comme Hedera ont une quantité limitée de ressources informatiques. Lorsque des entités comme les contrats intelligents sont déployés sur un réseau décentralisé, une partie de ces ressources est consommée. Il est donc impossible de maintenir un nombre illimité d'entités pour un temps infini sur des ressources limitées. La résolution de ce problème est nécessaire, et c'est un sujet de discussion clé par Leemon et [others](https://www.coindesk.com/markets/2018/03/27/vitalik-wants-you-to-pay-to-slow-ethereums-growth/) dans l'espace réseau de la couche 1.
 
-Contract rent is an economically and technically viable approach to manage smart contract entities and state storage.
+Le loyer des contrats est une approche économiquement et techniquement viable pour gérer les entités des contrats intelligents et le stockage des États.
 
 </details>
 
@@ -50,7 +50,7 @@ Contract rent is an economically and technically viable approach to manage smart
 
 <summary>Do all entities on Hedera have to pay rent or just contracts?</summary>
 
-All other network entities (e.g., Tokens, accounts, topics, and files) will also pay rent. However, the timeline for the rent is not yet defined. Sufficient time and notice will be provided to the community before enabling rent for other entities.
+Toutes les autres entités du réseau (par exemple, jetons, comptes, sujets et fichiers) paieront également le loyer. Cependant, le calendrier pour le loyer n'est pas encore défini. Un délai et un avis suffisants seront fournis à la communauté avant de permettre la location d'autres entités.
 
 </details>
 
@@ -58,10 +58,10 @@ All other network entities (e.g., Tokens, accounts, topics, and files) will also
 
 <summary>What charges are included in contract rent?</summary>
 
-Rent is defined as the recurring payment required for contracts (and, eventually, all other Hedera entities) to remain active on the network. For contracts, rent is comprised of **auto-renewal** and **storage** payments:
+Le loyer est défini comme le paiement récurrent requis pour que les contrats (et, éventuellement, toutes les autres entités de Hedera) restent actifs sur le réseau. Pour les contrats, le loyer est composé de paiements de **renouvellement automatique** et de **stockage** :
 
-- **Auto-renewal payments** The auto-renewal fee for a contract is $0.026 USD per 90 days.
-- **Storage payments** will start once a total of **100 million key-value pairs** are stored cumulatively across the network. These storage fees will be part of the rent payment collected when a contract is auto-renewed. The storage fee rate is $0.02 per key-value pair per year.
+- **Paiements de renouvellement automatique** Les frais de renouvellement automatique pour un contrat sont de 0,026 $ US par 90 jours.
+- **Les paiements de stockage** commenceront une fois qu'un total de **100 millions de paires clés-valeurs** sont stockés cumulativement sur le réseau. Ces frais d’entreposage feront partie du paiement du loyer perçu lors du renouvellement automatique d’un contrat. Les frais de stockage sont de 0,02 $ par paire de valeur clé par année.
 
 <img src="../../.gitbook/assets/smart-contracts-rent-storage-payments.png" alt="" data-size="original">
 
@@ -69,22 +69,22 @@ Rent is defined as the recurring payment required for contracts (and, eventually
 
 <details>
 
-<summary>What are the steps in the renewal process? And what happens if a contract doesn’t pay rent?</summary>
+<summary>What are the steps in the renewal process? Et que se passe-t-il si un contrat ne paie pas le loyer ?</summary>
 
-Every entity on Hedera has the fields `expirationTime`, `autorenewPeriod`, and `autorenewAccount`.
+Chaque entité sur Hedera a les champs `expirationTime`, `autorenewPeriod`, et `autorenewAccount`.
 
-1. When the `expirationTime` for a contract is reached, the network will first try to charge rent to the contract’s `autoRenewAccount`
-   - If renewal is successful, then the contract remains active on the network
-   - If renewal fails, then the contract is marked as `expired`
-2. An `expired` entity is given a grace period before it is removed from the network. During the grace period, the entity (contract) is inactive, and all transactions involving it will fail, except for an update transaction to extend the `expirationTime`
-   - A contract in the grace period can be immediately "re-activated" by either sending it some HBAR or manually extending its `expirationTime` via a contract update transaction
-3. At the end of the grace period, the contract is permanently removed from the ledger if:
-   - The contract and its `autoRenewAccount` still have a zero HBAR balance at the end of the grace period, OR
-   - The contract is not manually extended during the grace period
+1. Quand le `expirationTime` d'un contrat est atteint, le réseau essaiera d'abord de facturer le loyer sur le `autoRenewAccount` du contrat
+   - Si le renouvellement réussit, alors le contrat reste actif sur le réseau
+   - Si le renouvellement échoue, alors le contrat est marqué comme `expiré`
+2. Une entité `expiré` reçoit un délai de grâce avant d'être retirée du réseau. Pendant la période de grâce, l'entité (contrat) est inactive, et toutes les transactions qui l'impliquent échoueront, à l'exception d'une transaction de mise à jour pour prolonger le `expirationTime`
+   - Un contrat dans la période de grâce peut être immédiatement "réactivé" en lui envoyant un HBAR ou en étendant manuellement son `expirationTime` via une transaction de mise à jour du contrat
+3. À la fin de la période de grâce, le contrat est définitivement retiré du registre si :
+   - Le contrat et son `autoRenewAccount` ont toujours un solde HBAR zéro à la fin de la période de grâce, OU
+   - Le contrat n'est pas prolongé manuellement pendant la période de grâce
 
-Note that the ID number of a removed entity is not reused going forward. In addition, if an entity was marked as `deleted`, then it cannot have its `expirationTime` extended. Neither an update transaction nor an auto-renew will be able to extend it.
+Notez que le numéro d'identification d'une entité retirée n'est pas réutilisé. En outre, si une entité a été marquée comme `supprimé`, alors elle ne peut pas avoir son `expirationTime` prolongé. Ni une transaction de mise à jour ni un renouvellement automatique ne seront en mesure de l'étendre.
 
-See the diagram below and [HIP-16](https://hips.hedera.com/hip/hip-16) for more details.
+Voir le diagramme ci-dessous et [HIP-16](https://hips.hedera.com/hip/hip-16) pour plus de détails.
 
 <img src="../../.gitbook/assets/Untitled.png" alt="" data-size="original">
 
@@ -94,7 +94,7 @@ See the diagram below and [HIP-16](https://hips.hedera.com/hip/hip-16) for more 
 
 <summary>How long is the grace period for expired contracts?</summary>
 
-The grace period between entity expiration and deletion is 30 days.
+La période de grâce entre l'expiration de l'entité et la suppression est de 30 jours.
 
 </details>
 
@@ -102,14 +102,14 @@ The grace period between entity expiration and deletion is 30 days.
 
 <summary>Who pays for the contract’s renewal and storage fees?</summary>
 
-Smart contracts on Hedera can pay for rent in two ways: external funds or contract funds.
+Les contrats intelligents sur Hedera peuvent payer la location de deux façons : des fonds externes ou des fonds contractuels.
 
-When the `expirationTime` for a contract is reached, the network will first try to charge rent to the contract’s `autoRenewAccount`:
+Lorsque le `expirationTime` d'un contrat est atteint, le réseau essaiera d'abord de facturer le loyer au `autoRenewAccount` du contrat :
 
-- If the `autoRenewAccount` has sufficient HBAR to pay for the `autoRenewPeriod`, then the contract is successfully renewed
-- If the `autoRenewAccount` has some HBAR but not enough to afford the full `autoRenewPeriod`, then the contract is extended for as long as possible (say, 1 week instead of 90 days). Once that extension (1 week) elapses, if the `autoRenewAccount` hasn't been re-funded to cover the `autoRenewPeriod`, then the contract account itself will be charged for rent
-- If the `autoRenewAccount` has a zero HBAR balance, then the contract itself is charged
-- If the `autoRenewAccount` and the contract both have a zero HBAR balance at the time that renewal fees are due, the contract is marked as `expired`
+- Si le `autoRenewAccount` a suffisamment de HBAR pour payer pour la `autoRenewPeriod`, alors le contrat est renouvelé avec succès
+- Si le `autoRenewAccount` a quelques HBAR mais pas assez pour se permettre la `autoRenewPeriod` complète, puis le contrat est prolongé le plus longtemps possible (par exemple, 1 semaine au lieu de 90 jours). Une fois cette extension (1 semaine) s'écoule, si le `autoRenewAccount` n'a pas été réfinancé pour couvrir la `autoRenewPeriod`, alors le compte de contrat lui-même sera débité pour le loyer
+- Si le `autoRenewAccount` a un solde HBAR zéro, alors le contrat lui-même est facturé
+- Si le `autoRenewAccount` et le contrat ont tous deux un solde de HBAR zéro au moment où les frais de renouvellement sont exigibles, le contrat est marqué comme `expiré`
 
 </details>
 
@@ -117,7 +117,7 @@ When the `expirationTime` for a contract is reached, the network will first try 
 
 <summary>What happens if I call a contract that is expired?</summary>
 
-Calling an `expired` contract will resolve to `CONTRACT_EXPIRED_AND_AWAITING_REMOVAL`.
+Appeler un contrat `expiré` va se résoudre à `CONTRACT_EXPIRED_AND_AWAITING_REMOVAL`.
 
 </details>
 
@@ -125,11 +125,11 @@ Calling an `expired` contract will resolve to `CONTRACT_EXPIRED_AND_AWAITING_REM
 
 <summary>When a contract is expired and deleted from the network, what happens to its account and assets?</summary>
 
-If an expired contract that holds native Hedera Token Service (HTS) tokens reaches the deletion stage, then the assets held by that contract are returned to their respective treasury accounts.
+Si un contrat expiré qui contient les jetons du Hedera Service (HTS) natif atteint l'étape de la suppression. puis les actifs détenus par ce contrat sont restitués à leurs comptes de trésorerie respectifs.
 
-If the deleted contract is being used as a specific key for an HTS token, then that key field will refer to a contract that no longer exists. That specific key can be changed, as long as an admin key was specified during token creation. If the token is immutable (no admin key), the specific key cannot be changed.
+Si le contrat supprimé est utilisé comme clé spécifique pour un jeton HTS, alors ce champ clé fera référence à un contrat qui n'existe plus. Cette clé spécifique peut être modifiée, tant qu'une clé admin a été spécifiée lors de la création de jetons. Si le jeton est immuable (aucune clé d'administrateur), la clé spécifique ne peut pas être changée.
 
-Contracts that are the treasury for HTS tokens do not expire at this moment (subject to change in the future).
+Les contrats qui sont la trésorerie des jetons HTS n'expirent pas à ce moment (sous réserve de changement à l'avenir).
 
 </details>
 
@@ -137,9 +137,9 @@ Contracts that are the treasury for HTS tokens do not expire at this moment (sub
 
 <summary>For how long can I renew my contract?</summary>
 
-The minimum renewal period possible is 2,592,000 seconds (\~30 days) and the maximum is 8,000,001 seconds (\~92 days).
+La période de renouvellement minimum possible est de 2 592 000 secondes (\~30 jours) et le maximum est de 8 000 001 secondes (\~92 jours).
 
-See details in [HIP-372: Entity Auto-Renewals and Expiry Window](https://hips.hedera.com/hip/hip-372).
+Voir les détails dans [HIP-372: Entity Auto-Renewals and Expiry Window](https://hips.hedera.com/hip/hip-372).
 
 </details>
 
@@ -147,7 +147,7 @@ See details in [HIP-372: Entity Auto-Renewals and Expiry Window](https://hips.he
 
 <summary>If I change the <code>autoRenewPeriod</code> of my contract from 30 to 90 days, what will the cost of my transaction be?</summary>
 
-The cost of rent scales just about linearly with the length of the renewal period. So a renewal that pays for 90 days will cost \~3 times as much as a renewal that pays for 30 days.
+Le coût du loyer est à peu près linéaire avec la durée de la période de renouvellement. Ainsi, un renouvellement qui paie 90 jours coûtera \~3 fois plus cher qu'un renouvellement qui paie 30 jours.
 
 </details>
 
@@ -155,15 +155,15 @@ The cost of rent scales just about linearly with the length of the renewal perio
 
 <summary>Where can I seen when a contract will expire?</summary>
 
-Mirror nodes provide the expiration time for contracts. You can obtain this information using the mirror node REST API (show it as `expiration_time`) and network explorers like HashScan (shows it as `Expires at`).
+Les noeuds miroir fournissent le temps d'expiration des contrats. Vous pouvez obtenir ces informations en utilisant l'API REST du noeud miroir (montrer comme `expiration_time`) et les explorateurs de réseau comme HashScan (l'affiche comme `Expires at`).
 
 </details>
 
 <details>
 
-<summary>Where do the auto-renewal transactions appear? Can these be seen on network explorers like HashScan?</summary>
+<summary>Where do the auto-renewal transactions appear? Peut-on les voir sur des explorateurs de réseau comme HashScan ?</summary>
 
-According to [HIP-16: Entity Auto-Renewal](https://hips.hedera.com/hip/hip-16), records of auto-renew charges will appear as `actions` in the record stream, and will be available via mirror nodes. In addition, the fee breakdown is provided in network explorers like HashScan for the contract update transaction. No receipts or records for auto-renewal actions will be available via HAPI queries.
+Selon [HIP-16 : Entity Auto-Renewal](https://hips.hedera.com/hip/hip-16), les enregistrements de frais de renouvellement automatique apparaîtront comme des `actions` dans le flux d'enregistrement, et seront disponibles via les nœuds miroirs. En outre, la ventilation des frais est fournie dans les explorateurs de réseau comme HashScan pour la transaction de mise à jour du contrat. Aucun reçu ou enregistrement pour les actions de renouvellement automatique ne sera disponible via les requêtes HAPI.
 
 [HIP-449](https://hips.hedera.com/hip/hip-449) provides technical details on how information for expiring contracts is included in the record stream.
 
@@ -171,9 +171,9 @@ According to [HIP-16: Entity Auto-Renewal](https://hips.hedera.com/hip/hip-16), 
 
 <details>
 
-<summary>Can the <code>autoRenewAccount</code> for a contract be set to another contract ID?</summary>
+<summary>Est-ce que le <code>autoRenewAccount</code> pour un contrat peut être défini sur un autre ID de contrat ?</summary>
 
-Yes, that is possible for contracts.
+Oui, c'est possible pour les contrats.
 
 </details>
 
@@ -181,8 +181,8 @@ Yes, that is possible for contracts.
 
 <summary>What are the key-value pair thresholds that I should be aware of that impact the size of the storage payment?</summary>
 
-- Storage payments for contracts will only start being charged once **100 million key-value pairs** are reached cumulatively across the network
-- After than, each contract has **100 free key-value pairs** of storage available. Once a contract exceeds the first 100 free key-value pairs, it must pay storage fees
+- Les paiements de stockage pour les contrats ne commenceront à être facturés que si **100 millions de paires clé** sont atteints cumulativement à travers le réseau
+- Après cela, chaque contrat a **100 paires clé-valeur gratuites** de stockage disponibles. Une fois qu'un contrat dépasse les 100 premières paires clé-valeur gratuites, il doit payer des frais de stockage
 
 </details>
 
@@ -190,10 +190,10 @@ Yes, that is possible for contracts.
 
 <summary>For smart contracts created via <code>CREATE2</code>, how can I specify rent-related properties like<code>autorenewAccount</code> and <code>autorenewPeriod</code>?</summary>
 
-Contracts created via `CREATE2` inside the EVM will inherit the `autorenewaccount` and `autorenewPeriod`of the `sender` address.
+Les contrats créés via `CREATE2` à l'intérieur de l'EVM hériteront des `autorenewaccount` et `autorenewPeriod`de l'adresse `expéditeur`.
 
-For example, if you call contract `0xab...cd` which has `autorenewAccount` `0.0.X` and `autorenewPeriod` of 45 days, and this contract deploys a new contract `0xcd...ef`, then the new contract will also have `autorenewAccount` `0.0.X`and `autorenewPeriod` of 45 days.
+Par exemple, si vous appelez le contrat `0xab...cd` qui a `autorenewAccount` `0.0.X` et `autorenewPeriod` de 45 jours, et ce contrat déploie un nouveau contrat `0xcd. .ef`, alors le nouveau contrat aura également `autorenewAccount` `0.0.X`et `autorenewPeriod` de 45 jours.
 
-Also, remember that rent can be covered by the HBAR balance of a contract. Thus, developers can send HBAR to the contract or configure the contract to charge users a specific HBAR amount when executing operations.
+Rappelez-vous également que le loyer peut être couvert par le solde du HBAR d'un contrat. Ainsi, les développeurs peuvent envoyer HBAR au contrat ou configurer le contrat pour facturer aux utilisateurs un montant HBAR spécifique lors de l'exécution d'opérations.
 
 </details>
