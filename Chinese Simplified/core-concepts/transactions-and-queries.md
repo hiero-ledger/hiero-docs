@@ -1,125 +1,125 @@
 ---
-description: An overview of Hedera API transactions and queries
+description: Hedera API 交易和查询概述
 ---
 
-# Transactions and Queries
+# 交易和查询
 
-## Transactions
+## 交易记录
 
-**Transactions** are requests sent by a client to a node with the expectation that they are submitted to the network for processing into consensus order and subsequent application to state. Each transaction (e.g. `TokenCreateTransaction()`) has an associated transaction fee that compensates the Hedera network for that processing and subsequent maintenance in a consensus state. Users can set a max transaction fee for the amount the user is willing to spend. The user is only charged the actual transaction fee.
+**交易** 是客户端向某个节点发送的请求，期望它们被提交到网络以便处理成协商一致的订单，然后应用到状态。 每笔交易(例如`TokenCreateTransaction()`)\`都有一个相关的交易费用，用于补偿Hedera网络的处理和随后以协商一致的状态维护。 用户可以为用户愿意花费的金额设置最大交易费用。 用户只收取实际交易费用。
 
-**Transaction ID**
+**交易 ID**
 
-Each transaction has a unique transaction ID. The transaction ID is used for the following:
+每个交易都有一个唯一的交易ID。 交易ID用于：
 
-- Obtaining receipts, records, state proofs
-- Internally by the network for detecting when duplicate transactions are submitted
+- 获取收据、记录、国家证据
+- 内部检测重复交易时的网络
 
-The transaction ID is composed by using the transaction's valid start time and the account ID of the account that is paying for the transaction. The transaction's valid start time is the time the transaction begins to be processed on the network. The transaction's valid start time can be set to a future date/time. A transaction ID looks something like `0.0.9401@1598924675.82525000`where `0.0.9401` is the transaction fee payer account ID and `1598924675.82525000` is the timestamp in `seconds.nanoseconds`.
+事务ID是通过交易的有效启动时间和支付交易的账户ID组成的。 交易的有效启动时间是交易开始在网络上处理的时间。 交易的有效开始时间可以设置为未来的日期/时间。 交易ID看起来像`0.0.9401@1598924675.825000`where `0.0.9401` 是交易费支付者帐户ID，`1598924675.825000` 是`seconds.nanoseconds`中的时间戳。
 
-Transactions have a valid duration of up to 180 seconds and begin at the transaction's valid start time. This means that the transaction has up to 180 seconds to be accepted by one of the nodes in the network. If the transaction is not accepted in this timeframe, the transaction will expire. The transaction will have to be created, signed, and submitted again.
+交易有效持续时间最长为180秒，并在交易有效开始时间开始。 这意味着交易最多需要180秒才能被网络中的节点之一接受。 如果交易在这个时间范围内不被接受，交易将过期。 交易必须被创建、签名并再次提交。
 
-A **transaction** generally includes the following:
+**交易**一般包括以下内容：
 
-- **Node Account**: the account of the node the transaction is being sent to (e.g. `0.0.3`)
-- **Transaction ID**: the identifier for a transaction has two components, the account ID of the paying account plus the transaction’s valid start time
-- **Transaction Fee**: the maximum fee the paying account is willing to pay for the transaction
-- **Valid Duration**: the number of seconds that the client wishes the transaction to be deemed valid for, starting at the transaction's valid start time
-- **Memo**: a string of text up to 100 bytes of data (optional)
-- **Transaction**: type of request, for instance, an HBAR transfer or a smart contract call
-- **Signatures**: at minimum, the paying account will sign the transaction as authorization. Other signatures may be present as well.
+- **节点帐户**：交易被发送到节点的帐户(如：`0.0.3`)
+- **交易ID**：交易的标识符包含两个组件，即支付账户的账户ID，加上交易的有效启动时间
+- **交易费用**：支付帐户愿意为交易支付的最大费用
+- **有效期**：客户希望交易被视为有效的秒数，交易开始有效的时间开始时间
+- **Memo**：最多100字节数据字符串(可选)
+- **交易**：请求类型，例如HBAR传输或智能合同调用
+- **签名**：支付账户至少会以授权方式在交易上签字。 其他签字也可能存在。
 
-The lifecycle of a transaction in the Hedera ecosystem begins when a client creates a transaction. Once the transaction is created it is cryptographically signed at a minimum by the account paying for the fees associated with the transaction. Additional signatures may be required depending on the properties set for the account, topic, or token. The client is able to stipulate the maximum fee it is willing to pay for the processing of the transaction and, for a smart contract operation, the maximum amount of gas. Once the required signatures are applied to the transaction the client then submits the transaction to any node on the Hedera network.
+Hedera 生态系统中交易的生命周期从客户创建交易时开始。 一旦创建交易，它将由支付交易相关费用的帐户至少以加密方式签名。 可能需要额外的签名，这取决于为帐户、主题或令牌设置的属性。 客户能够规定它愿意为处理交易支付的最高费用； 智能合同操作，最大气体量。 一旦所需的签名被应用到交易中，客户端就会将交易提交给Hedera网络上的任何节点。
 
-The receiving node validates (for instance, confirms the paying account has sufficient balance to pay the fee) the transaction and, if validation is successful, submits the transaction to the Hedera network for consensus by adding the transaction to an event and gossiping that event to another node. Quickly, that event flows out to all the other nodes. The network receives this transaction exponentially fast via the [gossip about gossip protocol](hashgraph-consensus-algorithms/gossip-about-gossip.md). The consensus timestamp for an event (and so the transactions within) is calculated by each node independently calculating the median of the times that the nodes of the network received that event. You may find more information on how the consensus timestamp is calculated [here](https://docs.hedera.com/docs/hashgraph-overview#section-fair-timestamps). The hashgraph algorithm delivers the finality of consensus. Once assigned a consensus timestamp the transaction is then applied to the consensus state in the order determined by each transaction’s consensus timestamp. At that point, the fees for the transaction are also processed. In this manner, every node in the network maintains a consensus state because they all apply the same transactions in the same order. Each node also creates and temporarily stores receipts/records in support of the client subsequently querying for the status of a transaction.
+接收节点验证(例如确认支付账户有足够的余额来支付费用)，如果验证成功的话。 将交易提交给Hedera网络以便达成共识，将交易添加到一个事件中，并将该事件隐藏到另一个节点。 很快，这个事件会流向所有其他节点。 网络通过[关于gossip 协议的gossip ]（hashgraph-consenstis-algorithms/gosip-about-gosip.md）以指数速度接收此交易。 每个节点独立计算网络节点收到事件的时间中位数，算出事件的一致时间戳（以及内部的交易）。 You may find more information on how the consensus timestamp is calculated [here](https://docs.hedera.com/docs/hashgraph-overview#section-fair-timestamps). 散列图算法提供了最终的共识。 一旦分配了协商一致的时间戳，交易就会按照每个交易的协商一致时间戳所确定的顺序适用于协商一致状态。 届时还处理交易费用。 这样，网络中的每个节点都保持一个共识状态，因为它们都按照同样的顺序应用相同的交易。 每个节点还创建并临时保存收据/记录，以支持客户端随后查询交易状态。
 
-### Nested Transactions
+### 嵌套交易
 
-A **nested transaction** triggers subsequent transactions after executing a top-level transaction. The top-level transaction that a user submits is a **parent transaction**. Each subsequent transaction the parent transaction triggers as a result of the execution of the parent transaction is a **child transaction**. An example of a nested transaction is when a user submits the top-level transfer transaction to an account alias that triggers an account create transaction behind scenes. This parent/child transaction relationship is also observed with Hedera contracts interacting with HTS precompile. A parent transaction supports up to 999 child transactions since the platform reserves 1000 nanoseconds per user-submitted transaction.
+**嵌套交易** 在执行顶级交易后触发后续交易。 用户提交的顶级交易是 **父交易** 。 母交易由于母交易的执行而触发的每一项随后交易都是 **子交易** 。 嵌套交易的一个例子是用户向账户别名提交顶级转账交易，触发账户在幕后创建交易。 这种家长/儿童交易关系也与Hedera合同与HTS预编程序交互。 父交易支持最多999个子交易，因为平台为用户提交的交易保留1000个纳米。
 
-**Transaction IDs**
+**交易 IDs**
 
-Parent and child transactions share the payer account ID and transaction valid start timestamp. The child transaction IDs have an additional **nonce** value that represents the order in which the child transactions were executed. The parent transaction has a nonce value of 0. The nonce value of child transactions increments by 1 for each child transaction executed as a result of the parent transaction.
+父交易和子交易共享付款人账户ID和有效的启动时间戳。 儿童交易 ID还有一个额外的 **无** 值代表执行儿童交易的顺序。 父交易的nonce 值为0。 由于父交易而执行的每个子交易的零一次递增值。
 
 Parent Transaction ID: <mark style="color:red;">payerAccountId</mark>@<mark style="color:blue;">transactionValidStart</mark>
 
 Child Transaction ID: <mark style="color:red;">payerAccountId</mark>@<mark style="color:blue;">transactionValidStart</mark>/<mark style="color:green;">nonce</mark>
 
-Example:
+示例：
 
 - Parent Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>
 - Child 1 Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>/<mark style="color:green;">1</mark>
 - Child 2 Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>/<mark style="color:green;">2</mark>
 
-**Transaction Records**
+**交易记录**
 
-Nested transaction records are returned by requesting the record for the parent transaction and setting the `setIncludeChildren(<value>)` to true. This returns records for all child transactions associated with the parent transaction. Child transaction records include the parent consensus timestamp and the child transaction ID.
+通过请求父交易的记录并将 `setInclude(<value>)` 设置为真来返回嵌套交易记录。 这将返回与父交易相关联的所有子交易记录。 儿童交易记录包括父母协商一致的时间戳和儿童交易 ID。
 
-The parent consensus timestamp field in a child transaction record is not populated in cases when the child transaction was triggered **before** the parent transaction. An example of this case is creating an account using an account alias. The user submits the transfer transaction to create and fund the new account using the account alias. The transfer transaction (parent) triggers the account create transaction (child). However, the child transaction occurs before the parent transaction, so the new account is created before completing the transfer. The parent consensus timestamp is not populated in this case.
+子交易记录中的父共识时间戳字段在触发子交易之前**在父交易之前**未填写时未填写。 此案例的一个例子是使用账户别名创建一个账户。 用户提交转账交易以使用账户别名创建新账户并为其提供资金。 转账交易(父) 触发账户创建交易(子项)。 然而，儿童交易发生在父交易之前，因此在完成转账之前创建新帐户。 上级达成共识的时间戳在这种情况下没有填写。
 
-**Transaction Receipts**
+**交易收据**
 
-Nested transaction receipts can be returned by requesting the parent transaction receipt and setting the boolean value equal to true to return all child transaction receipts.
+可以通过请求母交易收据并设置布尔值等于真以退回所有子交易收据来退回嵌套交易收据。
 
-**Child Transaction Fees**
+**子交易费**
 
-The transaction fee for the child transaction is included in the record of the parent transaction. The transaction fee will return zero in the child transaction.
+儿童交易的交易费用列入母交易记录。 交易费用将在子交易中返回零。
 
-## Queries
+## 查询
 
-**Queries** are processed only by the single node to which they are sent. Clients send queries to retrieve some aspect of the current consensus state like the balance of an account. Certain queries are free but generally, queries are subject to fees. The full list of queries can be found [here](../sdks-and-apis/sdks/queries.md).
+**查询** 只由发送到的单个节点处理。 客户端发送查询以检索当前共识状态的某些方面，如账户余额。 某些查询是免费的，但通常需要付费。 完整的查询列表可以找到 [here](../sdks-and-apis/sdks/queries.md)。
 
-A query includes a header that includes a normal HBAR transfer transaction that will serve as the means by which the client pays the node the appropriate fee. There is no way to give partial payment to a node for processing the query meaning if a user overpaid for the query the user will not receive a refund. The node processing the query will submit that payment transaction to the network for processing into a consensus statement in order to receive its fee.
+查询包括一个包含正常的 HBAR 传输交易的信头，作为客户端支付相应费用的手段。 没有办法向一个节点支付部分付款以处理查询，即如果用户为查询多付，用户将不会收到退款。 处理查询的节点将向网络提交付款交易以便处理成为协商一致的报表，以便收取费用。
 
-A client can determine the appropriate fee for a query by first asking a node for the cost and not the actual data. Such a COST\_ANSWER query is free to the client.
+客户端可以通过首先询问一个节点的成本而不是实际数据来确定查询的适当费用。 此种COST\_ANSWER查询对客户端是免费的。
 
 For more information about query fees, please visit Hedera API fees [overview](https://www.hedera.com/fees).
 
-### Recall:
+### 回顾：
 
 {% hint style="info" %}
-Recall
+回收站
 
-Hedera does not have **miners** or a special group of nodes that are responsible for adding transactions to the ledger like alternative distributed ledger solutions. The influence of each node to the determination of the consensus timestamp for an event is proportional to its stake in HBAR.
+Hedera 没有**矿物** 或特殊的节点群，负责将交易添加到分类账中，如其他分散的分类账解决方法。 每个节点对确定某一事件的协商一致时间戳的影响与其在六溴代二苯中的利害关系相称。
 {% endhint %}
 
 ![](../.gitbook/assets/transaction-flow.png)
 
-Once a transaction has been submitted to the network, clients may seek confirmation it was successfully processed. There are multiple confirmation methods - varying in the level of information provided, the duration for which the confirmation is available, the degree of trust, and the corresponding cost.
+一旦交易被提交到网络，客户可以寻求确认它已成功处理。 有多种确认方法——所提供信息的程度不同。 确认期限、信任程度和相应费用。
 
 ![](../.gitbook/assets/query-confirmation.png)
 
-## Confirmations
+## 确认
 
-- **Receipts:** Receipts provide minimal information - simply whether or not the transaction was successfully processed into a consensus state. Receipts are generated by default and are persisted for 3 minutes. Receipts are free.
-- **Records:** Records provide greater detail about the transaction than do receipts — such as the consensus timestamp it received or the results of a smart contract function call. Records are generated by default but are persisted for 3 minutes.
-- **State proofs (coming soon):** When querying for a record, a client can optionally indicate that it desires the network to return a state proof in addition to the record. A state-proof, documents network consensus on the contents of that record in the consensus state — this collective assertion includes signatures of most of the network nodes. Because state proofs are cryptographically signed by a supermajority of the network, they are secure and potentially admissible in a court of law.
+- **收据：** 收据提供了最少的信息——仅仅是交易是否已成功处理为协商一致状态。 收据默认情况下生成，持续3分钟。 收据是免费的。
+- **记录：** 记录比收据提供更详细的交易信息，例如收到的协商一致的时间戳或智能合同函数调用的结果。 记录默认情况下生成，但持续了3分钟。
+- **状态证明(即将到来)：** 查询记录时。 客户端可以选择性地表示它希望网络在记录之外返回状态证明。 国家证明， 这种集体主张包括大部分网络节点的签名。 由于国家证据是由网络的绝大多数加密签名的，因此它们是安全的，并可能在法院得到接受。
 
 {% hint style="info" %}
-An early version of a state proof, state proof alpha, is now available. Please check out the Mirror Node REST API section to get started.
+状态证明的早期版本现在可用. 请查看Mirror Node REST API 部分以开始操作。
 {% endhint %}
 
-{% content-ref url="../sdks-and-apis/rest-api.md" %}
+{% content-ref url="../sdks-and/apis/rest-api.md" %}
 [rest-api.md](../sdks-and-apis/rest-api.md)
 {% endcontent-ref %}
 
-For a more detailed review of the confirmation methods, please check out this [blog post](https://www.hedera.com/blog/transaction-confirmation-methods-in-hedera).
+欲了解更详细的确认方法，请查看[博客文章](https://www.hedera.com/blog/transaction-confirmation-methods-in-hedera)。
 
-## FAQ
+## 常见问题
 
 <details>
 
-<summary>What are the transaction and query fees associated with using Hedera?</summary>
+<summary>与使用Hedera相关的交易和查询费用是什么？</summary>
 
-You can refer to the fees page on Hedera's website for a detailed breakdown of transaction and query costs. If you're looking for an estimation tool, you can use the [Hedera fee estimator](https://hedera.com/fees).
+您可以参考Hedera网站上的费用页面查看交易和查询费用的详细细分。 如果您正在寻找一个估算工具，您可以使用 [Hedera fee estimatator](https://hedera.com/fees)。
 
 </details>
 
 <details>
 
-<summary>What are transactions?</summary>
+<summary>交易是什么？</summary>
 
-Transactions are requests sent by a client to a node with the expectation that they are submitted to the network for processing into consensus order and subsequent application to state. Each transaction has a unique transaction ID composed of the transaction's valid start time and the account ID of the account that is paying for the transaction. This ID is used for obtaining receipts, records, and state proofs and for detecting when duplicate transactions are submitted.
+交易是客户端向某个节点发送的请求，希望它们会被提交到网络以便处理成协商一致的订单，然后应用到状态中。 每个交易都有一个独特的交易ID，由交易的有效启动时间和支付交易的账户ID组成。 这种证件用于获取收据、记录和状态证明，并用于检测提交重复交易的时间。
 
 </details>
 
@@ -127,14 +127,14 @@ Transactions are requests sent by a client to a node with the expectation that t
 
 <summary>What are queries?</summary>
 
-Queries are requests processed only by the single node to which they are sent. [Clients](../support-and-community/glossary.md#client) send queries to retrieve some aspect of the current consensus state, like the balance of an account. Certain queries are free, but generally, queries are subject to fees.
+查询是由发送到的单个节点处理的请求。 [Clients](../supportand-community/glossary.md#client) 发送查询以检索当前共识状态的某些方面，例如帐户的余额。 某些查询是免费的，但通常需要付费。
 
 </details>
 
 <details>
 
-<summary>What is the difference between receipts, records, and state proofs?</summary>
+<summary>收据、记录和状态证明之间的差别是什么？</summary>
 
-Receipts provide minimal information - whether or not the transaction was successfully processed into a consensus state. Records provide greater detail about the transaction than receipts, such as the consensus timestamp it received or the results of a smart contract function call. State proofs are a feature that will allow a client to indicate optionally that it desires the network to return a state proof in addition to the record.
+收据提供了最低限度的信息——交易是否成功地被处理为协商一致的状态。 记录比收据更详细地介绍交易，例如收到的协商一致的时间戳或智能合同函数调用的结果。 国家证明是一种功能，它可以让客户选择性地表明它希望网络在记录之外返回状态证明。
 
 </details>
