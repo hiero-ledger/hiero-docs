@@ -1,52 +1,52 @@
-# Schedule Transaction
+# Planifier la transaction
 
-## Overview
+## Aperçu
 
-A **schedule transaction** is a transaction with the ability to collect the required signatures on a Hedera network in preparation for its execution. Unlike other Hedera transactions, this allows you to queue a transaction for execution in the event you do not have all the required signatures for the network to immediately process the transaction. A scheduled transaction is used to create a scheduled transaction. This feature is ideal for transactions that require multiple signatures.
+Une **transaction programmée** est une transaction ayant la possibilité de collecter les signatures requises sur un réseau Hedera en préparation de son exécution. Contrairement aux autres transactions Hedera, cela vous permet de mettre en file d'attente une transaction pour l'exécution dans le cas où vous ne possédez pas toutes les signatures requises pour le réseau pour traiter immédiatement la transaction. Une opération planifiée est utilisée pour créer une opération planifiée. Cette fonctionnalité est idéale pour les transactions qui nécessitent plusieurs signatures.
 
-When a user creates a scheduled transaction, the network creates a scheduled entity. The scheduled entity receives an entity ID just like accounts, tokens, etc called a schedule ID. The schedule ID is used to reference the scheduled transaction that was created. The transaction that is being scheduled is referenced by a scheduled transaction ID.&#x20
+Lorsqu'un utilisateur crée une opération planifiée, le réseau crée une entité planifiée. L'entité planifiée reçoit un ID d'entité tout comme les comptes, jetons, etc appelés un ID de planification. L'ID de la planification est utilisé pour référencer la transaction planifiée qui a été créée. La transaction en cours de planification est référencée par un ID de transaction planifiée.&#x20
 
-Signatures are appended to the scheduled transaction by submitting a `ScheduleSign` transaction. The `ScheduleSign` transaction requires the schedule ID of the scheduled transaction the signatures will be appended to. In its current design, a scheduled transaction has 30 minutes to collect all required signatures before the scheduled transaction can be executed or will be deleted from the network. You can delete a scheduled transaction by setting an admin key to delete a scheduled transaction before it is executed or deleted by the network.
+Les signatures sont ajoutées à la transaction planifiée en soumettant une transaction `ScheduleSign`. La transaction `ScheduleSign` nécessite l'ID du planning de la transaction planifiée à laquelle les signatures seront ajoutées. Dans sa conception actuelle, une transaction planifiée a 30 minutes pour collecter toutes les signatures nécessaires avant que la transaction planifiée puisse être exécutée ou sera supprimée du réseau. Vous pouvez supprimer une transaction planifiée en définissant une clé d'administration pour supprimer une transaction planifiée avant qu'elle ne soit exécutée ou supprimée par le réseau.
 
-You can request the current state of a scheduled transaction by querying the network for `ScheduleGetInfo`. The request will return the following information:
+Vous pouvez demander l'état actuel d'une transaction planifiée en interrogeant le réseau sur `ScheduleGetInfo`. La demande retournera les informations suivantes :
 
-- Schedule ID
-- Account ID that created the scheduled transaction
-- Account ID that paid for the creation of the scheduled transaction
-- Transaction body of the inner transaction
-- Transaction ID of the inner transaction
-- Current list of signatures
-- Admin key (if any)
-- Expiration time
-- The timestamp of when the transaction was deleted, if true
+- ID de l'horaire
+- ID du compte client qui a créé la transaction planifiée
+- ID du compte client qui a payé pour la création de la transaction planifiée
+- Corps de la transaction interne
+- ID de la transaction interne
+- Liste actuelle des signatures
+- Clé admin (le cas échéant)
+- Délai d'expiration
+- L'horodatage de la suppression de la transaction, si vrai
 
-The design document for this feature can be referenced [here](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md).
+Le document de conception de cette fonctionnalité peut être référencé [here](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md).
 
-**Schedule Transaction ID**
+**Identification de la transaction programmée**
 
-Hedera Transaction IDs are composed of the account ID submitting the transaction and the transaction valid start time in seconds.nanoseconds (`0.0.1234@1615422161.673238162`). The transaction ID for a scheduled transaction will include "`?schedule`" at the end of the transaction ID which identifies the transaction as a scheduled transaction i.e. `0.0.1234@1615422161.673238162?scheduled`. The transaction ID of the scheduled (inner) transaction inherits the transaction valid start time and account ID from the scheduled (outer) transaction.
+Les ID de transaction Hedera sont composés de l'ID du compte qui soumet la transaction et de l'heure de début valide de la transaction en secondes.nanosecondes (`0.0.1234@1615422161.673238162`). L'ID de la transaction pour une transaction planifiée inclura "`? chedule`" à la fin de l'identifiant de la transaction qui identifie la transaction comme une opération planifiée i. . `0.0.1234@1615422161.673238162?scheduled`. L'ID de l'opération planifiée (intérieure) hérite de l'heure de début de la transaction valide et de l'ID du compte de la transaction planifiée (extérieure).
 
-**Schedule Transaction Receipts**
+**Planifier les reçus de transactions**
 
-The transaction receipt for a schedule that was created contains the new schedule entity ID and the scheduled transaction ID. The scheduled transaction ID is used to request records for the inner transaction upon successful execution.
+Le reçu de transaction pour un calendrier qui a été créé contient le nouvel ID de l'entité planifiée et l'ID de l'opération planifiée. L'ID de la transaction planifiée est utilisé pour demander des enregistrements pour la transaction intérieure une fois l'exécution réussie.
 
-**Schedule Transaction Records**
+**Planifier les enregistrements de transactions**
 
-Transaction records are created when the scheduled transaction is created, for each signature that was appended, when the scheduled transaction is executed, and if the scheduled transaction was deleted by a user. The record of a scheduled transaction includes a schedule reference property which is the ID of the schedule the record is associated with. To get the transaction record for the inner transaction after successful execution, you can do the following:
+Les enregistrements de la transaction sont créés lorsque l'opération planifiée est créée, pour chaque signature qui a été ajoutée, lorsque la transaction planifiée est exécutée, et si la transaction planifiée a été supprimée par un utilisateur. L'enregistrement d'une opération planifiée comprend une propriété de référence de calendrier, qui est l'ID de la planification à laquelle l'enregistrement est associé. Pour obtenir l'enregistrement de la transaction interne après l'exécution réussie, vous pouvez faire ce qui suit :
 
-1. Poll the network for the specified scheduled transaction ID. Once the scheduled transaction executes the scheduled transaction successfully, request the record for the scheduled transaction using the scheduled transaction ID.
-2. Query a Hedera mirror node for the scheduled transaction ID.
-3. Run your own mirror node and query for the scheduled transaction ID.
+1. Sondage sur le réseau pour l'ID de transaction planifiée spécifiée. Une fois que l'opération planifiée exécute l'opération planifiée avec succès, demandez l'enregistrement de l'opération planifiée en utilisant l'ID de l'opération planifiée.
+2. Interroger un noeud miroir Hedera pour l'ID de transaction planifiée.
+3. Exécutez votre propre nœud miroir et requête pour l'ID de transaction planifiée.
 
-## FAQ
+## Foire Aux Questions
 
 <details>
 
 <summary>What is the difference between a schedule transaction and scheduled transaction?</summary>
 
-A _**schedule transaction**_ is a transaction that can schedule any Hedera transaction with the ability to collect the required signatures on the Hedera network in preparation for its execution.
+Une transaction _**planifiée**_ est une transaction qui peut planifier n'importe quelle transaction Hedera avec la possibilité de collecter les signatures requises sur le réseau Hedera en préparation de son exécution.
 
-A _**scheduled transaction**_ is a transaction that has already been scheduled.
+Une _**transaction planifiée**_ est une transaction qui a déjà été planifiée.
 
 </details>
 
@@ -54,15 +54,15 @@ A _**scheduled transaction**_ is a transaction that has already been scheduled.
 
 <summary>Is there an entity ID assigned to a schedule transaction?</summary>
 
-Yes, the entity ID is referred to as the schedule ID which is returned in the receipt of the ScheduleCreate transaction.
+Oui, l'ID de l'entité est désigné comme l'ID de l'horaire qui est retourné à la réception de la transaction ScheduleCreate.
 
 </details>
 
 <details>
 
-<summary>What transactions can be scheduled?</summary>
+<summary>Quelles transactions peuvent être planifiées ?</summary>
 
-In its early iteration, a small subset of transactions will be schedulable. You check out [this](../sdks-and-apis/sdks/schedule-transaction/create-a-schedule-transaction.md) page for a list of transaction types that are supported today. All other transaction types will be available to schedule in future releases. The complete list of transactions that users can schedule in the future can be found here.
+Lors de sa première itération, un petit sous-ensemble de transactions sera planifiable. Vous consultez la page [this](../sdks-and-apis/sdks/schedule-transaction/create-a-schedule-transaction.md) pour une liste des types de transactions qui sont pris en charge aujourd'hui. Tous les autres types de transaction seront disponibles pour les prochaines versions. La liste complète des transactions que les utilisateurs peuvent planifier à l'avenir peut être trouvée ici.
 
 </details>
 
@@ -70,11 +70,11 @@ In its early iteration, a small subset of transactions will be schedulable. You 
 
 <summary>How can I find a schedule transaction that requires my signature?</summary>
 
-- The creator of the scheduled transaction can provide you a schedule ID which you specify in the ScheduleSign transaction to submit your signature.
+- Le créateur de la transaction planifiée peut vous fournir un ID de planification que vous spécifiez dans la transaction ScheduleSign pour soumettre votre signature.
 
 <!---->
 
-- You can query a mirror node to return all schedule transactions that have your public key associated with it. This option is not available today, but is planned for the future.
+- Vous pouvez interroger un noeud miroir pour retourner toutes les transactions de planification qui ont votre clé publique associée. Cette option n'est pas disponible aujourd'hui, mais est prévue pour l'avenir.
 
 </details>
 
@@ -82,15 +82,15 @@ In its early iteration, a small subset of transactions will be schedulable. You 
 
 <summary>What happens if the scheduled transaction does not have sufficient balance?</summary>
 
-If the scheduled transaction (inner transaction) fee payer does not have sufficient balance then the inner transaction will fail while the schedule transaction (outer transaction) will be successful.
+Si le payeur de frais de l'opération planifiée (opération intérieure) n'a pas le solde suffisant, l'opération intérieure échouera alors que l'opération planifiée (opération externe) sera réussie.
 
 </details>
 
 <details>
 
-<summary>Can you delay a transaction once it has been scheduled?</summary>
+<summary>Pouvez-vous retarder une transaction une fois qu'elle a été planifiée ?</summary>
 
-No, you cannot delay or modify a scheduled transaction once it's been submitted to a network. You would need to delete the schedule transaction and create a new one with the modifications.
+Non, vous ne pouvez pas retarder ou modifier une transaction planifiée une fois qu'elle a été soumise à un réseau. Vous devrez supprimer l'opération planifiée et en créer une nouvelle avec les modifications.
 
 </details>
 
@@ -98,8 +98,8 @@ No, you cannot delay or modify a scheduled transaction once it's been submitted 
 
 <summary>What happens if multiple users create the same schedule transaction?</summary>
 
-- The first transaction to reach consensus will create the schedule transaction and provide the schedule entity ID
-- The other users will get the schedule ID in the receipt of the transaction that was submitted. The receipt status will result in `IDENTICAL_SCHEDULE_ALREADY_CREATED`. These users would need to submit a ScheduleSign transaction to append their signatures to the schedule transaction.
+- La première transaction à atteindre un consensus créera la transaction planifiée et fournira l'ID de l'entité planifiée
+- Les autres utilisateurs recevront l'ID de l'horaire lors de la réception de la transaction qui a été soumise. Le statut du reçu résultera en `IDENTICAL_SCHEDULE_ALREADY_CREATED`. Ces utilisateurs devront soumettre une transaction ScheduleSign pour ajouter leurs signatures à la transaction planifiée.
 
 </details>
 
@@ -107,7 +107,7 @@ No, you cannot delay or modify a scheduled transaction once it's been submitted 
 
 <summary>When does the scheduled transaction execute?</summary>
 
-The scheduled transaction executes when the last signature is received.
+La transaction planifiée s'exécute lorsque la dernière signature est reçue.
 
 </details>
 
@@ -115,7 +115,7 @@ The scheduled transaction executes when the last signature is received.
 
 <summary>How often does the network check to see if the scheduled transaction (inner transaction) has met the signature requirement?</summary>
 
-Every time the schedule transaction is signed.
+Chaque fois que la transaction du calendrier est signée.
 
 </details>
 
@@ -123,7 +123,7 @@ Every time the schedule transaction is signed.
 
 <summary>How do you get information about a schedule transaction?</summary>
 
-You can submit a [schedule info query](../sdks-and-apis/sdks/schedule-transaction/get-schedule-info.md) request to the network.
+Vous pouvez soumettre une [requête d'information sur le programme](../sdks-and-apis/sdks/schedule-transaction/get-schedule-info.md) au réseau.
 
 </details>
 
@@ -131,7 +131,7 @@ You can submit a [schedule info query](../sdks-and-apis/sdks/schedule-transactio
 
 <summary>When does a scheduled transaction expire?</summary>
 
-A scheduled transaction expires in 30 minutes. In future implementations, we will allow the user to set the time at which the scheduled transaction should execute at, and the transaction will expire at that time.
+Une transaction planifiée expire dans 30 minutes. Dans les implémentations futures, nous permettrons à l'utilisateur de définir l'heure à laquelle la transaction planifiée doit s'exécuter, et la transaction expirera à ce moment-là.
 
 </details>
 
@@ -139,6 +139,6 @@ A scheduled transaction expires in 30 minutes. In future implementations, we wil
 
 <summary>What does a schedule transaction receipt contain?</summary>
 
-The transaction receipt for a schedule that was created contains the new schedule entity ID and the scheduled transaction ID.
+Le reçu de transaction pour un calendrier qui a été créé contient le nouvel ID de l'entité planifiée et l'ID de l'opération planifiée.
 
 </details>
