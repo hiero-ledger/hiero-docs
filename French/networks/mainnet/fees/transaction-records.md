@@ -1,145 +1,145 @@
-# Transaction Records
+# Enregistrements de transaction
 
-## Understanding Transaction Records – Remittances & Fees
+## Comprendre les enregistrements de transactions – Remises & Frais
 
-Once a transaction has been successfully processed by the Hedera network into a consensus state or not, the network nodes create either a "record" or a "receipt," respectively, for that transaction, indicating its status and impact.
+Une fois qu'une transaction a été traitée avec succès par le réseau Hedera dans un état de consensus ou non, les nœuds de réseau créent respectivement un "enregistrement" ou un "reçu" pour cette transaction, en indiquant son statut et son impact.
 
-A key component of the information within a record for a transaction is how the transaction changed the balances of those Hedera accounts that were involved. An account’s balance can change due to a transaction either because of a fee (paid or received) or some other intentional transfer – which we refer to here as a ‘remittance’.
+Un élément clé de l'information dans un enregistrement pour une transaction est la façon dont la transaction a changé les soldes des comptes Hedera qui ont été impliqués. Le solde d’un compte peut changer en raison d’une transaction soit en raison de frais (payés ou reçus) ou de tout autre transfert intentionnel – que nous appelons ici « transfert de fonds ».
 
-### Account Balances
+### Soldes du compte
 
-Every transaction submitted to Hedera will cause the balances of a set of accounts to change – either because
+Chaque transaction soumise à Hedera entraînera une modification des soldes d'un ensemble de comptes – soit parce que
 
-1. The transaction directly directed specific balances to be changed, e.g. Alice sent 1000 hbars to Bob with a CryptoTransfer.
-2. The transaction indirectly caused balances to change, e.g. execution of a ContractCall caused HBARs to be sent from the Smart Contract’s account to others.
-3. Fees are paid for the processing of the transaction into a consensus state and the persistence of that changed state.
-4. A fee is paid for the persistence of a ‘record’ for that transaction for a longer period of time than the default.
+1. La transaction a directement orienté des soldes spécifiques à changer, par exemple Alice a envoyé 1000 barres de har à Bob avec un CryptoTransfer.
+2. La transaction a indirectement entraîné des changements de soldes, par exemple l'exécution d'un ContractCall a fait envoyer des HBAR depuis le compte du Smart Contract à d'autres.
+3. Des frais sont payés pour le traitement de la transaction en un état de consensus et la persistance de cet état changé.
+4. Des frais sont payés pour la persistance d’un « enregistrement » pour cette transaction pendant une période de temps plus longue que le défaut.
 
-A transaction can cause a given account’s balance to change for any of the above reasons or, more generally, for a combination of the above reasons.
+Une transaction peut entraîner une modification du solde d'un compte pour l'une des raisons ci-dessus ou, plus généralement, pour une combinaison des raisons ci-dessus.
 
-There are, in general, 5 types of accounts associated with a transaction:
+Il y a en général 5 types de comptes associés à une transaction :
 
-1. Senders – the accounts from which HBARs are being sent
-2. Receivers – the accounts to which HBARs are being sent
-3. Payer – the account that pays the fees associated with the transaction.
-4. Network – the Hedera account that receives the component of the fees that compensate the network for processing the transaction.
-5. Node – the account of whichever node submits the transaction to the network for consensus
+1. Expéditeurs – les comptes à partir desquels les HBAR sont envoyés
+2. Recevants – les comptes vers lesquels les HBAR sont envoyés
+3. Payeur – le compte qui paie les frais associés à la transaction.
+4. Réseau – le compte Hedera qui reçoit la composante des frais qui compensent le réseau pour le traitement de la transaction.
+5. Noeud – le compte de n'importe quel nœud soumet la transaction au réseau pour consensus
 
 **Notes**
 
-- For any transaction, the sum of transfers out of all accounts will always be equal to the sum of all transfers into all accounts.
-- The payer, in general, is different than either the sender or receiver. Nevertheless, a typical case is that the sender will also be the payer.
-- Not all transactions have a sender or receiver as there is no remittance aspect to the transaction, e.g. a FileCreate or ConsensusSubmitMessage transaction will have a fee but no associated remittance.
-- A single CryptoTransfer can have multiple senders and multiple receivers.
-- A remittance can be the number of HBARs a CryptoTransfer directs be moved, the amount of HBARs a CryptoCreate directs be funded into the new account, or the amount of HBARs in an account to be deleted, with those funds moved into another account.
-- A remittance will need to be authorized by the owner of those HBARs.
-- An account owner can specify thresholds for transfers in and out of that account. If a transaction causes an account’s threshold to be triggered, then the record for that transaction will persist for 25 hours and not the default 3 minutes.
-- The account owner that specified the threshold will pay a threshold fee – distinct from the fee for the transaction itself - for that extra storage time.
-- It is account 0.0.98 that receives the component of the transaction fee that compensates all the nodes for their work in processing the transaction into consensus
-- 0.0.98 also collects any threshold record fees
-- As of early February 2024, there are 31 nodes with account numbers in the range of 0.0.3-0.0.4698971.
-- While accounts 0.0.98 and the node accounts are special with respect to receiving fees, they can also send & receive HBARs and, as such, could be the sender or receiver of a transaction.
+- Pour toute transaction, la somme des transferts sur tous les comptes sera toujours égale à la somme de tous les transferts sur tous les comptes.
+- En général, le payeur est différent de l'expéditeur ou du destinataire. Néanmoins, un cas typique est que l'expéditeur sera également le payeur.
+- Toutes les transactions n'ont pas d'expéditeur ou de destinataire car il n'y a pas d'aspect de transfert de la transaction, e. . une transaction FileCreate ou ConsensusSubmitMessage aura des frais mais aucun transfert associé.
+- Un seul CryptoTransfer peut avoir plusieurs expéditeurs et plusieurs récepteurs.
+- Un versement peut être le nombre de HBARs qu'un CryptoTransfer dirige être déplacé, le montant des HBARs une CryptoCreate directs être financés sur le nouveau compte, ou le montant des HBAR dans un compte à supprimer, avec ces fonds transférés vers un autre compte.
+- Un versement devra être autorisé par le propriétaire de ces HBARs.
+- Le propriétaire d'un compte peut spécifier des seuils pour les transferts dans et hors de ce compte. Si une transaction provoque le seuil d'un compte, alors l'enregistrement de cette transaction persistera pendant 25 heures et non pas les 3 minutes par défaut.
+- Le propriétaire du compte qui a spécifié le seuil paiera des frais de seuil – distincts des frais pour la transaction elle-même – pour cette période de stockage supplémentaire.
+- Il s'agit de 0,0. 8 qui reçoit le composant des frais de transaction qui compense tous les nœuds pour leur travail dans le traitement de la transaction en consensus
+- 0.0.98 perçoit également tous les frais de l'enregistrement seuil
+- Au début de février 2024, il y a 31 nœuds dont le numéro de compte est 0.0.3-0.0.4698971.
+- Tant que les comptes sont de 0,0. 8 et les comptes de nœud sont spéciaux en ce qui concerne la réception des frais, ils peuvent également envoyer et recevoir des HBAR et, en tant que tels, peuvent être l'expéditeur ou le destinataire d'une transaction.
 
 ### Scenarios
 
-We explore scenarios below and how the HBARs flow between accounts for each.
+Nous explorons les scénarios ci-dessous et comment les HBAR circulent entre les comptes pour chacun.
 
-#### Case 1 - Generic
+#### Caisse 1 - Générique
 
-In the most generic case, a sender is making a remittance to a receiver, and a separate account pays the associated fee. The size of the fee will depend on the nature of the transaction – uploading a large file will cost more than a simple crypto transfer.
+Dans le cas le plus générique, un expéditeur effectue un versement à un récepteur et un compte séparé paie les frais associés. La taille des frais dépendra de la nature de la transaction – télécharger un fichier volumineux coûtera plus cher qu'un simple transfert de cryptomonnaie.
 
-The amount of that fee is split between account 0.0.98 (a special Hedera account that represents the network) and the specific node that submitted the transaction.
+Le montant de ces frais est réparti entre le compte 0,0. 8 (un compte spécial Hedera qui représente le réseau) et le nœud spécifique qui a soumis la transaction.
 
 ![](../../../.gitbook/assets/transaction\_records\_1.png)
 
-#### Case 2 - Fees only
+#### Cas 2 - Frais seulement
 
-Many transactions do not allow for an explicit remittance, for instance, a FileCreate or a ConsensusSubmitMessage. For such transactions, the only changes to account balances will be due to the fee for that transaction.
+De nombreuses transactions ne permettent pas un versement explicite, par exemple, un FileCreate ou un ConsensusSubmitMessage. Pour de telles transactions, les seules modifications apportées au solde du compte seront dues aux frais de cette transaction.
 
-As before, the fee for the transaction is split between 0.0.98 and a node.
+Comme précédemment, les frais pour la transaction sont répartis entre 0.0.98 et un nœud.
 
 ![](../../../.gitbook/assets/transaction\_records\_2.png)
 
-#### Case 3 - Sender account pays fees
+#### Cas 3 - Compte expéditeur paye des frais
 
-It will often be the case that the fee for a CryptoTransfer sending remittance from a sender to a receiver is paid for by the sender. In this case, the balance for the sender will decrease by the sum of the remittance and the fee.
+Il arrive souvent que les frais pour un CryptoTransfer envoyant un versement d'un expéditeur à un destinataire soient payés par l'expéditeur. Dans ce cas, le solde de l’expéditeur diminuera de la somme du versement et des frais.
 
-In principle, the receiver could pay the fee as well.
+En principe, le récepteur pourrait également payer les frais.
 
 ![](../../../.gitbook/assets/transaction\_records\_3.png)
 
-#### Case 4 - Sender account has a threshold that is crossed
+#### Cas 4 - Le compte expéditeur a un seuil qui est franchi
 
-Account owners can specify thresholds for their accounts so that any transfer in/out of the account that exceeds these thresholds will cause the created record to be persisted for 25 hours and not the default 3 minutes. The account that stipulated the threshold will pay a threshold fee for this prolonged storage of the record.
+Les propriétaires du compte peuvent spécifier des seuils pour leurs comptes afin que tout transfert dans/hors du compte qui dépasse ces seuils provoque la persistance de l'enregistrement créé pendant 25 heures et non pas les 3 minutes par défaut. Le compte qui a stipulé le seuil paiera un seuil pour ce stockage prolongé du dossier.
 
-In this example, the threshold is specified on the sending account, and so it will be that account that pays this threshold fee. That account’s balance consequently decreases by the sum of the remittance and the threshold fee.
+Dans cet exemple, le seuil est spécifié sur le compte d'envoi, et donc ce sera ce compte qui paiera ce seuil. Le solde de ce compte diminue par conséquent de la somme des versements et des droits de seuil.
 
-Account 98 receives the sum of the network, service, and also this threshold fee.
+Compte 98 reçoit la somme du réseau, du service, et aussi de ce seuil de frais.
 
-Not shown here but if it were also the case that the sender was paying the transaction fee (as above) then the balance of the sender’s account would decrease by the sum of the remittance, the transaction fee, and this threshold fee.
+Non affiché ici, mais si l’expéditeur payait les frais de transaction (comme ci-dessus) alors le solde du compte de l’expéditeur diminuerait de la somme de l’envoi, les frais de transaction et ce seuil de frais.
 
 ![](../../../.gitbook/assets/transaction\_records\_4.png)
 
-#### Case 5 - Receiver account has a threshold that is crossed
+#### Cas 5 - Le compte du destinataire a un seuil qui est franchi
 
-The receiving account can also have a threshold set that, if surpassed by the amount of HBARs being transferred into the account, will cause the record to be stored for 25 hours.
+Le compte récepteur peut également avoir un seuil fixé à cela, si elle est dépassée par le montant des ARS transférés dans le compte, fera que le dossier sera stocké pendant 25 heures.
 
-Threshold records can be particularly useful to receivers as a receiver may not be aware of the remittances sent to them (as they are not necessarily involved in the signing of the transaction, as is the case for the sender). The longer-lived threshold records allow an account owner to query on a daily basis for the records for any and all remittances they’ve received over the past 24 hours that they might not otherwise be aware of.
+Les enregistrements de seuil peuvent être particulièrement utiles pour les récepteurs car un récepteur peut ne pas être au courant des envois qui leur sont envoyés (car ils ne sont pas nécessairement impliqués dans la signature de la transaction, comme c'est le cas pour l'expéditeur). Les seuils de plus longue durée permettent au propriétaire du compte de demander quotidiennement les dossiers pour tous les envois qu’ils ont reçus au cours des 24 dernières heures et dont ils pourraient ne pas avoir connaissance autrement.
 
-The receiving account will pay the associated threshold fee for this longer storage period of the record.
+Le compte récepteur paiera les frais de seuil associés pour cette période de stockage plus longue du dossier.
 
-The net balance change of the receiving account will therefore be the remittance minus the threshold fee.
+Le changement de solde net du compte récepteur sera donc le versement moins les frais de seuil.
 
-Account 98 receives the sum of the network, service, and the threshold fees.
+Compte 98 reçoit la somme du réseau, du service et des frais de seuil.
 
-The transaction fees are not impacted by the threshold fee being paid.
+Les frais de transaction ne sont pas affectés par les frais de seuil payés.
 
-If the value of the remittance is less than the threshold fee, the transaction will fail.
+Si la valeur de la remise est inférieure au seuil des frais, la transaction échouera.
 
 ![](../../../.gitbook/assets/transaction\_records\_5.png)
 
-#### Case 6 - Node account is receiver
+#### Cas 6 - Compte Node récepteur
 
-Nodes may receive remittances like any other Hedera account.
+Les nœuds peuvent recevoir des envois comme tout autre compte Hedera.
 
-As a specific example, clients compensate nodes for responding to a query by including within the query a CryptoTransfer that, when submitted to the network, will compensate that particular node with a suitable remittance.
+À titre d'exemple spécifique, les clients compensent les nœuds pour répondre à une requête en incluant dans la requête un CryptoTransfer que, Lorsqu'il est soumis au réseau, compense ce noeud par un envoi approprié.
 
-In this scenario, the node account’s balance will increase by the sum of the node fee it receives for processing the CryptoTransfer plus the value of the actual remittance that pays the node for the query response.
+Dans ce scénario, le solde du compte du nœud augmentera de la somme des frais de nœud qu'il reçoit pour le traitement du CryptoTransfer plus la valeur du versement réel qui paie le noeud pour la réponse de la requête.
 
 ![](../../../.gitbook/assets/transaction\_records\_6.png)
 
-### Transaction Records
+### Enregistrements de transaction
 
-After Hedera Mainnet nodes process a transaction into consensus state, the details are published to the outside world in a ‘transaction record’ that the nodes create and make available. Clients retrieve records and analyze the data within to verify the consequences of transactions, for instance the consensus timestamp that was assigned and how the associated account balances changed as a result of the transaction.
+Après que les nœuds du réseau principal d'Hedera traitent une transaction en état de consensus, les détails sont publiés dans le monde extérieur dans un ‘enregistrement de transaction’ que les nœuds créent et rendent disponible. Les clients récupèrent les enregistrements et analysent les données à l'intérieur pour vérifier les conséquences des transactions, par exemple, l'horodatage du consensus qui a été assigné et la façon dont les soldes du compte associé ont changé à la suite de la transaction.
 
-When retrieved from a mirror node and not the mainnet, the transaction that resulted in a given record will also be available. It is therefore this combined data structure that provides the richest set of information for analysing and differentiating between remittances and fees.
+Lorsqu'elle est récupérée à partir d'un noeud miroir et non du réseau principal, la transaction qui a abouti à un enregistrement donné sera également disponible. C'est donc cette structure de données combinée qui fournit l'ensemble d'informations le plus riche pour l'analyse et la différenciation entre les transferts de fonds et les redevances.
 
-The flow of information is shown below:
+Le flux d'information est affiché ci-dessous:
 
 ![](../../../.gitbook/assets/transaction\_records\_7.png)
 
-A client that retrieves the pair of a transaction and its associated record may want to distinguish between remittances and fee components for the transaction - that is, what part of an account’s balance change was due to transaction fees, what part due to a threshold fee, and what part due to a remittance.
+Un client qui récupère la paire d'une transaction et son enregistrement associé peut vouloir distinguer entre les versements et les composantes de frais pour la transaction - c'est-à-dire quelle partie du changement de solde d'un compte était due aux frais de transaction, quelle partie est due à un montant de seuil et quelle partie est due à un envoi.
 
-There is sufficient information in the combination of transaction and corresponding record to allow a client to unambiguously make such a distinction for each account.
+Il y a suffisamment d'informations dans la combinaison de la transaction et de l'enregistrement correspondant pour permettre à un client de faire une telle distinction sans ambiguïté pour chaque compte.
 
-A transaction record has a transfer list data structure that describes how HBARs moved between accounts as a result of the transaction.
+Un enregistrement de transaction a une structure de données de liste de transfert qui décrit comment les HBARs ont déplacé entre comptes à la suite de la transaction.
 
-In the R3 (the release prior to the update of February 10, 2020) version of the node software, there might be multiple transfers for each account involved in the transaction. For instance, there could be separate transfers indicating the 0.0.98 account receiving fees, which added up to the correct total fee.
+Dans la R3 (version antérieure à la mise à jour du 10 février 2020) version du logiciel de nœud, il peut y avoir plusieurs transferts pour chaque compte impliqué dans l'opération. Par exemple, il pourrait y avoir des transferts distincts indiquant les frais de réception du compte 0,98, qui se sont additionnés au montant total exact des frais.
 
-Additionally, in R3
+De plus, en R3
 
-1. The determination of whether a threshold was exceeded for each account was made for each transfer. Consequently, a single account paying both a remittance and fees could pay for multiple threshold records if the threshold was set very low.
-2. The order of the transfers in the R3 format was not predictable.
+1. La détermination du dépassement d'un seuil pour chaque compte a été effectuée pour chaque transfert. Par conséquent, un seul compte payant à la fois un versement et des frais pourrait payer des enregistrements à plusieurs seuils si le seuil était très bas.
+2. L'ordre des transferts au format R3 n'était pas prévisible.
 
-We have changed the record transfer list format in the R4 (the release of February 10, 2020) node software to address the above issues and to be more consistent and concise.
+Nous avons modifié le format de la liste des transferts de dossiers dans la R4 (la sortie du 10 février, 2020) logiciel de nœud pour résoudre les problèmes ci-dessus et être plus cohérent et plus concis.
 
-In the R4 release, the record transfer list shows, for all transaction types, only a single net transfer in or out for each relevant account.
+Dans le communiqué R4, la liste des transferts d'enregistrements présente, pour tous les types d'opérations, un seul transfert net pour chaque compte pertinent.
 
-The comparison of transfers in/out to an account’s thresholds is now made on that net transfer, and not on the constituent transfers that summed to the net. Consequently, any account will pay once for only a single threshold fee and not multiple times. This is cheaper for the user.
+La comparaison entre les transferts entrant/sortant et les seuils d'un compte est maintenant faite sur ce transfert net, et non sur les transferts constituants qui se sont résumés au net. Par conséquent, tout compte payera une seule fois pour un seul seuil de frais et non pour plusieurs fois. C'est moins cher pour l'utilisateur.
 
-The change between R3 and R4 is shown below, for a representative transaction in which account 0.0.1002 is sending a remittance of 10,000 tinybars to account 0.0.1001 and both sender and receiver have thresholds of 1,000 tinybars set on their accounts.
+Le changement entre R3 et R4 est indiqué ci-dessous, pour une opération représentative dans laquelle le compte est 0,0. 002 envoie un versement de 10 000 tinybars au compte 0.0.1001 et l'expéditeur et le récepteur ont tous deux des seuils de 1 000 tinybars fixés sur leur compte.
 
-As the remittance value exceeds these thresholds, both sender and receiver will pay a threshold fee.
+Comme la valeur du versement dépasse ces seuils, l'expéditeur et le récepteur paieront des frais de seuil.
 
 **R3**
 
@@ -149,6 +149,6 @@ As the remittance value exceeds these thresholds, both sender and receiver will 
 
 ![](../../../.gitbook/assets/r4.jpg)
 
-In the R4 format, the record transfer list no longer has multiple transfers for the different accounts – each account has only a single transfer with a value that reflects the sum of the various transfers that impacted each account.
+Au format R4, la liste des transferts d'enregistrements n'a plus de multiples transferts pour les différents comptes – chaque compte n'a qu'un seul transfert avec une valeur qui reflète la somme des différents transferts qui ont eu un impact sur chaque compte.
 
-While the R4 format is more concise than the R3 format, some clients may want to determine the component transfers - that is to break out remittances, node fees, threshold fees, and other transaction fees. To facilitate this analysis, Hedera plans to add support to the mirror node REST API to allow a client to request either the default aggregated transfer list, or instead an itemized list of transfers (similar to the R3 format).
+Alors que le format R4 est plus concis que le format R3, certains clients peuvent vouloir déterminer les transferts de composants - à savoir briser les envois de fonds, les frais de nœud, les frais de seuil et les autres frais de transaction. Pour faciliter cette analyse, Hedera prévoit d'ajouter le support à l'API REST du noeud miroir pour permettre à un client de demander soit la liste de transfert agrégée par défaut, ou plutôt une liste détaillée de transferts (similaire au format R3).
