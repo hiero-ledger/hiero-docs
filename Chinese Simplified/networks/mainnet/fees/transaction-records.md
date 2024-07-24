@@ -1,145 +1,145 @@
-# Transaction Records
+# 交易记录
 
-## Understanding Transaction Records – Remittances & Fees
+## 理解交易记录 - 汇款和费用
 
-Once a transaction has been successfully processed by the Hedera network into a consensus state or not, the network nodes create either a "record" or a "receipt," respectively, for that transaction, indicating its status and impact.
+一旦某项交易被Hedera 网络成功地处理成一个协商一致的状态， 网络节点为该交易分别创建一个“记录”或“收据”，显示其状态和影响。
 
-A key component of the information within a record for a transaction is how the transaction changed the balances of those Hedera accounts that were involved. An account’s balance can change due to a transaction either because of a fee (paid or received) or some other intentional transfer – which we refer to here as a ‘remittance’.
+交易记录中信息的一个关键组成部分是交易如何改变Hedera账户中涉及的余额。 账户余额可能会因某笔交易而发生变化，这要么是由于收费(支付或收到)，要么是由于某些其他有意的转账，我们在这里将其称为“汇款”。
 
-### Account Balances
+### 账户余额
 
-Every transaction submitted to Hedera will cause the balances of a set of accounts to change – either because
+提交给Hedera 的每笔交易都会导致一组账户余额的变化 - 要么是因为：
 
-1. The transaction directly directed specific balances to be changed, e.g. Alice sent 1000 hbars to Bob with a CryptoTransfer.
-2. The transaction indirectly caused balances to change, e.g. execution of a ContractCall caused HBARs to be sent from the Smart Contract’s account to others.
-3. Fees are paid for the processing of the transaction into a consensus state and the persistence of that changed state.
-4. A fee is paid for the persistence of a ‘record’ for that transaction for a longer period of time than the default.
+1. 交易直接指向需要更改的特定余额，例如，Alice使用加密转移器发送了1000个hbars到Bob 。
+2. 这笔交易间接造成余额的变化，例如执行合同通话导致HBAR从Smart Contract的帐户发送给他人。
+3. 交易处理为协商一致状态以及这种改变状态的持续存在都要支付费用。
+4. 在比默认时间更长的时间内支付该交易的“记录”费用。
 
-A transaction can cause a given account’s balance to change for any of the above reasons or, more generally, for a combination of the above reasons.
+由于上述任何原因，交易可能导致给定账户余额发生变化或 更广泛地说，出于上述各种原因。
 
-There are, in general, 5 types of accounts associated with a transaction:
+通常有五种与交易有关的账户：
 
-1. Senders – the accounts from which HBARs are being sent
-2. Receivers – the accounts to which HBARs are being sent
-3. Payer – the account that pays the fees associated with the transaction.
-4. Network – the Hedera account that receives the component of the fees that compensate the network for processing the transaction.
-5. Node – the account of whichever node submits the transaction to the network for consensus
+1. 发送 — — HBAR正从中发送的账户
+2. 接收器——正在发送HBAR的账户
+3. 付款人——支付交易相关费用的账户。
+4. 网络 — Hedera 帐户，接收用于补偿处理交易的网络费用的组件。
+5. 节点 - 任何节点将交易提交到网络以便达成共识的帐户
 
-**Notes**
+**备注**
 
-- For any transaction, the sum of transfers out of all accounts will always be equal to the sum of all transfers into all accounts.
-- The payer, in general, is different than either the sender or receiver. Nevertheless, a typical case is that the sender will also be the payer.
-- Not all transactions have a sender or receiver as there is no remittance aspect to the transaction, e.g. a FileCreate or ConsensusSubmitMessage transaction will have a fee but no associated remittance.
-- A single CryptoTransfer can have multiple senders and multiple receivers.
-- A remittance can be the number of HBARs a CryptoTransfer directs be moved, the amount of HBARs a CryptoCreate directs be funded into the new account, or the amount of HBARs in an account to be deleted, with those funds moved into another account.
-- A remittance will need to be authorized by the owner of those HBARs.
-- An account owner can specify thresholds for transfers in and out of that account. If a transaction causes an account’s threshold to be triggered, then the record for that transaction will persist for 25 hours and not the default 3 minutes.
-- The account owner that specified the threshold will pay a threshold fee – distinct from the fee for the transaction itself - for that extra storage time.
-- It is account 0.0.98 that receives the component of the transaction fee that compensates all the nodes for their work in processing the transaction into consensus
-- 0.0.98 also collects any threshold record fees
-- As of early February 2024, there are 31 nodes with account numbers in the range of 0.0.3-0.0.4698971.
-- While accounts 0.0.98 and the node accounts are special with respect to receiving fees, they can also send & receive HBARs and, as such, could be the sender or receiver of a transaction.
+- 对于任何交易，所有账户的转账总额总是等于向所有账户转账的总和。
+- 付款人一般不同于发件人或收件人。 然而，典型的情况是，付款人也将是付款人。
+- 并非所有交易都有发件人或收件人，因为交易没有汇款方面。 。FileCreate 或 ConsensusSubmitMessage 交易将有费用，但没有相关的汇款。
+- 单个CryptoTransfer可以有多个发件人和多个收件人。
+- 汇款可以是 HBARs 的 CryptoTransfer 指令的数量， CryptoCreate 的 HBARs 金额将提供给新账户， 或要删除的账户中的HBAR金额，并将这些资金转移到另一个账户。
+- 汇款须经这些汇款所有人批准。
+- 帐户所有者可以指定转入和转出该帐户的阈值。 如果交易导致一个帐户的阈值被触发， 然后该交易的记录将持续25小时，而不是默认的3分钟。
+- 指定阈值的账户所有者将支付阈值费用——不同于交易本身的费用——额外的存储时间。
+- 这是帐户0.0。 收取交易费的部分，以补偿所有节点在将交易处理成共识方面所做的工作
+- 0.0.98还收取任何阈值记录费用
+- 截至2024年2月初，账户号码为31个节点，范围在0.0.3-0.0.469971之间。
+- 账户0.0。 8 和节点帐户在收取费用方面是特殊的。 他们还可以发送和接收六溴代二苯，并因此可以成为交易的发送者或接收者。
 
 ### Scenarios
 
-We explore scenarios below and how the HBARs flow between accounts for each.
+我们探索下面的设想情况以及每个账户之间的六种年度年度年度评估报告的流动情况。
 
-#### Case 1 - Generic
+#### 案例1-通用性
 
-In the most generic case, a sender is making a remittance to a receiver, and a separate account pays the associated fee. The size of the fee will depend on the nature of the transaction – uploading a large file will cost more than a simple crypto transfer.
+在最常见的情况下，汇款人向收款人汇款，单独一个帐户支付相关费用。 费用的大小将取决于交易的性质——上传一个大文件将花费不只是简单的加密传输。
 
-The amount of that fee is split between account 0.0.98 (a special Hedera account that represents the network) and the specific node that submitted the transaction.
+这笔费用的金额在账户0.0之间分配。 8 (表示网络的 Hedera 特殊帐户) 和提交交易的特定节点。
 
 ![](../../../.gitbook/assets/transaction\_records\_1.png)
 
-#### Case 2 - Fees only
+#### 案例2-只能收取费用
 
-Many transactions do not allow for an explicit remittance, for instance, a FileCreate or a ConsensusSubmitMessage. For such transactions, the only changes to account balances will be due to the fee for that transaction.
+许多交易不允许明确的汇款，例如FileCreate 或共识提交信息。 就这类交易而言，账户余额的唯一变动将是该项交易的费用。
 
-As before, the fee for the transaction is split between 0.0.98 and a node.
+与以往一样，交易费用在0.0.98与节点之间分配。
 
 ![](../../../.gitbook/assets/transaction\_records\_2.png)
 
-#### Case 3 - Sender account pays fees
+#### 案例3-发件人账户支付费用
 
-It will often be the case that the fee for a CryptoTransfer sending remittance from a sender to a receiver is paid for by the sender. In this case, the balance for the sender will decrease by the sum of the remittance and the fee.
+通常情况下，汇款人向收款人汇款的加密转账费由汇款人支付。 在这种情况下，汇款人的余额将减少汇款和手续费。
 
-In principle, the receiver could pay the fee as well.
+原则上，收款人也可以支付费用。
 
 ![](../../../.gitbook/assets/transaction\_records\_3.png)
 
-#### Case 4 - Sender account has a threshold that is crossed
+#### 案例4 - 发件人帐户有一个跨越的阈值
 
-Account owners can specify thresholds for their accounts so that any transfer in/out of the account that exceeds these thresholds will cause the created record to be persisted for 25 hours and not the default 3 minutes. The account that stipulated the threshold will pay a threshold fee for this prolonged storage of the record.
+账户所有者可以为其账户指定阈值，以便超过这些阈值的账户转账将导致创建的记录持续25小时而不是默认的3分钟。 规定门槛值的帐户将为记录的这种长时间储存支付门槛费用。
 
-In this example, the threshold is specified on the sending account, and so it will be that account that pays this threshold fee. That account’s balance consequently decreases by the sum of the remittance and the threshold fee.
+在这个例子中，对发送账户指定了门槛值，因此支付这笔门槛值的是该账户。 该账户的余额因此减少了汇款和门槛费用。
 
-Account 98 receives the sum of the network, service, and also this threshold fee.
+帐号98接收网络和服务的总和以及这个门槛费用。
 
-Not shown here but if it were also the case that the sender was paying the transaction fee (as above) then the balance of the sender’s account would decrease by the sum of the remittance, the transaction fee, and this threshold fee.
+此处没有显示出，但如果汇款人支付了交易费(见上文)，汇款人账户余额将减少汇款金额， 交易费和此阈值。
 
 ![](../../../.gitbook/assets/transaction\_records\_4.png)
 
-#### Case 5 - Receiver account has a threshold that is crossed
+#### 判例5-收款人账户有一个跨越的阈值
 
-The receiving account can also have a threshold set that, if surpassed by the amount of HBARs being transferred into the account, will cause the record to be stored for 25 hours.
+接收账户也可以设置一个阈值集， 如果超过正在转入账户的六溴代二苯数量，将导致记录储存25小时。
 
-Threshold records can be particularly useful to receivers as a receiver may not be aware of the remittances sent to them (as they are not necessarily involved in the signing of the transaction, as is the case for the sender). The longer-lived threshold records allow an account owner to query on a daily basis for the records for any and all remittances they’ve received over the past 24 hours that they might not otherwise be aware of.
+门槛记录对收款人特别有用，因为收款人可能不知道汇给他们的汇款，因为他们不一定参与交易的签署。 如同发送者的情况一样。 寿命较长的门槛记录使账户所有人能够每天查询他们在过去24小时内收到的任何汇款和他们可能不知道的所有汇款。
 
-The receiving account will pay the associated threshold fee for this longer storage period of the record.
+接收账户将为记录的这个较长的储存期支付相关的门槛费用。
 
-The net balance change of the receiving account will therefore be the remittance minus the threshold fee.
+因此，接收账户的净余额变动是汇款减去门槛费用。
 
-Account 98 receives the sum of the network, service, and the threshold fees.
+账户98接收网络、服务和门槛费用之和。
 
-The transaction fees are not impacted by the threshold fee being paid.
+交易费不受已支付的门槛费影响。
 
-If the value of the remittance is less than the threshold fee, the transaction will fail.
+如果汇款价值低于门槛价，交易将失败。
 
 ![](../../../.gitbook/assets/transaction\_records\_5.png)
 
-#### Case 6 - Node account is receiver
+#### 案例6 - 节点账户是接收器
 
-Nodes may receive remittances like any other Hedera account.
+节点可能会像任何其他Hedera账户一样收到汇款。
 
-As a specific example, clients compensate nodes for responding to a query by including within the query a CryptoTransfer that, when submitted to the network, will compensate that particular node with a suitable remittance.
+作为一个具体的例子，客户端通过在查询中包含一个 CryptoTransfer 即可补偿对查询的响应， 当提交到网络时，将用适当的汇款补偿该节点。
 
-In this scenario, the node account’s balance will increase by the sum of the node fee it receives for processing the CryptoTransfer plus the value of the actual remittance that pays the node for the query response.
+在这种情况下， 节点帐户余额将会增加它收到的用于处理CryptoTransfer 以及支付该节点查询响应的实际汇款的总和。
 
 ![](../../../.gitbook/assets/transaction\_records\_6.png)
 
-### Transaction Records
+### 交易记录
 
-After Hedera Mainnet nodes process a transaction into consensus state, the details are published to the outside world in a ‘transaction record’ that the nodes create and make available. Clients retrieve records and analyze the data within to verify the consequences of transactions, for instance the consensus timestamp that was assigned and how the associated account balances changed as a result of the transaction.
+Hedera Mainnet节点处理后，交易会变成协商一致状态。 详细信息将在节点创建和提供的“交易记录”中发布到外部世界。 客户检索记录并分析数据以核实交易的后果。 例如，指派的协商一致的时间戳以及相关账户余额如何因交易而变化。
 
-When retrieved from a mirror node and not the mainnet, the transaction that resulted in a given record will also be available. It is therefore this combined data structure that provides the richest set of information for analysing and differentiating between remittances and fees.
+当从镜像节点而不是主网检索时，导致某项记录的交易也是可用的。 因此，正是这种综合数据结构为分析和区分汇款和收费提供了最丰富的一套信息。
 
-The flow of information is shown below:
+信息流动情况如下：
 
 ![](../../../.gitbook/assets/transaction\_records\_7.png)
 
-A client that retrieves the pair of a transaction and its associated record may want to distinguish between remittances and fee components for the transaction - that is, what part of an account’s balance change was due to transaction fees, what part due to a threshold fee, and what part due to a remittance.
+检索交易及其相关记录的客户可能想要区分汇款和交易的规费部分，即： 账户余额变化的一部分是由于交易费用造成的。 什么部分来自门槛费，什么部分来自汇款。
 
-There is sufficient information in the combination of transaction and corresponding record to allow a client to unambiguously make such a distinction for each account.
+交易和相应记录相结合有足够的信息，使客户能够对每个账户作出明确区分。
 
-A transaction record has a transfer list data structure that describes how HBARs moved between accounts as a result of the transaction.
+交易记录有一个传输列表数据结构，描述HBAR是如何由于交易而在账户之间移动的。
 
-In the R3 (the release prior to the update of February 10, 2020) version of the node software, there might be multiple transfers for each account involved in the transaction. For instance, there could be separate transfers indicating the 0.0.98 account receiving fees, which added up to the correct total fee.
+在 R3 (2020年2月10日更新之前发布) 版本的节点软件。 交易所涉及的每个账户可能有多次转账。 例如，可能会有单独的转账，表明0.0.98账户收取费用，这将增加到正确的总费用。
 
-Additionally, in R3
+此外，在 R3 中
 
-1. The determination of whether a threshold was exceeded for each account was made for each transfer. Consequently, a single account paying both a remittance and fees could pay for multiple threshold records if the threshold was set very low.
-2. The order of the transfers in the R3 format was not predictable.
+1. 每次转账是否超过了每个账户的阈值。 因此，如果门槛值定得很低，单个账户支付汇款和收费就可以支付多个门槛记录。
+2. R3格式的转让顺序不可预测。
 
-We have changed the record transfer list format in the R4 (the release of February 10, 2020) node software to address the above issues and to be more consistent and concise.
+我们更改了R4中记录转移列表格式(2月10日发布) • 处理上述问题并使其更加一致和简洁的节点软件。
 
-In the R4 release, the record transfer list shows, for all transaction types, only a single net transfer in or out for each relevant account.
+在R4版本中，记录转移列表只显示每个相关账户的一个或多个交易类型的单个净转移。
 
-The comparison of transfers in/out to an account’s thresholds is now made on that net transfer, and not on the constituent transfers that summed to the net. Consequently, any account will pay once for only a single threshold fee and not multiple times. This is cheaper for the user.
+现在将转入/转出账户的阈值与该净转账进行比较。 而不是按总净额计算的组成转移部分。 因此，任何账户只支付一次门槛费用，而不是多次。 这对用户来说更便宜。
 
-The change between R3 and R4 is shown below, for a representative transaction in which account 0.0.1002 is sending a remittance of 10,000 tinybars to account 0.0.1001 and both sender and receiver have thresholds of 1,000 tinybars set on their accounts.
+下面显示R3和R4之间的变动，涉及帐户0.0的代表性交易。 002汇寄10 000个锡亚尔酒吧到账户0.0.1001，而汇款人和收款人的账户上设定了1 000个锡亚酒吧的门槛。
 
-As the remittance value exceeds these thresholds, both sender and receiver will pay a threshold fee.
+由于汇款价值超过这些极限，汇款人和收款人都将支付门槛费用。
 
 **R3**
 
@@ -149,6 +149,6 @@ As the remittance value exceeds these thresholds, both sender and receiver will 
 
 ![](../../../.gitbook/assets/r4.jpg)
 
-In the R4 format, the record transfer list no longer has multiple transfers for the different accounts – each account has only a single transfer with a value that reflects the sum of the various transfers that impacted each account.
+在 R4 格式， 记录转账列表不再有不同账户的多次转账——每个账户只有一个转账，其值反映了影响到每个账户的各种转账的总和。
 
-While the R4 format is more concise than the R3 format, some clients may want to determine the component transfers - that is to break out remittances, node fees, threshold fees, and other transaction fees. To facilitate this analysis, Hedera plans to add support to the mirror node REST API to allow a client to request either the default aggregated transfer list, or instead an itemized list of transfers (similar to the R3 format).
+虽然R4格式比R3格式更简洁， 一些客户可能想要确定组件转移——即打破汇款， 节点费用、阈值费用和其他交易费用。 便利进行这一分析， Hedera 计划为镜像节点 REST API 添加支持，以允许客户端请求默认的综合传输列表。 或者转而是逐项的转让列表(类似于R3格式)。
