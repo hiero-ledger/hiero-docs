@@ -7,7 +7,7 @@ In this section, we will guide you through querying your account balance, enabli
 ## Prerequisites <a href="#pre-requisites" id="pre-requisites"></a>
 
 - Completed the [Introduction](introduction.md) step.
-- Completed the [Environment Setup](environment-set-up.md) step.
+- Completado el paso [Configuración del entorno](environment-set-up.md.
 - Completed the [Created an Account](create-an-account.md) step.
 - Completed the [Transfer HBAR ](transfer-hbar.md)step.
 
@@ -469,7 +469,7 @@ func main() {
 
 </details>
 
-#### Sample output:
+#### Salida de muestreo:
 
 ```bash
 New account ID: 0.0.13724748
