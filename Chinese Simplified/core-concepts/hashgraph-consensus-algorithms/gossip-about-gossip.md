@@ -1,28 +1,28 @@
-# Gossip About Gossip
+# 关于Gossip
 
-Hashgraph consensus uses a **gossip protocol**. This means that a member such as Alice will choose another member at random, such as Bob, and then Alice will tell Bob all of the information she knows so far. Alice then repeats with a different random member. Bob repeatedly does the same, and all other members do the same. In this way, if a single member becomes aware of new information, it will spread exponentially fast through the community until every member is aware of It.
+Hashgra协议使用 **gossip 协议**。 这意味着像Alice这样的成员会随机选择另一个成员。 比如Bob，然后Alice就会告诉Bob 她迄今所知道的所有信息。 Alice 然后用不同的随机成员重复. 鲍勃反复做到这一点，所有其他成员也这样做。 以这种方式，如果一个成员知道新的信息， 它将迅速通过社区传播，直到每个成员都意识到它为止。
 
-The synchronization of information between two members through the gossip protocol is called a **gossip sync**. Upon completion of a gossip sync, each participating member commemorates the gossip sync with an event. An **event** is stored in memory as a data structure composed of a timestamp, an array of zero or more transactions, two parent hashes, and a cryptographic signature. The two parent hashes are the hash of the last event created by the self-parent prior to the gossip sync and the hash of the last event created by the other-parent prior to the gossip sync. For example, if Alice and Bob perform a gossip sync, Alice would create a new event commemorating the gossip sync where the self-parent hash would be the hash of the last event Alice created prior to the gossip sync and the other-parent hash would be the hash of the last event Bob created prior to the gossip sync. Bob would also create an event commemorating the gossip sync, but the self-parent hash would be the hash of the last event he created before the gossip sync and the other-parent hash would be the hash of the last event Alice created before the gossip sync. Gossip continues until all members have received the newly created event.
+两个成员之间通过gossip 协议的同步信息称为**gossip 同步**。 在gossip 同步完成后，每个参与成员都将纪念gossip 同步到一个事件。 **事件** 存储在内存中，作为一个由时间戳组成的数据结构， 一个零或更多交易数组，两个父级散列和加密签名。 两个父哈希值是在gossip 同步之前由自己的父创建的最后一个事件的哈希值，以及在gossip 同步之前由对方创建的最后一个事件的哈希值。 例如，如果Alice and Bob 执行一个gossip Sync, Alice将创建一个纪念gossip 同步的新事件，在这个事件中，母散列将是在gossip 同步之前创建的最后一个事件的哈希，而其他父散列将是在gossip 同步之前创建的Bob 最后一个事件的哈希。 Bob 还将创建一个纪念gossip 同步的事件， 但自己的哈希将是他在gossip 同步之前创建的最后一个事件的哈希，而另一个父事件的哈希将是在gossip 同步之前创建的Alice的最后一个事件的哈希。 Gossip 持续到所有成员收到新创建的活动为止。
 
-## Gossip About Gossip
+## 关于Gossip
 
-The history of how these events are related to each other through their parent hashes is called **gossip about gossip**. This history expresses itself as a type of directed acyclic graph \(DAG\), a graph of hashes, or a hashgraph. The hashgraph records the history of how members communicated. It grows directionally over time as more gossip syncs take place and events are created. All members keep a local copy of the hashgraph which continues to update as members sync with one another.
+这些事件如何通过其父哈希相互关联的历史称为**gossip 关于 gossip** 。 此历史显示为定向环形图\(DAG\)、哈希图或哈希图形。 哈希图记录了成员如何沟通的历史。 随着时间的推移，随着更多的gossip 同步的出现和事件的创建，它会直接生长。 所有成员都保留一个本地的哈希图副本，这个哈希图在会员之间同步时继续更新。
 
-These hashgraphs may be slightly different at any given moment, but they will always be consistent. Consistent means that if \[Alice\] and \[Bob\] both contain event x, then they will both contain exactly the same set of ancestors for x, and will both contain exactly the same set of edges between those ancestors.
+这些哈希图在任何时候都可能略有不同，但它们总是一致的。 一致性意味着，如果\[Alice\] 和 \[Bob\] 两者都包含事件x，那么两者都将包含完全相同的x父类组合。 并且两者都将包含完全相同的那些祖先之间的一组边缘。
 
-Each event contains the following:
+每个活动包含以下内容：
 
-- Timestamp
-- Two hashes of two events below itself
-  - Self-parent
-  - Other-parent
-- Transactions
-- Digital signature
+- 时间戳
+- 下面两个事件的两次哈希值
+  - 自有的
+  - 其他父类
+- 交易记录
+- 数字签名
 
-| Item                                   | Description                                                                      |
-| :------------------------------------- | :------------------------------------------------------------------------------- |
-| **Timestamp:**         | The timestamp of when the member created the event commemorating the gossip sync |
-| **Transactions:**      | The event can hold zero or more transactions                                     |
-| **Hash 1:**            | Self-parent hash                                                                 |
-| **Hash 2:**            | Other-parent hash                                                                |
-| **Digital Signature:** | Cryptographically signed by the creator of the event                             |
+| 项目                       | 描述                     |
+| :----------------------- | :--------------------- |
+| **时间戳:** | 会员创建纪念gossip 同步活动时的时间戳 |
+| **交易：**                  | 事件可以持有零或更多交易           |
+| **哈希1:** | 自身哈希值                  |
+| **哈希2:** | 其他父哈希                  |
+| **数字签名：**                | 由事件创建者签名的加密            |
