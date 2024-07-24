@@ -1,1 +1,1 @@
-# Smart Contracts
+# Contrats intelligents
