@@ -20,7 +20,7 @@ In this step, you will generate your Google Cloud Platform HMAC access keys. The
 
 </details>
 
-## Prerequisites
+## 必备条件
 
 Click [here](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node) to get started; you will need the following details you obtained from the previous [step](one-click-mirror-node-deployment.md#how-to-obtain-google-cloud-platform-requester-pay-information):
 
