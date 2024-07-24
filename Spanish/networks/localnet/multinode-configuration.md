@@ -1,41 +1,41 @@
-# Multinode Configuration
+# Configuración multinode
 
-## Using Multinode Configuration
+## Usar configuración de Multinode
 
-Multinode configuration is an advanced feature designed for specific scenarios that require multiple consensus nodes. This configuration demands higher resources and involves more complexity, making it suitable primarily for testing and development environments. Before attempting to use the multinode setup, it's crucial to ensure that the local node operates correctly in the default single-node mode.
+La configuración de Multinode es una característica avanzada diseñada para escenarios específicos que requieren múltiples nodos de consenso. Esta configuración requiere mayores recursos e implica más complejidad, haciéndola adecuada principalmente para entornos de pruebas y desarrollo. Antes de intentar usar la configuración multinode, es crucial asegurarse de que el nodo local funciona correctamente en el modo predeterminado de un solo nodo.
 
 <details>
 
-<summary><strong>Multinode Mode Requirements</strong></summary>
+<summary><strong>Modo Multinode Requisitos</strong></summary>
 
-To run the multinode mode, ensure the following configurations are set at minimum in Docker **Settings** -> **Resources** and at least 14 GB of memory are available for Docker:
+Para ejecutar el modo multinode, asegurarse de que las siguientes configuraciones se establecen como mínimo en las **Configuraciones** de Docker -> **Recursos** y al menos 14 GB de memoria están disponibles para Docker:
 
 - **CPUs:** 6
-- **Memory:** 14 GB
-- **Swap:** 1 GB
-- **Disk Image Size:** 64 GB
+- **Memoria:** 14 GB
+- **Intercambio:** 1 GB
+- **Tamaño de imagen de disco:** 64 GB
 
 <img src="../../.gitbook/assets/localnode-multinode-requirements.png" alt="" data-size="original">
 
 </details>
 
 {% hint style="info" %}
-_**📣 Note**: Creating a decentralized network where each node runs independently on its own machine is currently unsupported. Nonetheless, advanced networking and configuration capabilities are available, allowing nodes to communicate with each other similar to their interactions on the Hedera Mainnet._
+_**📣 Nota**: Crear una red descentralizada donde cada nodo se ejecuta independientemente en su propia máquina no está soportado actualmente. Sin embargo, están disponibles capacidades avanzadas de configuración y redes que permiten a los nodos comunicarse entre sí similares a sus interacciones en la red principal de Hedera._
 {% endhint %}
 
-#### **Starting Multinode Mode**
+#### **Iniciando modo multinode**
 
-To start Hedera Local Node in multinode mode, append the `--multinode` flag to your [start command](single-node-configuration.md#npm). For example:
+Para iniciar el nodo local de Hedera en modo multinode, añade la bandera `--multinode` a tu [comando de inicio](single-node-configuration.md#npm). Por ejemplo:
 
 ```bash
-# npm command to start the local network in multinode mode
+# comando npm para iniciar la red local en modo multinode
 npm run start -- -d --multinode
 
-# docker command to start the local network in multinode mode
-docker compose up -d --multinode
+# comando docker para iniciar la red local en modo multinode
+docker compone -d --multinode
 ```
 
-Verify the successful launch of multinode mode by inspecting Docker output of `docker ps --format "table {{.Names}}" | grep network` or the Docker Desktop dashboard. You should identify four running nodes:
+Verifica el lanzamiento exitoso del modo multinode inspeccionando la salida de Docker de `docker ps --format "tabla {{.Names}}" | red grep` o el panel de escritorio de Docker. Debe identificar cuatro nodos en ejecución:
 
 ```bash
 network-node
@@ -44,24 +44,24 @@ network-node-2
 network-node-3
 ```
 
-_📣 **Note**: In multinode mode, you need at least three healthy nodes for operational network._
+_📣 **Nota**: En modo multinode, necesitas al menos tres nodos saludables para la red operativa._
 
-#### **Starting and Stopping Nodes**
+#### **Iniciando y deteniendo nodos**
 
-Individual nodes can be started or stopped to test consensus, synchronization, and node selection processes using `npm` or `docker` management commands:&#x20
+Los nodos individuales pueden iniciarse o detenerse para probar consensos, sincronización, y procesos de selección de nodos usando los comandos `npm` o `docker`:&#x20
 
 <details>
 
-<summary><strong>npm commands</strong></summary>
+<summary><strong>comandos npm</strong></summary>
 
 ```bash
-# npm command to start an individual node
+# comando npm para iniciar un nodo individual
 npm run start network-node-3
 
-# npm command to stop an individual node
+# comando npm para detener un nodo individual
 npm run stop network-node-3
 
-# npm command to restart an individual node
+# comando npm para reiniciar un nodo individual
 npm run restart network-node-3
 ```
 
@@ -69,31 +69,31 @@ npm run restart network-node-3
 
 <details>
 
-<summary><strong>docker commands</strong></summary>
+<summary><strong>acoplador comandos</strong></summary>
 
 ```bash
-# Docker command to start an individual node
-docker compose start network-node-3
+# Comando Docker para iniciar un nodo individual
+docker compone start network-node-3
 
-# Docker command to stop an individual node
-docker compose stop network-node-3
+# Comando Docker para detener un nodo individual
+docker compone stop network-node-3
 
-# Docker command to restart an individual node
-docker compose restart network-node-3
+# Comando Docker para reiniciar un nodo individual
+docker compone reinicio network-node-3
 
-# Docker command to check logs of the individual node
-docker compose logs network-node-3 -f
+# Comando Docker para comprobar los registros del nodo individual
+docker compone logs network-node-3 -f
 
-# Docker command to stop local network and remove containers
-docker compose down
+# Comando Docker para detener la red local y eliminar contenedores
+docker compone registros
 ```
 
 </details>
 
-Alternatively, run `docker compose down -v; git clean -xfd; git reset --hard` to stop the local node and reset it to its original state.
+Alternativamente, ejecuta `docker compose down -v; git clean -xfd; git reset --hard` para detener el nodo local y restablecerlo a su estado original.
 
-#### Multinode Mode Diagram
+#### Diagrama del modo multinode
 
-The following diagram illustrates the architecture and flow of data in multinode mode.
+El siguiente diagrama ilustra la arquitectura y el flujo de datos en modo multinode.
 
-<figure><img src="../../.gitbook/assets/multinode-diagram.jpeg" alt="" width="535"><figcaption><p>Multinode mode diagram</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/multinode-diagram.jpeg" alt="" width="535"><figcaption><p>Diagrama de modo multinode</p></figcaption></figure>
