@@ -1,14 +1,14 @@
-# Auto Account Creation
+# 自动创建帐户
 
-Auto account creation is a unique flow in which applications, like wallets and exchanges, can create free user "accounts" instantly, even without an internet connection. Applications can make these by generating an **account alias.** The alias account ID format used to specify the account alias in Hedera transactions comprises the shard ID, realm ID, and account alias <mark style="color:purple;">`<shardNum>.<realmNum>.<alias>`</mark>. This is an alternative account identifier compared to the standard account number format <mark style="color:purple;">`<shardId>.<realmId>.<accountNum>`</mark><mark style="color:blue;">.</mark>
+自动创建帐户是一个独特的流程，应用程序如钱包和交换，可以即时创建免费的用户“帐户”，即使没有互联网连接。 应用程序可以通过生成一个 \*\*帐户别名来制作这些。 \* 用于指定Hedera交易中账户别名的别名ID 格式包括碎片识别码， realance ID, and account 别名 <mark style="color:purple;">'<shardNum><realmNum><alias></mark> 这是一个替代帐户标识符，与标准帐号 <mark style="color:purple;"><shardId><shardId><realmId><accountNum></mark><mark style="color:blue;"></mark>
 
-The account alias can be either one of the supported types:
+账户别名可以是支持的类型之一：
 
 <details>
 
-<summary>Public Key</summary>
+<summary>公钥</summary>
 
-The public key alias can be an ED25519 or ECDSA secp256k1 public key type. \
+公共密钥别名可以是 ED25519 或 ECDSA secp256k1 公钥类型。 \
 \
 **Example**\
 \
@@ -37,11 +37,11 @@ EDDSA ED25519 Public Key Alias Account ID: \
 
 <details>
 
-<summary>EVM Address</summary>
+<summary>EVM 地址</summary>
 
-The EVM address alias is created by using the rightmost 20 bytes of the 32 byte `Keccak-256` hash of an `ECDSA secp256k1` public key. This calculation is in the manner described by the [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf). The EVM address is not equivalent to the ECDSA public key. \
+EVM 地址别名是通过使用一个 `ECDSA secp256k1` 公共密钥的 32 字节的 `Keccak-256 ` 最右20字节创建的。 这种计算是按照[Ethereum Yellow Paper](https://eferum.github.io/yellowpaper/paper.pdf)所述的方式进行的。 EVM 地址不等同于ECDSA 公用钥匙。 \
 \
-The acceptable format for Hedera transactions is the EVM Address Alias Account ID. The acceptable format for Ethereum public addresses to denote an account address is the hex encoded public address. \
+The acceptable format for Hedera transactions is the EVM Address Alias Account ID. Ethereum 公开地址表示帐户地址的可接受格式是十六进制编码公共地址。 \
 \
 **Example**\
 \
@@ -53,61 +53,61 @@ EVM Address Alias Account ID: `0.0.b794f5ea0ba39494ce839613fffba74279579268`
 
 </details>
 
-The <mark style="color:purple;">`<shardNum>.<realmNum>.<alias>`</mark> format is only acceptable when specified in the `TransferTransaction`, `AccountInfoQuery`, and `AccountBalanceQuery` transaction types. If this format is used to specify an account in any other transaction type, the transaction will not succeed.&#x20
+<mark style="color:purple;"><shardNum><shardNum> 。。。<realmNum><alias></mark> 格式只有在 `TransferTransaction`, `AccountInfoQuery`, 和 `AccountBalanceQuery` 事务类型中指定时才能被接受。 如果此格式用于指定任何其他交易类型的帐户，交易将不会成功。&#x20
 
-Reference Hedera Improvement Proposal: [HIP-583](https://hips.hedera.com/hip/hip-583)
+参考Hedera改进建议： [HIP-583](https://hips.hedera.com/hip/hip-583)
 
-## **Auto Account Creation Flow**
+## **自动创建账户流程**
 
-### **1. Create an account alias**
+### **1. 创建账户别名**
 
-Create an account alias and convert it to the alias account ID format. The alias account ID format requires appending the shard number and realm numbers to the account alias. This form of account is purely a local account, i.e., not registered with the Hedera network.&#x20
+创建账户别名并将其转换为别名账户 ID 格式。 别名帐户 ID 格式要求将碎片编号和 realm 编号附加到账户别名。 这种形式的帐户纯粹是一个本地帐户，即不在Hedera 网络注册。&#x20
 
-### **2. Deposit tokens to the account alias account ID**
+### **2. 将代币存入账户别名 ID**
 
-Once the alias account ID is created, applications can create a transaction to transfer tokens to the alias account ID for users. Users can transfer HBAR, custom fungible or non-fungible tokens to the alias account ID. This will trigger the creation of the official Hedera account. When using the auto account creation flow, the first token transferred to the alias account ID is automatically associated to the account.
+别名帐户 ID 一旦创建，应用程序可以创建一个交易来为用户传输别名帐户 ID 。 用户可以将HBAR、自定义可互换或不可互换的代币转移到别名账户 ID。 这将促成开立赫德拉官方账户。 当使用自动账户创建流程时，转到别名账户ID的第一个令牌将自动关联到账户。
 
-The initial transfer of tokens to the alias account ID will do a few things:
+代币初始传输到别名帐户 ID 将做几件事：
 
-1. The system will first create a system-initiated transaction to create a new account on Hedera. This is to create a new account on Hedera officially. This transaction occurs one nanosecond before the subsequent token transfer transaction.&#x20
-2. After the new account is created, the system will assign a new account number, and the account alias will be stored with the account in the alias field in the state. The new account will have an "auto-created account" set in the account memo field.
-   - For accounts created using the public key alias, the account will be assigned the account public key that matches the alias public key.&#x20
-   - For an account created via an EVM address alias, the account will not have an account public key, creating a [hollow account](auto-account-creation.md#auto-account-creation-evm-address-alias).
-3. Once the new account is officially created, the token transfer transaction instantiated by the user will transfer the tokens to the new account.&#x20
-4. The account specified to pay for the token transfer transaction fees will also be charged the account creation transaction fees in tinybar.&#x20
+1. 系统将首先创建一个系统启动的交易，在Hedera创建一个新帐户。 这是为了在赫代拉正式创建一个新帐户。 此交易发生了一个 nanosecond 后续的令牌传输交易。&#x20
+2. 在创建新帐户后，系统将分配一个新的帐号。 和帐户别名将与帐户一起存储在别名字段状态中。 新账户将在账户备注字段中设置“自动创建账户”。
+   - 对于使用公钥别名创建的帐户，帐户将被分配给与别名公钥匹配的帐户公钥。&#x20
+   - 对于通过EVM地址别名创建的帐户，该帐户将不会有一个帐户公钥，创建一个[空帐户](自动帐户创建.md#auto-account-creat-evm-address-alias)。
+3. 一旦新账户被正式创建，用户实例化的令牌传输交易将会传输令牌到新账户。&#x20
+4. 指定用于支付代币转账交易费用的帐户也将在 tinybar中收取帐户创建交易费用。&#x20
 
-The above interactions introduce the concept of [parent and child transactions](../transactions-and-queries.md#nested-transactions). The parent transaction is the transaction that represents the transfer of tokens from the sender account to the destination account. The child transaction is the transaction the system initiated to create the account. This concept is important since the parent transaction record or receipt will not return the new account number ID. You must get the transaction record or receipt of the child transaction. The parent and child transactions will share the same transaction ID, except the child transaction has an added nonce value. &#x20
+上述互动引入了[父母和儿童事务](../transactions-and-queries.md#嵌套-交易)的概念。 父交易是指将代币从发送者帐户转到目的地帐户的交易。 子交易是为创建帐户而启动的交易。 这个概念很重要，因为父交易记录或收据不会返回新的帐号ID。 您必须获得交易记录或收到子交易记录。 父和子交易将共享相同的交易ID，除非子交易有附加值。 &#x20
 
 {% hint style="info" %}
-**parent transaction**: the transaction responsible for transferring the tokens to the alias account ID destination account.
+**父交易**：负责将代币转移到别名账户 ID 目的帐户的交易。
 
-**child transaction**: the transaction that created the new account
+**子交易**：创建新账户的交易
 {% endhint %}
 
-### **3. Get the new account number**
+### **3. 获取新帐号**
 
-You can obtain the new account number in any of the following ways:
+您可以通过以下任何方式获取新帐号：
 
-- Request the parent transaction record or receipt and set the child transaction record boolean flag equal to true.&#x20
-- Request the transaction receipt or record of the account create transaction by using the transaction ID of the parent transfer transaction and incrementing the nonce value from 0 to 1.
-- Specify the account alias account ID in an `AccountInfoQuery` transaction request. The response will return the account's account number account ID.
-- Inspect the parent transfer transaction record transfer list for the account with a transfer equal to the token transfer value.
+- 请求父交易记录或收据，并设置子交易记录布尔标志等于真。&#x20
+- 通过使用父转账交易的交易ID和递增0到1的nonce值来请求交易收据或记录创建交易。
+- 在 `AccountInfoQuery` 交易请求中指定帐户别名帐户 ID。 响应将返回帐户的帐户编号ID。
+- 检查与代币转账值相等的转账账户的父转账交易记录列表。
 
-## Auto Account Creation: EVM Address Alias
+## 自动创建账户：EVM地址别名
 
-Accounts created with the auto account creation flow using an [EVM address alias](account-properties.md#account-alias-evm-address) result in creating a **hollow account**. Hollow accounts are incomplete accounts with an account number and alias but not an account key. The hollow account can accept token transfers into the account in this state. It cannot transfer tokens from the account or modify any account properties until the account key has been added and the account is complete.
+使用[EVM 地址别名](帐户-properties.md#account-alias-evm-address)创建的自动帐户创建流程导致创建一个 **空帐户**。 Holdo账户是不完整的账户，有一个账户号和别名，但不是一个账户密钥。 空账户可以接受此状态中的账户转账令牌。 它不能从帐户传输令牌或修改任何帐户属性，直到帐户密钥添加完毕。
 
-To update the hollow account into a complete account, the hollow account needs to be specified as a transaction fee payer account for a Hedera transaction. It must also sign the transaction with the ECDSA private key corresponding to the EVM address alias. When the hollow account becomes a complete account, you can use the account to pay for transaction fees or update account properties as you would with regular Hedera accounts.
+将空账户更新为完整账户， Hedera 交易需要指定一个交易费用支付者账户。 它还必须与ECDSA 对应EVM 地址别名的私人密钥签署交易。 当空账户成为完整账户时， 您可以使用该账户支付交易费或更新账户属性，因为您可以使用普通的 Hedera 账户。
 
-## Examples
+## 示例：
 
 <details>
 
 <summary>Auto-create an account using a public key alias</summary>
 
-:black\_circle: [Java](https://github.com/hashgraph/hedera-sdk-java/blob/develop/examples/src/main/java/AccountAliasExample.java) \
-:black\_circle: [JavaScript](https://github.com/hashgraph/hedera-sdk-js/blob/develop/examples/account-alias.js) \
-:black\_circle: [Go](https://github.com/hashgraph/hedera-sdk-go/blob/develop/examples/alias\_id\_example/main.go) &#x20
+:black\_circle: [Java](https://github.com/hashgraph/hedera-sdk-java/blob/development/examples/src/main/java/AccountAliasExample.java) \
+:black\_circle: [JavaScript](https://github.com/hashgraph/hedera-sdk-js/blob/develop/exampes/account-alias.js)
+:black\_circle: [Go](https://github.com/hashgraph/hedera-sdk/blob/develop/exampes/alias\_id\_example/main.go) &#x20
 
 </details>
 
