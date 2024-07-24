@@ -1,95 +1,95 @@
 ---
-description: Distributed consensus algorithm
+description: 分发共识算法
 ---
 
-# Hashgraph Consensus Algorithm
+# Hashgra共识算法
 
-The hashgraph consensus algorithm enables distributed consensus in an innovative, efficient way. Hashgraph is a distributed consensus algorithm and data structure that is fast, fair, and secure. This indirectly creates a trusted community, even when members do not necessarily trust each other.
+散列图协商一致算法使得能够以创新、有效的方式分发协商一致意见。 哈希图是一种分布式协商一致的算法和数据结构，这种算法和结构是迅速、公平和安全的。 这间接地建立了一个受信任的社区，即使成员之间不一定相互信任。
 
-The [hashgraph consensus algorithm](./) and platform code are open-source under an Apache 2.0 license.
+[哈希图共识算法](./) 和平台代码在 Apache 2.0 许可下是开源的。
 
-{% embed url="https://www.youtube.com/watch?v=cje1vuVKhwY&t=5s" %}
+{% 嵌入的 url="https://www.youtube.com/watch?v=cje1vuVKhwY&t=5s" %}
 
-## Performance
+## 业绩
 
-### Cost
+### 费用
 
-The hashgraph is inexpensive, in the sense of avoiding proof-of-work. Individuals and organizations running hashgraph nodes do not need to purchase expensive custom mining rigs. Instead, they can run readily available, cost-effective hardware. The hashgraph is 100% efficient, wasting no resources on computations that slow it down.
+从避免工作证明的意义上来说，散布的费用不高。 经营哈希图节点的个人和组织不需要购买昂贵的自定义采矿设备。 相反，它们可以随时运转，成本效益高的硬件。 散列图100%效率高，在计算上没有浪费任何资源来减缓其速度。
 
-### Efficiency
+### 效率
 
-The hashgraph is 100% efficient, as that term is used in the blockchain community. In blockchain, work is sometimes wasted mining a block that later is considered stale and is discarded by the community. In hashgraph, the equivalent of a “block” never becomes stale. Hashgraph is also efficient in its use of bandwidth. Whatever is the amount of bandwidth required merely to inform all the nodes of a given transaction (even without achieving consensus on a timestamp for that transaction), hashgraph adds only a very small overhead beyond that absolute minimum. Additionally, hashgraph’s voting algorithm does not require any additional messages be sent in order for nodes to vote (or those votes to be counted) beyond those messages by which the community learned of the transaction itself.
+哈希图100%效率高，因为区块链中使用了该术语。 在区块链中，工作有时被浪费掉了一个后来被认为是陈旧的区块，被社区丢弃。 在哈希图形中，等于一个“方块”永远不会落空。 哈希格也有效地使用了带宽。 只是通知某一交易的所有节点所需的带宽数量（即使没有就该交易的时间戳达成共识）， 哈希图只增加了一个非常小的间接费用，超出了绝对最低限度。 此外， hashgraph的投票算法不需要发送任何额外的消息才能使节点在社区了解交易本身的消息之外进行投票(或计票)。
 
-### Throughput
+### 流经量
 
-The hashgraph is fast. It is limited only by the bandwidth. If each member has enough bandwidth to download and upload a given number of transactions per second, the system as a whole can handle close to that many. Even a fast home internet connection could be fast enough to handle all of the transactions of the entire VISA card network, worldwide.
+哈希图速度很快。 它只受带宽限制。 如果每个成员都有足够的带宽，每秒下载和上传特定的交易数， 整个系统能够处理与许多人接近的问题。 即使家庭互联网连接很快也能够快速地处理全世界整个VISA卡网络的所有交易。
 
 ### **State Efficiency**
 
-Once an event occurs, within seconds everyone in the community will know where it should be placed in history with 100% certainty. More importantly, everyone will know that everyone else knows this. At that point, they can just incorporate the effects of the transaction and, unless needed for future audit or compliance, then discard it. So in a minimal cryptocurrency system, each member would only need to store the current balance of each account that isn’t empty. They wouldn’t need to remember the full history of the transactions that resulted in those balances all the way back to ‘genesis’.
+事件一旦发生，在几秒钟内，社区中的每个人都会知道它应该放在历史上的位置，并且百分之百地确定下来。 更重要的是，每个人都知道这一点。 在这一点上，它们只能纳入交易的效果，除非有必要进行今后的审计或履约，否则就放弃这种效果。 所以，在最小的加密货币系统中，每个成员只需要存储每个帐户中不为空的当前余额。 他们不需要记住导致这些余额返回“起源”的交易的全部历史。
 
-## Security
+## 安全
 
-### Asynchronous Byzantine Fault Tolerance
+### 异步Byzantine 故障公差
 
-The hashgraph consensus algorithm is asynchronous Byzantine Fault Tolerant. This means that no single member (or small group of members) can prevent the community from reaching a consensus. Nor can they change the consensus once it has been reached. Each member will eventually reach a point where they know for sure that they have reached consensus. Blockchain does not have a guarantee of Byzantine agreement, because a member never reaches certainty that agreement has been achieved (there’s just a probability that rises over time). Blockchain is also non-Byzantine because it doesn’t automatically deal with network partitions. If a group of miners is isolated from the rest of the internet, that can allow multiple chains to grow, which conflict with each other on the order of transactions.
+哈希图共识算法是异步Byzantine 故障公差。 这意味着任何一个成员（或少数成员）都不能阻止社区达成共识。 一旦达成共识，它们也不能改变这种共识。 每个成员最终将达到他们知道已达成共识的程度。 区块链没有Byzantine 协议的担保。 因为成员从未肯定同意已经实现(仅有随时间增加的概率)。 Blockchain 也不是Byzantine ，因为它不会自动处理网络分区。 如果一组矿工与互联网其他部分隔离， 这可以使多个链条成长，而这种成长是在交易顺序上相互冲突的。
 
-It is worth noting that the term “Byzantine Fault Tolerant” (BFT) is sometimes used in a weaker sense by other consensus algorithms. But here, it is used in its original, stronger sense that (1) every member eventually knows consensus has been reached, (2) attackers may collude, and (3) attackers even control the internet itself (with some limits). Hashgraph is Byzantine, even by this stronger definition.
+值得注意的是，“Byzantine Fault Timperant”（BFT）一词有时在一种较弱的意义上被其他协商一致的算法所使用。 但在这方面，它最初的含义是(1) 每个成员最终都知道达成了协商一致意见。 (2) 攻击者可能相互勾结，(3) 攻击者甚至控制互联网本身(有一些限制)。 哈希格是 Byzantine, 即使按照这个更强有力的定义。
 
-There are different degrees of BFT, depending on the assumptions made about the network and transmission of messages. The strongest form of BFT is asynchronous BFT- meaning that it can achieve consensus even if malicious actors are able to control the network and delete or slow down messages of their choosing. The only assumptions made are that more than 2⁄3 are following the protocol correctly and that if messages are repeatedly sent from one node to another over the internet, eventually one will get through, and then eventually another will, and so on. Some systems are partially asynchronous, which are secure only if the attackers do not have too much power and do not manipulate the timing of messages too much. For instance, a partially asynchronous system could prove Byzantine under the assumption that messages get passed over the internet in ten seconds. This assumption ignores the reality of botnets, Distributed Denial of Service attacks, and malicious firewalls.
+根据对网络和信息传送的假设，BFT的程度不同。 最强大形式的BFT是异步的，即使恶意行为者能够控制网络并删除或减缓他们所选择的信息，也能够达成共识。 唯一的假设是，超过2位的私密性3正在正确地遵循协议，如果消息是通过互联网从一个节点反复发送到另一个节点， 一个人最终会经得到，然后最终会经受住另一个意志，等等。 有些系统部分异步， 只有当攻击者没有太大的力量并且不太多地操纵消息的时间时，才是安全的。 例如，部分异步系统可以证明Byzantine ，假定消息在十秒钟内通过互联网传递。 这种假设忽视了机器人、分布式拒绝服务攻击和恶意防火墙的现实。
 
-### ACID Compliance
+### ACID 遵守情况
 
-The hashgraph is ACID compliant. ACID (Atomicity, Consistency, Isolation, Durability) is a database term and applies to the hashgraph when it is used as a distributed database. A community of nodes uses it to reach a consensus on the order in which transactions occurred. After reaching consensus, each node feeds those transactions to that node’s local copy of the database, sending in each one in the consensus order. If the local database has all the standard properties of a database (ACID), then the community as a whole can be said to have a single, distributed database with those same properties. In blockchain, there is never a moment when you know that consensus has been reached, so it would not be ACID compliant.
+哈希图是 ACID 兼容的。 ACID（大小一致性、孤立性、持久性）是一个数据库术语，当它作为分布式数据库使用时，适用于散列图。 节点群集利用它就交易发生的先后顺序达成共识。 在达成共识后，每个节点都会将这些交易反馈到该节点的本地数据库副本上，每个节点都会按照协商一致的顺序发送。 如果本地数据库具有数据库的所有标准属性 (ACID)， 这样，整个社区就可以说有一个单一的、分布式的与这些属性相同的数据库。 在区块链中，从来没有任何时候你知道已经达成了协商一致，因此它不会遵守ACID。
 
-### Distributed Denial of Service (DDoS) Attack Resilience
+### 分布式拒绝服务 (DDoS) 攻击抗性
 
-One form of Denial of Service (DoS) attack occurs when an attacker is able to flood an honest node on a network with meaningless messages, preventing that node from performing other (valid) duties and roles. A Distributed Denial of Service (DDoS) uses public services or devices to unwittingly amplify that DoS attack - making them an even greater threat.
+当攻击者能够将一个诚实的节点淹没在一个没有意义的信息的网络上时，就发生了一种拒绝提供服务（DoS）的攻击。 防止该节点履行其他(有效的)义务和角色。 分布式拒绝服务(DDoS)利用公共服务或装置无意地扩大了DoS的攻击范围——使其成为更大的威胁。
 
-In a distributed ledger, a DDoS attack could target the nodes that contribute to the definition of consensus and, potentially, prevent that consensus from being established.
+在分布式分类账中，DDoS攻击可能会以有助于确定共识的节点为攻击目标。 这有可能阻止建立这一共识。
 
-Hashgraph is DDoS resilient as it empowers no single node or a small number of nodes with special rights or responsibilities in establishing consensus. Both Bitcoin and hashgraph are distributed in a way that resists DDoS attacks. An attacker might flood one member or miner with packets, to temporarily disconnect them from the internet. But the community as a whole will continue to operate normally. An attack on the system as a whole would require flooding a large fraction of the members with packets, which is more difficult. There have been a number of proposed alternatives to blockchain-based on leaders or round-robin. These have been proposed to avoid the proof-of-work costs of Bitcoin. But they have the drawback of being sensitive to DDoS attacks. If the attacker attacks the current leader, and switches to attacking the new leader as soon as one is chosen, then the attacker can freeze the entire system while still attacking only one computer at a time. Hashgraph avoids this problem, while still not needing proof-of-work.
+Hashgra是DDoS的复原力，因为它没有赋予任何一个节点或少数在建立共识方面具有特殊权利或责任的节点。 比特币和哈希图都是以抗拒DDoS攻击的方式分发的。 攻击者可能用数据包淹没一个成员或矿工，暂时断开他们与互联网的连接。 但是，整个社区将继续正常运作。 对整个系统的攻击将使很大一部分成员被包淹没，这是比较困难的。 已经提出了一些替代基于区块链的替代办法来取代基于领导人或往来抢劫。 提出这些建议是为了避免比特币的工作证明费用。 但他们的缺点是对裁军部的攻击保持敏感。 如果攻击者攻击现任领导人并在选择新领导人后立即切换到攻击新领导人， 然后攻击者可以冻结整个系统，同时仍然只攻击一台计算机。 哈希格省避免了这个问题，但仍然不需要工作证明。
 
-## Fairness
+## 公平性
 
-Hashgraph is fair because there is no leader or miner given special permissions for determining the consensus timestamp assigned to a transaction. Instead, the consensus timestamp for transactions are calculated via a voting process in which the nodes collectively and democratically establish the consensus. We can distinguish between three aspects of fairness.
+哈希格是公平的，因为没有任何头领或矿工被授予特别权限来决定分配给交易的协商一致的时间戳。 相反，协商一致的交易时间戳是通过表决程序计算的，在表决过程中，节点集体和民主地建立共识。 我们可以区分公平的三个方面。
 
-### Fair Access
+### 公平访问
 
-Hashgraph is fundamentally fair because no individual can stop a transaction from entering the system, or even delay it very much. If one (or few) malicious nodes attempts to prevent a given transaction from being delivered to the rest of the community and so be added into consensus, then the random nature of the gossip protocol will ensure that the transaction flows around that blockage.
+哈希格基本上是公平的，因为没有人能够阻止某项交易进入系统，甚至拖延很久。 如果某个(或少数)恶意节点试图阻止某项交易交付给其他社区，则将其加入协商一致， 然后，gossip 协议的随机性质将确保交易流量围绕那个屏蔽。
 
-### Fair Timestamps
+### 公平的时间戳
 
-Hashgraph gives each transaction a consensus timestamp that reflects when the majority of the network members received that transaction. This consensus timestamp is “fair”, because it is not possible for a malicious node to corrupt it and make it differ by very much from that time. Every transaction is assigned a consensus time, which is the median of the times at which each member says it first received it. Received here refers to the time that a given node was first passed the transaction from another node through gossip. This is part of the consensus, and so has all the guarantees of being Byzantine. If more than 2⁄3 of participating members are honest and have reliable clocks on their computer, then the timestamp itself will be honest and reliable, because it is generated by an honest and reliable member or falls between two times that were generated by honest and reliable members. Because hashgraph takes the median of all these times, the consensus timestamp is robust. Even if a few of the clocks are a bit off, or even if a few of the nodes maliciously give times that are far off, the consensus timestamp is not significantly impacted.
+哈希图给每个交易提供了协商一致的时间戳，反映了网络大多数成员何时收到该交易。 这一协商一致的时间戳是“公平的”， 因为恶意节点不可能损坏它并使它与当时大不相同。 每笔交易都有一个协商一致的时间，即每个成员说它最初收到交易的中位数。 收到此处指的是某个节点首次通过gossip从另一个节点转过交易的时间。 这是协商一致的一部分，成为拜占庭的所有保证也是如此。 如果超过2名参与成员诚实并在计算机上有可靠的时钟，那么时间戳本身将是诚实和可靠的。 因为它是由诚实和可靠的成员产生的或是由诚实和可靠的成员产生的两次之间的关系。 由于散列图占所有这些时间的中位数，因此协商一致的时间戳是强有力的。 即使有几个时钟有点错了。 或者即使一些节点恶意给出了很差的时间。 这种做法对协商一致的时间安排没有产生重大影响。
 
-This consensus timestamping is useful for things such as a legal obligation to perform some action by a particular time. There will be a consensus on whether an event happened by a deadline, and the timestamp is resistant to manipulation by an attacker. In a blockchain, each block contains a timestamp, but it reflects only a single clock: the one on the computer of the miner who mined that block.
+这种协商一致的时间安排对于某一特定时间内采取某种行动的法律义务等事项是有用的。 对于某一事件是否在最后期限之前发生，以及时间戳抵制攻击者的操纵，将达成共识。 在区块链中，每个区块包含一个时间戳, 但它只反映一个时钟：那个时钟在矿工电脑上挖掘那个时钟。
 
-### Fair Transaction Order
+### 公平交易订单
 
-Transactions are put into order according to their timestamps. Because the timestamps assigned to individual transactions are fair, so is the resulting order. This is critically important for some use cases. For example, imagine a stock market, where Alice and Bob both try to buy the last available share of a stock at the same moment for the same price. In a blockchain, a miner might put both of those transactions in a single block, and have complete freedom to choose what order they occur. Or the miner might choose to only include Alice’s transaction, and delay Bob’s to a future block. In hashgraph, there is no way for an individual to unduly affect the consensus order of those transactions. The best Alice can do is to invest in a better internet connection so that her transaction reaches everyone before Bob’s. That’s the fair way to compete.
+交易按其时间顺序排序。 由于分配给个别交易的时间安排是公平的，因此所产生的订单也是公平的。 这对某些使用案例至关重要。 例如，想象一个股票市场。 Alice和Bob 双方都试图以相同的价格在同一时间购买股票的最后一个可用份额。 在区块链中，矿工可能会将这两笔交易放在一个区块中，并且完全可以自由地选择它们的顺序。 或者矿工可能选择只包含Alic的交易，并将博客推迟到未来的块。 在散列图中，个人无法不适当地影响这些交易的协商一致顺序。 Alice能做的最好是投资于更好的互联网连接，从而使她的交易能够在博客之前到达每一个人。 这是一个公平的竞争方式。
 
-## FAQ
+## 常见问题
 
 <details>
 
-<summary>What is the hashgraph consensus algorithm? How does it work?</summary>
+<summary>哈希图共识算法是什么？ 它是如何工作的？</summary>
 
-The hashgraph consensus algorithm is a distributed consensus mechanism used by Hedera. It uses a data structure called a [hashgraph](../../support-and-community/glossary.md#hashgraph), and a consensus mechanism called the Gossip protocol. This combination allows for fast, fair, and secure consensus. The algorithm works by each node in the network sharing information (or “gossiping”) about the transactions it knows about with other nodes in random order.
+散列图协商一致算法是赫德拉使用的一种分布式协商一致机制。 它使用一个叫做 [hashgraph]的数据结构(../../supportand-community/glossary.md#hashgraph)，以及一个叫做Gossip 协议的协商一致机制。 这种结合使我们能够达成迅速、公平和可靠的共识。 该算法由每个节点在网络共享信息（或“gossiping”）中运行，以随机顺序与其他节点进行交易。
 
 </details>
 
 <details>
 
-<summary>How secure is the hashgraph consensus algorithm?</summary>
+<summary>哈希图共识算法的安全性如何？</summary>
 
-Hashgraph is secure because it is asynchronous Byzantine Fault Tolerant (aBFT). This means that no single member or small group of members can prevent the community from reaching a consensus or changing the consensus once it has been reached. It is also ACID compliant when used as a distributed database, and it is resilient to [Distributed Denial of Service (DDoS)](../../support-and-community/glossary.md#distributed-denial-of-service-ddos) attacks.
+哈希图是安全的，因为它是异步的 Byzantine 故障公差(aBF) 。 这意味着任何一个成员或少数成员群体都不能阻止社区达成共识或在达成共识后改变共识。 它也是 ACID 当用作分布式数据库时兼容，并且它能够适应[分布式拒绝服务(DDoS)](../../support-community/glossary.md#distributed-ddos)的攻击。
 
 </details>
 
 <details>
 
-<summary>What is virtual voting?</summary>
+<summary>什么是虚拟投票？</summary>
 
-Virtual voting is an integral part of the hashgraph consensus algorithm. It allows nodes to know what others would vote for without needing actual votes sent over the internet. This is accomplished by examining the history of gossip (who spoke to whom and in what order) to determine how a node would vote based on the information it is likely to have.
+虚拟投票是哈希图协商一致算法的一个组成部分。 它使节点能够知道其他节点会投票赞成什么，而不需要通过互联网进行实际投票。 完成这项工作的方法是审查gossip (他与谁交谈，按什么顺序)的历史，以确定节点如何根据它可能掌握的信息进行投票。
 
 </details>
