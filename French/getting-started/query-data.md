@@ -1,38 +1,38 @@
-# Query Ledger Data
+# Requête de données Ledger
 
 ## Summary
 
-In this section, we will guide you through querying your account balance, enabling you to retrieve the most current information about the available funds in your new Hedera account.
+Dans cette section, nous vous guiderons en interrogeant le solde de votre compte, vous permettant de récupérer les informations les plus récentes sur les fonds disponibles dans votre nouveau compte Hedera.
 
-## Prerequisites <a href="#pre-requisites" id="pre-requisites"></a>
+## Prérequis <a href="#pre-requisites" id="pre-requisites"></a>
 
-- Completed the [Introduction](introduction.md) step.
-- Completed the [Environment Setup](environment-set-up.md) step.
-- Completed the [Created an Account](create-an-account.md) step.
-- Completed the [Transfer HBAR ](transfer-hbar.md)step.
+- L'étape [Introduction](introduction.md) a été terminée.
+- L'étape [Configuration de l'environnement](environment-set-up.md) a été terminée.
+- L'étape [Créer un compte](create-an-account.md) a été terminée.
+- L'étape du [transfert HBAR ](transfer-hbar.md)est terminée.
 
 {% hint style="info" %}
-_**Note:** You can always check the "_[_Code Check ✅_](query-data.md#code-check) _" section at the bottom of each page to view the entire code if you run into issues. You can also post your issue to the respective SDK channel in our Discord community_ [_here_](http://hedera.com/discord) _or on the GitHub repository_ [_here_](https://github.com/hashgraph/hedera-docs)_._
+_**Note:** Vous pouvez toujours vérifier "_[vérification de _Code ✅_](query-data. d#code-check) _" section en bas de chaque page pour afficher le code entier si vous rencontrez des problèmes. Vous pouvez également poster votre problème sur le salon SDK respectif dans notre communauté Discord_ [_here_](http://hedera. om/discord) _ou sur le dépôt GitHub_ [_here_](https://github.com/hashgraph/hedera-docs)_._
 {% endhint %}
 
 ***
 
-## Query the account balance
+## Demander le solde du compte
 
-### **Get the cost of requesting the query**
+### **Récupère le coût de la requête**
 
-You can request the cost of a query prior to submitting the query to the Hedera network. Checking an account balance is free of charge today. You can verify that by the method below.
+Vous pouvez demander le coût d'une requête avant de soumettre la requête au réseau Hedera. La vérification du solde d'un compte est gratuite aujourd'hui. Vous pouvez vérifier cela par la méthode ci-dessous.
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-//Request the cost of the query
+//Demande le coût de la requête
 Hbar queryCost = new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .getCost(client);
 
-System.out.println("The cost of this query is: " +queryCost);
+System.out.println("Le coût de cette requête est: " +queryCost);
 ```
 
 {% endtab %}
@@ -40,12 +40,12 @@ System.out.println("The cost of this query is: " +queryCost);
 {% tab title="JavaScript" %}
 
 ```javascript
-//Request the cost of the query
-const queryCost = await new AccountBalanceQuery()
+//Demande le coût de la requête
+const queryCost = waiting new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .getCost(client);
 
-console.log("The cost of query is: " +queryCost);
+console.log("Le coût de la requête est: " +queryCost);
 ```
 
 {% endtab %}
@@ -53,37 +53,37 @@ console.log("The cost of query is: " +queryCost);
 {% tab title="Go" %}
 
 ```java
-//Create the query that you want to submit
+//Créez la requête que vous voulez soumettre
 balanceQuery := hedera.NewAccountBalanceQuery().
      SetAccountID(newAccountId)
 
 //Get the cost of the query
-cost, err := balanceQuery.GetCost(client)
+cost, err := balanceQuery. etCost(client)
 
-if err != nil {
-        panic(err)
+if err ! nil {
+        panique
 }
 
-println("The account balance query cost is:", cost.String())
+println("The account balance query cost is:", cost. tring())
 ```
 
 {% endtab %}
 {% endtabs %}
 
-### **Get the account balance**
+### **Obtenir le solde du compte**
 
-You will verify the account balance was updated for the new account by requesting a get account balance query. The current account balance should be the sum of the initial balance (1,000 _**tinybars**_) plus the transfer amount (1,000 **tinybars**) and equal to 2,000 **tinybars**.
+Vous allez vérifier que le solde du compte a été mis à jour pour le nouveau compte en demandant une requête pour obtenir le solde du compte. Le solde du compte courant devrait être la somme de la balance initiale (1,000 _**tinybars**_) plus le montant de transfert (1,000 **tinybars**) et égal à 2000 **tinybars**.
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-//Check the new account's balance
+//Vérifiez le solde du nouveau compte
 AccountBalance accountBalanceNew = new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .execute(client);
 
-System.out.println("The account balance after the transfer: " +accountBalanceNew.hbars);
+System.out.println("Le solde du compte après le transfert: " +accountBalanceNew.hbars);
 ```
 
 {% endtab %}
@@ -91,12 +91,12 @@ System.out.println("The account balance after the transfer: " +accountBalanceNew
 {% tab title="JavaScript" %}
 
 ```javascript
-//Check the new account's balance
-const getNewBalance = await new AccountBalanceQuery()
-     .setAccountId(newAccountId)
-     .execute(client);
+//Vérifiez le solde du nouveau compte
+const getNewBalance = wait new AccountBalanceQuery()
+     . etAccountId(newAccountId)
+     . xecute(client);
 
-console.log("The account balance after the transfer is: " +getNewBalance.hbars.toTinybars() +" tinybar.")
+console.log("Le solde du compte après le transfert est: " +getNewBalance.hbars.toTinybars() +" tinybar.")
 ```
 
 {% endtab %}
@@ -104,38 +104,38 @@ console.log("The account balance after the transfer is: " +getNewBalance.hbars.t
 {% tab title="Go" %}
 
 ```go
-//Check the new account's balance
+//Vérifiez le solde du nouveau compte
 newAccountBalancequery := hedera.NewAccountBalanceQuery().
      SetAccountID(newAccountId)
 
-//Sign with client operator private key and submit the query to a Hedera network
-newAccountBalance, err := newAccountBalancequery.Execute(client)
+//Signez avec la clé privée de l'opérateur client et soumettez la requête à un nouveau solde réseau Hedera
+newAccountBalance, err := newAccountBalancequery. xecute(client)
 if err != nil {
     panic(err)
 }
 
-//Print the balance of tinybars
-fmt.Println("The hbar account balance for this account is", newAccountBalance.Hbars.AsTinybar())
+//Imprime le solde de tinybars
+fmt. rintln("The hbar account balance for this account is", newAccountBalance.Hbars.AsTinybar())
 ```
 
 {% endtab %}
 {% endtabs %}
 
 {% hint style="success" %}
-:star: **Congratulations! You have successfully transferred **_**HBAR**_\*\* to another account on the Hedera Testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:\*\*&#x20
+:star: **Félicitations ! Vous avez transféré avec succès **_**HBAR**_\*\* vers un autre compte sur le Testnet Hedera ! Si vous avez suivi le tutoriel depuis le début, vous avez terminé ce qui suit jusqu'à présent :\*\*&#x20
 
-- Set up your Hedera environment to submit transactions and queries.
-- Created an account.
-- Transferred **HBAR** to another account.
+- Configurez votre environnement Hedera pour soumettre des transactions et des requêtes.
+- A créé un compte.
+- **HBAR** transféré à un autre compte.
 
-Do you want to keep learning? Visit our the [SDKs & APIs](../sdks-and-apis/) section to take your learning experience to the next level. You can also find additional Java SDK examples [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java).
+Voulez-vous continuer à apprendre ? Visitez notre section [SDKs & API](../sdks-and-apis/) pour faire passer votre expérience d'apprentissage au niveau supérieur. Vous pouvez également trouver des exemples supplémentaires de Java SDK [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java).
 {% endhint %}
 
 ***
 
-## Code Check ✅
+## Vérification du code ✅
 
-Your complete code file should look something like this:
+Votre fichier de code complet devrait ressembler à ceci :
 
 <details>
 
@@ -334,7 +334,7 @@ environmentSetup();
 
 <details>
 
-<summary>Go</summary>
+<summary>Aller à</summary>
 
 ```go
 package main
@@ -469,7 +469,7 @@ func main() {
 
 </details>
 
-#### Sample output:
+#### Exemple de sortie :
 
 ```bash
 New account ID: 0.0.13724748
@@ -482,5 +482,5 @@ The account balance after the transfer: 2000 tinybars.
 ```
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+Vous avez une question ? [Demandez-le sur StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}
