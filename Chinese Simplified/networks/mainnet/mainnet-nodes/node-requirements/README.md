@@ -1,195 +1,195 @@
 ---
-description: The Hedera Mainnet is currently comprised of permissioned consensus nodes operated by the Hedera Governing Council
+description: Hedera Mainnet目前由Hedera Governing Council 操作的经许可的共识节点
 ---
 
-# Node Requirements
+# 节点要求
 
-The following is provided to help [_Hedera Governing Council_](https://hedera.com/council) members deploy their permissioned mainnet consensus node. Please note, this information is not intended to apply to Hedera's transition to a permissionless network.
+以下是为了帮助[_Hedera Governing Council_](https://hedera.com/council)成员部署他们的授权主机共识节点。 请注意，此信息并不适用于赫德拉向无权限网络的过渡。
 
-## Minimum Node Platform Requirements
+## 节点平台最低要求
 
-Currently, the Hedera Mainnet will perform at a rate determined by the lowest-performing node. To ensure a common level of performance minimum hardware, connectivity, and hosting requirements have been defined for the initial permissioned, Governing Council nodes.
+目前，Hedera Mainnet将以最低性能节点确定的速度运行。 为了确保共同水平的性能最低限度硬件、连通性和托管要求已经确定了理事会首批授权节点的要求。
 
 {% hint style="warning" %}
-To ensure accurate conformity with the minimum requirements, please provide node hardware, connectivity, and hosting details to Hedera prior to purchase (devops@swirldslabs.com).
+为了确保准确地符合最低要求，请在购买前提供节点硬件、连接和主机信息到 Hedera (devops@swirldlabs.com)。
 {% endhint %}
 
-- CPU: X86/X64 compatible (Intel Xeon or AMD EPYC); 24 cores/48 threads meeting or exceeding the following benchmarks:
-  - Geekbench 6 single-core score
-    - Minimum: 1000 or greater
-    - Recommended: 1500 or greater
-  - Passmark single thread rating:
-    - Minimum to remain on Mainnet: 2300 or greater
-    - Recommended: 2800 or greater
-- Network Connectivity: Sustained 1Gb/s internet bandwidth via a single 1-Gigabit / 10-Gigabit Ethernet interface
-- Memory: 256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM or faster (minimum), 320GB or higher PC4-25600 3200MHz (recommended)
-- Storage: It is recommended to mount 240 GB SSD with Raid 1 as a root volume `/` and then provide usable storage via different devices later mounted during installation. This may not be possible on your hardware, so alternatively all required storage may be allocated to the root volume.
-  - Minimum: 5TB of SSD NVMe usable storage
-  - Recommended:
-    - 2 x 240GB SSD with RAID 1 for OS Storage
-    - 2 x NVMe devices as a 7.5TB RAID 0 (or 4x as RAID 10 array)
-- Storage performance: If mounted to root volume, the root volume must meet these requirements. If provisioned via RAID, the RAID array should meet these requirements:
-  - Sequential write sustained:
-    - Minimum: 2,000GB/s
-    - Recommended: 3,000GB/s
-  - Sequential read sustained:
-    - Minimum: 3,000GB/s
-    - Recommended: 4,500GB/s
-  - Random read, synchronous:
-    - Minimum: 250,000 IOPS
-    - Recommended: 375,000 IOPS
-  - Random read, AIO:
-    - Minimum: 500,000 IOPS
-    - Recommended: 750,000 IOPS
-  - Random write, synchronous:
-    - Minimum 100,000 IOPS
-    - Recommended: 150,000 IOPS
-  - Less than 200µs random read latency, average
-- Nodes must pass the Hedera performance test suite performed at installation time
+- CPU: X86/X64 兼容(Intel Xeon or AMD EPYC); 24 cores/48 thread meeting or three thread completing or threat the following basis
+  - Geekbench 6 单核心分数
+    - 最小值： 1000或以上
+    - 推荐：1500或以上
+  - 密码单线程评分：
+    - 在主网上保留的最小值：2300或以上
+    - 推荐：2800或以上
+- 网络连接：通过单个1-Gigabit / 10-Gigabit 以太网接口保持1Gb/s 互联网带宽
+- 内存：256 GB PC4-21300 2666MHz DDR4 ECC 注册的DIMM 或更快的 (最小值)、320GB或更高PC4-25600 3200MHz (推荐)
+- 存储：建议使用 Raid 1 挂载240 GB SSD 作为根卷 `/` ，然后通过不同的设备提供可用存储器安装。 这可能无法在您的硬件上进行，因此所有必需的存储设备都可能被分配到根卷。
+  - 最小值：SSD NVMe 5TB 可用存储
+  - 推荐：
+    - 2 x 240GB SSD 与 RAID 1 for OS 存储
+    - 2 x NVMe 设备为 7.5TB RAID 0 (或4x 为 RAID 10 数组)
+- 存储性能：如果挂载到根卷上，根卷必须满足这些要求。 如果通过RAID提供，RAID数组应满足这些要求：
+  - 持续按序写入：
+    - 最小值： 2,000GB/秒
+    - 推荐：3,000GB/秒
+  - 连续读取持续：
+    - 最小值： 3,000GB/秒
+    - 推荐：4,500GB/s
+  - 随机读取，同步：
+    - 最低值：250 000 IOPS
+    - 推荐：375 000 IOPS
+  - 随机读取，AIO：
+    - 最小值：500 000 IOPS
+    - 推荐：750 000 IOPS
+  - 随机写入，同步：
+    - 最低100 000 IOPS
+    - 推荐：150 000 IOPS
+  - 低于200微秒的随机读取延迟，均值
+- 节点必须通过安装时执行的 Hedera 性能测试套件
 
-### **Node Operating System:**
+### **节点操作系统：**
 
 - Linux
-  - Kernel minimum version 3.10+
-  - Actively Support Long-Term-Support Release
+  - 内核最小版本 3.10+
+  - 积极支持长期支持版本
     - Ubuntu LTS 22.04
     - RHEL 8
 
-### **Node Software:**
+### **节点软件：**
 
-- Docker Engine (`docker-ce` version 20.10.6)
-  - Deployed with root privileges
-  - Privileged container support enabled (optional)
-    - If privileged container support is disabled then host machine must run the Havege Daemon
-- Docker Compose (`docker-compose` version 1.29.2)
-- IPTables Support (`linux-kernel` version 3.10+)
-- Havege Daemon (`haveged` version 1.9.14)
-  - If privileged container support is enabled then this requirement is optional
-- HashDeep Utilities (`hashdeep` version 4.4)
-  - Required for update integrity validation
-- Bindplane Collector (`bindplane-collector` version 4+)
-  - Required for node software log monitoring
-- JQ CLI (`jq` version 1.5+)
-  - Required dependency for the Node Management Tools
-- GNU CoreUtils (`coreutils` version 8.00+)
-  - Required dependency for the Node Management Tools
-- cURL CLI (`curl` version 7.58.0+)
-  - Required dependency for the Node Management Tools
-- InCron Daemon (`incron` version 0.5.12+)
-  - Required dependency for the Node Management Tools
-  - Required for automated network upgrade
-- Rsync CLI (`rsync` version 3.0.0+)
-  - Required dependency for the Node Management Tools
-  - Required for automated network upgrade
-- Node Management Tools (`node-mgmt-tools` version 0.1.0+)
-  - Updates deployed via the node upgrade process
-  - Must be installed at the following path: `/opt/hgcapp/node-mgmt-tools`
-    - The path must be writable and executable by the `hgcadmin` user account
+- Docker 引擎(`docker-ce` 版本20.10.6)
+  - 使用 root 权限部署
+  - 已启用特权容器支持(可选)
+    - 如果特殊容器支持被禁用，则主机机器必须运行 Havege 守护进程
+- Docker Compose(`docker-compose`版本 1.29.2)
+- IPTable 支持 (`linux-kernel` 版本 3.10+)
+- Havege Daemon (`haveged`版本 1.9.14)
+  - 如果拥有特权的容器支持已启用，这项要求是可选的
+- Hashep 实用工具 (`hashdeep` 版本 4.4)
+  - 更新完整性验证所需的
+- 绑定平面收集器 (`bindplane-collector` 版本 4+)
+  - 节点软件日志监测所需的
+- JQ CLI (`jq` 版本 1.5+)
+  - 节点管理工具所需的依赖关系
+- GNU CoreUT (`coreutils`版本8.00+)
+  - 节点管理工具所需的依赖关系
+- cURL CLI (`curl` 版本 7.58.0+)
+  - 节点管理工具所需的依赖关系
+- InCron 守护进程(`incron`版本 0.5.12+)
+  - 节点管理工具所需的依赖关系
+  - 自动升级网络所需的
+- Rsync CLI (`rsync` 版本 3.0.0.0+)
+  - 节点管理工具所需的依赖关系
+  - 自动升级网络所需的
+- 节点管理工具 (`node-mgmt-tool` 版本 0.1.0+)
+  - 通过节点升级过程进行更新
+  - 必须在以下路径安装: "/opt/hgcapp/node-mgmt-tools"
+    - 路径必须是可写的，并且可以通过 `hgcadmin` 用户帐户执行
 
-### **System User Accounts:**
+### **System User 帐户:**
 
-- _**Node Software Account (mandatory)**_
-  - User Specification
-    - Name: `hedera`
+- _**节点软件帐户 (强制性)**_
+  - 用户指定
+    - 名称：`hedera`
     - Unix UID: `2000`
-    - Group Membership
-      - Primary: `hedera`
-      - Secondary: `admin` or `wheel` _(depending on Linux distribution)_
-    - Permissions:
-      - Read, Write, and Execute Access to the entire `/opt/hgcapp` folder tree
-  - Group Specification
-    - Name: `hedera`
+    - 小组成员
+      - 首选: `hedera`
+      - 第二：`admin` 或 `wheel` _(取决于Linux 发行版)_
+    - 权限：
+      - 读取、写入和执行整个`/opt/hgcapp`文件夹树
+  - 群组指定
+    - 名称：`hedera`
     - Unix GID: `2000`
 
 {% hint style="info" %}
-**Note:** Reference Configurations available in Appendices B, C, D
+**注:** 参考配置可在附录B、C、D
 {% endhint %}
 
-### Proxy
+### 代理服务器
 
-Access to the node via public APIs must be mediated by an in-line proxy. Below are the specifications for establishing this proxy.
+通过公共API访问节点必须通过在线代理进行调解。 下面是建立此代理的规格。
 
 - 2- core-x86/x64 CPU
-- 2GB RAM
-- 100GB SSD storage
-- 200Mb/s sustained internet network connectivity with public static IP address
-- Supported Docker (Hedera to provide Docker image with HAProxy)
+- 2GB 内存
+- 100GB SSD 存储
+- 200Mb/s 与公共静态IP地址保持网络连接
+- 支持 Docker (Hedera 以提供 HAProxy) 的 Docker 图像
 
-### Network Connectivity
+### 网络连接
 
-Node Connectivity
+节点连接
 
-- 1Gbps internet connectivity – sustained (not burstable)
-  - Unmetered preferred
-  - Deployed with firewalled access to other mainnet consensus nodes
-- Node deployed in dedicated (isolated) DMZ network
-  - Static IP (FQDN is not supported)
+- 1Gbps 互联网连接——维持(不隐藏)
+  - 未计量的首选项
+  - 使用防火墙访问其他主网协商一致节点
+- 部署在专用(孤立的)DMZ网络中的节点
+  - 静态IP(不支持FQDN)
   - TCP Port 50111 open to 0.0.0.0/0
-  - TCP Port 50211 open to 0.0.0.0/0
+  - TCP 端口 50211 打开到 0.0.0.0.0/0
   - TCP Port 50212 open to 0.0.0.0/0
-  - TCP Port 80 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-  - TCP Port 443 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-  - UDP Port 123 open ingress and egress to 0.0.0.0/0 (for NTP pool synchronization of system time)
+  - TCP 端口80 打开代表大会，到 0.0.0.0.0/0 (用于OS 软件包仓库连接)
+  - TCP 端口 443 打开大会，到 0.0.0.0.0/0 (用于OS 软件包仓库连接)
+  - UDP 端口 123 开放导入和代表到 0.0.0.0.0/0 (NTP 池同步系统时间)
 
-Proxy Connectivity
+代理连接性
 
-- Static IP address (FQDN not supported)
-- 200Mb/s internet connectivity
-- TCP Port 80 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-- TCP Port 443 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-- TCP Port 50211 open to 0.0.0.0/0
+- 静态IP地址 (FQDN 不支持)
+- 200Mb/s 互联网连接
+- TCP 端口80 打开代表大会，到 0.0.0.0.0/0 (用于OS 软件包仓库连接)
+- TCP 端口 443 打开大会，到 0.0.0.0.0/0 (用于OS 软件包仓库连接)
+- TCP 端口 50211 打开到 0.0.0.0.0/0
 - TCP Port 50212 open to 0.0.0.0/0
 
-Interface Bonding (optional)
+接口绑定(可选)
 
-- If using interface bonding, note that mutual TLS is in use, and Layer 3 Policy Based Routing (PBR) with dual-pathways is not supported. Only Layer 2 interface bonding using mode 1 (autonomous ports using active-backup) or mode 4 (LACP 802.3ad active/active) is supported.
+- 如果使用接口绑定，请注意相互的TLS正在使用，并且不支持第三层基于政策的路由与双路径的路由。 仅支持使用模式1(主动备份的自动端口)或模式4(LACP 802.3ad 主动/主动) 的第二层接口绑定。
 
-### Hosting
+### 主机
 
-- Industry-standard hosting requirements for security and availability
-  - Tier 1 Data Center Hosting facility
-  - SSAE 16 /18, SOC 2 Type 2 compliant
-- Hedera will seek to avoid duplicating hosting providers across Council members
+- 对安保和可得性的行业标准托管要求
+  - 第1级数据中心托管设施
+  - SSAE 16 /18, SOC 2 Type 2 compliance
+- Hedera将设法避免在安理会成员之间重复提供主机服务
 
-### Software & Installation
+### 软件和安装
 
-- Any 64-bit Long Term Support (LTS) Linux distribution
-  - Approved distributions:
+- 任意64位长期支持 (LTS) Linux 分布
+  - 核定分配：
     - Ubuntu
-    - Red Hat Enterprise
+    - 红色帽子企业
     - Oracle Linux
-    - CentOS (Only through 2023)
+    - CentOS (仅持续2023年)
 
-## Network Topology /(Typical Corporate Datacenter Configuration/)
+## 网络地形/(Typical Corporate 数据中心配置/)
 
 ![](../../../../.gitbook/assets/Network-topology.jpg)
 
-## Deployment Steps
+## 部署步骤
 
-The following steps outline the process for Council Members to add their consensus node to the mainnet.
+以下步骤概述了安理会成员将其协商一致的节点添加到主网的进程。
 
-1. Initial contact with Council Member and node hosting entity
-   1. Identify key individuals and project managers
-   2. Establish regular deployment team meeting cadence
-2. Conveyance of technical requirements and discussion of deployment options
-3. Node platform acquisition
-   1. Hardware or virtual instance
-   2. Network connectivity
-   3. Hosting facility
-4. Configuration of the operating system on platform
-   1. Provisioning of accounts as specified
-   2. Provisioning of network access (firewall rules/access control lists)
-5. Conveyance of credentials to Hedera
-   1. Includes any special instructions for permissioned access such as VPNs
-   2. Discussion of support and escalation paths between organizations
-6. Hedera undertakes configuration review
-   1. Platform
-   2. Connectivity
-7. Deployment of Hedera consensus node software and required supporting libraries
-8. Add connection configuration for a Hedera performance testnet
-   1. Hedera executes functional, stability and performance tests for all network services
-9. Review of test results and determination of preparedness for mainnet connectivity
-   1. Review key management documentation related to Council Member's accounts including: fee account, proxy staking account, et al.
-   2. Update private keys using provided tools
-10. Schedule mainnet connection
-11. Mainnet live
+1. 与理事会成员和节点主机实体的初步联系
+   1. 确定关键的个人和项目管理员
+   2. 建立定期部署小组会议干部能力
+2. A. 技术要求的统一和部署备选办法的讨论
+3. 节点平台获取
+   1. 硬件或虚拟实例
+   2. 网络连接
+   3. 托管设施
+4. 平台操作系统配置
+   1. 按规定开列的账户备付金
+   2. 提供网络访问权(防火墙规则/访问控制列表)
+5. A. 向赫德拉传递全权证书
+   1. 包括任何权限访问的特殊说明，例如VPN。
+   2. 讨论各组织之间的支助和升级途径
+6. Hedera 进行配置审查
+   1. 平台
+   2. 连通性
+7. 配置Hedera共识节点软件和需要支持库
+8. 为Hedera 性能测试网添加连接配置
+   1. Hedera 对所有网络服务进行功能、稳定性和性能测试
+9. 审查试验结果和确定主网连接的准备情况
+   1. 审查与安理会成员账户有关的主要管理文件，包括：费用账户、代理账户等。
+   2. 使用提供的工具更新私钥
+10. 计划主机连接
+11. Mainnet 在线
