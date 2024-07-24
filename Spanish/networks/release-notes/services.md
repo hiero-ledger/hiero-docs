@@ -12,63 +12,63 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 **MAINNET UPDATE SCHEDULED: JULY 17, 2024**
 {% endhint %}
 
-### Release Highlights
+### Destacados de lanzamiento
 
 #### [HIP 206](https://hips.hedera.com/hip/hip-206)
 
-**Functionality:**
+**Funcionalidad:**
 
-- Defines a new function to the Hedera Token Service system contract that allows for the atomic transfer of HBAR, fungible tokens and non-fungible tokens.
-  - Function cryptoTransfer(TransferList transferList,TokenTransferList\[] tokenTransfer)
-- Exposes an existing HAPI call via smart contracts.
-- Transfer respects granted allowances. &#x20
+- Define una nueva función al contrato del sistema de servicio Hedera Token Service que permite la transferencia atómica de HBAR, fichas fungibles y fichas no fungibles.
+  - Función cryptoTransfer(TransferList transferList,TokenTransferList\[] tokenTransfer)
+- Expone una llamada HAPI existente a través de contratos inteligentes.
+- Transferir respeta las asignaciones concedidas. &#x20
 
-**Benefits:**
+**Beneficios:**
 
-- Enables native royalty support on the EVM since native $hbar can now be transferred using spending allowances
-- Direct interaction with HBAR and HTS tokens
-- Eliminates the need for token wrapping.
-- Enhances efficiency and reduces complexity.
-- Cuts costs by removing intermediary steps i.e., wrapping assets to interact with them.
-- Enables native royalty support on the EVM since native HBAR can now be transferred using spending allowances
+- Habilita el soporte nativo de realeza en el EVM ya que ahora se puede transferir $hbar nativo usando las asignaciones de gasto
+- Interacción directa con tokens HBAR y HTS
+- Elimina la necesidad de envoltura de token.
+- Mejora la eficiencia y reduce la complejidad.
+- Reduce costos eliminando pasos intermediarios, por ejemplo, envolviendo activos para interactuar con ellos.
+- Permite el apoyo nativo a la realeza en el EVM ya que ahora puede transferirse HBAR nativo usando asignaciones de gasto
 
 #### [HIP 906](https://hips.hedera.com/hip/hip-906)
 
-**Functionality:**
+**Funcionalidad:**
 
-- Introduces a new Hedera Account Service system contract.
-- Enables querying and granting approval of HBAR to a spender account from smart contracts code
-  - hbarAllowance, hbarApprove
-- Developers do not have to context switch out of smart contract code
+- Introducir un nuevo contrato de Servicio de Cuenta de Hedera.
+- Permite consultar y conceder la aprobación de HBAR a una cuenta de gasto desde el código de contratos inteligentes
+  - hbarAllowance, hbarAprobar
+- Los desarrolladores no tienen que cambiar de contexto fuera del código de contrato inteligente
 
-**Benefits:**
+**Beneficios:**
 
-- Introduces new account proxy contract for HBAR allowances
-- Enables grant, retrieve, and manage HBAR allowances within smart contracts
-  - Developers do not have to context switch out of smart contracts code
-- Simplifies workflows and enhances security
-- Expands potential use cases, especially for DeFi and token marketplaces
+- Introducir nuevo contrato de proxy de cuenta para permisos de HBAR
+- Permite conceder, recuperar y administrar permisos HBAR dentro de contratos inteligentes
+  - Los desarrolladores no tienen que cambiar de contexto fuera del código de contratos inteligentes
+- Simplifica los flujos de trabajo y mejora la seguridad
+- Expande los casos de uso potencial, especialmente para los mercados DeFi y tokens
 
 ### [0.51.5](https://github.com/hashgraph/hedera-services/releases/tag/v0.51.5)
 
 {% hint style="success" %}
-**TESTNET UPDATE: JULY 2, 2024**
+**ACTUALIZACIÓN DE TESTNET: 2 DE JULY, 2024**
 {% endhint %}
 
 #### What's Changed
 
-- feat(reconnect): introduce ReconnectMapStats interface by [@anthony-swirldslabs](https://github.com/anthony-swirldslabs) in [#13027](https://github.com/hashgraph/hedera-services/pull/13027)
-- chore: revert removal of CLI report tool by [@lpetrovic05](https://github.com/lpetrovic05) in [#13002](https://github.com/hashgraph/hedera-services/pull/13002)
-- docs: add design document for HIP-904 token reject operation by [@MiroslavGatsanoga](https://github.com/MiroslavGatsanoga) in [#12786](https://github.com/hashgraph/hedera-services/pull/12786)
-- feat: gossip facade by [@cody-littley](https://github.com/cody-littley) in [#12897](https://github.com/hashgraph/hedera-services/pull/12897)
-- feat: add the ability to disable the running event hasher by [@cody-littley](https://github.com/cody-littley) in [#13083](https://github.com/hashgraph/hedera-services/pull/13083)
-- fix: ignore token expiry status in `TokenDissociate` by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13104](https://github.com/hashgraph/hedera-services/pull/13104)
-- feat: add javadoc and diagram, delete dead code by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13070](https://github.com/hashgraph/hedera-services/pull/13070)
-- fix: use civilian payer for modified variants by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13020](https://github.com/hashgraph/hedera-services/pull/13020)
-- fix: 12853: Memory leak from MerkleDbDataSource.copyStatisticsFrom() by [@artemananiev](https://github.com/artemananiev) in [#13097](https://github.com/hashgraph/hedera-services/pull/13097)
-- feat: Updated hedera-services code to support DAB protobuf changes. by [@iwsimon](https://github.com/iwsimon) in [#13090](https://github.com/hashgraph/hedera-services/pull/13090)
+- feat(reconnect): introduce la interfaz de ReconnectMapStats de [@anthony-swirldslabs](https://github.com/anthony-swirldslabs) en [#13027](https://github.com/hashgraph/hedera-services/pull/13027)
+- cora: revertir la eliminación de la herramienta de informe CLI por [@lpetrovic05](https://github.com/lpetrovic05) en [#13002](https://github.com/hashgraph/hedera-services/pull/13002)
+- docs: añadir documento de diseño para operación de rechazo de token HIP-904 por [@MiroslavGatsanoga](https://github.com/MiroslavGatsanoga) en [#12786](https://github.com/hashgraph/hedera-services/pull/12786)
+- feat: chismé facade por [@cody-littley](https://github.com/cody-littley) en [#12897](https://github.com/hashgraph/hedera-services/pull/12897)
+- feat: añade la habilidad de desactivar el hasher de eventos en ejecución por [@cody-littley](https://github.com/cody-littley) en [#13083](https://github.com/hashgraph/hedera-services/pull/13083)
+- fix: ignore el estado de expiración del token en `TokenDissociate` por [@tinker-michaelj](https://github.com/tinker-michaelj) en [#13104](https://github.com/hashgraph/hedera-services/pull/13104)
+- feat: añadir javadoc y diagram, borrar código muerto por [@tinker-michaelj](https://github.com/tinker-michaelj) en [#13070](https://github.com/hashgraph/hedera-services/pull/13070)
+- fix: usar pagador civil para variantes modificadas por [@tinker-michaelj](https://github.com/tinker-michaelj) en [#13020](https://github.com/hashgraph/hedera-services/pull/13020)
+- fix: 12853: Leak de memoria de MerkleDbDataSource.copyStStatissFrom() por [@artemananiev](https://github.com/artemananiev) en [#13097](https://github.com/hashgraph/hedera-services/pull/13097)
+- función: Se actualizó el código de hedera-services para soportar cambios en protobuf de DAB. por [@iwsimon](https://github.com/iwsimon) en [#13090](https://github.com/hashgraph/hedera-services/pull/13090)
 
-**➡ See the full list of changes** [**here**](https://github.com/hashgraph/hedera-services/releases/tag/v0.51.5)**.**
+**➡️ Mira la lista completa de cambios** [**aquí**](https://github.com/hashgraph/hedera-services/releases/tag/v0.51.5)**.**
 
 ## [v0.50](https://github.com/hashgraph/hedera-services/releases/tag/v0.50.0)
 
@@ -636,21 +636,21 @@ Services v0.36.0 adds the following functionality:
 
 Changes from services v0.35.2 have also been ported to v0.36.0.
 
-- After the security incident on March 9th, the engineers conducted a thorough analysis of the Smart Contract Service and the Hedera Token Service system contracts.
-- As part of this exercise, we did not find any additional vulnerabilities that could result in an attack that that which we witnessed on March 9th.
-- The team also looked for any disparities between the expectations of a typical smart contract developer who is used to working with the Ethereum Virtual Machine (EVM) or ERC token APIs and the behaviors of the Hedera Token Service system contract APIs. Such differences in behavior could be used by a malicious smart contract developer in unexpected ways.
-- In order to eliminate the possibility of these behavioral differences being utilized as attack vectors in the future, the consensus node software will align the behaviors of the Hedera Smart Contract Service token system contracts with those of EVM and typical token APIs such as ERC 20 and ERC 721.
-- As a result, the following changes are made as of the mainnet 0.35.2 release on March 31st:
-  - An EOA (externally owned account) will have to provide explicit approval/allowance to a contract if they want the contract to transfer value from their account balance.
-  - The behavior of `transferFrom` system contract will be exactly the same as that of the ERC 20 and ERC 721 spec `transferFrom` function.
-  - For HTS specific token functionality (e.g. Pause, Freeze, or Grant KYC), a contract will be authorized to perform the associated token management function only if the ContractId is listed as a key on the token (i.e. Pause Key, Freeze Key, KYC Key respectively).
-  - The `transferToken` and `transferNFT` APIs will behave as `transfer` in ERC20/721 if the caller owns the value being transferred, otherwise it will rely on approve spender allowances from the token owner.
-  - The above model will dictate entity (EOA and contracts) permissions during contract executions when modifying state. Contracts will no longer rely on Hedera transaction signature presence, but will instead be in accordance with EVM, ERC and ContractId key models noted.
-- As part of this release, the network will include logic to grandfather in previous contracts.
-  - Any contracts created from this release onwards will utilize the stricter security model and as such will not have considerations for top-level signatures on transactions to provide permissions.
-  - Existing contracts deployed prior to this upgrade will be automatically grandfathered in and continue to use the old model that was in place prior to this release for a limited time to allow for DApp/UX modification to work with the new security model.
-  - The grandfather logic will be maintained for an approximate period of 3 months from this release. In a future release in July 2023, the network will remove the grandfather logic, and all contracts will follow the new security model.
-  - Developers are encouraged to test their DApps with new contracts and UX using the new security model to avoid unintended consequences. If any DApp developers fail to modify their applications or upgrade their contracts (as applicable) to adhere to the new security model, they may experience issues in their applications.
+- Después del incidente de seguridad del 9 de marzo, los ingenieros llevaron a cabo un análisis exhaustivo del Servicio de Contratos Inteligentes y los contratos del sistema de Token de Hedera.
+- Como parte de este ejercicio, no encontramos ninguna vulnerabilidad adicional que pudiera resultar en un ataque que presenciamos el 9 de marzo.
+- El equipo también buscó diferencias entre las expectativas de un desarrollador típico de contratos inteligentes que está acostumbrado a trabajar con las APIs de Ethereum Virtual Machine (EVM) o ERC token y los comportamientos de las APIs del sistema de servicios Hedera Token . Tales diferencias de comportamiento podrían ser utilizadas por un desarrollador malicioso de contratos inteligentes de maneras inesperadas.
+- Con el fin de eliminar la posibilidad de que estas diferencias de comportamiento sean utilizadas como vectores de ataque en el futuro, el software de nodo consensuado alineará los comportamientos del sistema de tokens Hedera Smart Contract Service con los de EVM y las API de token típicas como ERC 20 y ERC 721.
+- Como resultado, los siguientes cambios se hacen a partir de la versión 0.35.2 del mainnet el 31 de marzo:
+  - Una EOA (cuenta de propiedad externa) tendrá que proporcionar una aprobación/asignación explícita a un contrato si quieren que el contrato transfiera valor desde el saldo de su cuenta.
+  - El comportamiento del contrato del sistema `transferFrom` será exactamente el mismo que el de la función ERC 20 y ERC 721 spec `transferFrom`.
+  - Para la funcionalidad HTS específica del token (e.g. Pausar, congelar o conceder KYC), un contrato estará autorizado para realizar la función de administración de token asociada sólo si el ContractId se enumera como una clave en el token (i.e. Pausar clave, congelar clave, KYC Key respectivamente).
+  - Las APIs `transferToken` y `transferNFT` se comportarán como `transfer` en ERC20/721 si la persona que llama posee el valor que está siendo transferida, de lo contrario dependerá de la aprobación de las dietas de gasto del propietario del token.
+  - El modelo anterior dictará los permisos de entidad (EOA y contratos) durante las ejecuciones del contrato al modificar el estado. Los contratos ya no dependerán de la presencia de la firma de la transacción de Hedera, sino que estarán de acuerdo con los modelos clave EVM, ERC y ContractId señalados.
+- Como parte de este lanzamiento, la red incluirá lógica para el abuelo en contratos anteriores.
+  - Cualquier contrato creado a partir de esta versión en adelante utilizará el modelo de seguridad más estricto y como tal no tendrá en cuenta las firmas de alto nivel en las transacciones para proporcionar permisos.
+  - Los contratos existentes desplegados antes de esta actualización serán automáticamente abarrotados y continuarán utilizando el modelo antiguo que estaba en vigor antes de esta versión por un tiempo limitado para permitir que la modificación DApp/UX funcione con el nuevo modelo de seguridad.
+  - La lógica del abuelo se mantendrá por un período aproximado de 3 meses a partir de esta versión. En un futuro lanzamiento en julio de 2023, la red eliminará la lógica del abuelo, y todos los contratos seguirán el nuevo modelo de seguridad.
+  - Se anima a los desarrolladores a probar sus DApps con nuevos contratos y UX usando el nuevo modelo de seguridad para evitar consecuencias no intencionadas. Si algún desarrollador de DApp no modifica sus aplicaciones o actualiza sus contratos (según corresponde) para adherirse al nuevo modelo de seguridad, pueden experimentar problemas en sus aplicaciones.
 
 ### Performance Results
 
@@ -668,21 +668,21 @@ Changes from services v0.35.2 have also been ported to v0.36.0.
 
 ### [0.35.2 Hedera Smart Contract Service Security Model Changes](https://github.com/hashgraph/hedera-services/releases/tag/v0.35.2)
 
-- After the security incident on March 9th, the engineers conducted a thorough analysis of the Smart Contract Service and the Hedera Token Service system contracts.
-- As part of this exercise, we did not find any additional vulnerabilities that could result in an attack that that which we witnessed on March 9th.
-- The team also looked for any disparities between the expectations of a typical smart contract developer who is used to working with the Ethereum Virtual Machine (EVM) or ERC token APIs and the behaviors of the Hedera Token Service system contract APIs. Such differences in behavior could be used by a malicious smart contract developer in unexpected ways.
-- In order to eliminate the possibility of these behavioral differences being utilized as attack vectors in the future, the consensus node software will align the behaviors of the Hedera Smart Contract Service token system contracts with those of EVM and typical token APIs such as ERC 20 and ERC 721.
-- As a result, the following changes are made as of the mainnet 0.35.2 release on March 31st:
-  - An EOA (externally owned account) will have to provide explicit approval/allowance to a contract if they want the contract to transfer value from their account balance.
-  - The behavior of `transferFrom` system contract will be exactly the same as that of the ERC 20 and ERC 721 spec `transferFrom` function.
-  - For HTS specific token functionality (e.g. Pause, Freeze, or Grant KYC), a contract will be authorized to perform the associated token management function only if the ContractId is listed as a key on the token (i.e. Pause Key, Freeze Key, KYC Key respectively).
-  - The `transferToken` and `transferNFT` APIs will behave as `transfer` in ERC20/721 if the caller owns the value being transferred, otherwise it will rely on approve spender allowances from the token owner.
-  - The above model will dictate entity (EOA and contracts) permissions during contract executions when modifying state. Contracts will no longer rely on Hedera transaction signature presence, but will instead be in accordance with EVM, ERC and ContractId key models noted.
-- As part of this release, the network will include logic to grandfather in previous contracts.
-  - Any contracts created from this release onwards will utilize the stricter security model and as such will not have considerations for top-level signatures on transactions to provide permissions.
-  - Existing contracts deployed prior to this upgrade will be automatically grandfathered in and continue to use the old model that was in place prior to this release for a limited time to allow for DApp/UX modification to work with the new security model.
-  - The grandfather logic will be maintained for an approximate period of 3 months from this release. In a future release in July 2023, the network will remove the grandfather logic, and all contracts will follow the new security model.
-  - Developers are encouraged to test their DApps with new contracts and UX using the new security model to avoid unintended consequences. If any DApp developers fail to modify their applications or upgrade their contracts (as applicable) to adhere to the new security model, they may experience issues in their applications.
+- Después del incidente de seguridad del 9 de marzo, los ingenieros llevaron a cabo un análisis exhaustivo del Servicio de Contratos Inteligentes y los contratos del sistema de Token de Hedera.
+- Como parte de este ejercicio, no encontramos ninguna vulnerabilidad adicional que pudiera resultar en un ataque que presenciamos el 9 de marzo.
+- El equipo también buscó diferencias entre las expectativas de un desarrollador típico de contratos inteligentes que está acostumbrado a trabajar con las APIs de Ethereum Virtual Machine (EVM) o ERC token y los comportamientos de las APIs del sistema de servicios Hedera Token . Tales diferencias de comportamiento podrían ser utilizadas por un desarrollador malicioso de contratos inteligentes de maneras inesperadas.
+- Con el fin de eliminar la posibilidad de que estas diferencias de comportamiento sean utilizadas como vectores de ataque en el futuro, el software de nodo consensuado alineará los comportamientos del sistema de tokens Hedera Smart Contract Service con los de EVM y las API de token típicas como ERC 20 y ERC 721.
+- Como resultado, los siguientes cambios se hacen a partir de la versión 0.35.2 del mainnet el 31 de marzo:
+  - Una EOA (cuenta de propiedad externa) tendrá que proporcionar una aprobación/asignación explícita a un contrato si quieren que el contrato transfiera valor desde el saldo de su cuenta.
+  - El comportamiento del contrato del sistema `transferFrom` será exactamente el mismo que el de la función ERC 20 y ERC 721 spec `transferFrom`.
+  - Para la funcionalidad HTS específica del token (e.g. Pausar, congelar o conceder KYC), un contrato estará autorizado para realizar la función de administración de token asociada sólo si el ContractId se enumera como una clave en el token (i.e. Pausar clave, congelar clave, KYC Key respectivamente).
+  - Las APIs `transferToken` y `transferNFT` se comportarán como `transfer` en ERC20/721 si la persona que llama posee el valor que está siendo transferida, de lo contrario dependerá de la aprobación de las dietas de gasto del propietario del token.
+  - El modelo anterior dictará los permisos de entidad (EOA y contratos) durante las ejecuciones del contrato al modificar el estado. Los contratos ya no dependerán de la presencia de la firma de la transacción de Hedera, sino que estarán de acuerdo con los modelos clave EVM, ERC y ContractId señalados.
+- Como parte de este lanzamiento, la red incluirá lógica para el abuelo en contratos anteriores.
+  - Cualquier contrato creado a partir de esta versión en adelante utilizará el modelo de seguridad más estricto y como tal no tendrá en cuenta las firmas de alto nivel en las transacciones para proporcionar permisos.
+  - Los contratos existentes desplegados antes de esta actualización serán automáticamente abarrotados y continuarán utilizando el modelo antiguo que estaba en vigor antes de esta versión por un tiempo limitado para permitir que la modificación DApp/UX funcione con el nuevo modelo de seguridad.
+  - La lógica del abuelo se mantendrá por un período aproximado de 3 meses a partir de esta versión. En un futuro lanzamiento en julio de 2023, la red eliminará la lógica del abuelo, y todos los contratos seguirán el nuevo modelo de seguridad.
+  - Se anima a los desarrolladores a probar sus DApps con nuevos contratos y UX usando el nuevo modelo de seguridad para evitar consecuencias no intencionadas. Si algún desarrollador de DApp no modifica sus aplicaciones o actualiza sus contratos (según corresponde) para adherirse al nuevo modelo de seguridad, pueden experimentar problemas en sus aplicaciones.
 
 #### Features
 
@@ -1540,7 +1540,7 @@ Finally, if you use the throttle properties in system file 0.0.121 to estimate n
 - CryptoUpdate - TransactionReceipt response to CryptoUpdate no longer includes the accountID updated
 - CryptoTransfer – CryptoTransfer transactions resulting in INSUFFICIENT\_ACCOUNT\_BALANCE error no longer list Transfers in the TransactionRecord transferList that were not applied
 
-### Miscellaneous
+### Miscellano
 
 ### SDKs
 
