@@ -61,7 +61,7 @@ client.SetMirrorNetwork([]string{"mainnet.mirrornode.hedera.com:443"})
 
 ## Testnet
 
-The endpoints provided below allow developers to access the testnet mirror node, which contains testnet transaction data.
+Los puntos finales proporcionados a continuación permiten a los desarrolladores acceder al nodo espejo testnet, que contiene datos de transacciones testnet.
 
 {% hint style="info" %}
 **HCS Testnet Mirror Node Endpoint:** testnet.mirrornode.hedera.com:443
@@ -69,9 +69,9 @@ The endpoints provided below allow developers to access the testnet mirror node,
 **REST API Testnet Root Endpoint:**[ https://testnet.mirrornode.hedera.com](https://testnet.mirrornode.hedera.com/)
 {% endhint %}
 
-## Previewnet
+## Vista previa
 
-The endpoints provided below allow developers to access the previewnet mirror node, which contains previewnet transaction data.
+Los puntos finales proporcionados a continuación permiten a los desarrolladores acceder al nodo espejo previewnet, que contiene datos de transacción previewnet.
 
 {% hint style="info" %}
 **HCS Previewnet Mirror Node Endpoint:** previewnet.mirrornode.hedera.com:443
