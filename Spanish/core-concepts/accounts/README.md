@@ -1,12 +1,12 @@
-# Accounts
+# Cuentas
 
-Accounts are the central starting point when interacting with the Hedera network and using Hedera Services. A Hedera account is an entity, a distinct object type, stored in the ledger, that holds tokens. Accounts can hold the native Hedera fungible token (HBAR), custom fungible, and custom non-fungible tokens (NFTs) created on the Hedera network.&#x20
+Las cuentas son el punto de partida central al interactuar con la red Hedera y utilizar los servicios de Hedera. Una cuenta de Hedera es una entidad, un tipo de objeto distinto, almacenado en el contador, que contiene fichas. Las cuentas pueden contener el símbolo fungible nativo de Hedera (HBAR), fungible personalizado y tokens no fungibles personalizados (NFTs) creados en la red Hedera.&#x20
 
-The Hedera native token HBAR (ℏ) is a utility token primarily used to pay for transactions and query fees when interacting with the network. The HBAR symbol is represented as "ℏ."  Applications may reference HBAR as the token denomination; however, the network returns information in tinybars (tℏ), a denomination of HBAR. 100,000,000 tℏ are equivalent to 1 ℏ. This includes things like transaction fees or accounts HBAR balances.&#x20
+El token nativo HBAR de Hedera es un token de utilidad que se utiliza principalmente para pagar transacciones y comisiones de consulta al interactuar con la red. El símbolo HBAR está representado como "A".  Las aplicaciones pueden referirse a HBAR como la denominación topográfica; sin embargo, la red devuelve información en tinybars (t�rculas), una denominaci�n de HBAR. 100.000.000 de toneladas equivalentes a 1 de diámetro. Esto incluye cosas como comisiones de transacción o cuentas de saldos HBAR.&#x20
 
-You interact with the network by submitting transactions that modify the ledger's state or submitting query requests that read data from the ledger. Most transactions and queries have a [transaction fee](../../networks/mainnet/fees/) that is charged in HBAR. Unlike custom tokens users create on the Hedera network, no token ID represents the native HBAR token.&#x20
+Usted interactúa con la red enviando transacciones que modifican el estado del contador o enviando solicitudes de consulta que lean datos del contador. La mayoría de las transacciones y consultas tienen una [cuota de transacción](../../networks/mainnet/fees/) que se cobra en HBAR. A diferencia de los usuarios de tokens personalizados crean en la red Hedera, ningún identificador de token representa el token HBAR nativo.&#x20
 
-<table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><a href="account-creation.md">         <strong>Account Creation</strong></a></td><td><a href="account-creation.md">account-creation.md</a></td></tr><tr><td>   <a href="auto-account-creation.md"><strong>Auto Account Creation</strong></a></td><td><a href="auto-account-creation.md">auto-account-creation.md</a></td></tr><tr><td><a href="account-properties.md">     <strong>Account Properties</strong></a></td><td><a href="account-properties.md">account-properties.md</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><a href="account-creation.md">         <strong>Creación de cuenta</strong></a></td><td><a href="account-creation.md">account-creation.md</a></td></tr><tr><td>   <a href="auto-account-creation.md"><strong>Creación automática de cuenta</strong></a></td><td><a href="auto-account-creation.md">auto-account-creation.md</a></td></tr><tr><td><a href="account-properties.md">     <strong>Propiedades de la cuenta</strong></a></td><td><a href="account-properties.md">account-properties.md</a></td></tr></tbody></table>
 
 ## FAQ
 
@@ -14,7 +14,7 @@ You interact with the network by submitting transactions that modify the ledger'
 
 <summary>What is a Hedera account?</summary>
 
-A Hedera account is a unique entity in the Hedera Network that can hold tokens. These can be Hedera's native fungible token (HBAR), custom fungible, or [non-fungible tokens (NFTs)](../../support-and-community/glossary.md#non-fungible-token-nft).
+Una cuenta de Hedera es una entidad única en la Red Hedera que puede contener fichas. Estos pueden ser el símbolo fungible nativo de Hedera (HBAR), fungible personalizado, o [tokens no fungibles (NFTs)](../../support-and-community/glossary.md#non-fungible-token-nft).
 
 </details>
 
@@ -22,22 +22,22 @@ A Hedera account is a unique entity in the Hedera Network that can hold tokens. 
 
 <summary>How are new accounts created on Hedera?</summary>
 
-New accounts are created by submitting a transaction to the network and paying the transaction fee. You'll need access to an existing account with sufficient HBAR to cover this fee. If you don't have access to an existing account, you can use a supported wallet, visit the [Hedera Developer Portal](https://portal.hedera.com/), or use the "Auto Account Creation" feature for applications.
+Las nuevas cuentas se crean al enviar una transacción a la red y pagar la cuota de transacción. Necesitará acceso a una cuenta existente con suficiente HBAR para cubrir esta cuota. Si no tienes acceso a una cuenta existente, puedes usar una cartera soportada, visita el [Portal de Desarrolladores de Hedera](https://portal. edera.com/), o utilice la función "Creación de cuenta automática" para aplicaciones.
 
 </details>
 
 <details>
 
-<summary>What is the 'Auto Account Creation' feature?</summary>
+<summary>¿Qué es la función 'Creación de cuenta automática'?</summary>
 
-[Auto Account Creation](auto-account-creation.md) allows applications to generate free user accounts instantly, even without an internet connection, by creating an account alias.&#x20
+[Creación de cuenta automática](auto-account-creation.md) permite a las aplicaciones generar cuentas de usuario gratuitas al instante, incluso sin conexión a internet, creando un alias de cuenta.&#x20
 
 </details>
 
 <details>
 
-<summary>What is a "hollow" account?</summary>
+<summary>¿Qué es una cuenta "hueca"?</summary>
 
-If an account is created with an [EVM address](auto-account-creation.md#evm-address) alias via [Auto Account Creation](auto-account-creation.md), it results in a "hollow" account. This account has an account number and alias but no account key. It can accept token transfers but cannot transfer tokens or modify account properties until the account key has been added, completing the account.
+Si una cuenta es creada con un alias [Dirección EVM](auto-account-creation.md#evm-address) a través de [Creación de Cuenta Automática](auto-account-creation.md), resultará en una cuenta "vacía". Esta cuenta tiene un número de cuenta y alias pero no tiene una clave de cuenta. Puede aceptar transferencias de tokens pero no puede transferir fichas o modificar las propiedades de la cuenta hasta que la clave de cuenta haya sido añadida, completando la cuenta.
 
 </details>
