@@ -1,41 +1,41 @@
-# Understanding Hedera for EVM Developers
+# Hedera inferior para desarrolladores de EVM
 
 ## Hedera vs Ethereum
 
-While Hedera strives for EVM equivalence, it's important to recognize certain unique aspects and fundamental differences in its network architecture and operations, such as the handling of state data structures, hashing algorithms, and the management of accounts and transactions. These distinctions in network behaviors are intentional design choices made to align with EVM standards, thereby achieving EVM compatibility. This approach ensures that while Hedera aligns closely with Ethereum, it also maintains its distinctive features and optimization.
+Mientras que Hedera lucha por la equivalencia de EVM, es importante reconocer ciertos aspectos únicos y diferencias fundamentales en su arquitectura y operaciones de red, como el manejo de estructuras de datos estatales, algoritmos de hashing y la gestión de cuentas y transacciones. Estas distinciones en los comportamientos de la red son opciones de diseño intencionales hechas para alinearse con los estándares EVM, logrando así la compatibilidad con EVM. Este enfoque asegura que, si bien Hedera está muy cerca de Ethereum, también mantiene sus características distintivas y su optimización.
 
-### Network and Security Differences
+### Diferencias de red y seguridad
 
-<table><thead><tr><th width="211">Function</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Network State Data Structure</strong></td><td>Virtual Merkle Tree</td><td>Merkle Patricia Trie</td></tr><tr><td><strong>Hashing Algorithm</strong></td><td>SHA-384</td><td>Keccak-256</td></tr><tr><td><strong>Security</strong></td><td>High security with aBFT</td><td>Secure with decentralized PoS network</td></tr></tbody></table>
+<table><thead><tr><th width="211">Función</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Estructura de datos del estado de red</strong></td><td>Árbol de Merkle Virtual</td><td>Intento de Merkle Patricia</td></tr><tr><td><strong>Algoritmo de Hash</strong></td><td>SHA-384</td><td>Keccak-256</td></tr><tr><td><strong>Seguridad</strong></td><td>Alta seguridad con aBFT</td><td>Asegurado con la red descentralizada de PoS</td></tr></tbody></table>
 
-### Account and Authorization Differences
+### Diferencias de cuenta y autorización
 
-<table><thead><tr><th width="202.33333333333331">Function</th><th width="296">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Authorization Signatures</strong></td><td>Used for transaction authorization outside of smart contracts</td><td>Typically used within smart contracts</td></tr><tr><td><strong>Special System Accounts</strong></td><td>Available with unique properties</td><td>Not available</td></tr><tr><td><strong>Non-ECDSA Accounts</strong></td><td><p>Non-ECDSA accounts (such as ED or multi-key) are supported by Hedera and</p><p>ECDSA accounts are fully compatible</p></td><td>ECDSA accounts are supported by Ethereum and non-ECDSA accounts are not supported/compatible</td></tr><tr><td><strong>Account Deletion</strong></td><td>Possible</td><td>Not possible</td></tr></tbody></table>
+<table><thead><tr><th width="202.33333333333331">Función</th><th width="296">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Firmas de Autorización</strong></td><td>Utilizado para la autorización de transacciones fuera de contratos inteligentes</td><td>Normalmente usado dentro de contratos inteligentes</td></tr><tr><td><strong>Cuentas Especiales del Sistema</strong></td><td>Disponible con propiedades únicas</td><td>No disponible</td></tr><tr><td><strong>Cuentas no ECDSA</strong></td><td><p>Las cuentas que no son ECDSA (como ED o multi-clave) están soportadas por Hedera y</p><p>Las cuentas ECDSA son totalmente compatibles</p></td><td>Las cuentas ECDSA están soportadas por Ethereum y las cuentas no ECDSA no son soportadas/compatibles</td></tr><tr><td><strong>Account Deletion</strong></td><td>Posible</td><td>No es posible</td></tr></tbody></table>
 
-### Contract and Gas Differences
+### Diferencias de Contrato y Gas
 
-<table><thead><tr><th width="210.33333333333331">Function</th><th width="252">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Data Return on Static Calls</strong></td><td>Data retrieval must be done through the relay</td><td>Data returned directly</td></tr><tr><td><strong>Gas Fees</strong></td><td>Charges at least 80% of gas fees regardless of transaction outcome</td><td>Gas fees depend on transaction outcome but typically 100% of the gas fees are charged and the unused portion is credited back</td></tr><tr><td><strong>Contract Lifecycle</strong></td><td>Contract entities can expire, rent fees may apply</td><td>No expiration or rent fees</td></tr></tbody></table>
+<table><thead><tr><th width="210.33333333333331">Función</th><th width="252">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Data Return on Static Calls</strong></td><td>La recuperación de datos debe hacerse a través del repetidor</td><td>Datos devueltos directamente</td></tr><tr><td><strong>tarifas de gas</strong></td><td>Carga al menos el 80% de las comisiones de gas sin importar el resultado de la transacción</td><td>Las comisiones de gas dependen del resultado de la transacción pero normalmente se cobran el 100% de las comisiones de gas y la porción no utilizada se acredita de vuelta</td></tr><tr><td><strong>ciclo de vida del contrato</strong></td><td>Las entidades del contrato pueden expirar, las tarifas de alquiler pueden aplicarse</td><td>Sin vencimiento ni cargos de alquiler</td></tr></tbody></table>
 
-### Transactions and Queries Differences
+### Diferencias de transacciones y consultas
 
-<table><thead><tr><th width="212.33333333333331">Function</th><th width="252">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Transaction Size Limit</strong></td><td>6kb</td><td>No limit</td></tr><tr><td><strong>Transaction Throttling</strong></td><td><a href="deploying-smart-contracts/#gas-limit">Transactions may be throttled by gas limits</a></td><td>Transactions pending until future submission</td></tr><tr><td><strong>Query Costs</strong></td><td>Not free, can use mirror node for free queries</td><td>Free read-only calls</td></tr><tr><td><strong>Mempools</strong></td><td>No <a href="../../support-and-community/glossary.md#mempool">mempools</a></td><td>Mempools available</td></tr><tr><td><strong>Cost</strong></td><td>Low, predictable fees (fraction of a cent)</td><td>Variable, often high gas fees</td></tr></tbody></table>
+<table><thead><tr><th width="212.33333333333331">Función</th><th width="252">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Transaction Size Limit</strong></td><td>6kb</td><td>Sin límite</td></tr><tr><td><strong>Transacción lanzando</strong></td><td><a href="deploying-smart-contracts/#gas-limit">Las transacciones pueden ser atascadas por límites de gas</a></td><td>Transacciones pendientes hasta el envío futuro</td></tr><tr><td><strong>Costes de consulta</strong></td><td>No gratis, puede usar el nodo réplica para consultas gratuitas</td><td>Llamadas de solo lectura gratuitas</td></tr><tr><td><strong>Mempools</strong></td><td>No <a href="../../support-and-community/glossary.md#mempool">mempools</a></td><td>Memorias disponibles</td></tr><tr><td><strong>Coste</strong></td><td>Tarifas bajas y predecibles (fracción de centavo)</td><td>Variable, a menudo altas tarifas de gas</td></tr></tbody></table>
 
-### RPC Endpoint and Communication Differences
+### Diferencias de comunicación y punto final RPC
 
-<table><thead><tr><th width="259">Function</th><th width="244">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>RPC Block Requests</strong> (e.g., <code>eth_getBlockByHash*</code> & <code>eth_getBlockByNumber</code> )</td><td>Return zero 32bytes hexadecimal value for the <code>stateRoot</code></td><td>Returns the <code>stateRoot</code> hexadecimal value of the final state trie of the block</td></tr><tr><td><strong>Communication</strong></td><td>Requires communication with both consensus and mirror nodes</td><td>Direct communication with nodes</td></tr></tbody></table>
-
-{% hint style="info" %}
-**Note**: Hedera Consensus and mirror nodes do not provide Ethereum RPC API endpoints.
-{% endhint %}
-
-### Token and Fee Differences
-
-<table><thead><tr><th width="232.33333333333331">Function</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td> <strong>Native Tokens</strong></td><td>Supports native tokens in addition to <a href="tokens-managed-by-smart-contracts/">ERC-20 and ERC-721 token standards</a></td><td>All ERC token standards but primarily ERC-20 and ERC-721 tokens.</td></tr><tr><td><strong>Fee Structure</strong></td><td><a href="deploying-smart-contracts/#gas-schedule-and-fees">Complex with two different gas prices</a></td><td>Single gas price</td></tr><tr><td><strong>Token Association**</strong></td><td><a href="../../sdks-and-apis/sdks/token-service/associate-tokens-to-an-account.md">Concept of token association </a></td><td>No concept of token association</td></tr><tr><td><strong>Keys for Token Functionality</strong></td><td>Keys control access to token functionality (<code>KYC</code>, <code>FREEZE</code>, <code>WIPE</code>, supply, fee, and <code>PAUSE</code>)</td><td>No equivalent <em>native</em> functionality</td></tr></tbody></table>
+<table><thead><tr><th width="259">Función</th><th width="244">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>RPC Bloque Solicita</strong> (por ejemplo, <code>eth_getBlockByHash*</code> & <code>eth_getBlockByNumber</code>)</td><td>Devolver cero 32bytes valor hexadecimal para el <code>stateRoot</code></td><td>Devuelve el valor hexadecimal <code>stateRoot</code> del estado final del bloque</td></tr><tr><td><strong>Comunicación</strong></td><td>Requiere comunicación con los nodos de consenso y espejo</td><td>Comunicación directa con nodos</td></tr></tbody></table>
 
 {% hint style="info" %}
-**\*\*Note:** Token Association only applies to _native_ HTS tokens and does not affect ERC-20/721 tokens.
+**Nota**: Consenso de Hedera y nodos espejo no proporcionan puntos finales de API RPC de Ethereum.
 {% endhint %}
 
-### Other Differences
+### Diferencias de tarifas y token
 
-<table><thead><tr><th width="238">Function</th><th width="274.3333333333333">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Precheck Failures</strong></td><td><a href="../../sdks-and-apis/hedera-api/miscellaneous/responsecode.md">Multiple precheck failure reasons</a></td><td>Typically single failure reason</td></tr><tr><td><strong>HBAR Decimal Precision</strong></td><td>8 or 18<a href="../../sdks-and-apis/sdks/hbars.md#hbar-decimal-places"> (varies across Hedera APIs)</a></td><td>Consistent 18 point decimal precision</td></tr></tbody></table>
+<table><thead><tr><th width="232.33333333333331">Función</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td> <strong>Tokens nativos</strong></td><td>Soporta tokens nativos además de los estándares <a href="tokens-managed-by-smart-contracts/">ERC y ERC-721 tokens</a></td><td>Todas las normas ERC token pero principalmente las tokens ERC y ERC-721.</td></tr><tr><td><strong>Cuota de estructura</strong></td><td><a href="deploying-smart-contracts/#gas-schedule-and-fees">Complejo con dos precios diferentes de gas</a></td><td>Precio de gas único</td></tr><tr><td><strong>Asociación de Token **</strong></td><td><a href="../../sdks-and-apis/sdks/token-service/associate-tokens-to-an-account.md">Concepto de asociación de tokens </a></td><td>Ningún concepto de asociación de tokens</td></tr><tr><td><strong>Llaves para Funcionalidad de Token</strong></td><td>Las claves controlan el acceso a la funcionalidad del token (<code>KYC</code>, <code>FREEZE</code>, <code>WIPE</code>, suministro, comisión y <code>PAUSE</code>)</td><td>No equivalent <em>native</em> functionality</td></tr></tbody></table>
+
+{% hint style="info" %}
+**\*\*Nota:** La asociación de token sólo aplica a tokens _nativos_ HTS y no afecta tokens ERC-20/721.
+{% endhint %}
+
+### Otras Diferencias
+
+<table><thead><tr><th width="238">Función</th><th width="274.3333333333333">Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Precheck Failures</strong></td><td><a href="../../sdks-and-apis/hedera-api/miscellaneous/responsecode.md">Múltiples razones de fallo precomprobadas</a></td><td>Razón típica de un fallo</td></tr><tr><td><strong>Precisión decimal HBAR</strong></td><td>8 o 18<a href="../../sdks-and-apis/sdks/hbars.md#hbar-decimal-places"> (varía entre APIs de Hedera)</a></td><td>Precisión decimal de 18 puntos consistente</td></tr></tbody></table>
