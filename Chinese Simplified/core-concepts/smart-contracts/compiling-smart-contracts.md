@@ -1,22 +1,22 @@
-# Compiling Smart Contracts
+# 编译智能合同
 
-Compiling a smart contract involves using the contract's source code to generate its [**bytecode**](../../support-and-community/glossary.md#bytecode) and the contract [**Application** **Binary Interface (ABI)**](../../support-and-community/glossary.md#application-binary-interface-abi). The Ethereum Virtual Machine (EVM) executes the bytecode to understand and execute the smart contract. Meanwhile, other smart contracts use the ABI to understand how to interact with the deployed contracts on the Hedera network.
+编译智能合同涉及使用合同的源代码生成[**bytecode**](../../supportand-community/glossary.md#bytecode)和合同[**Application** **binary Interface (ABI)**](../../supportand-community/glossary.md#application-biny-interfacee-abi)。 Etherum虚拟机 (EVM) 执行字节代码来理解和执行智能合同。 同时，其他智能合同则使用ABI来了解如何与Hedera网络上的已部署合同进行互动。
 
 <figure><img src="../../.gitbook/assets/compiling-smart-contracts-graphic.png" alt="" width="375"><figcaption></figcaption></figure>
 
-**Compiling Solidity**
+**编译团结**
 
-The compiler for the Solidity programming language is [solc](https://docs.soliditylang.org/en/v0.8.17/installing-solidity.html) ([Solidity](../../support-and-community/glossary.md#solidity) Compiler). You can use the compiler directly or embedded in IDEs like [Remix IDE](https://remix.ethereum.org/#lang=en\\&optimize=false\\&runs=200\\&evmVersion=null\\&version=soljson-v0.8.18+commit.87f61d96.js) or tools like Hardhat and Truffle.
+团结编程语言的编译器是 [solc](https://docs.soliditylang.org/en/v0.8.17/installing-Solidity.html) ([Solidity](../../supportand-community/glossary.md#solidity) 编译器)。 您可以直接或嵌入IDE中的编译器，如[Remix IDE](https://remix.eferum.org/#lang=en\\&quilize=false\\&runs=200\\&evmVersion=null\\&version=soljson-v0.8.18+commit.87f61d96.js) 或诸如Hardhat和Truffle等工具。
 
 ***
 
-## **Smart Contract Bytecode**
+## **智能合同字节号**
 
-Bytecode is the machine-readable language that the EVM uses to execute smart contracts. The compiler analyzes the code, checks for syntax errors, enforces language-specific rules, and generates the corresponding bytecode.
+字节码是EVM用来执行智能合约的机器可读语言。 编译器分析代码，检查语法错误，执行针对语言的规则，并生成相应的字节代码。
 
-**Example:**
+**示例：**
 
-This is the example bytecode output, produced in hexadecimal format, when the [`HelloHedera`](../../tutorials/smart-contracts/deploy-your-first-smart-contract.md#hellohedera.sol) smart contract source code is compiled.
+这是以十六进制格式生成的示例字节代码输出，在编译[`HelloHedera`](../../tutorials/smart-contracts/depay-your-first smart-contract.md#hellohedera.sol)智能合同源代码时.
 
 ```json
 608060405234801561001057600080fd5b506040516105583803806105588339818101604052602081101561003357600080fd5b810190808051604051939291908464010000000082111561005357600080fd5b8382019150602082018581111561006957600080fd5b825186600182028301116401000000008211171561008657600080fd5b8083526020830192505050908051906020019080838360005b838110156100ba57808201518184015260208101905061009f565b50505050905090810190601f1680156100e75780820380516001836020036101000a031916815260200191505b50604052505050336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550806001908051906020019061014492919061014b565b50506101e8565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061018c57805160ff19168380011785556101ba565b828001600101855582156101ba579182015b828111156101b957825182559160200191906001019061019e565b5b5090506101c791906101cb565b5090565b5b808211156101e45760008160009055506001016101cc565b5090565b610361806101f76000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80632e9826021461003b57806332af2edb146100f6575b600080fd5b6100f46004803603602081101561005157600080fd5b810190808035906020019064010000000081111561006e57600080fd5b82018360208201111561008057600080fd5b803590602001918460018302840111640100000000831117156100a257600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610179565b005b6100fe6101ec565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561013e578082015181840152602081019050610123565b50505050905090810190601f16801561016b5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146101d1576101e9565b80600190805190602001906101e792919061028e565b505b50565b606060018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102845780601f1061025957610100808354040283529160200191610284565b820191906000526020600020905b81548152906001019060200180831161026757829003601f168201915b5050505050905090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106102cf57805160ff19168380011785556102fd565b828001600101855582156102fd579182015b828111156102fc5782518255916020019190600101906102e1565b5b50905061030a919061030e565b5090565b5b8082111561032757600081600090555060010161030f565b509056fea26469706673582212201644465f5f73dfd73a518b57770f5adb27f025842235980d7a0f4e15b1acb18e64736f6c63430007000033
@@ -24,13 +24,13 @@ This is the example bytecode output, produced in hexadecimal format, when the [`
 
 ***
 
-## **Smart Contract Application Binary Interface (ABI)**
+## **智能合同应用程序二进制接口(ABI)**
 
-The ABI is a JSON (JavaScript Object Notation) file that represents the interface definition for the smart contract. It specifies function signatures, input parameters, return types, and other relevant details of the contract's interface. The ABI helps developers understand how to interact with the smart contract in their distributed applications.
+ABI 是一个JSON (JavaScript Object Notation) 文件，代表智能合同的接口定义。 它具体规定了函数签名、输入参数、返回类型以及合同界面的其他相关细节。 ABI帮助开发者了解如何在他们分布的应用程序中与智能合同交互。
 
-**Example:**
+**示例：**
 
-This is the example ABI output produced when the [`HelloHedera`](../../tutorials/smart-contracts/deploy-your-first-smart-contract.md#hellohedera.sol) smart contract is compiled.
+这是[`HelloHedera`](../../tutorials/smart-contracts/depay-your-first smart-contract.md#hellohedera.sol)智能合同编译时产生的示例ABI输出。
 
 ```json
 "abi": [
@@ -75,35 +75,35 @@ This is the example ABI output produced when the [`HelloHedera`](../../tutorials
 }
 ```
 
-#### **Additional Resources:**
+#### **额外资源:**
 
-- [Ethereum: Compiling Smart Contracts](https://ethereum.org/en/developers/docs/smart-contracts/compiling/)
+- [因此: 编译智能合同](https://eferum.org/en/developers/docs/smart-contracts/compiling/)
 
 ***
 
-## System Smart Contracts
+## 系统智能合同
 
-System smart contracts are Hedera API functionality logic presented at reserved address locations on the EVM network. These addresses contain reserved function selectors. When a deployed contract calls these selectors, they execute as though a corresponding system contract exists on the network. Both system and user-deployed contracts live at the same address. If a contract is redeployed, it gets a new address while the original address retains the old bytecode.
+系统智能合约是 Hedera API 功能逻辑，在EVM 网络上的保留地址位置呈现。 这些地址包含保留函数选择器。 当部署的合同呼叫这些选择器时，它们就像网络上存在相应的系统合同一样。 系统和用户部署的合同都住在同一地址。 如果合同被重新部署，它会获得一个新地址，而原地址保留旧的字节序号。
 
-**System Smart Contract Interfaces**
+**System Smart Contraces**
 
-Solidity interfaces provide and define a set of functions that other smart contracts can call. The interfaces for all Hedera systems contracts written in Solidity are maintained in the [`hedera-smart-contracts`](https://github.com/hashgraph/hedera-smart-contracts) repository.
+团结接口提供并定义了其他智能合约可以调用的一系列功能。 在 [`hedera-smart-contracts`](https://github.com/hashgraph/hedera-smart-contracts) 存储库中保存的所有Hedera 系统合同的接口。
 
 {% hint style="warning" %}
-**Note:** The following Solidity examples are _not_ production-ready and are intended solely for instructional purposes to guide developers.
+**注意：** 下面的团结示例是 _not_ 生产准备就绪，仅用于指导开发人员。
 {% endhint %}
 
-The following is a list of available system contracts on Hedera:
+下面是Hedera上可用的系统合同列表：
 
-### ➡ **Exchange Rate**
+### :right_箭头: **汇率**
 
-The exchange rate contract allows you to convert from tinycents to tinybars and from tinybars to tinycents.
+汇率合约允许您从小美分转换成小美分和小美分转换成小美分。
 
-| Contract Address | Source                                                                                                                                                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `0x168`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/exchange-rate-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/exchange-rate-precompile) |
+| 合同地址    | 来源                                                                                                                                                                                                                                                                |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0x168` | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/exchange-rate-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/exchange-rae-precompile) |
 
-**Example ⬇**
+**示例:down_箭头:**
 
 <details>
 
@@ -141,17 +141,17 @@ interface IExchangeRate {
 
 </details>
 
-Reference: [HIP-475](https://hips.hedera.com/hip/hip-475).
+Reference: [HIP-475](https://hips.hedera.com/hip/hip-475)
 
-### ➡ **Hedera Token Service**
+### :right_箭头: **Hedera Token Service**
 
-The Hedera Token Service smart contract precompile provides functions to use the native Hedera Token Service in smart contracts. Tokens created using this method can also be managed using the native Hedera Token Service APIs.
+Hedera Token Service 智能合同预编译，提供了在智能合同中使用原生Hedera Token 服务的功能。 使用此方法创建的令牌也可以使用原生的 Hedera 令牌服务 API进行管理。
 
-| Contract Address | Source                                                                                                                                                                                                                                         |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0x167`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/hts-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/hts-precompile) |
+| 合同地址    | 来源                                                                                                                                                                                                                                             |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0x167` | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/hts-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/hts-precompile) |
 
-**Example ⬇**
+**示例:down_箭头:**
 
 <details>
 
@@ -969,47 +969,47 @@ interface IHederaTokenService {
 
 Reference: [HIP-358](https://hips.hedera.com/hip/hip-358), [HIP-206](https://hips.hedera.com/hip/hip-206), [HIP-376](https://hips.hedera.com/hip/hip-376), [HIP-514](https://hips.hedera.com/hip/hip-514).
 
-### ➡ **Hedera Account Service**
+### :right_箭头: **Hedera 帐户服务**
 
-The Hedera Account Service contract provides functions to interact with the Hedera network to manage HBAR allowances.&#x20
+Hedera账户服务合同提供了与Hedera网络互动的功能来管理HBAR津贴。&#x20
 
-| Contract Address | Source                                                                                                                                                                                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `0x16a`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-account-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-account-service) |
+| 合同地址    | 来源                                                                                                                                                                                                                                                     |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `0x16a` | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-account-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-account-service) |
 
-#### Example ⬇
+#### 例如:down_箭头：
 
 <details>
 
 <summary>IHederaAccountService.sol </summary>
 
 ```solidity
-// SPDX-License-Identifier: Apache-2.0
-pragma solidity >=0.4.9 <0.9.0;
-pragma experimental ABIEncoderV2;
+/ SPDX-许可标识符：Apache-2.0
+实用性>=0.4.9 <0.9。 ;
+实用实验ABIEncoderV2;
 
-interface IHederaAccountService {
+接口 IHederaAccountService Power
 
-    /// Returns the amount of hbars that the spender has been authorized to spend on behalf of the owner.
-    /// @param owner The account that has authorized the spender
-    /// @param spender The account that has been authorized by the owner
-    /// @return responseCode The response code for the status of the request. SUCCESS is 22.
-    /// @return amount The amount of hbar that the spender has been authorized to spend on behalf of the owner.
-    function hbarAllowance(address owner, address spender)
+    // 返回Spender 被授权代表所有者花费的hbar数量。
+    /// @param 所有者。授权Spender
+    /// @param spender 的帐户 所有者授权的账户
+    /// @return responseCode SUCCESS 是22。
+    /// @return amount The amount of hbar that the spender has been authorized to expect for the owners.
+    函数hbaralledance(地址所有者, 地址支出)
     external
-    returns (int64 responseCode, int256 amount);
+    return (int64 responseCode, int256 amount);
 
-    /// Allows spender to withdraw hbars from the owner account multiple times, up to the value amount. If this function is called
-    /// again it overwrites the current allowance with the new amount.
-    /// @param owner The owner of the hbars
-    /// @param spender the account address authorized to spend
-    /// @param amount the amount of hbars authorized to spend.
-    /// @return responseCode The response code for the status of the request. SUCCESS is 22.
-    function hbarApprove(
-        address owner,
-        address spender,
+    //// 允许Spender多次从所有者帐户提取hbars，最多不超过数值。 如果此函数被名为
+    //// 再次被它用新的金额覆盖当前的津贴。
+    /// @param 所有者。Hbars
+    /// @param spender 授权使用的
+    /// @param 金额，授权使用的 hbars 金额。
+    // @return responseCode The response code for the status of the request. SUCCESS 是22。
+    函数 hbarApprove(
+        地址所有者,
+        地址花费，
         int256 amount
-    ) external returns (int64 responseCode);
+    ) 外部返回 (int64 responseCode)；
 }
 ```
 
@@ -1017,15 +1017,15 @@ interface IHederaAccountService {
 
 Reference: [HIP-906](https://hips.hedera.com/hip/hip-906), [HIP-632](https://hips.hedera.com/hip/hip-632).
 
-### ➡ **Pseudo Random Number Generator (PRNG)**
+### :right_箭头: **伪随机生成器(PRNG)**
 
-The `PRNG` system contract allows you to generate a pseudo-random number that can be used in smart contracts.
+"PRNG" 系统合同允许您生成一个伪随机的数字，可以用于智能合同。
 
-| Contract Address | Source                                                                                                                                                                                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `0x169`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/util-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/util-precompile) |
+| 合同地址    | 来源                                                                                                                                                                                                                                               |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `0x169` | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/util-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/util-precompile) |
 
-**Example ⬇**
+**示例:down_箭头:**
 
 <details>
 
@@ -1044,14 +1044,14 @@ interface IPrngSystemContract {
 
 </details>
 
-Reference: [HIP-351](https://hips.hedera.com/hip/hip-351).
+Reference: [HIP-351](https://hips.hedera.com/hip/hip-351)。
 
 ***
 
-## Compiling Smart Contract Example
+## 编译智能合同示例
 
-**➡** [**Hardhat Tutorial**](../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md)
+**➡️** [**Hardhat Tutorial**](../../tutorials/smart-contracts/deply-a-smart-contract-using-hardhat-hedera-json-rpc-rey.md)
 
-## Additional Resources
+## 额外资源
 
-**➡** [**HTS Precompile Methods**](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/precompile/hedera-token-service/README.md)
+**:right_箭头:** [**HTS Precompiling Methods**](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/precompile/hedera-token-service/README.md)
