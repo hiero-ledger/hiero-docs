@@ -1,29 +1,29 @@
 ---
-description: Common questions for the current Hedera's permissioned Mainnet consensus nodes
+description: Preguntas comunes para los actuales nodos de consenso de Hedera Mainnet
 ---
 
 # FAQ
 
-## What security protocols and key sizes are used by hashgraph?
+## ¿Qué protocolos de seguridad y tamaños de clave son usados por hashgraph?
 
-The nodes use TLS 1.2 DH RSA 3k keys and SHA384 to secure communications amongst nodes. Our goal is to satisfy CNSA suite1 as specified by the US government. TLS 1.2 uses ephemeral AES 256 for perfect forward secrecy. Different keys are used for the TLS key exchange and a different one for signatures. Clients use ED25519 to sign transactions.
+Los nodos utilizan claves 3k TLS 1.2 DH RSA y SHA384 para asegurar las comunicaciones entre nodos. Nuestro objetivo es satisfacer la suite CNSA 1 especificada por el gobierno de los Estados Unidos. TLS 1.2 utiliza efemeral AES 256 para un perfecto secreto hacia delante. Se utilizan diferentes claves para el intercambio de claves TLS y una diferente para las firmas. Los clientes utilizan ED25519 para firmar transacciones.
 
-## Does a consensus node support bonding or splitting ingress and egress traffic?
+## ¿Un nodo de consenso apoya el tráfico de unión o división del progreso y el éxito?
 
-Hashgraph does not support bonding or splitting of ingress and egress traffic.
+Hashgraph no apoya la unificación o división del tráfico de ingles y egresos.
 
-## Does the consensus node need access to our internal network?
+## ¿Necesita el nodo de consenso acceso a nuestra red interna?
 
-The Hedera consensus node does not need access to any internal resources and must be separated from the rest of the corporate network, ideally in its own DMZ (Demilitarized Zone).
+El nodo de consenso de Hedera no necesita acceso a ningún recurso interno y debe separarse del resto de la red corporativa, idealmente en su propia zona ilitarizada DMZ).
 
-## Does the consensus node need to be backed up?
+## ¿Hay que respaldar el nodo de consenso?
 
-Application specific backups are not required. Since the Hedera network continue to process transactions while the failed node is down, restored backups will be out of date by the time they are recovered. Redundancy comes from the other nodes and the recovered node will be resynchronized by the hashgraph software.
+No se requieren copias de seguridad específicas de la aplicación. Dado que la red Hedera continúa procesando transacciones mientras el nodo fallido está caído, las copias de seguridad restauradas estarán desactualizadas en el momento en que sean recuperadas. La redundancia viene de los otros nodos y el nodo recuperado será resincronizado por el software hashgraph .
 
-It is expected that normal backup procedures are in place for the operating system level to allow for rapid and consistent recovery for disaster situations included hardware failures and similar situations.
+Se espera que haya procedimientos normales de copia de seguridad para el nivel del sistema operativo que permitan una recuperación rápida y consistente para situaciones de desastre incluyendo fallos de hardware y situaciones similares.
 
-## What are the consensus node SLA and operational requirements?
+## ¿Cuáles son los requisitos operacionales y del nodo de consenso?
 
-The LLC agreement specifies that "while a desired initial target should be at least 99.5% availability, inclusive of scheduled technical/operational maintenance windows".
+El acuerdo de la BLC especifica que "mientras que el objetivo inicial deseado debe ser al menos el 99,5% de disponibilidad, incluyendo las ventanas de mantenimiento técnicas/operacionales".
 
-External monitoring will be available from Hedera for notification of failure.
+La vigilancia externa estará disponible en Hedera para notificar el fracaso.
