@@ -1,26 +1,26 @@
-# Transfer HBAR
+# 传输 HBAR
 
 ## Summary
 
-In this section, you will learn how to transfer **HBAR** from your account to another on the Hedera test network.
+在本节中，您将学习如何在Hedera测试网络上将**HBAR**从您的帐户转账到另一个帐户。
 
 ***
 
 ## Prerequisites <a href="#pre-requisites" id="pre-requisites"></a>
 
-- Completed the [Introduction](introduction.md) step.
-- Completed the [Environment Setup](environment-set-up.md) step.
-- Completed the [Created an Account](create-an-account.md) step.
+- 完成 [Introduction](introduction.md) 步骤。
+- 完成了[环境设置](环境-设置.md)。
+- 完成了[创建一个帐户](创建一个帐户。md)
 
 {% hint style="info" %}
-_**Note:** You can always check the "_[_Code Check ✅_](transfer-hbar.md#code-check) _" section at the bottom of each page to view the entire code if you run into issues. You can also post your issue to the respective SDK channel in our Discord community_ [_here_](http://hedera.com/discord) _or on the GitHub repository_ [_here_](https://github.com/hashgraph/hedera-docs)_._
+_**注意:** 您可以随时检查"_[_Code检查:check_mark_buton:_](transfer-hbar)。 d#code-check) _" 部分在每个页面底部以查看整个代码，如果你遇到了问题。 您还可以将您的问题发布到我们Discord社区的SDK频道_ [_here_](http://hedera. om/discord) _或 GitHub 仓库_ [_here_](https://github.com/hashgraph/hedera-docs)_._
 {% endhint %}
 
 ***
 
-## Step 1. Create a transfer transaction
+## 步骤1。 创建传输交易
 
-Use your new account created in the "[Create an account](create-an-account.md)" section and transfer 1,000 **tinybars** from your account to the new account. The account sending the **HBAR** needs to sign the transaction using its private keys to authorize the transfer. Since you are transferring from the account associated with the client, you do not need to explicitly sign the transaction as the operator account(account transferring the **HBAR**) signs all transactions to authorize the payment of the transaction fee.
+使用您在“[创建一个帐户](create-an-account.md)”部分创建的新帐户，并从您的帐户中将 1 000 **tinybars** 转到新帐户。 发送 **HBAR** 的账户需要使用其私钥签名交易以授权转让。 因为您正在从与客户相关联的帐户转账， 您无需将交易明确签名为操作员帐户(帐户转账**HBAR**)，签名所有交易以授权支付交易费用。
 
 {% tabs %}
 {% tab title="Java" %}
@@ -77,20 +77,20 @@ if err != nil {
 {% endtabs %}
 
 {% hint style="info" %}
-_**Note:** The net value of the transfer must equal zero (the total number of_ **HBAR** _sent by the sender must equal the total number of_ **HBAR** _received by the recipient)._
+_**注意：** 传输的净值必须等于零(发件人发送的总值必须等于收件人收到的全部数)。
 {% endhint %}
 
 ***
 
-## Step 2. Verify the transfer transaction reached consensus
+## 步骤2 验证转账交易已达成协商一致意见。
 
-To verify the transfer transaction reached consensus by the network, you will submit a request to obtain the receipt of the transaction. The receipt status will let you know if the transaction was successful (reached consensus) or not.
+为了验证传输交易网络达成的共识，您将提交获取交易收据的请求。 收据状态将让您知道交易是否成功(已达成共识)。
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client).status);
+System.out.println("传输交易是: " +sendHbar.getreceipt(client).status);
 ```
 
 {% endtab %}
@@ -98,9 +98,9 @@ System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client)
 {% tab title="JavaScript" %}
 
 ```javascript
-//Verify the transaction reached consensus
-const transactionReceipt = await sendHbar.getReceipt(client);
-console.log("The transfer transaction from my account to the new account was: " + transactionReceipt.status.toString());
+///校验交易达成了共识：
+const receipt = 等待发送Hbar.getreceipt(客户端)；
+console。 og("从我的帐户转账到新帐户的交易为：" + 交易 receipt.status.toString();
 ```
 
 {% endtab %}
@@ -108,17 +108,17 @@ console.log("The transfer transaction from my account to the new account was: " 
 {% tab title="Go" %}
 
 ```java
-//Request the receipt of the transaction
-transferReceipt, err := txResponse.GetReceipt(client)
+//request the receiving of the transaction
+transferreceipt, err := txResponse. etreceipt(client)
 
-if err != nil {
+if err != nil 密切相关,
     panic(err)
 }
 
-//Get the transaction consensus status
-transactionStatus := transferReceipt.Status
+// 获取交易协商一致状态
+交易状态 := transferreceipt. tatus
 
-fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
+fmt.Printf("交易协商一致状态是 %v\n", 交易状态)
 ```
 
 {% endtab %}
@@ -126,9 +126,9 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 
 ***
 
-## Code Check ✅
+## 代码检查 :check_mark_buton：
 
-Your complete code file should look something like this:
+您完整的代码文件应该看起来像这样：
 
 <details>
 
@@ -402,16 +402,16 @@ func main() {
 
 </details>
 
-#### Sample output:
+#### 示例输出：
 
 ```bash
-New account ID: 0.0.4382765
+新账户ID： 0.0.4382765
 
-New account balance is: 1000 tinybars.
+新账户余额： 1000tinybar。
 
-The transfer transaction from my account to the new account was: SUCCESS
+从我的账户转账交易是: SUCCESS
 ```
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+有一个问题？ [在 StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}
