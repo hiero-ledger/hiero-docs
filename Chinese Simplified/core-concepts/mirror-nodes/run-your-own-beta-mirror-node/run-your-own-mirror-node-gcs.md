@@ -1,102 +1,102 @@
-# Run Your Own Mirror Node with Google Cloud Storage (GCS)
+# 使用 Google 云存储 (GCS) 运行您自己的镜像节点
 
-## Prerequisites
+## 必备条件
 
-- A [Google Cloud Platform ](https://cloud.google.com/)account.
-- Basic understanding of Hedera Mirror Nodes.
-- [Docker](https://www.docker.com/) (`>= v20.10.x)` installed and opened on your machine. Run `docker -v` in your terminal to check the version you have installed.
-- [Java](https://www.java.com/en/) (openjdk@17: Java version 17), [Gradle](https://gradle.org/install/) (the latest version), and [PostgreSQL](https://www.postgresql.org/) (the latest version) are installed on your machine.
+- [Google 云平台](https://cloud.google.com/)帐户
+- 对Hedera Mirror Nodes的基本理解。
+- [Docker](https://www.docker.com/) (`>= v20.10.x)` 已安装并在您的机器上打开。 在您的终端运行`docker -v`来检查您已安装的版本。
+- [Java](https://www.java.com/en/)(openjdk@17：Java version 17)、 [Gradle](https://gradle.org/install/) (最新版本)和 [PostgreSQL](https://www.postgresql.org/) (最新版本) 安装在您的机器上。
 
-## 1. Obtain Google Cloud Platform Requester Pay Information
+## 1. 获取 Google Cloud Platform 请求者支付信息
 
-In this step, you will generate your Google Cloud Platform HMAC access keys. These keys are needed to authenticate requests between your machine and Google Cloud Storage. They are similar to a username and password. Follow these steps to retrieve your **access key, secret**, and **project ID**:
+在这个步骤中，您将生成您的谷歌云平台HMAC访问密钥。 需要这些密钥来验证您的机器和 Google 云存储之间的请求。 它们类似于用户名和密码。 按照这些步骤检索您的 **访问密钥、密钥**和 **project ID**：
 
-- Create a new [project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and link your [billing account](https://cloud.google.com/billing/docs/how-to/manage-billing-account).
-- From the left navigation bar, select **Cloud Storage > Settings.**
-- Click the **Interoperability** tab and scroll down to the **User account HMAC** section.
-- If you don't already have a default project set, set it now.
-- Click **create keys** to generate access keys for your account.
+- 创建新的 [project](https://cloud.google.com/resourcemaner/docs/creating-managing-projects) 并链接您的 [账单帐户](https://cloud.google.com/billing/docs/how-to/manage-billing-account)。
+- 从左侧导航栏中选择 **云存储 > 设置。**
+- 点击 **互操作性** 选项卡并向下滚动到 **用户帐户HMAC** 部分。
+- 如果您尚未设置默认项目，请立即设置。
+- 点击 **创建密钥** 以生成您账户的访问密钥。
 
 <figure><img src="../../../.gitbook/assets/gcs mirror2.png" alt=""><figcaption></figcaption></figure>
 
-- You should see the **access key** and **secret** columns populate on the access keys table.
-- You will use these keys to configure the **`application.yml`** file in a later step.
+- 您应该在访问密钥表中看到**访问密钥** 和 **秘密** 列。
+- 您将使用这些键在稍后阶段配置\*\*`application.yml`\*\* 文件。
 
-## 2. Clone Hedera Mirror Node Repository
+## 2. 克隆Hedera 镜像节点存储库
 
-- Open your terminal and run the following commands to clone the `hedera-mirror-node` [repository](https://github.com/hashgraph/hedera-mirror-node) then `cd` into the `hedera-mirror-node` folder:
+- 打开您的终端并运行下面的命令来克隆`hedera-miror-node` [repository](https://github.com/hashgraph/hedera-miror-node) 然后将`cd` 到 `hedera-mirror-node` 文件夹：
 
 ```bash
-git clone https://github.com/hashgraph/hedera-mirror-node
-cd hedera-mirror-node
+git 克隆https://github.com/hashgraph/hedera-mirror-节点
+cd hedera-mirror-节点
 ```
 
-## 3. Configure Mirror Node
+## 3. 配置镜像节点
 
-The **`application.yml`** file is the main configuration file for the Hedera Mirror Node. We'll update that file with your GCP keys and the Hedera Network you want to mirror.
+**`application.yml`** 文件是Hedera 镜像节点的主要配置文件。 我们将使用您的 GCP 密钥和您想要镜像的 Hedera 网络更新该文件。
 
-- Open the `application.yml` file in the root directory with a text editor of your choice.
-- Find the following section and replace the placeholders with your actual GCP **access key**, **secret key**, **project ID**, and the network you want to mirror:
+- 在根目录中打开`application.yml`文件，由您选择的文本编辑器来选择。
+- 查找下面的部分，并用您的实际GCP **访问密钥**，**secret密钥**，**project ID**和您想要镜像的网络替换占位符：
 
-| Item              | Description                                             |
-| ----------------- | ------------------------------------------------------- |
-| **accessKey**     | Your access key from your GCP account                   |
-| **cloudProvider** | GCP                                                     |
-| **secretKey**     | Your secret key from your GCP account                   |
-| **gcpProjectId**  | Your GCP project ID                                     |
-| **network**       | Enter the network you would to run your mirror node for |
+| 项目               | 描述             |
+| ---------------- | -------------- |
+| **accessKey**    | 您的 GCP 账户的访问密钥 |
+| **云提供商**         | GCP            |
+| **密钥**           | 您的 GCP 账户中的私钥  |
+| **gcpProjectId** | 您的 GCP 项目 ID   |
+| **网络**           | 输入您要运行镜像节点的网络  |
 
 {% code title="application.yml" %}
 
 ```yaml
 hedera:
-  mirror:
-    importer:
-      downloader:
-        accessKey: ENTER ACCESS KEY HERE
-        cloudProvider: "GCP"
-        secretKey: ENTER SECRET KEY HERE
-        gcpProjectId: ENTER GCP PROJECT ID HERE
-      network: PREVIEWNET/TESTNET/MAINNET #Pick one network
+  镜像:
+    导入器:
+      下载器:
+        访问密钥: EnTER ACESS Key HERE
+        云源: "GCP"
+        secretKey: ENTER GCP Key HERE
+        gcpProjectId: ENTER GCP GCP PROJECT ID HERE
+      网络: PREVIEWNET/TESTNET / MAINNET #Pick 一个网络
 ```
 
 {% endcode %}
 
-- Save the changes and close the file.
+- 保存更改并关闭文件。
 
-## 4. Start Your Hedera Mirror Node
+## 4. 启动您的Hedera 镜像节点
 
-Now let's start the Hedera Mirror Node using Docker. Docker allows you to easily run applications in a self-contained environment called a _container_.
+现在让我们使用 Docker开始Hedera 镜像节点。 Docker允许您在一个叫做_container_的自足环境中运行应用程序。
 
-- From the `hedera-mirror-node` directory, run the following command:
-
-```bash
-docker compose up -d db && docker logs hedera-mirror-node-db-1 --follow
-```
-
-## 5. Access Your Hedera Mirror Node Data
-
-This step shows you how to access the data that your Hedera Mirror Node is collecting. The mirror node stores its data in a PostgreSQL database, and you're using Docker to connect to that database. To access the mirror node data, we'll have to enter the **`hedera-mirror-node-db-1`** container.
-
-- Open a new terminal and run the following command to view the list of containers:
+- 从 `hedera-miror-node` 目录运行以下命令：
 
 ```bash
-docker ps
+Docker compose up -d db && docker logs hedera-miror-node-db-1 --following
 ```
 
-- Enter the following command to access the Docker container:
+## 5. 访问您的Hedera 镜像节点数据
+
+此步骤显示如何访问您Hedera 镜像节点正在收集的数据。 镜像节点将其数据存储在 PostgreSQL 数据库中，您正在使用 Docker 连接到该数据库。 要访问镜像节点数据，我们必须输入 **`hedera-miror-node-db-1`** 容器。
+
+- 打开一个新终端并运行以下命令来查看容器列表：
 
 ```bash
-docker exec -it hedera-mirror-node-db-1 bash
+停靠栏
 ```
 
-- Enter the following command to access the database:
+- 输入以下命令来访问 Docker容器：
 
 ```bash
-psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pass port=5432"
+停靠exec - it hedera-miror-node-db-1 bash
 ```
 
-- Enter the following command to view the complete list of database tables:
+- 输入以下命令来访问数据库：
+
+```bash
+psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_passport=5432"
+```
+
+- 输入以下命令以查看数据库表的完整列表：
 
 ```bash
 \dt
@@ -104,16 +104,16 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 
 ![](<../../../.gitbook/assets/image (4).png>)
 
-- To exit the `psql` console, run the quit command:
+- 要退出 `psql` 控制台，请运行退出命令：
 
 ```bash
 \q
 ```
 
-- Lastly, run the following command to stop and remove the created containers:
+- 最后，运行以下命令来拦截和移除创建的容器：
 
 ```bash
-docker compose down
+停靠栏下方组成
 ```
 
-#### Congratulations! You have successfully run and deployed a Hedera Mirror Node with Google Cloud Storage (GCS) 🚀
+#### 恭喜！ 您已成功地运行和部署了一个带有谷歌云存储 (GCS) :rossuth:
