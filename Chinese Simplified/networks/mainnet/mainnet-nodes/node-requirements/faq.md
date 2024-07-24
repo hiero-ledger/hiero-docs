@@ -1,29 +1,29 @@
 ---
-description: Common questions for the current Hedera's permissioned Mainnet consensus nodes
+description: 当前Hedera权限的常见问题 Mainnet共识节点
 ---
 
-# FAQ
+# 常见问题
 
-## What security protocols and key sizes are used by hashgraph?
+## 哈希图使用什么安全协议和密钥尺寸？
 
-The nodes use TLS 1.2 DH RSA 3k keys and SHA384 to secure communications amongst nodes. Our goal is to satisfy CNSA suite1 as specified by the US government. TLS 1.2 uses ephemeral AES 256 for perfect forward secrecy. Different keys are used for the TLS key exchange and a different one for signatures. Clients use ED25519 to sign transactions.
+节点使用 TLS 1.2 DH RSA 3k 键和 SHA384 确保节点之间的通信。 我们的目标是满足美国政府具体规定的CNSA套装。 TLS 1.2 使用简历AES 256完善前方保密。 TLS 密钥交换使用不同的密钥，签名使用不同的密钥。 客户端使用 ED25519 签署交易。
 
-## Does a consensus node support bonding or splitting ingress and egress traffic?
+## 一个协商一致的节点是否支持连接或分割接口和分散流量？
 
-Hashgraph does not support bonding or splitting of ingress and egress traffic.
+Hashgra不支持连接或拆分衣服和乘坐交通。
 
-## Does the consensus node need access to our internal network?
+## 协商一致的节点是否需要访问我们的内部网络？
 
-The Hedera consensus node does not need access to any internal resources and must be separated from the rest of the corporate network, ideally in its own DMZ (Demilitarized Zone).
+Hedera 协商一致节点不需要访问任何内部资源，必须与公司网络的其他部分分开。 最好是在自己的DMZ(非军事化区)。
 
-## Does the consensus node need to be backed up?
+## 是否需要备份协商一致的节点？
 
-Application specific backups are not required. Since the Hedera network continue to process transactions while the failed node is down, restored backups will be out of date by the time they are recovered. Redundancy comes from the other nodes and the recovered node will be resynchronized by the hashgraph software.
+应用程序特定的备份是不需要的。 因为Hedera 网络继续处理交易，而失败的节点正在关闭。 恢复的备份将在恢复时过时。 冗余来自其他节点，回收的节点将被哈希图软件重新同步。
 
-It is expected that normal backup procedures are in place for the operating system level to allow for rapid and consistent recovery for disaster situations included hardware failures and similar situations.
+预计运行系统一级将有正常的备用程序，以便能够迅速和一致地恢复包括硬件故障和类似情况在内的灾害情况。
 
-## What are the consensus node SLA and operational requirements?
+## 协商一致的节点SLA和操作要求是什么？
 
-The LLC agreement specifies that "while a desired initial target should be at least 99.5% availability, inclusive of scheduled technical/operational maintenance windows".
+专卖局长协议规定，“虽然理想的初步目标应当是至少99.5%的可用性，包括预定的技术/运行维护窗口”。
 
-External monitoring will be available from Hedera for notification of failure.
+将从赫德拉起提供外部监测，以通报失败情况。
