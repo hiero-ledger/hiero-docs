@@ -1,14 +1,14 @@
 # Staking
 
-The Hedera public ledger uses a [proof-of-stake](../../support-and-community/glossary.md#proof-of-stake-pos) consensus mechanism, in which each node’s influence on consensus is proportional to the amount of cryptocurrency it has staked. A transaction is validated and placed into consensus after it is processed by nodes representing an aggregate stake of over two-thirds of the total amount of HBAR currently staked and dedicated to securing the network. Stake is expressed as an amount in HBAR. It is important to ensure that most of the cryptocurrency is actually being staked, so that the network continues to run. This information can be referenced from the latest Hedera [whitepaper](https://hedera.com/hh\_whitepaper\_v2.1-20200815.pdf).
+Le livre public Hedera utilise un [proof-of-stake](../../support-and-community/glossary). d#preuve-of-stake-pos) mécanisme de consensus, dans lequel l'influence de chaque nœud sur le consensus est proportionnelle au montant de cryptomonnaie qu'il a misée. Une transaction est validée et mise en consensus après son traitement par des nœuds représentant un enjeu agrégé de plus de deux tiers du montant total du HBAR actuellement mis en jeu et dédié à la sécurisation du réseau. Le Stake est exprimé comme un montant en HBAR. Il est important de s'assurer que la majeure partie de la cryptomonnaie est réellement mise en jeu, afin que le réseau continue à fonctionner. Ces informations peuvent être référencées à partir de la dernière Hedera [whitepaper](https://hedera.com/hh\_whitepaper\_v2.1-20200815.pdf).
 
-## FAQ
+## Foire Aux Questions
 
 <details>
 
 <summary>What is staking in Hedera?</summary>
 
-Staking is the process of participating in a [proof-of-stake](../../support-and-community/glossary.md#proof-of-stake-pos) system to validate transactions and earn rewards. When staked, coins are locked but can be unlocked for trading. Staking allows participants (stakeholders) to earn rewards on their holdings, typically in tokens or coins.&#x20
+Staking est le processus de participation à un système [proof-of-stake](../../support-and-community/glossary.md#proof-of-stake-pos) pour valider les transactions et gagner des récompenses. Lorsqu'il est misé, les pièces sont verrouillées mais peuvent être débloquées pour l'échange. Staking permet aux participants (parties prenantes) de gagner des récompenses sur leurs exploitations, généralement en jetons ou pièces.&#x20
 
 </details>
 
@@ -16,7 +16,7 @@ Staking is the process of participating in a [proof-of-stake](../../support-and-
 
 <summary>Is there a lock-up period when accounts are staked to a node?</summary>
 
-No, there is no lock-up period when accounts are staked to a node. The staked account balance is liquid at all times.
+Non, il n'y a pas de période de verrouillage lorsque les comptes sont mis sur un nœud. Le solde du compte misé est liquide en tout temps.
 
 </details>
 
@@ -24,7 +24,7 @@ No, there is no lock-up period when accounts are staked to a node. The staked ac
 
 <summary>How are staking rewards calculated?</summary>
 
-The staking reward rate is determined by the Hedera Governing Council and updated on the mainnet. Learn more about staking rewards [here](staking.md).
+Le taux de récompense de mise en jeu est déterminé par le Conseil de Gouvernement de Hedera et mis à jour sur le réseau principal. Learn more about staking rewards [here](staking.md).
 
 </details>
 
@@ -32,7 +32,7 @@ The staking reward rate is determined by the Hedera Governing Council and update
 
 <summary>How are staking rewards distributed?</summary>
 
-[Staking rewards distribution](stake-hbar.md#staking-reward-distribution) can be triggered by several different mechanisms, such as when an account is staked to a different node, when the total number of HBAR staked to an account changes, or when the staked account is auto-renewed.
+[Distribution des récompenses de prise de vue](stake-hbar. d#staking-reward-distribution) peut être déclenchée par plusieurs mécanismes différents, comme quand un compte est misé sur un nœud différent, lorsque le nombre total de HBAR misé sur un compte change ou lorsque le compte misé est automatiquement renouvelé.
 
 </details>
 
@@ -40,6 +40,6 @@ The staking reward rate is determined by the Hedera Governing Council and update
 
 <summary>Do staking rewards expire?</summary>
 
-Staking rewards do not expire but can only be collected for up to 365 days without a rewards payment being triggered. If more than 365 days pass without a rewards payment, rewards can only be collected for the latest 365 days periods.
+Les récompenses d'émission n'expirent pas, mais peuvent être collectées jusqu'à 365 jours sans qu'un paiement de récompense ne soit déclenché. Si plus de 365 jours passent sans paiement de récompense, les récompenses ne peuvent être collectées que pour les dernières périodes de 365 jours.
 
 </details>
