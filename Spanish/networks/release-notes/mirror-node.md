@@ -1,218 +1,218 @@
 ---
-description: Hedera mirror node release notes
+description: Notas del nodo espejo de Hedera
 ---
 
 # Hedera Mirror Node
 
-For the latest versions supported on each network please visit the Hedera status [page](https://status.hedera.com/).
+Para las últimas versiones soportadas en cada red, por favor visite el estado de Hedera [page](https://status.hedera.com/).
 
-## Latest Releases
+## Últimas versiones
 
 ## [v0.105.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.105.0)
 
-A design document was added for the implementation of [HIP-904](https://hips.hedera.com/HIP/hip-904.html) Friction-less Airdrops on mirror node. Please watch the [epic](https://github.com/hashgraph/hedera-mirror-node/issues/8081) to monitor the progress of airdrop development.
+Se agregó un documento de diseño para la implementación de [HIP-904](https://hips.hedera.com/HIP/hip-904.html) Airdrops sin fricciones en el nodo espejo. Por favor vea la [epic](https://github.com/hashgraph/hedera-mirror-node/issues/8081) para monitorear el progreso del desarrollo de aerolíneas.
 
-Citus, our sharded database, continues to make progress with this release making its way to one of our two testnet clusters. We'll monitor its deployment for a period and make any necessary fixes. The ZFS CSI driver we use for Citus saw an upgrade. Finally, multiples issues were fixed with the PostgreSQl to Citus migration script.
+Citus, nuestra base de datos fragmentada, continúa avanzando con esta publicación abriendo paso a uno de nuestros dos clústeres de testnet. Monitorearemos su despliegue durante un periodo de tiempo y haremos las correcciones necesarias. El controlador ZFS CSI que usamos para Citus vio una actualización. Finalmente, se arreglaron múltiples problemas con el script PostgreSQl a Citus migration script.
 
-For `/api/v1/contracts/call`, the maximum data size was increased to 128 KiB to provide better Ethereum compatibility. Also, additional logic and validation was added to more closely align with consensus nodes error scenarios.
+Para `/api/v1/contracts/call`, el tamaño máximo de datos fue aumentado a 128 KiB para proporcionar una mejor compatibilidad con Ethereum. Además, la lógica adicional y la validación se agregaron para alinearse más estrechamente con los escenarios de error de los nodos de consenso.
 
-### Upgrading
+### Actualizando
 
-If you're using the ZFS CSI driver, please ensure its CRDs are updated before upgrading:
+Si está usando el controlador CSI ZFS, por favor asegúrese de que sus CRDs están actualizados antes de actualizar:
 
 ```
-for crd in zfsbackups zfsnodes zfsrestores zfssnapshots zfsvolumes; do kubectl patch crd $crd.zfs.openebs.io --type merge -p '{"metadata": {"annotations": {"helm.sh/resource-policy": "keep", "meta.helm.sh/release-name": "mirror", "meta.helm.sh/release-namespace": "common"}, "labels": {"app.kubernetes.io/managed-by": "Helm"}}}'; done
+for crd in zfsbackups zfsnodes zfsrestores zfssnapshots zfsvoles; do kubectl patch crd $crd.zfs.openebs.io --type merge -p '{"metadata": {"annotations": {"helm. h/resource-policy": "keep", "meta.helm.sh/release-name": "mirror", "meta.helm.sh/release-namespace": "common"}, "labels": {"app.kubernetes.io/managed-by": "Helm"}}}'; hecho
 ```
 
 ## [v0.104.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.104.0)
 
-This release adds a Redis cache to the REST API to improve the performance of `/api/v1/transactions`. This functionality is currently disabled by default as we fine tune it.
+Esta versión añade un caché Redis a la API REST para mejorar el rendimiento de `/api/v1/transactions`. Esta funcionalidad está actualmente desactivada por defecto a medida que la ajustamos.
 
-[HIP-857](https://hips.hedera.com/hip/hip-857) NFT Allowances API made a lot of progress this release. It's taking a bit longer than a usual API since it is our first Java-based REST API that requires some extra groundwork. This release enables the rest-java Helm chart by default allowing users to test out the NFT allowances API in all environments. While most functionality is present, please be aware that some parts are still under development. A new index was added to the NFT allowance table to speed up look-ups by spender account. The existence check for numeric entity ID was removed to improve its performance and to better support partial mirror nodes. Finally, we added initial acceptance tests to verify the API end to end.
+[HIP-857](https://hips.hedera.com/hip/hip-857) NFT Allowances API hizo mucho progreso esta versión. Está tardando un poco más de lo normal de una API, ya que es nuestra primera API REST basada en Java que requiere algún trabajo de base adicional. Esta versión habilita por defecto la carta Helm rest-java permitiendo a los usuarios probar la API de permisos NFT en todos los entornos. Mientras que la mayoría de las funciones están presentes, por favor tenga en cuenta que algunas partes todavía están en desarrollo. Un nuevo índice fue añadido a la tabla de permisos de NFT para acelerar las búsquedas por cuenta del gasto. La comprobación de existencia de ID de entidad numérica fue eliminada para mejorar su rendimiento y para soportar nodos espejo parciales. Finalmente, añadimos pruebas de aceptación inicial para verificar el final de la API.
 
-Our Citus deployment is nearing the finish line. Citus is now deployed to previewnet and it now runs both PostgreSQL and Citus deployments in parallel. Internally, we've deployed it to a mainnet staging environment with a full size database for further testing. This deployment was possible due to the dramatic increase in migration time we implemented this release. Mainnet previously took more than a month to migrate but with this release it should complete within a week or so. Expect testnet to be migrated to Citus very soon as well.
+Nuestro despliegue de Citus está cerca de la línea de meta. Citus está ahora desplegado en previewnet y ahora ejecuta tanto las implementaciones PostgreSQL como Citus en paralelo. Internamente, lo hemos desplegado en un entorno de staging mainnet con una base de datos de tamaño completo para más pruebas. Este despliegue fue posible debido al drástico aumento del tiempo de migración que implementamos esta liberación. Mainnet previamente tardó más de un mes en migrar, pero con esta publicación debería completarse dentro de una semana más o menos. Espere que la red de pruebas sea migrada a Citus muy pronto.
 
 ## [v0.103.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.103.0)
 
-This release adds support for making metadata information from [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-657](https://hips.hedera.com/hip/hip-657), and [HIP-765](https://hips.hedera.com/hip/hip-765) available in the REST API. In particular, this adds a base64 encoded `metadata` field to the `/api/v1/tokens` endpoint. It also adds `metadata` and `metadata_key` fields to the `/api/v1/tokens/{id}` endpoint.
+Esta versión añade soporte para hacer información de metadatos de [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-657](https://hips.hedera.com/hip/hip-657), y [HIP-765](https://hips.hedera.com/hip/hip-765) disponibles en la API REST. En particular, esto añade un campo `metadata` codificado en base64 al punto final `/api/v1/tokens`. También agrega los campos `metadata` y `metadata_key` al punto final \`/api/v1/tokens/{id}.
 
-The contract call API saw some noticeable performance improvements with the implementation of lazy loading for nested items. Previously it was eagerly loading all the account information even for simpler calls that didn't need the data. With the switch to make these additional queries lazy, we see an improvement of 50-90% in request throughput. That change plus an improvement in the performance of the NFT count query should result in additional performance and stability of the API.
+La API de llamadas de contrato vio algunas notables mejoras de rendimiento con la implementación de carga perezosa para artículos anidados. Anteriormente estaba cargando toda la información de la cuenta, incluso para llamadas más simples que no necesitaban los datos. Con el interruptor para hacer estas consultas adicionales perezosas, vemos una mejora del 50-90% en el rendimiento de las peticiones. Ese cambio más una mejora en el rendimiento de la consulta de conteo de NFT debería resultar en un rendimiento y estabilidad adicionales de la API.
 
-Work is still underway on [HIP-857](https://hips.hedera.com/hip/hip-857) NFT allowance REST API. This release adds EVM address and alias support to the new endpoint and fixes the error response format.
+Todavía se está trabajando en [HIP-857](https://hips.hedera.com/hip/hip-857) API REST de permisos NFT. Esta versión añade soporte para direcciones EVM y alias al nuevo punto final y corrige el formato de respuesta de error.
 
 ## [v0.102.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.102.0)
 
-This is a smaller bug fix release with incremental improvements to some in-flight projects.
+Esta es una versión de corrección de errores más pequeña con mejoras incrementales en algunos proyectos en vuelo.
 
-For [HIP-857](https://hips.hedera.com/hip/hip-857), an alpha version of the NFT allowance REST API is now in place. It can be used to experiment with while we work towards implementing the remaining query parameters and squashing any bugs. The Jooq library was integrated into the rest-java module to allow for dynamic SQL querying based upon user input. The next release should leverage this functionality to fully implement the remaining parts of the API.
+Para [HIP-857](https://hips.hedera.com/hip/hip-857), ahora existe una versión alfa de la API REST de permisos NFT. Se puede utilizar para experimentar mientras trabajamos para implementar los parámetros de consulta restantes y para aplastar cualquier error. La biblioteca Jooq se integró en el módulo rest-java para permitir consultas SQL dinámicas basadas en la entrada del usuario. La siguiente versión debería aprovechar esta funcionalidad para implementar completamente las partes restantes de la API.
 
-Our Citus implementation was successfully deployed to the performance environment and it is passing initial benchmarks. Preliminary results show that Citus improves ingest performance by 600ms while sharding the data across multiple nodes. Promtail was enabled on Citus nodes to capture database logs and a new ZFS dashboard was added to Grafana.
+Nuestra implementación de Citus fue desplegada con éxito en el entorno de rendimiento y está pasando pruebas de rendimiento iniciales. Los resultados preliminares muestran que Citus mejora el rendimiento de la ingesta en 600ms mientras recorta los datos a través de múltiples nodos. Promtail fue habilitado en los nodos Citus para capturar registros de bases de datos y un nuevo panel ZFS fue añadido a Grafana.
 
 ## [v0.101.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.101.0)
 
-This release adds support for storing the new mutable metadata information available in [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-657](https://hips.hedera.com/hip/hip-657), and [HIP-765](https://hips.hedera.com/hip/hip-765). For now, it just persists the data and in future releases we'll expose it via the REST APIs.
+Esta versión añade soporte para almacenar la nueva información de metadatos mutables disponible en [HIP-646](https://hips.hedera.com/hip/hip-646), [HIP-657](https://hips.hedera.com/hip/hip-657), y [HIP-765](https://hips.hedera.com/hip/hip-765). Por ahora, sólo persiste los datos y en futuras versiones lo expondremos a través de las APIs REST.
 
-The `/api/v1/tokens` REST API now supports multiple `token.id` parameters. This allows users to efficiently query for multiple tokens in a single call.
+La API REST `/api/v1/tokens` ahora soporta múltiples parámetros de `token.id`. Esto permite a los usuarios consultar eficientemente múltiples tokens en una sola llamada.
 
-The `/api/v1/contracts/call` REST API saw some major performance improvements this release. The first change was to switch the Kubernetes node pools to a different machine class that provides dedicated resource allocation. The endpoint was also switched from a reactive MVC stack to a synchronous MVC stack. Simultaneously, the module enabled the new virtual thread technology that replaces platform threads. These changes combined to improve the request throughput by 1-2x.
+La API REST `/api/v1/contracts/call` vio algunas mejoras de rendimiento importantes en esta versión. El primer cambio fue cambiar los nodos de Kubernetes a una clase diferente de máquina que proporciona asignación de recursos dedicados. El endpoint también fue cambiado de una pila de MVC reactiva a una pila de MVC sincrónica. Simularmente, el módulo habilitó la nueva tecnología de hilos virtuales que reemplaza los hilos de la plataforma. Estos cambios se combinaron para mejorar el rendimiento de la solicitud en 1-2x.
 
-Another important change was to enable batching between the download and parser threads in the importer. For now, this functionality is configured to behave as before with no batching. When configured manually, this can reduce sync times for historical data by at least 12x. In the future, we'll look at ways to automatically enable this functionality when the importer is attempting to catch up.
+Otro cambio importante fue habilitar el lote entre los hilos de descarga y analizador en el importador. Por ahora, esta funcionalidad está configurada para comportarse como antes sin ningún tipo de lotes. Cuando se configura manualmente, esto puede reducir los tiempos de sincronización de los datos históricos por al menos 12x. En el futuro, analizaremos formas de habilitar automáticamente esta funcionalidad cuando el importador esté intentando ponerse al día.
 
 ## [v0.100.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.100.0)
 
-This release implements [HIP-859](https://hips.hedera.com/hip/hip-859), adding support for returning gas consumed in the contract result REST APIs. The current `gasUsed` field in the API holds the amount of gas charged, while the new `gasConsumed` field holds the amount of gas actually used during EVM execution. Providing this extra data will allow users to provide a more accurate gas when invoking a contract and reduce the fees they are charged.
+Esta versión implementa [HIP-859](https://hips.hedera.com/hip/hip-859), agregando soporte para devolver gas consumido en el resultado del contrato APIs REST. El campo actual 'gasUsed' en la API contiene la cantidad de gas cargado, mientras que el nuevo campo 'gasConsumed' contiene la cantidad de gas realmente utilizado durante la ejecución de EVM. Proporcionar estos datos adicionales permitirá a los usuarios proporcionar un gas más preciso al invocar un contrato y reducir las tarifas que se les cobran.
 
-`/api/v1/contracts/call` now supports a configurable max gas limit property `hedera.mirror.web3.evm.maxGas`. The default value remains at 15 million but operators can now choose to increase it to suite their needs. The EVM version and features have been upgraded to `v0.46`. This brings feature parity with the latest consensus node software for EVM execution.
+`/api/v1/contracts/call` ahora soporta una propiedad `hedera.mirror.web3.evm.maxGas`. El valor por defecto sigue siendo de 15 millones, pero los operadores ahora pueden elegir aumentarlo para satisfacer sus necesidades. La versión y características de EVM se han actualizado a `v0.46`. Esto trae paridad de características con el último software de nodos de consenso para la ejecución de EVM.
 
-There was a large amount of work to improve our integration with Citus. Three repeatable migrations were enhanced to work optimally with Citus: account balance migration, token balance migration, and synthetic transfer approval migration. Token account insertion was optimized to improve its performance by removing the join on the token table. Range partitioning was removed for entity related tables since it caused degraded performance due to having sparse partitions. Finally, the deployment now supports different sized disks for individual workers to optimize for unbalanced data.
+Hubo una gran cantidad de trabajo para mejorar nuestra integración con Citus. Tres migraciones repetibles fueron mejoradas para funcionar óptimamente con Citus: migración de saldo de cuentas, migración de saldo de fichas y migración de aprobación de transferencias sintéticas. La inserción de cuenta de token fue optimizada para mejorar su rendimiento eliminando el join en la tabla de token. El particionado a intervalo se eliminó para tablas relacionadas con la entidad ya que causó un rendimiento degradado debido a tener particiones dispersas. Por último, el despliegue ahora soporta discos de diferentes tamaños para los trabajadores individuales para optimizar para datos desequilibrados.
 
 ## [v0.99.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.99.0)
 
-This release contains the implementation of [HIP-873](https://hips.hedera.com/hip/hip-873) adding token decimals to the REST API. Previously users had to make `N + 1` queries to determine accurate token balance information by querying `/api/v1/accounts/{id}/tokens` once and `/api/v1/tokens/{id}` `N` times to get the relevant decimal information. This HIP adds `decimals` to both `/api/v1/tokens/{tokenId}/balances` and `/api/v1/accounts/{id}/tokens` so that decimal information is directly returned alongside the token relationships and the additional `N` queries are unnecessary. It also adds `name` and `decimals` fields to the `/api/v1/tokens` response to expose more of the existing token information on that API.
+Esta versión contiene la implementación de [HIP-873](https://hips.hedera.com/hip/hip-873) agregando decimales de token a la API REST. Antiguamente los usuarios tenían que hacer consultas `N + 1` para determinar información exacta del balance de tokens consultando `/api/v1/accounts/{id}/tokens` una vez y `/api/v1/tokens/{id}` tiempos para obtener la información decimal relevante. Este HIP añade `decimals` a `/api/v1/tokens/{tokenId}/balances` y `/api/v1/accounts/{id}/tokens` para que la información decimal sea devuelta directamente junto a las relaciones de tokens y las consultas adicionales `N` son innecesarias. También agrega los campos `name` y `decimals` a la respuesta `/api/v1/tokens` para exponer más información de token existente en esa API.
 
-The `/api/v1/contracts/call` REST API now supports a configurable `hedera.mirror.web3.evm.maxDataSize` property so that mirror node operators can adjust how large of a payload they wish to support. The default value for the max data size was increased from `24 KiB` to `25 KiB` for creates and from `6 KiB` to `25 KiB` for calls. This change makes it possible for view functions with large inputs like [oracles](https://hedera.com/blog/supras-dora-price-feeds-now-live-on-hedera) to now work on the network.
+La API REST `/api/v1/contracts/call` ahora soporta un `hedera.mirror.web3.evm configurable. propiedad axDataSize` para que los operadores de nodo espejo puedan ajustar el tamaño de una carga útil que desean soportar. El valor por defecto para el tamaño máximo de los datos se incrementó de `24 KiB` a `25 KiB` para creaciones y de `6 KiB` a `25 KiB` para llamadas. Este cambio hace posible que las funciones de la vista con entradas grandes como [oracles](https://hedera.com/blog//etcas-dora-price-feeds-now-live-on-hedera) ahora funcionen en la red.
 
-There were a few items to improve the performance and security of the mirror node. A new `hedera.mirror.importer.downloader.maxSize=50MiB` property controls the maximum stream file size it will attempt to download. This protects the mirror node against large files uploaded accidentally or via malicious actors. The importer was refactored to support batch stream file ingestion so that it is possible to process multiple stream files in one transaction. This will help pave the way for future enhancements like improving historical synchronization times.
+Había algunos elementos para mejorar el rendimiento y la seguridad del nodo espejo. Una nueva propiedad `hedera.mirror.importer.downloader.maxSize=50MiB` controla el tamaño máximo de archivo de flujo que intentará descargar. Esto protege el nodo réplica contra archivos grandes cargados accidentalmente o a través de actores maliciosos. El importador fue refactorizado para soportar la ingestión por lotes de archivos para que sea posible procesar múltiples archivos de flujo en una transacción. Esto ayudará a allanar el camino para futuras mejoras como mejorar los tiempos históricos de sincronización.
 
-The database saw a number of improvements including new [setup documentation](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database/README.md#setup) with recommendations for how to configure the database. Our Citus deployment had some notable additions including a huge improvement in performance by adjusting its resource configuration. The Stackgres version was upgraded to 1.8 and ZFS to 2.4.1. The entity stake calculation was optimized for Citus so it runs efficiently in a sharded database. Finally, database metrics were fixed so that partitioned tables are appropriately aggregated under the parent table name.
+La base de datos vio una serie de mejoras incluyendo la nueva [documentación de configuración](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database/README.md#setup) con recomendaciones para cómo configurar la base de datos. Nuestro despliegue de Citus tuvo algunas adiciones notables incluyendo una gran mejora en el rendimiento ajustando su configuración de recursos. La versión de Stackgres se actualizó a 1.8 y ZFS a 2.4.1. El cálculo de las participaciones en la entidad fue optimizado para Citus para que se ejecute eficientemente en una base de datos reducida. Finalmente, se corrigieron las métricas de la base de datos para que las tablas particionadas se agregaran adecuadamente bajo el nombre de la tabla padre.
 
 ## [v0.98.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.98.0)
 
-This release saw the implementation of [HIP-844](https://hips.hedera.com/hip/hip-844) Handling and externalization improvements for account nonce updates. This HIP resolve issues where the consensus nodes and the mirror nodes are account nonces are out of sync. The consensus nodes now sends the mirror node the up-to-date account nonce instead of the mirror node attempting to increment the nonce based upon its prior state.
+Esta versión vio la implementación de [HIP-844](https://hips.hedera.com/hip/hip-844) Manejo y externalización de mejoras para las actualizaciones nonce de la cuenta. Este HIP resuelve problemas donde los nodos de consenso y los nodos de espejo son nonces de cuenta están dessincronizados. Los nodos de consenso ahora envían el nodo de réplica de la cuenta actualizada nonce en lugar del nodo de réplica tratando de incrementar el nonce basado en su estado anterior.
 
-There were two important changes to the database that helped to reduce its size substantially. The `topic_message` table primary key index was dropped in favor of relying upon a similar index on the `transaction` table. This simple change shaved 800 GiB off the mainnet database. The staking reward calculation performance was improved to only write accounts that elected to receive rewards. This reduces the staking reward calculation runtime from 47 minutes down to less than 2 minutes. A migration also removes the existing staking rows that did not have a staking reward election, shrinking those tables by 155 GiB. Note that to realize these disks savings mirror node operators will need to manually perform a full vacuum on the `entity_stake` and `entity_stake_history` tables. So in total the size of the mirror node database was reduced by almost 1 TB this release!
+Se produjeron dos cambios importantes en la base de datos que ayudaron a reducir su tamaño sustancialmente. El índice de clave primaria de la tabla `topic_message` fue eliminado en favor de depender de un índice similar en la tabla `transaction`. Este simple cambio ha sacado 800 GiB de la base de datos mainnet. El rendimiento del cálculo de la recompensa de apuesta se mejoró para que sólo escribiera cuentas que eligieran recibir recompensas. Esto reduce el tiempo de ejecución del cálculo de la recompensa de apuesta de 47 minutos a menos de 2 minutos. Una migración también elimina las filas de apuestas existentes que no tenían una elección de recompensa, recortando esas tablas por 155 GiB. Tenga en cuenta que para realizar estos operadores de nodo espejo de ahorro de discos necesitará realizar manualmente un vacuum completo en las tablas `entity_stake` y `entity_stake_history`. Así que en total el tamaño de la base de datos de nodos réplica fue reducido en casi 1 TB esta versión!
 
-There was quite a bit of technical debt paid down in this release. We've removed support for the event file format from the importer. This format was never fully implemented in the mirror node, didn't support the latest version, and no user interest in this data was expressed during its 4 years of existence. The acceptance tests were refactored to use the OpenAPI generated models, ensuring we dogfood our own API specification. The brittle `MockPool` tests were removed in favor of additional coverage in other, easier to maintain tests. The REST API tests now uses the correct read only user and common database setup that the other modules use. Finally, the unused `RestoreClientIntegrationTest` and associated test images were removed.
+En esta publicación se pagó un poco de deuda técnica. Hemos eliminado el soporte para el formato de archivo de evento del importador. Este formato nunca fue completamente implementado en el nodo réplica, no soporta la última versión, y no se expresó ningún interés del usuario en estos datos durante sus 4 años de existencia. Las pruebas de aceptación fueron refactorizadas para utilizar los modelos generados por OpenAPI, asegurándonos de alimentar nuestra propia especificación de API. Las pruebas `MockPool` de Lucha fueron eliminadas en favor de una cobertura adicional en otros, más fáciles de mantener las pruebas. Las pruebas de la API REST ahora utilizan la correcta configuración de sólo lectura y de base de datos común que utilizan los otros módulos. Finalmente, se eliminaron `RestoreClientIntegrationTest` y las imágenes de prueba asociadas.
 
-Our Citus deployment saw a number of improvements. Performance was optimized for hash insertions by reducing the shard count for hash tables. Entity upserts saw improvement by increasing the number of CPU resources to the database. Finally, the transactions list and accounts by ID endpoints saw their read performance improved for Citus.
+Nuestro despliegue de Citus ha experimentado una serie de mejoras. Rendimiento fue optimizado para las inserciones de hash reduciendo el recuento de fragmentos para las tablas hash. Las mejoras de la entidad mejoraron al aumentar el número de recursos de CPU a la base de datos. Por último, la lista de transacciones y las cuentas por puntos finales de identificación mejoraron su rendimiento de lectura para Citus.
 
 \
 [v0.97.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.97.0)
 ---------------------------------------------------------------------------------------------------------------
 
-This release sees some incremental changes to the REST API. The REST API now supports a [RFC5988](https://www.rfc-editor.org/rfc/rfc5988) compliant `Link` header in its response as an alternative to the `links.next`in the response body. Either link can now be used for pagination, but the `Link` header provides a standard approach that's supported by more tools. The `/api/v1/accounts/{id}?timestamp` endpoint now shows historically accurate staking information in its response so that users can view their past pending rewards. The timestamp in the response of the `/api/v1/tokens/{id}/balances` endpoint is now more accurate by reflecting the max balance timestamp of the tokens in its response.
+Esta versión ve algunos cambios incrementales a la API REST. La API REST ahora soporta un encabezado [RFC5988](https://www.rfc-editor.org/rfc/rfc5988) compatible con `Link` en su respuesta como una alternativa al `links.next`en el cuerpo de respuesta. Cualquiera de los enlaces ahora se puede utilizar para la paginación, pero la cabecera `Link` proporciona un enfoque estándar que está soportado por más herramientas. El endpoint `/api/v1/accounts/{id}?timestamp` ahora muestra información de apuesta históricamente precisa en su respuesta para que los usuarios puedan ver sus recompensas pendientes. La marca de tiempo en la respuesta del punto final `/api/v1/tokens/{id}/balances` ahora es más precisa al reflejar la marca de tiempo del balance máximo de los tokens en su respuesta.
 
-The helm chart was verified to be compatible with Kubernetes 1.28 and saw its dependencies all bumped to the latest release. The new rest-java module was converted from WebFlux to servlets with virtual threads. This should increase its scalability once we implement HIP-857 NFT allowance REST API in a future relase. Some internal refactoring of `BatchEntityListener` to `BatchPublisher` will enable future improvements to historical syncing and batch processing.
+El gráfico de casco fue verificado para ser compatible con Kubernetes 1.28 y vio cómo sus dependencias se desplomaban hasta la última versión. El nuevo módulo rest-java se convirtió de WebFlux a servlets con hilos virtuales. Esto debería aumentar su escalabilidad una vez que implementemos HIP-857 NFT allowance REST API en un futuro relase. Alguna refactorización interna de `BatchEntityListener` a `BatchPublisher` permitirá futuras mejoras en sincronización histórica y procesamiento por lotes.
 
-The `/api/v1/contracts/call` endpoint saw a lot of important bug fixes this release. Support for historical blocks should be complete with some remaining bugs ironed out. The supported operations [documentation](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/web3#supportedunsupported-operations) was updated to reflect this increased level of compatibility.
+El endpoint `/api/v1/contracts/call` vio un montón de correcciones importantes de errores esta versión. El soporte para bloques históricos debería completarse con algunos errores pendientes. Las operaciones soportadas [documentation](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/web3#supportedunsupported-operations) fueron actualizadas para reflejar este mayor nivel de compatibilidad.
 
 ## [v0.96.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.96.0)
 
-With a lot of the developers taking some time off for the holiday season, this release is a bit smaller than normal but still contains some important changes. The previewnet and testnet bootstrap address books were updated to reflect the current state of the network. The default volume size for Loki was increased from 100 GB to 250 GB to account for increasing amounts of log activity. The processing of `EthereumTransaction` was made more resilient so that the importer does not halt if encounters a badly encoded transaction. Finally, a memory leak in the REST API should greatly reduce out of memory errors and improve request throughput.
+Con muchos desarrolladores que se toman algo de tiempo libre para la temporada navideña, esta versión es un poco más pequeña de lo normal pero aún contiene algunos cambios importantes. Las libretas de direcciones de arranque de previewnet y testnet se actualizaron para reflejar el estado actual de la red. El tamaño de volumen por defecto para Loki se incrementó de 100 GB a 250 GB para tener en cuenta las crecientes cantidades de actividad de registro. El procesamiento de `EthereumTransaction` se hizo más resistente para que el importador no se detenga si encuentra una transacción mal codificada. Finalmente, una fuga de memoria en la API REST debería reducir considerablemente los errores de memoria y mejorar el rendimiento de las peticiones.
 
-To improve ingest performance of entity tables when used with a distributed SQL database we introduced a new `temporary` database [schema](https://www.postgresql.org/docs/current/ddl-schemas.html). This schema is used to hold the temporary data inserted when processing entities from a record file. Previously this information was added to temporary tables created within the transaction scope, but these temporary tables could not be made distributed in Citus. With the temporary schema, this information can now be distributed appropriately to ensure optimal ingest performance. This change does require manual DDL statements be ran before the next upgrade (see next section).
+Para mejorar el rendimiento de las tablas de entidades cuando se utilizan con una base de datos SQL distribuida, introdujimos una nueva base de datos `temporary` [schema](https://www.postgresql.org/docs/current/ddl-schemas.html). Este esquema se utiliza para mantener los datos temporales insertados al procesar entidades de un archivo de registro. Anteriormente, esta información fue añadida a tablas temporales creadas dentro del ámbito de la transacción, pero estas tablas temporales no pudieron ser distribuidas en Citus. Con el esquema temporal, esta información se puede distribuir ahora de forma adecuada para asegurar un rendimiento óptimo de ingesta óptima. Este cambio requiere que las sentencias DDL manuales se ejecuten antes de la próxima actualización (vea la siguiente sección).
 
-### Breaking Changes
+### Rompiendo Cambios
 
-As previously mentioned, a new database schema was introduced to handle the processing of upsertable entities. This change\
-doesn't require any manual steps for new operators that use one of our initialization scripts or helm charts to\
-configure the database. However, existing operators upgrading to 0.96.0 or later are required to create the schema by\
-configuring and executing a [script](https://github.com/hashgraph/hedera-mirror-node/blob/v0.96.0/hedera-mirror-importer/src/main/resources/db/scripts/init-temp-schema.sh) _**before**_ the upgrade.
+Como ya se ha mencionado, se introdujo un nuevo esquema de base de datos para manejar el procesamiento de entidades actualizables. Este cambio\
+no requiere ningún paso manual para los nuevos operadores que utilizan uno de nuestros scripts de inicialización o cartas de helm a\
+configurar la base de datos. Sin embargo, los operadores existentes que actualicen a 0.96.0 o posterior son necesarios para crear el esquema por\
+configurando y ejecutando un [script](https://github.com/hashgraph/hedera-mirror-node/blob/v0.96.0/hedera-mirror-importer/src/main/resources/db/scripts/init-temp-schema.sh) _**antes**_ de la actualización.
 
 ```
 PGHOST=127.0.0.1 ./init-temp-schema.sh
 ```
 
-Another breaking change concerns operators using our `hedera-mirror-common` chart. The aforementioned Loki volume size increase was made to the embedded `PersistentVolumeClaim` on the Loki `StatefulSet`. Kubernetes does not allow changes to this immutable field so to workaround the `StatefulSet` will need to be manually deleted for the upgrade of the common chart.
+Otro cambio de ruptura se refiere a los operadores que utilizan nuestro gráfico `hedera-mirror-common`. El mayor aumento del tamaño del volumen de Loki fue realizado en el `PersistentVolumeClaim` embebido en el `StatefulSet` de Loki. Kubernetes no permite cambios en este campo inmutable por lo que para solucionar el `StatefulSet` tendrá que ser eliminado manualmente para la actualización del gráfico común.
 
 ## [v0.95.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.95.0)
 
-This release saw the Java components upgraded to use [Java 21](https://www.oracle.com/news/announcement/ocw-oracle-releases-java-21-2023-09-19/). In a future release, we will explore the new language features in 21 like virtual threads to unlock additional scalability. Some technical debt items were tackled including removing redundant test configuration by creating a common test hierarchy. Explicit `@Autowired` annotations on test constructors were removed, reducing boilerplate. Finally, various classes were renamed to align to our naming standards including the removal of the `Mirror` prefix from classes that were not used across modules.
+Esta versión vio los componentes de Java actualizados para usar [Java 21](https://www.oracle.com/news/announcement/ocw-oracle-releases-java-21-2023-09-19/). En una versión futura, exploraremos las nuevas características de lenguaje en 21 como hilos virtuales para desbloquear escalabilidad adicional. Se abordaron algunas partidas de deuda técnica, incluida la eliminación de la configuración de pruebas redundantes mediante la creación de una jerarquía común de pruebas. Se eliminaron explícitas anotaciones `@Autowired` en constructores de pruebas, reduciendo la boilerplate. Por último, varias clases fueron renombradas para alinearse con nuestros estándares de nombramiento, incluyendo la eliminación del prefijo `Mirror` de clases que no se usaron a través de módulos.
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) EVM archive node for historical blocks saw some major additions including initial support for historical blocks. EVM Configuration is now loaded based upon block number instead of always utilizing the latest EVM. This ensures that `/api/v1/contracts/call` simulates the execution as it would've been on consensus nodes at that point in time. Database queries were adapted to work with timestamp filters to allow for returning historical block information.
+[HIP-584](https://hips.hedera.com/hip/hip-584) nodo de archivo EVM para bloques históricos vio algunas adiciones importantes, incluyendo soporte inicial para bloques históricos. La configuración EVM ahora se carga basándose en el número de bloque en lugar de utilizar siempre la última EVM. Esto asegura que `/api/v1/contracts/call` simula la ejecución ya que habría estado en los nodos de consenso en ese momento en el tiempo. Las consultas de base de datos fueron adaptadas para trabajar con filtros de marcas de tiempo para permitir la devolución de información histórica de bloques.
 
-Our distributed database effort saw some notable improvements including upgrading the version of Citus to 12.1. PostgreSQL 16 support was tested confirming compatibility with both regular PostgreSQL and Citus. Both `/api/v1/topics/{id}/messages/{sequenceNumber}` and `/api/v1/topics/{id}/messages` saw optimizations implemented when used with Citus.
+Nuestro esfuerzo distribuido de bases de datos ha visto algunas mejoras notables incluyendo la actualización de la versión de Citus a 12.1. El soporte de PostgreSQL 16 fue probado confirmando compatibilidad tanto con PostgreSQL como con Citus. Tanto `/api/v1/topics/{id}/messages/{sequenceNumber}` como `/api/v1/topics/{id}/messages` vieron optimizaciones implementadas cuando se usaban con Citus.
 
-### Upgrading
+### Actualizando
 
-If you're compiling locally, ensure you have upgraded to Java 21 in your terminal and IDE. For MacOS, we recommend using [SDKMAN!](https://sdkman.io/) to manage Java versions so that upgrading is as simple as `sdk install java 21-tem`. If you're using a custom `Dockerfile` ensure it is also updated to Java 21. We recommend [Eclipse Temurin](https://hub.docker.com/\_/eclipse-temurin) as the base image for our Java components.
+Si está compilando localmente, asegúrese de que ha actualizado a Java 21 en su terminal e IDE. Para MacOS, recomendamos usar [SDKMAN!](https://sdkman.io/) para gestionar las versiones de Java de manera que la actualización sea tan simple como `sdk install java 21-tem`. Si estás usando un archivo personalizado `Dockerfile` asegúrate de que también se actualiza a Java 21. Recomendamos [Eclipse Temurin](https://hub.docker.com/\_/eclipse-temurin) como la imagen base para nuestros componentes Java.
 
 ## [v0.94.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.94.1)
 
-Provides an important fix to pending reward calculation that regressed due to the balance deduplication work. The database migration for this will take approximately 17 minutes on mainnet.
+Proporciona una solución importante a los cálculos de recompensa pendientes que regresaron debido al trabajo de deduplicación del saldo. La migración de la base de datos para esto tomará aproximadamente 17 minutos en mainnet.
 
 ## [v0.94.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.94.0)
 
-This release is mainly a bug fix release along with some minor technical debt items. A new Helm chart for the new REST Java module was added in anticipation of future work to support new APIs in Java only instead of the current JavaScript based approach. Support for Elasticsearch metrics export was removed in favor of relying solely upon Prometheus. The `/api/v1/contracts/call` API some some notable bug fixes and performance improvements. Finally, some technical debt was tackled by refactoring `SqlEntityListener` to use a new `ParserContext` which should reduce its maintenance burden.
+Esta versión es principalmente una versión de corrección de errores junto con algunos elementos de deuda técnica menores. Un nuevo gráfico de Helm para el nuevo módulo de Java REST fue añadido en la anticipación de trabajo futuro para soportar nuevas APIs en Java sólo en lugar del enfoque basado en JavaScript actual. Se eliminó el apoyo a la exportación de métricas de Elasticsearch en favor de confiar exclusivamente en Prometeo. La API `/api/v1/contracts/call` algunas correcciones de errores notables y mejoras de rendimiento. Por último, se abordó cierta deuda técnica refactorizando `SqlEntityListener` para utilizar un nuevo `ParserContext` que debería reducir su carga de mantenimiento.
 
 ## [v0.93.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.93.0)
 
-This release deduplicates balance history resulting in a major reduction in database size with no loss in balance granularity. The mainnet database saw a 45% reduction going from 50 TB to 28TB! This deduplication process works by not updating balance history if the account did not experience a balance change since the last snapshot. A migration to deduplicate historical balances runs asynchronously in the background and against mainnet state took about 24 hours to complete. Because the index was changed to reverse the order from `(timestamp, account_id)` to `(account_id, timestamp)`, this required a large effort to rework queries in multiple REST APIs. Also, the balance tables are now partitioned and this meant changes in our database metrics to properly aggregate child tables on their parent name.
+Este lanzamiento deduplica el historial del balance resultando en una reducción importante en el tamaño de la base de datos sin pérdida de granularidad del balance. La base de datos de red principal ha experimentado una reducción del 45% pasando de 50 TB a 28TB! Este proceso de deduplicación funciona al no actualizar el historial de saldo si la cuenta no experimentó un cambio de balance desde la última instantánea. Una migración a los balances históricos deduplicados corre de forma asíncrona en segundo plano y contra el estado mainnet tardó unas 24 horas en completarse. Debido a que el índice fue cambiado para revertir el pedido de `(timestamp, account_id)` a `(account_id, timestamp)`, esto requería un gran esfuerzo para reelaborar consultas en múltiples APIs REST. Además, las tablas de balance ahora están particionadas y esto significó cambios en las métricas de nuestra base de datos para agregar adecuadamente tablas hijas en su nombre padre.
 
-HIP-584 continues to chug along with multiple bug fixes and optimizations. Changing per request objects to be singletons resulted in a large decrease in memory and CPU usage, allowing more concurrent requests to be handled. Web3 k6 tests were hooked into our automated performance testing to ensure they run every release to ensure no regressions. Finally, support for historical blocks made progress with more of the plumbing put in place to process non-latest blocks.
+HIP-584 continúa conectándose junto con múltiples correcciones de errores y optimizaciones. El cambio por petición de objetos a ser singletons resultó en una gran disminución del uso de memoria y CPU, permitiendo que se gestionaran más peticiones simultáneas. Las pruebas Web3 k6 fueron enganchadas en nuestras pruebas de rendimiento automatizadas para asegurarse de que ejecutan cada versión para asegurar que no haya regresiones. Por último, el apoyo a los bloques históricos avanzó con más del desplome puesto en marcha para procesar bloques no más recientes.
 
-A new cluster database health check was added to the monitor to provide proper failover in multi-cluster deployments. The local file stream provider now allows for input files to be grouped by date for faster processing when the directory contains millions of files. This is a step towards a faster historical syncing mode. Finally, REST API queries were optimized for Citus deployments so that they could reach parity with PostgreSQL.
+Se añadió un nuevo chequeo de estado de base de datos de cluster al monitor para proporcionar una correcta tolerancia contra fallos en las implementaciones multicluster. El proveedor local de flujo de archivos ahora permite que los archivos de entrada se agrupen por fecha para un procesamiento más rápido cuando el directorio contiene millones de archivos. Este es un paso hacia un modo de sincronización histórica más rápido. Finalmente, las consultas de la API REST fueron optimizadas para las implementaciones de Citus para que pudieran alcanzar la paridad con PostgreSQL.
 
 ## [v0.92.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.92.0)
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) Mirror EVM Archive node saw further refinements in this release. Memory usage was optimized by making most classes stateless and leveraging `ThreadLocal` where appropriate. Work continues on making `/api/v1/contracts/call` support historical blocks with lower level support for historical contract state, account, and contract information added. Additional test coverage for estimate gas was introduced to compare gas estimation is close to the actual gas used via HAPI. Finally, an issue with the `blockhash` operation returning `0x0` was resolved.
+[HIP-584](https://hips.hedera.com/hip/hip-584) El nodo de archivo de Mirror EVM vio más refinamientos en esta versión. El uso de la memoria se optimizó haciendo que la mayoría de las clases no tuvieran estado y aprovecharan `ThreadLocal` cuando fuera apropiado. El trabajo continúa haciendo que `/api/v1/contracts/call` soporte bloques históricos con soporte de nivel más bajo para información histórica de contratos, cuentas y contratos añadida. Se introdujo una cobertura adicional de prueba para la estimación del gas para comparar la estimación del gas es cercana al gas utilizado a través de HAPI. Finalmente, se resolvió un problema con la operación `blockhash` devolviendo `0x0`.
 
-We added an option to deduplicate account and token balance data for Citus that can dramatically reduce the size of the balance tables. Balance tables currently consume 50% of the database. In the next release, we will bring this capability to regular PostgreSQL to realize those cost savings there as well. We now no longer update the token history for supply change operations like mint, burn, or wipe thus reducing the amount of data in this table.
+Hemos añadido una opción para deduplicar datos de cuenta y saldo de fichas para Citus que pueden reducir drásticamente el tamaño de las tablas de balance. Las tablas de saldos consumen actualmente el 50% de la base de datos. En la próxima versión, traeremos esta capacidad a PostgreSQL regular para realizar esos ahorros de costos allí también. Ahora ya no actualizamos el historial de tokens para operaciones de cambio de suministro como mint, quemar, o limpiar así reducir la cantidad de datos en esta tabla.
 
 ## [v0.91.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.91.0)
 
-This release adds support for ad-hoc transaction filters using the [Spring Expression Language](https://docs.spring.io/spring-framework/reference/core/expressions.html) (SpEL). SpEL filters can be used for both including or excluding transactions from being persisted to the database. Previous filtering [capability](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#transaction-and-entity-filtering) allowed mirror node operators to include or exclude certain entity IDs or transaction types, but if they needed something more custom they were out of luck. SpEL itself is pretty powerful and allows access to any bean or class on the classpath, so to reduce the attack surface we limit it to only allow filtering on the [TransactionBody](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_body.proto) and the [TransactionRecord](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_record.proto) contained within the record file. See the [docs](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#spring-expression-language-support) for additional details and examples. Below is an example that only includes transactions with certain memos:
+Esta versión añade soporte para filtros de transacción ad-hoc usando el [Lenguaje de Expresión de Primavera](https://docs.spring.io/spring-framework/reference/core/expressions.html) (SpEL). Los filtros SpEL pueden utilizarse para incluir o excluir transacciones que persistan en la base de datos. Filtrado anterior [capability](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration. d#Transaction-and-entity-filtering) permitió a los operadores de nodo espejo incluir o excluir ciertos IDs de entidad o tipos de transacciones, pero si necesitaban algo más costumbre que no tuvieran suerte. SpEL en sí es bastante potente y permite el acceso a cualquier tipo de clase en el camino de clase, así que para reducir la superficie de ataque la limitamos para permitir únicamente el filtrado en la [TransactionBody](https://github. om/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_body.proto) y la [TransactionRecord](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_record.proto) contenida en el archivo de registro. Vea la [docs](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#spring-expression-language-support) para más detalles y ejemplos. A continuación hay un ejemplo que sólo incluye transacciones con ciertos memos:
 
 ```
 hedera.mirror.importer.parser.include[0].expression=transactionBody.memo.contains("hedera")
 ```
 
-Monitoring saw improvements this release with newly added metrics for the size of table and indexes on disk to help track the growing size of the database. Likewise, new cache metrics were implemented to monitor the cache hit rate and size. Dashboards were updated to visualize these new metrics.
+El monitoreo vio mejoras en este lanzamiento con métricas nuevas añadidas para el tamaño de tabla e índices en el disco para ayudar a rastrear el tamaño creciente de la base de datos. De la misma manera, se implementaron nuevas métricas de caché para monitorear la velocidad y el tamaño de la caché. Se actualizaron los paneles de control para visualizar estas nuevas métricas.
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) EVM archive node saw support for `block.prevrandao` implemented. Also, support for `pending`, `safe`, and `finalized` block types were added with all three being equivalent to `latest` since Hedera's blocks are always final. Work has started on historical support for `/api/v1/contracts/call` so that specific blocks in the past can be queried. This release saw the lower level queries for token balance implemented.
+[HIP-584](https://hips.hedera.com/hip/hip-584) El nodo de archivo de EVM vio soporte para `block.prevrandao` implementado. También, el soporte para los tipos de bloques `pending`, `safe` y `finalized` fueron añadidos, siendo los tres equivalentes a `latest` ya que los bloques de Hedera siempre son finales. El trabajo ha comenzado en soporte histórico para `/api/v1/contracts/call` para que bloques específicos en el pasado puedan ser consultados. Esta versión vio implementadas las consultas de nivel inferior para el balance de token.
 
-[HIP-794](https://hips.hedera.com/hip/hip-794) Sunset account balance saw a couple of remaining items completed. The balance timestamp that was added in v0.89.0 was put to use to provide more accurate timestamps for the accounts and balances REST API. Finally, the reconciliation job was disabled since it doesn't make sense to reconcile from balance data that mirror node generates itself.
+[HIP-794](https://hips.hedera.com/hip/hip-794) El saldo de la cuenta de Sunset vio un par de objetos restantes completados. La marca de tiempo del balance que se añadió en v0.89.0 se usó para proporcionar marcas de tiempo más precisas para las cuentas y los balances REST API. Finalmente, el trabajo de conciliación fue deshabilitado ya que no tiene sentido conciliar los datos del balance que se genera en el nodo espejo.
 
 ## [v0.90.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.90.0)
 
-This release was mainly focused on testing and bug fixes. Acceptance tests saw a number of improvements including a reduction in overall costs by caching contract creation used in multiple tests. Acceptance tests were added to verify support for HIP-786 staking properties in network stake REST API. An issue with exchange rates varying in different environments was solved by querying the exchange rate REST API and using that to calculate fees to HAPI. The importer had an option added to fail on recoverable errors to find record stream issues earlier in the lifecycle.
+Esta versión se centró principalmente en pruebas y correcciones de errores. Las pruebas de aceptación vieron una serie de mejoras, incluida una reducción de los costes totales mediante la creación de contratos en caché utilizados en múltiples pruebas. Se añadieron pruebas de aceptación para verificar el soporte de propiedades de apuesta-786 HIP-786 en REST API de interés de red. Un problema con los tipos de cambio que varían en diferentes entornos se resolvió consultando el tipo de cambio REST API y utilizando eso para calcular las comisiones a HAPI. El importador tenía una opción añadida para fallar en errores recuperables para encontrar problemas de flujo de registros antes del ciclo de vida.
 
 ## [v0.89.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.89.0)
 
-[HIP-786](https://hips.hedera.com/hip/hip-786) adds support for enriched staking metadata exports to the record stream for use by downstream systems. The mirror node now ingests the new `max_stake_rewarded`, `max_total_reward`, `reserved_staking_rewards`, `reward_balance_threshold`, and `unreserved_staking_reward_balance` fields and persists them to the database. The REST API has been updated to expose this data via `/api/v1/network/stake`.
+[HIP-786](https://hips.hedera.com/hip/hip-786) añade soporte para las exportaciones de metadatos de staking enriched al flujo de registros para su uso por sistemas downstream. El nodo espejo ahora ingiere los nuevos campos `max_stake_rewarded`, `max_total_reward`, `reserved_staking_rewards`, `reward_balance_delayhold`, y `unreserved_staking_reward_balance` y los persiste en la base de datos. La API REST ha sido actualizada para exponer estos datos a través de `/api/v1/network/stake`.
 
-[HIP-794](https://hips.hedera.com/hip/hip-794) Sunsetting Balance File saw further refinements in this release. The mirror node now captures the consensus timestamp at which the balance was updated for both accounts and token relationship. This information will be used in the future to provide more accurate balance timestamps in the API and to deduplicate the balance information. Entity balance tracking and migration was enabled in the Rosetta API. Finally, we now track the balance of all entity types and not just accounts and contracts.
+[HIP-794](https://hips.hedera.com/hip/hip-794) El archivo de equilibrio solitario vio más refinamientos en esta versión. El nodo espejo ahora captura la marca de tiempo de consenso en la que se actualizó el saldo tanto para las cuentas como para la relación de token. Esta información se utilizará en el futuro para proporcionar una marca de tiempo de balance más precisa en la API y para deduplicar la información del balance. El seguimiento y migración del balance de entidades fue habilitado en la API de Rosetta. Por último, ahora seguimos el balance de todos los tipos de entidades y no sólo de cuentas y contratos.
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) Mirror EVM Archive node continues to improve with the addition of support for the PRNG system contract. Missing Besu internal precompiles for the Istanbul release are now properly registered. A lot of new tests were added in the form of integration, acceptance, and performance tests.
+[HIP-584](https://hips.hedera.com/hip/hip-584) El nodo Mirror EVM Archive sigue mejorando con la adición de soporte para el contrato del sistema PRNG. Faltan precompilaciones internas de Besu para la versión de Estambul están registradas correctamente. Se añadieron muchas pruebas nuevas en forma de pruebas de integración, aceptación y rendimiento.
 
-There were a number of technical debt items addressed in this release. The importer component saw noticeable improvements in CPU and memory usage at 10,000 transactions per second. It now uses about 50% less memory and 33% less CPU. The Log4j2 logging framework was replaced with Logback to provide a path to compiling to native code and to simplify configuration. The `EntityId` saw its final improvement with the addition of a cache to reduce allocating temporary immutable objects. Tests were standardized to use the simpler and logging framework agnostic `OutputCaptureExtension`. Finally, we researched approaches to parallel transaction insertion and saw a path forward for additional ingest scalability.
+En esta versión se abordaron varias partidas de deuda técnica. El componente importador vio notables mejoras en el uso de CPU y memoria en 10.000 transacciones por segundo. Ahora usa un 50% menos de memoria y un 33% menos de CPU. El framework de registro Log4j2 fue reemplazado por Logback para proporcionar una ruta de compilación a código nativo y para simplificar la configuración. El `EntityId` vio su mejora final con la adición de un caché para reducir la asignación de objetos temporales inmutables. Las pruebas fueron estandarizadas para utilizar el marco de registro y más sencillo de la agnostica `OutputCaptureExtension`. Finalmente, investigamos los enfoques de la inserción de transacciones paralelas y vimos un camino hacia adelante para una escalabilidad adicional más ingeniosa.
 
 ## [v0.88.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.88.0)
 
-This release contains support for [HIP-794](https://hips.hedera.com/hip/hip-794) Sunsetting Account Balance File. Consensus nodes will soon stop generating account balance files every 15 minutes due to the growing number of accounts making this operation unsustainable. To fill in the gaps, mirror nodes will now generate balance snapshot information from the record stream. This change will be transparent to end users and operators alike since the same data will be returned by the various APIs. For now, we're generating synthetic `account_balance_file` rows (not files) until we can remove the reliance on this table everywhere. In this release, we updated the accounts by ID, balance, and network supply REST APIs to not depend upon this table. Entity stake calculation and a fungible token migration were updated similarly. The next release will see further work in this area.
+Esta versión contiene soporte para [HIP-794](https://hips.hedera.com/hip/hip-794) Sunsetting Account Balance File. Los nodos de consenso pronto dejarán de generar archivos de balance de cuentas cada 15 minutos debido al creciente número de cuentas que hacen que esta operación sea insostenible. Para rellenar los huecos, los nodos espejo generarán ahora información de instantánea del balance del flujo de registro. Este cambio será transparente tanto para los usuarios finales como para los operadores, ya que los mismos datos serán devueltos por las distintas APIs. Por ahora, estamos generando registros sintéticos `account_balance_file` (no archivos) hasta que podamos eliminar la dependencia de esta tabla en todas partes. En esta versión, actualizamos las cuentas por ID, balance y las API REST de suministro de red para no depender de esta tabla. El cálculo de la participación de entidades y una migración fungible de tokens se actualizaron de forma similar. La próxima versión verá más trabajo en esta área.
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) saw the exchange rate precompiles `tinycentsToTinybars` and `tinybarsToTinycents` implemented. Also added was support for the HTS `redirectForToken` precompile. But the main focus was on testing and bug fixes with a large number of them squashed in this release.
+[HIP-584](https://hips.hedera.com/hip/hip-584) vio implementados los precompiles de tipo de cambio `tinycentsToTinybars` y `tinybarsToTinycents`. También se añadió soporte para la precompilación HTS `redirectForToken`. Pero el foco principal estaba en testing y correcciones de errores con un gran número de ellos aplastados en esta versión.
 
-There was good amount of technical debt addressed in `0.88`. For starters, we have a new `hedera-mirror-rest-java` module that is intended to contain new or existing REST APIs converted from JavaScript. By creating any new REST APIs in Java and slowly converting existing APIs to Java we can improve the quality of this area of the codebase and promoting code reuse with the other modules. A community member helped us to remove the deprecated Spring Cloud Kubernetes property `spring.cloud.kubernetes.enabled` since it was no longer used anyway. We also took the time to remove unused Flyway placeholders properties and eliminate code redundancy in web3 acceptance tests. Finally, we removed the `type` field from the widely used `EntityId` in the codebase and eliminated the unnecessary `AssessedCustomFeeWrapper`.
+Había una buena cantidad de deuda técnica abordada en `0.88`. Para empezar, tenemos un nuevo módulo `hedera-mirror-rest-java` que pretende contener APIs REST nuevas o existentes convertidas desde JavaScript. Al crear nuevas APIs REST en Java y convertir lentamente las APIs existentes a Java podemos mejorar la calidad de esta área de la base de código y promover la reutilización de código con los otros módulos. Un miembro de la comunidad nos ayudó a eliminar la obsoleta propiedad de Spring Cloud Kubernetes `spring.cloud.kubernetes.enabled` ya que ya no se usó de todos modos. También nos tomamos el tiempo para eliminar las propiedades no utilizadas de los marcadores de posición de Flyway y eliminar la redundancia de código en las pruebas de aceptación de web3. Finalmente, eliminamos el campo `type` del ampliamente utilizado `EntityId` en el código base y eliminamos el innecesario `AssessedCustomFeeWrapper`.
 
 ## [v0.87](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.87.0)
 
-This release wraps up the initiative to ensure we capture all changes to Hedera entities. One of the oldest tickets in the repository going back to 2019 was completed, finally persisting the [FreezeTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/freeze.proto) details to the database. There's a new option to store the raw [TransactionRecord](https://github.com/hashgraph/hedera-protobufs/blob/main/services/transaction\_record.proto) protobuf bytes that is set to off by default. The custom fee table was split into separate main and history tables for consistency with other data and improved querying efficiency.
+Este lanzamiento pone fin a la iniciativa para asegurar que capturamos todos los cambios en las entidades de Hedera. Uno de los tickets más antiguos en el repositorio que se remonta a 2019 fue completado, finalmente persistiendo en la [FreezeTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/freeze.proto) detalles en la base de datos. Hay una nueva opción para almacenar los bytes de protobuf de [TransactionRecord](https://github.com/hashgraph/hedera-protobufs/blob/main/services/transaction\_record.proto) que está deshabilitado por defecto. La tabla de tarifas personalizadas se dividió en tablas principales e históricas separadas para asegurar la consistencia con otros datos y mejorar la eficiencia de las consultas.
 
-An asynchronous database migration was added to efficiently update every account's crypto allowance amount after support for live allowance tracking was implemented in the last release. Furthermore, new crypto and fungible acceptance tests verify the live allowance tracking works correctly. Finally, we now rerun conditional migrations that would historically run only on initial startup. For migrations like balance initialization this means we automatically correct account and token relationship balances after ingesting the first balance file. For other migrations, it means they are triggered automatically based upon a specific record file version being ingested.
+Se añadió una migración asíncrona de base de datos para actualizar eficientemente la cantidad de permisos de criptografía de cada cuenta después de que se implementara el soporte para seguimiento de permisos en vivo en la última versión. Además, las nuevas pruebas de aceptación criptográfica y fungible verifican que el seguimiento de permisos en vivo funciona correctamente. Por último, ahora volvemos a ejecutar migraciones condicionales que históricamente sólo se ejecutarían al inicio inicial. Para migraciones como la inicialización del balance esto significa que automáticamente corregimos los balances de cuenta y relación de token después de ingerir el primer archivo de saldo. Para otras migraciones, significa que se activan automáticamente basándose en una versión específica del archivo de registro que se está ingiriendo.
 
-The REST API had a couple of noticeable changes. We now show only active allowances in the `/api/v1/accounts/{id}/allowances/crypto` and `/api/v1/accounts/{id}/allowances/tokens` REST APIs, providing consistency with how consensus nodes return this data. The `/api/v1/network/stake` API saw a change in how its stake value is calculated by changing it to stake rewarded plus not rewarded.
+La API REST tuvo un par de cambios notables. Ahora solo mostramos permisos activos en las API REST `/api/v1/accounts/{id}/allowances/crypto` y `/api/v1/accounts/{id}/allowances/tokens` proporcionar consistencia con cómo los nodos de consenso devuelven estos datos. La API `/api/v1/network/stake` vio un cambio en la forma en que su valor de juego se calcula cambiándolo a staked premiated plus not rewarded.
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) EVM Archive Node saw a number of `HederaTokenService` precompiles implemented including `allowance`, `getApproved`, `isApprovedForAll` `updateTokenExpiryInfo`, `updateTokenInfo`, and `updateTokenKeys`. A large focus on testing resulted in increased integration and acceptance test coverage. The extra coverage resulted in a number of bugs being found and squashed, improving the reliability of `/api/v1/contracts/call`.
+[HIP-584](https://hips.hedera.com/hip/hip-584) El nodo de archivo EVM vio un número de precompilaciones implementadas de `HederaTokenService`, `getApproved`, `isApprovedForAll` `updateTokenExpiryInfo`, `updateTokenInfo`, y `updateTokenKeys`. Un gran foco en las pruebas dio como resultado una mayor cobertura de integración y aceptación de pruebas. La cobertura extra resultó en un número de errores encontrados y aplastados, mejorando la fiabilidad de `/api/v1/contracts/call`.
 
-A lot of work went into the operations side of things as well. A good number of metrics and Grafana dashboards saw cleanup and improvements to aid in production monitoring. All chart dependencies saw version bumps and configuration adjustments to bring them up to date. Kubernetes 1.27 compatibility was confirmed as a deployment target while still ensuring backwards compatibility with prior Kubernetes versions. Compressed ZFS volume support now handles Kubernetes upgrades properly. Our Citus deployment saw an upgrade to Citus 12 with PostgreSQL 15. This release brings in the improvements we contributed upstream to Citus' `create_time_partitions` stored procedure so that it can support the `bigint` type that we use to store consensus timestamps. This allowed us to remove the `pg_partman` extension in favor of the native `create_time_partitions`. The `pg_cron` extension was also removed in favor of a Java-based scheduled service running on the importer.
+También se ha trabajado mucho en la parte operativa de las cosas. Un buen número de métricas y tableros de Grafana vieron limpiar y mejorar la ayuda a la supervisión de la producción. Todas las dependencias de gráficos vieron bumps de versiones y ajustes de configuración para actualizarlos. La compatibilidad de Kubernetes 1.27 fue confirmada como un objetivo de despliegue al tiempo que garantizaba la compatibilidad con versiones anteriores de Kubernetes. El soporte de volumen ZFS comprimido ahora gestiona las actualizaciones de Kubernetes correctamente. Nuestro despliegue de Citus vio una actualización a Citus 12 con PostgreSQL 15. Esta versión trae las mejoras que hemos aportado al procedimiento almacenado `create_time_partitions` de Citus para que pueda soportar el tipo `bigint` que usamos para almacenar marcas de tiempo de consenso. Esto nos permitió eliminar la extensión `pg_partman` a favor de la nativa `create_time_partitions`. La extensión `pg_cron` también fue eliminada a favor de un servicio programado basado en Java corriendo en el importador.
 
 ## [v0.86](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.86.0)
 
-There was a ton of progress towards our goal capturing all [entity changes](https://github.com/hashgraph/hedera-mirror-node/issues/6110). This release adds the highly requested feature of tracking the remaining hbar and fungible token allowances and showing it via the `amount` field on the REST API. Importantly, this tracking only applies to new or updated allowances. Existing allowances will see their remaining allowance adjusted appropriately in the next release.
+Hubo un montón de progreso hacia nuestro objetivo capturando todos [cambios de entidades](https://github.com/hashgraph/hedera-mirror-node/issues/6110). Esta versión añade la característica muy solicitada de rastrear los permisos de hbar y token fungible restantes y mostrarlo a través del campo `amount` en la API REST. Es importante que este seguimiento sólo se aplique a los permisos nuevos o actualizados. Las asignaciones existentes verán su asignación restante ajustada apropiadamente en la próxima liberación.
 
-Traditionally, the mirror node has only stored the aggregated transfers from the transaction record. Now in addition we store the itemized transfers from the transaction body by default and embed it within the `transaction` table. For partial mirror nodes, we now create entities during balance initialization. This means even if a mirror node starts up now this migration can be rerun to create every account and contract with accurate balance information. In the next release, we'll extend this to automatically rerun this migration when processing the first account balance file.
+Tradicionalmente, el nodo espejo sólo ha almacenado las transferencias agregadas desde el registro de transacciones. Ahora además almacenamos las transferencias detalladas desde el cuerpo de la transacción por defecto y la incorporamos en la tabla `transaction`. Para los nodos espejos parciales, ahora creamos entidades durante la inicialización del balance. Esto significa que incluso si un nodo espejo comienza ahora esta migración puede ser reejecutada para crear cada cuenta y contrato con información exacta del saldo. En la próxima versión, extenderemos esto para volver a ejecutar automáticamente esta migración al procesar el primer archivo de saldo de la cuenta.
 
-Finally, we added an `entity_transaction` join table to start tracking all entities associated with a transaction. This will enable us provide a better transaction search experience and find all transactions associated with an entity. This functionality is disabled in this release as we iterate on it to make it performant.
+Por último, hemos añadido una tabla de unión de `entity_transaction` para empezar a rastrear todas las entidades asociadas con una transacción. Esto nos permitirá proporcionar una mejor experiencia de búsqueda de transacciones y encontrar todas las transacciones asociadas con una entidad. Esta funcionalidad está deshabilitada en esta versión, ya que iteramos sobre ella para hacerlo performante.
 
-Support for Ethereum transaction type 1 as specified in [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930) is now available. Previously only legacy and type 2 Ethereum transactions were supported. The new EIP-2930 transactions can be sent either directly to HAPI via an [EthereumTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/ethereum\_transaction.proto) or via the [JSON-RPC Relay](https://swirldslabs.com/hashio/).
+Soporte para la transacción Ethereum tipo 1 como se especifica en [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930) ya está disponible. Anteriormente sólo se admitían transacciones de Ethereum heredadas y tipo 2. Las nuevas transacciones EIP-2930 se pueden enviar directamente a HAPI a través de un [EthereumTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/ethereum\_transaction.proto) o a través del [JSON-RPC Relay](https://swirldslabs.com/hashio/).
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) EVM Archive node saw a large number of precompiles implemented. This includes all of the following:
+[HIP-584](https://hips.hedera.com/hip/hip-584) El nodo de archivo EVM vio implementado un gran número de precompilaciones. Esto incluye todo lo siguiente:
 
-- `approve`
-- `approveNFT`
-- `associateToken`
-- `associateTokens`
+- `aprobar`
+- `AprobarNFT`
+- `asociarToken`
+- `asociarTokens`
 - `burnToken`
 - `createFungibleToken`
 - `createFungibleTokenWithCustomFees`
@@ -222,8 +222,8 @@ Support for Ethereum transaction type 1 as specified in [EIP-2930](https://eips.
 - `freezeToken`
 - `pauseToken`
 - `setApprovalForAll`
-- `transferFrom`
-- `transferFromNFT`
+- `transferDesde`
+- `transferFDeNFT`
 - `transferNFT`
 - `transferNFTs`
 - `transferToken`
@@ -233,284 +233,284 @@ Support for Ethereum transaction type 1 as specified in [EIP-2930](https://eips.
 
 ## [v0.85](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.85.0)
 
-With the recent [testnet reset](https://docs.hedera.com/hedera/networks/testnet#test-network-resets) that occurred on 2023-07-27, a new cloud storage bucket was created to store the stream files generated by the consensus nodes. This release will now use that updated bucket name by default when the network is set to testnet.
+Con el reciente [reseteo de testnet](https://docs.hedera. om/hedera/networks/testnet#test-network-resets) que ocurrió en 2023-07-27, se creó un nuevo cubo de almacenamiento en la nube para almacenar los archivos generados por los nodos de consenso. Esta versión ahora usará ese nombre del cubo actualizado por defecto cuando la red esté configurada para testnet.
 
-There were a few optimizations done specifically for the JSON-RPC Relay in this release that other users might also find useful. The `/api/v1/accounts/idOrAddress` REST API now supports an optional `transactions` query parameter that when set to `false` will omit the list of nested transactions. It defaults to `true` to match the previous behavior. If you're not using the transactions from this API please consider setting it to `false` to reduce the amount of data returned and provide an improved response time for your queries. Additionally, the `/api/v1/contracts/results` REST API was updated to include more fields to match the detailed results returned from `/api/v1/contracts/results/{id}`.
+Hubo algunas optimizaciones hechas específicamente para el Relé JSON-RPC en esta versión que otros usuarios también podrían encontrar útil. La API REST `/api/v1/accounts/idOrAddress` ahora soporta un parámetro opcional de consulta `transactions` que cuando se establece en `false` omitirá la lista de transacciones anidadas. Por defecto es `true` para que coincida con el comportamiento anterior. Si no estás usando las transacciones de esta API, por favor considera configurarlo a `false` para reducir la cantidad de datos devueltos y proporcionar un mejor tiempo de respuesta para tus consultas. Adicionalmente, la API REST `/api/v1/contracts/results` fue actualizada para incluir más campos que coincidan con los resultados detallados devueltos de `/api/v1/contracts/results/{id}`.
 
-[HIP-584](https://hips.hedera.com/HIP/hip-584.html) EVM Archive Node is adding functionality at a steady pace. This release adds support for the Ethereum Shanghai EVM version that adds a new `PUSH0` opcode. Estimate gas calls that were failing for contract creates over 6 KB were fixed. Much of the focus was on implementing various precompiles including: approve allowance, burn, create, delete allowance, dissociate, grant KYC, revoke KYC, and wipe.
+[HIP-584](https://hips.hedera.com/HIP/hip-584.html) El nodo de archivo EVM está agregando funcionalidad a un ritmo estable. Esta versión añade soporte para la versión Ethereum eVM de Ethereum que añade un nuevo opcode `PUSH0`. Las llamadas estimadas de gas que estaban fallando en el contrato crearon más de 6 KB. Gran parte de la atención se centró en la implementación de varios precompilaciones incluyendo: autorización de permisos, quemar, crear, eliminar permisos, disociar, conceder KYC, revocar KYC y limpiar.
 
-Making progress on capturing all state changes, we now keep a history of an account's daily entity stake. In the future, this information will be used to provide an accurate staked amount when looking up an account's historical information using `/api/v1/accounts/{id}?timestamp=`.
+Haciendo progresos en la captura de todos los cambios de estado, ahora guardamos un historial de la participación diaria de la entidad de una cuenta. En el futuro, esta información se utilizará para proporcionar una cantidad exacta apostada al buscar la información histórica de una cuenta usando `/api/v1/accounts/{id}?timestamp=`.
 
-There were a lot of other bug fixes and small improvements. Please see the release notes below for the full list.
+Había muchas otras correcciones de errores y pequeñas mejoras. Por favor, consulte las notas de la versión de abajo para ver la lista completa.
 
 ## [v0.84](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.84.0)
 
-This release contains support for [HIP-729](https://hips.hedera.com/hip/hip-729) contract nonce externalization. Consensus nodes now track and externalized contract nonce information in the record stream. A contract's nonce increases whenever it creates another contract. Mirror nodes persist this data and expose a contract's nonce on the `/api/v1/contracts` and `/api/v1/contracts/{id}` REST APIs.
+Esta versión contiene soporte para [HIP-729](https://hips.hedera.com/hip/hip-729) contrato nonce externalización. Los nodos de consenso ahora rastrean y externalizan la información nonce contrato en el flujo de registros. Nonce de un contrato aumenta cada vez que crea otro contrato. Los nodos Mirror persisten en estos datos y exponen las nonce de un contrato en las API REST `/api/v1/contracts` y \`/api/v1/contracts/{id}.
 
-[HIP-584](https://hips.hedera.com/hip/hip-584) EVM archive node continues to make progress. This release contains full support for contract state reads for both precompiled and non-precompile functions. Support was added for contract state modifications for non-precompile functions with the exception of lazy account creation.
+[HIP-584](https://hips.hedera.com/hip/hip-584) El nodo de archivo EVM sigue progresando. Esta versión contiene soporte completo para lecturas del estado del contrato tanto para funciones precompiladas como no precompiladas. Se añadió soporte para modificaciones del estado del contrato para funciones no precompiladas con la excepción de la creación de una cuenta perezosa.
 
-Our [goal](https://github.com/hashgraph/hedera-mirror-node/issues/6110) of capturing all entity changes saw further refinements. Token information saw a history table be added to keep track of any changes to the token metadata over time. Also, we now use the real-time token balance in the token balances REST API.
+Nuestra [goal](https://github.com/hashgraph/hedera-mirror-node/issues/6110) de capturar todos los cambios de entidad vio más refinamientos. La información de las fichas vio que se añadía una tabla de historial para llevar un registro de cualquier cambio en los metadatos de token con el tiempo. También, ahora usamos el saldo de fichas en tiempo real en el balance de fichas REST API.
 
 ## [v0.83](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.83.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JULY 7, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: 7 de JULY 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JUNE 29, 2023**
+**TESTNET ACTUALIZADO COMPLETADO: JUNE 29, 2023**
 {% endhint %}
 
-In this release we made the highly requested change to show the list of NFT transfers on the transactions list REST API. Originally, only the `/api/v1/transactions/{id}` showed the list of `nft_transfers` due to performance concerns with joining on another large table for such a heavily used and heavyweight API. To show this information while staying performant, we had to denormalize the NFT transfer information to nest it under the `transaction` table as a JSONB column. This avoids an extra join and allows us to return the given information with the existing query.
+En esta versión hicimos el cambio altamente solicitado para mostrar la lista de transferencias NFT en la lista de transacciones REST API. Originalmente, solo el `/api/v1/transactions/{id}` mostró la lista de `nft_transfers` debido a problemas de rendimiento al unirse a otra tabla grande para una API tan utilizada y de gran peso. Para mostrar esta información mientras permanece, teníamos que desormalizar la información de transferencia NFT para anidarla bajo la tabla `transaction` como una columna JSONB. Esto evita un join extra y nos permite devolver la información dada con la consulta existente.
 
-The mirror node is focused on tracking all possible changes to Hedera entities over time. To that end a NFT history table was created to capture all possible changes to a NFT over time. In addition to persisting this data, we're also exposing more of this historical information via the API. Now when the `timestamp` parameter is supplied on the `/api/v1/accounts/{id}` endpoint it will show the historical view of that account. Previously, the parameter would only be used for displaying the list of `transactions` at the given time. Expect additional improvements around historical entity information in the next release.
+El nodo espejo se centra en rastrear todos los cambios posibles a las entidades Hedera con el tiempo. Para ello se creó una tabla de historia NFT para capturar todos los cambios posibles en un NFT con el tiempo. Además de persistir en estos datos, también estamos exponiendo más información histórica a través de la API. Ahora cuando el parámetro `timestamp` es suministrado en el endpoint `/api/v1/accounts/{id}` mostrará la vista histórica de esa cuenta. Anteriormente, el parámetro sólo se usaría para mostrar la lista de `transactions` en el momento dado. Espere mejoras adicionales en torno a la información de entidades históricas en la próxima versión.
 
-[HIP-584](https://hips.hedera.com/HIP/hip-584.html) continues to make strides every release. This release focused on improving precompile support for `/api/v1/contracts/call`. There is now support for the CREATE2 opcode along with non-static contract state reads for precompile and non-precompile functions. Non-static contract modifications for non-precompile functions (excluding lazy account creation) was also worked on. Finally, acceptance test coverage was greatly increased and a number of bugs were addressed.
+[HIP-584](https://hips.hedera.com/HIP/hip-584.html) continúa haciendo avances en cada lanzamiento. Esta versión se centró en mejorar el soporte de precompilación para `/api/v1/contracts/call`. Ahora hay soporte para el código CREATE2 junto con lecturas de estado de contrato no estático para precompilaciones y funciones no precompiladas. Las modificaciones no estáticas del contrato para las funciones no precompiladas (excluyendo la creación de una cuenta perezosa) también fueron trabajadas. Por último, la cobertura de las pruebas de aceptación aumentó considerablemente y se abordaron varios errores.
 
-This release adds integration with the [Stackgres Operator](https://stackgres.io/) to provide a highly available [Citus](https://www.citusdata.com/) deployment. Stackgres is an established Kubernetes operator for PostgreSQL and their support for the Citus extension has made it easy to provide a production ready deployment without depending upon expensive, cloud-specific managed database services. This along with the ZFS volume compression we added in a previous release should greatly reduce the total cost of running a mirror node while providing horizontal scalability.
+Esta versión añade integración con el [Operador de Stackgres](https://stackgres.io/) para proporcionar un despliegue [Citus]altamente disponible (https://www.citusdata.com/). Stackgres es un operador establecido de Kubernetes para PostgreSQL y su soporte para la extensión Citus ha hecho fácil proporcionar un despliegue listo para la producción sin depender de un costoso, servicios de base de datos gestionados en la nube. Esto junto con la compresión de volumen ZFS que añadimos en una versión anterior debería reducir en gran medida el costo total de ejecutar un nodo espejo al tiempo que se proporciona escalabilidad horizontal.
 
-### Upgrading
+### Actualizando
 
-Expect upgrading to take about an hour due to the large NFT transfer migration in this release. As always, it's recommended upgrades be completed in a staging environment first (e.g. a red/black deployment) to allow for deployment verification and reduce downtime before being opened up to customer traffic.
+Espere que la actualización demore aproximadamente una hora debido a la migración de la transferencia de NFT en esta versión. Como siempre, las actualizaciones recomendadas se completan en un entorno de puesta en escena primero (p.e. un despliegue rojo/negro) para permitir la verificación del despliegue y reducir el tiempo de inactividad antes de abrirse al tráfico de clientes.
 
 ## [v0.82](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.82.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JUNE 22, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: 22 de JUNIO de 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JUNE 8, 2023**
+**TESTNET ACTUALIZADO COMPLETADO: 8 de JUNO, 2023**
 {% endhint %}
 
-[HIP-679](https://hips.hedera.com/HIP/hip-679.html) saw its initial work completed in this release to support a restructured bucket. The importer now supports the existing account ID-based bucket path along with a future node ID-based bucket path. It also adds a path type property that can automatically switch between the two so the transition between the two formats is transparent to mirror node operators. For now, the default path type will stay as account ID until node ID becomes a reality to reduce the S3 costs.
+[HIP-679](https://hips.hedera.com/HIP/hip-679.html) vio su trabajo inicial completado en esta versión para soportar un cubo reestructurado. El importador ahora soporta la ruta actual basada en ID de la cuenta junto con una futura ruta de cubo basada en ID. También añade una propiedad de tipo de ruta que puede cambiar automáticamente entre los dos para que la transición entre los dos formatos sea transparente para los operadores de los nodos. Por ahora, el tipo de ruta por defecto permanecerá como ID de cuenta hasta que el nodo se convierta en una realidad para reducir los costos de S3.
 
-[HIP-584](https://hips.hedera.com/HIP/hip-584.html) Mirror EVM Archive Node saw a large number of improvements to bring it closer to parity with consensus nodes. Stacked state and database accessors were integrated to allow for smarts contracts to change state temporarily. An operation tracer was added to make it easier to debug smart contracts in an environment.
+[HIP-584](https://hips.hedera.com/HIP/hip-584.html) El nodo de archivo EVM Mirror vio un gran número de mejoras para acercarlo a la paridad con los nodos de consenso. Se integraron los accesorios de estado y bases de datos apilados para permitir que los contratos inteligentes cambiaran temporalmente el estado. Se añadió un rastreador de operaciones para facilitar la depuración de contratos inteligentes en un entorno.
 
-Finally, a topic message lookup table was added to optimize finding topic messages on distributed databases.
+Finalmente, se añadió una tabla de búsqueda de mensajes para optimizar la búsqueda de mensajes en bases de datos distribuidas.
 
 ## [v0.81](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.81.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JUNE 1, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: JUNIO 1, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MAY 24, 2023**
+**TESTNET ACTUALIZADO COMPLETADO: MAY 24, 2023**
 {% endhint %}
 
-This release comes with a number of improvements to support the JSON-RPC Relay. We now support alias and EVM address lookups for the `account.id` parameter on the balances endpoint. We optimized the transaction nonce filtering in `/api/v1/contracts/{id}/results` by denormalizing the data. Finally, an issue with empty `function_parameters` in `/api/v1/contracts/results/{id}` response was addressed.
+Esta versión viene con una serie de mejoras para soportar el Relé JSON-RPC. Ahora soportamos búsquedas de direcciones de alias y EVM para el parámetro `account.id` en el punto final del balance. Optimizamos el filtro nonce de la transacción en `/api/v1/contracts/{id}/results` desormalizando los datos. Finalmente, un problema con `function_parameters` vacío en la respuesta `/api/v1/contracts/results/{id}` fue resuelto.
 
-The other big item we worked on was [support](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database/zfs.md) for volume level compression with Citus. We know that the type of time series data the mirror node stores would be highly compressible and we wanted to use that to our advantage to both reduce increasing storage costs and improve read/write performance. PostgreSQL supports a basic form of compression at the column level called [TOAST](https://www.postgresql.org/docs/current/storage-toast.html), but it only takes effect for very large columns. Citus has compression when using their columnar storage access method, but we found it to be too slow for our needs. Since with Citus we knew we wouldn't be using a SaaS service we had more control over the database deployment, so we decided to experiment with Kubernetes volume compression. By creating custom Kubernetes node pools exclusively for Citus, we could install [ZFS](https://en.wikipedia.org/wiki/ZFS) via the [zfs-localpv](https://github.com/openebs/zfs-localpv) and enable [Zstandard](http://facebook.github.io/zstd/) compression on the database's underlying volume. The results were a **3.6x compression ratio with zero loss in performance**. To put into perspective, that means the current mainnet database size of 17TB could be reduced to 4.7TB.
+El otro elemento grande en el que trabajamos fue [support](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database/zfs.md) para la compresión del nivel de volumen con Citus. Sabemos que el tipo de datos de series de tiempo que los almacenes de nodos espejo serían altamente compresibles, y queríamos usarlos en nuestra ventaja tanto para reducir los crecientes costos de almacenamiento como para mejorar el rendimiento de lectura/escritura. PostgreSQL soporta una forma básica de compresión a nivel de columna llamada [TOAST](https://www.postgresql.org/docs/current/storage-toast.html), pero sólo tiene efecto para columnas muy grandes. Citus tiene compresión cuando utiliza su método de acceso de almacenamiento columnar, pero nos pareció demasiado lento para nuestras necesidades. Ya que con Citus sabíamos que no estaríamos usando un servicio SaaS teníamos más control sobre la implementación de la base de datos, así que decidimos experimentar con la compresión de volumen de Kubernetes. Al crear piscinas de node Kubernetes personalizadas exclusivamente para Citus, podríamos instalar [ZFS](https://en.wikipedia.org/wiki/ZFS) a través del [zfs-localpv](https://github. om/openebs/zfs-localpv) y habilitar la compresión [Zstandard](http://facebook.github.io/zstd/) en el volumen subyacente de la base de datos. Los resultados fueron una **proporción de compresión de 3,6 x con pérdida cero en rendimiento**. Para ponerlo en perspectiva, eso significa que el tamaño actual de la base de datos mainnet de 17TB podría reducirse a 4,7TB.
 
-Other areas of improvement include improving documentation around disaster recovery efforts. This includes a [runbook](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/runbook/restore.md) on restoring a mirror node from backup. There's also a [runbook](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/runbook/stream-verification.md) on how to perform local stream file verification. Acceptance tests have been previously integrated into the automated deployment process but suffered from a long execution time mainly due to using Gradle to download dependencies at runtime. We containerized the acceptance tests so the dependencies are downloaded at build time reducing runtime by 3-4x.
+Otras áreas de mejora incluyen la mejora de la documentación en torno a los esfuerzos de recuperación de desastres. Esto incluye un [runbook](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/runbook/restore.md) al restaurar un nodo espejo desde una copia de seguridad. También hay un [runbook](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/runbook/stream-verification.md) sobre cómo realizar la verificación local de archivos de stream. Las pruebas de aceptación se han integrado previamente en el proceso de despliegue automatizado, pero han sufrido un largo tiempo de ejecución debido principalmente al uso de Gradle para descargar dependencias en tiempo de ejecución. Contenerizamos las pruebas de aceptación para que las dependencias se descarguen en tiempo de construcción reduciendo el tiempo de ejecución en 3-4x.
 
 ## [v0.80](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.80.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MAY 17, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: MAY 17, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MAY 11, 2023**
+**TESTNET ACTUALIZADO COMPLETADO: MAY 11, 2023**
 {% endhint %}
 
-Work continues on [HIP-584](https://hips.hedera.com/HIP/hip-584.html) with this release the first to support non-static contract state reads for non-precompile functions. Please see the Swagger UI [table](https://github.com/hashgraph/hedera-mirror-node/pull/5949/files) for `/api/v1/contracts/call` for a breakdown of which functionality is supported in what release. More estimate gas functionality was copied from services code to make progress on estimation. A new stacked state frame functionality was added to be used in the future to support contract writes and cached reads.
+El trabajo continúa en [HIP-584](https://hips.hedera.com/HIP/hip-584.html) con esta versión la primera en soportar lecturas no estáticas del estado del contrato para funciones no precompiladas. Por favor vea la interfaz de usuario de Swagger [table](https://github.com/hashgraph/hedera-mirror-node/pull/5949/files) para `/api/v1/contracts/call` para un desglose de cuál funcionalidad está soportada en qué versión. Se copió más funcionalidad de gas estimada del código de servicios para avanzar en la estimación. Se añadió una nueva funcionalidad de marco de estado apilado para ser utilizado en el futuro para soportar escrituras de contratos y lecturas en caché.
 
-The [Spotless](https://github.com/diffplug/spotless/tree/main) code formatting tool was used to format the entire codebase to be consistent. A git commit hook was added to ensure any new changes stays consistent and developers can focus on what matters.
+La herramienta de formato de código [Spotless](https://github.com/diffplug/spotless/tree/main) se utilizó para dar formato a toda la base de código para ser consistente. Se añadió un gancho de commit git para asegurar que cualquier cambio nuevo se mantenga consistente y que los desarrolladores puedan centrarse en lo que importa.
 
-Finally, there were a large number of bug fixes and performance improvements. See below for the full details.
+Finalmente, hubo un gran número de correcciones de errores y mejoras de rendimiento. Vea a continuación los detalles completos.
 
 ## [v0.79](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.79.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MAY 9, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: MAY 9, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MAY 2, 2023**
+**TESTNET ACTUALIZADO COMPLETADO: MAY 2, 2023**
 {% endhint %}
 
-[HIP-584](https://hips.hedera.com/HIP/hip-584.html) EVM archive node saw further progress this release with a focus on testing and establishing the foundation for estimate gas functionality in the next release. While consensus nodes undergo a modularization effort that will pay dividends down the road, the archive node needs functionality for estimate gas before that process could be completed. To make progress on HIP-584, the necessary EVM logic was temporarily copied from consensus nodes into the mirror node web3 module. A large focus was placed on increasing acceptance test coverage for contract call with precompiles.
+[HIP-584](https://hips.hedera.com/HIP/hip-584. tml) El nodo de archivo EVM vio un mayor progreso de esta versión centrándose en probar y establecer las bases para estimar la funcionalidad de gas en la próxima versión. Mientras los nodos de consenso se someten a un esfuerzo de modularización que pagará dividendos por el camino. el nodo de archivo necesita funcionalidad para estimar gas antes de que ese proceso pueda ser completado. Para progresar en HIP-584, la lógica necesaria de EVM fue copiada temporalmente desde los nodos de consenso en el módulo web del nodo espejo. Se ha puesto un gran énfasis en aumentar la cobertura de las pruebas de aceptación de la llamada de contrato con precompilación.
 
-Users writing dApps want to be able to monitor for token approval and transfer events. HAPI transactions like `CryptoTransfer`, `CryptoApproveAllowance`, `CryptoDeleteAllowance`, `TokenMint`, `TokenWipe`, and `TokenBurn` do not emit events that could be captured by monitoring tools like [The Graph](https://thegraph.com/en/) since they’re executed outside the EVM. To address, the mirror node now generates synthetic contract log events for these non-EVM HAPI transactions.
+Los usuarios que escriben dApps quieren ser capaces de monitorear para eventos de aprobación y transferencia de token. Transacciones HAPI como `CryptoTransfer`, `CryptoApproveAllowance`, `CryptoDeleteAllowance`, `TokenMint`, `TokenWipe`, y `TokenBurn` no emiten eventos que podrían ser capturados por herramientas de supervisión como [The Graph](https://thegraph. om/es/) ya que son ejecutados fuera de la EVM. Para dirigirse, el nodo espejo ahora genera eventos sintéticos de registro de contratos para estas transacciones HAPI no EVM.
 
-A new subscription API was [designed](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/design/contract-log-subscription.md) for [HIP-668 GraphQL API](https://github.com/hashgraph/hedera-improvement-proposal/pull/668). Once it's implemented in a future release, the new contract log subscription will stream contract events to clients via a WebSocket connection.
+Una nueva API de suscripción era [designed](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/design/contract-log-subscription.md) para [HIP-668 GraphQL API](https://github.com/hashgraph/hedera-improvement-proposal/pull/668). Una vez que se implemente en una futura versión, la nueva suscripción al registro del contrato transmitirá eventos del contrato a los clientes a través de una conexión WebSocket.
 
-For our Citus database transition, PostgreSQL 15 compatibility was verified and made the default for this v2 schema. The lookup of historical balance information via `/api/v1/balances?timestamp=` was optimized for sharded databases so it stays performant. Performance testing showed a decrease in shard count could greatly improve performance so we lowered the number of shards from 32 to 16. This testing also allowed us to provide an initial [recommended](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#database-migration-from-v1-to-v2) resource configuration for the Citus deployment.
+Para nuestra transición a la base de datos Citus, la compatibilidad de PostgreSQL 15 fue verificada y se hizo el valor predeterminado para este esquema v2. La búsqueda de información del balance histórico a través de `/api/v1/balances?timestamp=` fue optimizada para bases de datos reducidas por lo que permanece en rendimiento. Las pruebas de rendimiento mostraron una disminución en el recuento de fragmentos podía mejorar mucho el rendimiento, así que redujimos el número de fragmentos de 32 a 16. Esta prueba también nos permitió proporcionar una configuración inicial de recurso [recommended](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#database-migration-from-v1-to-v2) para el despliegue de Citus.
 
-There was a large focus on test improvements in this release. In addition to the aforementioned HIP-584 test coverage, we also optimized the acceptance tests to reduce the overall test duration in Kubernetes by half without reducing coverage. The acceptance test logs were cleaned up to reduce unnecessary log statements and standardize its output. The hbar balance used by the tests now is logged at the end of test execution. Acceptance tests for hollow account creation were added. We now generate multi-platform snapshot images from the `main` branch for testing with local node. [Testkube](https://testkube.io/) configuration was enhanced to make it more configurable. Finally, all Java test compiler warnings were fixed and will now fail the build if any future warnings occur.
+Hubo un gran foco en las mejoras de prueba en esta versión. Además de la cobertura de pruebas HIP-584 más importante, también optimizamos las pruebas de aceptación para reducir la duración total de la prueba en Kubernetes a la mitad sin reducir la cobertura. Los registros de prueba de aceptación fueron limpiados para reducir las sentencias de registro innecesarias y estandarizar su salida. El balance hbar utilizado por las pruebas ahora se registra al final de la ejecución de la prueba. Se añadieron pruebas de aceptación para la creación de cuentas huecas. Ahora generamos imágenes de instantánea multiplataforma desde la rama `main` para probar con nodo local. La configuración de [Testkube](https://testkube.io/) fue mejorada para hacerlo más configurable. Por último, todas las advertencias del compilador de pruebas de Java fueron arregladas y ahora fallarán en la compilación si ocurren advertencias futuras.
 
-### Known Issues
+### Problemas conocidos
 
-There is a [bug](https://github.com/hashgraph/hedera-mirror-node/issues/5944) introduced by [#5776](https://github.com/hashgraph/hedera-mirror-node/pull/5776) that causes the importer to fail on startup. It's recommended to hold off on upgrading to v0.79.0 until we can address this in a v0.79.1. Alternatively, it can be worked around by disabling the faulty migration by setting `hedera.mirror.importer.migration.syntheticTokenAllowanceOwnerMigration.enabled=false`.
+Hay un [bug](https://github.com/hashgraph/hedera-mirror-node/issues/5944) introducido por [#5776](https://github.com/hashgraph/hedera-mirror-node/pull/5776) que provoca que el importador falle al iniciar. Se recomienda aplazar la actualización a v0.79.0 hasta que podamos abordar esto en un v0.79.1. Alternativamente, se puede trabajar deshabilitando la migración defectuosa estableciendo `hedera.mirror.importer.migration.syntheticTokenAllowanceOwnerMigration.enabled=false`.
 
 ## [v0.78](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.78.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: APRIL 21, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: APRIL 21, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: APRIL 13, 2023**
+**TESTNET ACTUALIZADO COMPLETADO: APRIL 13, 2023**
 {% endhint %}
 
-[HIP-584](https://hips.hedera.com/HIP/hip-584.html) Mirror Evm Archive Node now has token precompile support. This was the last major piece of functionality needed for the `/api/v1/contracts/call` to be considered `eth_call` equivalent. The new API was added to the REST API's OpenAPI documentation so that it appears on our [Swagger UI](https://mainnet-public.mirrornode.hedera.com/api/v1/docs). A number of performance optimizations were worked on to make it scalable as well as various test improvements to verify its correctness. Various bugs were addressed including the proper handling of reverts. In the next few releases, we plan to fine tune contract call and implement contract gas estimation.
+[HIP-584](https://hips.hedera.com/HIP/hip-584.html) El nodo de archivo de Mirror Evm ahora tiene soporte de precompilación de token. Esta fue la última pieza importante de funcionalidad necesaria para que el `/api/v1/contracts/call` sea considerado equivalente a `eth_call`. La nueva API fue añadida a la documentación de OpenAPI de REST para que aparezca en nuestra [interfaz de usuario de Swagger](https://mainnet-public.mirrornode.hedera.com/api/v1/docs). Se han trabajado varias optimizaciones de rendimiento para hacerlo escalable así como varias mejoras de prueba para verificar su exactitud. Se abordaron varios bugs que incluían el manejo adecuado de las reversiones. En los próximos lanzamientos, tenemos previsto afinar la llamada de contrato e implementar la estimación del gas del contrato.
 
-A large focus was put on performance and resiliency this release. On the performance front, we've optimized the list schedules REST API to be scalable on Citus. Performance tests can now trigger automatically via TestKube once the helm tests complete. Those same k6 performance tests were enhanced to automatically pick appropriate configuration values specific to the environment. The transaction hash table was partitioned and the ingest process made to insert hashes in parallel. This change dramatically speeds up the time to insert the optional transaction hashes. Similarly, an option was added to control which transaction types should cause a hash insertion.
+Se puso un gran énfasis en el rendimiento y la resistencia de esta liberación. En el frente de rendimiento, hemos optimizado la lista de la API REST para ser escalable en Citus. Las pruebas de rendimiento ahora pueden activarse automáticamente a través de TestKube una vez completadas las pruebas de timón. Esas mismas pruebas de rendimiento k6 fueron mejoradas para elegir automáticamente los valores de configuración apropiados específicos del entorno. La tabla hash de transacción fue particionada y el proceso más ingenioso para insertar hash en paralelo. Este cambio acelera dramáticamente el tiempo para insertar los hash de transacción opcionales. De manera similar, se añadió una opción para controlar qué tipos de transacción deben causar una inserción de hash.
 
-On the resiliency front, the importer component was analyzed for any code paths that may cause record file processing to halt due to bad input from consensus nodes. Any such code was made to handle the error, log/notify, and move on to the next transaction. This change makes the mirror node ingestion more resilient and moves toward preferring availability over correctness. Partial mirror nodes that might become stuck due to having an incomplete address book can now continue to ingest with a new `consensusMode` property and logic. Partial mirror nodes will now also be able to have a corrected account and token balance even if the entity was missing a deleted flag. Finally, we were able to complete a longstanding refactoring effort to move all transaction specific logic to individual transaction handlers and fixed a number of bugs in the process.
+En el frente de la resistencia, el componente importador fue analizado para cualquier ruta de código que pudiera causar que el procesamiento de archivos de registros se detuviera debido a una entrada incorrecta de los nodos de consenso. Cualquier código de este tipo se hizo para manejar el error, registrar/notificar y pasar a la siguiente transacción. Este cambio hace que la ingestión del nodo espejo sea más resistente y avanza hacia la preferencia de disponibilidad por encima de la exactitud. Los nodos espejo parciales que podrían quedar atascados debido a tener una libreta de direcciones incompleta ahora pueden seguir ingiriendo con una nueva propiedad y lógica `consensusMode`. Los nodos espejo parciales ahora también podrán tener una cuenta corregida y saldo de fichas incluso si la entidad no tenía una bandera eliminada. Por último, fuimos capaces de completar un largo esfuerzo de refactorización para mover toda la lógica específica de transacción a los manejadores de transacciones individuales y corregir varios errores en el proceso.
 
-There were a few important bugs fixed in this release that are worth noting. A fix was put in place to correct inaccurate fungible token total supply. Additionally, NFTs for deleted tokens no longer appear as active in the REST API.
+Había algunos errores importantes corregidos en esta publicación que vale la pena destacar. Se estableció una solución para corregir el suministro total inexacto de tokens fungibles. Además, los NFTs para tokens borrados ya no aparecen como activos en la API REST.
 
 ## [v0.77](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.77.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: APRIL 4, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: APRIL 4, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MARCH 29, 2023**
+**TESTNET ACTUALADO COMPLETADO: MARCH 29, 2023**
 {% endhint %}
 
-This release fixes the tracking of NFT balances. Historically, these came from the balance file sent by the consensus nodes every 15 minutes. When we started tracking the live fungible token balances and moved away from using this balance file we unfortunately broke the NFT balance calculation. We not only fixed the issue but went ahead and took the time to track the up-to-date NFT balance as well.
+Esta versión corrige el seguimiento de los saldos NFT. Históricamente, estos procedían del archivo de balance enviado por los nodos de consenso cada 15 minutos. Cuando comenzamos a rastrear los saldos de tokens fungibles en vivo y nos alejamos del uso de este archivo de saldo desafortunadamente rompimos el cálculo del balance NFT. No sólo hemos solucionado el problema, sino que también hemos tomado el tiempo de seguir el balance actualizado de NFT.
 
-The `/api/v1/contracts/{id}/state` REST API shows the current state of a contract's slot values. Users requested the ability to query for the key/value pairs for their contract at an arbitrary point in the past. To address, we now expose a `timestamp` query parameter that will get the historical contract state. This allows the JSON-RPC relay to offer a proper `eth_getStorageAt` with support for historical blocks.
+La API REST `/api/v1/contracts/{id}/state` muestra el estado actual de los valores de slot de un contrato. Los usuarios solicitaron la posibilidad de consultar los pares clave/valor para su contrato en un momento arbitrario en el pasado. Para abordar, ahora exponemos un parámetro de consulta `timestamp` que obtendrá el estado histórico del contrato. Esto permite que el repetidor JSON-RPC ofrezca un `eth_getStorageAt` apropiado con soporte para bloques históricos.
 
-[HIP-584](https://hips.hedera.com/HIP/hip-584.html) continues to make progress. Quite a few bugs were squashed including handling reverts and populating the revert reason and raw data. Performance tests were added to k6 to load test contract calls with token precompiles.
+[HIP-584](https://hips.hedera.com/HIP/hip-584.html) continúa progresando. Algunos errores fueron aplastados, incluyendo el manejo de revertidos y la recolección de la razón de revertir y los datos crudos. Las pruebas de rendimiento se añadieron a k6 para cargar las llamadas al contrato de prueba con precompilaciones de token.
 
 ## [v0.76](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.76.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MARCH 23, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: MARCH 23, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MARCH 13, 2023**
+**TESTNET ACTUALIZADO COMPLETADO: MARCH 13, 2023**
 {% endhint %}
 
-The new `/api/v1/contracts/call` REST API as specified in [HIP-584](https://hips.hedera.com/HIP/hip-584.html) is finally ready for initial production use. This release adds support for rate limiting the API with an initial value of 100 requests per second per instance. Tags were added to the gas per second metric to indicate if the request was a call, an estimate, or resulted in an error for increased observability. Various bug fixes were also addressed.
+El nuevo `/api/v1/contracts/call` API REST especificado en [HIP-584](https://hips.hedera.com/HIP/hip-584.html) finalmente está listo para el uso inicial de producción. Esta versión añade soporte para limitar la velocidad de la API con un valor inicial de 100 peticiones por segundo por instancia. Se añadieron etiquetas al gas por segundo para indicar si la solicitud era una llamada, una estimación, o resultó en un error para aumentar la observabilidad. También se abordaron varias correcciones de errores.
 
-[HIP-668](https://github.com/hashgraph/hedera-improvement-proposal/pull/668) GraphQL API was added to our deployment with the addition of a new helm chart for this API. This will allow for initial use of the API in all environments with the understanding that it's still very much alpha and subject to change.
+[HIP-668](https://github.com/hashgraph/hedera-improvement-proposal/pull/668) API GraphQL fue añadida a nuestro despliegue con la adición de un nuevo gráfico de helm para esta API. Esto permitirá el uso inicial de la API en todos los entornos con la comprensión de que todavía es muy alfa y sujeto a cambios.
 
-We made a lot of headway on our Citus integration. Citus was upgraded to 11.2 which showed a nice 15-20% performance boost for a number of query patterns. We optimized the contract results APIs performance by distributing based upon contract ID instead of payer account. Search for a transaction by its hash on Citus was improved by adding the distribution column to the query and limiting the results to a timestamp range. The search for an account by its ID also saw improvements on Citus.
+Hicimos mucha huella en nuestra integración con Citus. Citus se actualizó a 11.2 lo que mostró un buen incremento de rendimiento del 15-20% para una serie de patrones de consulta. Optimizamos el rendimiento de las APIs de resultados del contrato mediante la distribución basada en el ID del contrato en lugar de la cuenta del pagador. La búsqueda de una transacción por su hash en Citus se mejoró añadiendo la columna de distribución a la consulta y limitando los resultados a un rango de marcas de tiempo. La búsqueda de una cuenta por su ID también vio mejoras en Citus.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-The Helm charts contain some breaking changes to be aware of. The `hedera-mirror` wrapper chart enables the new `hedera-mirror-graphql` sub-chart by default. The GraphQL deployment requires a new `mirror_graphql` database user to exist for it to successfully start up. You can create the user by logging into the database as owner and executing the following SQL query:
-
-```
-create user mirror_graphql with login password 'password' in role readonly;
-```
-
-If you're using the embedded PostgreSQL sub-chart (which we don't recommend for production use), then you'll have to delete its StatefulSet before upgrading due to a major bump in its chart version.
-
-The `hedera-mirror-common` chart had all of its components upgraded to new major versions that include breaking changes. If you're using this chart, run the following commands before upgrading:
+Los gráficos de Helm contienen algunos cambios de ruptura de los que debe ser consciente. El gráfico `hedera-mirror` permite el nuevo subgráfico `hedera-mirror-graphql` por defecto. El despliegue GraphQL requiere que exista un nuevo usuario de base de datos `mirror_graphql` para que se inicie correctamente. Puede crear el usuario iniciando sesión en la base de datos como propietario y ejecutando la siguiente consulta SQL:
 
 ```
-kubectl delete daemonset mirror-prometheus-node-exporter
+crear usuario mirror_graphql con contraseña de inicio de sesión 'contraseña' sólo en rol;
+```
+
+Si está usando el subgráfico embebido de PostgreSQL (que no recomendamos para uso en producción), entonces tendrás que borrar su StatefulSet antes de actualizar debido a un bump importante en su versión de gráfico.
+
+El gráfico `hedera-mirror-common` tenía todos sus componentes actualizados a nuevas versiones importantes que incluyen cambios de ruptura. Si estás usando este gráfico, ejecuta los siguientes comandos antes de actualizar:
+
+```
+kubectl delete daemonset mirror-prometheichard node-exporter
 kubectl delete daemonset mirror-traefik
 kubectl delete statefulset mirror-loki
 kubectl delete ingressroute mirror-traefik-dashboard
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
-kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
+kubectl apply --server-side --force-conflicts=true -f https://raw. ithubusercontent.com/promethe)[video] operator/promethe)[video] operator/v0.63.0/example/promethe)[video] operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
+kubectl apply --server-side --force-conflicts=true -f https://raw. ithubusercontent.com/promethe)[video] operator/promethe)[video] operator/v0.63.0/example/promethe)[video] operator-crd/monitoring.coreos.com_alertmanagers.yaml
+kubectl aplicar --server-side --force-conflicts=true -f https://raw.githubusercontent.com/promethe)[video] operator/v0.63.0/example/promethebian operator-crd/monitoring.coreos.com_podmonitors.yaml
+kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent. om/promethe)[video] operator/promethe)[video] operator/v0.63.0/example/promethe)[video] operator-crd/monitoring.coreos.com_probes.yaml
+kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/promethe)[video] operator/promethe)[video] operator/v0.63.0/example/promethe)[video] operator-crd/monitoring.coreos.com_prometheuses.yaml
+kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/promethe)[video] operator/v0.63. /example/prometheum-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+kubectl apply --server-side --force-conflicts=true -f https://raw.githubusercontent.com/promethe)[video] operator/prometheanian operator/v0.63.0/example/promethe)[video] operator-crd/monitoring.coreos.com_servicemonitors.yaml
+kubectl aplicar --server-side --force-conflicts=true -f https://raw.githubusercontent.com/promethe)[video] operator/v0.63.0/example/promethe)[video] operator-crd/monitoring.coreos.com_thanosrulers.yaml
 ```
 
 ## [v0.75](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.75.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MARCH 2, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: ARCHIVO 2, 2023**
 {% endhint %}
 
-Work continues on [HIP-584](https://hips.hedera.com/HIP/hip-584.html) to get it closer to production ready for simple contract calls. Caching logic was added to the repository layer to optimize its capability along with performance tests to verify those improvements. A metric was added to track the gas per second being used along with various other bug fixes.
+El trabajo continúa en [HIP-584](https://hips.hedera.com/HIP/hip-584.html) para acercarlo a la producción listo para simples llamadas de contrato. La lógica de caché se añadió a la capa del repositorio para optimizar su capacidad junto con las pruebas de rendimiento para verificar esas mejoras. Se añadió una métrica para rastrear el gas por segundo que se usaba junto con varias otras correcciones de errores.
 
-The monitor API and dashboard used internally for observing our production systems was containerized. Additionally, it was integrated into the Helm chart and invoked as part of the Helm tests to ensure the deployment is verified.
+La API del monitor y el tablero de mando utilizados internamente para observar nuestros sistemas de producción fueron contenedores. Adicionalmente, se integró en el gráfico del casco y se invocó como parte de las pruebas del casco para asegurar que el despliegue sea verificado.
 
-Finally, there were a number of query optimizations as part of our Citus effort.
+Finalmente, hubo una serie de optimizaciones de consultas como parte de nuestro esfuerzo de Citus.
 
 ## [v0.74](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.74.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 18, 2023**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 18, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 14, 2023**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 14, 2023**
 {% endhint %}
 
-This release switches the testnet bucket to the new one created for the [testnet reset](https://docs.hedera.com/hedera/networks/testnet#test-network-resets) that occurred on January 26, 2023. It also updates the address book to reflect the additional nodes added to testnet since the last reset. If you're running a testnet mirror node, please see the [reset instructions](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#reset) for help getting your node updated.
+Esta versión cambia el cubo de testnet al nuevo creado para el [reset de testnet](https://docs.hedera.com/hedera/networks/testnet#test-network-resets) que ocurrió el 26 de enero de 2023. También actualiza la libreta de direcciones para reflejar los nodos adicionales añadidos a testnet desde el último reinicio. Si estás corriendo un nodo espejo de testnet, por favor mira las [instrucciones de reinicio](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#reset) para obtener ayuda para actualizar tu nodo.
 
-In [HIP-668](https://github.com/hashgraph/hedera-improvement-proposal/pull/668), we propose adding a new mirror node GraphQL API and would greatly appreciate your feedback. In this release, a new GraphQL module with a simple account lookup query was added to provide the basis for future work on this HIP. In the next release, we will add the automated deployment of this module to all environments. It is considered an alpha API subject to breaking changes at any time, so it's not recommended to depend upon for production use. This has been made explicit by using `/graphql/alpha` in its URL.
+En [HIP-668](https://github.com/hashgraph/hedera-improvement-proposal/pull/668), proponemos añadir un nuevo nodo espejo API GraphQL y agradeceríamos enormemente tus comentarios. En esta versión, se añadió un nuevo módulo GraphQL con una simple consulta de búsqueda de cuentas para proporcionar la base de trabajo futuro en este HIP. En la próxima versión, añadiremos el despliegue automatizado de este módulo a todos los entornos. Se considera una API alfa sujeta a cambios de ruptura en cualquier momento, por lo que no se recomienda depender para uso en producción. Esto se ha hecho explícito usando `/graphql/alpha` en su URL.
 
-Finally, a number of query optimizations were implemented for Citus while ensuring it doesn't cause regressions with the existing database. This will continue to be the focus of the next few releases.
+Finalmente, se implementaron varias optimizaciones de consultas para Citus asegurándose de que no cause regresiones con la base de datos existente. Este seguirá siendo el centro de atención de los próximos lanzamientos.
 
 ## [**v0.73**](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.73.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 10, 2023**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 10, 2023**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: FEBRUARY 3, 2022**
+**TESTNET UPDATE COMPLETEDO: FEBRUARY 3, 2022**
 {% endhint %}
 
-This release is the first one with support for [HIP-584](https://hips.hedera.com/HIP/hip-584.html) EVM Archive Node. HIP-584 allows mirror nodes to act as a read only EVM for free execution of smart contracts. This new feature is considered alpha with much of the work still to be implemented like support for precompiled contracts, gas estimation, etc. This functionality requires the mirror node to be configured to ingest the optional traceability sidecar files and it requires a network where those files are generated. Currently only previewnet has contract traceability enabled.
+Esta versión es la primera con soporte para [HIP-584](https://hips.hedera.com/HIP/hip-584.html) EVM Archive Node. HIP-584 permite que los nodos espejo actúen como EVM de sólo lectura para la ejecución libre de contratos inteligentes. Esta nueva característica se considera alpha con gran parte del trabajo aún por implementar como soporte para contratos precompilados, estimación de gas, etc. Esta funcionalidad requiere que el nodo réplica esté configurado para ingerir los archivos sidecar opcionales de trazabilidad y requiere una red donde se generen esos archivos. Actualmente sólo la previewnet tiene habilitada la trazabilidad del contrato.
 
-The testnet bucket name has been updated to the new bucket name after its recent quarterly [reset](https://docs.hedera.com/hedera/testnet#test-network-resets). Likewise the bootstrap testnet address book was updated to reflect the additional testnet nodes that have been added since the previous reset. Mirror node operators running a testnet node should either manually populate the new bucket name or update to this release.
+El nombre del cubo testnet ha sido actualizado al nuevo nombre del cubo después de su reciente [reset]trimestral (https://docs.hedera.com/hedera/testnet#test-network-resets). Asimismo, la libreta de direcciones de la red de pruebas de arranque se actualizó para reflejar los nodos adicionales de la red de pruebas que se han añadido desde el restablecimiento anterior. Los operadores de nodo de espejo ejecutando un nodo testnet deberían llenar manualmente el nuevo nombre del cubo o actualizar a esta versión.
 
-The remaining work targeted significant testing improvements and bug fixes. Our performance tests were expanded to all endpoints to catch issues earlier in the lifecycle. Additional acceptance test coverage was added along with a number of fixes. CI stability has greatly improved with a focus on fixing flaky tests. Code smells as reported by [Sonar](https://sonarcloud.io/project/overview?id=hedera-mirror-node) were reduced to only a handful and in the next release reduced all the way down to zero. Finally, we merged work that enables nightly performance testing in our integration and mainnet staging environments via [TestKube](https://testkube.io/).
+El trabajo restante apuntaba a mejoras significativas en las pruebas y correcciones de errores. Nuestras pruebas de rendimiento se ampliaron a todos los extremos para captar problemas antes del ciclo de vida. La cobertura de prueba de aceptación adicional fue añadida junto con una serie de correcciones. La estabilidad de CI ha mejorado en gran medida con un enfoque en la corrección de pruebas defectuosas. El código huele según el reportado por [Sonar](https://sonarcloud.io/project/overview?id=hedera-mirror-node) se redujo a solo un puñado y en el siguiente lanzamiento se redujo hasta cero. Finalmente, fusionamos trabajo que permite pruebas de rendimiento nocturno en nuestros entornos de integración y escenificación de red principal a través de [TestKube](https://testkube.io/).
 
 ## [**v0.72**](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.72.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JANUARY 25, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: 25 de Enero, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JANUARY 18, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: 18 de Enero, 2022**
 {% endhint %}
 
-This release is a smaller release as most of the team took time off for the holidays. Still, we managed to implement [HIP-583](https://hips.hedera.com/HIP/hip-583.html) Expand alias support in CryptoCreate & CryptoTransfer Transactions. We now allow hollow accounts to be later finalized into a contract when it is fully created.
+Esta versión es una versión más pequeña, ya que la mayoría del equipo tuvo tiempo libre para las vacaciones. Aún así, conseguimos implementar [HIP-583](https://hips.hedera.com/HIP/hip-583.html) Expandir soporte de alias en las transacciones de CryptoCreate y Cryptotransfer. Ahora permitimos que las cuentas vacías se finalicen más tarde en un contrato cuando se crea plenamente.
 
-We also worked on adding support for [Testkube](https://testkube.io/). Testkube allows us to automate our testing in Kubernetes environments by triggering tests based upon various conditions. Specifically, it will be used to run nightly performance regression tests against a mainnet staging environment to ensure our API performance doesn't regress. We'll continue to expand on this automated testing in future releases.
+También hemos trabajado en añadir soporte para [Testkube](https://testkube.io/). Testkube nos permite automatizar nuestras pruebas en entornos de Kubernetes activando pruebas basadas en diversas condiciones. Específicamente, se utilizará para ejecutar pruebas de regresión de rendimiento nocturno contra un entorno de staging mainnet para asegurar que nuestro rendimiento de la API no retroceda. Continuaremos ampliando esta prueba automatizada en futuras versiones.
 
-There were also a number of bug fixes in this release, mainly focused on fixing our release process after the switch from Maven to Gradle in the last release.
+También hubo varias correcciones de errores en esta versión, principalmente enfocado en arreglar nuestro proceso de liberación después del cambio de Maven a Gradle en la última versión.
 
 ## [v0.71](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.71.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JANUARY 19, 2023**
+**MAINNET ACTUALIZADO COMPLETADO: 19 de enero de 2023**
 {% endhint %}
 
-As of this release, all account and token balances in the REST API will reflect their real time balance information. Historically, the mirror node has relied upon the balance file uploaded by consensus nodes every 15 minutes for its balance information. We've been working towards this milestone for many releases gradually rolling out real-time balance tracking to more entities and more APIs. This release completes this migration with the addition of real time token balances to both the accounts and the balances REST APIs.
+A partir de esta versión, todos los saldos de cuentas y tokens de la API REST reflejarán su información de saldo en tiempo real. Históricamente, el nodo espejo se ha basado en el archivo de balance subido por los nodos de consenso cada 15 minutos para su información de saldo. Hemos estado trabajando para alcanzar este hito para muchas versiones que gradualmente están desplegando el seguimiento del balance en tiempo real a más entidades y más APIs. Esta versión completa esta migración con la adición de saldos de token en tiempo real tanto a las cuentas como a las APIs REST.
 
-The mirror node now implements support for [HIP-583](https://hips.hedera.com/HIP/hip-583.html) alias on `CryptoCreate` transactions. With this, clients can directly set an alias during account creation instead of relying upon the implicit auto-account creation during transfers. The mirror node respects this explicit alias along with the new explicit EVM address in both `CryptoCreate` or the `TransactionRecord`. This avoids the brittle EVM address calculation on the mirror node that has caused us some trouble in the past.
+El nodo espejo ahora implementa soporte para [HIP-583](https://hips.hedera.com/HIP/hip-583.html) en transacciones `CryptoCreate`. Con esto, los clientes pueden establecer directamente un alias durante la creación de la cuenta en lugar de depender de la creación implícita de la cuenta automática durante las transferencias. El nodo espejo respeta este alias explícito junto con la nueva dirección EVM explícita en `CryptoCreate` o el `TransactionRecord`. Esto evita el cálculo de direcciones EVM en el nodo espejo que nos ha causado algunos problemas en el pasado.
 
-This release completes the migration from Maven to Gradle for our build process. A lot of work has been put into the new build to improve its performance and stability both locally and in continuous integration (CI). GitHub Actions workflows have been consolidated from one workflow per module to a single Gradle build workflow with a matrix strategy running them in parallel for each module and database schema. This greatly simplifies the workflow configuration making it easier to maintain and debug.
+Esta versión completa la migración de Maven a Gradle para nuestro proceso de compilación. Se ha dedicado mucho trabajo a la nueva construcción para mejorar su rendimiento y estabilidad tanto a nivel local como en continua integración (CI). Los workflows de GitHub Actions se han consolidado de un flujo de trabajo por módulo a un único flujo de trabajo de compilación de Gradle con una estrategia de matriz ejecutándolos en paralelo para cada módulo y esquema de base de datos. Esto simplifica enormemente la configuración del flujo de trabajo haciendo más fácil el mantenimiento y depuración.
 
-We continue to make progress on our Citus exploration. The v2 schema for Citus now does timestamp based partitioning of data and automates this process via pg\_cron. A Citus specific environment was created and we're currently conducting performance tests against it at scale to verify it meets our requirements.
+Seguimos avanzando en nuestra exploración de Citus. El esquema v2 para Citus ahora hace timestamp basado en particionamiento de datos y automatiza este proceso vía pg\_cron. Se creó un entorno específico de Citus y actualmente estamos realizando pruebas de rendimiento contra él a escala para verificar que cumple con nuestros requisitos.
 
-This release adds automation to keep our GCP Marketplace application up to date with each release. While not fully automatic due to the manual nature of Marketplace version submission, now any new production tag will trigger the generation and verification of the marketplace images.
+Esta versión añade automatización para mantener nuestra aplicación GCP Marketplace actualizada con cada versión. Aunque no es totalmente automático debido a la naturaleza manual del envío de la versión de Marketplace, ahora cualquier nueva etiqueta de producción activará la generación y verificación de las imágenes del mercado.
 
-This was a big release and there were a lot of other various improvements and fixes. See the full release note below.
+Esta era una gran versión y había muchas otras mejoras y correcciones. Vea la nota de lanzamiento completa a continuación.
 
 ## [v0.70](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.70.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: DECEMBER 29, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: DECEMBRE 29, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: DECEMBER 14, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: DECEMBRE 14, 2022**
 {% endhint %}
 
-As part of [HIP-406](https://hips.hedera.com/HIP/hip-406.html), the mirror node is adding a new account staking rewards REST API. This API will show the staking rewards paid to an account over time. The mirror node now also shows staking reward transfers in the transaction REST APIs (e.g. `/api/v1/transactions`, `/api/v1/transactions/{id}`, and the list of transactions in `/api/v1/accounts/{id}`). This can be useful to show which transaction involving your account after the staking period ended triggered the lazy reward payout.
+Como parte de [HIP-406](https://hips.hedera.com/HIP/hip-406.html), el nodo espejo está agregando una nueva cuenta de recompensas REST API. Esta API mostrará las recompensas de apuesta pagadas a una cuenta a lo largo del tiempo. El nodo espejo ahora también muestra transferencias de premios en la transacción REST (ej. `/api/v1/transactions`, `/api/v1/transactions/{id}`, y la lista de transacciones en `/api/v1/accounts/{id}`). Esto puede ser útil para mostrar qué transacción involucrada en su cuenta después de que el período de apuesta terminó el pago de la recompensa perezosa.
 
 `GET /api/v1/accounts/{id}/rewards`
 
@@ -519,7 +519,7 @@ As part of [HIP-406](https://hips.hedera.com/HIP/hip-406.html), the mirror node 
   "rewards": [{
     "account_id": "0.0.1000",
     "amount": 10,
-    "timestamp": "123456789.000000001"
+    "timestamp": "123456789.0000000000001"
   }],
   "links": {
     "next": null
@@ -527,55 +527,55 @@ As part of [HIP-406](https://hips.hedera.com/HIP/hip-406.html), the mirror node 
 }
 ```
 
-The REST API saw further improvements outside of staking. The accounts REST APIs now show a calculated expiration timestamp to mirror the HAPI `CryptoGetInfo` query. Previously expiration timestamp only shows up if explicitly sent via a transaction that supports it (mainly update transactions). Now if it's `null` we calculate it as `created_timestamp.seconds + auto_renew_period`. Every contract results endpoint was updated to include an address field for the EVM address of the created contract.
+La API REST vio más mejoras fuera de la apuesta. Las cuentas API REST ahora muestran un timestamp calculado de caducidad para reflejar la consulta `CryptoGetInfo` de HAPI. Anteriormente la fecha de caducidad sólo aparece si se envía explícitamente a través de una transacción que lo soporta (principalmente actualizar transacciones). Ahora si es `null` lo calculamos como `created_timestamp.seconds + auto_renew_period`. Todos los resultados del contrato se actualizaron para incluir un campo de dirección para la dirección EVM del contrato creado.
 
-This release makes progress on being able to execute contract calls on the mirror node as outlined in [HIP-584](https://hips.hedera.com/HIP/hip-584.html). A lot of the groundwork is being laid that will be further refined in upcoming releases.\\
+Esta versión avanza en poder ejecutar llamadas de contrato en el nodo espejo como se describe en [HIP-584](https://hips.hedera.com/HIP/hip-584.html). Se está sentando gran parte del trabajo preliminar que se perfeccionará aún más en las próximas publicaciones.\\
 
 ## [v0.69](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.69.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: DECEMBER 5, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: DECEMBRE 5, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: NOVEMBER 29, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: NOVEMBRE 29, 2022**
 {% endhint %}
 
-As noted in previous releases, [HIP-367](https://hips.hedera.com/hip/hip-367) is deprecating the token relationship information returned from HAPI queries. In this release, its mirror node replacement is now feature complete. We now track and show the current fungible token balance in the token relationships API instead of relying upon the 15 minute balance export from consensus nodes. In a future release, the accounts and balances REST APIs will be updated to show the current fungible token balance.
+Como se señaló en versiones anteriores, [HIP-367](https://hips.hedera.com/hip/hip-367) está obsoleto de la información de relación de tokens devuelta de consultas HAPI. En esta versión, su reemplazo de nodo espejo ahora está completo de características. Ahora rastreamos y mostramos el actual balance fungible de tokens en la API de relaciones de tokens, en lugar de depender del balance de 15 minutos de exportación desde los nodos de consenso. En una versión futura, las cuentas y los balances de las APIs REST serán actualizados para mostrar el saldo de tokens fungible actual.
 
-The importer component now supports a local file stream provider. This allows it to read stream files from a local directory instead of just the S3-compatible providers it supported previously. This mode is useful for debugging stream files received out of band or for reducing complexity and latency in a local node setup. To try it out, set `hedera.mirror.importer.downloader.cloudProvider=LOCAL` and populate the `hedera.mirror.importer.dataPath`/`streams` folder with the same file structure as the cloud buckets.
+El componente importador ahora soporta un proveedor local de flujo de archivos. Esto le permite leer archivos de flujo desde un directorio local en lugar de sólo los proveedores compatibles con S3 que soportó anteriormente. Este modo es útil para depurar archivos de flujo recibidos por banda o para reducir complejidad y latencia en una configuración de nodo local. Para probarlo, establece `hedera.mirror.importer.downloader.cloudProvider=LOCAL` y llena la carpeta `hedera.mirror.importer.dataPath`/`streams` con la misma estructura de archivo que los cubos de la nube.
 
-We now show a contract's `CREATE2` EVM address in the contract logs REST APIs. Previously, we would convert the Hedera `shard.realm.num` to a 20-byte EVM address but this did not always reflect the true EVM address of the contract. Using the `CREATE2` form of the EVM address provides increased Ethereum compatibility.
+Ahora mostramos la dirección EVM de un contrato `CREATE2` en los registros de contrato API REST. Anteriormente, convertiríamos el `shard.realm.num` de Hedera en una dirección EVM de 20 bytes pero esto no siempre reflejaba la verdadera dirección EVM del contrato. Utilizando la forma `CREATE2` de la dirección EVM proporciona una mayor compatibilidad con Ethereum.
 
-We continue to make progress on converting our build process to Gradle. This release adds a Golang Gradle plugin to download the Go SDK and use it to build and test the Rosetta module.
+Seguimos avanzando en la conversión de nuestro proceso de construcción a Gradle. Esta versión añade un plugin Golang Gradle para descargar el Go SDK y usarlo para construir y probar el módulo Rosetta.
 
 ## [v0.68](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.68.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: NOVEMBER 18, 2022**
+**MAINNET ACTUALADO COMPLETADO: AHORA 18, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: NOVEMBER 18, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: NINVEMBRO 18, 2022**
 {% endhint %}
 
-Besides the usual round of bug fixes, this release focuses on some internal enhancements to lay the groundwork for some upcoming features. We now track and persist the current fungible token balance in the database. This information is not yet exposed on any API but will be rolled out to the token relationships, accounts and balances REST APIs in the near future.
+Además de la ronda habitual de correcciones de errores, esta versión se enfoca en algunas mejoras internas para sentar las bases para algunas características futuras. Ahora rastreamos y persistimos el actual balance fungible de tokens en la base de datos. Esta información aún no está expuesta en ninguna API pero se desplegará en las relaciones de tokens, cuentas y balances de APIs REST en un futuro próximo.
 
-We're continuing our work towards [CitusDB](https://www.citusdata.com/) as a possible database replacement in this release by adding distribution columns and fixing our v2 schema tests.
+Estamos continuando nuestro trabajo hacia [CitusDB](https://www.citusdata.com/) como un posible reemplazo de base de datos en esta versión agregando columnas de distribución y corrigiendo nuestras pruebas de esquema v2.
 
-Finally, we implemented initial Gradle support to improve build times and provide a better developer experience. Initial testing shows build and test times reduced from 8 minutes overall down to 2 minutes. The Gradle and Maven build scripts will be maintained concurrently for a few releases until we can ensure the Gradle build reaches feature parity with Maven.
+Finalmente, implementamos soporte inicial de Gradle para mejorar los tiempos de construcción y proporcionar una mejor experiencia de desarrolladores. Las pruebas iniciales muestran tiempos de construcción y prueba reducidos de 8 minutos en total a 2 minutos. Los scripts de compilación Gradle y Maven se mantendrán simultáneamente durante unas pocas versiones hasta que podamos asegurar que la construcción de Gradle alcance la paridad de características con Maven.
 
 ## [v0.67](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.67.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: NOVEMBER 10, 2022**
+**MAINNET ACTUALADO COMPLETADO: NOVEMBRE 10, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: NOVEMBER 10, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: NOVEMBRE 10, 2022**
 {% endhint %}
 
-[HIP-367](https://hips.hedera.com/hip/hip-367) deprecated the list of token balances for an account returned via HAPI. The mirror node has been working on its replacement for a few releases by [storing](https://github.com/hashgraph/hedera-mirror-node/issues/4030) the current account balance, [combining](https://github.com/hashgraph/hedera-mirror-node/issues/4150) contract and entity tables, and [adding a history table](https://github.com/hashgraph/hedera-mirror-node/issues/3251) for `token_account`. This work has paved the way for a new token relationships REST API that will list all fungible and non-fungible tokens associated with a particular account. This API also returns some metadata like balance, KYC status, freeze status, and whether it's an automatic association or not. Currently the fungible token balance being returned is from the 15 minute account balance file. We are [actively](https://github.com/hashgraph/hedera-mirror-node/issues/4402) working towards tracking the real-time fungible token balance and it will be updated to reflect that in a future release.
+[HIP-367](https://hips.hedera.com/hip/hip-367) desaprobó la lista de saldos de tokens para una cuenta devuelta a través de HAPI. El nodo espejo ha estado trabajando en su reemplazo para algunas versiones por [storing](https://github.com/hashgraph/hedera-mirror-node/issues/4030) el saldo actual de la cuenta, [combining](https://github. om/hashgraph/hedera-mirror-node/issues/4150) y tablas de entidades, y [agregando una tabla de historial](https://github.com/hashgraph/hedera-mirror-node/issues/3251) para `token_account`. Este trabajo ha allanado el camino para una nueva relación de token API REST que listará todos los tokens fungibles y no fungibles asociados con una cuenta en particular. Esta API también devuelve algunos metadatos como el balance, el estado de KYC, el estado de congelación, y si es una asociación automática o no. Actualmente el saldo fungible del token que se devuelve es del archivo de saldo de cuenta de 15 minutos. Estamos en [actively](https://github.com/hashgraph/hedera-mirror-node/issues/4402) trabajando para seguir el balance de tokens fungible en tiempo real y se actualizará para reflejarlo en una futura versión.
 
 `GET /api/v1/accounts/{id}/tokens`
 
@@ -584,29 +584,29 @@ Finally, we implemented initial Gradle support to improve build times and provid
   "tokens": [{
     "automatic_association": true,
     "balance": 15,
-    "created_timestamp": "1234567890.000000002",
+    "created_timestamp": "1234567890. 00000002",
     "freeze_status": "UNFROZEN",
     "kyc_status": "GRANTED",
-    "token_id": "0.0.1135"
+    "token_id": "0. .1135"
   }],
-  "links": {
-    "next": null
+  "enlaces": {
+    "siguiente": null
   }
 }
 ```
 
-[HIP-513](https://hips.hedera.com/HIP/hip-513.html) details how smart contract traceability information from consensus nodes is made available via sidecar files. The contract state changes within the sidecar are persisted by mirror nodes and made available on the contract results APIs. However, these state changes do not always reflect the full list of smart contract storage values since not all slots are modified during any particular contract invocation. We now persist a rolled up view of state changes to track the latest slot key/value pairs. This contract state information is now exposed via a new `/api/v1/contracts/{id}/state` REST API where `id` is either the `shard.realm.num`, `realm.num`, `num`, or a hex encoded EVM address of the smart contract.
+[HIP-513](https://hips.hedera.com/HIP/hip-513.html) detalla cómo la información de seguimiento de contratos inteligente desde nodos de consenso está disponible a través de archivos sidecar. Los cambios en el estado del contrato dentro del sidecar persisten por los nodos espejo y están disponibles en las APIs de resultados del contrato. Sin embargo, estos cambios de estado no siempre reflejan la lista completa de los valores de almacenamiento de contratos inteligentes, ya que no todos los espacios se modifican durante una invocación de contrato en particular. Ahora persistimos en una vista enrollada de los cambios de estado para rastrear los últimos pares de clave/valor. Esta información del estado del contrato ahora está expuesta a través de una nueva API REST `/api/v1/contracts/{id}/state` donde `id` es el `shard. ealm.num`, `realm.num`, `num`, o una dirección EVM codificada hexadecimal del contrato inteligente.
 
 `GET /api/v1/contracts/{id}/state`
 
 ```
 {
   "state": [{
-    "address": "0x0000000000000000000000000000000000001f41",
-    "contract_id": "0.0.100",
-    "slot": "0x0000000000000000000000000000000000000000000000000000000000000001",
-    "timestamp": "1676540001.234390005",
-    "value": "0x0000000000000000000000000000000000000000000000000000000000000010"
+    "address": "0x00000000000000000000000000000000000000000000000000000000001f41",
+    "contract_id": "0.0. 00",
+    "slot": "0x0000000000000000000000000000000000000000000000000000000000000000000001",
+    "timestamp": "1676540001. 34390005",
+    "value": "0x0000000000000000000000000000000000000000000000000000000000000000000010"
   }],
   "links": {
     "next": null
@@ -614,69 +614,69 @@ Finally, we implemented initial Gradle support to improve build times and provid
 }
 ```
 
-In a push for further decentralization, we now randomize node used to download data files after reaching consensus. Previously, the data structure we used generally caused us to use the first node returned in the verified list, which was usually `0.0.3`. We now randomly pick a node until we can successfully download the stream file. We also internally changed all tables that used node account ID to use its node ID instead.
+En un push para una mayor descentralización, ahora el nodo aleatoriamente utilizado para descargar archivos de datos después de alcanzar el consenso. Anteriormente, la estructura de datos que usamos generalmente provocaba que usáramos el primer nodo devuelto en la lista verificada, que normalmente era `0.0.3`. Ahora escojemos aleatoriamente un nodo hasta que podamos descargar con éxito el archivo de transmisión. También cambiamos internamente todas las tablas que usaban el ID de la cuenta de nodos para usar su ID de nodo.
 
-On the testing front, we enhanced various test and monitoring tools to add support for new APIs. We also added an acceptance test startup probe to delay the start of the tests until the network as a whole was healthy. This avoids the mirror node acceptance tests reporting a false positive when a long migration or startup process on the consensus or mirror nodes causes a delay.
+En el frente de pruebas, hemos mejorado varias herramientas de prueba y monitoreo para agregar soporte para nuevas APIs. También añadimos una sonda de inicio de prueba de aceptación para retrasar el inicio de las pruebas hasta que la red en su conjunto estaba sana. Esto evita que las pruebas de aceptación del nodo espejo informen de un falso positivo cuando una migración larga o un proceso de inicio en el consenso o los nodos espejo causa un retraso.
 
 ## [v0.66](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.66.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: OCTOBER 24, 2022**
+**MAINNET ACTUALADO COMPLETADO: OCTOBER 24, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: OCTOBER 17, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: OCTOBER 17, 2022**
 {% endhint %}
 
-Continuing our goal of having up to date balances everywhere, this release now shows the current hbar balance on the balances REST API. If you provide a `timestamp` parameter, it will fallback to the previous behavior and use the 15 minute balance file. This allows us to continue to provide a historical view of your balance over time, while also showing the latest balance if no specific time range is requested. Live fungible token balance is actively being worked on for an upcoming release.
+Continuando con nuestro objetivo de tener balances actualizados en todas partes, esta versión ahora muestra el saldo hbar actual en la API REST de balance. Si proporcionas un parámetro `timestamp`, se retornará al comportamiento anterior y usará el archivo de balance de 15 minutos. Esto nos permite seguir proporcionando una visión histórica de su equilibrio con el tiempo, mientras se muestra el último saldo si no se solicita un intervalo de tiempo específico. Se está trabajando activamente en el saldo de tokens en vivo para una próxima versión.
 
-Another big feature this release is support for cloud storage failover. The importer can now be configured with multiple S3 download sources and will iterate over each until one is successful. This makes the mirror node more decentralized and provides more resiliency in the face of cloud failure. The existing `hedera.mirror.importer.downloader` properties used to configure the `cloudProvider`, `accessKey`, `secretKey`, etc. will continue to be supported and inserted as the first entry in the sources list, but it's recommended to migrate your configuration to the newer format. Also in the downloader, we increased the downloader batch size to 100 to improve historical synchronization speed. A `hedera.mirror.importer.downloader.sources.connectionTimeout` property was added to avoid occasional connection errors.
+Otra característica importante de esta versión es el soporte para la eliminación de fallos de almacenamiento en la nube. El importador ahora se puede configurar con múltiples fuentes de descarga de S3 y se iterará sobre cada una hasta que uno sea exitoso. Esto hace que el nodo espejo sea más descentralizado y proporciona más resistencia frente al fallo de la nube. Las propiedades `hedera.mirror.importer.downloader` existentes usadas para configurar el `cloudProvider`, `accessKey`, `secretKey`, etc. continuará siendo soportado e insertado como la primera entrada en la lista de fuentes, pero se recomienda migrar la configuración al formato más reciente. También en el descargador hemos aumentado el tamaño del lote de descargas a 100 para mejorar la velocidad de sincronización histórica. Se añadió una propiedad `hedera.mirror.importer.downloader.sources.connectionTimeout` para evitar errores de conexión ocasionales.
 
 ```
 hedera:
-   mirror:
-    importer:
-      downloader:
-        sources:
+   espejo:
+    importador:
+      descargador:
+        fuentes:
         - backoff: 30s
           connectionTimeout: 10s
-          credentials:
+          credenciales:
             accessKey: <redacted>
             secretKey: <redacted>
           maxConcurrency: 50
           projectId: myapp
-          region: us-east-2
+          región: Off-2
           type: GCP
-          uri: https://storage.googleapis.com
-        - credentials:
+          uri: https://storage. oogleapis. om
+        - credenciales:
             accessKey: <redacted>
             secretKey: <redacted>
           type: S3
 ```
 
-[HIP-573](https://hips.hedera.com/hip/hip-573) gives token creators the option to exempt all of their token’s fee collectors from a custom fee. This mirror node release adds support to persist this new `all_collectors_are_exempt` HAPI field and expose it via the `/api/v1/tokens/{id}` REST API.
+[HIP-573](https://hips.hedera.com/hip/hip-573) da a los creadores de tokens la opción de eximir de una comisión personalizada a todos los coleccionistas de comisiones de su token. Esta versión del nodo espejo añade soporte para persistir en este nuevo campo `all_collectors_are_exempt` HAPI y exponerlo a través del `/api/v1/tokens/{id}` API REST.
 
-An important characteristic of a mirror node is that anyone can run one and store only the data they care about. The mirror node has supported such capability for a few years now but the configuration syntax was a bit tricky to get correct. To address this shortcoming, we add some [examples](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#transaction-and-entity-filtering) to the configuration documentation to clarify things. This entity filtering was historically limited to just create, update and delete operations on entities. We've now expanded this filtering to include payer account IDs and accounts or tokens involved in transfers.
+Una característica importante de un nodo espejo es que cualquiera puede ejecutar uno y almacenar sólo los datos que le interesan. El nodo espejo ha soportado tal capacidad durante algunos años, pero la sintaxis de configuración era un poco complicada para ser correcta. Para resolver esta deficiencia, añadimos algo de [examples](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#transaction-and-entity-filtering) a la documentación de configuración para aclarar las cosas. Este filtrado de entidades se limitó históricamente a sólo crear, actualizar y eliminar operaciones en entidades. Ahora hemos expandido este filtrado para incluir IDs de cuentas de pagador y cuentas o fichas involucradas en transferencias.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-As part of the S3 failover work, we made a number of changes to existing properties to streamline things and only support one property for all stream types. The `hedera.mirror.importer.downloader.(balance|event|record).batchSize` properties were removed in favor of a single, generic `hedera.mirror.importer.downloader.batchSize`. Likewise, the `hedera.mirror.importer.downloader.(balance|event|record).threads` properties were removed in favor of `hedera.mirror.importer.downloader.threads`. The `hedera.mirror.importer.downloader.(balance|event|record).prefix` properties were removed in favor of hardcoded configuration since there's never been a need to adjust these. If you're using any of these properties, please adjust your config accordingly.
+Como parte del trabajo de tolerancia contra fallos de S3, hicimos una serie de cambios en las propiedades existentes para streamline cosas y sólo soportamos una propiedad para todos los tipos de secuencia. Las propiedades `hedera.mirror.importer.downloader.(balance|event|record).batchSize` fueron eliminadas a favor de un solo `hedera.mirror.importer.downloader.batchSize`. De la misma manera, las propiedades `hedera.mirror.importer.downloader.(balance|event|record).threads` fueron eliminadas a favor de `hedera.mirror.importer.downloader.threads`. Las propiedades `hedera.mirror.importer.downloader.(balance|event|record).prefix` fueron removidas a favor de la configuración hardcoded ya que nunca hubo necesidad de ajustar estas. Si está usando alguna de estas propiedades, por favor ajuste su configuración en consecuencia.
 
-If you're writing stream files to disk after downloading by enabling the `writeFiles` or `writeSignatures` properties, there is one other breaking change to be aware of. As part of our migration away from node account IDs, we changed the paths on disk to use the node ID as well. If you'd like to avoid having two directories for the same node please rename your local directories manually. For example, change `${dataDir}/recordstreams/record0.0.3` to `${dataDir}/recordstreams/record0`.
+Si estás escribiendo archivos de flujo al disco después de descargar activando las propiedades `writeFiles` o `writeSignatures`, hay otro cambio de ruptura que hay que tener en cuenta. Como parte de nuestra migración fuera de los IDs de cuentas de nodos, cambiamos las rutas en el disco para usar el ID del nodo también. Si quieres evitar tener dos directorios para el mismo nodo por favor renombra tus directorios locales manualmente. Por ejemplo, cambia `${dataDir}/recordstreams/record0.0.3` a `${dataDir}/recordstreams/record0`.
 
 ## [v0.65](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.65.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: OCTOBER 11, 2022**
+**MAINNET ACTUALADO COMPLETADO: OCTOBER 11, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: OCTOBER 6, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: OCTOBER 6, 2022**
 {% endhint %}
 
-The mirror node now calculates consensus using the staking weight of all the nodes as outlined in [HIP-406](https://hips.hedera.com/HIP/hip-406.html). If staking is not yet activated, it falls back to the previous behavior of counting each node as `1/N` weight where `N` is the number of consensus nodes running on the network. The `/api/v1/accounts` and `/api/v1/accounts/{id}`REST APIs now expose a `pending_reward` field that provides an estimate of the staking reward payout in tinybars as of the last staking period. The `/api/v1/network/supply` REST API updated its configured list of unreleased supply accounts to accurately reflect the separation of accounts done for staking purposes by Hedera.
+El nodo espejo ahora calcula el consenso utilizando el peso de apuesta de todos los nodos como se describe en [HIP-406](https://hips.hedera.com/HIP/hip-406.html). Si la apuesta aún no está activada, cae de vuelta al comportamiento anterior de contar cada nodo como el peso `1/N` donde `N` es el número de nodos de consenso corriendo en la red. Las `/api/v1/accounts` y `/api/v1/accounts/{id}`APIs REST ahora exponen un campo `pending_reward` que proporciona una estimación de los pagos de recompensa en tinybars desde el último periodo de apuesta. La API REST `/api/v1/network/supply` actualizó su lista configurada de cuentas de suministro no liberadas para reflejar con precisión la separación de cuentas realizadas con fines de acopio por Hedera.
 
-This release implements the contract actions REST API detailed in [HIP-513](https://hips.hedera.com/hip/hip-513). An example of an actions payload is shown below. We added `transaction_hash`, `transaction_index`, `block_hash` and `block_number` fields to the contract logs REST APIs. This work was done to optimize the performance for the `eth_getLogs` JSON-RPC method used by the relay. Also for the relay, we now support lookup of non-Ethereum contract results by its 32 byte transaction hash.
+Esta versión implementa las acciones del contrato REST API detalladas en [HIP-513](https://hips.hedera.com/hip/hip-513). A continuación se muestra un ejemplo de una carga útil de acciones. Hemos añadido los campos `transaction_hash`, `transaction_index`, `block_hash` y `block_number` a los registros de contrato APIs REST. Este trabajo se realizó para optimizar el rendimiento del método JSON-RPC `eth_getLogs` usado por el repetidor. También para el repetidor, ahora apoyamos la búsqueda de resultados de contratos no Ethereum por su hash de transacción de 32 bytes.
 
 `GET /api/v1/contracts/results/0.0.5001-1676540001-234390005/actions`
 
@@ -686,20 +686,20 @@ This release implements the contract actions REST API detailed in [HIP-513](http
     "call_depth": 1,
     "call_type": "CALL",
     "call_operation_type": "CALL",
-    "caller": "0.0.5001",
+    "caller": "0. .5001",
     "caller_type": "CONTRACT",
-    "from": "0x0000000000000000000000000000000000001389",
-    "timestamp": "1676540001.234390005",
+    "from": "0x0000000000000000000000000000000000000000000000000000001389",
+    "timestamp": "1676540001. 34390005",
     "gas": 1000,
     "gas_used": 900,
     "index": 1,
     "input": "0xabcd",
-    "to": "0x70f2b2914a2a4b783faefb75f459a580616fcb5e",
-    "recipient": "0.0.8001",
+    "a": "0x70f2b2914a2a4b783faefb75f459a580616fcb5e",
+    "destinatario": "0.0. 001",
     "recipient_type": "CONTRACT",
     "result_data": "0x1234",
     "result_data_type": "OUTPUT",
-    "value": 100
+    "valor": 100
   }],
   "links": {
     "next": null
@@ -707,128 +707,128 @@ This release implements the contract actions REST API detailed in [HIP-513](http
 }
 ```
 
-To support mirror node explorers being able to display the transaction that created an entity, we added a `created_timestamp` field to the accounts REST API.
+Para soportar que los exploradores de nodo espejo puedan mostrar la transacción que creó una entidad, añadimos un campo `created_timestamp` a las cuentas REST API.
 
-The Rosetta module saw a large number of improvements this release. Rosetta now supports a transaction memo be returned in its metadata response. To improve performance of large blocks, Rosetta now limits the number of transactions in its block response. The importer balance reconciliation job was disabled in the Rosetta Docker image since Rosetta performs its own reconciliation process. There were other various fixes to the reconciliation process balance offset, charts testing failing for PRs from forked repos, and fixing a slow search block by hash query in rosetta.
+El módulo de Rosetta vio un gran número de mejoras en esta versión. Rosetta ahora soporta un memo de transacción ser devuelto en su respuesta de metadatas. Para mejorar el rendimiento de bloques grandes, Rosetta ahora limita el número de transacciones en su respuesta de bloques. El trabajo de conciliación del balance del importador fue deshabilitado en la imagen de Rosetta Docker ya que Rosetta realiza su propio proceso de reconciliación. Hubo otras varias correcciones en el equilibrio del proceso de reconciliación, prueba de gráficos fallando para PRs de repos bifurcados, y arreglando un bloque de búsqueda lenta por consulta hash en rosetta.
 
 ## [v0.64](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.64.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: SEPTEMBER 26 2022**
+**MAINNET ACTUALIZADO COMPLETADO: SEPTEMBER 26 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: SEPTEMBER 12, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: SEPTEMBER 12, 2022**
 {% endhint %}
 
-In the last release, we began keeping track of the current balance of every account and contract instead of solely relying upon the balance file written every 15 minutes by consensus nodes. In this release, we now show this up-to-date balance on the `/api/v1/accounts` and `/api/v1/accounts/{id}` REST APIs in the existing `balance` field. Token balances and the balances REST API still shows the balance information from the 15 minute balance file. In a future release, we'll look at changing those to track the current balance.
+En la última versión, empezamos a hacer un seguimiento del saldo actual de cada cuenta y contrato en lugar de confiar únicamente en el archivo de saldo escrito cada 15 minutos por nodos de consenso. En esta versión, ahora mostramos este saldo actualizado en `/api/v1/accounts` y `/api/v1/accounts/{id}` APIs REST en el campo `balance` existente. Los saldos de fichas y los balances REST API todavía muestran la información del saldo del archivo de saldo de 15 minutos. En una versión futura, veremos cambiarlas para rastrear el balance actual.
 
-As part of [HIP-406](https://hips.hedera.com/hip/hip-406), it details a pending reward calculation that can be used to estimate the reward payout between your last payout event and the staking period that just ended. The mirror node now does a similar calculation daily and will in a future release show this pending reward amount on the REST API.
+Como parte de [HIP-406](https://hips.hedera. om/cadera/hip-406), detalla un cálculo de recompensas pendiente que puede ser utilizado para estimar el pago de la recompensa entre su último evento de pago y el período de apuesta que acaba de finalizar. El nodo espejo ahora hace un cálculo similar diariamente y en una versión futura mostrará esta cantidad de recompensa pendiente en la API REST.
 
-The [reconciliation](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/importer#reconciliation-job) job periodically runs and reconciles the balance files with the crypto transfers that occurred in the record files. This job allowed us to catch an [issue](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#record-missing-for-fail\_invalid-nft-transfers) with missing transactions for `FAIL_INVALID` crypto transfers that was fixed in hedera-services `v0.27.7`. This release contains the errata for the missing transactions that allows reconciliation to proceed successfully once again. It also saw performance improvements including a `delay` property to throttle its speed and added job status persistence so it doesn't restart from the beginning every time. A new `remediationStrategy` property provides a mechanism to continue after failure to aid in debugging multiple reconciliation errors.
+El trabajo de [reconciliation](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/importer#reconciliation-job) se ejecuta periódicamente y reconcilia los archivos de balance con las transferencias de criptomonedas que ocurrieron en los archivos de registro. Este trabajo nos permitió capturar un [issue](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#record-missing-for-fail\_invalid-nft-transfers) con transacciones faltantes para las criptomonedas `FAIL_INVALID` que se corrigieron en `v0.27.7`. Esta versión contiene las erratas para las transacciones faltantes que permiten que la conciliación proceda con éxito una vez más. También fue testigo de mejoras de rendimiento, incluyendo una propiedad `delay` para acelerar su velocidad y la persistencia en el estado del trabajo, por lo que no se reinicia desde el principio cada vez. Una nueva propiedad `remediationStrategy` proporciona un mecanismo para continuar después de no haber ayudado a depurar múltiples errores de reconciliación.
 
 ## [v0.63](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.63.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: SEPTEMBER 7 2022**
+**MAINNET ACTUALIZADO COMPLETADO: SEPTEMBER 7 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: SEPTEMBER 2, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: SEPTEMBER 2, 2022**
 {% endhint %}
 
-This release adds a highly requested feature: the mirror node now tracks the current account balance. Previously, the mirror node would store balance information whose source was a balance file that consensus nodes generate and upload every 15 minutes. As a result, balance information was always behind by up to 15 minutes for active accounts. We were able to figure out a way to track this information at scale with SQL in this release. The next release will actually expose this up to date account balance information on both `/api/v1/accounts` or `/api/v1/accounts/{id}`. In future releases, will look at adding live balances to `/api/v1/balances` when no timestamp parameter is provided and track up to date token balances.
+Esta versión añade una característica muy solicitada: el nodo espejo ahora rastrea el saldo de la cuenta corriente. Anteriormente, el nodo espejo almacenaría información de balance cuya fuente era un archivo de balance que los nodos de consenso generan y cargan cada 15 minutos. Como resultado, la información sobre el saldo estuvo siempre atrasada hasta por 15 minutos para las cuentas activas. En esta versión pudimos averiguar una manera de rastrear esta información a escala con SQL. La próxima versión realmente expondrá esta información actualizada del saldo de la cuenta en `/api/v1/accounts` o `/api/v1/accounts/{id}`. En futuras versiones, buscará agregar balances en vivo a `/api/v1/balances` cuando no se proporciona un parámetro de marca de tiempo y rastrea los saldos de token actualizados.
 
-Work continues on [HIP-513 Contract Traceability](https://hips.hedera.com/HIP/hip-513.html), with this release adding a few important items. Consensus nodes will, when first activating the sidecar mechanism, send migration records that includes all smart contract runtime bytecode and current storage values. The mirror node now supports receiving these special migration sidecars and updating its database with the migrated data. This paves the way for the mirror node to have the necessary information to execute smart contracts without modifying state in a future release. Also in this release we now show the contract initcode that was used to unsuccessfully create a smart contract in a new `failed_initcode` field in the contract result REST API.
+El trabajo continúa en [HIP-513 Contract Traceability](https://hips.hedera.com/HIP/hip-513.html), con esta versión añadiendo algunos elementos importantes. Los nodos de consenso enviarán registros de migración que incluyan todos los bytecode de tiempo de ejecución del contrato inteligente y los valores de almacenamiento actuales. El nodo espejo ahora soporta recibir estos sidecars especiales de migración y actualizar su base de datos con los datos migrados. Esto allana el camino para que el nodo espejo tenga la información necesaria para ejecutar contratos inteligentes sin modificar el estado en una futura versión. También en esta versión ahora mostramos el código de inicio del contrato que se utilizó para crear sin éxito un contrato inteligente en un nuevo campo `failed_initcode` en el resultado del contrato REST API.
 
-The network supply REST API saw an update to adjust the unreleased supply accounts used to calculate the unreleased supply. This change was necessary as Hedera adjusts the treasury accounts for use with staking.
+La API REST de suministro de red vio una actualización para ajustar las cuentas de suministro no liberadas utilizadas para calcular el suministro no liberado. Este cambio era necesario ya que Hedera ajusta las cuentas del tesoro para su uso con la apuesta.
 
 ## [v0.62](https://github.com/hashgraph/hedera-mirror-node/releases?page=2)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: AUGUST 29, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: AUGUSTO 29, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: AUGUST 22, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: AUGUSTO 22, 2022**
 {% endhint %}
 
-Mirror Node 0.62 saw [HIP-406](https://hips.hedera.com/HIP/hip-406.html) staking related improvements to its REST API and partial support for HIP-513 contract traceability.
+Mirror Node 0.62 vio [HIP-406](https://hips.hedera.com/HIP/hip-406.html) mejoras relacionadas a su API REST y soporte parcial para la trazabilidad del contrato HIP-513.
 
-The `/api/v1/network/nodes` will now use the address book stake as a fallback when it has not seen any `NodeStakeUpdate` transactions on the network. This release also contains a new network stake REST API `/api/v1/network/stake` to show aggregate stake information common to all nodes:
+El `/api/v1/network/nodes` ahora usará la apuesta de la libreta de direcciones como un respaldo cuando no haya visto ninguna transacción `NodeStakeUpdate` en la red. Esta versión también contiene una nueva apuesta de red REST API `/api/v1/network/stake` para mostrar información de apuesta agregada común a todos los nodos:
 
 ```
 {
   "max_staking_reward_rate_per_hbar": 17808,
-  "node_reward_fee_fraction": 0.0,
-  "stake_total": 35000000000000000,
+  "node_reward_fee_fraction": 0. ,
+  "stake_total": 35000000000000000000000,
   "staking_period": {
     "from": "1658774045.000000000",
-    "to": "1658860445.000000000"
+    "to": "1658860445. 000000"
   },
   "staking_period_duration": 1440,
   "staking_periods_stored": 365,
-  "staking_reward_fee_fraction": 1.0,
-  "staking_reward_rate": 100000000000,
-  "staking_start_threshold": 25000000000000000
+  "staking_reward_fee_fraction": 1. ,
+  "staking_reward_rate": 1000000000,
+  "staking_start_Firsthold": 2500000000000000000
 }
 ```
 
-[HIP-513](https://hips.hedera.com/HIP/hip-513.html) Smart Contract Traceability adds support for an optional sidecar to contain contract traceability information. In this release, the mirror node supports downloading and persisting contract state changes, contract initcode, contract runtime bytecode, and contract actions (AKA traces). The `/api/v1/contracts/{id}` REST API now shows the runtime bytecode for newly created contracts. The next release will support a sidecar migration that will populate contract state changes and bytecode for all existing contracts.
+[HIP-513](https://hips.hedera.com/HIP/hip-513.html) Smart Contract Traceability añade soporte para que un sidecar opcional contenga información de trazabilidad del contrato. En esta versión, el nodo espejo soporta la descarga y persistente cambios en el estado del contrato, código de inicio del contrato, bytecode del tiempo de ejecución del contrato y acciones de contrato (trazas AKA). La API REST `/api/v1/contracts/{id}` ahora muestra el bytecode de tiempo de ejecución para los contratos recién creados. La siguiente versión soportará una migración paralela que rellenará los cambios de estado del contrato y el código de byte para todos los contratos existentes.
 
-[HIP-435](https://hips.hedera.com/HIP/hip-435.html) Record Stream V6 required changes to the state proof REST API in order to not break when V6 was enabled. With this release, the API was updated to support record files in the new v6 format.
+[HIP-435](https://hips.hedera.com/HIP/hip-435.html) Record Stream V6 requiere cambios en la API REST a prueba de estado para no romper cuando se habilitó V6. Con esta versión, la API fue actualizada para soportar archivos de registro en el nuevo formato v6.
 
-The Rosetta API saw a few minor fixes and improvements. It now uses the Hedera network alias everywhere in the Rosetta server . It also fixes the issue that Rosetta did not support alias as the from address for crypto transfers. Additionally, the Rosetta `sub_network_identifier` was disabled since it was not needed.
+La API de Rosetta vio algunas pequeñas correcciones y mejoras. Ahora utiliza el alias de red Hedera en todas partes del servidor Rosetta . También corrige el problema de que Rosetta no soportaba alias como la dirección de las transferencias criptográficas. Adicionalmente, el `sub_network_identifier` de Rosetta fue deshabilitado ya que no era necesario.
 
-There were a surprising number of technical debt improvements this release. The REST API and monitor API were both converted from CommonJS to ES6 modules, allowing us to finally upgrade some of our dependencies to the latest version. The REST API spec tests were organization into folders by endpoint and changed to use a single database container for the entire suite. On the importer, mutable contract information was merged into the `entity` table. The `RecordItem` constructor was removed everywhere in favor its builder method. Finally, we added parser performance tests to be able to generate large record files and stress test record file ingestion.
+Este lanzamiento ha experimentado un número sorprendente de mejoras técnicas de la deuda. Tanto la API REST como la API de monitor se convirtieron de CommonJS a módulos ES6, permitiéndonos actualizar finalmente algunas de nuestras dependencias a la última versión. Las pruebas de especificaciones de REST API fueron organizadas en carpetas por punto final y cambiadas para usar un único contenedor de base de datos para toda la suite. En el importador, la información mutable del contrato fue fusionada en la tabla `entity`. El constructor `RecordItem` fue eliminado en todas partes para favorecer su método de construcción. Por último, añadimos pruebas de rendimiento analizador para poder generar grandes archivos de registro y estrés en la ingestión de registros de pruebas.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-In a recent release, we added the `stake_total` field to the `/api/v1/network/nodes` API to show the aggregate stake of the network. With the addition of the new `/api/v1/network/stake` API, we now have a separate API to return aggregate staking information associated with the network. As such, we made the decision in this release to remove the `stake_total` field from the response of the `/api/v1/network/nodes` API to stay consistent. If you're using this field, please update your code to use the `stake_total` field in the `/api/v1/network/stake` API.
+En una versión reciente, añadimos el campo `stake_total` a la API `/api/v1/network/nodes` para mostrar la estaca agregada de la red. Con la adición de la nueva API `/api/v1/network/stake`, ahora tenemos una API separada para devolver información agregada asociada a la red. Como tal, tomamos la decisión en esta versión de eliminar el campo `stake_total` de la respuesta de la API `/api/v1/network/nodes` para mantenerse consistente. Si estás usando este campo, por favor actualiza tu código para usar el campo `stake_total` en la API `/api/v1/network/stake`.
 
 ## [v0.61](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.61.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: AUGUST 2, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: AUGUSTO 2, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JULY 27, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: 27 DE JULY, 2022**
 {% endhint %}
 
-This release adds initial support for [HIP-513](https://hips.hedera.com/hip/hip-513) Smart Contract Traceability Extension. Contract traceability information is now available inside an optional sidecar file uploaded separately to cloud storage. Mirror node operators can choose whether to download this extra information by configuring the `hedera.mirror.importer.parser.record.sidecar` properties on the importer. By default, sidecar files will not be downloaded. Enabling it will permit contract state, actions, and bytecode data to be persisted by the mirror node. HIP-513 support is incomplete in this release and the next release will enable full persistence of all sidecar types.
+Esta versión añade soporte inicial para la extensión de trazabilidad de contratos inteligentes [HIP-513](https://hips.hedera.com/hip/hip-513) La información de trazabilidad del contrato está ahora disponible dentro de un archivo sidecar opcional subido por separado a la nube. Los operadores de nodo Mirror pueden elegir si descargar esta información extra configurando las propiedades `hedera.mirror.importer.parser.record.sidecar` en el importador. Por defecto, los archivos sidecar no serán descargados. Habilitarlo permitirá que el nodo espejo persista en los datos del estado del contrato, acciones y bytecode. El soporte HIP-513 está incompleto en esta versión y la siguiente versión habilitará la persistencia completa de todos los tipos sidecar.
 
-The transactions REST API now supports multiple `transactiontype` query filters to simplify searches across types.
+La API REST de transacciones ahora soporta múltiples filtros de consulta `transactiontype` para simplificar las búsquedas entre tipos.
 
-The version of the mirror node in [GCP Marketplace](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node?project=mirrornode-non-prod-314918) was updated to v0.60.0. This required migration to the new GCP Producer Portal which should help streamline future version updates.
+La versión del nodo espejo en [GCP Marketplace](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node?project=mirrornode-non-prod-314918) fue actualizada a v0.60.0. Esto requirió la migración al nuevo GCP Producer Portal que debería ayudar a optimizar futuras actualizaciones de la versión.
 
-The monitor components saw an option added to retrieve the address book on startup. This avoids having to configure the list of nodes to monitor manually in pre-production environments and ensure the list of nodes is up to date. The monitor now uses OpenAPI generated models to dog food our OpenAPI schema. We also added an option to the monitor to set the max memo length property for published transactions.
+Los componentes del monitor vieron una opción añadida para recuperar la libreta de direcciones en el arranque. Esto evita tener que configurar la lista de nodos para monitorear manualmente en entornos de preproducción y asegurarse de que la lista de nodos está actualizada. El monitor ahora utiliza modelos generados por OpenAPI para alimentar nuestro esquema OpenAPI. También hemos añadido una opción al monitor para establecer la propiedad máxima de longitud de memo para las transacciones publicadas.
 
 ## [v0.60](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.60.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JULY 18, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: 18 de JULY, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JULY 14, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: 14 de JULY, 2022**
 {% endhint %}
 
-The two big features of this release are support for a data retention period and HIP-351 pseudorandom number generation.
+Las dos grandes características de esta versión son el soporte para un período de retención de datos y la generación de números pseudorandina HIP-351.
 
-On public networks, mirror nodes can generate tens of gigabytes worth of data every day and this rate is only projected to increase. Mirror nodes now support an optional data [retention period](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#retention) that is disabled by default. When enabled, the retention job purges historical data beyond a configured time period. By reducing the overall amount of data in the database it will reduce operational costs and improve read/write performance. Only insert-only data associated with balance or transaction data is deleted. Cumulative entity information like accounts, contracts, etc. are not deleted.
+En las redes públicas, los nodos espejos pueden generar decenas de gigabytes de datos cada día y esta tasa sólo se proyecta para aumentar. Los nodos Mirror ahora soportan un [periodo de retención opcional](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#retention) que está deshabilitado por defecto. Cuando está activado, el trabajo de retención purga datos históricos más allá de un período de tiempo configurado. Al reducir la cantidad total de datos en la base de datos, reducirá los costos operativos y mejorará el rendimiento de lectura/escritura. Sólo se eliminan los datos de inserción asociados con el saldo o los datos de transacción. Información acumulativa de entidades como cuentas, contratos, etc. no se eliminan.
 
-[HIP-351](https://hips.hedera.com/hip/hip-351) adds a pseudorandom number generator transaction. The mirror node now persists this `PrngTransaction` type including the pseudorandom number or the bytes it generates. A future release will expose this information on the REST API.
+[HIP-351](https://hips.hedera.com/hip/hip-351) añade una transacción pseudoraleatoria generadora de números. El nodo espejo ahora persiste este tipo de `PrngTransaction` incluyendo el número pseudorandino o los bytes que genera. Una versión futura expondrá esta información en la API REST.
 
-There were various other improvements in this release. Block numbers are now migrated to be consistent with other mirror nodes regardless of their configured start date when it receives the first v6 record file with the canonical block number from consensus nodes. We added the reward rate at the start of the staking period to the nodes REST API. Rosetta now shows fee crypto transfers operation type as `FEE`. Rosetta also shows account aliases as account addresses in Rosetta DATA API response.
+Se han producido varias mejoras en esta versión. Los números de bloque ahora se migran para ser consistentes con otros nodos de réplica independientemente de su fecha de inicio configurada cuando recibe el primer archivo de registro v6 con el número de bloque canónico de los nodos de consenso. Añadimos la tarifa de recompensa al inicio del período de apuestas a la API REST de los nodos. Rosetta ahora muestra el tipo de operación de transferencia de criptomonedas como «FEE». Rosetta también muestra alias de cuenta como direcciones de cuenta en la respuesta de Rosetta DATA API.
 
 ## [v0.59](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.59.0)
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JUNE 29, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: JUNE 29, 2022**
 {% endhint %}
 
-The previous release saw support for the persistence of [HIP-406](https://hips.hedera.com/HIP/hip-406.html) staking-related data. Staking persistence saw further fine-tuning in this release to adapt to changes in the `NodeStakeUpdateTransaction` protobuf. The `decline_reward`, `staked_account_id`, `staked_node_id` fields were added to `/api/v1/accounts` and `/api/v1/accounts/{id}` to show account-level staking properties. We also added staking related fields to the existing `/api/v1/network/nodes` REST API (see example below).
+La versión anterior vio soporte para la persistencia de [HIP-406](https://hips.hedera.com/HIP/hip-406.html) datos relacionados con la apuesta. La persistencia de Staking vio un mayor afinamiento en esta versión para adaptarse a los cambios en el protocolo `NodeStakeUpdateTransaction`. Los campos `decline_reward`, `staked_account_id`, `staked_node_id` fueron añadidos a `/api/v1/accounts` y `/api/v1/accounts/{id}` para mostrar propiedades de apuesta a nivel de cuenta. También añadimos campos relacionados con staking al existente `/api/v1/network/nodes` REST API (ver ejemplo más abajo).
 
 `GET /api/v1/network/nodes`
 
@@ -866,25 +866,25 @@ The previous release saw support for the persistence of [HIP-406](https://hips.h
 }
 ```
 
-Support for the new record file v6 format as defined in [HIP-435](https://hips.hedera.com/HIP/hip-435.html) was added in this release. Record file v6 adds block number as well as support for the new sidecar record files that carry detailed contract traceability information that mirror nodes can optionally choose to download. The record and signature files are now in a more maintainable protobuf format that should make them easier to enhance with new fields in the future without requiring breaking changes. Also, the v6 record files will now be compressed which should translate into reduced network and storage costs while potentially improving performance. Once v6 is enabled in a future hedera-service's release, mirror node operators will be required to update to a version that supports the new v6 format to avoid downtime.
+Soporte para el nuevo archivo de registro v6 definido en [HIP-435](https://hips.hedera.com/HIP/hip-435.html) fue añadido en esta versión. El archivo de registro v6 añade número de bloque así como soporte para los nuevos archivos de registro sidecar que llevan información detallada de trazabilidad del contrato que los nodos espejo pueden elegir opcionalmente descargar. Los archivos de registro y firma se encuentran ahora en un formato protobuf más mantenible que debería hacerlos más fáciles de mejorar con nuevos campos en el futuro sin necesidad de cambios violentos. Además, los archivos de registro v6 ahora se comprimirán lo que debería traducirse en costes reducidos de red y almacenamiento, mientras que potencialmente mejorará el rendimiento. Una vez que v6 esté habilitado en una versión futura de hedera-service, Se requerirá que los operadores de los nodos espejos se actualicen a una versión que soporte el nuevo formato v6 para evitar tiempos de inactividad.
 
-Rosetta saw a number of improvements this release to better align it with the Rosetta specification. A configurable valid duration seconds option was added to the transaction construction API to support customization of this value. Support for a consistent block number regardless of `startDate` was added in Rosetta now that Hedera has a consistent block as defined in [HIP-415](https://hips.hedera.com/HIP/hip-415.html). A `0x` prefix was added to alias addresses returned via the API to denote that the data is hex-encoded.
+Rosetta vio una serie de mejoras este lanzamiento para alinearlo mejor con la especificación de Rosetta. Una opción de segundos de duración válida configurable fue añadida a la API de construcción de transacciones para soportar la personalización de este valor. Soporte para un número de bloque consistente independientemente de `startDate` fue añadido en Rosetta ahora que Hedera tiene un bloque consistente como se define en [HIP-415](https://hips.hedera.com/HIP/hip-415.html). Un prefijo `0x` fue añadido a las direcciones de alias devueltas a través de la API para indicar que los datos están codificados en hex.
 
 ## [v0.58](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.58.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JUNE 22, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: 22 de JUNIO de 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JUNE 16, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: 16 de JUNO, 2022**
 {% endhint %}
 
-This release contains support for HIP-406 Staking, HIP-410 Wrapped Ethereum Transaction, and HIP-482 JSON-RPC Relay as well as a long overdue upgrade to Java 17.
+Esta versión contiene soporte para HIP-406 Staking, HIP-410 Wrapped Ethereum Transaction y HIP-482 JSON-RPC Relay, así como una actualización a Java 17 que se ha retrasado mucho tiempo.
 
-[HIP-406 Staking](https://hips.hedera.com/HIP/hip-406.html) is coming and the mirror node is getting ready for it. This release we added persistence support to store staking information. In the next release, we'll expose this information via our APIs.
+[HIP-406 Staking](https://hips.hedera.com/HIP/hip-406.html) está llegando y el nodo espejo se está preparando para ello. Esta versión hemos añadido soporte de persistencia para almacenar información de apuestas. En la próxima versión, expondremos esta información a través de nuestras APIs.
 
-[HIP-410](https://hips.hedera.com/HIP/hip-410.html) and [HIP-482](https://hips.hedera.com/HIP/hip-482.html) are both intended to improve the onramp for existing Ethereum developers. Towards that end, we added pagination support to both of the contract logs REST APIs. You can now page through logs via a combination of a consensus timestamp and log index parameters. The new blocks REST APIs also saw new `gas_used` and `logs_bloom` fields added that show the aggregated values for all transactions within the block. Finally, we added a new network fee schedule REST API. Currently, it only exposes the gas price for `ContractCall`, `ContractCreate`, and `EthereumTransaction` types in tinybars.
+[HIP-410](https://hips.hedera.com/HIP/hip-410.html) y [HIP-482](https://hips.hedera.com/HIP/hip-482.html) están diseñados para mejorar la onramp para los desarrolladores existentes de Ethereum. Hacia ese fin, añadimos soporte de paginación a ambos de los registros de contratos REST APIs. Ahora puede páginas a través de los registros mediante una combinación de una marca de tiempo de consenso y parámetros del índice de registro. Los nuevos bloques APIs REST también vieron nuevos campos `gas_used` y `logs_bloom` añadidos que muestran los valores agregados para todas las transacciones dentro del bloque. Por último, hemos añadido una nueva programación de tarifas de red REST API. Actualmente, sólo expone el precio del gas para los tipos `ContractCall`, `ContractCreate`, y `EthereumTransaction` en tinybars.
 
 `GET /api/v1/network/fees`
 
@@ -904,25 +904,25 @@ This release contains support for HIP-406 Staking, HIP-410 Wrapped Ethereum Tran
       "transaction_type": "EthereumTransaction"
     }
   ],
-  "timestamp": "1633392000.387357562"
+  "timestamp": "163392000. 87357562"
 }
 ```
 
-Since mirror node's inception in 2019, it has used Java 11 to build and run due to it being the most recent LTS release. After Java 17 LTS was released in September 2021 we knew we wanted to upgrade. With this release we upgraded to 17 after validating that the mirror node was still functional and performant. If you're using our official container images, they are also on Java 17 so there will be no migration necessary besides updating the image. If you're running outside of a container, you'll need to either upgrade your JRE to 17 or rebuild the jar from source with `-Djava.version=11`.
+Desde el inicio del nodo espejo en 2019, ha usado Java 11 para compilar y ejecutarse debido a que es la versión LTS más reciente. Después de que Java 17 LTS fue lanzado en septiembre de 2021 sabíamos que queríamos actualizar. Con esta versión, actualizamos a 17 después de validar que el nodo espejo todavía era funcional y performante. Si estás usando nuestras imágenes oficiales de contenedores, también están en Java 17, por lo que no habrá migración necesaria además de actualizar la imagen. Si está corriendo fuera de un contenedor, necesitará actualizar su JRE a 17 o reconstruir el jar desde el código fuente con `-Djava.version=11`.
 
 ## [v0.57](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.57.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MAY 25, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: MAY 25, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MAY 25, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: MAY 25, 2022**
 {% endhint %}
 
-This release is focused on adding the necessary data and APIs needed for the JSON-RPC Relay defined in [HIP-482](https://hips.hedera.com/hip/hip-482). The JSON-RPC Relay implements the Ethereum JSON-RPC [standard](https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/ethereum/eth1.0-apis/assembled-spec/openrpc.json) and relays [HIP-410 Ethereum transactions](https://hips.hedera.com/HIP/hip-410) to consensus nodes. Since the concept of a block is crucial for JSON-RPC APIs, this release also contains the implementation of [HIP-415 Introduction of Blocks](https://hips.hedera.com/hip/hip-415).
+Esta versión se centra en agregar los datos necesarios y las APIs necesarias para el relé JSON-RPC definido en [HIP-482](https://hips.hedera.com/hip/hip-482). El Relé JSON-RPC implementa el Ethereum JSON-RPC [standard](https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/ethereum/eth1.0-apis/assemblbled-spec/openrpc.json) y relés [HIP-410 transacciones Ethereum](https://hips.hedera.com/HIP/hip-410) a los nodos de consenso. Dado que el concepto de un bloque es crucial para las APIs JSON-RPC, esta versión también contiene la implementación de [HIP-415 Introducción de Blocks](https://hips.hedera.com/hip/hip-415).
 
-The mirror node now exposes the concept of blocks as introduced in [HIP-415](https://hips.hedera.com/hip/hip-415#mirror-nodes). We now calculate and store the cumulative gas used and the contract log bloom filter for the block as a whole. This HIP defines three new REST APIs and this release includes all three: a list blocks REST API, a get blocks REST API, and a list contract results REST API. The new `/api/v1/blocks` API supports the usual `limit` and `order` query parameters along with `timestamp` and `block.number` to support equality and range operators for consensus timestamps and block numbers, respectively. The `/api/v1/blocks/{hashOrNumber}` is identical to the list blocks but only returns a single block by either its block hash or its block number. Finally, a `/api/v1/contracts/results` REST API was added that is identical to the existing `/api/v1/contracts/{id}/results` but able to search across contracts.
+El nodo espejo ahora expone el concepto de bloques como se introdujo en [HIP-415](https://hips.hedera.com/hip/hip-415#mirror-nodes). Ahora calculamos y almacenamos el gas acumulado utilizado y el filtro de bloqueo del registro del contrato para el bloque en su conjunto. Este HIP define tres nuevas APIs REST y esta versión incluye las tres: una lista bloquea la API REST, un get blocks REST API, y una lista de resultados de contrato REST API. La nueva API `/api/v1/blocks` soporta los parámetros usuales de consulta `limit` y `order` junto con `timestamp` y `block. umber` para apoyar a los operadores de igualdad y rango para marcas de tiempo de consenso y números de bloqueo, respectivamente. El `/api/v1/blocks/{hashOrNumber}` es idéntico a los bloques de la lista, pero sólo devuelve un solo bloque por su hash de bloque o su número de bloque. Finalmente, se añadió una API REST `/api/v1/contracts/results` que es idéntica a la existente `/api/v1/contracts/{id}/results` pero capaz de buscar a través de contratos.
 
 `GET /api/v1/blocks`
 
@@ -932,16 +932,16 @@ The mirror node now exposes the concept of blocks as introduced in [HIP-415](htt
     "count": 4,
     "gas_limit": 150000000,
     "gas_used": 50000000,
-    "hapi_version": "0.24.0",
+    "hapi_version": "0.24. ",
     "hash": "0xa4ef824cd63a325586bfe1a66396424cd33499f895db2ce2292996e2fc5667a69d83a48f3883f2acab0edfb6bfeb23c4",
     "logs_bloom": "0x549358c4c2e573e02410ef7b5a5ffa5f36dd7398",
-    "name": "2022-04-07T16_59_23.159846673Z.rcd",
-    "number": 19533336,
+    "name": "2022-04-07T16_59_23.159846673Z. cd",
+    "número": 1953336,
     "previous_hash": "0x4fbcefec4d07c60364ac42286d5dd989bc09c57acc7370b46fa8860de4b8721e63a5ed46addf1564e4f8cd7b956a5afa",
     "size": 8489,
     "timestamp": {
-      "from": "1649350763.159846673",
-      "to": "1649350763.382130000"
+      "from": "1649350763. 59846673",
+      "a": "1649350763. 82130000"
     }
   }],
   "links": {
@@ -955,34 +955,34 @@ The mirror node now exposes the concept of blocks as introduced in [HIP-415](htt
 ```
 {
   "count": 4,
-  "gas_limit": 150000000,
-  "gas_used": 50000000,
-  "hapi_version": "0.24.0",
+  "gas_limit": 1500000,
+  "gas_used": 500000,
+  "hapi_version": "0.24. ",
   "hash": "0xa4ef824cd63a325586bfe1a66396424cd33499f895db2ce2292996e2fc5667a69d83a48f3883f2acab0edfb6bfeb23c4",
   "logs_bloom": "0x549358c4c2e573e02410ef7b5a5ffa5f36dd7398",
-  "name": "2022-04-07T16_59_23.159846673Z.rcd",
-  "number": 19533336,
+  "name": "2022-04-07T16_59_23. 59846673Z. cd",
+  "número": 1953336,
   "previous_hash": "0x4fbcefec4d07c60364ac42286d5dd989bc09c57acc7370b46fa8860de4b8721e63a5ed46addf1564e4f8cd7b956a5afa",
   "size": 8489,
   "timestamp": {
-    "from": "1649350763.159846673"
-    "to": "1649350763.382130000"
+    "from": "1649350763. 59846673"
+    "a": "1649350763.382130000"
   }
 }
 ```
 
-A number of changes were made in support of [HIP-410 Ethereum Transactions](https://hips.hedera.com/hip/hip-410#mirror-node). The `/api/v1/accounts/{idOrAlias}` REST API was updated to accept an EVM address as a path parameter in lieu of an ID or alias. An `ethereum_nonce` and `evm_address` was added to the response of `/api/v1/accounts/{idOrAliasOrAddress}` and `/api/v1/accounts`. The existing `/api/v1/contracts/results/{transactionId}` was updated to accept the 32 byte Ethereum transaction hash as a path parameter in addition to the transaction ID that it supports now. Its response, as well as the similar `/api/v1/contracts/{idOrAddress}/results/{timestamp}`, was updated to add the following new Ethereum transaction fields:
+Se hicieron varios cambios en apoyo de [HIP-410 Transacciones Ethereum](https://hips.hedera.com/hip/hip-410#mirror-node). La API REST `/api/v1/accounts/{idOrAlias}` fue actualizada para aceptar una dirección EVM como un parámetro de ruta en lugar de un ID o alias. Se agregó un `ethereum_nonce` y `evm_address` a la respuesta de `/api/v1/accounts/{idOrAliasOrAddress}` y `/api/v1/accounts`. El `/api/v1/contracts/results/{transactionId}` existente fue actualizado para aceptar el hash de transacción Ethereum de 32 bytes como un parámetro de ruta además del ID de transacción que soporta ahora. Su respuesta, así como la similar `/api/v1/contracts/{idOrAddress}/results/{timestamp}`, fue actualizada para agregar los siguientes campos de transacción de Ethereum:
 
 ```
 {
   "access_list": "0xabcd...",
   "block_gas_used": 564684,
   "chain_id": "0x0127",
-  "gas_price": "0xabcd...",
-  "max_fee_per_gas": "0xabcd...",
+  "gas_price": "0xabcd. .",
+  "max_fee_per_gas": "0xabcd... ,
   "max_priority_fee_per_gas": "0xabcd...",
   "nonce": 1,
-  "r": "0x84f0...",
+  "r": "0x84f0... ,
   "s": "0x5e03...",
   "transaction_index": 1,
   "type": 2,
@@ -990,9 +990,9 @@ A number of changes were made in support of [HIP-410 Ethereum Transactions](http
 }
 ```
 
-_Note: Existing fields omitted for brevity._
+_Nota: Campos existentes omitidos por brevedad._
 
-A new exchange rate REST API `/api/v1/network/exchangerate` was added that returns the [exchange rate](https://github.com/hashgraph/hedera-protobufs/blob/main/services/exchange\_rate.proto) network file stored in `0.0.112`. It supports a `timestamp` parameter to retrieve the exchange rate at a certain time in the past.
+Se añadió un nuevo tipo de cambio REST API `/api/v1/network/exchangerate` que devuelve el [tipo de cambio](https://github.com/hashgraph/hedera-protobufs/blob/main/services/exchange\_rate.proto) archivo de red almacenado en `0.0.112`. Soporta un parámetro `timestamp` para recuperar el tipo de cambio en un momento determinado en el pasado.
 
 ```
 {
@@ -1006,69 +1006,69 @@ A new exchange rate REST API `/api/v1/network/exchangerate` was added that retur
     "expiration_time": 1649692800
     "hbar_equivalent": 30000
   },
-  "timestamp": "1649689200.123456789"
+  "timestamp": "1649689200. 23456789"
 }
 ```
 
-A new `/api/v1/contracts/results/logs` API was added with the same query parameters and response as `/api/v1/contracts/{address}/results/logs` but with the ability to search across contracts. It does not support address as a query parameter as it’s expected users use the existing API if they need logs for a specific address. The same rules around not exceeding `maxTimestampRange` still applies and allows it to stay performant. Pagination is possible using a combination of the timestamp and index query parameters.
+Una nueva API `/api/v1/contracts/results/logs` fue añadida con los mismos parámetros de consulta y respuesta que `/api/v1/contracts/{address}/results/logs` pero con la capacidad de buscar a través de contratos. No soporta la dirección como parámetro de consulta ya que se espera que los usuarios usen la API existente si necesitan registros para una dirección específica. Las mismas reglas en torno a no exceder `maxTimestampRange` todavía se aplican y permite que permanezca en rendimiento. La paginación es posible utilizando una combinación de los parámetros de fecha y de consulta.
 
-Finally, this releases completes our implementation of [HIP-423 Long Term Scheduled Transactions](https://hips.hedera.com/hip/hip-423). Two new fields `wait_for_expiry` and `expiration_time` were added to `/api/v1/schedules` and `/api/v1/schedules/{id}`
+Finalmente, esta versión completa nuestra implementación de [HIP-423 Long Term Scheduled Transactions](https://hips.hedera.com/hip/hip-423). Dos nuevos campos `wait_for_expiry` y `expiration_time` fueron añadidos a `/api/v1/schedules` y `/api/v1/schedules/{id}`
 
 ## [v0.56](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.56.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MAY 18, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: MAY 18, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MAY 17, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: MAY 17, 2022**
 {% endhint %}
 
-This is a big release with support for six different Hedera Improvement Proposals. Most of these changes are on the ingest side of things and future releases will work on adding them to our APIs.
+Este es un gran lanzamiento con soporte para seis diferentes Propuestas de Mejora de Hedera. La mayoría de estos cambios están en el lado más ingente de las cosas y las futuras versiones trabajarán para agregarlos a nuestras APIs.
 
-[HIP-16](https://hips.hedera.com/hip/hip-16) will enable contract expiry and brings a new auto renew account field that contains the account responsible for any renewal fees associated with the contract. The contract REST APIs now show this `auto_renew_account` field along with a new `permanent_removal` flag that is set to true when the system expires a contract.
+[HIP-16](https://hips.hedera. om/hip/hip/hip-16) habilitará el vencimiento del contrato y traerá un nuevo campo de cuenta de renovación automática que contiene la cuenta responsable de cualquier cuota de renovación asociada al contrato. Las APIs REST de contrato ahora muestran este campo `auto_renew_account` junto con una nueva bandera `permanent_removal` que se establece en verdadero cuando el sistema expira un contrato.
 
-We missed a requirement in our implementation of [HIP-329](https://hips.hedera.com/hip/hip-329) CREATE2 opcode to allow a HAPI client to do a native transfer of assets to a contract known only by its CREATE2 address. We fixed this logic gap and now support EVM addresses in a `CryptoTransferTransaction`.
+Nos perdimos un requisito en nuestra implementación de [HIP-329](https://hips.hedera. om/hip/hip-329) CREATE2 para permitir a un cliente HAPI hacer una transferencia nativa de activos a un contrato conocido sólo por su dirección CREATE2. Hemos corregido este vacío lógico y ahora soportamos direcciones EVM en una `CryptoTransferTransfertion`.
 
-[HIP-336](https://hips.hedera.com/hip/hip-336) saw further polish to our allowance support. Support for an optional spender ID parameter on our `/api/v1/accounts/{id}/nfts?spender.id={id}` REST API is now included.
+[HIP-336](https://hips.hedera.com/hip/hip-336) vio más pulido para nuestro soporte de concesiones. Soporte para un parámetro opcional Spender ID en nuestro `/api/v1/accounts/{id}/nfts?spender.id={id}` API REST ahora está incluida.
 
-[HIP-410](https://hips.hedera.com/hip/hip-410) brings with it the ability to wrap an Ethereum native transaction and submit it to Hedera. The mirror node can now parse this new `EthereumTransaction` along with the results from its execution. Any contracts created or results and logs generated by its execution will automatically show up on the relevant contract REST APIs. Support for specifying the contract initcode directly on a contract create was also added. To support Externally Owned Accounts (EOA) being able to submit Ethereum transactions, we now calculate and store the EVM address of the account's ECDSA secp256k1 alias. Finally, we added support for repeated topics in contract logs REST API to bring it more inline with the `eth_getLogs` JSON-RPC method. If you supply multiple different topic parameters (e.g. `topic0` and `topic1`) it is considered an `AND` operation as before, but if pass repeated parameters like `topic0=0x01&topic0=0x02&topic1=0x03` it means “(topic 0 is 0x01 or 0x02) and (topic 1 is 0x03)”.
+[HIP-410](https://hips.hedera.com/hip/hip-410) trae consigo la habilidad de envolver una transacción nativa de Ethereum y enviarla a Hedera. El nodo espejo ahora puede analizar este nuevo `EthereumTransaction` junto con los resultados de su ejecución. Cualquier contrato creado o los resultados y registros generados por su ejecución se mostrará automáticamente en las API REST pertinentes. También se añadió soporte para especificar el initcode del contrato directamente en la creación del contrato. Para apoyar que las cuentas de posesión externa (EOA) puedan enviar transacciones de Ethereum, calculamos y almacenamos la dirección EVM de los alias de ECDSA secp256k1 de la cuenta. Por último, hemos añadido soporte para temas repetidos en los registros de contratos API REST para llevarlos más en línea con el método JSON-RPC `eth_getLogs`. Si proporciona varios parámetros diferentes del tema (p. ej. `topic0` y `topic1`) se considera una operación `AND` como antes, pero si pasa parámetros repetidos como `topic0=0x01&topic0=0x02&topic1=0x03` significa “(el tema 0 es 0x01 o 0x02) y (el tema 1 es 0x03)”.
 
-[HIP-415](https://hips.hedera.com/hip/hip-415) is defining a block as the number of records files since stream start (AKA genesis). Since only mirror nodes have a full history, they will be used to provide consensus nodes the current block number to update their state. Since partial mirror nodes with an effective start date after stream start won't have all record files, they may contain an inconsistent value for their block number in contrast to other mirror nodes with all data. This release attempts to correct that with a migration to bring them inline with full mirror nodes so everyone has a consistent block number value.
+[HIP-415](https://hips.hedera.com/hip/hip-415) está definiendo un bloque como el número de archivos de registros desde el inicio del stream (genesia AKA). Dado que sólo los nodos espejos tienen un historial completo, se utilizarán para proporcionar los nodos de consenso el número de bloque actual para actualizar su estado. Dado que los nodos de réplica parciales con una fecha de inicio efectiva después del arranque del flujo no tendrán todos los archivos de registro, pueden contener un valor inconsistente para su número de bloque en contraste con otros nodos espejo con todos los datos. Esta versión intenta corregirla con una migración para que estén en línea con los nodos espejo completos, por lo que todos tienen un valor consistente en el número de bloque.
 
-[HIP-423](https://hips.hedera.com/hip/hip-423) Long term scheduled transactions enhances the existing scheduled transactions to allow time-based scheduling of transactions. This release adds ingest support for the new schedule-related fields. Next release will expose these fields via our existing schedule REST APIs.
+[HIP-423](https://hips.hedera.com/hip/hip-423) Long term scheduled transactions enhances the existing scheduled transactions to allow time-based scheduling of transactions. Esta versión añade soporte ingente para los nuevos campos relacionados con el programa. La próxima versión expondrá estos campos a través de nuestro programa de API REST.
 
-### Upgrading
+### Actualizando
 
-As part of this release, we have finished upgrading our PostgreSQL databases to version 14 and have updated all tests to use that version as well. We recommend mirror node operators plan their migration to PostgreSQL 14 at their earliest convenience. More details on the upgrade process can be found in our [database guide](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#upgrade).
+Como parte de esta versión, hemos terminado de actualizar nuestras bases de datos PostgreSQL a la versión 14 y hemos actualizado todas las pruebas para usar esa versión también. Recomendamos que los operadores de los nodos espejos planifiquen su migración a PostgreSQL 14 a su conveniencia más temprana. Puede encontrar más detalles sobre el proceso de actualización en nuestra [guía de base de datos](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#upgrade).
 
-The migrations in this release are estimated to take up to 2 hours against a mainnet database. However, the migration that takes up the bulk of this time will only run if it needs to correct block numbers. This is only necessary if your mirror node is a partial mirror node and has an effective start date that occurs after the stream start.
+Se estima que las migraciones de esta versión tardan hasta 2 horas en una base de datos mainnet. Sin embargo, la migración que ocupa la mayor parte de este tiempo sólo se ejecutará si necesita corregir los números de bloque. Esto sólo es necesario si el nodo réplica es un nodo réplica parcial y tiene una fecha de inicio efectiva que ocurre después del inicio de la secuencia.
 
 ## [v0.55](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.55.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MAY 4, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: MAY 4, 2022**
 {% endhint %}
 
-This release is mainly focused on finishing out our support for [HIP-336](https://hips.hedera.com/hip/hip-336) Approval and Allowance API for Tokens. We added support for the new `CryptoDeleteAllowance` transaction and removed support for the `CryptoAdjustAllowance` transaction that didn't make it into the final design. NFT allowances are tracked at the NFT transfer granularity allowing for up to date allowance information on the mirror node. Current spender information will show up in both `/api/v1/accounts/{id}/nfts` and `/api/v1/tokens/{id}/nfts` REST APIs. We also added the `is_approval` flag to APIs that show transfers.
+Esta versión se centra principalmente en finalizar nuestro soporte para [HIP-336](https://hips.hedera.com/hip/hip-336) Aprobación y API de Permisos para Tokens. Hemos añadido soporte para la nueva transacción `CryptoDeleteAllowance` y hemos eliminado el soporte para la transacción `CryptoAdjustAllowance` que no ha entrado en el diseño final. Los permisos de NFT se rastrean en la granularidad de transferencia NFT que permite información actualizada sobre las franquicias en el nodo espejo. La información actual del pender aparecerá tanto en `/api/v1/accounts/{id}/nfts` como en `/api/v1/tokens/{id}/nfts` API REST. También añadimos la bandera `is_approval` a las API que muestran las transferencias.
 
-With more developers using computers using Apple's M-series CPUs, it become clear the mirror node needed to support ARM-based architectures to accommodate them. In this release we added multi-architecture Docker images using [docker buildx](https://docs.docker.com/buildx/working-with-buildx/). We now push `linux/amd64` and `linux/arm64` variants to our [Google Container Registry](https://gcr.io/mirrornode). If there's a need for additional operating systems or architectures in the future it can easily be expanded upon.
+Con más desarrolladores usando computadoras que usan CPUs de la serie de Apple, se hace evidente el nodo espejo necesario para soportar arquitecturas basadas en ARM para acomodarlas. En esta versión añadimos imágenes Docker multiarquitectura usando [docker buildx](https://docs.docker.com/buildx/working-with-buildx/). Ahora enviamos las variantes `linux/amd64` y `linux/arm64` a nuestro [Google Container Registry](https://gcr.io/mirrornode). Si hay necesidad de sistemas operativos o arquitecturas adicionales en el futuro, puede ampliarse fácilmente.
 
-We also updated our [GCP Marketplace](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node) application to the latest version.
+También actualizamos nuestra aplicación [GCP Marketplace](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node) a la última versión.
 
 ## [v0.54](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.54.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: APRIL 25, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: APRIL 25, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: APRIL 19, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: APRIL 19, 2022**
 {% endhint %}
 
-This release adds support for three new REST APIs and four HIPs.
+Esta versión añade soporte para tres nuevas APIs REST y cuatro HIPs.
 
-[HIP-21](https://hips.hedera.com/hip/hip-21) describes the need for a free network info query to enable SDKs and other clients to be able to retrieve the current list of nodes. In v0.49.1, we added a new `NetworkService.getNodes()` gRPC API. In this release, we're adding an equivalent address book API to our REST API. In addition to the standard `order` and `limit` parameters, it supports a `file.id` query parameter to filter by the two address books `0.0.101` or `0.0.102` and a `node.id` query parameter to filter nodes and provide pagination.
+[HIP-21](https://hips.hedera. om/hip/hip-21) describe la necesidad de una consulta de información de red gratuita para permitir que SDKs y otros clientes puedan recuperar la lista actual de nodos. En v0.49.1, hemos añadido una nueva API gRPC `NetworkService.getNodes()`. En esta versión, estamos añadiendo una API de libreta de direcciones equivalente a nuestra API REST. Además de los parámetros estándar `order` y `limit`, soporta un parámetro de consulta `file.id` para filtrar por los dos libros de direcciones `0. .101` o `0.0.102` y un parámetro de consulta `node.id` para filtrar nodos y proporcionar paginación.
 
 `GET /api/v1/network/nodes`
 
@@ -1077,21 +1077,21 @@ This release adds support for three new REST APIs and four HIPs.
   "nodes": [
     {
       "description": "",
-      "file_id": "0.0.102",
+      "file_id": "0. .102",
       "memo": "0.0.3",
-      "node_account_id": "0.0.3",
-      "node_cert_hash": "0x3334...",
+      "node_account_id": "0.0. ",
+      "node_cert_hash": "0x334... ,
       "node_id": 0,
-      "public_key": "0x308201...",
+      "public_key": "0x308201. .",
       "service_endpoints": [
         {
-          "ip_address_v4": "13.124.142.126",
-          "port": 50211
+          "ip_address_v4": "13. 24.142. 26",
+          "puerto": 50211
         }
       ],
       "timestamp": {
-        "from": "1636052707.740848001",
-        "to": null
+        "from": "1636052707. 40848001",
+        "a": nulo
       }
     }
   ],
@@ -1101,7 +1101,7 @@ This release adds support for three new REST APIs and four HIPs.
 }
 ```
 
-[HIP-336](https://hips.hedera.com/hip/hip-336) describes new Hedera APIs to approve and exercise allowances to a delegate account. An allowance grants a spender the right to transfer a predetermined amount of the payer's hbars or tokens to another account of the spender's choice. In v0.50.0 we added database support to store the new allowance transactions. In this release, two new REST APIs were created to expose the hbar and fungible token allowances. Full allowance support won't be available until a future release when consensus nodes enable it on mainnet.
+[HIP-336](https://hips.hedera.com/hip/hip-336) describe nuevas APIs de Hedera para aprobar y ejercitar permisos en una cuenta de delegado. Una dieta otorga a un Gasto el derecho de transferir una cantidad predeterminada de las barras o fichas del pagador a otra cuenta de la elección del gasto. En v0.50.0 añadimos soporte de base de datos para almacenar las nuevas transacciones de permisos. En esta versión, se crearon dos nuevas APIs REST para exponer la barra hbar y permisos de tokens fungibles. El soporte completo de permisos no estará disponible hasta una versión futura cuando los nodos de consenso lo activen en mainnet.
 
 `GET /api/v1/accounts/{accountId}/allowances/crypto`
 
@@ -1161,49 +1161,49 @@ This release adds support for three new REST APIs and four HIPs.
 }
 ```
 
-Also on the REST API, we added support for [HIP-329](https://hips.hedera.com/HIP/hip-329.html) CREATE2 addresses. Now any API that accepts a contract ID will also accept the 20-byte EVM address as a hex-encoded string. We improved the performance of the REST API by adding cache control headers to enable distributed caching via a CDN. The performance of the list transactions by type REST API saw a fix to improve its performance.
+También en la API REST, añadimos soporte para [HIP-329](https://hips.hedera.com/HIP/hip-329.html) direcciones CREATE2. Ahora cualquier API que acepte un ID de contrato también aceptará la dirección EVM de 20 bytes como una cadena codificada en hex. Hemos mejorado el rendimiento de la API REST añadiendo cabeceras de control de caché para habilitar la caché distribuida a través de un CDN. El rendimiento de las transacciones de la lista por tipo REST API vio una solución para mejorar su rendimiento.
 
-As part of [HIP-260](https://hips.hedera.com/hip/hip-260), contract precompile call data now populates new fields `amount`, `gas`, and `function_parameter` inside `ContractFunctionResult` within the `TransactionRecord`. Mirror node now stores these fields and exposes them via its existing contract results REST APIs.
+Como parte de [HIP-260](https://hips.hedera.com/hip/hip-260), los datos de llamada de precompilación de contrato ahora rellenan nuevos campos `amount`, `gas` y `function_parameter` dentro de `ContractFunctionResult` dentro del `TransactionRecord`. El nodo Mirror ahora almacena estos campos y los expone a través de sus resultados de contrato existentes APIs REST.
 
-There were a number of security improvements made to containerized mirror nodes. All Docker images now run as non-root regardless of running in Kubernetes or Docker Compose. The helm charts saw changes to conform to the Kubernetes [restricted](https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted) pod security standard. This ensures the mirror node runs with security best practices and reduces its overall attack surface. The Kubernetes Pod Security Standard replaces the deprecated PodSecurityPolicy and as such we've removed all configuration related to the latter.
+Se hicieron varias mejoras de seguridad en los nodos espejo contenedores. Todas las imágenes de Docker ahora se ejecutan como no-root independientemente de ejecutarse en Kubernetes o Docker Compose. Los gráficos del helm vieron cambios para adaptarse al estándar de seguridad de pod de Kubernetes [restricted](https://kubernetes.io/docs/concepts/security/pod-security-standards/#restringido). Esto asegura que el nodo espejo se ejecute con las mejores prácticas de seguridad y reduce su superficie de ataque total. El Estándar de Seguridad de Kubernetes Pod reemplaza a PodSecurityPolicy obsoleto y como tal hemos eliminado toda la configuración relacionada con este último.
 
-### Upgrading
+### Actualizando
 
-This release has a long migration that is expected to take around 75 minutes to complete, depending upon your database hardware and configuration. As always, we recommend a red/black deployment to eliminate downtime during migrations. If you're using the `hedera-mirror-common` chart, please check the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#upgrading-chart) upgrade notes to ensure Prometheus Operator can update successfully.
+Esta versión tiene una migración larga que se espera que demore unos 75 minutos en completarse, dependiendo de su hardware y configuración de la base de datos. Como siempre, recomendamos un despliegue rojo/negro para eliminar los tiempos de inactividad durante las migraciones. Si estás usando la tabla `hedera-mirror-common`, por favor revisa las notas de actualización de la [kube-prometheus-stack](https://github.com/prometheichard community/helm-charts/tree/main/charts/kube-promethebian stack#upgrading-chart) para asegurar que el Operador de Prometheus pueda actualizarse correctamente.
 
 ## [v0.53](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.53.1)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: APRIL 7, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: APRIL 7, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MARCH 29, 2022**
+**TESTNET ACTUALADO COMPLETADO: MARCH 29, 2022**
 {% endhint %}
 
-This release is mainly focused around the area of data integrity and ensuring the data in the mirror node is consistent with consensus nodes. To this end, we added an errata database migration that only runs for mainnet and corrects three [known issues](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#errata) that impacted the stream files. The state of the consensus nodes was never impacted, only the externalization of these changes to the stream files that the mirror node consumes.
+Esta versión se centra principalmente en el área de integridad de los datos y asegurar que los datos en el nodo réplica son consistentes con los nodos de consenso. Para ello, añadimos una migración a la base de datos de erratas que sólo se ejecuta para mainnet y corrige tres [problemas conocidos](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#errata) que afectaron a los archivos de stream. El estado de los nodos de consenso nunca fue afectado, sólo la externalización de estos cambios en los archivos de flujo que consume el nodo espejo.
 
-To find the inconsistent data and ensure it stays consistent going forward, we added a new balance reconciliation job. This job runs nightly and compares the balance file information against the record file information to ensure they are in sync. It does three checks for each balance file: verifies the balance files add up to 50 billion hbars, verifies the aggregated hbar transfers match the balance file, and verifies the aggregated token transfers match the balance file. It can be disabled if not needed via `hedera.mirror.importer.reconciliation.enabled=false`.
+Para encontrar los datos incoherentes y garantizar que siga avanzando de forma coherente, hemos añadido un nuevo trabajo de conciliación de equilibrio. Este trabajo se ejecuta de noche y compara la información del balance con la información del archivo de registro para asegurarse de que están sincronizados. Hace tres cheques por cada archivo de saldo: verifica que los archivos de saldo sumen hasta 50 mil millones de barras, verifica que las transferencias agregadas de la barra coinciden con el archivo de saldo y verifica que las transferencias de fichas agregadas coinciden con el archivo de saldo. Se puede desactivar si no es necesario a través de `hedera.mirror.importer.reconciliation.enabled=false`.
 
-We also fixed a bug that caused transfers with a zero amount to show up for crypto create transactions with a zero initial balance. This was due entirely to our code inserting the extra transfers, not because of any problem in the stream files. We also fixed an REST API bug that caused the contract byte code to show up as double encoded to hex.
+También arreglamos un error que causaba que las transferencias con una cantidad cero aparecieran para las transacciones creadas con un saldo inicial cero. Esto se debió enteramente a que nuestro código insertó las transferencias extra, no por ningún problema en los archivos de la secuencia. También corregimos un error de API REST que causaba que el código de byte del contrato apareciera como doble codificado en hex.
 
-For the Rosetta API, we added account alias support to various endpoints. And we now support parsing contract results for precompiled contract functions like HTS functions. This capability is disabled by a feature flag and will be enabled in a future release.
+Para la API de Rosetta, hemos añadido soporte de alias de cuenta a varios extremos. Y ahora soportamos resultados del contrato de análisis para funciones de contrato precompilado como las funciones HTS. Esta capacidad está deshabilitada por una bandera de características y será habilitada en una versión futura.
 
-### Upgrading
+### Actualizando
 
-This release contains a couple medium sized database migrations to correct the erroneous data in the database. It is expected to take about 45 minutes against a full mainnet database.
+Esta versión contiene un par de migraciones de base de datos de tamaño medio para corregir los datos erróneos de la base de datos. Se espera que tome unos 45 minutos contra una base de datos completa de la red principal.
 
 ## [v0.52](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.52.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MARCH 18, 2022**
+**MAINNET ACTUALADO COMPLETEDO: 18 MAR, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MARCH 15, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: 15 MARCH, 2022**
 {% endhint %}
 
-[HIP-331](https://hips.hedera.com/HIP/hip-331.html) is a community contributed improvement proposal requesting the addition of a new REST API to retrieve an account's list of owned non-fungible tokens (NFTs). The mirror node has an existing `/api/v1/tokens/{tokenId}/nfts` API to retrieve all NFTs for a given token, but it didn't satisfy the requirement to show NFTs across token classes. This release adds the new `/api/v1/accounts/{accountId}/nfts` API to satisfy this need. It is our first API with multiple query parameters required for paging and as such has a few restrictions around their use. Please see the OpenAPI [description](https://github.com/hashgraph/hedera-mirror-node/blob/21c6c464f77d555619af5955843e7d798fcd17b4/hedera-mirror-rest/api/v1/openapi.yml#L51) for this API for further details.
+[HIP-331](https://hips.hedera.com/HIP/hip-331. tml) es una propuesta de mejora aportada por la comunidad solicitando la adición de una nueva API REST para recuperar la lista de fichas no fungibles (NFTs). El nodo espejo tiene una API `/api/v1/tokens/{tokenId}/nfts` existente para recuperar todos los NFTs para un token dado, pero no cumplió con el requisito de mostrar NFTs a través de clases token. Esta versión añade la nueva API `/api/v1/accounts/{accountId}/nfts` para satisfacer esta necesidad. Es nuestra primera API con múltiples parámetros de consulta requeridos para la paginación y como tal tiene algunas restricciones sobre su uso. Consulte la OpenAPI [description](https://github.com/hashgraph/hedera-mirror-node/blob/21c6c464f77d555619af5955843e7d798fcd17b4/hedera-mirror-rest/api/v1/openapi.yml#L51) para obtener más detalles.
 
 `GET /api/v1/accounts/0.0.1001/nfts?token.id=gte:1500&serialnumber=gte:2&order=asc&limit=2`
 
@@ -1211,166 +1211,166 @@ This release contains a couple medium sized database migrations to correct the e
   {
     "nfts": [
       {
-        "account_id": "0.0.1001",
-        "created_timestamp": "1234567890.000000006",
+        "account_id": "0. .1001",
+        "created_timestamp": "1234567890. 00000006",
         "deleted": false,
         "metadata": "bTI=",
-        "modified_timestamp": "1234567890.000000006",
+        "modified_timestamp": "1234567890. 00000006",
         "serial_number": 2,
-        "token_id": "0.0.1500"
+        "token_id": "0.0. 500"
       },
       {
-        "account_id": "0.0.1001",
-        "created_timestamp": "1234567890.000000008",
-        "deleted": false,
+        "account_id": "0.0. 001",
+        "created_timestamp": "1234567890. 00000008",
+        "eliminado": false,
         "metadata": "bTM=",
-        "modified_timestamp": "1234567890.000000008",
+        "modified_timestamp": "1234567890. 00000008",
         "serial_number": 3,
-        "token_id": "0.0.1500"
+        "token_id": "0. .1500"
       }
     ],
     "links": {
-      "next": "/api/v1/accounts/0.0.1001/nfts?order=asc&limit=2&token.id=gte:0.0.1500&serialnumber=gt:3"
+      "next": "/api/v1/accounts/0. .1001/nfts?order=asc&limit=2&token.id=gte:0.0.1500&serialnumber=gt:3"
     }
-  }
+}
 ```
 
-The mirror node now has performance tests written using [k6](https://k6.io/) for all of our APIs. These tests can be used to verify the performance doesn't regress from release to release. In the future, we plan to integrate these into a [nightly regression test suite](https://github.com/hashgraph/hedera-mirror-node/issues/3099) to improve our current approach of testing each release.
+El nodo espejo ahora tiene pruebas de rendimiento escritas usando [k6](https://k6.io/) para todas nuestras APIs. Estas pruebas pueden ser usadas para verificar que el rendimiento no va de la liberación a la liberación. En el futuro, pretendemos integrarlos en una [suite de prueba de regresión nocturna](https://github.com/hashgraph/hedera-mirror-node/issues/3099) para mejorar nuestro enfoque actual de probar cada versión.
 
-A number of deployment issues were addressed in this release. We now disable leader election by default until we can fix the issues with its implementation. Likewise we changed the importer Kubernetes deployment strategy from a rolling update to recreate to avoid ever having multiple importer pods running concurrently. A migration readiness probe was added to the importer. This will mark importer pods as unready until it completes all database migrations. Doing this will ensure Helm doesn't finish its release and run its tests before the migrations are completed.
+En esta versión se abordaron una serie de problemas de despliegue. Ahora inhabilitamos las elecciones de líder por defecto hasta que podamos solucionar los problemas con su implementación. De manera inteligente, hemos cambiado la estrategia de implementación de Kubernetes importador de una actualización continua para volver a crearla y evitar tener varios pods importadores ejecutándose simultáneamente. Se añadió una sonda de preparación migratoria al importador. Esto marcará los pods importadores como inlistos hasta que complete todas las migraciones de base de datos. Haciendo esto se asegurará de que Helm no finalice su lanzamiento y ejecute sus pruebas antes de que las migraciones se completen.
 
-We continue to fine tune our Rosetta implementation with a number of performance improvements and bug fixes. The performance of the Rosetta get genesis balance script was improved to reduce initial startup time. The embedded PostgreSQL container was upgraded to PostgreSQL 14. The Rosetta unified Docker image was updated to comply with the Rosetta persistence requirements.
+Seguimos afinando nuestra implementación de Rosetta con una serie de mejoras de rendimiento y correcciones de errores. El rendimiento de la secuencia de comandos de balance de Rosetta fue mejorado para reducir el tiempo inicial de inicio. El contenedor incrustado de PostgreSQL se actualizó a PostgreSQL 14. La imagen unificada Docker de Rosetta se actualizó para cumplir con los requisitos de persistencia de Rosetta.
 
 ## [v0.51](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.51.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 28, 2022**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 28, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: FEBRUARY 25, 2022**
+**TESTNET UPDATE COMPLETEDO: FEBRUARY 25, 2022**
 {% endhint %}
 
-This is a smaller release focusing on observability improvements and Rosetta API fixes.
+Esta es una versión más pequeña centrada en mejoras de observabilidad y correcciones de API de Rosetta.
 
-On the observability front, we've reduced the volume of log information the REST API produces in half. We also change the REST API to generate a consistent trace log for all responses that includes accurate client IPs, the elapsed time, and a status code. We reduced the number of time series by about 50% that the mirror node produces to reduce monitoring costs.
+En el frente de observabilidad, hemos reducido el volumen de información de registro que la API REST produce a la mitad. También cambiamos la API REST para generar un registro de seguimiento consistente para todas las respuestas que incluyen IPs de cliente precisas, el tiempo transcurrido, y un código de estado. Hemos reducido el número de series temporales en aproximadamente un 50% que el nodo espejo produce para reducir los costes de control.
 
-For the Rosetta API, we added a workaround for the missing disappearing token transfer issue that allows the check data reconciliation to pass. Overall reconciliation time was improved by tweaking configuration parameters and improving NFT balance tracking performance. We worked around slow genesis account balance file loading by Rosetta CLI by switching to a dynamic account balance loading approach. A number of other Rosetta issues were also addressed.
+Para la API de Rosetta, hemos añadido una solución para el problema desaparecido de la transferencia de tokens que permite pasar la conciliación de datos de verificación. El tiempo global de conciliación se mejoró ajustando los parámetros de configuración y mejorando el rendimiento de seguimiento del balance NFT. Hemos trabajado alrededor de la carga lenta del saldo de la cuenta por Rosetta CLI cambiando a un enfoque dinámico de carga del saldo de la cuenta. También se han abordado otras cuestiones de Rosetta.
 
 ## [v0.50](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.50.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 23, 2022**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 23, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: FEBRUARY 15, 2022**
+**TESTNET UPDATE COMPLETEDO: FEBRUARY 15, 2022**
 {% endhint %}
 
-This release adds support for three new improvement proposals: HIP-260 Smart Contract Traceability, HIP-329 CREATE2 Opcode, and HIP-336 Allowance APIs. It also updates the REST API to reflect the latest phases of HIP-226 and HIP-227 and updates the Rosetta API for HIP-31.
+Esta versión añade soporte para tres nuevas propuestas de mejora: HIP-260 Smart Contract Traceability, HIP-329 CREATE2 Opcode y HIP-336 Allowance APIs. También actualiza la API REST para reflejar las últimas fases de HIP-226 y HIP-227 y actualiza la API Rosetta para HIP-31.
 
-[HIP-260](https://hips.hedera.com/hip/hip-260) describes a need for improving the traceability of smart contracts by providing a verifiable trail of contract state changes in the transaction record. The mirror node can now store these state changes and expose them via the contract results REST API to show the values read and written for each slot. This information was added to both `/api/v1/contracts/results/{transactionId}` and `/api/v1/contracts/{id}/results/{timestamp}`. Below is an example, with other fields omitted for brevity:
+[HIP-260](https://hips.hedera.com/hip/hip-260) describe la necesidad de mejorar la trazabilidad de los contratos inteligentes proporcionando un rastro verificable de los cambios de estado del contrato en el registro de transacción. El nodo espejo ahora puede almacenar estos cambios de estado y exponerlos a través de los resultados del contrato REST API para mostrar los valores leídos y escritos para cada espacio. Esta información fue añadida a `/api/v1/contracts/results/{transactionId}` y `/api/v1/contracts/{id}/results/{timestamp}`. A continuación hay un ejemplo, con otros campos omitidos por brevedad:
 
 ```
 {
   "state_changes": [{
-      "address": "0x0000000000000000000000000000000000001f41",
-      "contract_id": "0.0.8001",
-      "slot": "0x0000000000000000000000000000000000000000000000000000000000000002",
+      "address": "0x0000000000000000000000000000000000000000000000000000000000001f41",
+      "contract_id": "0.0. 001",
+      "slot": "0x00000000000000000000000000000000000000000000000000000000000000000002",
       "value_read": "0xaf846d22986843e3d25981b94ce181adc556b334ccfdd8225762d7f709841df0",
-      "value_written": "0x000000000000000000000000000000000000000000c2a8c408d0e29d623347c5"
+      "value_written": "0x0000000000000000000000000000000000000000000000002a8c408d0e29d623347c5"
     }, {
-      "address": "0x0000000000000000000000000000000000001f42",
-      "contract_id": "0.0.8002",
+      "address": "0x00000000000000000000000000000000000000000000001f42",
+      "contract_id": "0. .8002",
       "slot": "0xe1b094dec1b7d360498fa8130bf1944104b7b5d8a48f9ca88c3fc0f96c2d7225",
-      "value_read": "0x000000000000000000000000000000000000000000000001eafa3aaed1d27246",
+      "value_read": "0x00000000000000000000000000000000000000000000000000000001eafa3aaed1d27246",
       "value_written": null
    }]
 }
 ```
 
-[HIP-329](https://hips.hedera.com/hip/hip-329) adds support for [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014) generated contract addresses via the CREATE2 opcode. As part of this, a new `evm_address` is added to the transaction record that will be present for contract create transactions. Additionally, this `evm_address` can be populated in any `ContractID` that appears in the transaction body. The mirror node was updated to be able to map this `evm_address` to its corresponding contract number and to expose this property on the contracts REST API. We also store full contract information for child contracts since they now appear as separate internal transactions in the record stream, filling a long-standing gap in missing smart contract data.
+[HIP-329](https://hips.hedera.com/hip/hip-329) añade soporte para [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014) generó direcciones de contrato a través del código CREATE2. Como parte de esto, se añade un nuevo `evm_address` al registro de transacciones que estará presente para crear transacciones por contrato. Además, esta `evm_address` puede ser poblada en cualquier `ContractID` que aparezca en el cuerpo de la transacción. El nodo espejo se actualizó para poder asignar este `evm_address` a su número de contrato correspondiente y exponer esta propiedad en los contratos REST API. También almacenamos información completa del contrato para los contratos infantiles, ya que ahora aparecen como transacciones internas separadas en el flujo de registros, llenar un vacío de larga data en la falta de datos de contratos inteligentes.
 
-[HIP-336](https://hips.hedera.com/hip/hip-336) allowance functionality allows an account owner to delegate another account to spend hbars or tokens on his or her behalf. This feature provides an implementation of [ERC20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20), IERC20, and [ERC721](https://docs.openzeppelin.com/contracts/2.x/api/token/erc721) on the Hedera network. The mirror node was updated to support these new transaction types and store the absolute or relative crypto, fungible or non-fungible allowances. In a later release we will expose this information via a REST API as detailed in the design [document](https://github.com/hashgraph/hedera-mirror-node/blob/v0.50.0/docs/design/allowances.md).
+[HIP-336](https://hips.hedera.com/hip/hip-336) la funcionalidad de asignación permite al propietario de una cuenta delegar otra cuenta para gastar hbars o tokens en su nombre. Esta función proporciona una implementación de [ERC20](https://ethereum.org/es/Developopers/docs/standards/tokens/erc-20), IERC20 y [ERC721](https://docs.openzeppelin.com/contracts/2.x/api/token/erc721) en la red Hedera. El nodo espejo se actualizó para soportar estos nuevos tipos de transacciones y almacenar los permisos absolutos o relativos, fungibles o no fungibles. En una versión posterior, expondremos esta información a través de una API REST como se detalla en el diseño [document](https://github.com/hashgraph/hedera-mirror-node/blob/v0.50.0/docs/design/allowances.md).
 
-Multiple new fields were added to the contract REST APIs as outlined in [HIP-226](https://hips.hedera.com/hip/hip-227) and [HIP-227](https://hips.hedera.com/hip/hip-226). The fields `bloom`, `result`, and `status` were added to the contract results API response. `result` and `status` show similar information with the former being the HAPI response enum while the latter returning `0x1` or `0x0` to show if the transaction was successful or not, as is common in web3 APIs. We also added `bloom` to the contract logs API response. Finally, we now return a partial response for contract calls without a result.
+Se añadieron varios campos nuevos al contrato APIs REST como se describe en [HIP-226](https://hips.hedera.com/hip/hip-227) y [HIP-227](https://hips.hedera.com/hip/hip-226). Los campos `bloom`, `result`, y `status` fueron añadidos a la respuesta API de resultados del contrato. `result` y `status` muestran información similar, siendo la primera la respuesta de HAPI número mientras que la segunda devuelve `0x1` o `0x0` para mostrar si la transacción fue exitosa o no, como es común en las APIs de web3. También añadimos `bloom` a la respuesta de los registros de contrato API. Por último, ahora devolvemos una respuesta parcial para las llamadas contractuales sin ningún resultado.
 
-The importer component added a new `hedera.mirror.importer.parser.record.entity.persist.topics` property to control the persistence of topic messages. This can be set to false for mirror node operators if topic message data is not being used. On mainnet alone, this data currently takes up to 2TB worth of storage.
+El componente importador añadió una nueva propiedad `hedera.mirror.importer.parser.record.entity.persist.topics` para controlar la persistencia de mensajes temáticos. Esto puede establecerse en falso para operadores de nodo réplica si los datos del mensaje del tema no están siendo usados. Solo en red principal, estos datos actualmente ocupan hasta 2TB de almacenamiento.
 
-The Monitor component gained support for parallel node validation to improve startup performance. Now all validation is done in a background thread, adding and removing nodes as necessary while the publisher thread continues publishing transactions without any interruptions. This re-work also fixed issues with subscription halting during node validation and taking too long to validate a down node.
+El componente Monitor obtuvo soporte para la validación de nodos paralelos para mejorar el rendimiento del arranque. Ahora toda la validación se hace en un hilo de fondo, añadiendo y eliminando nodos según sea necesario, mientras que el hilo del editor continúa publicando transacciones sin interrupciones. Este re-trabajo también arregló problemas con la suspensión de suscripción durante la validación del nodo y tardó demasiado en validar un nodo hacia abajo.
 
-Rosetta saw a few important improvements including adding support for [HIP-31](https://hips.hedera.com/hip/hip-31) expected token decimals. The Rosetta unified Docker image saw functionality added to automatically restore the database using a database snapshot on initial startup.
+Rosetta vio algunas mejoras importantes, como añadir soporte para [HIP-31](https://hips.hedera.com/hip/hip-31) esperaban decimales de token. La imagen unificada de Rosetta Docker vio la funcionalidad añadida para restaurar automáticamente la base de datos usando una instantánea de base de datos al inicio inicial.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-As part of HIP-329 CREATE2, we renamed the existing `solidity_address` in the contract REST API to `evm_address`. This new name accurately reflects the naming in the HIP and protobuf and avoids tying the address to Solidity when Hedera supports more than just Solidity contracts.
+Como parte de HIP-329 CREATE2, renombramos la `solidity_address` existente en el contrato REST API a `evm_address`. Este nuevo nombre refleja con precisión el nombre en el HIP y protobuf y evita vincular la dirección a la Solidez cuando Hedera soporta algo más que contratos de solidez.
 
 ## [v0.49](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.49.1)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 15, 2022**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 15, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: FEBRUARY 4, 2022**
+**TESTNET UPDATE COMPLETEDO: FEBRUARY 4, 2022**
 {% endhint %}
 
-This release implements three Hedera Improvement Proposals (HIPs) and upgrades the mirror node database to the latest version.
+Esta versión implementa tres Hedera Improvement Proposals (HIPs) y actualiza la base de datos de nodos espejo a la última versión.
 
-[HIP-21](https://hips.hedera.com/hip/hip-21) describes the need for a free network info query to enable SDKs and other clients to be able to retrieve the current list of nodes. To satisfy this need we added a new `NetworkService.getNodes()` streaming gRPC API to get the list of current nodes from the address book network file. By making it a streaming API we avoid the client having to handle paging themselves, while still allowing us to split the large address book into smaller chunks. Since there are two address book files, we provide an option to choose which `FileID` to return.
+[HIP-21](https://hips.hedera. om/hip/hip-21) describe la necesidad de una consulta de información de red gratuita para permitir que SDKs y otros clientes puedan recuperar la lista actual de nodos. Para satisfacer esta necesidad hemos añadido una nueva API GRPC de streaming `NetworkService.getNodes()` para obtener la lista de nodos actuales del archivo de red de la libreta de direcciones. Al convertirlo en una API de streaming evitamos que el cliente tenga que manejar la paginación por sí mismo. mientras que aún nos permite dividir la gran libreta de direcciones en trozos más pequeños. Dado que hay dos archivos de libreta de direcciones, proporcionamos una opción para elegir qué `FileID` regresar.
 
 ```
-message AddressBookQuery {
-    .proto.FileID file_id = 1; // The ID of the address book file on the network. Can be either 0.0.101 or 0.0.102.
-    int32 limit = 2;           // The maximum number of node addresses to receive before stopping. If not set or set to zero it will return all node addresses in the database.
+mensaje AddressBookQuery {
+    .proto. ileID file_id = 1; // El ID del archivo de libreta de direcciones en la red. Puede ser 0. .101 o 0.0.102.
+    límite int32 = 2; // El número máximo de direcciones de nodo a recibir antes de parar. Si no se establece o se establece a cero, devolverá todas las direcciones de los nodos en la base de datos.
 }
 
-service NetworkService {
-    rpc getNodes (AddressBookQuery) returns (stream .proto.NodeAddress);
+servicio NetworkService {
+    rpc getNodes (AddressBookQuery) devuelve (stream .proto.NodeAddress);
 }
 ```
 
-[HIP-171](https://hips.hedera.com/hip/hip-171) describes the need for returning the payer account in the topic message REST API response. This release does just that while also adding in the topic message chunk information that was present in the gRPC API but missing from the REST API.
+[HIP-171](https://hips.hedera.com/hip/hip-171) describes the need for returning the payer account in the topic message REST API response. Esta versión hace justo eso mientras que también añade en el mensaje de tema la información que estaba presente en la API de gRPC pero que falta en la API REST.
 
 ```
  {
-+  "chunk_info": {
-+    "initial_transaction_id": {
-+      "account_id": "0.0.1000",
-+      "nonce": 0,
-+      "scheduled": false,
-+      "transaction_valid_start": "1234567890-000000006"
-+    },
-+    "number": 2,
-+    "total": 5
-+  },
-   "consensus_timestamp": "1234567890.000000001",
++ "chunk_info": {
++ "initial_transaction_id": {
++ "account_id": "0.0. 000",
++ "nonce": 0,
++ "programado": falso,
++ "transaction_valid_start": "1234567890-000000006"
++ },
++ "número": 2,
++ "total": 5
++ },
+   "consensus_timestamp": "1234567890. 00000001",
    "topic_id": "0.0.7",
    "message": "bWVzc2FnZQ==",
-+  "payer_account_id": "0.0.1000",
++ "payer_account_id": "0.0. 000",
    "running_hash": "cnVubmluZ19oYXNo",
    "running_hash_version": 2,
    "sequence_number": 1
- }
+}
 ```
 
-Continuing our support for [HIP-32](https://hips.hedera.com/hip/hip-32) auto account creation, we added alias support to our accounts REST API. Now when you query `/v1/api/accounts/:id` the `id` can be either a Hedera entity in the `0.0.x` form or a hex-encoded alias. An account's `alias` will now also show up in all of the accounts REST API output.
+Continuando con nuestro soporte para la creación de cuentas automáticas [HIP-32](https://hips.hedera.com/hip/hip-32) añadimos soporte de alias a nuestras cuentas REST API. Ahora cuando consultas `/v1/api/accounts/:id` el `id` puede ser una entidad Hedera en el formulario `0.0.x` o un alias codificado en hex. Los 'alias' de una cuenta ahora también aparecerán en todas las cuentas de salida API REST.
 
-A lot of testing was done to ensure that PostgreSQL 14 functions correctly with the mirror node and provides as good as or better performance to older versions. We are now in the process of migrating our Hedera managed mirror nodes to PostgreSQL 14. We recommend other mirror node operators consider upgrading to the latest database version at their earliest convenience and have provided upgrade [instructions](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#upgrade) to aid in that process.
+Se realizaron muchas pruebas para asegurar que PostgreSQL 14 funcionara correctamente con el nodo espejo y proporcionara un rendimiento tan bueno o mejor a las versiones anteriores. Ahora estamos migrando nuestros nodos de espejo Hedera administrados a PostgreSQL 14. Recomendamos que otros operadores de nodos espejo consideren actualizar a la última versión de la base de datos lo antes posible y han proporcionado la actualización [instructions](https://github. om/hashgraph/hedera-mirror-node/blob/main/docs/database.md#upgrade) para ayudar en ese proceso.
 
 ## [v0.48](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.48.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JANUARY 26, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: 26, 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JANUARY 18, 2022**
+**TESTNET ACTUALIZADO COMPLETADO: 18 de Enero, 2022**
 {% endhint %}
 
-[HIP-206](https://hips.hedera.com/hip/hip-206) adds a parent consensus timestamp to the transaction record for internal transactions that occur like HTS precompiles invoked from a smart contract. To round out the `nonce` support in the last release we added `parent_consensus_timestamp` to `/api/v1/accounts/{id}` and `/api/v1/transactions`. This field helps define the parent/child relationships between transactions.
+[HIP-206](https://hips.hedera.com/hip/hip-206) agrega una marca de tiempo de consenso padre al registro de transacción para transacciones internas que ocurren como precompilaciones HTS invocadas desde un contrato inteligente. Para completar el soporte `nonce` en la última versión, añadimos `parent_consensus_timestamp` a `/api/v1/accounts/{id}` y `/api/v1/transactions`. Este campo ayuda a definir las relaciones padre/hijo entre las transacciones.
 
-[HIP-226](https://hips.hedera.com/hip/hip-226) describes the recently added contract results REST API. Each release we've been iterating and adding more functionality to the API until it matches the description in the HIP. This release adds the list of logs generated by a smart contract execution. Here's a sample of the new JSON response:
+[HIP-226](https://hips.hedera.com/hip/hip-226) describe los resultados del contrato recientemente añadido REST API. Cada versión que hemos estado iterando y añadiendo más funcionalidad a la API hasta que coincida con la descripción en el HIP. Esta versión añade la lista de registros generados por una ejecución de contrato inteligente. Esta es una muestra de la nueva respuesta JSON:
 
 ```
 {
@@ -1378,8 +1378,8 @@ A lot of testing was done to ensure that PostgreSQL 14 functions correctly with 
     ...
     "logs": [
       {
-        "address": "0x0000000000000000000000000000000000001389",
-        "contract_id": "0.0.5001",
+        "address": "0x000000000000000000000000000000000000000000001389",
+        "contract_id": "0.0. 001",
         "data": "0x0123",
         "index": 0,
         "topics": [
@@ -1390,8 +1390,8 @@ A lot of testing was done to ensure that PostgreSQL 14 functions correctly with 
         ]
       },
       {
-        "address": "0x000000000000000000000000000000000000138a",
-        "contract_id": "0.0.5002",
+        "address": "0x00000000000000000000000000000000000000000000138a",
+        "contract_id": "0. .5002",
         "data": "0x0123",
         "index": 1,
         "topics": [
@@ -1400,18 +1400,18 @@ A lot of testing was done to ensure that PostgreSQL 14 functions correctly with 
         ]
       }
     ]
-  }
+}
 ```
 
-In the last release, we added a new Web3 JSON-RPC API. With this release, we've added a `hedera-mirror-web3` Helm chart that can be used to deploy it on Kubernetes. Additional metrics were added to the Java module and a new Grafana dashboard was created to visualize them. The Web3 API was also added to the docker-compose file.
+En la última versión, hemos añadido una nueva API JSON-RPC de Web3. Con esta versión, hemos añadido un gráfico de casco `hedera-mirror-web3` que puede ser usado para desplegarlo en Kubernetes. Se añadieron métricas adicionales al módulo Java y se creó un nuevo tablero Grafana para visualizarlos. La API Web3 también fue añadida al archivo docker-compose.
 
-### Upgrading
+### Actualizando
 
-If you're upgrading an existing deployment of our Helm chart, there are a few breaking changes to keep in mind. First, we deploy the new Web3 API chart by default and it requires a `mirror_web3` database user exist with read permission. Please create the new database user before upgrading or you can disable the `hedera-mirror-web3` sub-chart.
+Si está actualizando un despliegue existente de nuestro gráfico Helm, hay algunos cambios de ruptura a tener en cuenta. Primero, desplegamos el nuevo gráfico de la API Web3 por defecto y requiere una base de datos de usuario `mirror_web3` con permiso de lectura. Por favor, crea el nuevo usuario de la base de datos antes de actualizar o puedes desactivar el subgráfico `hedera-mirror-web3`.
 
-We've upgraded the `PodDisruptionBudget` resources from `policy/v1beta1` to `policy/v1` and as a result now require Kubernetes 1.21 or greater. For the `hedera-mirror` chart, if you're using the optional `postgresql` sub-chart you must scale the PostgreSQL replicas down to one before initiating an upgrade in order to upgrade repmgr.
+Hemos actualizado los recursos de `PodDisruptionBudget` de `policy/v1beta1` a `policy/v1` y como resultado ahora requiere Kubernetes 1.21 o superior. Para la tabla `hedera-mirror`, si está usando el subgráfico opcional `postgresql`, debe escalar las réplicas PostgreSQL a una antes de iniciar una actualización para actualizar repmgr.
 
-If you're using the `hedera-mirror-common` chart, there are a number of breaking changes in the community sub-charts it uses. Before upgrading, you will need to delete the `prometheus-adapter` and `kube-state-metrics` deployments. You'll also need to reinstall a few custom resource definitions. Run the below commands to do so:
+Si estás usando el gráfico `hedera-mirror-common`, hay una serie de cambios rompientes en los subgráficos comunitarios que utiliza. Antes de actualizar, tendrás que eliminar las implementaciones `prometheum-adapter` y `kube-state-metrics`. También necesitará reinstalar algunas definiciones de recursos personalizadas. Ejecutar los siguientes comandos para hacerlo:
 
 ```
 kubectl delete deployment -l app.kubernetes.io/name=kube-state-metrics --cascade=orphan
@@ -1429,42 +1429,42 @@ kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-oper
 ## [v0.47](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.47.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JANUARY 3, 2022**
+**MAINNET ACTUALIZADO COMPLETADO: 3 de enero de 2022**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: DECEMBER 30, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: DECEMBRE 30, 2021**
 {% endhint %}
 
-This release continues the focus on Smart Contracts 2.0. The mirror node is useful for debugging a smart contract execution and our focus has been on providing APIs to make developers' lives easier. To that end, we added support for transaction ID nonce, a new contract logs REST API, and a new web3 API component.
+Esta versión continúa centrándose en Smart Contracts 2.0. El nodo espejo es útil para depurar una ejecución de contrato inteligente y nuestro enfoque ha sido proporcionar APIs para facilitar la vida de los desarrolladores. A tal fin, hemos añadido soporte para el ID de transacción en una sola ocasión, un nuevo registro de contrato REST API, y un nuevo componente de la API web3.
 
-The new Web3 API module provides an implementation of existing JSON-RPC APIs for the Hedera network. JSON-RPC API is a widely used standard for interacting with distributed ledgers. The aim in providing a Hedera implementation of these APIs is to ease the migration of existing dApps to Hedera and simplify the developer on-ramp. Currently, the Web3 module only provides a partial implementation of the [Ethereum JSON-RPC API](https://eth.wiki/json-rpc/API). Specifically, only the `eth_blockNumber` method has been implemented in this release as we focused on putting the groundwork in place first.
+El nuevo módulo de API Web3 proporciona una implementación de APIs JSON-RPC existentes para la red Hedera. La API JSON-RPC es un estándar ampliamente utilizado para interactuar con los contadores distribuidos. El objetivo de proporcionar una implementación de Hedera de estas APIs es facilitar la migración de dApps existentes a Hedera y simplificar el desarrollador on-ramp. Actualmente, el módulo Web3 sólo proporciona una implementación parcial de la [API JSON-RPC de Ethereum](https://eth.wiki/json-rpc/API). Específicamente, sólo el método `eth_blockNumber` ha sido implementado en esta versión ya que nos enfocamos en poner el terreno en primer lugar.
 
-As part of [HIP-32](https://hips.hedera.com/HIP/hip-32.html) and [HIP-206](https://hips.hedera.com/HIP/hip-206.html) a `nonce` field was added to the `TransactionID` protobuf to guarantee uniqueness for platform generated transactions. This `nonce` field was added to any REST API that returns transaction data. A `nonce` query parameter was added to `/api/v1/transactions/:transactionId`, `/api/v1/transactions/:transactionId/stateproof`, and `/api/v1/contracts/results/:transactionId` to be able to distinguish between a user-submitted transaction and an internal transaction generated as a result of that transaction. Note that `/api/v1/transactions/:transactionId` without a `nonce` parameter will default to returning all transactions regardless of nonce while the other APIs will default `nonce` to `0`.
+Como parte de [HIP-32](https://hips.hedera.com/HIP/hip-32.html) y [HIP-206](https://hips.hedera.com/HIP/hip-206.html) se añadió un campo `nonce` al protobuf `TransactionID` para garantizar la unicidad para las transacciones generadas por la plataforma. Este campo `nonce` fue añadido a cualquier API REST que devuelva datos de transacción. Un parámetro de consulta `nonce` fue añadido a `/api/v1/transactions/:transactionId`, `/api/v1/transactions/:transactionId/stateapprov`, y `/api/v1/contracts/results/:transactionId` para poder distinguir entre una transacción enviada por el usuario y una transacción interna generada como resultado de esa transacción. Tenga en cuenta que `/api/v1/transactions/:transactionId` sin un parámetro `nonce` devolverá todas las transacciones independientemente de nonce mientras que las otras APIs predeterminarán `nonce` a `0`.
 
-The new `/api/v1/contracts/{id}/results/logs` REST API provides a search API to query for logs across contract executions for a particular contract. Searching by consensus timestamp and topics is supported. Note that for performance reasons it doesn't currently support pagination and requires a timestamp or timestamp range be provided to search by topic.
+La nueva API REST `/api/v1/contracts/{id}/results/logs` proporciona una API de búsqueda para buscar registros entre las ejecuciones de contratos para un contrato en particular. Se apoya la búsqueda por la marca de tiempo y temas de consenso. Tenga en cuenta que por razones de rendimiento actualmente no soporta paginación y requiere que se proporcione un rango de fecha o fecha para buscar por temas.
 
 ## [v0.46](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.46.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: DECEMBER 20, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: DECEMBRE 20, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: DECEMBER 17, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: DECEMBRE 17, 2021**
 {% endhint %}
 
-0.46 is a feature-packed release and includes support for three new HIPs, three new REST APIs, a redesigned monitor dashboard, a new BDD test suite for the Rosetta API, and one new module. Let’s dive in!
+0.46 es una versión empaquetada por características e incluye soporte para tres nuevos HIPs, tres nuevas API REST, un panel de control rediseñado, una nueva suite de pruebas BDD para la API de Rosetta, y un nuevo módulo. ¡Vamos a bucear!
 
-[HIP-222](https://hips.hedera.com/hip/hip-222) adds support for ECDSA (secp256k1) keys to the Hedera network to help improve the developer experience of migrating a dApp to Hedera. The mirror node was updated to be able to parse and store the new key type along with its corresponding new signature. Since this key type is also considered a primitive key like ED25519 (e.g. not a complex key list or threshold key), you can now search for accounts and tokens by their 66-character ECDSA public key. As an added bonus, we now also allow searching by complex public keys that are a key list or threshold key with exactly one primitive key.
+[HIP-222](https://hips.hedera.com/hip/hip-222) añade soporte para claves ECDSA (secp256k1) a la red Hedera para ayudar a mejorar la experiencia del desarrollador de migrar un dApp a Hedera. El nodo espejo se actualizó para poder analizar y almacenar el nuevo tipo de clave junto con su nueva firma correspondiente. Dado que este tipo de clave también se considera una clave primitiva como ED25519 (p. ej. no es una lista de claves compleja o una clave de umbral), ahora puede buscar cuentas y tokens por su clave pública ECDSA de 66 caracteres. Como bono añadido, ahora también permitimos buscar por claves públicas complejas que son una lista de claves o una clave de umbral con exactamente una clave primitiva.
 
-[HIP-32](https://hips.hedera.com/hip/hip-32) auto-account creation lets a new user receive ℏ via a CryptoTransfer _without_ having already created an account on the network. The mirror node was updated to store the user's alias and map transfers that contain an alias to the newly created account ID. In an upcoming release, we'll add the ability to query for an account by its alias.
+[HIP-32](https://hips.hedera.com/hip/hip-32) la creación de una cuenta automática permite a un nuevo usuario recibir a través de un CryptoTransfer _sin_ haber creado una cuenta en la red. El nodo espejo se actualizó para almacenar el alias del usuario y las transferencias de mapas que contienen un alias al ID de cuenta recién creado. En una próxima versión, agregaremos la posibilidad de consultar una cuenta por su alias.
 
-[HIP-206](https://hips.hedera.com/hip/hip-206) integrates the Hedera Token Service (HTS) into the Hedera Smart Contract Service (HSCS), allowing contracts to transfer, mint, burn, associate, and dissociate tokens programmatically. While support for consensus nodes is still being worked on, the mirror node now has preliminary support for HTS precompiled transactions. This adds a new `nonce` field to the transaction ID as well as the concept of parent/child relationships between transactions. In an upcoming release, we'll add `nonce` support and expose parent/child relationships to the REST API.
+[HIP-206](https://hips.hedera. om/hip/hip-206) integra el Servicio Hedera Token (HTS) en el Servicio Hedera Smart Contract Service (HSCS), lo que permite a los contratos transferir, mint, grabar, asociar y disociar tokens de forma programática. Mientras que el soporte para los nodos de consenso todavía se está trabajando, el nodo espejo ahora tiene soporte preliminar para transacciones precompiladas HTS. Esto añade un nuevo campo `nonce` al ID de transacción así como el concepto de relaciones parentes/hijo entre las transacciones. En una próxima versión, agregaremos soporte `nonce` y expondremos las relaciones padre/hijo a la API REST.
 
-The REST API saw three new REST APIs created to support the new Smart Contracts 2.0 feature. After executing a smart contract, developers can use the `/api/v1/contracts/{id}/results` API to search for a contract's execution results by timestamp range or payer account (e.g. `from`). Once the result is located, the new `/api/v1/contracts/{id}/results/{timestamp}` API can retrieve detailed information about the smart contract call. If you already know the transaction's ID, you can directly retrieve the smart contract results via the new `/api/v1/contracts/results/{transactionId}` API. In an upcoming release, we'll add support for logs, state changes, and more to this API. Below is an example response:
+La API REST vio tres nuevas APIs REST creadas para soportar la nueva característica Smart Contracts 2.0. Después de ejecutar un contrato inteligente, los desarrolladores pueden usar la API `/api/v1/contracts/{id}/results` para buscar los resultados de ejecución de un contrato por rango de fecha o por cuenta de pagador (e. . `desde`). Una vez que se encuentre el resultado, la nueva API `/api/v1/contracts/{id}/results/{timestamp}` puede recuperar información detallada sobre la llamada inteligente al contrato. Si ya conoce el ID de la transacción, puede recuperar directamente los resultados del contrato inteligente mediante la nueva API `/api/v1/contracts/results/{transactionId}`. En una próxima versión, agregaremos soporte para registros, cambios de estado y más a esta API. Abajo hay un ejemplo de respuesta:
 
-`/api/v1/contracts/results/{transactionId}`
+`/api/v1/contracts/resultados/{transactionId}`
 
 ```json
 {
@@ -1472,70 +1472,70 @@ The REST API saw three new REST APIs created to support the new Smart Contracts 
     "block_hash": "0x6ceecd8bb224da491",
     "block_number": 17,
     "call_result": "0x0606",
-    "contract_id": "0.0.5001",
-    "created_contract_ids": ["0.0.7001"],
+    "contract_id": "0. .5001",
+    "created_contract_ids": ["0.0. 001"],
     "error_message": "",
-    "from": "0x0000000000000000000000000000000000001f41",
+    "from": "0x000000000000000000000000000000000000000000000000001f41",
     "function_parameters": "0x0707",
     "gas_limit": 987654,
     "gas_used": 123,
     "hash": "0x3531396130303866616264653464",
-    "timestamp": "167654.000123456",
-    "to": "0x0000000000000000000000000000000000001389"
+    "timestamp": "167654. 00123456",
+    "to": "0x0000000000000000000000000000000000000000001389"
 }
 ```
 
-Other miscellaneous changes include now validating the REST API tests against the OpenAPI specification. This should help keep the specification file better in sync with the code until we can fully integrate the specification. The Node.js based monitor dashboard saw a visual refresh in order to make it easier to use. The Rosetta API saw a new suite of crypto and token Behavior Driven Development (BDD) tests. As a result of these tests a number of bugs were found and addressed. Finally, we refactored some common classes into a `hedera-mirror-common` module to share code with a future API module.
+Otros cambios variados incluyen ahora validar las pruebas de la API REST con la especificación OpenAPI. Esto debería ayudar a mantener el archivo de especificación mejor sincronizado con el código hasta que podamos integrar completamente la especificación. El panel de control basado en Node.js vio una actualización visual para facilitar su uso. La API de Rosetta fue testigo de una nueva serie de pruebas de comportamiento de criptografía y token. Como resultado de estas pruebas, varios errores fueron encontrados y abordados. Finalmente, refactorizamos algunas clases comunes en un módulo `hedera-mirror-common` para compartir código con un futuro módulo de API.
 
-#### Database Migration
+#### Migración de base de datos
 
-Due to the aforementioned features, we had to make changes to the database schema that may take some time to complete. We've tested the migrations against a mainnet database with 1.9B+ transactions and it completed in around five hours. Mirror node operators may see the migration take more or less time depending upon the size of their data, database hardware, and database configuration flags.
+Debido a las características mencionadas, hemos tenido que hacer cambios en el esquema de base de datos que pueden tardar algún tiempo en completarse. Hemos probado las migraciones con una base de datos mainnet con transacciones de 1.9B+ y se completó en unas cinco horas. Los operadores de nodos espejo pueden ver que la migración toma más o menos tiempo dependiendo del tamaño de sus datos, hardware de base de datos y parámetros de configuración de base de datos.
 
 ## [v0.45.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.45.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: DECEMBER 8, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: DECEMBRE 8, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: DECEMBER 6, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: DECEMBRE 6, 2021**
 {% endhint %}
 
-The mirror node now captures the full history of changes that occur to accounts and contracts over time. Prior to this, the mirror node would only maintain the current state of a Hedera entity. With this change, all create, update and delete transactions that occur for an entity will cause a snapshot to be created to represent how it appeared at each of those points in time. This information can be used to query the API for an entity at a particular consensus timestamp in the past.
+El nodo espejo ahora captura el historial completo de cambios que ocurren en cuentas y contratos a lo largo del tiempo. Antes de esto, el nodo espejo sólo mantendría el estado actual de una entidad Hedera. Con este cambio, todo creado, actualizar y eliminar transacciones que ocurren para una entidad causarán que se cree una instantánea para representar cómo apareció en cada uno de esos puntos en el tiempo. Esta información puede ser usada para consultar la API para una entidad en una marca de tiempo de consenso particular en el pasado.
 
-Currently, this historical lookup option is only supported on the contracts REST API. For example, you can now search for `/api/v1/contracts/0.0.1000?timestamp=lte:1609480800` to see the state of the contract `0.0.1000` on January 1st, 2021. Related to contracts, we added new acceptance tests for contract related APIs. The [design document](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/design/smart-contracts.md) was updated to detail new APIs that we are proposing to implement. Those changes are also detailed in Hedera Improvement Proposals (HIPs) for [contract results](https://github.com/hashgraph/hedera-improvement-proposal/pull/226) and [contract execution logs](https://github.com/hashgraph/hedera-improvement-proposal/pull/227) REST APIs. Please take a look and let us know if you have any feedback.
+Actualmente, esta opción de búsqueda histórica sólo está soportada en los contratos REST API. Por ejemplo, ahora puede buscar `/api/v1/contracts/0.0.1000?timestamp=lte:1609480800` para ver el estado del contrato `0.0.1000` el 1 de enero de 2021. En relación con los contratos, hemos añadido nuevas pruebas de aceptación para APIs relacionadas con contratos. El [documento de diseño](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/design/smart-contracts.md) fue actualizado para detallar las nuevas APIs que estamos proponiendo implementar. Esos cambios también se detallan en Hedera Improvement Proposals (HIPs) para [resultados del contrato](https://github.com/hashgraph/hedera-improvement-proposal/pull/226) y [registros de ejecución del contrato](https://github.com/hashgraph/hedera-improvement-proposal/pull/227) REST APIs. Por favor, eche un vistazo y háganos saber si tiene algún comentario.
 
-On the CitusDB front, we continue to make progress. All of our reference tables are now removed in favor of database or application enums. This should help improve performance and streamline the database migration. We've updated our test harness to use the latest version of CitusDB that uses PostgreSQL 14. Finally, we now create distributed tables with entity IDs used as distribution columns for partitioning and co-locate them with other tables as appropriate.
+En el frente de CitusDB, seguimos avanzando. Todas nuestras tablas de referencia ahora se eliminan a favor de la base de datos o las enums de la aplicación. Esto debería ayudar a mejorar el rendimiento y mejorar la migración de la base de datos. Hemos actualizado nuestro arness de prueba para usar la última versión de CitusDB que usa PostgreSQL 14. Finalmente, ahora creamos tablas distribuidas con identificadores de entidad utilizados como columnas de distribución para particionar y coubicarlas con otras tablas según corresponda.
 
-The Rosetta API also saw some improvements including the ability to create accounts online in `/construction/submit`. An issue with token balance reconciliation was also addressed.
+La API de Rosetta también vio algunas mejoras, incluyendo la capacidad de crear cuentas en línea en `/construction/submit`. También se abordó una cuestión con la reconciliación del equilibrio simbólico.
 
 ## [v0.44.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.44.0)
 
-Making [progress](https://github.com/hashgraph/hedera-mirror-node/issues/2675) on transitioning our database to [CitusDB](https://citusdata.com/), this release adds a new `v2` schema with initial support for CitusDB. Automated testing against CitusDB was added to our CI pipeline so that it runs concurrently with the `v1` PostgreSQL-based schema. The transaction payer account ID was added to transfer related tables. This will be used as a distribution column for database partitioning across a dimension that is not time-based. This allows the mirror node to scale reads and writes as more transaction payers use the system.
+Haciendo [progress](https://github.com/hashgraph/hedera-mirror-node/issues/2675) al transicionar nuestra base de datos a [CitusDB](https://citusdata.com/), esta versión añade un nuevo esquema `v2` con soporte inicial para CitusDB. Se añadieron pruebas automatizadas contra CitusDB a nuestro pipeline de CI para que se ejecute simultáneamente con el esquema basado en 'v1' PostgreSQL. El ID de la cuenta de pagador de transacción se añadió a las tablas relacionadas con la transferencia. Esto se utilizará como una columna de distribución para el particionado de bases de datos a través de una dimensión que no está basada en el tiempo. Esto permite al nodo réplica escalar lecturas y escrituras mientras más pagadores de transacciones usan el sistema.
 
-The rest of the release is mainly focused around performance improvements. We no longer persist minimal entity information for every entity ID encountered in a transaction. This was a performance drag but also caused problems with our plans to track entity history in an upcoming release. A few of our reference tables were removed in favor of using an application enum instead to map protobuf values to descriptive strings.
+El resto de la versión se centra principalmente en las mejoras de rendimiento. Ya no persistimos la información mínima de la entidad para cada entidad identificadora encontrada en una transacción. Esto fue un lastre en el rendimiento, pero también causó problemas con nuestros planes para rastrear el historial de entidades en una próxima versión. Algunas de nuestras tablas de referencia fueron eliminadas a favor de usar un enum de aplicación en su lugar para mapear valores protobuf a cadenas descriptivas.
 
-On the REST API, retrieval of accounts by public key was optimized to improve its performance. If your application does not require balance information, you can see additional performance gains by setting the new `balance` parameter to `false` for account API calls. The code was optimized to replace `Array.concat` with `Array.push` and to cache entity ID construction. The biggest change is probably the potentially breaking change to the `limit` parameter.
+En la API REST, la recuperación de cuentas por clave pública fue optimizada para mejorar su rendimiento. Si su aplicación no requiere información de saldo, puedes ver ganancias de rendimiento adicionales estableciendo el nuevo parámetro `balance` a `false` para llamadas API de cuenta. El código fue optimizado para reemplazar `Array.concat` con `Array.push` y para caché construcción de ID de entidad. El mayor cambio es probablemente el que potencialmente rompe el parámetro `limit`.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-The maximum number of rows the REST API can return was changed from 500 to 100. Likewise the default number of rows the REST API returns if the `limit` parameter is unspecified was changed from 500 to 25. If a request is sent requesting more than 100 it won't fail. Instead, it will transparently use the smaller of the two values. As a result, this should not be a breaking change unless your application makes assumptions about the exact number of results being returned. We may tweak these values in the future for performance reasons so it's good practice to update your application to handle arbitrary limits and results.
+El número máximo de filas que el API REST puede devolver fue cambiado de 500 a 100. De sabias, el número predeterminado de filas que retorna la API REST si el parámetro `limit` no está especificado fue cambiado de 500 a 25. Si se envía una solicitud solicitando más de 100 no fallará. En cambio, utilizará de forma transparente los dos valores menores. Como resultado, esto no debería ser un cambio de ruptura a menos que la solicitud haga suposiciones sobre el número exacto de resultados que se están devolviendo. Podemos ajustar estos valores en el futuro por razones de rendimiento, por lo que es una buena práctica actualizar su aplicación para manejar límites y resultados arbitrarios.
 
 ## [v0.43.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.43.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: NOVEMBER 18, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: AHORA 18, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: NOVEMBER 12, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: NUNCA 12, 2021**
 {% endhint %}
 
-### Smart Contracts
+### Contratos inteligentes
 
-With Hedera's increased focus on [Smart Contracts](https://hedera.com/blog/hedera-evm-smart-contracts-now-bring-highest-speed-programmability-to-tokenization), we took the time to revamp the mirror node's smart contract support and lay the groundwork for future enhancements. As detailed in the [design document](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/design/smart-contracts.md), plans include new contract-specific REST APIs and Ethereum-compatible APIs in the future.
+Con el mayor foco de Hedera en [Contratos Inteligentes](https://hedera. om/blog/hedera-evm-smart-contracts-now-bring-high-speed-programmability-to-tokenization), nos tomamos el tiempo para revamp el soporte inteligente del nodo espejo y sentamos las bases para futuras mejoras. Como se detalla en el [documento de diseño](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/design/smart-contracts.md), los planes incluyen nuevas APIs REST específicas para el contrato y APIs compatibles con Ethereum en el futuro.
 
-To prepare for that, the database schema and importer were updated to normalize and store all contract-related information, fixing long-standing bugs like not storing contract bytecode and child contracts. The contract table was split from the generic entity table and work was started on making all the entity tables maintain a history of all changes. The REST API now supports searching for and retrieving specific contracts. Below is an example of retrieving a contract:
+Para prepararse para eso, el esquema de base de datos y el importador fueron actualizados para normalizar y almacenar toda la información relacionada con el contrato, corregir errores de larga data como no almacenar bytecode de contrato y contratos de hijos. La tabla de contratos se dividió de la tabla de entidades genéricas y se comenzó a trabajar para hacer que todas las tablas de entidades mantengan un historial de todos los cambios. La API REST ahora soporta la búsqueda y recuperación de contratos específicos. A continuación se muestra un ejemplo de recuperación de un contrato:
 
 `/api/v1/contracts/{id}`
 
@@ -1547,167 +1547,167 @@ To prepare for that, the database schema and importer were updated to normalize 
   },
   "auto_renew_period": 7776000,
   "bytecode": "0xc896c66db6d98784cc03807640f3dfd41ac3a48c",
-  "contract_id": "0.0.10001",
+  "contract_id": "0. .10001",
   "created_timestamp": "1633466229.96874612",
   "deleted": false,
-  "expiration_timestamp": "1633466229.96874612",
+  "expiration_timestamp": "1633466229. 6874612",
   "file_id": "0.0.1000",
-  "memo": "First contract",
+  "memo": "Primer contrato",
   "obtainer_id": "0.0.101",
-  "proxy_account_id": "0.0.100",
-  "solidity_address": "0x00000000000000000000000000000000000003E9",
+  "proxy_account_id": "0.0. 00",
+  "solidity_address": "0x000000000000000000000000000000000000000003E9",
   "timestamp": {
-    "from": "1633466229.96874612",
-    "to": "1633466568.31556926"
+    "from": "1633466229. 6874612",
+    "a": "1633466568.31556926"
   }
 }
 ```
 
-### Data Architecture
+### Arqueo de Datos
 
-Over the last few months, work has been underway to analyze possible `PostgreSQL` replacements as the need for handling an ever-increasing amount of data puts strain on the existing mirror node database. After agreeing upon the acceptance criteria, priority was placed on a PostgreSQL-compatible distributed database that can shard our time-series data across many nodes for scale-out reads and writes. That would ensure the quickest time to market and ease transition for Hedera and others using the open source mirror node software. The four distributed databases we chose for our proof of concept included [CitusDB](https://citusdata.com/), [CockroachDB](https://cockroachlabs.com/), [TimescaleDB](https://www.timescale.com/), and [YugabyteDB](https://www.yugabyte.com/).
+En los últimos meses, se ha puesto en marcha para analizar posibles reemplazos de `PostgreSQL` ya que la necesidad de manejar una cantidad cada vez mayor de datos ejerce presión sobre la base de datos de nodo réplica existente. Después de acordar los criterios de aceptación, prioridad fue colocada en una base de datos distribuida compatible con PostgreSQL que puede fragmentar los datos de nuestra serie temporal a través de muchos nodos para lecturas y escrituras a escala. Eso garantizaría el tiempo más rápido para comercializar y facilitar la transición para Hedera y otros que utilizan el software de nodo espejo de código abierto. Las cuatro bases de datos distribuidas que elegimos para nuestra prueba de concepto incluían [CitusDB](https://citusdata.com/), [CockroachDB](https://cockroachlabs.com/), [TimescaleDB](https://www.timescale.com/) y [YugabyteDB](https://www.yugabyte.com/).
 
-After a detailed analysis of each, we chose CitusDB for our next database due to its excellent PostgreSQL compatibility (it's a PostgreSQL extension) and its mature support for sharding time-series data. Its distributed query engine routes and parallelizes DDL, DML, and other operations on distributed tables across the cluster. And its columnar storage can compress data up to 8x, speeds up table scans, and supports fast projections. This release contains some foundational work to get our schema ready for partitioning. You can track our [progress](https://github.com/hashgraph/hedera-mirror-node/issues/2675) as we work towards integrating CitusDB into our codebase over the next few months. We plan on maintaining support for both databases for a period of time after the work is complete.
+Después de un análisis detallado de cada uno de ellos elegimos CitusDB para nuestra próxima base de datos debido a su excelente compatibilidad PostgreSQL (es una extensión PostgreSQL) y su soporte maduro para fragmentar datos de la serie temporal. Sus rutas distribuidas del motor de consultas y paraleliza DDL, DML, y otras operaciones sobre tablas distribuidas a través del clúster. Y su almacenamiento de columnas puede comprimir datos de hasta 8x, acelera los escaneos de tablas y soporta proyecciones rápidas. Esta versión contiene algo de trabajo fundamental para que nuestro esquema esté listo para particionar. Puede seguir nuestro [progress](https://github.com/hashgraph/hedera-mirror-node/issues/2675) mientras trabajamos para integrar CitusDB en nuestro código base durante los próximos meses. Planeamos mantener el apoyo a ambas bases de datos durante un período de tiempo después de que el trabajo se haya completado.
 
-### Performance Improvements
+### Mejoras de rendimiento
 
-As is usually the case, we took the time to optimize various pieces of the system to work at scale. Our transactions REST API saw some performance improvements by rewriting them using Common Table Expressions (CTE). This will pay future dividends with CitusDB as it allows queries to be ran in parallel easier. An issue with `/api/v1/topics/{id}/messages` timing out for some topics was addressed and the realm and topic number columns were combined to reduce the table and index size. `/api/v1/tokens/{id}/balances` also saw some performance improvements that decreased its average response time. Configuration options for faster historical ingestion were documented so that mirror node operators can get historical data faster.
+Como suele ser el caso, nos tomó el tiempo para optimizar varias piezas del sistema para trabajar a escala. Nuestras transacciones API REST vieron algunas mejoras de rendimiento reescribiéndolas usando Expresiones de Tabla Común (CTE). Esto pagará dividendos futuros con CitusDB, ya que permite que las consultas se ejecuten en paralelo más fácilmente. Se abordó un problema con el tiempo de espera de `/api/v1/topics/{id}/messages` para algunos temas y las columnas de número de reinos y temas se combinaron para reducir el tamaño de la tabla y del índice. `/api/v1/tokens/{id}/balances` también vio algunas mejoras de rendimiento que disminuyeron su tiempo promedio de respuesta. Las opciones de configuración para una ingestión histórica más rápida fueron documentadas para que los operadores de los nodos espejo puedan obtener datos históricos más rápido.
 
 ## [v0.42.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.42.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: OCTOBER 22, 2021**
+**MAINNET ACTUALADO COMPLETADO: OCTOBER 22, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: OCTOBER 18, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: OCTOBER 18, 2021**
 {% endhint %}
 
-This release saw a lot of improvements to the mirror node's Hedera Token Service functionality. Support for [HIP-24](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-24.md) pause feature on Hedera Token Service was completed. The importer can ingest the new token pause and unpause transaction types and update the token appropriately. Likewise, the token REST API was updated to show the new pause key and pause status.
+Esta versión vio muchas mejoras en la funcionalidad de Hedera Token Service del servidor espejo. Soporte para [HIP-24](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-24.md) funcionalidad de pausa en el Servicio Hedera Token se completó. El importador puede ingerir el nuevo token pausa y reanudar los tipos de transacción y actualizar el token apropiadamente. Del mismo modo, el token REST API fue actualizado para mostrar la nueva pausa clave y estado de pausa.
 
-Along those lines, the token REST API was also updated to show the token memo and a flag to show if it's deleted. Now when an account is dissociated from a token its supply will be properly updated to show the negative transfer. And if the token in that dissociate is of type NFT, all of the NFTs owned by that account will be properly marked as deleted. We also fixed issues with some special negative transfer amounts showing up in the transactions REST API.
+A lo largo de estas líneas, la API REST de token también fue actualizada para mostrar el memo de token y una bandera para mostrar si se elimina. Ahora cuando una cuenta está disociada de un token, su suministro será actualizado correctamente para mostrar la transferencia negativa. Y si el token en ese disociado es de tipo NFT, todos los NFT propiedad de esa cuenta se marcarán correctamente como eliminados. También arreglamos problemas con algunos importes especiales de transferencias negativas que aparecen en las transacciones REST API.
 
-A new network supply REST API was added to show the released supply. Having the open source mirror node calculate and show the release supply avoids any single point of failure with the current system because a user could ask multiple mirror nodes and compare their answers (or run their own mirror node).
+Se ha añadido una nueva API REST para mostrar el suministro liberado. Tener el nodo de réplica de código abierto calcula y muestra el suministro de liberación evita cualquier punto de fallo con el sistema actual porque un usuario podría preguntar múltiples nodos de réplica y comparar sus respuestas (o ejecutar su propio nodo de réplica).
 
 `GET /api/v1/network/supply`
 
 ```
 {
 	"timestamp": "123456870.854775807",
-	"released_supply": 1800000000000000000,
+	"released_supply": 1800000000000000000000000,
 	"total_supply": 5000000000000000000
 }
 ```
 
-Continuing our theme of improving the Rosetta API, NFT support was added to the data and construction APIs. We took the time to convert it to a standard configuration library and reorganize the package structure to be flatter and more consistent. And contexts were added to every layer to enable proper cancellation and timeout support.
+Continuando con el tema de la mejora de la API de Rosetta, se añadió el soporte de NFT a las APIs de datos y construcción. Nos tomamos el tiempo de convertirlo a una biblioteca de configuración estándar y reorganizar la estructura de paquetes para ser más lisa y coherente. Y se añadieron contextos a cada capa para permitir la cancelación adecuada y el soporte de tiempo de espera.
 
 ## [v0.41.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.41.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: OCTOBER 6, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: OCTOBER 6, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: SEPTEMBER 30, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: SEPTEMBER 30, 2021**
 {% endhint %}
 
-This release focuses our efforts on improving our [Rosetta API](https://www.rosetta-api.org/) and making it ready for production use. A new Rosetta Helm chart was added for production deployments to Kubernetes. Observability improvements include health probes, metrics, request logs, alerts, and a Grafana dashboard. Postman integration tests were added to verify post-deployment functionality. Finally, a few important bugs were fixed including missing peer IP addresses and a token balance reconciliation failure.
+Esta versión centra nuestros esfuerzos en mejorar nuestra [API de Rosetta](https://www.rosetta-api.org/) y hacerlo listo para su uso en producción. Se añadió un nuevo gráfico de casco de Rosetta para implementaciones de producción en Kubernetes. Las mejoras de observabilidad incluyen sondas de salud, métricas, registros de solicitudes, alertas y un panel de control de Grafana. Las pruebas de integración de Postman fueron añadidas para verificar la funcionalidad de post-implementación. Por último, se corrigieron algunos errores importantes, incluyendo direcciones IP faltantes y un fallo en la conciliación del balance de token.
 
-The importer component was optimized to ingest transactions at 15,000 TPS or higher. This change included improvements to reduce CPU and memory usage while simultaneously increasing the allocated memory available to the process.
+El componente importador se optimizó para realizar transacciones en 15.000 TPS o superior. Este cambio incluyó mejoras para reducir el uso de CPU y memoria al tiempo que aumentaba la memoria asignada disponible para el proceso.
 
-Other enhancements include revalidating main nodes periodically in the monitor and adding TLS support for the REST API's database connection.
+Otras mejoras incluyen la revalidación periódica de nodos principales en el monitor y la adición del soporte TLS para la conexión de base de datos de la API REST.
 
 ## [v0.40.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.40.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: SEPTEMBER 27, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: SEPTEMBER 27, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: SEPTEMBER 16, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: SEPTEMBER 16, 2021**
 {% endhint %}
 
-This release adds support for [HIP-23](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-23.md) Automatic Token Association. This feature allows users to opt-in to receiving fungible or non-fungible tokens automatically as part of a transfer without having to be previously associated with the token. The mirror node now stores these implicitly created associations and returns them via its REST API. Additionally, we show the `max_automatic_token_associations` in the accounts REST API.
+Esta versión añade soporte para [HIP-23](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-23.md) Asociación de Token Automático. Esta función permite que los usuarios opten por recibir fichas fungibles o no fungibles automáticamente como parte de una transferencia sin tener que estar previamente asociados con el token. El nodo espejo ahora almacena estas asociaciones creadas implícitamente y las devuelve a través de su API REST. Adicionalmente, mostramos el `max_automatic_token_associations` en las cuentas REST API.
 
-Besides updating it for HIP-23, the REST API saw quite a few other fixes and improvements. The accounts API now displays its memo and the `receiverSigRequired` field. The REST API packages were renamed to use the `@hashgraph` NPM package scope. This shouldn't be a breaking change as we don't currently publish those packages to NPM. A number of APIs were fixed to ensure lists were returned in a deterministic sort order. Also, the OpenAPI specification was fixed up so that it accurately reflects the current API and can be used to generate client code. Finally, the schedules API had some performance improvements.
+Además de actualizarlo para HIP-23, la API REST vio bastantes otras correcciones y mejoras. La API de cuentas ahora muestra su memo y el campo `receiverSigRequired`. Los paquetes de la API REST fueron renombrados para usar el alcance del paquete NPM `@hashgraph`. Esto no debería ser un cambio de ruptura, ya que actualmente no publicamos esos paquetes en NPM. Se arreglaron varias APIs para asegurar que las listas fueran devueltas en un orden determinista de clasificación. Además, la especificación OpenAPI se ha arreglado para que refleje con precisión la API actual y pueda utilizarse para generar código de cliente. Por último, la API de los programas tuvo algunas mejoras de rendimiento.
 
-On the monitoring side, we enhanced our Grafana dashboards to make them compatible with Grafana Cloud by adding datasource and cluster drop-downs.
+En el lado de la vigilancia, hemos mejorado nuestros tableros de control de Grafana para hacerlos compatibles con Grafana Cloud mediante la adición de desplegables de bases de datos y cluster.
 
 ## [v0.39.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.39.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: AUGUST 31, 2021**
+**MAINNET ACTUALIZADO COMPLETEDO: AUGUSTO 31, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: AUGUST 30, 2021**
+**TESTNET ACTUALIZADO COMPLETEDO: AUGUST 30, 2021**
 {% endhint %}
 
-This release provides compatibility with Hedera Services 0.17 including support for Non-Fungible Tokens (NFTs) and its enhancement to custom fees. For the latter, an NFT creator can set a royalty fee to be charged when fungible value is exchanged for one of their creations and the mirror node has been updated to track this new type of custom fees. Support was also added for effective payer accounts in assessed custom fees and for storing net-of-transfers in fractional fees.
+Esta versión proporciona compatibilidad con Hedera Services 0.17 incluyendo soporte para Tokens No Fungables (NFTs) y su mejora a tarifas personalizadas. Para estos últimos, un creador de NFT puede establecer una cuota de canje de canje cuando se intercambia un valor fungible por una de sus creaciones y el nodo espejo ha sido actualizado para rastrear este nuevo tipo de tarifas personalizadas. También se añadió apoyo para cuentas de pagadores efectivas en comisiones personalizadas evaluadas y para almacenar la red de transferencias en comisiones fraccionales.
 
-The mostly unused data generator module was removed, resulting in a large increase in code coverage. Coverage has increased from 84% to 92%.
+Se eliminó el módulo generador de datos mayoritariamente no utilizado, resultando en un gran aumento de la cobertura de código. La cobertura ha aumentado de 84% a 92%.
 
-A good amount of bugs were fixed including a crash on REST API startup if the database was down, monitor taking too long to startup, OpenAPI fixes, and more.
+Una buena cantidad de errores fueron arreglados incluyendo un fallo en el arranque de la API REST si la base de datos estaba caída, monitorear que tarda demasiado en iniciarse, correcciones de OpenAPI y más.
 
 ## [v0.38.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.38.1)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: AUGUST 17, 2021**
+**MAINNET ACTUALIZADO COMPLETEDO: AUGUSTO 17, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: AUGUST 17, 2021**
+**TESTNET ACTUALIZADO COMPLETEDO: AUGUSTO 17, 2021**
 {% endhint %}
 
-This release is a small bug fix release that contains some important fixes for our mirror node monitoring component. We added a new cluster health check to the monitor that takes into account publishing status. The load balancer uses this health check to determine which cluster to route traffic to. The old health check endpoint didn't take into account whether transaction publishing was active or successful and so would not route traffic to the public mirror node during main node upgrades.
+Esta versión es una pequeña versión de corrección de errores que contiene algunas correcciones importantes para nuestro componente de monitorización de nodos espejos. Hemos añadido un nuevo chequeo de salud de cluster al monitor que tiene en cuenta el estado de publicación. El balanceador de carga utiliza este chequeo de estado para determinar a qué cluster hay que enrutar el tráfico. El antiguo punto final del chequeo de estado no tuvo en cuenta si la publicación de la transacción estaba activa o tuvo éxito y por lo tanto no enrutaría el tráfico al nodo espejo público durante las actualizaciones de los nodos principales.
 
-Besides the new health check, the monitor had fixes to its rate calculation at low TPS, not sampling when idle, node validation, and the alerts it generates. The mainnet network configuration of the monitor now points to the public mirror node and we've added the new previewnet node to the previewnet network configuration.
+Además del nuevo chequeo de salud, el monitor tenía arreglos para su cálculo de velocidad en TPS bajos, no muestreo cuando está inactivo, validación de nodos, y las alertas que genera. La configuración de red de red principal del monitor ahora apunta al nodo espejo público y hemos añadido el nuevo nodo previewnet a la configuración de red previewnet.
 
-There were also a number of other fixes to clean up code and fix tests. We've made an effort to reduce our code smells as seen in [SonarCloud](https://sonarcloud.io/dashboard?id=hedera-mirror-node).
+También hubo varias otras correcciones para limpiar código y corregir pruebas. Hemos hecho un esfuerzo para reducir nuestro código huele como se ve en [SonarCloud](https://sonarcloud.io/dashboard?id=hedera-mirror-node).
 
 ## [v0.38.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.38.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: AUGUST 16, 2021**
+**MAINNET ACTUALIZADO COMPLETED: AUGUSTO 16, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: AUGUST 13, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: AUGUSTO 13, 2021**
 {% endhint %}
 
-This release wraps up NFT and custom fee support by adding additional test coverage and fixing any remaining bugs. Specifically, NFT support was added to our monitor tool and our acceptance tests. Custom fees was also added to the acceptance tests and had some bug fixes.
+Esta versión completa NFT y soporte de tarifas personalizadas añadiendo cobertura de prueba adicional y corrigiendo cualquier error restante. Específicamente, el soporte NFT fue añadido a nuestra herramienta de monitoreo y a nuestras pruebas de aceptación. Las comisiones personalizadas también se añadieron a las pruebas de aceptación y tuvieron algunas correcciones de errores.
 
-Mainnet public saw some monitoring improvements including adding HTTPS support to our external monitor dashboard and the addition of a platform not active alert that inhibits all other alerts.
+Mainnet public vio algunas mejoras de monitoreo, incluyendo la adición de soporte HTTPS a nuestro panel de control externo y la adición de una plataforma no activa que inhibe todas las demás alertas.
 
-There were a number of bug fixes in this release. The stream file health check that was disabled in the last release due to a bug was fixed and re-enabled. The address book update flow saw a couple of important fixes as well.
+Hubo varias correcciones de errores en esta versión. El chequeo de estado del archivo stream que fue desactivado en la última versión debido a un error fue arreglado y rehabilitado. El flujo de actualización de la libreta de direcciones también vio un par de correcciones importantes.
 
-#### Breaking Changes
+#### Rompiendo Cambios
 
-The payer account ID in transaction assessed custom fee REST API response was removed. This is a change in services 0.16 whereby custom fees are now charged from the account who send the triggering tokens, not necessarily the payer of the transaction.
+El ID de la cuenta de pagador en la respuesta de la API REST evaluada por transacción fue eliminado. Se trata de un cambio en los servicios 0. 6 por lo que ahora se cobran tasas de aduanas de la cuenta que envía los tokens de activación, no necesariamente el pagador de la transacción.
 
 ## [v0.37.2](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.37.2)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: AUGUST 4, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: AUGUSTO 4, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: AUGUST 5, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: AUGUSTO 5, 2021**
 {% endhint %}
 
-A small bug fix release that addresses some issues with our [HIP-18](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-18.md) support.
+Una pequeña versión de corrección de errores que resuelve algunos problemas con nuestro soporte [HIP-18](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-18.md) .
 
 ## [v0.37.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.37.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JULY 29, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: JULY 29, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JULY 15, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: 15 de JULY, 2021**
 {% endhint %}
 
-This release broadens our support for [non-fungible tokens](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-17.md) (NFTs) with new NFT-specific REST APIs. A new API was added to return a list of NFTs for a particular token ID. We also added a new API to return a single NFT by its token ID and serial number. Finally, we added an API to see the transaction history for a particular NFT. In an effort to have more manageable REST API code, we now adopt a more object-oriented approach by utilizing models, view-models and services. Below is an example of the three new APIs:
+Esta versión amplía nuestro soporte para [tokens](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-17.md) (NFTs) con nuevas APIs REST específicas de NFT. Una nueva API fue añadida para devolver una lista de NFTs para un identificador de token en particular. También añadimos una nueva API para devolver un solo NFT por su token ID y número de serie. Por último, hemos añadido una API para ver el historial de transacciones de un NFT en particular. En un esfuerzo por tener un código de API REST más manejable, ahora adoptamos un enfoque más orientado a objetos mediante la utilización de modelos, modelos de vista y servicios. A continuación se muestra un ejemplo de las tres nuevas APIs:
 
 `GET /api/v1/tokens/0.0.1500/nfts`
 
@@ -1715,23 +1715,23 @@ This release broadens our support for [non-fungible tokens](https://github.com/h
 {
   "nfts": [{
     "account_id": "0.0.1002",
-    "created_timestamp": "1234567890.000000010",
+    "created_timestamp": "1234567890. 00000010",
     "deleted": false,
     "metadata": "ahf=",
-    "modified_timestamp": "1234567890.000000010",
+    "modified_timestamp": "1234567890. 00000010",
     "serial_number": 2,
-    "token_id": "0.0.1500"
+    "token_id": "0. .1500"
   },{
-    "account_id": "0.0.1001",
-    "created_timestamp": "1234567890.000000009",
+    "account_id": "0. .1001",
+    "created_timestamp": "1234567890. 00000009",
     "deleted": false,
     "metadata": "bTM=",
-    "modified_timestamp": "1234567890.000000008",
+    "modified_timestamp": "1234567890. 00000008",
     "serial_number": 1,
-    "token_id": "0.0.1500"
+    "token_id": "0.0. 500"
   }],
   "links": {
-    "next": null
+    "siguiente": null
   }
 }
 ```
@@ -1744,7 +1744,7 @@ This release broadens our support for [non-fungible tokens](https://github.com/h
   "created_timestamp": "1234567890.000000008",
   "deleted": false,
   "metadata": "bTM=",
-  "modified_timestamp": "1234567890.000000009",
+  "modified_timestamp": "1234567890.00000000009",
   "serial_number": 1,
   "token_id": "0.0.1500"
 }
@@ -1755,15 +1755,15 @@ This release broadens our support for [non-fungible tokens](https://github.com/h
 ```
 {
   "transactions": [{
-    "consensus_timestamp": "1234567890.000000009",
+    "consensus_timestamp": "1234567890. 00000009",
     "transaction_id": "0.0.8-1234567890-000000009",
-    "receiver_account_id": "0.0.1001",
-    "sender_account_id": "0.0.2001",
+    "receiver_account_id": "0. .1001",
+    "sender_account_id": "0.0. 001",
     "type": "CRYPTOTRANSFER"
   }, {
-    "consensus_timestamp": "1234567890.000000008",
+    "consensus_timestamp": "1234567890. 00000008",
     "transaction_id": "0.0.8-1234567890-000000008",
-    "receiver_account_id": "0.0.2001",
+    "receiver_account_id": "0.0. 001",
     "sender_account_id": null,
     "type": "TOKENMINT"
   }],
@@ -1776,165 +1776,165 @@ This release broadens our support for [non-fungible tokens](https://github.com/h
 ## [v0.36.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.36.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JULY 19, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: 19 de JULY 2021**
 {% endhint %}
 
-We are happy to [announce](https://hedera.com/blog/now-available-public-mainnet-mirror-node-managed-by-hedera) the availability of a publicly accessible, free-to-use, mainnet Mirror Node operated by the Hedera team. As part of this, we put a large amount of effort into fine-tuning our Kubernetes deployment. We migrated to [Flux 2](https://fluxcd.io/), a GitOps-based deployment tool that allows us to declaratively specify the expected state of the Mirror Node in git and manage our rollouts. You can browse our [deploy branch](https://github.com/hashgraph/hedera-mirror-node/tree/deploy) and see the exact config and versions rolled out to various clusters and environments. The Helm chart was updated to add `PodDisruptionBudgets`, adjust alert rules and other improvements to make it easier to automate the deployment.
+Estamos felices de [announce](https://hedera.com/blog/now-available-public-mainnet-mirror-node-managed-by-hedera) la disponibilidad de un Nodo de Mirror de acceso público, gratuito y gratuito, operado por el equipo de Hedera. Como parte de esto, dedicamos un gran esfuerzo a afinar nuestro despliegue de Kubernetes. migramos a [Flux 2](https://fluxcd. o/), una herramienta de despliegue basada en GitOps que nos permite especificar de forma declarativa el estado esperado del nodo Mirror en git y gestionar nuestros desplazamientos. Puedes navegar por nuestra [rama de deploy](https://github.com/hashgraph/hedera-mirror-node/tree/deploy) y ver la configuración exacta y las versiones desplegadas a varios clústeres y entornos. El gráfico del casco se actualizó para añadir `PodDisruptionBudgets`, ajustar las reglas de alerta y otras mejoras para facilitar la automatización del despliegue.
 
-This release is the first version of the Mirror Node with preliminary support for non-fungible tokens (NFTs). NFT support is being added to the Hedera nodes as outlined in [HIP 17](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-17.md). We spent time [designing](https://github.com/hashgraph/hedera-mirror-node/blob/v0.36.0/docs/design/nft.md) how that NFT support will look like for the Mirror Node. Modifications to the schema were made to add new tables and fields and the Importer was updated to ingest NFT transactions. The existing REST APIs were updated to add NFT related fields to the response. This includes adding a `type` field to the token related APIs to indicate fungibility and a`nft_transfers` to `/api/v1/transactions/{id}`:
+Esta versión es la primera versión del nodo Mirror con soporte preliminar para tokens no fungibles (NFTs). El soporte NFT está siendo añadido a los nodos Hedera como se describe en [HIP 17](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-17.md). Pasamos tiempo [designing](https://github.com/hashgraph/hedera-mirror-node/blob/v0.36.0/docs/design/nft.md) cómo se verá ese soporte NFT para el nodo Mirror. Se hicieron modificaciones al esquema para añadir nuevas tablas y campos y el importador se actualizó a las transacciones NFT ingestas. Las API REST existentes se actualizaron para añadir campos relacionados con NFT a la respuesta. Esto incluye añadir un campo `type` a las API relacionadas con token para indicar fungibilidad y un`nft_transfers` a `/api/v1/transactions/{id}`:
 
 ```
 {
   "transactions": [{
-      "consensus_timestamp": "1234567890.000000001",
+      "consensus_timestamp": "1234567890. 00000001",
       "name": "CRYPTOTRANSFER",
       "nft_transfers": [
         {
-          "receiver_account_id": "0.0.121",
-          "sender_account_id": "0.0.122",
+          "receiver_account_id": "0. .121",
+          "sender_account_id": "0.0. 22",
           "serial_number": 104,
-          "token_id": "0.0.14873"
+          "token_id": "0. .14873"
         }
       ]
   }]
 }
 ```
 
-One thing to note is that we did not add NFT transfers to the list transactions endpoint in an effort to reduce the size and improve the performance of that endpoint. In the next release, we will add new NFT specific REST APIs.
+Una cosa a tener en cuenta es que no añadimos transferencias NFT al final de las transacciones de la lista en un esfuerzo por reducir el tamaño y mejorar el rendimiento de ese extremo. En la próxima versión, añadiremos nuevas APIs REST específicas de NFT.
 
-Continuing upon the theme of the last release, we made additional changes to the Rosetta API to bring it up to par with the rest of the components. Rosetta now includes support for HTS via both is data and construction APIs.
+Continuando con el tema de la última versión, hicimos cambios adicionales a la API de Rosetta para ponerla a la par con el resto de los componentes. Rosetta ahora incluye soporte para HTS a través de API de datos y construcción.
 
-The Importer saw a large focus on improving performance and resiliency. It is now highly available (HA) when run inside Kubernetes. This allows more than one instance to run at a time and to failover to the secondary instance when the primary becomes unhealthy. A special Kubernetes ConfigMap named `leaders` is used to atomically elect the leader.
+El importador se centró mucho en mejorar el desempeño y la resistencia. Ahora está muy disponible (HA) cuando se ejecuta dentro de Kubernetes. Esto permite que más de una instancia se ejecute a la vez y falle a la instancia secundaria cuando el primario se vuelve poco saludable. Un especial Kubernetes ConfigMap llamado `líderes` se utiliza para elegir atómicamente al líder.
 
-We’re improving our ingestion time dramatically for entity creation. Previously those were database finds followed by updates. Since inserts are always faster than find and updates, we’ve optimized this to insert the updates into a temporary table and at the end upsert those to the final table. A record file with 6,000 new entities went from 21 seconds to 600 ms, making it 35x improvement. Balance file processing was optimized to greatly reduce memory by only keeping one file in memory at a time.
+Estamos mejorando drásticamente nuestro tiempo de ingestión para la creación de entidades. Anteriormente se trataba de hallazgos de base de datos seguidos de actualizaciones. Dado que las inserciones son siempre más rápidas que las actualizaciones y encontradas, hemos optimizado esto para insertar las actualizaciones en una tabla temporal y al final las actualizamos en la tabla final. Un archivo de registro con 6.000 nuevas entidades pasó de 21 segundos a 600 ms, lo que le mejoró 35 veces. El procesamiento de archivos de balance fue optimizado para reducir considerablemente la memoria al mantener un archivo en memoria a la vez.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-In honor of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth) and as part of the general industry-wide movement, we renamed our `master` branch to `main`. If you have a clone or fork of the Mirror Node Git repository, you will need to take the below steps to update it to use `main`:
+En honor de [Juneteenth](https://es.wikipedia.org/wiki/Juneteenth) y como parte del movimiento general de la industria, renombramos nuestra rama `master` a `main`. Si tiene un clon o bifurcación del repositorio Git de la réplica de nodos, necesitarás tomar los siguientes pasos para actualizarlo para usar `main`:
 
 ```
 git branch -m master main
 git fetch origin
-git branch -u origin/main main
+git branch -u origin/main
 git remote set-head origin -a
 ```
 
-As part of our optimization to reduce memory usage, we now process some things earlier in the lifecycle. Due to this we had to rename some properties to reflect this change. We also changed the disk structure if you are using the `keepFiles` (now renamed to `writeFiles`) properties to write the stream files to disk after download. It is no longer archived into folders by day. Instead, the folder structure will exactly match the structure in the bucket. This opens the possibility for a mirror node to download and mirror the bucket itself using a S3 compatible API like [MinIO](https://min.io/). Below is a summary of the renamed properties:
+Como parte de nuestra optimización para reducir el uso de memoria, ahora procesamos algunas cosas antes del ciclo de vida. Debido a esto hemos tenido que renombrar algunas propiedades para reflejar este cambio. También cambiamos la estructura de disco si estás usando las propiedades `keepFiles` (ahora renombrado a `writeFiles`) para escribir los archivos de flujo al disco después de la descarga. Ya no se archiva en carpetas por día. En su lugar, la estructura de carpetas coincidirá exactamente con la estructura del cubeta. Esto abre la posibilidad de que un nodo espejo descargue y réplica el mismo cubo usando una API compatible con S3 como [MinIO](https://min.io/). Debajo hay un resumen de las propiedades renombradas:
 
-- Renamed `hedera.mirror.importer.downloader.balance.keepSignatures` to `hedera.mirror.importer.downloader.balance.writeSignatures`
-- Renamed `hedera.mirror.importer.parser.balance.keepFiles` to `hedera.mirror.importer.downloader.balance.writeFiles`
-- Renamed `hedera.mirror.importer.parser.balance.persistBytes` to `hedera.mirror.importer.downloader.balance.persistBytes`
-- Renamed `hedera.mirror.importer.downloader.event.keepSignatures` to `hedera.mirror.importer.downloader.event.writeSignatures`
-- Renamed `hedera.mirror.importer.parser.event.keepFiles` to `hedera.mirror.importer.downloader.event.writeFiles`
-- Renamed `hedera.mirror.importer.parser.event.persistBytes` to `hedera.mirror.importer.downloader.event.persistBytes`
-- Renamed `hedera.mirror.importer.downloader.record.keepSignatures` to `hedera.mirror.importer.downloader.record.writeSignatures`
-- Renamed `hedera.mirror.importer.parser.record.keepFiles` to `hedera.mirror.importer.downloader.record.writeFiles`
-- Renamed `hedera.mirror.importer.parser.record.persistBytes` to `hedera.mirror.importer.downloader.record.persistBytes`
+- Renombrado `hedera.mirror.importer.downloader.balance.keepSignatures` a `hedera.mirror.importer.downloader.balance.writeSignatures`
+- Cambió el nombre de `hedera.mirror.importer.parser.balance.keepFiles` a `hedera.mirror.importer.downloader.balance.writeFiles`
+- Renombrado `hedera.mirror.importer.parser.balance.persistBytes` a `hedera.mirror.importer.downloader.balance.persistBytes`
+- Renombrado `hedera.mirror.importer.downloader.event.keepSignatures` a `hedera.mirror.importer.downloader.event.writeSignatures`
+- Cambió el nombre de `hedera.mirror.importer.parser.event.keepFiles` a `hedera.mirror.importer.downloader.event.writeFiles`
+- Renombrado `hedera.mirror.importer.parser.event.persistBytes` a `hedera.mirror.importer.downloader.event.persistBytes`
+- Renombrado `hedera.mirror.importer.downloader.record.keepSignatures` a `hedera.mirror.importer.downloader.record.writeSignatures`
+- Cambió el nombre de `hedera.mirror.importer.parser.record.keepFiles` a `hedera.mirror.importer.downloader.record.writeFiles`
+- Renombrado `hedera.mirror.importer.parser.record.persistBytes` a `hedera.mirror.importer.downloader.record.persistBytes`
 
 ## [v0.35.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.35.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JULY 8, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: 8 JULY 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JUNE 21, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: 21 de JUNIO 2021**
 {% endhint %}
 
-Most of the changes in this release were operational improvements around our Kubernetes deployment. These changes were necessary as we begin to convert more environments from virtual machines to Kubernetes-based. We added our acceptance tests to the Helm chart so that it can trigger automatically during upgrades and verify the deployment was successful. On the importer, we added a new health check to the probes that verifies that stream files are successfully being parsed. And we fixed the importer so that the probes are started before long-running database migrations, allowing us to finally enable its liveness probe. There were a lot of smaller fixes to the charts, so please see the linked PRs for further details.
+La mayoría de los cambios en esta versión fueron mejoras operativas en nuestro despliegue de Kubernetes. Estos cambios fueron necesarios a medida que empezamos a convertir más entornos de máquinas virtuales a basados en Kubernetes. Hemos añadido nuestras pruebas de aceptación al gráfico del casco para que pueda activarse automáticamente durante las actualizaciones y verificar que el despliegue fue exitoso. En el importador, añadimos un nuevo chequeo de salud a las sondas que verifica que los archivos de flujo se están analizando con éxito. Y arreglamos el importador para que las sondas se iniciaran antes de las migraciones de bases de datos de larga duración, permitiéndonos finalmente habilitar su sonda de vida. Hubo muchas correcciones más pequeñas a los gráficos, así que por favor vea los PRs enlazados para más detalles.
 
-The monitor saw a brand new REST API that lists active subscriptions. This is used in our cluster to determine overall cluster health and route traffic via our load balancers. We added an OpenAPI spec and Swagger UI for this API as well.
+El monitor vio una nueva API REST que lista las suscripciones activas. Esto se utiliza en nuestro clúster para determinar la salud general del clúster y el tráfico de rutas a través de nuestros balanceadores de carga. Hemos añadido una especificación OpenAPI y una interfaz de usuario Swagger para esta API también.
 
-Special thanks to [@si618](https://github.com/si618) for fixing the build on Windows and adding a GitHub workflow to make sure it stays fixed.
+Agradecimientos especiales a [@si618](https://github.com/si618) por arreglar la compilación en Windows y añadir un workflow de GitHub para asegurarse de que permanece corregido.
 
-### Breaking changes
+### Cambios de ruptura
 
-The REST API maximum and default limit was lowered from 1000 to 500. If you explicitly send a number of more than 500, your request will fail. Please update your client code appropriately.
+El máximo y límite predeterminado de la API REST fue bajado de 1000 a 500. Si envía explícitamente un número de más de 500, su solicitud fallará. Por favor, actualice el código de su cliente apropiadamente.
 
 ## [v0.34.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.34.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JUNE 16, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: 16 de JUNO, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JUNE 11, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: 11 de JUNIO de 2021**
 {% endhint %}
 
-In Hedera Mirror Node v0.34.0, we started work on [designing](https://github.com/hashgraph/hedera-mirror-node/blob/master/docs/design/nft.md) support for [NFTs](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-17.md) that will come in a future Hedera Services release.
+En Hedera Mirror Node v0.34.0, comenzamos a trabajar en [designing](https://github.com/hashgraph/hedera-mirror-node/blob/master/docs/design/nft.md) soporte para [NFTs](https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-17.md) que llegará en un futuro lanzamiento de Hedera Services.
 
-By default, the mirror node will validate that at least one-third of all nodes in the address book have signed a stream file before importing it into its database. This ensures that the main nodes have reached two-thirds consensus on the transactions in the file. For performance or verification reasons, you may want to decrease or increase this default percentage. To support this use case, we added a `hedera.mirror.importer.downloader.consensusRatio` property that controls the ratio of verified nodes (nodes used to come to consensus on the signature file hash) to the total number of nodes available.
+Por defecto, el nodo réplica validará que al menos un tercio de todos los nodos de la libreta de direcciones hayan firmado un archivo de flujo antes de importarlo a su base de datos. Esto asegura que los nodos principales hayan alcanzado un consenso de dos tercios sobre las transacciones en el archivo. Por razones de rendimiento o verificación, puede que desee disminuir o aumentar este porcentaje por defecto. Para soportar este caso de uso, hemos añadido un `hedera.mirror.importer.downloader. la propiedad onsensusRatio` que controla la proporción de nodos verificados (nodos usados para llegar al consenso sobre el hash del archivo de firmas) al número total de nodos disponibles.
 
-We took the time to undertake some major dependency upgrades for the Rosetta API. This included major updates to the Hedera and Rosetta SDKs that both required a large amount of refactoring. A number of bugs in Rosetta were addressed as well as improvements to Rosetta's CI workflow. These changes lay the groundwork for additional Rosetta improvements in a future release.
+Nos tomamos el tiempo para emprender importantes mejoras de dependencias para la API de Rosetta. Esto incluía actualizaciones importantes para los SDK de Hedera y Rosetta que requerían una gran cantidad de refactorización. Se abordaron varios errores en Rosetta así como mejoras en el flujo de trabajo CI de Rosetta. Estos cambios sientan las bases para las mejoras adicionales de Rosetta en una futura versión.
 
-To avoid duplication, we wanted to unify our JMeter and Monitor performance tests. To do so, we needed the newer monitor tool to have feature parity with our JMeter tests. To accomplish this, we've split the publish to HAPI and subscribe to mirror node flows in the monitor to allow for subscribe only. In this iteration, only the gRPC API supports subscribe only. With this change, we were able to remove our JMeter code and optimize the `hedera-mirror-test` image from 1.5G to 0.5G.
+Para evitar la duplicación, queríamos unificar nuestras pruebas de rendimiento de JMeter y Monitor. Para ello, necesitábamos la herramienta de monitor más reciente para tener paridad de características con nuestras pruebas de JMeter. Para lograr esto, hemos dividido la publicación en HAPI y suscribirnos a los flujos de los nodos espejo en el monitor para permitir la suscripción solamente. En esta iteración, sólo la API gRPC soporta suscripción. Con este cambio, pudimos eliminar nuestro código JMeter y optimizar la imagen `hedera-mirror-test` de 1.5G a 0.5G.
 
-We made some operational improvements to our helm chart including alert dependencies. Alert dependencies help avoid a flood of alerts that are all related to the same root cause. We also made some bug fixes to the chart that could occur when enabling or disabling some components in favor of external databases or message buses.
+Hemos realizado algunas mejoras operativas en nuestro gráfico de timbre, incluyendo dependencias de alerta. Las dependencias de alertas ayudan a evitar un flujo de alertas que están todas relacionadas con la misma causa raíz. También hicimos algunas correcciones de errores en el gráfico que podrían ocurrir al activar o desactivar algunos componentes a favor de bases de datos externas o autobuses de mensajes.
 
 ## [v0.33.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.33.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JUNE 10, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: 10 de JUNIO 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MAY 21, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: MAY 21, 2021**
 {% endhint %}
 
-This release adds support for HAPI 0.13.2. This brings with it a new address book file format that is more compact and doesn't duplicate IP address and port information. We took the time to adjust our database to reflect the newer format while maintaining compatibility with the older format.
+Esta versión añade soporte para HAPI 0.13.2. Esto trae consigo un nuevo formato de libreta de direcciones que es más compacto y no duplica la información de direcciones IP y puertos. Nos tomamos el tiempo de ajustar nuestra base de datos para reflejar el formato más nuevo manteniendo la compatibilidad con el formato antiguo.
 
-A big focus of this release was on improving the Helm charts for use in production deployments. We now auto-generate passwords for components that require one and ensure they remain the same on upgrades by using Helm's [lookup](https://helm.sh/docs/chart\_template\_guide/functions\_and\_pipelines/#using-the-lookup-function) feature. We added `env`, `envFrom`, `volumes`, `volumeMounts` properties to all charts for more flexible configuration. We added a `global.image.tag` chart property to make it easier to test out custom versions. And we made it easier to use dependencies that can be outside the cluster like Redis and PostgreSQL.
+Un gran foco de este lanzamiento fue la mejora de los gráficos del casco para su uso en implementaciones de producción. Ahora generamos contraseñas auto-generadas para los componentes que requieren uno y nos aseguramos de que permanezcan iguales en las actualizaciones usando la función [lookup]de Helm (https://helm.sh/docs/chart\\_template\\_guide/functions\\_and\\_pipelines/#using-the-lookup-function). Hemos añadido las propiedades `env`, `envFrom`, `volumes`, `volumeMounts` a todas las cartas para una configuración más flexible. Hemos añadido una propiedad de gráfico `global.image.tag` para facilitar la prueba de versiones personalizadas. Y hicimos más fácil el uso de dependencias que pueden estar fuera del clúster como Redis y PostgreSQL.
 
-Some internal improvements saw us automating our release process so that version bumps and release note generation can be kicked off via GitHub. This now also includes generating a CHANGELOG and keeping it up to date with the release notes. And finally we updated our acceptance tests to automatically pull and use the latest address book along with validating all nodes to ensure only the latest, valid nodes are used for validation.
+Algunas mejoras internas nos han llevado a automatizar nuestro proceso de lanzamiento para que los bumps de versiones y la generación de notas de lanzamiento puedan ser arrancados a través de GitHub. Esto ahora también incluye generar un CHANGELOG y mantenerlo actualizado con las notas de lanzamiento. Y finalmente actualizamos nuestras pruebas de aceptación para tirar y usar automáticamente la última libreta de direcciones junto con validar todos los nodos para asegurar sólo la última, nodos válidos se utilizan para la validación.
 
 ## [v0.32.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.32.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MAY 19, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: MAY 19, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MAY 11, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: MAY 11, 2021**
 {% endhint %}
 
-In this release we took the time to do some performance optimizations of both the importer and the monitor. If you're using a containerized mirror node, the Java applications now uses more of the available memory that's already been allocated to it. We optimized the size of some internal queues to reduce the likelihood of out of memory errors. And we now use a more efficient streaming method to write entities to the database and avoid large memory allocations. All these combine to greatly reducing overall memory usage and improve overall performance for the importer. The monitor also saw performance improvements to allow it to publish transactions at a rate of 10,000 TPS.
+En esta versión nos tomamos el tiempo de hacer algunas optimizaciones de rendimiento tanto del importador como del monitor. Si está utilizando un nodo réplica contenedor, las aplicaciones Java ahora utilizan más de la memoria disponible que ya se le ha asignado. Optimizamos el tamaño de algunas colas internas para reducir la probabilidad de que no se produzcan errores de memoria. Y ahora usamos un método de streaming más eficiente para escribir entidades en la base de datos y evitar grandes asignaciones de memoria. Todo esto se combinan para reducir en gran medida el uso general de memoria y mejorar el rendimiento general del importador. El monitor también vio mejoras en el rendimiento para permitirle publicar transacciones a un ritmo de 10.000 TPS.
 
-This release updates more of our system to handle the revised scheduled transaction design that will be available soon on mainnet. Both the acceptance tests and monitor were updated to be able to publish the new transactions.
+Esta versión actualiza más de nuestro sistema para manejar el diseño de transacciones programadas revisado que estará disponible pronto en mainnet. Tanto las pruebas de aceptación como el monitor se actualizaron para poder publicar las nuevas transacciones.
 
-We now expose the raw transaction bytes encoded in Base64 format in the REST API. Persisting the bytes of the `Transaction` protobuf in the database is an option that's been available for a while but until now has not been available via the API. Persisting the data is off by default as does increase the size of the database quite a bit. The Hedera managed mirror nodes will not have that functionality turned on to reduce storage.
+Ahora exponemos los bytes de transacción en bruto codificados en formato Base64 en la API REST. Persister en los bytes del protobuf `Transaction` en la base de datos es una opción que ha estado disponible durante un tiempo, pero hasta ahora no ha estado disponible a través de la API. Persister los datos está desactivado por defecto, al igual que aumenta el tamaño de la base de datos un poco. Los nodos de espejo gestionados por Hedera no tendrán esa funcionalidad activada para reducir el almacenamiento.
 
 ## [v0.31.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.31.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: APRIL 30, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: APRIL 30, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: APRIL 26, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: APRIL 26, 2021**
 {% endhint %}
 
-After scheduled transactions were made available in previewnet, we listened to user feedback and further iterated on the design to make it easier to use. This release adds support for this [revised scheduled transactions](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md) design planned to be released in HAPI v0.13. There was no impact to our REST API format, only the importer needed to be updated to parse and ingest the new proto format. Our monitor API and acceptance tests will be adjusted in the next release once the SDKs add support for the new design.
+Después de que las transacciones programadas estuvieran disponibles en la vista previa, escuchamos los comentarios del usuario e iteramos sobre el diseño para facilitar su uso. Esta versión añade soporte para este diseño [revisado programado de transacciones](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md) planeado para ser lanzado en HAPI v0.13. No hubo ningún impacto en nuestro formato API REST, sólo el importador necesitaba ser actualizado para analizar e ingerir el nuevo formato proto. Nuestra API de monitor y las pruebas de aceptación se ajustarán en la próxima versión una vez que los SDKs añadan soporte para el nuevo diseño.
 
-This release also adds support for the newly announced account balance file format that was released in HAPI v0.12. The new [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/account\_balance\_file.proto)based format will eventually replace the CSV format in July 2021. Until then, both formats will exist simultaneously in the bucket so users can transition at their leisure. Besides being more efficient to parse, the new files are also compressed using Gzip for reduced storage and download costs. We also took the time to improve the balance file parsing performance regardless of format. Average parse times should decrease by about 27%.
+Esta versión también añade soporte para el formato de archivo de saldo de cuenta recientemente anunciado que fue lanzado en HAPI v0.12. El nuevo formato [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/account\_balance\_file.proto)basado finalmente reemplazará el formato CSV en julio de 2021. Hasta entonces, ambos formatos existirán simultáneamente en el cubo para que los usuarios puedan pasar a su gusto. Además de ser más eficiente de analizar, los nuevos archivos también se comprimen usando Gzip para reducir los costes de almacenamiento y descarga. También nos tomamos el tiempo para mejorar el rendimiento de análisis de archivos de balance independientemente del formato. Los tiempos promedio de análisis deberían disminuir en alrededor de un 27%.
 
-For our REST API, we now expose an `entity_id` field on our transactions related APIs. This field represents the main entity associated with that transaction type. For example, if it was a HCS transaction it would be the topic ID created, updated, or deleted.
+Para nuestra API REST, ahora exponemos un campo `entity_id` en nuestras API relacionadas con transacciones. Este campo representa la entidad principal asociada a ese tipo de transacción. Por ejemplo, si se trataba de una transacción HCS sería el tema ID creado, actualizado o eliminado.
 
 `GET /api/v1/transactions/0.0.1009-1234567890-999999998`
 
 ```
 {
   "transactions": [{
-    "consensus_timestamp": "1234567890.999999999",
+    "consensus_timestamp": "1234567890. 99999999",
     "entity_id": "0.0.108763",
-    "valid_start_timestamp": "1234567890.999999998",
+    "valid_start_timestamp": "1234567890. 999998",
     "charged_tx_fee": 0,
     "memo_base64": null,
     "result": "SUCCESS",
     "scheduled": false,
     "transaction_hash": "aGFzaA==",
     "name": "CRYPTOUPDATEACCOUNT",
-    "node": "0.0.3",
-    "transaction_id": "0.0.1009-1234567890-999999998",
+    "node": "0. .3",
+    "transaction_id": "0.0. 009-1234567890-9999998",
     "valid_duration_seconds": "11",
     "max_fee": "33",
     "transfers": []
@@ -1942,72 +1942,71 @@ For our REST API, we now expose an `entity_id` field on our transactions related
 }
 ```
 
-We continue to make progress towards our goal of switching to TimescaleDB. We fixed the user and database initialization issues and tested a migration from PostgreSQL. We switched out the TimescaleDB Helm chart to a more stable one and explored our hosting options for production. Finally, we switched to SCRAM-SHA-256 to improve the security of our database user authentication.
+Seguimos avanzando hacia nuestro objetivo de cambiar a TimescaleDB. Hemos solucionado los problemas de inicialización de usuarios y bases de datos y hemos probado una migración desde PostgreSQL. Hemos cambiado el gráfico de TimescaleDB a uno más estable y hemos explorado nuestras opciones de alojamiento para la producción. Finalmente, cambiamos a SCRAM-SHA-256 para mejorar la seguridad de la autenticación de usuarios de nuestra base de datos.
 
-### Breaking changes:
+### Cambios de ruptura:
 
-There were a number of breaking changes this release to be aware of. If you're using our Helm chart, we have switched the importer from a `StatefulSet` to a `Deployment` since it no longer has the need for a persistent volume. We also switched the Traefik dependency from a `Deployment` to a `DaemonSet`. Both of these will require manual intervention to delete the old workload before upgrading. Support for Helm 2 was dropped since it is no longer [supported](https://helm.sh/blog/helm-v2-deprecation-timeline/) by the community after November 13, 2020. If you're directly reading from our database, a rename of the `t_entities` table and its columns may impact you as well.
+Ha habido una serie de cambios de ruptura que esta versión debe tener en cuenta. Si estás usando nuestro gráfico del casco, hemos cambiado el importador de un `StatefulSet` a un `Deployment` ya que ya no tiene la necesidad de un volumen persistente. También cambiamos la dependencia de Traefik de un `Desplegamiento` a un `DaemonSet`. Ambos requerirán una intervención manual para eliminar la carga de trabajo anterior antes de actualizar. El apoyo al Helm 2 fue eliminado ya que ya no es [supported](https://helm.sh/blog/helm-v2-deprecation-timeline/) por la comunidad después del 13 de noviembre de 2020. Si está leyendo directamente desde nuestra base de datos, un renombrado de la tabla `t_entities` y sus columnas pueden impactarle también.
 
 ## [v0.30.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.30.0)
 
-Mirror node v0.30 brings operational improvements with changes to our continuous integration and monitoring components.
+El nodo Mirror v0.30 trae mejoras operativas con cambios en nuestros componentes de integración continua y monitoreo.
 
-With this release, we've completed the migration from CircleCI to GitHub Actions. CircleCI had some limitations with our use of [Testcontainers](https://www.testcontainers.org/) for unit testing against 3rd party dependencies. We previously had a mixture of GitHub Actions and CircleCI with the latter using slightly different commands than local testing. Consolidating to GitHub Actions allowed us to reduce this difference and further parallelize our checks.
+Con esta versión, hemos completado la migración de CircleCI a Acciones de GitHub. CircleCI tenía algunas limitaciones con nuestro uso de [Testcontainers](https://www.testcontainers.org/) para pruebas unitarias contra dependencias de terceros. Anteriormente teníamos una mezcla de Acciones de GitHub y CircleCI con este último usando comandos ligeramente diferentes que las pruebas locales. Consolidar a las Acciones de GitHub nos permitió reducir esta diferencia y paralelizar aún más nuestros controles.
 
-To improve our runtime observability and testing coverage, we've continued to invest in our monitor tool this cycle. Scheduled transaction support was recently added supporting both `ScheduleCreate` and `ScheduleSign` operations. We've added the three new mainnet nodes the monitor's default configuration. A bug with the monitor unable to reach expected TPS with multiple scenarios was fixed.
+Para mejorar nuestra cobertura de la observabilidad del tiempo de ejecución y las pruebas, hemos continuado invirtiendo en nuestra herramienta de monitoreo este ciclo. El soporte de transacciones programadas se ha añadido recientemente soportando tanto las operaciones `ScheduleCreate` como `ScheduleSign`. Hemos añadido los tres nuevos nodos mainnet de la configuración predeterminada del monitor. Se ha corregido un error con el monitor incapaz de llegar al TPS esperado con múltiples escenarios.
 
-The REST API also saw some bug fixes including a fix to queries with a credit/debit parameter now able to retrieve token only transfers. The transaction API now populates the token transfers list for all transaction types instead of being limited to just crypto transfers.
+La API REST también vio algunas correcciones de errores, incluyendo una corrección de consultas con un parámetro de crédito/débito ahora capaz de recuperar transferencias de sólo token. La API de transacción ahora llena la lista de transferencias de tokens para todos los tipos de transacciones en lugar de limitarse a sólo las criptomonedas.
 
 ## [v0.29.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.29.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: APRIL 5, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: APRIL 5, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MARCH 26, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: COMPLETADOS 26, 2021**
 {% endhint %}
 
-This release brings an assortment of under the hood improvements across modules and refinements of multiple REST API's.
+Esta versión trae una variedad de mejoras bajo el capuchón entre módulos y refinamientos de múltiples API REST.
 
-Historical entity information prior to OA is now available. In this release we've added a repeatable Java migration that will import entity information from a mainnet network snapshot. This runs during upgrade, is configureable (`hedera.mirror.importer.importHistoricalAccountInfo`) and works in combination with the `hedera.mirror.importer.startDate`setting.
+Ya está disponible la información de entidad histórica previa a la OA. En esta versión hemos añadido una migración repetible de Java que importará información de entidad de una instantánea de red mainnet. Esto se ejecuta durante la actualización, es configurable (`hedera.mirror.importer.importHistoricalAccountInfo`) y funciona en combinación con la configuración `hedera.mirror.importer.startDate`.
 
-The REST API now expands its filtering options support specifically around transfers and in relation to tokens. Previously the `account.id`and `credit/debit` filtering options supported HBAR transfers only, this release expands both filters to include tokens also.
+La API REST ahora expande su soporte de opciones de filtrado específicamente alrededor de las transferencias y en relación con los tokens. Anteriormente las opciones de filtrado `account.id`y `credit/debit` soportadas sólo para transferencias HBAR, esta versión amplía ambos filtros para incluir tokens también.
 
-The stateproof REST API and `check-state-proof` package have also been improved. The API now supports filtering for scheduled transactions via `/api/v1/transactions/:transactionId/stateproof?scheduled=true` as-well as a more compact response format. For record streams that utilize the newer improved HAPI v5 version the stateproof API response send back metadata hashes instead of the full raw bytes. With this, the response is more light weight.
+También se ha mejorado el paquete REST API y `check-state-test`. La API ahora soporta filtrado para transacciones programadas a través de `/api/v1/transactions/:transactionId/statetest?scheduled=true` así como un formato de respuesta más compacto. Para secuencias de registros que utilizan la versión HAPI v5 mejorada más recientemente, la respuesta API a prueba de estado envía hash de vuelta en lugar de los bytes crudos completos. Con esto, la respuesta es más ligera.
 
 ```
  {
      "address_books": [
-       "address book content"
+       "contenido de la libreta de direcciones"
      ],
      "record_file": {
-       "head": "content of the head",
-       "start_running_hash_object": "content of the start running hash object",
+       "head": "contenido de la cabeza",
+       "start_running_hash_object": "contenido del principio que ejecuta el objeto hash",
        "hashes_before": [
-         "hash of the 1st record stream object",
-         "hash of the 2nd record stream object",
-         "hash of the (m-1)th record stream object"
+         "hash del primer objeto de stream de registro",
+         "hash del segundo objeto de flujo de registro",
+         "hash del (m-1)th record stream object"
        ],
-       "record_stream_object": "content of the mth record stream object",
+       "record_stream_object": "contenido del mth record stream object",
        "hashes_after": [
          "hash of the (m+1)th record stream object",
-         "hash of the (m+2)th record stream object",
-         "hash of the nth record stream object"
+         "hash del (m+2)th record stream object",
+         "hash del objeto nth record stream object"
        ],
-       "end_running_hash_object": "content of the end running hash object",
+       "end_running_hash_object": "contenido del final ejecutando objeto hash",
      },
      "signature_files": {
-       "0.0.3": "signature file content of node 0.0.3",
-       "0.0.4": "signature file content of node 0.0.4",
-       "0.0.n": "signature file content of node 0.0.n"
+       "0. .3": "contenido del archivo de firmas del nodo 0.0.3",
+       "0. .4": "contenido del archivo de firmas del nodo 0.0.4",
+       "0. .n": "contenido del archivo de firma del nodo 0.0.n"
      },
      "version": 5
- }
+}
 ```
 
-The REST API now also supports repeatable `account.id` query parameters when filtering, with a configureable setting for the maximum number of repeated query parameters\
-`/api/v1/(accounts|balances|transactions)?account.id=:id&account.id=:id2...`
+La API REST ahora también soporta «cuenta» repetible. d`parámetros de consulta al filtrar, con una configuración configurable para el número máximo de parámetros de consulta repetidos\`/api/v1/(cuentas|balances|transacciones)?account.id=:id&account.id=:id2...\`
 
 `GET /api/v1/accounts?account.id=0.0.7&account.id=0.0.9`
 
@@ -2054,21 +2053,21 @@ The REST API now also supports repeatable `account.id` query parameters when fil
    }
 ```
 
-Multiple modules have also seen security and standardization improvements by the addition of more robust automated analysis tools such as `gosec` as-well as the implementation of suggestions from a 3rd party code audit.
+Múltiples módulos también han visto mejoras de seguridad y estandarización mediante la adición de herramientas de análisis automatizados más robustas como 'gosec' así como la implementación de sugerencias de una auditoría de código de terceros.
 
-This release also saw a step to support the new and improved v2 offerings of the (Java SDK)\[[https://github.com/hashgraph/hedera-sdk-java\\](https://github.com/hashgraph/hedera-sdk-java/)]. Both the monitor module and acceptance tests were updated to use the new SDK and utilize features such as in-built retry and support for scheduled transactions.
+Esta versión también vio un paso para soportar las nuevas y mejoradas ofertas de v2 de la versión (Java SDK)\[[https://github.com/hashgraph/hedera-sdk-java\\](https://github.com/hashgraph/hedera-sdk-java/)]. Tanto el módulo monitor como las pruebas de aceptación se actualizaron para utilizar el nuevo SDK y utilizar características como reintento integrado y soporte para transacciones programadas.
 
 ## [v0.28.2](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.28.2)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: MARCH 17, 2021**
+**MAINNET ACTUALADO COMPLETADO: MARCH 17, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: MARCH 10, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: 10 ARCH 2021**
 {% endhint %}
 
-This releases finalizes support for scheduled transactions and HAPI protobuf v0.12. Two new schedule specific REST APIs were added including `/api/v1/schedules` and `/api/v1/schedules/:id`. The former lists all schedules with various filtering options available and the latter returns a specific schedule by its schedule ID.
+Esta versión finaliza el soporte para transacciones programadas y el protobuf v0.12 de HAPI. Se añadieron dos nuevas APIs específicas de programación REST incluyendo `/api/v1/schedules` y `/api/v1/schedules/:id`. El primero enumera todos los programas con varias opciones de filtrado disponibles y el segundo devuelve un programa específico por su ID.
 
 `GET /api/v1/schedules?account.id=0.0.1024&schedule.id=gte:4000&order=desc&limit=10`
 
@@ -2080,17 +2079,17 @@ This releases finalizes support for scheduled transactions and HAPI protobuf v0.
           "_type": "ProtobufEncoded",
           "key": "7b2233222c2233222c2233227d"
         },
-        "consensus_timestamp": "1234567890.000030003",
-        "creator_account_id": "0.0.1024",
+        "consensus_timestamp": "1234567890. 00030003",
+        "creator_account_id": "0.0. 024",
         "executed_timestamp": null,
-        "memo": "Created per governing council decision dated 02/03/21",
-        "payer_account_id": "0.0.1024",
-        "schedule_id": "0.0.4000",
+        "memo": "Creado por decisión del Consejo de Gobierno con fecha 02/03/21",
+        "payer_account_id": "0.0. 024",
+        "schedule_id": "0.0. 000",
         "signatures": [
           {
-            "consensus_timestamp": "1234567890.000030001",
+            "consensus_timestamp": "1234567890. 00030001",
             "public_key_prefix": "CQkJ",
-            "signature": "CQkJ"
+            "firma": "CQkJ"
           }
         ],
         "transaction_body": "AQECAgMD"
@@ -2102,208 +2101,208 @@ This releases finalizes support for scheduled transactions and HAPI protobuf v0.
 }
 ```
 
-In HAPI v0.12, new memo fields were added to all entity types bringing parity across all services. Mirror node now supports the new fields including for update operations where the memo field can be set to `null`, empty string or a non-empty string to keep, clear or replace the existing memo, respectively.
+En HAPI v0.12, se añadieron nuevos campos de memo a todos los tipos de entidades, trayendo paridad a través de todos los servicios. El nodo Mirror ahora soporta los nuevos campos incluyendo para operaciones de actualización donde el campo memo puede establecerse en `null`, cadena vacía o una cadena no vacía para mantener, limpiar o reemplazar el memo existente, respectivamente.
 
-Historically, the importer application has always downloaded stream files and saved to the filesystem in one thread then read those files and ingested them into the database in another thread. This has sometimes caused the database and filesystem to get out of sync and require manual intervention to fix. It also makes the importer stateful and as a result could not support running multiple instances for high availability.
+Históricamente, la aplicación importadora siempre ha descargado archivos de flujo y guardado en el sistema de archivos en un hilo y luego los ha leído e ingerido en la base de datos en otro hilo. Esto a veces ha causado que la base de datos y el sistema de archivos no estén sincronizados y requieren una intervención manual para corregir. También hace que el importador tenga un estado y como resultado no pudo soportar la ejecución de múltiples instancias para una alta disponibilidad.
 
-With this release, we've removed the need for importer to read and write to the filesystem. Instead, the downloader and parser threads now communicate via an in-memory queue. To accomplish this, we also had to remove the `t_application_status` table in favor of calculating the last successful file directly from the stream file tables. In addition to fixing the aforementioned issues, the removal of the filesystem has resulted in a 5% latency improvement.
+Con esta versión, hemos eliminado la necesidad de que el importador lea y escriba en el sistema de archivos. En su lugar, los hilos de descarga y analizador ahora se comunican a través de una cola en memoria. Para lograr esto, también tuvimos que eliminar la tabla `t_application_status` en favor de calcular el último archivo exitoso directamente de las tablas de archivos de flujo. Además de solucionar los problemas más importantes, la eliminación del sistema de archivos ha supuesto una mejora de latencia del 5%.
 
-Other changes include adding an `index` field to `record_file` table to simulate a blockchain index and updating our [Google Marketplace](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node) to v0.27. Also, we added support for the v5 stream files to the `check-state-proof` client app.
+Otros cambios incluyen añadir un campo `index` a la tabla `record_file` para simular un índice de blockchain y actualizar nuestro [Google Marketplace](https://console.cloud.google.com/marketplace/details/mirror-node-public/hedera-mirror-node) a v0.27. Además, añadimos soporte para los archivos de flujo v5 a la aplicación cliente `check-state-test`.
 
 ## [0.27.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.27.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 22, 2021**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 22, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: FEBRUARY 11, 2021**
+**TESTNET ACTUALIZADO COMPLETEDO: FEBRUARY 11, 2021**
 {% endhint %}
 
-This release adds a new REST API component that implements the [Rosetta API](https://www.rosetta-api.org/). The Rosetta API is an open standard for integrating with blockchain-oriented systems. Implementing the Rosetta AP provides a number of advantages. It reduces the time and effort it takes for wallets, exchanges, etc. to integrate with the Hedera network if they have integrated with Rosetta in the past. Even if the systems integrator has not used Rosetta previously, using the Rosetta API in lieu of our separate [REST API](https://docs.hedera.com/guides/docs/mirror-node-api/cryptocurrency-api) might be useful to reduce the friction with using a non-blockchain DLT like Hedera.
+Esta versión añade un nuevo componente API REST que implementa la [API de Rosetta](https://www.rosetta-api.org/). La API de Rosetta es un estándar abierto para la integración con sistemas orientados a blockchain. Implementar la Rosetta AP proporciona una serie de ventajas. Reduce el tiempo y esfuerzo que se necesita para carteras, intercambios, etc. para integrarse con la red Hedera si se han integrado con Rosetta en el pasado. Incluso si el integrador de sistemas no ha usado Rosetta anteriormente, usando la API de Rosetta en lugar de nuestra [API REST](https://docs.hedera separada. om/guides/docs/mirror-node-api/cryptocurrency-api) podría ser útil para reducir la fricción usando una DLT que no sea blockchain como Hedera.
 
-[Scheduled transactions](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/spec.md) is an new feature being added to the main nodes in a future release. Scheduled transactions allows transactions to be submitted without all the necessary signatures and will execute once all the required parties sign. The mirror node has been updated to understand and store these new types of transactions. Additionally, we've updated our existing REST APIs to expose this information. The next release will add additional schedule specific REST APIs.
+[Transacciones programadas](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/spec.md) es una nueva característica que se añade a los nodos principales en una versión futura. Las transacciones programadas permiten que las transacciones sean enviadas sin todas las firmas necesarias y se ejecutarán una vez que todas las partes requeridas firmen. El nodo espejo ha sido actualizado para entender y almacenar estos nuevos tipos de transacciones. Adicionalmente, hemos actualizado nuestras APIs REST existentes para exponer esta información. La próxima versión añadirá API REST específicas de programación adicional.
 
-We made a concerted effort this release to improve our tests. Most of our flaky tests were fixed so that our continuous integration runs smoother. We also improved the stability of our acceptance tests. The REST API monitor also had some logging and useability fixes to aid in production observability.
+Hicimos un esfuerzo concertado este lanzamiento para mejorar nuestras pruebas. La mayoría de nuestras pruebas defectuosas fueron arregladas para que nuestra integración continua funcionara mejor. También hemos mejorado la estabilidad de nuestras pruebas de aceptación. El monitor de la API REST también tenía algunas correcciones de registro y usabilidad para ayudar en la observabilidad de la producción.
 
 ## [v0.26.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.26.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: FEBRUARY 1, 2021**
+**MAINNET ACTUALIZADO COMPLETEDO: FEBRUARY 1, 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JANUARY 22, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: 22 de enero de 2021**
 {% endhint %}
 
-This release is mainly focused on adding support for the upcoming features in the main nodes. We added support for the `newTotalSupply` field to the transaction record in HAPI `0.10.0`. We also documented our [design](https://github.com/hashgraph/hedera-mirror-node/blob/master/docs/design/scheduled-transactions.md) for the upcoming [scheduled transactions](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/spec.md) services that's coming in a future release of HAPI. Our next minor version will have preliminary support for that.
+Esta versión se centra principalmente en añadir soporte para las próximas características en los nodos principales. Hemos añadido soporte para el campo `newTotalSupply` al registro de transacciones en HAPI `0.10.0`. También documentamos nuestra [design](https://github.com/hashgraph/hedera-mirror-node/blob/master/docs/design/scheduled-transactions.md) para las próximas [transacciones programadas](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/spec.md) servicios que vienen en una futura versión de HAPI. Nuestra próxima versión menor contará con el apoyo preliminar para ello.
 
-But by far the biggest change is support for the new record file V5 and signature file V5 format. These files are uploaded to cloud storage and pulled by the mirror nodes to populate its database. Since it's the core communication format between the main nodes and mirror nodes, it took a bit of refactoring and new code to support the new format while retaining compatibility with previous stream files.
+Pero por lejos el cambio más grande es el soporte para el nuevo archivo de registro V5 y el formato de archivo de firma V5. Estos archivos se suben al almacenamiento en la nube y se extraen por los nodos de réplica para llenar su base de datos. Dado que es el formato de comunicación principal entre los nodos principales y los nodos espejo, se necesitó un poco de refactorización y código nuevo para soportar el nuevo formato mientras se conservaba la compatibilidad con archivos de flujo anteriores.
 
-#### Warning! If you don't upgrade your Mirror Node to v0.26.0 or later before HAPI v0.11.0 is released in a few weeks, your mirror node will be unable to process new transactions.
+#### ¡Advertencia! Si no actualiza su nodo Mirror a v0.26.0 o posterior antes de HAPI v0.11. se publicó en unas semanas, su nodo espejo no podrá procesar nuevas transacciones.
 
-We continued our progress on switching to TimescaleDB. We integrated a TimescaleDB helm chart into our Kubernetes deployment and added migration scripts to convert from PostgreSQL to TimescaleDB. We're still in the testing phase so it's still recommended to stick with the v1 schema (the default) for now.
+Continuamos nuestro progreso en cambiar a TimescaleDB. Integramos un gráfico de casco TimescaleDB en nuestro despliegue de Kubernetes y añadimos scripts de migración para convertir de PostgreSQL a TimescaleDB. Todavía estamos en la fase de prueba, por lo que todavía se recomienda mantener el esquema v1 (el valor por defecto) por ahora.
 
 ## [v0.25.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.25.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: JANUARY 12, 2021**
+**MAINNET ACTUALIZADO COMPLETADO: 12 de enero de 2021**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: JANUARY 8, 2021**
+**TESTNET ACTUALIZADO COMPLETADO: 8 de Enero, 2021**
 {% endhint %}
 
-This release saw a slew of enhancements to our new monitoring module. The [monitor](https://github.com/hashgraph/hedera-mirror-node/blob/v0.25.0/docs/monitor.md) is a standalone component that can publish and subscribe to transactions from various Hedera APIs to gauge the health of the system. New in this release is the ability to automatically create entities on startup using a new expression syntax. This is useful to avoid boilerplate configuration and manual entity creation steps that vary per environment.
+Esta versión vio una gran cantidad de mejoras en nuestro nuevo módulo de monitorización. La [monitor](https://github.com/hashgraph/hedera-mirror-node/blob/v0.25.0/docs/monitor.md) es un componente independiente que puede publicar y suscribirse a transacciones de varias APIs de Hedera para medir la salud del sistema. Nuevo en esta versión es la capacidad de crear automáticamente entidades al iniciar usando una nueva sintaxis de expresiones. Esto es útil para evitar la configuración de boilerplate y los pasos de creación de entidad manual que varían por entorno.
 
-A sample percentage property was added to the monitor to control how often the REST API should be verified. We took the time to properly document the monitor tool detailing its configuration and operational steps. Finally, we added a number of new metrics and a Grafana [dashboard](https://github.com/hashgraph/hedera-mirror-node/blob/v0.25.0/docs/monitor.md#dashboard--metrics) to view them.
+Se añadió una propiedad de porcentaje de muestra al monitor para controlar la frecuencia con la que se debería verificar la API REST. Nos hemos tomado el tiempo para documentar adecuadamente la herramienta de monitor detallando sus pasos de configuración y operaciones. Finalmente, añadimos un número de nuevas métricas y un Grafana [dashboard](https://github.com/hashgraph/hedera-mirror-node/blob/v0.25.0/docs/monitor.md#dashboard--metrics) para verlas.
 
-We made progress towards our goal of replacing PostgreSQL with [TimescaleDB](https://www.timescale.com/). This release contains the initial database migrations to setup the mirror node from scratch using TimescaleDB. These migrations are hidden behind a feature flag. In an upcoming release we'll add further functionality including data migration scripts and Helm support.
+Avanzamos hacia nuestro objetivo de reemplazar PostgreSQL con [TimescaleDB](https://www.timescale.com/). Esta versión contiene las migraciones iniciales de la base de datos para configurar el nodo réplica desde cero usando TimescaleDB. Estas migraciones están ocultas detrás de una bandera de características. En una próxima versión, añadiremos más funcionalidades incluyendo scripts de migración de datos y soporte de Helm.
 
 ## [v0.24.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.24.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: DECEMBER 28, 2020**
+**MAINNET ACTUALIZADO COMPLETADO: DECEMBRE 28, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: DECEMBER 10, 2020**
+**TESTNET ACTUALIZADO COMPLETADO: DECEMBRE 10, 2020**
 {% endhint %}
 
-This release adds [OpenAPI 3.0](https://swagger.io/specification) specification support to our REST API. The OpenAPI specification is available at `/api/v1/openapi.yml`and serves as a formal specification of our API. Clients can use the specification to shorten the amount of time it takes to integrate with our API by generating code or tests harnesses. It also provides us with a new auto-generated API documentation site viewable at `/api/v1/docs`.
+Esta versión añade soporte de especificaciones [OpenAPI 3.0](https://swagger.io/specification) a nuestra API REST. La especificación OpenAPI está disponible en `/api/v1/openapi.yml`y sirve como una especificación formal de nuestra API. Los clientes pueden utilizar la especificación para acortar el tiempo que tarda en integrarse con nuestra API generando código o pruebas de duelo. También nos proporciona un nuevo sitio de documentación API auto-generado que se puede ver en `/api/v1/docs`.
 
-We now have support for the [AWS Default Credential Provider Chain](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html). Now instead of only being able to provide static access and secret keys in the configuration, you can rely on the default provider chain to retrieve your credentials automatically from the environment (environment variables, `~/.aws/credentials`, etc). See our [documentation](https://github.com/hashgraph/hedera-mirror-node/blob/master/docs/configuration.md#connect-to-s3-with-the-default-credentials-provider) for more information.
+Ahora tenemos soporte para [AWS Default Credential Provider Chain](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html). Ahora en lugar de ser capaz de proporcionar acceso estático y claves secretas en la configuración, puede confiar en la cadena de proveedores predeterminada para recuperar sus credenciales automáticamente del entorno (variables de entorno, `~/. ws/credenciales`, etc). Vea nuestra [documentation](https://github.com/hashgraph/hedera-mirror-node/blob/master/docs/configuration.md#connect-to-s3-with-the-default-credentials-provider) para más información.
 
-We've enhanced our monitoring tools to provide greater observability into the mirror node's operation. In addition to publishing, our monitor tool now supports subscribing to the gRPC and REST APIs to verify end to end functionality of Hedera. It will also generate metrics off this information. We take advantage of Loki's new log alerting capability and now can alert off of any errors we see in logs that might be cause for concern.
+Hemos mejorado nuestras herramientas de monitoreo para proporcionar una mayor observabilidad en el funcionamiento del nodo espejo. Además de publicar, nuestra herramienta de monitor ahora soporta suscribirse a las APIs GRPC y REST para verificar la funcionalidad final de Hedera. También generará métricas a partir de esta información. Aprovechamos la nueva capacidad de alerta de registro de Loki y ahora podemos alertar de cualquier error que veamos en los registros que podría ser motivo de preocupación.
 
 ## [v0.23.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.23.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: DECEMBER 2, 2020**
+**MAINNET ACTUALIZADO COMPLETADO: DECEMBRE 2, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: NOVEMBER 20, 2020**
+**TESTNET ACTUALIZADO COMPLETADO: NOVEMBRE 20, 2020**
 {% endhint %}
 
-This release focuses on finalizing our support for the new Hedera Token Service (HTS) provided by the Hedera API [v0.9.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.9.0). There are no new HTS features, just various fixes to make it compatible with the latest protobuf. HTS is currently enabled in previewnet and should be enabled in testnet very soon, so please try it out and let us know if you have any feedback.
+Esta versión se centra en finalizar nuestro soporte para el nuevo Servicio de Token de Hedera (HTS) proporcionado por la API de Hedera [v0.9.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.9.0). No hay nuevas características HTS, sólo varias correcciones para hacerlo compatible con el último protobuf. HTS está actualmente habilitado en la previewnet y debería estar habilitado en la red de pruebas muy pronto, así que pruébalo y háganoslo saber si tiene algún comentario.
 
-A new Helm [chart](https://github.com/hashgraph/hedera-mirror-node/tree/master/charts/hedera-mirror-monitor) was added to run the monitor application. The monitor is still under heavy development so stay tuned.
+Un nuevo Helm [chart](https://github.com/hashgraph/hedera-mirror-node/tree/master/charts/hedera-mirror-monitor) fue añadido para ejecutar la aplicación de monitor. El monitor está todavía bajo un gran desarrollo, así que manténgase atento.
 
-Most of the other changes were bug fixes. We now use SonarCloud to scan for vulnerabilities and bugs and have addressed all the major items. You can view our SonarCloud [dashboard](https://sonarcloud.io/dashboard?id=hedera-mirror-node) to track our progress. Entities are now only inserted for successful transactions and we fixed the wrong address book being updated. There were multiple issues with the state proof alpha API that were resolved. For the gRPC API, we improved its performance and lowered its CPU usage. Also related to gRPC, we now enable server sent keep alive messages and permit a lower client sent keep alive messages of 90 seconds, which should hopefully address timeout issues that some users have reported.
+La mayoría de los otros cambios fueron correcciones de errores. Ahora usamos SonarCloud para buscar vulnerabilidades y errores y hemos abordado todos los elementos principales. Puedes ver nuestra SonarCloud [dashboard](https://sonarcloud.io/dashboard?id=hedera-mirror-node) para seguir nuestro progreso. Las entidades ahora sólo se insertan para transacciones exitosas y arreglamos que la libreta de direcciones equivocada se actualizara. Hubo varios problemas con la API alfa de prueba de estado que fueron resueltos. Para la API GRPC, hemos mejorado su rendimiento y reducido su uso de CPU. También en relación con gRPC, ahora habilitamos que el servidor enviado mantenga vivo los mensajes y permita que un menor cliente enviado mantenga vivos mensajes de 90 segundos, que debería abordar con suerte los problemas de tiempo de espera que algunos usuarios han reportado.
 
 ## [v0.22.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.22.0)
 
-This release continues our improvements to our Kubernetes support as well as monitoring and performance improvements across the modules.
+Esta versión continúa con nuestras mejoras en nuestro soporte de Kubernetes, así como monitoreo y mejoras de rendimiento en todos los módulos.
 
-We improved our custom PrometheusRule alerts for the Importer, GRPC and REST API modules, as well as added dashboards for our gRPC and REST API modules. Additionally, we increased our pod resources limits to optimize Importer ingestion and gRPC streaming performance in a Kubernetes cluster. Our existing js based monitor and REST performance tests were both updated to include HTS support.
+Hemos mejorado nuestras alertas personalizadas de PrometheusRule para los módulos API de importador, GRPC y REST, así como paneles añadidos para nuestros módulos API gRPC y REST. Además, incrementamos nuestros límites de recursos para optimizar la ingestión de importadores y el rendimiento de streaming de gRPC en un clúster de Kubernetes. Tanto nuestro monitor basado en js existentes como las pruebas de rendimiento REST fueron actualizadas para incluir soporte HTS.
 
-We also improved our data generator module with support for the majority of HAPI transactions the mirror node importer ingests. Additionally, we also added a java based monitor module that supports generation and publishing of transactions.
+También hemos mejorado nuestro módulo generador de datos con soporte para la mayoría de las transacciones HAPI que el importador de los nodos espejos. Además, añadimos un módulo de monitoreo basado en Java que soporta la generación y publicación de transacciones.
 
-This release also includes an improvements to avoid the stale account info bug that stems from balance stream files being received at a slower frequency than record stream files. Now account creations and account info changes will be reflected in REST API call even though the updated balance may not have been received.\
-We also extended our REST API support to include case insensitive support query parameters. `/api/v1/transactions?transactionType=tokentransfers` and `/api/v1/transactions?transactiontype=tokentransfers` are now both acceptable.
+Esta versión también incluye mejoras para evitar el error de información de cuenta obsoleto que surge del equilibrio de archivos de flujo que se reciben a una frecuencia más lenta que los archivos de flujo de registro. Now account creations and account info changes will be reflected in REST API call even though the updated balance may not have been received.\
+We also extended our REST API support to include case insensitive support query parameters. `/api/v1/transactions?transactionType=tokentransfers` y `/api/v1/transactions?transactiontype=tokentransfers` son ahora aceptables.
 
 ## [v0.21.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.21.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: NOVEMBER 24, 2020**
+**MAINNET ACTUALADO COMPLETADO: NOVEMBRE 24, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: NOVEMBER 13, 2020**
+**TESTNET ACTUALIZADO COMPLETADO: NOVEMBRE 13, 2020**
 {% endhint %}
 
-This release continues our focus on the Hedera Token Service (HTS) by adding three new token REST APIs. A token discovery REST API `/api/v1/tokens` shows available tokens on the network. A token REST API `/api/v1/tokens/${tokenId}` shows details for a token on the network. A token supply distribution REST API `/api/v1/tokens/${tokenId}/balances` shows token distribution across accounts. These APIs have already made their way to previewnet so check them out!
+Este lanzamiento continúa centrándonos en el Servicio de Token de Hedera (HTS) añadiendo tres nuevas APIs REST. Un descubrimiento de token REST API `/api/v1/tokens` muestra tokens disponibles en la red. Un token REST API `/api/v1/tokens/${tokenId}` muestra los detalles de un token en la red. Una distribución de token REST API `/api/v1/tokens/${tokenId}/balances` muestra la distribución de token a través de las cuentas. Estas APIs ya han hecho su camino a la previewnet así que ¡échale un vistazo!
 
-Continuing our HTS theme, we enhanced our testing frameworks with token support. Our acceptance tests can send HTS transactions to HAPI and wait for those transactions to show up via the mirror node REST API. Additionally, our performance tests can simulate a HTS load to test how the system responds to HTS transactions.
+Continuando con nuestro tema HTS, hemos mejorado nuestros frameworks de pruebas con soporte de token. Nuestras pruebas de aceptación pueden enviar transacciones HTS a HAPI y esperar a que esas transacciones aparezcan a través del nodo réplica REST API. Además, nuestras pruebas de rendimiento pueden simular una carga HTS para probar cómo el sistema responde a las transacciones HTS.
 
-We improved our existing REST APIs by adding a way to filter by transaction type. When searching for transactions or showing the transactions for a particular account you can now filter via an optional `transactionType` query parameter. This feature can be used with the transactions API in the format `/api/v1/transactions?transactionType=tokentransfers` while the format for the accounts API is `/api/v1/accounts/0.0.8?transactionType=TOKENTRANSFERS`.
+Hemos mejorado nuestras API REST existentes añadiendo una forma de filtrar por tipo de transacción. Al buscar transacciones o mostrar las transacciones de una cuenta en particular, ahora puede filtrar a través de un parámetro opcional `transactionType`. Esta característica puede ser usada con la API de transacciones en el formato `/api/v1/transactions?transactionType=tokentransfers` mientras que el formato para la API de cuentas es `/api/v1/accounts/0.0.8?transactionType=TOKENTRANSFERS`.
 
-We improved our Kubernetes support with AlertManager integration. There are now custom `PrometheusRule` alerts for each component that trigger notifications based upon Prometheus metrics. A custom Grafana dashboard was created that shows currently firing alerts.
+Hemos mejorado nuestro soporte de Kubernetes con la integración de AlertManager. Ahora hay alertas personalizadas de `PrometheusRule` para cada componente que desencadena notificaciones basadas en métricas Prometeo. Se creó un tablero personalizado de Grafana que muestra alertas de disparo en ese momento.
 
 ## [v0.20.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.20.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: NOVEMBER 11, 2020**
+**MAINNET ACTUALADO COMPLETADO: NOVEMBRE 11, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: NOVEMBER 3, 2020**
+**TESTNET ACTUALIZADO COMPLETADO: NOVEMBRE 3, 2020**
 {% endhint %}
 
-This is a big release that contains support for a new HAPI service and whole new runtime component to dramatically improve performance. Due to the magnitude of the changes, it did take us a little longer to mark it as generally available as we wanted to ensure it was tested as much as possible beforehand.
+Esta es una gran versión que contiene soporte para un nuevo servicio HAPI y un nuevo componente de tiempo de ejecución para mejorar dramáticamente el rendimiento. Debido a la magnitud de los cambios, nos tomó un poco más de tiempo para marcarlo tan generalmente disponible como queríamos asegurarnos de que se probara lo más posible de antemano.
 
-First up is support for the Hedera Token Service (HTS) that was recently [announced](https://hedera.com/blog/previewnet-hedera-token-service-hts-early-access) and rolled out to previewnet. A lot of work was put into supporting the new transaction types on the parser side including enhancing the schema with new tables and ingesting them via the record stream. HTS also required a new balance file version that adds token information to the CSV. Token information is now returned for our existing REST APIs while the next release will contain token specific REST APIs for further granularity. Check it out in previewnet and let us know if you have any feedback!
+En primer lugar está el soporte para el servicio Hedera Token (HTS) que fue recientemente [announced](https://hedera.com/blog/previewnet-hedera-token-service-hts-early-access) y se lanzó a la vista previa. Se ha dedicado mucho trabajo a apoyar los nuevos tipos de transacciones en el lado analizador, incluyendo mejorar el esquema con nuevas tablas e ingerirlos a través del flujo de registros. HTS también requiere una nueva versión del archivo de balance que agregue información de token al CSV. La información de token ahora es devuelta para nuestras APIs REST existentes mientras que la próxima versión contendrá APIs REST específicas para mayor granularidad. ¡Échale un vistazo en previewnet y haznos saber si tienes alguna opinión!
 
-We made a lot of strides in improving the ingestion performance in previous releases, but since we also wanted to ensure low end to end HCS latency via our gRPC API we had to sacrifice some of that speed. As a result, we could only ingest at about 3,000 transactions per second (TPS) before latency spiked above 10 seconds. This was entirely due to our use of PostgreSQL notify/listen to notify the gRPC API of new data.
+Hicimos muchos avances en la mejora del rendimiento de la ingestión en versiones anteriores, pero ya que también queríamos asegurar el extremo bajo a fin de latencia HCS a través de nuestra API GRPC tuvimos que sacrificar parte de esa velocidad. Como resultado, sólo pudimos ingerir alrededor de 3.000 transacciones por segundo (TPS) antes de que la latencia se disparara por encima de 10 segundos. Esto se debió por completo a nuestro uso de notificación/escucha de PostgreSQL para notificar a la API gRPC de nuevos datos.
 
-In this release, we add a new notification mechanism without sacrificing speed or latency with our support for Redis pub/sub. With Redis, the mirror node can now ingest at least 10,000 TPS while still remaining under 10 seconds from submitting the topic message and receiving it back via the mirror node's streaming API. Redis is enabled by default, but it can be turned off if HCS latency is not a concern and you want to avoid another runtime dependency.
+En esta versión, añadimos un nuevo mecanismo de notificación sin sacrificar velocidad o latencia con nuestro apoyo a Redis pub/sub. Con Redis, el nodo espejo ahora puede ingerir al menos 10, 00 TPS mientras permanece por menos de 10 segundos de enviar el mensaje del tema y recibirlo de vuelta a través de la API de streaming del nodo espejo. Redis está activado por defecto, pero puede desactivarse si la latencia de HCS no es una preocupación y desea evitar otra dependencia de tiempo de ejecución.
 
-We also added support for the HAPI protobuf [changes](https://hedera.com/blog/changes-to-hedera-api-hapi-for-v0-8-0-and-v0-9-0) that are coming in v0.9.0. The protobuf is removing two deprecated fields while adding a new `signedTransactionBytes` field. Since the mirror node still needs to support historical transactions we retain support for parsing transactions that contain the old payload format.
+También añadimos soporte para el protobuf HAPI [changes](https://hedera.com/blog/changes-to-hedera-api-hapi-for-v0-8-0-and-v0-9-0) que vienen en v0.9.0. El protobuf está eliminando dos campos obsoletos mientras se añade un nuevo campo `signedTransactionBytes`. Dado que el nodo réplica todavía necesita soportar transacciones históricas, mantenemos soporte para analizar transacciones que contienen el antiguo formato de carga útil.
 
 ## [v0.19.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.19.0)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: OCTOBER 6, 2020**
+**MAINNET ACTUALADO COMPLETADO: OCTOBER 6, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: SEPTEMBER 29, 2020**
+**TESTNET ACTUALIZADO COMPLETADO: SEPTEMBER 29, 2020**
 {% endhint %}
 
-This release finishes the State Proof alpha REST API and makes it [generally available](http://www.hedera.com/blog/introducing-state-proof-alpha). As part of this, we made a lot of improvements to the check-state-proof command line tool that queries the API and validates the files locally. We also now store the node account used to verify record file, ensuring greater accuracy as to the provenance of the state proof.
+Esta versión termina la API REST alfa de prueba de estado y la hace [generalmente disponible](http://www.hedera.com/blog/introducing-state-proof-alpha). Como parte de esto, hicimos muchas mejoras en la herramienta de línea de comandos a prueba de estado que consulta la API y valida los archivos localmente. Ahora también almacenamos la cuenta de nodo utilizada para verificar el archivo de registro, garantizando una mayor precisión en cuanto a la procedencia de la prueba de estado.
 
-There's been some changes to the public Hedera environments lately and we've updated the mirror node to reflect that. We added support for the new previewnet environment and we updated the configuration to point to the new testnet bucket after its recent reset. Please ensure your mirror node has all of the data in the previous bucket before updating to this release, assuming you're not specifying the bucket name manually.
+Ha habido algunos cambios en los entornos públicos de Hedera últimamente y hemos actualizado el nodo espejo para reflejar eso. Hemos añadido soporte para el nuevo entorno previewnet y hemos actualizado la configuración para apuntar al nuevo bucket testnet después de su reciente reinicio. Asegúrese de que su nodo espejo tiene todos los datos en el cubo anterior antes de actualizar a este lanzamiento, suponiendo que no esté especificando el nombre del cubo manualmente.
 
-We added proper liveness and readiness probe endpoints for all our components. If you're not familiar with the concept of liveness and readiness probes, check out the Kubernetes [documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) on the subject. Our new liveness endpoint now does not fail if external dependencies are down like the database, ensuring the application doesn't restart unnecessarily. Even if you're not using Kubernetes it would be worthwhile to look into to ensure your mirror node is using the appropriate endpoint for health checks, based upon your needs.
+Añadimos los puntos finales adecuados de la sonda para todos nuestros componentes. Si no estás familiarizado con el concepto de sondas de vida y preparación, revisa el Kubernetes [documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) sobre el tema. Nuestro nuevo punto final de vida ahora no fallará si las dependencias externas están caídas como la base de datos, asegurándose de que la aplicación no se reinicie innecesariamente. Incluso si no está usando Kubernetes, valdría la pena examinar para asegurarse de que su nodo espejo esté utilizando el punto final apropiado para las revisiones de salud, en base a sus necesidades.
 
 ## [v0.18.2](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.18.2)
 
 {% hint style="success" %}
-**MAINNET UPDATE COMPLETED: SEPTEMBER 22, 2020**
+**MAINNET ACTUALADO COMPLETADO: SEPTEMBER 22, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE COMPLETED: SEPTEMBER 15, 2020**
+**TESTNET ACTUALIZADO COMPLETADO: SEPTEMBER 15, 2020**
 {% endhint %}
 
-Fix two regressions in the 0.18 release train.
+Corregir dos regresiones en el tren de liberación 0.18.
 
 ## [v0.18.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.18.1)
 
-Contains a small change to the State Proof Alpha REST API to only return the current address book for now.
+Contiene un pequeño cambio a la API REST de prueba de estado para devolver la libreta de direcciones actual por ahora.
 
 ## [v0.18.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.18.0)
 
-Building upon the availability of the [State Proof Alpha REST API](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/docs/design/stateproofalpha.md) in the last release, we've added [sample code](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/hedera-mirror-rest/state-proof-demo) in JavaScript to retrieve the state proof from a mirror node and locally verify it. This allows users to obtain cryptographic proof that a particular transaction took place on Hedera. The validity of the proof can be checked independently to ensure that the supermajority of Hedera mainnet stake had reached consensus on that transaction. Similar to the promise of the ultimate state proofs, the user can trust this state proof alpha served by the mirror nodes, even when the user does not trust the mirror nodes.
+Basándonos en la disponibilidad de la [API REST de la prueba del estado](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/docs/design/stateuebalpha.md) en la última versión, hemos añadido [código de muestra](https://github. om/hashgraph/hedera-mirror-node/blob/v0.18.0/hedera-mirror-rest/state-proof-demo) en JavaScript para recuperar la prueba de estado de un nodo espejo y verificarla localmente. Esto permite a los usuarios obtener pruebas criptográficas de que una transacción en particular tuvo lugar en Hedera. La validez de la prueba puede comprobarse de forma independiente para garantizar que la supermayoría de la participación de Hedera en la red principal haya alcanzado un consenso sobre esa transacción. Similar a la promesa de las pruebas de estado finales, el usuario puede confiar en este alfa de prueba de estado servido por los nodos espejo, incluso cuando el usuario no confía en los nodos espejos.
 
-Importer can now be configured to connect to Amazon S3 using temporary security credentials via [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API\_AssumeRole.html). With this, a user that does not have permission to access an AWS resource can request a temporary role that will grant them that permission. See the [configuration documentation](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/docs/configuration.md#connect-to-s3-with-assumerole) for more information.
+El importador ahora puede configurarse para conectarse a Amazon S3 usando credenciales de seguridad temporales a través de [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API\_AssumeRole.html). Con esto, un usuario que no tiene permiso para acceder a un recurso AWS puede solicitar un rol temporal que le concederá ese permiso. Vea la [documentación de configuración](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/docs/configuration.md#connect-to-s3-with-ATIS) para más información.
 
-Importer also added two new properties to control the subset of data it should download and validate. The `hedera.mirror.importer.startDate` property can be used to exclude data from before this date and "fast-forward" to the point in time of interest. By default, the `startDate` will be set to the current time so mirror node operators can get up and running quicker with the latest data and reduce cloud storage retrieval costs. Note that this property only applies on the importer's first startup and can't be changed after that. The `hedera.mirror.importer.endDate` property can be used to exclude data after this date and halt the importer. By default it is set to a date far in the future so it will effectively never stop.
+El importador también añadió dos nuevas propiedades para controlar el subconjunto de datos que debería descargar y validar. La propiedad `hedera.mirror.importer.startDate` puede ser usada para excluir datos desde antes de esta fecha y "rápido" hasta el punto en el momento de interés. Por defecto, el `startDate` se ajustará a la hora actual para que los operadores de los nodos espejos puedan ponerse en marcha y ejecutarse más rápido con los datos más recientes y reducir los costes de recuperación de almacenamiento en la nube. Tenga en cuenta que esta propiedad sólo se aplica en el primer arranque del importador y no se puede cambiar después de eso. La propiedad `hedera.mirror.importer.endDate` puede ser usada para excluir datos después de esta fecha y detener el importador. Por defecto, se establece en una fecha lejana en el futuro, por lo que no se detendrá efectivamente.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-The aforementioned `startDate` property does change how the mirror node operators on initial start from previous releases. By defaulting to now, users standing up a new mirror node will no longer retrieve all historical data and will instead only retrieve the latest data. Current users upgrading to this release will not be affected even if their data ingest is not fully caught up since this property only applies if the database is empty like it is on first start. To revert to the previous behavior, a date in the past can be specified like the Unix epoch `1970-01-01T00:00:00Z`.
+La propiedad `startDate` más destacada sí cambia cómo los operadores del nodo espejo en el inicio de versiones anteriores. Por defecto hasta ahora, los usuarios que pongan en pie un nuevo nodo espejo ya no recuperarán todos los datos históricos y, en su lugar, sólo recuperarán los últimos datos. Los usuarios actuales que se actualicen a esta versión no se verán afectados incluso si su ingesta de datos no es completamente capturada, ya que esta propiedad sólo se aplica si la base de datos está vacía como si estuviera en el primer comienzo. Para revertir al comportamiento anterior, una fecha en el pasado puede ser especificada como el epoch de Unix `1970-01-01T00:00:00Z`.
 
 ## [v0.17.3](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.17.3)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: SEPTEMBER 14. 2020**
+**MAINNET UPGRADE COMPLETADO: SEPTEMBRE 14. 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: SEPTEMBER 3, 2020**
+**TESTNET UPGRADE COMPLETADO: SEPTEMBER 3, 2020**
 {% endhint %}
 
-This release contains the port of a bug fix to better manage the `VertxException: Thread blocked` issue seen in [#945](https://github.com/hashgraph/hedera-mirror-node/issues/945)
+Esta versión contiene la adaptación de una corrección de errores para gestionar mejor el problema `VertxException: Thread blocked` visto en [#945](https://github.com/hashgraph/hedera-mirror-node/issues/945)
 
 ## [v0.17.2](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.17.2)
 
-A small bug fix to better support resetting the mirror node when a stream reset is performed on the network environment
+Una pequeña solución de error para soportar un mejor restablecimiento del nodo espejo cuando se reinicia un stream reset en el entorno de red
 
 ## [v0.17.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.17.1)
 
-A small fix to correct a performance regression with not properly caching a heavily used query.
+Una pequeña solución para corregir una regresión de rendimiento al no almacenar en caché correctamente una consulta muy usada.
 
 ## [v0.17.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.17.0)
 
@@ -2311,266 +2310,266 @@ This release adds support for the storage of the network address books from file
 The mirror node will now retrieve file address book contents which include node identifiers and their public keys from the database instead of the file system at startup.
 
 This sets the stage for an additional feature which is the State Proof alpha REST API at `/transactions/${transactionId}/stateproof`.\
-With this release it is possible to request the address book, record file and signature files that contain the contents of a transaction and allow for cryptographic verification of the transaction. Mirror node users can now actively verify submitted transactions for themselves.
+With this release it is possible to request the address book, record file and signature files that contain the contents of a transaction and allow for cryptographic verification of the transaction. Los usuarios de nodo espejo ahora pueden verificar activamente las transacciones enviadas por sí mismos.
 
-Other changes include support for continuous deployment (CD) using [Github Actions](https://github.com/features/actions) that use [FluxCD](https://fluxcd.io/) to deploy master versions to a Kubernetes cluster. Additionally, this release includes fixes to the database copy operation optimization and improved handling of buffer size used when copying large topic messages.
+Otros cambios incluyen soporte para despliegue continuo (CD) usando [Github Actions](https://github.com/features/actions) que usan [FluxCD](https://fluxcd.io/) para desplegar versiones maestras en un clúster de Kubernetes. Además, esta versión incluye correcciones a la optimización de la operación de copia de la base de datos y un manejo mejorado del tamaño del búfer usado al copiar mensajes de temas grandes.
 
 ## [v0.16.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.16.0)
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: AUGUST 18, 2020**
+**TESTNET UPGRADE COMPLETED: AUGUSTO 18, 2020**
 {% endhint %}
 
-This release includes the foundation for some larger features to come. Notably, cloud bucket names are now set based on network specifications and users no longer need to explicitly state bucket names for demo, test and main networks. The `record_file` table contents are also expanded to include the start and end consensus timestamps of their containing transactions. The `record_file` table also saw a clean up to remove the path to the file.
+Esta versión incluye la base para algunas características más grandes por venir. Los nombres de los cubos en la nube ahora se establecen basándose en las especificaciones de la red y los usuarios ya no necesitan especificar explícitamente los nombres de los cubos para la demostración, prueba y redes principales. Los contenidos de la tabla `record_file` también se expanden para incluir las marcas de tiempo de inicio y final de sus transacciones que contengan. La tabla `record_file` también vio una limpieza para eliminar la ruta del archivo.
 
-Additionally, this release streamlines the helm chart architecture with a common chart for shared resources. It also adds dependabot to facilitate dependency update management. The parser was also update to handle signature files across multiple time bucket groups for greater parsing robustness.
+Adicionalmente, esta versión transmite la arquitectura de cartas de timón con un gráfico común para recursos compartidos. También añade dependabot para facilitar la gestión de actualizaciones de dependencias. El analizador también se actualizó para manejar archivos de firma a través de múltiples grupos de cubo de tiempo para un mayor análisis de robustidad.
 
-Memory improvements were also made in the parser to improve ingestion performance. Due to performance pg notify was also removed in favor of direct psql notify to support faster streaming of incoming topic messages.
+También se hicieron mejoras en la memoria en el analizador para mejorar el rendimiento de la ingestión. Debido al rendimiento de la notificación pg también se eliminó a favor de la notificación directa de psql para apoyar la transmisión más rápida de mensajes temáticos entrantes.
 
 ## [v0.15.3](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.15.3)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 29, 2020**
+**MAINNET UPGRADE COMPLETADO: JULY 29, 2020**
 {% endhint %}
 
-Works around an issue sending large JSON payloads via pg\_notify by ignoring them for now. This occurs when a consensus message is sent with a message that exceeds 5824 bytes, which is also very close to the protobuf limit.
+Funciona alrededor de un problema enviando cargas grandes JSON vía pg\_notify ignorándolas por ahora. Esto ocurre cuando se envía un mensaje de consenso con un mensaje que excede los 5824 bytes, lo que también está muy cerca del límite de protobuf.
 
 ## [v0.15.2](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.15.2)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 29, 2020**
+**MAINNET UPGRADE COMPLETADO: JULY 29, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JULY 20, 2020**
+**TESTNET UPGRADE COMPLETADO: 20 JULY 2020**
 {% endhint %}
 
-This release improves the topic message ingest rate that regressed in the previous release. This is just a stop gap and future releases will increase this further.
+Esta versión mejora la tasa de ingesta de mensajes temáticos que regresaron en la versión anterior. Esto no es más que una brecha de freno y las futuras liberaciones aumentarán aún más.
 
 ## [v0.15.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.15.1)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 29, 2020**
+**MAINNET UPGRADE COMPLETADO: JULY 29, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JULY 15, 2020**
+**TESTNET UPGRADE COMPLETADO: 15 de JULY 2020**
 {% endhint %}
 
-A hot fix release to address two high priority parsing errors with the new consensus message chunk header.
+Una versión de revisión caliente para abordar dos errores de análisis de alta prioridad con la nueva cabecera de mensaje de consenso.
 
 ## [v0.15.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.15.0)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 29, 2020**
+**MAINNET UPGRADE COMPLETADO: JULY 29, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JULY 15, 2020**
+**TESTNET UPGRADE COMPLETADO: 15 de JULY 2020**
 {% endhint %}
 
-This release adds support for HCS topic fragmentation that will soon be rolled out to main nodes in the 0.6.0 release. For larger consensus messages that don't fit in the max transaction size of 6144 bytes, a standard chunk info header can be supplied to indicate how that message should be split into smaller messages. The Mirror Node now understands this chunk information and stores it in the database. Additionally, it will return this [data](https://github.com/hashgraph/hedera-mirror-node/blob/a2f69ee1243fbbbfbc133549f9162bfc3a08f464/hedera-mirror-protobuf/src/main/proto/com/hedera/mirror/api/proto/ConsensusService.proto#L58) when subscribing to the topic via the gRPC API. The Java SDK is being updated to automatically split and reconstruct this message as appropriate.
+Esta versión añade soporte para la fragmentación del tema HCS que pronto se desplegará a los nodos principales en la versión 0.6.0. Para mensajes de consenso más grandes que no caben en el tamaño máximo de transacción de 6144 bytes, un encabezado de información de trozo estándar puede ser suministrado para indicar cómo ese mensaje debe dividirse en mensajes más pequeños. El nodo de rúbrica ahora entiende esta información de fragmentos y la almacena en la base de datos. Además, devolverá este [data](https://github.com/hashgraph/hedera-mirror-node/blob/a2f69ee1243fbbbfbc133549f9162bfc3a08f464/hedera-mirror-protobuf/src/main/proto/com/hedera/mirror/api/proto/ConsensusService.proto#L58) al suscribirse al tema a través de la API de gRPC. El SDK de Java se está actualizando para dividir y reconstruir automáticamente este mensaje según corresponda.
 
-Other changes include optimizations around end to end latency of the gRPC API. This was accomplished mainly by adding a new `NotifyingTopicListener` that uses PostgreSQL's LISTEN/NOTIFY functionality.
+Otros cambios incluyen optimizaciones en torno a latencia final de la API GRPC. Esto fue conseguido principalmente añadiendo una nueva funcionalidad `NotifyingTopicListener` que usa la LISTEN/NOTIFY de PostgreSQL.
 
 ## [v0.14.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.14.1)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 29, 2020**
+**MAINNET UPGRADE COMPLETADO: JULY 29, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JULY 15, 2020**
+**TESTNET UPGRADE COMPLETADO: 15 de JULY 2020**
 {% endhint %}
 
-This release further optimizes the ingestion rate. Initial tests indicate a 2x to 3x improvement.
+Este lanzamiento optimiza aún más la tasa de ingestión. Las pruebas iniciales indican una mejora de 2x a 3x.
 
 ## [v0.14.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.14.0)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 29, 2020**
+**MAINNET UPGRADE COMPLETADO: JULY 29, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JULY 15, 2020**
+**TESTNET UPGRADE COMPLETADO: 15 de JULY 2020**
 {% endhint %}
 
-This release is all about performance optimizations. We reworked some of the foreign keys to improve the ingestion performance by a few thousand transactions per second. We also fixed an out of memory issue with the gRPC API and did some optimizations in that area.
+Esta versión tiene todo que ver con optimizaciones de rendimiento. Hemos rediseñado algunas de las claves externas para mejorar el rendimiento de la ingestión por unos pocos miles de transacciones por segundo. También arreglamos un problema de memoria con la API gRPC e hicimos algunas optimizaciones en ese área.
 
-Besides performance, we made some other small improvements. We now set `topicRunningHashV2AddedTimestamp` with a default value for mainnet, making it not fail on startup if a value is not provided. Containerized acceptance and performance tests were added, making it easier to test at scale.
+Además del rendimiento, hemos hecho algunas pequeñas mejoras. Ahora establecemos `topicRunningHashV2AddedTimestamp` con un valor predeterminado para mainnet, haciendo que no falle al iniciar si no se proporciona un valor. Se añadieron pruebas de aceptación y rendimiento containerizadas, facilitando la prueba a escala.
 
-#### Breaking Changes
+#### Rompiendo Cambios
 
-We removed `hedera.mirror.grpc.listener.bufferInitial` and `hedera.mirror.grpc.listener.bufferSize` properties since we removed the shared poller's buffer.
+Hemos eliminado las propiedades `hedera.mirror.grpc.listener.bufferInitial` y `hedera.mirror.grpc.listener.bufferSize` ya que eliminamos el búfer del encuestador compartido.
 
-We also renamed some tables and columns which would affect you if you directly use the database structure. We renamed `t_transactions` to `transaction`, `t_cryptotransferlists` to `crypto_transfer` and `non_fee_transfers` to `non_fee_transfer`.
+También renombramos algunas tablas y columnas que le afectarían si utiliza directamente la estructura de la base de datos. Cambiamos el nombre de `t_transactions` a `transaction`, `t_cryptotransferlists` a `crypto_transfer` y `non_fee_transfers` a `non_fee_transfer`.
 
 ## [v0.13.2](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.13.2)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 2, 2020**
+**MAINNET UPGRADE COMPLETADO: 2, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JUNE 23, 2020**
+**TESTNET UPGRADE COMPLETADO: JUNE 23, 2020**
 {% endhint %}
 
-Bug fix release to fix an out of memory issue with the gRPC API.
+Error al reparar la liberación para solucionar un problema de memoria con la API de gRPC.
 
 ## [v0.13.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.13.1)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 2, 2020**
+**MAINNET UPGRADE COMPLETADO: 2, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JUNE 23, 2020**
+**TESTNET UPGRADE COMPLETADO: JUNE 23, 2020**
 {% endhint %}
 
-Small bug fix release to address grpc NETTY issue blocking acceptance tests
+Pequeña versión de corrección de errores para abordar el problema de grpc NETTY bloqueando pruebas de aceptación
 
 ## [v0.13.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.13.0)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JULY 2, 2020**
+**MAINNET UPGRADE COMPLETADO: 2, 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: JUNE 23, 2020**
+**TESTNET UPGRADE COMPLETADO: JUNE 23, 2020**
 {% endhint %}
 
-This release is a smaller release mainly focused on bug fixes with some minor enhancements. We added a new property `hedera.mirror.importer.downloader.endpointOverride` for testing. We also added `hedera.mirror.importer.downloader.gcpProjectId` to support specifying requester pays credentials with a personal account. Finally, we improved our Marketplace support getting us one closer to making it available.
+Esta versión es una versión más pequeña centrada principalmente en correcciones de errores con algunas mejoras menores. Hemos añadido una nueva propiedad `hedera.mirror.importer.downloader.endpointOverride` para pruebas. También añadimos `hedera.mirror.importer.downloader.gcpProjectId` para que se especifiquen las credenciales de pago con una cuenta personal. Por último, hemos mejorado nuestro apoyo a Marketplace para acercarnos a ponerlo a disposición.
 
 ## [v0.12.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.12.0)
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: MAY 29, 2020**
+**TESTNET UPGRADE COMPLETADO: MAY 29, 2020**
 {% endhint %}
 
-This feature release contains a few nice additions while fixing a few critical bugs. We made good progress on adding our application to [Google Cloud Platform Marketplace](https://console.cloud.google.com/marketplace). This should be wrapping up soon and enable a "one click to deploy" of the mirror node to Google's Cloud. Additionally, some extra fields were added to our APIs. We added `runningHashVersion` to the REST and GRPC APIs. Finally, we added `transactionHash` to the transaction REST API.
+Esta versión contiene algunas bonitas adiciones mientras se corrigen algunos errores críticos. Hemos avanzado mucho al añadir nuestra aplicación a [Google Cloud Platform Marketplace](https://console.cloud.google.com/marketplace). Esto debería estar listo pronto y habilitar un "clic para desplegar" del nodo espejo en la nube de Google. Adicionalmente, algunos campos extra fueron añadidos a nuestras APIs. Agregamos `runningHashVersion` a las APIs REST y GRPC. Finalmente, añadimos `transactionHash` a la transacción REST API.
 
-We improved the importer ingestion rate from 3400 to 5600 transactions per second in our performance test environment. There's still room for improvement and we plan on making additional performance optimizations in an upcoming release.
+Hemos mejorado la tasa de ingestión del importador de 3400 a 5600 transacciones por segundo en nuestro entorno de pruebas de rendimiento. Todavía hay margen para mejorar y planeamos hacer optimizaciones adicionales de rendimiento en una próxima versión.
 
-### Breaking Changes
+### Rompiendo Cambios
 
-We added an option to keep signature files after verification. By default, we no longer store signatures on the filesystem. If you'd like to restore the old behavior and keep the signatures, you can set `hedera.mirror.importer.downloader.record.keepSignatures=true` and `hedera.mirror.importer.downloader.balance.keepSignatures=true`.
+Añadimos una opción para mantener los archivos de firma después de la verificación. De forma predeterminada, ya no almacenamos firmas en el sistema de archivos. Si quieres restaurar el comportamiento antiguo y guardar las firmas, puedes establecer `hedera.mirror.importer.downloader.record.keepSignatures=true` y `hedera.mirror.importer.downloader.balance.keepSignatures=true`.
 
-We changed the bypass hash mismatch behavior in this release. Bypassing hash mismatch could be used in combination with other parameters to fast forward mirror node to newer data or to overcome stream resets. Previously you had to specify this via a database value in `t_application_status`. Since this data is not application state but considered more a user supplied value, we added a new property `hedera.mirror.importer.verifyHashAfter=2020-06-05T17:16:00.384877454Z` for this purpose.
+Cambiamos el comportamiento de desajuste de hash de bypass en esta versión. Al pasar el desajuste de hash se podría utilizar en combinación con otros parámetros para avanzar rápidamente el nodo de réplica a los datos más recientes o para superar los reinicios de la secuencia. Anteriormente tenías que especificar esto a través de un valor de base de datos en `t_application_status`. Dado que estos datos no es el estado de la aplicación, pero se considera más un valor proporcionado por el usuario, añadimos una nueva propiedad `hedera.mirror.importer.verifyHashAfter=2020-06-05T17:16:00.384877454Z` para este propósito.
 
 ## [v0.11.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.11.0)
 
 {% hint style="success" %}
-**MAINNET UPGRADE COMPLETED: JUNE 10, 2020**
+**MAINNET UPGRADE COMPLETADO: 10 de JUNE 2020**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPGRADE COMPLETED: MAY 29, 2020**
+**TESTNET UPGRADE COMPLETADO: MAY 29, 2020**
 {% endhint %}
 
-This release was mainly focused on refactoring code and properties as a necessary step for future enhancements. We also continued making improvements to our Kubernetes support. To that end, we added Prometheus REST metrics, Helm tests and Mirror Node can now run in GKE.
+Esta versión se centró principalmente en la refactorización de código y propiedades como un paso necesario para futuras mejoras. También continuamos haciendo mejoras en nuestro soporte de Kubernetes. A tal fin, hemos añadido las métricas Prometheus REST, los tests de casco y el nodo de rótulos pueden funcionar ahora en GKE.
 
-We added a new parameter to all of the topic related REST APIs to return a topic message in plaintext instead of binary. Messages submitted to HAPI are submitted as binary and stored in the Mirror Node that way as well. If you know the messages are actually strings encoded in UTF-8, then you can set `encoding=utf-8`and the REST API will make a best effort conversion to string. By default or if you pass a query parameter of `encoding=base64`, it will return the message as base64 encoded binary.
+Hemos añadido un nuevo parámetro a todas las API REST relacionadas con el tema para devolver un mensaje de tema en texto plano en lugar de binario. Los mensajes enviados a HAPI se envían como binarios y se almacenan en el nodo Mirror de esa manera también. Si sabes que los mensajes son cadenas codificadas en UTF-8, entonces puedes establecer `encoding=utf-8`y la API REST hará un mejor esfuerzo de conversión a cadena. Por defecto o si pasa un parámetro de consulta de `encoding=base64`, devolverá el mensaje como binario codificado en base64.
 
-**Breaking Changes**
+**Cambios de ruptura**
 
-Please note when upgrading that we made major breaking changes to the naming of our configuration properties. We've renamed all `hedera.mirror.api` properties to `hedera.mirror.rest`. We also renamed the properties `apiUsername` to `restUsername` and `apiPassword` to `restPassword` to reflect that as well. Any properties that were used by the importer module were renamed to be nested under `hedera.mirror.importer`. We apologize for any inconvenience.
+Tenga en cuenta al actualizar que hicimos cambios importantes en el nombre de nuestras propiedades de configuración. Hemos renombrado todas las propiedades `hedera.mirror.api` a `hedera.mirror.rest`. También renombramos las propiedades `apiUsername` a `restUsername` y `apiPassword` a `restPassword` para reflejar eso también. Cualquier propiedad que fue usada por el módulo importador fue renombrada para ser anidada bajo `hedera.mirror.importer`. Nos disculpamos por cualquier inconveniente.
 
-We've removed the `hedera.mirror.addressBookPath` property in favor of a `hedera.mirror.importer.initialAddressBook` property. The former was overloaded to be both the initial bootstrap address book and the live address book being updated by file transactions for `0.0.102`. The live address book is now hardcoded to `${hedera.mirror.importer.dataPath}/addressbook.bin` and cannot be changed.
+Hemos eliminado la propiedad `hedera.mirror.addressBookPath` a favor de una propiedad `hedera.mirror.importer.initialAddressBook`. La primera fue sobrecargada para ser tanto la libreta de direcciones inicial de arranque como la libreta de direcciones en vivo siendo actualizada por transacciones de archivos para `0.0.102`. La libreta de direcciones en vivo ahora está codificada en `${hedera.mirror.importer.dataPath}/addressbook.bin` y no puede ser cambiada.
 
-The REST API to retrieve a topic message by its consensus timestamp now supports both a plural (`/topics/messages/:consensusTimestamp`) and singular (`/topic/message/:consensusTimestamp`) URI path. The singular format is deprecated and will be going away in the near future, so please update to the plural format soon.
+La API REST para recuperar un mensaje de tema por su marca de tiempo de consenso ahora soporta tanto una ruta URI plural (`/topics/messages/:consensusTimestamp`) como singular (`/topic/message/:consensusTimestamp`). El formato singular está obsoleto y desaparecerá en un futuro próximo, así que por favor actualice al formato plural pronto.
 
-We removed the singular form of a few alpha topic REST APIs. The `/topic/:id/message` API was removed in favor of the plural form `/topics/:id/messages`. Similarly, the `/topic/:id/message/:sequencenumber`API was removed in favor of its plural form `/topics/:id/messages/:sequencenumber`. Please update accordingly.
+Quitamos la forma singular de un tema alfa API REST. La API `/topic/:id/message` fue removida a favor de la forma plural `/topics/:id/messages`. Del mismo modo, el `/topic/:id/message/:sequencenumber`API fue eliminado a favor de su forma plural `/topics/:id/messages/:sequencenumber`. Por favor, actualice en consecuencia.
 
 ## [v0.10.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.10.1)
 
-Small bug fix release to address a REST API packaging issue.
+Versión pequeña de corrección de errores para abordar un problema de empaque de la API REST.
 
 ## [v0.10.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.10.0)
 
-In preparation for Hedera Node release 0.5.0, we're releasing v0.10.0 to support the latest version of [HAPI](https://docs.hedera.com/guides/docs/hedera-api). The changes include renaming Claims to LiveHash and new response codes. One important HAPI change is the addition of a `topicRunningHashVersion` to the transaction record. This change was necessary as the way the topic running hash is changing with the release of 0.5.0. As a result, the Hedera Mirror Node added this new field to its database and a migration is ran to populate it with either the new or old version depending upon the release date of 0.5.0.
+En preparación para la versión 0.5.0 del Nodo de Hedera, lanzamos v0.10.0 para soportar la última versión de [HAPI](https://docs.hedera.com/guides/docs/hedera-api). Los cambios incluyen renombrar Claims a LiveHash y nuevos códigos de respuesta. Un cambio importante de HAPI es la adición de un `topicRunningHashVersion` al registro de transacción. Este cambio era necesario ya que la forma en que el tema en ejecución del hash está cambiando con la publicación de 0.5.0. Como resultado, el nodo Hedera Mirror añadió este nuevo campo a su base de datos y una migración se ejecuta para poblarlo con la versión nueva o antigua dependiendo de la fecha de lanzamiento de 0. .0.
 
-Unfortunately, this necessitated adding a required field `hedera.mirror.topicRunningHashV2AddedTimestamp` to control this behavior and will fail on startup if this is not populated. This is just a temporary measure. Once Hedera Node 0.5.0 is released to testnet and mainnet we will update this so it's automatically populated with the known date.
+Desafortunadamente, esto necesario añadiendo un campo requerido `hedera.mirror.topicRunningHashV2AddedTimestamp` para controlar este comportamiento y fallará al arrancar si esto no está poblado. Se trata sólo de una medida temporal. Una vez que Hedera Node 0.5.0 sea liberado en testnet y mainnet lo actualizaremos automáticamente con la fecha conocida.
 
-Other changes include adding Google PubSub support to publish JSON representing the `Transaction` and `TransactionRecord` protobuf to a message queue for external consumption. We've also added REST API metrics and added Traefik as an API gateway for our helm chart.
+Otros cambios incluyen añadir soporte de Google PubSub para publicar JSON representando el protobuf `Transaction` y `TransactionRecord` a una cola de mensajes para consumo externo. También hemos añadido métricas de la API REST y hemos añadido Traefik como una pasarela API para nuestro gráfico de helm.
 
-#### Breaking changes
+#### Cambios de ruptura
 
-We've had to remove our event stream support. This area of the code was never enabled and was untested and was incurring technical debt without providing any benefit. If it becomes necessary in the future, we can re-add it within our newly refactored framework.
+Hemos tenido que eliminar nuestro soporte para el flujo de eventos. Esta área del código nunca fue habilitada y no se puso a prueba y estaba incurriendo en deuda técnica sin proporcionar ningún beneficio. Si es necesario en el futuro, podemos volver a añadirlo dentro de nuestro marco refactorizado recientemente.
 
-The new `/api/v1/topics/:id` alpha REST API that was added in 0.9 has been changed to `/api/v1/topics/:id/messages`. This change was made to align the API with the other topic message APIs as it refers to the messages entity and not the topic entity.
+La nueva API alfa REST `/api/v1/topics/:id` que fue añadida en 0.9 ha sido cambiada a `/api/v1/topics/:id/messages`. Este cambio se hizo para alinear la API con el otro tema APIs de mensajería ya que se refiere a la entidad de mensajes y no a la entidad del tema.
 
 ## [v0.9.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.9.1)
 
-Small bug fix release to address not being able to handle address book updates that span multiple transactions.
+Pequeña versión de corrección de errores para que la dirección no pueda manejar actualizaciones de libreta de direcciones que abarcan múltiples transacciones.
 
 ## [v0.9.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.9.0)
 
-This release contains another new REST API for our [consensus service](https://www.hedera.com/consensus-service/). You can now retrieve all topic messages in a particular topic, with additional filtering by sequence number and consensus timestamp. Here's an example:
+Esta versión contiene otra nueva API REST para nuestro [servicio de consenso](https://www.hedera.com/consensis) service/). Ahora puede recuperar todos los mensajes de temas en un tema en particular, con un filtrado adicional por número de secuencia y la marca de tiempo de consenso. Aquí hay un ejemplo:
 
-`GET /api/v1/topic/7?sequencenumber=gt:2&timestamp=lte:1234567890.000000006&limit=2`
+`GET /api/v1/topic/7?sequencenumber=gt:2&timestamp=lte:1234567890.0000006&limit=2`
 
 ```
 {
   "messages": [
     {
-      "consensus_timestamp": "1234567890.000000003",
-      "topic_id": "0.0.7",
+      "consensus_timestamp": "1234567890. 00000003",
+      "topic_id": "0.0. ",
       "message": "bWVzc2FnZQ==",
       "running_hash": "cnVubmluZ19oYXNo",
-      "sequence_number": 3
+      "número_secuencia": 3
     },
     {
-      "consensus_timestamp": "1234567890.000000004",
-      "topic_id": "0.0.7",
+      "consensus_timestamp": "1234567890. 00000004",
+      "topic_id": "0. .7",
       "message": "bWVzc2FnZQ==",
       "running_hash": "cnVubmluZ19oYXNo",
-      "sequence_number": 4
+      "secuencia_número": 4
     }
   ],
   "links": {
-     "next": "/api/v1/topic/7?sequencenumber=gt:2&timestamp=lte:1234567890.000000006&timestamp=gt:1234567890.000000004&limit=2"
+     "next": "/api/v1/topic/7? equencenumber=gt:2&timestamp=lte:1234567890. 00000006&timestamp=gt:1234567890.000000004&limit=2"
   }
 }
 ```
 
-The other big feature of this release is [Kubernetes](https://kubernetes.io/) support. We've create a [Helm](https://helm.sh/) chart that can be used to deploy a highly available Mirror Node with a single command. This feature is still under heavy development as we work towards converting our current deployments to this new approach.
+La otra gran característica de esta versión es el soporte [Kubernetes](https://kubernetes.io/). Hemos creado un gráfico [Helm](https://helm.sh/) que puede utilizarse para desplegar un nodo de réplica altamente disponible con un solo comando. Esta característica se encuentra todavía en un gran desarrollo mientras trabajamos para convertir nuestros despliegues actuales en este nuevo enfoque.
 
 ## [v0.8.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.8.1)
 
-Small bug fix release to fix a packaging issue.
+Versión pequeña de corrección de errores para solucionar un problema de empaquetamiento.
 
 ## [v0.8.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.8.0)
 
-Mirror node v0.8.0 is here! We're made great strides in making the mirror node easier to run and manage. In particular, we added support for [requester pays](https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html) buckets. This will allow anyone to run a mirror node as long as they are willing to pay for the cost to retrieve the data. Currently only Hedera and a few partners have access to the bucket, so enabling this will open up that data to our community. We are still working on a migration of the buckets to this model, so stay tuned.
+¡El nodo de la rama v0.8.0 está aquí! Hemos dado grandes pasos para hacer que el nodo espejo sea más fácil de ejecutar y gestionar. En particular, hemos añadido soporte para [requester pays](https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html). Esto permitirá a cualquiera ejecutar un nodo espejo siempre y cuando esté dispuesto a pagar el costo para recuperar los datos. Actualmente sólo Hedera y algunos socios tienen acceso al cubo, por lo que permitir esto abrirá esos datos a nuestra comunidad. Todavía estamos trabajando en una migración de los cubos a este modelo, así que manténgase atento.
 
-We also added two new experimental REST APIs to retrieve HCS data. Firstly, we added `/api/v1/topic/message/${consensusTimestamp}` to retrieve a topic message by its consensus timestamp. Secondly, we added `/api/v1/topic/${topic}/message/${seqNum}` to retrieve a particular topic message by its sequence number from a topic. These APIs are considered alpha and may changed or be removed in the future. We also dramatically increased test coverage for the REST APIs and squashed some bugs in the process.
+También agregamos dos nuevas APIs REST experimentales para recuperar los datos de HCS. En primer lugar, añadimos `/api/v1/topic/message/${consensusTimestamp}` para recuperar un mensaje de tema por su marca de tiempo de consenso. En segundo lugar, añadimos `/api/v1/topic/${topic}/message/${seqNum}` para recuperar un mensaje de tema en particular por su número de secuencia de un tema. Estas APIs son consideradas alfa y pueden ser cambiadas o eliminadas en el futuro. También aumentamos drásticamente la cobertura de pruebas para las APIs REST y aplastamos algunos errores en el proceso.
 
-For our GRPC API, we had to switch from R2DBC to Hibernate to reach the scale and stability that we needed. In doing so, we can now support a lot more concurrent subscribers at a higher throughput. It should also finally put to rest any stability concerns with the GRPC component.
+Para nuestro GRPC API, tuvimos que cambiar de R2DBC a Hibernate para alcanzar la escala y estabilidad que necesitábamos. Al hacerlo, ahora podemos apoyar a muchos suscriptores más concurrentes en un trayecto mayor. También debería poner fin de una vez por todas a cualquier preocupación por la estabilidad del componente GPR.
 
-There are a few breaking changes that we had to make. We now no longer write and store record or balance files to the filesystem after they are inserted into the database. If you still need these files, you can set `hedera.mirror.parser.balance.keepFiles` and `hedera.mirror.parser.record.keepFiles` to true.
+Hay algunos cambios que hemos tenido que hacer. Ahora ya no escribimos y almacenamos archivos de registro o balance en el sistema de archivos después de que se inserten en la base de datos. Si todavía necesitas estos archivos, puedes establecer `hedera.mirror.parser.balance.keepFiles` y `hedera.mirror.parser.record.keepFiles` a verdadero.
 
-Also, we moved the persist properties to be grouped under a new path. That is we moved options like `hedera.mirror.parser.record.persistTransactionBytes` to `hedera.mirror.parser.record.persist.transactionBytes`. Please update your local configuration accordingly.
+También, movimos las propiedades persistentes a ser agrupadas bajo un nuevo camino. Eso es lo que movimos opciones como `hedera.mirror.parser.record.persistTransactionBytes` a `hedera.mirror.parser.record.persist.transactionBytes`. Por favor, actualice su configuración local en consecuencia.
 
 ## [v0.7.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.7.0)
 
-0.7.0 focuses on refactoring the record file parsing to decouple the parsing from the persisting of data. This refactoring is laying the groundwork for additional performance improvements and allowing additional downstream components to register for notification of the transactions.
+0.7.0 se centra en refactorizar el análisis de archivos de registro para desacoplar el análisis de la persistencia de datos. Esta refactorización está sentando las bases para mejoras adicionales de rendimiento y permitiendo que los componentes adicionales de la corriente posterior se registren para la notificación de las transacciones.
 
 ## [v0.6.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.6.0)
 
-- Release focused on stability and performance improvements.
-- End to end test coverage.
+- Release centrado en mejoras de estabilidad y rendimiento.
+- Cobertura de prueba final a fin.
 
-This release was mainly focused on enhancing the stability and performance of the mirror node. We improved the transaction ingestion speed from 600 to about 4000 transactions per second. At the same time, we greatly improved the resiliency and performance of the GRPC module. We also added acceptance tests to test out HCS end to end.
+Esta versión se centró principalmente en mejorar la estabilidad y el rendimiento del nodo espejo. Hemos mejorado la velocidad de ingestión de las transacciones de 600 a 4000 transacciones por segundo. Al mismo tiempo, hemos mejorado enormemente la resistencia y el rendimiento del módulo GRPC. También añadimos pruebas de aceptación para probar HCS final a fin.
 
-**Breaking Change**
+**Cambio de ruptura**
 
-Please note that one potentially breaking change in this release is to reject subscriptions to topics that don't exist. This avoids the server having to poll repeatedly until it is created and taking up resources for a topic that may never exist. It is expected that clients or the [SDK](https://github.com/hashgraph/hedera-sdk-java/issues/367) will poll periodically after creating a topic until that topic makes its way to the mirror node. This functionality is hidden behind a feature flag but will slowly be rolled out over the next month.
+Por favor, ten en cuenta que un cambio potencial que rompe esta versión es rechazar las suscripciones a temas que no existen. Esto evita que el servidor tenga que sondear repetidamente hasta que se cree y tome recursos para un tema que nunca existe. Se espera que los clientes o la [SDK](https://github. om/hashgraph/hedera-sdk-java/issues/367) sondeará periódicamente después de crear un tema hasta que ese tema se acerque al nodo espejo. Esta funcionalidad está oculta detrás de una bandera de características, pero poco a poco se desplegará durante el próximo mes.
 
 ## v0.5.3
 
-- Now supports all HCS functionality including a streaming gRPC API for message topic subscription.
-- Changed how the mirror node verifies mainnet consensus. Mirror node now waits for at least third of node signatures rather than greater than two thirds to verify consensus.
-- Added new mainnet nodes to the mirror node address book.
-- Access still restricted to a white listed set of IP addresses. Request access [here](https://learn.hedera.com/l/576593/2020-01-13/7z5jb).
-- Please see the Mirror Node releases page for the full list of changes [here](https://github.com/hashgraph/hedera-mirror-node/releases).
-- We occasionally may encounter a situation where an additional 15-20 second delay in message round trip time is experienced and subscriber connections are dropped. No messages are lost, and the consensus time is not affected. Clients are encouraged to reconnect. This issue will be fixed in a subsequent release of the Hedera mirror node. Some third-party mirror nodes should not be affected by this issue. We also don't expect it to impact the exchanges using the REST end point for the mirror node.
+- Ahora soporta toda la funcionalidad de HCS incluyendo una API gRPC de streaming para la suscripción a temas de mensajes.
+- Cambiada la forma en que el nodo réplica verifica el consensus mainnet. El nodo espejo ahora espera por lo menos el tercio de las firmas de los nodos en lugar de mayores de dos tercios para verificar el consenso.
+- Se han añadido nuevos nodos mainnet a la libreta de direcciones del nodo réplica.
+- Acceso todavía restringido a un conjunto blanco de direcciones IP. Solicitar acceso [here](https://learn.hedera.com/l/576593/2020-01-13/7z5jb).
+- Por favor vea la página de lanzamientos de Mirror Node para la lista completa de cambios [here](https://github.com/hashgraph/hedera-mirror-node/releases).
+- Ocasionalmente podemos encontrarnos con una situación en la que un retraso adicional de 15 segundos en el tiempo de viaje redondo del mensaje es experimentado y las conexiones de los suscriptores son eliminadas. No se pierden mensajes y el tiempo de consenso no se ve afectado. Se anima a los clientes a volver a conectarse. Este problema se corregirá en una versión posterior del nodo espejo de Hedera. Algunos nodos espejo de terceros no deberían verse afectados por esta cuestión. Tampoco esperamos que afecte a los intercambios usando el punto final REST para el nodo réplica.
