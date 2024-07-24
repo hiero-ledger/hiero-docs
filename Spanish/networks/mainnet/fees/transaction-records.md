@@ -1,145 +1,145 @@
-# Transaction Records
+# Registros de transacción
 
-## Understanding Transaction Records – Remittances & Fees
+## Registros de Transacción Enderstanding – Remesas & Tarifas
 
-Once a transaction has been successfully processed by the Hedera network into a consensus state or not, the network nodes create either a "record" or a "receipt," respectively, for that transaction, indicating its status and impact.
+Una vez que una transacción ha sido procesada con éxito por la red Hedera a un estado de consenso o no, los nodos de red crean un "registro" o un "recibo", respectivamente, para esa transacción, indicando su estado e impacto.
 
-A key component of the information within a record for a transaction is how the transaction changed the balances of those Hedera accounts that were involved. An account’s balance can change due to a transaction either because of a fee (paid or received) or some other intentional transfer – which we refer to here as a ‘remittance’.
+Un componente clave de la información dentro de un registro de una transacción es cómo la transacción cambió los balances de aquellas cuentas de Hedera que estaban involucradas. El saldo de una cuenta puede cambiar debido a una transacción ya sea por una comisión (pagada o recibida) o por otra transferencia intencional – a la que nos referimos aquí como una “remitencia”.
 
-### Account Balances
+### Saldos de la cuenta
 
-Every transaction submitted to Hedera will cause the balances of a set of accounts to change – either because
+Cada transacción enviada a Hedera hará que los balances de un conjunto de cuentas cambien, ya sea porque
 
-1. The transaction directly directed specific balances to be changed, e.g. Alice sent 1000 hbars to Bob with a CryptoTransfer.
-2. The transaction indirectly caused balances to change, e.g. execution of a ContractCall caused HBARs to be sent from the Smart Contract’s account to others.
-3. Fees are paid for the processing of the transaction into a consensus state and the persistence of that changed state.
-4. A fee is paid for the persistence of a ‘record’ for that transaction for a longer period of time than the default.
+1. La transacción directamente dirigió saldos específicos a cambiar, por ejemplo, Alice envió 1000 hbars a Bob con una CryptoTransfer.
+2. La transacción indirectamente causó que los balances cambiaran, por ejemplo, la ejecución de una ContractCall causó que HBARs se enviara desde la cuenta del Contrato Inteligente a otros.
+3. Las tasas se pagan por el procesamiento de la transacción en un estado de consenso y la persistencia de ese estado cambiado.
+4. Se paga una cuota por la persistencia de un “registro” para esa transacción por un período de tiempo más largo que el predeterminado.
 
-A transaction can cause a given account’s balance to change for any of the above reasons or, more generally, for a combination of the above reasons.
+Una transacción puede hacer que el saldo de una cuenta determinada cambie por cualquiera de las razones anteriores o, de forma más general, por una combinación de las razones anteriores.
 
-There are, in general, 5 types of accounts associated with a transaction:
+En general, hay 5 tipos de cuentas asociadas a una transacción:
 
-1. Senders – the accounts from which HBARs are being sent
-2. Receivers – the accounts to which HBARs are being sent
-3. Payer – the account that pays the fees associated with the transaction.
-4. Network – the Hedera account that receives the component of the fees that compensate the network for processing the transaction.
-5. Node – the account of whichever node submits the transaction to the network for consensus
+1. Remitentes - las cuentas desde las que se envían HBARs
+2. Destinatarios - las cuentas a las que se envían los HBARs
+3. Pagador – la cuenta que paga las comisiones asociadas a la transacción.
+4. Red – la cuenta de Hedera que recibe el componente de las comisiones que compensan la red por procesar la transacción.
+5. Nodo – la cuenta de cualquier nodo que envíe la transacción a la red para el consenso
 
-**Notes**
+**Notas**
 
-- For any transaction, the sum of transfers out of all accounts will always be equal to the sum of all transfers into all accounts.
-- The payer, in general, is different than either the sender or receiver. Nevertheless, a typical case is that the sender will also be the payer.
-- Not all transactions have a sender or receiver as there is no remittance aspect to the transaction, e.g. a FileCreate or ConsensusSubmitMessage transaction will have a fee but no associated remittance.
-- A single CryptoTransfer can have multiple senders and multiple receivers.
-- A remittance can be the number of HBARs a CryptoTransfer directs be moved, the amount of HBARs a CryptoCreate directs be funded into the new account, or the amount of HBARs in an account to be deleted, with those funds moved into another account.
-- A remittance will need to be authorized by the owner of those HBARs.
-- An account owner can specify thresholds for transfers in and out of that account. If a transaction causes an account’s threshold to be triggered, then the record for that transaction will persist for 25 hours and not the default 3 minutes.
-- The account owner that specified the threshold will pay a threshold fee – distinct from the fee for the transaction itself - for that extra storage time.
-- It is account 0.0.98 that receives the component of the transaction fee that compensates all the nodes for their work in processing the transaction into consensus
-- 0.0.98 also collects any threshold record fees
-- As of early February 2024, there are 31 nodes with account numbers in the range of 0.0.3-0.0.4698971.
-- While accounts 0.0.98 and the node accounts are special with respect to receiving fees, they can also send & receive HBARs and, as such, could be the sender or receiver of a transaction.
+- Para cualquier transacción, la suma de transferencias fuera de todas las cuentas será siempre igual a la suma de todas las transferencias en todas las cuentas.
+- El pagador, en general, es diferente del remitente o del receptor. Sin embargo, un caso típico es que el remitente también será el pagador.
+- No todas las transacciones tienen un remitente o receptor ya que no hay ningún aspecto de remisión a la transacción, e. . una transacción FileCreate o ConsensusSubmitMessage tendrá una comisión pero no la remittance asociada.
+- Un solo CryptoTransfer puede tener múltiples emisores y múltiples receptores.
+- Una remesa puede ser el número de HBARs que un CryptoTransfer dirige a mover, la cantidad de HBARs que un CryptoCreate dirige se financia en la nueva cuenta, o la cantidad de HBARs en una cuenta a eliminar, con esos fondos movidos a otra cuenta.
+- Una remisión tendrá que ser autorizada por el propietario de esos HBAR.
+- El propietario de una cuenta puede especificar umbrales para transferencias dentro y fuera de esa cuenta. Si una transacción provoca que se active el umbral de una cuenta, entonces el registro de esa transacción persistirá durante 25 horas y no los 3 minutos por defecto.
+- El propietario de la cuenta que especificó el umbral pagará una tasa de umbral – distinta de la comisión por la transacción misma – por ese tiempo adicional de almacenamiento.
+- Es la cuenta 0.0. 8 que recibe el componente de la cuota de transacción que compensa a todos los nodos por su trabajo en la transformación de la transacción en consenso
+- 0.0.98 también cobra cualquier tasa de umbral
+- A principios de febrero de 2024, hay 31 nodos con números de cuenta en el rango de 0.0.3-0.0.4698971.
+- Mientras las cuentas 0.0. 8 y las cuentas del nodo son especiales con respecto a las comisiones de recepción, también pueden enviar y recibir HBARs y, como tal, podrían ser el remitente o receptor de una transacción.
 
 ### Scenarios
 
-We explore scenarios below and how the HBARs flow between accounts for each.
+Exploramos los escenarios a continuación y cómo fluyen los HBARs entre las cuentas de cada uno.
 
-#### Case 1 - Generic
+#### Caso 1 - Genérico
 
-In the most generic case, a sender is making a remittance to a receiver, and a separate account pays the associated fee. The size of the fee will depend on the nature of the transaction – uploading a large file will cost more than a simple crypto transfer.
+En el caso más genérico un remitente está haciendo una devolución a un receptor, y una cuenta separada paga la cuota asociada. El tamaño de la comisión dependerá de la naturaleza de la transacción. La carga de un archivo grande costará más que una simple transferencia de cifrado.
 
-The amount of that fee is split between account 0.0.98 (a special Hedera account that represents the network) and the specific node that submitted the transaction.
+La cantidad de esa cuota se divide entre la cuenta 0.0. 8 (una cuenta especial de Hedera que representa la red) y el nodo específico que presentó la transacción.
 
 ![](../../../.gitbook/assets/transaction\_records\_1.png)
 
-#### Case 2 - Fees only
+#### Caso 2 - Cuotas sólo
 
-Many transactions do not allow for an explicit remittance, for instance, a FileCreate or a ConsensusSubmitMessage. For such transactions, the only changes to account balances will be due to the fee for that transaction.
+Muchas transacciones no permiten una remisión explícita, por ejemplo, un FileCreate o un ConsensusSubmitMessage. Para estas transacciones, los únicos cambios en los balances de la cuenta se deben a la comisión de esa transacción.
 
-As before, the fee for the transaction is split between 0.0.98 and a node.
+Como antes, la comisión para la transacción se divide en 0.0.98 y un nodo.
 
 ![](../../../.gitbook/assets/transaction\_records\_2.png)
 
-#### Case 3 - Sender account pays fees
+#### Caso 3 - La cuenta del remitente paga cuotas
 
-It will often be the case that the fee for a CryptoTransfer sending remittance from a sender to a receiver is paid for by the sender. In this case, the balance for the sender will decrease by the sum of the remittance and the fee.
+A menudo se da el caso de que la tarifa por un envío de CryptoTransfer de un remitente a un receptor es pagada por el remitente. En este caso, el saldo del remitente disminuirá por la suma de la devolución y la tasa.
 
-In principle, the receiver could pay the fee as well.
+En principio, el receptor también podría pagar la tasa.
 
 ![](../../../.gitbook/assets/transaction\_records\_3.png)
 
-#### Case 4 - Sender account has a threshold that is crossed
+#### Caso 4 - La cuenta del remitente tiene un umbral que se cruza
 
-Account owners can specify thresholds for their accounts so that any transfer in/out of the account that exceeds these thresholds will cause the created record to be persisted for 25 hours and not the default 3 minutes. The account that stipulated the threshold will pay a threshold fee for this prolonged storage of the record.
+Los propietarios de la cuenta pueden especificar umbrales para sus cuentas de modo que cualquier transferencia dentro o fuera de la cuenta que exceda estos umbrales causará que el registro creado persista durante 25 horas y no los 3 minutos por defecto. La cuenta que asfixió el umbral pagará una tasa de umbral por este almacenamiento prolongado del registro.
 
-In this example, the threshold is specified on the sending account, and so it will be that account that pays this threshold fee. That account’s balance consequently decreases by the sum of the remittance and the threshold fee.
+En este ejemplo, el umbral se especifica en la cuenta de envío, por lo que será esa cuenta la que pague esta cuota de umbral. En consecuencia, el saldo de esa cuenta disminuye por la suma de la devolución y la tasa de umbral.
 
-Account 98 receives the sum of the network, service, and also this threshold fee.
+La cuenta 98 recibe la suma de la red, el servicio, y también esta cuota de umbral.
 
-Not shown here but if it were also the case that the sender was paying the transaction fee (as above) then the balance of the sender’s account would decrease by the sum of the remittance, the transaction fee, and this threshold fee.
+No se muestra aquí, pero si fuera también el caso de que el remitente estaba pagando la cuota de transacción (como arriba), entonces el saldo de la cuenta del remitente disminuiría por la suma de la remitencia, la cuota de transacción, y esta cuota de umbral.
 
 ![](../../../.gitbook/assets/transaction\_records\_4.png)
 
-#### Case 5 - Receiver account has a threshold that is crossed
+#### Caso 5 - La cuenta receptora tiene un umbral que se cruza
 
-The receiving account can also have a threshold set that, if surpassed by the amount of HBARs being transferred into the account, will cause the record to be stored for 25 hours.
+La cuenta receptora también puede tener un umbral establecido eso, si se supera por la cantidad de HBARs transferidos a la cuenta, hará que el registro se almacene durante 25 horas.
 
-Threshold records can be particularly useful to receivers as a receiver may not be aware of the remittances sent to them (as they are not necessarily involved in the signing of the transaction, as is the case for the sender). The longer-lived threshold records allow an account owner to query on a daily basis for the records for any and all remittances they’ve received over the past 24 hours that they might not otherwise be aware of.
+Los umbrales pueden ser particularmente útiles para los receptores ya que un receptor puede no ser consciente de las remitencias enviadas a ellos (ya que no están necesariamente involucrados en la firma de la transacción), como es el caso del remitente). Los umbrales de larga duración permiten a un propietario de una cuenta consultar diariamente los registros de todas y cada una de las devoluciones que ha recibido en las últimas 24 horas de las que de otro modo podrían no ser conscientes.
 
-The receiving account will pay the associated threshold fee for this longer storage period of the record.
+La cuenta receptora pagará la cuota de umbral asociada para este período de almacenamiento más largo del registro.
 
-The net balance change of the receiving account will therefore be the remittance minus the threshold fee.
+El cambio de saldo neto de la cuenta receptora será, por lo tanto, la devolución menos la tasa de umbral.
 
-Account 98 receives the sum of the network, service, and the threshold fees.
+La cuenta 98 recibe la suma de la red, el servicio y los umbrales.
 
-The transaction fees are not impacted by the threshold fee being paid.
+Las tasas de transacción no se ven afectadas por la tasa umbral que se está pagando.
 
-If the value of the remittance is less than the threshold fee, the transaction will fail.
+Si el valor de la remisión es menor que la tasa umbral, la transacción fallará.
 
 ![](../../../.gitbook/assets/transaction\_records\_5.png)
 
-#### Case 6 - Node account is receiver
+#### Caso 6 - La cuenta del nodo es receptora
 
-Nodes may receive remittances like any other Hedera account.
+Los nodos pueden recibir remesas como cualquier otra cuenta de Hedera.
 
-As a specific example, clients compensate nodes for responding to a query by including within the query a CryptoTransfer that, when submitted to the network, will compensate that particular node with a suitable remittance.
+Como un ejemplo específico, los clientes compensan los nodos por responder a una consulta incluyendo dentro de la consulta una CryptoTransfer que, cuando se envíe a la red, compensará ese nodo en particular con una remisión adecuada.
 
-In this scenario, the node account’s balance will increase by the sum of the node fee it receives for processing the CryptoTransfer plus the value of the actual remittance that pays the node for the query response.
+En este escenario, el saldo de la cuenta del nodo aumentará por la suma de la cuota de nodo que recibe por procesar el CryptoTransfer más el valor de la remitencia real que paga el nodo por la respuesta a la consulta.
 
 ![](../../../.gitbook/assets/transaction\_records\_6.png)
 
-### Transaction Records
+### Registros de transacción
 
-After Hedera Mainnet nodes process a transaction into consensus state, the details are published to the outside world in a ‘transaction record’ that the nodes create and make available. Clients retrieve records and analyze the data within to verify the consequences of transactions, for instance the consensus timestamp that was assigned and how the associated account balances changed as a result of the transaction.
+Después de que los nodos Hedera Mainnet procesen una transacción en estado de consenso, los detalles se publican al mundo exterior en un “registro de transacciones” que los nodos crean y ponen a su disposición. Los clientes recuperan registros y analizan los datos de dentro para verificar las consecuencias de las transacciones, por ejemplo la marca de tiempo de consenso que fue asignada y cómo los balances de cuenta asociados cambiaron como resultado de la transacción.
 
-When retrieved from a mirror node and not the mainnet, the transaction that resulted in a given record will also be available. It is therefore this combined data structure that provides the richest set of information for analysing and differentiating between remittances and fees.
+Cuando se recupera de un nodo espejo y no del mainnet, la transacción que resultó en un registro dado también estará disponible. Por lo tanto, es esta estructura de datos combinada la que proporciona el conjunto más rico de información para analizar y diferenciar entre reembolsos y tasas.
 
-The flow of information is shown below:
+El flujo de información se muestra a continuación:
 
 ![](../../../.gitbook/assets/transaction\_records\_7.png)
 
-A client that retrieves the pair of a transaction and its associated record may want to distinguish between remittances and fee components for the transaction - that is, what part of an account’s balance change was due to transaction fees, what part due to a threshold fee, and what part due to a remittance.
+Un cliente que recupera el par de una transacción y su registro asociado puede querer distinguir entre remesas y componentes de comisión para la transacción - es decir, que parte del cambio de saldo de una cuenta fue debido a las comisiones de la transacción, qué parte se debe a una tasa de umbral, y qué parte se debe a una devolución.
 
-There is sufficient information in the combination of transaction and corresponding record to allow a client to unambiguously make such a distinction for each account.
+Hay suficiente información en la combinación de la transacción y el registro correspondiente para permitir que un cliente haga esta distinción sin ambigüedades para cada cuenta.
 
-A transaction record has a transfer list data structure that describes how HBARs moved between accounts as a result of the transaction.
+Un registro de transacción tiene una estructura de datos de lista de transferencias que describe cómo se movió HBARs entre cuentas como resultado de la transacción.
 
-In the R3 (the release prior to the update of February 10, 2020) version of the node software, there might be multiple transfers for each account involved in the transaction. For instance, there could be separate transfers indicating the 0.0.98 account receiving fees, which added up to the correct total fee.
+En la versión R3 (la versión anterior a la actualización del 10 de febrero de 2020) del software del nodo, puede haber múltiples transferencias para cada cuenta involucrada en la transacción. Por ejemplo, podría haber transferencias separadas indicando las tasas de recepción de la cuenta 0.0.98, que se sumaron al total correcto de la comisión.
 
-Additionally, in R3
+Adicionalmente, en R3
 
-1. The determination of whether a threshold was exceeded for each account was made for each transfer. Consequently, a single account paying both a remittance and fees could pay for multiple threshold records if the threshold was set very low.
-2. The order of the transfers in the R3 format was not predictable.
+1. La determinación de si se superó un umbral para cada cuenta se realizó para cada transferencia. En consecuencia, una cuenta única que pague tanto una devolución como tasas podría pagar por múltiples registros de umbrales si el umbral se fijara muy bajo.
+2. El orden de las transferencias en formato R3 no era predecible.
 
-We have changed the record transfer list format in the R4 (the release of February 10, 2020) node software to address the above issues and to be more consistent and concise.
+Hemos cambiado el formato de la lista de transferencia de registros en el R4 (la liberación del 10 de febrero 2020) software de nodo para abordar los problemas anteriores y ser más consistente y conciso.
 
-In the R4 release, the record transfer list shows, for all transaction types, only a single net transfer in or out for each relevant account.
+En la versión R4, la lista de transferencia de registros muestra, para todos los tipos de transacciones, sólo una sola transferencia neta dentro o fuera de cada cuenta relevante.
 
-The comparison of transfers in/out to an account’s thresholds is now made on that net transfer, and not on the constituent transfers that summed to the net. Consequently, any account will pay once for only a single threshold fee and not multiple times. This is cheaper for the user.
+La comparación de las transferencias dentro o fuera de los umbrales de una cuenta se hace ahora en esa transferencia neta, y no en las transferencias constituyentes que resumieron a la red. En consecuencia, cualquier cuenta pagará una vez por una única tasa de umbral y no varias veces. Esto es más barato para el usuario.
 
-The change between R3 and R4 is shown below, for a representative transaction in which account 0.0.1002 is sending a remittance of 10,000 tinybars to account 0.0.1001 and both sender and receiver have thresholds of 1,000 tinybars set on their accounts.
+El cambio entre R3 y R4 se muestra a continuación, para una transacción representativa en la que la cuenta 0.0. 002 está enviando una remesa de 10.000 tinybars a la cuenta 0.1001 y tanto el remitente y el receptor tienen umbrales de 1.000 tinybars fijados en sus cuentas.
 
-As the remittance value exceeds these thresholds, both sender and receiver will pay a threshold fee.
+Dado que el valor de remisión excede estos umbrales, tanto el remitente como el receptor pagarán una cuota de umbral.
 
 **R3**
 
@@ -149,6 +149,6 @@ As the remittance value exceeds these thresholds, both sender and receiver will 
 
 ![](../../../.gitbook/assets/r4.jpg)
 
-In the R4 format, the record transfer list no longer has multiple transfers for the different accounts – each account has only a single transfer with a value that reflects the sum of the various transfers that impacted each account.
+En el formato R4, la lista de transferencia de registros ya no tiene múltiples transferencias para las diferentes cuentas – cada cuenta tiene sólo una sola transferencia con un valor que refleja la suma de las distintas transferencias que afectaron a cada cuenta.
 
-While the R4 format is more concise than the R3 format, some clients may want to determine the component transfers - that is to break out remittances, node fees, threshold fees, and other transaction fees. To facilitate this analysis, Hedera plans to add support to the mirror node REST API to allow a client to request either the default aggregated transfer list, or instead an itemized list of transfers (similar to the R3 format).
+Mientras que el formato R4 es más conciso que el formato R3, algunos clientes pueden querer determinar las transferencias de componentes - que es romper las remitencias, cargos por node, umbrales y otras comisiones por transacción. Para facilitar este análisis, Hedera planea añadir soporte a la API REST del nodo espejo para permitir que un cliente solicite la lista de transferencias agregadas por defecto, o en su lugar una lista detallada de transferencias (similar al formato R3).
