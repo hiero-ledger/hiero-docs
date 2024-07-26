@@ -30,7 +30,7 @@
   * [Keys and Signatures](core-concepts/keys-and-signatures.md)
   * [Schedule Transaction](core-concepts/scheduled-transaction.md)
   * [Smart Contracts](core-concepts/smart-contracts/README.md)
-    * [Smart Contracts](<core-concepts/smart-contracts/README (1).md>)
+    * [Smart Contracts](core-concepts/smart-contracts/readme-1.md)
     * [Compiling Smart Contracts](core-concepts/smart-contracts/compiling-smart-contracts.md)
     * [Creating Smart Contracts](core-concepts/smart-contracts/creating-smart-contracts.md)
     * [Understanding Hedera for EVM Developers](core-concepts/smart-contracts/hederas-evm-equivalence-goals-and-exceptions.md)
