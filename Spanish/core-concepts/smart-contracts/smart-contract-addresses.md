@@ -26,7 +26,7 @@ Ejemplo de Contrato EVM Dirección: [`0x86ecca95fecdb515d068975b75eac4357contrac
 
 En la Red Hedera, los contratos inteligentes también se pueden identificar mediante un ID de contrato inteligente. Un ID de contrato inteligente es un identificador de contrato nativo de la red Hedera. Tanto la dirección del contrato inteligente EVM como el ID del contrato inteligente son identificadores aceptados para un contrato inteligente al interactuar con el contrato en Hedera utilizando las transacciones de Hedera.
 
-Ejemplo de ID del contrato: `0.0.123`&#x20
+Example Contract ID: `0.0.123`
 
 En algunos casos, la dirección EVM es el formato codificado por hex del contrato ID.
 
@@ -34,7 +34,7 @@ El ID del contrato inteligente **no es un formato de dirección** aceptado o con
 
 Al ver la información del contrato, puede ver ambos tipos de direcciones anotadas en Exploradores de Red de Hedera como [HashScan](https://hashscan.io/).
 
-<figure><img src="../../.gitbook/assets/contract-hashscan-evm-address-id-example.png" alt=""><figcaption><p>Dirección EVM & ejemplo de ID de contrato en HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/contract ID.png" alt=""><figcaption><p>Dirección EVM & ejemplo de ID de contrato en HashScan</p></figcaption></figure>
 
 ***
 
