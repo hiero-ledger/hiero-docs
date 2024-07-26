@@ -26,7 +26,7 @@ Exemple d'adresse EVM du contrat : [`0x86ecca95fecdb515d068975eac4357contractd6e
 
 Dans le réseau Hedera, les contrats intelligents peuvent également être identifiés par un ID de contrat intelligent. Un identifiant de contrat intelligent est un identifiant de contrat natif du réseau Hedera. L’adresse EVM du contrat intelligent et l’ID du contrat intelligent sont tous deux des identifiants acceptés pour un contrat intelligent lorsqu’ils interagissent avec le contrat sur Hedera en utilisant les transactions Hedera.
 
-Exemple d'ID de contrat: `0.0.123`&#x20
+Example Contract ID: `0.0.123`
 
 Dans certains cas, l'adresse EVM est le format hexadécidé de l'ID du contrat.
 
@@ -34,7 +34,7 @@ L'ID du contrat intelligent n'est **pas compatible** format d'adresse accepté o
 
 Lorsque vous consultez les informations du contrat, vous pouvez voir les deux types d'adresses notées dans Hedera Network Explorers comme [HashScan](https://hashscan.io/).
 
-<figure><img src="../../.gitbook/assets/contract-hashscan-evm-address-id-example.png" alt=""><figcaption><p>Adresse EVM & exemple ID de contrat sur HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/contract ID.png" alt=""><figcaption><p>Adresse EVM & exemple ID de contrat sur HashScan</p></figcaption></figure>
 
 ***
 
