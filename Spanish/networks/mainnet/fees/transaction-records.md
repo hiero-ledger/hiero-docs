@@ -143,7 +143,7 @@ Dado que el valor de remisión excede estos umbrales, tanto el remitente como el
 
 **R3**
 
-![](../../../.gitbook/assets/r3.jpeg)
+![](../../../.gitbook/assets/r3.jpg)
 
 **R4**
 
