@@ -1,75 +1,75 @@
-# Smart Contract Traceability
+# Traceability Smart Contract
 
-After contracts have been deployed, you may want to further investigate the execution of a smart contract function call. Traces provide a comprehensive view of the sequence of operations and their effects, allowing for analysis, debugging, and auditing of smart contract behavior. The two types of useful traces:
+Une fois que les contrats ont été déployés, vous voudrez peut-être approfondir la recherche sur l'exécution d'un appel de fonction de contrat intelligent. Les traces fournissent une vue d'ensemble de la séquence des opérations et de leurs effets, ce qui permet d'analyser, de déboguer et d'auditer les comportements intelligents des contrats. Les deux types de traces utiles :
 
-**➡** [**Call Trace**](smart-contract-traceability.md#call-trace)
+**➡️** [**Trace d'appels**](smart-contract-traceability.md#call-trace)
 
-**➡** [**State Trace**](smart-contract-traceability.md#state-trace)
+**➡️** [**State Trace**](smart-contract-traceability.md#state-trace)
 
 ***
 
-## Call Trace
+## Trace d'appel
 
-Contract **call trace** information captures the input, output, and gas details of all the nested smart contracts functions executed in a transaction. On Ethereum, these are occasionally called inner transactions but they simply capture snapshots of the message frame consideration the EVM encounters when processing a smart contract execution at each depth for all involved functions.
+Les informations du contrat **call trace** saisissent les détails de l'intrant, de la sortie et du gaz de toutes les fonctions imbriquées de contrats intelligents exécutées dans une transaction. Sur Ethereum, Ces opérations sont parfois appelées opérations intérieures, mais elles ne font que capturer des instantanés de la trame de message en tenant compte de la rencontre EVM lors du traitement d'une exécution intelligente de contrat à chaque profondeur pour toutes les fonctions concernées.
 
-<table data-header-hidden><thead><tr><th width="173"></th><th></th></tr></thead><tbody><tr><td><strong>Input Data</strong></td><td>It records the input data or parameters provided when calling a particular function within a smart contract. This input data is essentially the encoded form of the function signature and its arguments.</td></tr><tr><td><strong>Output Data</strong></td><td>After executing the function, the trace information includes the output data returned by that function. This can be the result of the function's computation or any data it generates as part of its execution.</td></tr><tr><td><strong>Gas Details</strong></td><td>Logs information about the gas consumed by each function call. Each operation within a function consumes a certain amount of gas, and this information is tracked to calculate the overall transaction cost.</td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="173"></th><th></th></tr></thead><tbody><tr><td><strong>Input Data</strong></td><td>Il enregistre les données ou paramètres des intrants fournis lors de l'appel d'une fonction particulière dans un contrat intelligent. Ces données d'entrée sont essentiellement la forme codée de la signature de la fonction et de ses arguments.</td></tr><tr><td><strong>Données de sortie</strong></td><td>Après l'exécution de la fonction, les informations de trace incluent les données de sortie retournées par cette fonction. Cela peut être le résultat du calcul de la fonction ou de toute donnée qu'elle génère dans le cadre de son exécution.</td></tr><tr><td><strong>Détails Gaz</strong></td><td>Enregistre les informations sur le gaz consommé par chaque appel de fonction. Chaque opération au sein d'une fonction consomme une certaine quantité de gaz, et cette information est suivie pour calculer le coût global de la transaction.</td></tr></tbody></table>
 
-This information can be queried using the transaction ID or Ethereum transaction hash.
+Ces informations peuvent être consultées en utilisant l'ID de la transaction ou le hash de la transaction Ethereum.
 
-ℹ️ Detailed information for call trace can be found in the Hedera [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract\_action.proto) and includes:
+i Des informations détaillées pour la trace des appels peuvent être trouvées dans la Hedera [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract\_action.proto) et inclut:
 
-<table><thead><tr><th width="178">Call Trace Data</th><th>Description</th></tr></thead><tbody><tr><td><strong>Call Operation Type</strong></td><td><p>Specific type of operation performed during the execution of a smart contract or a transaction in the EVM. Example: “CALL” is an operation type use when a transaction invokes a function within a smart contract. It executes the function and can potentially modify the state of the contract.</p><pre><code>OP_UNKNOWN = 0;
+<table><thead><tr><th width="178">Données de suivi d'appel</th><th>Libellé</th></tr></thead><tbody><tr><td><strong>Call Operation Type</strong></td><td><p>Type d'opération spécifique effectuée lors de l'exécution d'un contrat intelligent ou d'une transaction dans l'EVM. Exemple: “CALL” est un type d'opération utilisé lorsqu'une transaction invoque une fonction dans un contrat intelligent. Il exécute la fonction et peut potentiellement modifier l'état du contrat.</p><pre><code>OP_UNKNOWN = 0;
 OP_CALL = 1;
 OP_CALLCODE = 2;
 OP_DELEGATECALL = 3;
 OP_STATICCALL = 4;
 OP_CREATE = 5;
 OP_CREATE2 = 6;
-</code></pre></td></tr><tr><td><strong>Result Data</strong></td><td>The result data is the output or return values generated by the execution of a smart contract function or action. When a function call is executed, it may produce data as a result, such as computed values, status indicators, contract revert reason if any and the error if the transaction itself failed without an explicit <code>REVERT</code></td></tr><tr><td><strong>Result Data Type</strong></td><td>The "result data type" refers to the data type of the value returned by the function or method. For example, if you have a function <code>add(a, b)</code> that adds two numbers and returns the result, the result data type might be an integer if it returns the sum of the numbers.</td></tr><tr><td><strong>Call Depth</strong></td><td>The level or depth of the current function call within the call stack. It provides information about the nested nature of function calls and helps track the sequence and hierarchy of function invocations during the execution of a smart contract. <br><br>The caller depth indicates how many functions have been called before the current function in the call stack. It starts at 0 for the initial function invocation and increments by 1 for each subsequent function call. <br><br>For example, the parent transaction would be represented as call depth 1 and first child would be at call depth 1.1 and child transaction 2 would be at call depth 1.2. Child transaction at depth 1.2 has two parents.</td></tr><tr><td><strong>Caller</strong></td><td>The caller can be the ID of the account calling the contract or the ID of another smart contract calling the contract. <br><br>The first action in the tree can only come from an account. The rest of the actions in the call tree come from the contract. <br><br>When a smart contract function is invoked, either by an external account or by another contract, the caller address is recorded in the trace to identify the source of the function call. The caller address can be useful in understanding the context of the execution and determining the origin of the transaction or message that triggered the function call.</td></tr><tr><td><strong>Recipient</strong></td><td>The address of the smart contract or account that receives a specific call or transaction. It represents the destination or target of the interaction within the EVM. The contract action can be directed to one of the following: <br><br>• Account: The account ID of the recipient if the recipient is an account. Only HBARs will be transferred. <br>• Contract: The contract ID if the recipient is a smart contract <br>• EVM address : If the contract action was directed to an invalid solidity address, what that address was</td></tr><tr><td><strong>From</strong></td><td>The from Hedera contract calling the next contract.</td></tr><tr><td><strong>To</strong></td><td>The contract receiving the call or being created.</td></tr><tr><td><strong>Value/Amount</strong></td><td>The amount of hbars transferred within this call.</td></tr><tr><td><strong>Gas Limit</strong></td><td>The gas is defined as the upper limit gas this contract call can spend.</td></tr><tr><td><strong>Gas Used</strong></td><td>The amount of gas that was used for the contract call.</td></tr><tr><td><strong>Input</strong></td><td>Bytes passed as an input data to this contract call</td></tr></tbody></table>
+</code></pre></td></tr><tr><td><strong>Result Data</strong></td><td>Les données résultantes sont les valeurs de sortie ou de retour générées par l'exécution d'une fonction ou d'une action de contrat intelligent. Lorsqu'un appel de fonction est exécuté, il peut produire des données comme des valeurs calculées, des indicateurs de statut, le contrat renvoie la raison si l'une et l'erreur si la transaction elle-même a échoué sans un <code>REVERT</code> explicite</td></tr><tr><td><strong>Type de données de résultat</strong></td><td>Le "type de données de résultat" fait référence au type de données de la valeur retournée par la fonction ou la méthode. Par exemple, si vous avez une fonction <code>add(a, b)</code> qui ajoute deux nombres et retourne le résultat, le type de données de résultat peut être un entier s'il retourne la somme des nombres.</td></tr><tr><td><strong>Profondeur d'appel</strong></td><td>Le niveau ou la profondeur de l'appel de la fonction courante dans la pile d'appels. Il fournit des informations sur la nature imbriquée des appels de fonctions et aide à suivre la séquence et la hiérarchie des invocations de fonctions pendant l'exécution d'un contrat intelligent. <br><br>La profondeur de l'appelant indique combien de fonctions ont été appelées avant la fonction courante dans la pile d'appels. Il commence à 0 pour l'invocation et l'incrémentation de la fonction initiale par 1 pour chaque appel de fonction suivante. <br><br>Par exemple, la transaction parent serait représentée comme la profondeur d’appel 1 et le premier enfant serait à la profondeur d’appel 1. et la transaction enfant 2 serait à la profondeur d'appel 1.2. La transaction enfant à la profondeur 1.2 a deux parents.</td></tr><tr><td><strong>Appeler</strong></td><td>L'appelant peut être l'ID du compte appelant le contrat ou l'ID d'un autre contrat intelligent appelant le contrat. <br><br>La première action dans l'arbre ne peut provenir que d'un compte. Le reste des actions dans l'arbre d'appel provient du contrat. <br><br>Lorsqu'une fonction de contrat intelligent est invoquée, soit par un compte externe, soit par un autre contrat, l'adresse de l'appelant est enregistrée dans la trace pour identifier la source de l'appel de fonction. L'adresse de l'appelant peut être utile pour comprendre le contexte de l'exécution et déterminer l'origine de la transaction ou du message qui a déclenché l'appel de fonction.</td></tr><tr><td><strong>Destinataire</strong></td><td>L'adresse du contrat ou du compte intelligent qui reçoit un appel ou une transaction spécifique. Il représente la destination ou la cible de l’interaction au sein de l’EVM. L'action contractuelle peut être dirigée vers l'une des actions suivantes : <br><br>• Compte : l'ID du compte du destinataire si le destinataire est un compte. Seuls les ARH seront transférés. <br>• Contract: The contract ID if the recipient is a smart contract <br>• EVM address : If the contract action was directed to an invalid solidity address, what that address was</td></tr><tr><td><strong>From</strong></td><td>Le contrat de Hedera appelant le prochain contrat.</td></tr><tr><td><strong>To</strong></td><td>Le contrat recevant l'appel ou en cours de création.</td></tr><tr><td><strong>Valeur/Montant</strong></td><td>Le nombre de barres de navigation transférées dans cet appel.</td></tr><tr><td><strong>Limite Gaz</strong></td><td>Le gaz est défini comme le gaz maximal que cet appel contractuel peut dépenser.</td></tr><tr><td><strong>Gaz utilisé</strong></td><td>La quantité de gaz qui a été utilisée pour l'appel de contrat.</td></tr><tr><td><strong>Input</strong></td><td>Octets passés en tant que données d'entrée à cet appel de contrat</td></tr></tbody></table>
 
-**Example**:
+**Exemple** :
 
-<figure><img src="../../.gitbook/assets/smart-contracts-core-concepts-call-trace.png" alt=""><figcaption><p>Call trace example on HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/smart-contracts-core-concepts-call-trace.png" alt=""><figcaption><p>Exemple de trace d'appel sur HashScan</p></figcaption></figure>
 
 ***
 
-## State Trace
+## Extrait d'Etat
 
-Smart Contract state changes will now be tracked whenever a smart contract transaction modifies the state of the contract. This will enable developers to have a paper trail of the state changes that occurred for a contract from the time the contract was created. The state changes that will be tracked include each time a value is read or written to the smart contract. The storage slot represents the order in which the smart contract state is read or written.
+Les changements d'état de Smart Contract seront désormais suivis chaque fois qu'une transaction de contrat intelligent modifie l'état du contrat. Cela permettra aux développeurs d'avoir une trace papier des changements d'état survenus pour un contrat depuis la création du contrat. Les changements d'état qui seront suivis incluent chaque fois qu'une valeur est lue ou écrite sur le contrat intelligent. La fente de stockage représente l'ordre dans lequel l'état du contrat intelligent est lu ou écrit.
 
-The value read reflects the storage value prior to the execution of the smart contract transaction. The value written, if present, represents the final updated value of the storage slot after the completion of the smart contract call. Transient states between the start and finish of the contract are not stored in the transaction record.
+La valeur lue reflète la valeur de stockage avant l'exécution de la transaction de contrat intelligent. La valeur écrite, si elle est présente, représente la valeur mise à jour finale du slot de stockage après la fin de l'appel du contrat intelligent. Les états transitoires entre le début et la fin du contrat ne sont pas stockés dans le dossier de transaction.
 
-ℹ️ Detailed information on state trace can be found in the [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract\_state\_change.proto) and includes:&#x20
+i Informations détaillées sur la trace d'état peuvent être trouvées dans le [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract\_state\_change.proto) et inclut:&#x20
 
-<table><thead><tr><th width="205">State Trace Data</th><th>Description</th></tr></thead><tbody><tr><td>Address</td><td><p>The smart contract EVM address.</p><p>Ex: <code>0000000000000000000000000000000000001f41</code></p></td></tr><tr><td>Contract ID</td><td><p>The smart contract ID.</p><p>Ex: <code>0.0.1234</code></p></td></tr><tr><td>Slot</td><td>Refers to a storage location where data is stored within the contract's state. It can also be thought of as a variable or a storage unit that holds a specific value.</td></tr><tr><td>Value Read</td><td>The current values of variables or data structures before making modifications. These values can be used to validate conditions, perform calculations, or trigger specific actions within the contract's code.</td></tr><tr><td>Value Written</td><td>The written or changed variables or data structures after the modification.</td></tr></tbody></table>
+<table><thead><tr><th width="205">Données de suivi d'état</th><th>Libellé</th></tr></thead><tbody><tr><td>Adresses</td><td><p>L'adresse EVM du contrat intelligent.</p><p>Ex: <code>0000000000000000000000000000000000001f41</code></p></td></tr><tr><td>ID du contrat</td><td><p>L'ID du contrat intelligent.</p><p>Ex: <code>0.0.1234</code></p></td></tr><tr><td>Emplacement</td><td>Se réfère à un emplacement de stockage où les données sont stockées dans l'état du contrat. Il peut également être considéré comme une variable ou une unité de stockage qui contient une valeur spécifique.</td></tr><tr><td>Valeur lue</td><td>Les valeurs courantes des variables ou des structures de données avant de faire des modifications. Ces valeurs peuvent être utilisées pour valider les conditions, effectuer des calculs ou déclencher des actions spécifiques dans le code du contrat.</td></tr><tr><td>Valeur écrite</td><td>Les variables ou structures de données écrites ou modifiées après la modification.</td></tr></tbody></table>
 
-### Consensus Node
+### Noeud de consensus
 
-Consensus nodes store sidecar records called `ContractStateChanges`. Each time a smart contract state changes, a new record will be produced that commemorates the state changes for the contract that took place.
+Les nœuds de consensus stockent les enregistrements sidecar appelés `ContractStateChanges`. Chaque fois qu'un contrat intelligent change, un nouveau record sera produit pour commémorer les changements d'état du contrat qui ont eu lieu.
 
-### Mirror Node
+### Noeud miroir
 
-The Hedera [mirror node](../../support-and-community/glossary.md#mirror-nodes) supports two rest APIs that return information about the smart contract’s state changes. This includes:
+Le [nœud miroir](../../support-and-community/glossary.md#mirror-nodes) supporte deux API restantes qui retournent des informations sur les changements d'état du contrat intelligent. Cela comprend :
 
 - `/api/v1/contracts/{id}/results/{timestamp}`
 - `/api/v1/contracts/results/{transactionIdOrHash}`
 
-**Example:**
+**Exemple :**
 
 ```
     "state_changes": [
       {
-        "address": "0000000000000000000000000000000000001f41",
+        "address": "000000000000000000000000000000000000000000001f41",
         "contract_id": "0.1.2",
-        "slot": "0x00000000000000000000000000000000000000000000000000000000000000fa",
-        "value_read": "0x97c1fc0a6ed5551bc831571325e9bdb365d06803100dc20648640ba24ce69750",
-        "value_written": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+        "slot": "0x0000000000000000000000000000000000000000000000000000000000fa",
+        "value_read": "0x97c1fc0a6ed5551bc831571325e9bdb365d06803100dc20640ba24ce69750",
+        "value_written": "0x8c5be1e5d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
       }
-    ]
+
 ```
 
-### Hedera Mirror Node Explorer
+### Explorateur de nœud miroir Hedera
 
-State trace can be viewed on a supported Hedera Network Explorer.
+La trace d'état peut être consultée sur un explorateur réseau Hedera pris en charge.
 
-<figure><img src="../../.gitbook/assets/smart-contracts-network-explorer-example.png" alt=""><figcaption><p>State trace example on HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/smart-contracts-network-explorer-example.png" alt=""><figcaption><p>exemple de trace d'état sur HashScan</p></figcaption></figure>

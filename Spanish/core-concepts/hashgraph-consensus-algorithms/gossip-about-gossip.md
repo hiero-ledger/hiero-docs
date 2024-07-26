@@ -1,28 +1,28 @@
-# Gossip About Gossip
+# Chisma sobre chismes
 
-Hashgraph consensus uses a **gossip protocol**. This means that a member such as Alice will choose another member at random, such as Bob, and then Alice will tell Bob all of the information she knows so far. Alice then repeats with a different random member. Bob repeatedly does the same, and all other members do the same. In this way, if a single member becomes aware of new information, it will spread exponentially fast through the community until every member is aware of It.
+El consenso de Hashgraph utiliza un **protocolo de chismes**. Esto significa que un miembro como Alice elegirá a otro miembro al azar, como Bob, y entonces Alice le dirá a Bob toda la información que conoce hasta ahora. Alice luego se repite con un miembro aleatorio diferente. Bob hace repetidamente lo mismo y todos los demás miembros hacen lo mismo. De esta manera, si un solo miembro tiene conocimiento de la nueva información, se extenderá exponencialmente rápidamente a través de la comunidad hasta que cada miembro sea consciente de ello.
 
-The synchronization of information between two members through the gossip protocol is called a **gossip sync**. Upon completion of a gossip sync, each participating member commemorates the gossip sync with an event. An **event** is stored in memory as a data structure composed of a timestamp, an array of zero or more transactions, two parent hashes, and a cryptographic signature. The two parent hashes are the hash of the last event created by the self-parent prior to the gossip sync and the hash of the last event created by the other-parent prior to the gossip sync. For example, if Alice and Bob perform a gossip sync, Alice would create a new event commemorating the gossip sync where the self-parent hash would be the hash of the last event Alice created prior to the gossip sync and the other-parent hash would be the hash of the last event Bob created prior to the gossip sync. Bob would also create an event commemorating the gossip sync, but the self-parent hash would be the hash of the last event he created before the gossip sync and the other-parent hash would be the hash of the last event Alice created before the gossip sync. Gossip continues until all members have received the newly created event.
+La sincronización de la información entre dos miembros a través del protocolo de chismes se llama una **sincronización de chismes**. Al finalizar la sincronización de chismes, cada miembro participante conmemora la sincronización de chismes con un evento. Un **evento** se almacena en memoria como una estructura de datos compuesta por una marca de tiempo, un array de cero o más transacciones, dos hash padre, y una firma criptográfica. Los dos hash padre son el hash del último evento creado por el auto padre antes de la sincronización de chismes y el hash del último evento creado por el otro padre antes de la sincronización de chismes. Por ejemplo, si Alice y Bob realizan una sincronización de chismes, Alice crearía un nuevo evento que conmemore la sincronización de chismes, donde el hash auto-padre sería el hash del último evento creado por Alice antes de la sincronización de chismes y el hash del otro padre sería el hash del último Bob de eventos creado antes de la sincronización de chismes. Bob también crearía un evento conmemorando la sincronización de chismes, pero el hash auto-padre sería el hash del último evento que creó antes de la sincronización de chismes y el hash de otro padre sería el hash del último evento creado por Alice antes de la sincronización de chismes. Los chismes continúan hasta que todos los miembros hayan recibido el evento recién creado.
 
-## Gossip About Gossip
+## Chisma sobre chismes
 
-The history of how these events are related to each other through their parent hashes is called **gossip about gossip**. This history expresses itself as a type of directed acyclic graph \(DAG\), a graph of hashes, or a hashgraph. The hashgraph records the history of how members communicated. It grows directionally over time as more gossip syncs take place and events are created. All members keep a local copy of the hashgraph which continues to update as members sync with one another.
+La historia de cómo estos eventos están relacionados entre sí a través de sus hash padres se llama **chismes sobre los chismes**. Esta historia se expresa como un tipo de gráfica acíclica dirigida \(DAG\), una gráfica de hashes, o un hashgraph. El hashgraph registra la historia de cómo se comunicaron los miembros. Crece directamente con el tiempo a medida que se producen más sincronizaciones de chismes y se crean eventos. Todos los miembros mantienen una copia local del hashgraph que continúa actualizándose a medida que los miembros se sincronizan entre sí.
 
-These hashgraphs may be slightly different at any given moment, but they will always be consistent. Consistent means that if \[Alice\] and \[Bob\] both contain event x, then they will both contain exactly the same set of ancestors for x, and will both contain exactly the same set of edges between those ancestors.
+Estos hashgraphs pueden ser ligeramente diferentes en cualquier momento, pero siempre serán coherentes. Consistente significa que si \[Alice\] y \[Bob\] contienen el evento x, ambos contendrán exactamente el mismo conjunto de antepasados para x, y ambos contendrán exactamente el mismo conjunto de bordes entre esos antepasados.
 
-Each event contains the following:
+Cada evento contiene lo siguiente:
 
 - Timestamp
-- Two hashes of two events below itself
-  - Self-parent
-  - Other-parent
-- Transactions
-- Digital signature
+- Dos hash de dos eventos a continuación
+  - Auto-padre
+  - Otro-padre
+- Transacciones
+- Firma digital
 
-| Item                                   | Description                                                                      |
-| :------------------------------------- | :------------------------------------------------------------------------------- |
-| **Timestamp:**         | The timestamp of when the member created the event commemorating the gossip sync |
-| **Transactions:**      | The event can hold zero or more transactions                                     |
-| **Hash 1:**            | Self-parent hash                                                                 |
-| **Hash 2:**            | Other-parent hash                                                                |
-| **Digital Signature:** | Cryptographically signed by the creator of the event                             |
+| Objeto                               | Descripción                                                                                            |
+| :----------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| **Marca de tiempo:** | Marca de tiempo del momento en que el miembro creó el evento conmemorando la sincronización de chismes |
+| **Transacciones:**   | El evento puede contener cero o más transacciones                                                      |
+| **Hash 1:**          | Hashh auto-padre                                                                                       |
+| **Hash 2:**          | Hash Otro-padre                                                                                        |
+| **Firma digital:**   | Criptográficamente firmado por el creador del evento                                                   |

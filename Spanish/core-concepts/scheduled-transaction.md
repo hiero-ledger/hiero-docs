@@ -1,42 +1,42 @@
-# Schedule Transaction
+# Programar transacción
 
-## Overview
+## Resumen
 
-A **schedule transaction** is a transaction with the ability to collect the required signatures on a Hedera network in preparation for its execution. Unlike other Hedera transactions, this allows you to queue a transaction for execution in the event you do not have all the required signatures for the network to immediately process the transaction. A scheduled transaction is used to create a scheduled transaction. This feature is ideal for transactions that require multiple signatures.
+Una **transacción programada** es una transacción con la capacidad de recoger las firmas requeridas en una red Hedera como preparación para su ejecución. A diferencia de otras transacciones de Hedera, esto le permite poner en cola una transacción para su ejecución en el caso de que no tenga todas las firmas requeridas para que la red procese inmediatamente la transacción. Una transacción programada se utiliza para crear una transacción programada. Esta característica es ideal para transacciones que requieren múltiples firmas.
 
-When a user creates a scheduled transaction, the network creates a scheduled entity. The scheduled entity receives an entity ID just like accounts, tokens, etc called a schedule ID. The schedule ID is used to reference the scheduled transaction that was created. The transaction that is being scheduled is referenced by a scheduled transaction ID.&#x20
+Cuando un usuario crea una transacción programada, la red crea una entidad programada. La entidad programada recibe un ID de entidad al igual que las cuentas, tokens, etc llamado un ID de programación. El ID del programa se utiliza para hacer referencia a la transacción programada que fue creada. La transacción que está siendo programada es referenciada por un ID de transacción programada.&#x20
 
-Signatures are appended to the scheduled transaction by submitting a `ScheduleSign` transaction. The `ScheduleSign` transaction requires the schedule ID of the scheduled transaction the signatures will be appended to. In its current design, a scheduled transaction has 30 minutes to collect all required signatures before the scheduled transaction can be executed or will be deleted from the network. You can delete a scheduled transaction by setting an admin key to delete a scheduled transaction before it is executed or deleted by the network.
+Las firmas se añaden a la transacción programada enviando una transacción `ScheduleSign`. La transacción `ScheduleSign` requiere el ID de horario de la transacción programada a la que se añadirán las firmas. En su diseño actual, una transacción programada tiene 30 minutos para recoger todas las firmas requeridas antes de que la transacción programada pueda ser ejecutada o será borrada de la red. Puede eliminar una transacción programada estableciendo una clave de administración para eliminar una transacción programada antes de que sea ejecutada o eliminada por la red.
 
-You can request the current state of a scheduled transaction by querying the network for `ScheduleGetInfo`. The request will return the following information:
+Puede solicitar el estado actual de una transacción programada consultando la red para `ScheduleGetInfo`. La solicitud devolverá la siguiente información:
 
-- Schedule ID
-- Account ID that created the scheduled transaction
-- Account ID that paid for the creation of the scheduled transaction
-- Transaction body of the inner transaction
-- Transaction ID of the inner transaction
-- Current list of signatures
-- Admin key (if any)
-- Expiration time
-- The timestamp of when the transaction was deleted, if true
+- Programar ID
+- ID de cuenta que creó la transacción programada
+- ID de cuenta que pagó por la creación de la transacción programada
+- Cuerpo de la transacción interna
+- ID de la transacción interna
+- Lista actual de firmas
+- Clave de administrador (si existe)
+- Tiempo de caducidad
+- La marca de tiempo de cuando la transacción fue eliminada, si es verdadera
 
-The design document for this feature can be referenced [here](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md).
+El documento de diseño para esta característica puede referenciarse [here](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md).
 
-**Schedule Transaction ID**
+**Programar ID de la transacción**
 
-Hedera Transaction IDs are composed of the account ID submitting the transaction and the transaction valid start time in seconds.nanoseconds (`0.0.1234@1615422161.673238162`). The transaction ID for a scheduled transaction will include "`?schedule`" at the end of the transaction ID which identifies the transaction as a scheduled transaction i.e. `0.0.1234@1615422161.673238162?scheduled`. The transaction ID of the scheduled (inner) transaction inherits the transaction valid start time and account ID from the scheduled (outer) transaction.
+Los ID de la transacción Hedera Transaction son compuestos por el ID de la cuenta que envía la transacción y la hora de inicio válida en seconds.nanoseconds (`0.0.1234@1615422161.673238162`). El ID de transacción para una transacción programada incluirá "`? chedule`" al final del ID de la transacción que identifica la transacción como una transacción programada i. . `0.0.1234@1615422161.673238162`. El ID de transacción de la transacción programada (interior) hereda la hora de inicio y el ID de la cuenta de la transacción programada (exterior).
 
-**Schedule Transaction Receipts**
+**Programar recibos de transacción**
 
-The transaction receipt for a schedule that was created contains the new schedule entity ID and the scheduled transaction ID. The scheduled transaction ID is used to request records for the inner transaction upon successful execution.
+El recibo de la transacción de un programa que fue creado contiene el nuevo ID de entidad de programación y el ID de transacción programada. El ID de transacción programada se utiliza para solicitar registros de la transacción interna cuando se ejecutó con éxito.
 
-**Schedule Transaction Records**
+**Programar registros de transacción**
 
-Transaction records are created when the scheduled transaction is created, for each signature that was appended, when the scheduled transaction is executed, and if the scheduled transaction was deleted by a user. The record of a scheduled transaction includes a schedule reference property which is the ID of the schedule the record is associated with. To get the transaction record for the inner transaction after successful execution, you can do the following:
+Los registros de transacción se crean cuando se crea la transacción programada, para cada firma que fue añadida, cuando se ejecuta la transacción programada, y si la transacción programada fue borrada por un usuario. El registro de una transacción programada incluye una propiedad de referencia de horario, que es el ID del programa con el que el registro está asociado. Para obtener el registro de transacción para la transacción interna después de la ejecución exitosa, puede hacer lo siguiente:
 
-1. Poll the network for the specified scheduled transaction ID. Once the scheduled transaction executes the scheduled transaction successfully, request the record for the scheduled transaction using the scheduled transaction ID.
-2. Query a Hedera mirror node for the scheduled transaction ID.
-3. Run your own mirror node and query for the scheduled transaction ID.
+1. Encuentre la red para el ID de transacción programada especificada. Una vez que la transacción programada ejecuta la transacción programada con éxito, solicite el registro de la transacción programada usando el ID de transacción programada.
+2. Consulta un nodo espejo de Hedera para el ID de transacción programada.
+3. Ejecute su propio nodo espejo y consulta para el ID de transacción programada.
 
 ## FAQ
 
@@ -44,9 +44,9 @@ Transaction records are created when the scheduled transaction is created, for e
 
 <summary>What is the difference between a schedule transaction and scheduled transaction?</summary>
 
-A _**schedule transaction**_ is a transaction that can schedule any Hedera transaction with the ability to collect the required signatures on the Hedera network in preparation for its execution.
+Una _**transacción de programación**_ es una transacción que puede programar cualquier transacción de Hedera con la capacidad de recoger las firmas requeridas en la red Hedera para preparar su ejecución.
 
-A _**scheduled transaction**_ is a transaction that has already been scheduled.
+Una _**transacción programada**_ es una transacción que ya ha sido programada.
 
 </details>
 
@@ -54,7 +54,7 @@ A _**scheduled transaction**_ is a transaction that has already been scheduled.
 
 <summary>Is there an entity ID assigned to a schedule transaction?</summary>
 
-Yes, the entity ID is referred to as the schedule ID which is returned in the receipt of the ScheduleCreate transaction.
+Sí, el ID de la entidad se refiere como el ID de schedule que se devuelve en el recibo de la transacción ScheduleCreate .
 
 </details>
 
@@ -62,7 +62,7 @@ Yes, the entity ID is referred to as the schedule ID which is returned in the re
 
 <summary>What transactions can be scheduled?</summary>
 
-In its early iteration, a small subset of transactions will be schedulable. You check out [this](../sdks-and-apis/sdks/schedule-transaction/create-a-schedule-transaction.md) page for a list of transaction types that are supported today. All other transaction types will be available to schedule in future releases. The complete list of transactions that users can schedule in the future can be found here.
+En su primera iteración, un pequeño subconjunto de transacciones será programable. Echa un vistazo a la página [this](../sdks-and-apis/sdks/schedule-transaction/create-a-schedule-transaction.md) para una lista de tipos de transacciones soportadas hoy. Todos los demás tipos de transacciones estarán disponibles para programar en futuras versiones. La lista completa de transacciones que los usuarios pueden programar en el futuro se puede encontrar aquí.
 
 </details>
 
@@ -70,11 +70,11 @@ In its early iteration, a small subset of transactions will be schedulable. You 
 
 <summary>How can I find a schedule transaction that requires my signature?</summary>
 
-- The creator of the scheduled transaction can provide you a schedule ID which you specify in the ScheduleSign transaction to submit your signature.
+- El creador de la transacción programada puede proporcionarte un ID de programación que especifiques en la transacción de ScheduleSign para enviar tu firma.
 
 <!---->
 
-- You can query a mirror node to return all schedule transactions that have your public key associated with it. This option is not available today, but is planned for the future.
+- Puede consultar un nodo réplica para devolver todas las transacciones programadas que tengan su clave pública asociada a él. Esta opción no está disponible hoy, pero está prevista para el futuro.
 
 </details>
 
@@ -82,7 +82,7 @@ In its early iteration, a small subset of transactions will be schedulable. You 
 
 <summary>What happens if the scheduled transaction does not have sufficient balance?</summary>
 
-If the scheduled transaction (inner transaction) fee payer does not have sufficient balance then the inner transaction will fail while the schedule transaction (outer transaction) will be successful.
+Si el pagador de la transacción programada (transacción interna) no tiene saldo suficiente, la transacción interna fallará mientras que la transacción programada (transacción externa) será exitosa.
 
 </details>
 
@@ -90,7 +90,7 @@ If the scheduled transaction (inner transaction) fee payer does not have suffici
 
 <summary>Can you delay a transaction once it has been scheduled?</summary>
 
-No, you cannot delay or modify a scheduled transaction once it's been submitted to a network. You would need to delete the schedule transaction and create a new one with the modifications.
+No, no puede retrasar o modificar una transacción programada una vez que ha sido enviada a una red. Necesitaría eliminar la transacción de programación y crear una nueva con las modificaciones.
 
 </details>
 
@@ -98,8 +98,8 @@ No, you cannot delay or modify a scheduled transaction once it's been submitted 
 
 <summary>What happens if multiple users create the same schedule transaction?</summary>
 
-- The first transaction to reach consensus will create the schedule transaction and provide the schedule entity ID
-- The other users will get the schedule ID in the receipt of the transaction that was submitted. The receipt status will result in `IDENTICAL_SCHEDULE_ALREADY_CREATED`. These users would need to submit a ScheduleSign transaction to append their signatures to the schedule transaction.
+- La primera transacción en alcanzar un consenso creará la transacción de programación y proporcionará el ID de entidad de programación
+- Los otros usuarios obtendrán el ID del horario en el recibo de la transacción que fue enviada. El estado de recibo resultará en `IDENTICAL_SCHEDULE_ALREADY_CREATED`. Estos usuarios necesitarían enviar una transacción de ScheduleSign para añadir sus firmas a la transacción de programación.
 
 </details>
 
@@ -107,7 +107,7 @@ No, you cannot delay or modify a scheduled transaction once it's been submitted 
 
 <summary>When does the scheduled transaction execute?</summary>
 
-The scheduled transaction executes when the last signature is received.
+La transacción programada se ejecuta cuando se recibe la última firma.
 
 </details>
 
@@ -115,15 +115,15 @@ The scheduled transaction executes when the last signature is received.
 
 <summary>How often does the network check to see if the scheduled transaction (inner transaction) has met the signature requirement?</summary>
 
-Every time the schedule transaction is signed.
+Cada vez que se firma la transacción de programación.
 
 </details>
 
 <details>
 
-<summary>How do you get information about a schedule transaction?</summary>
+<summary>¿Cómo obtener información sobre una transacción de programación?</summary>
 
-You can submit a [schedule info query](../sdks-and-apis/sdks/schedule-transaction/get-schedule-info.md) request to the network.
+Puedes enviar una [consulta de información de programa](../sdks-and-apis/sdks/schedule-transaction/get-schedule-info.md) a la red.
 
 </details>
 
@@ -131,7 +131,7 @@ You can submit a [schedule info query](../sdks-and-apis/sdks/schedule-transactio
 
 <summary>When does a scheduled transaction expire?</summary>
 
-A scheduled transaction expires in 30 minutes. In future implementations, we will allow the user to set the time at which the scheduled transaction should execute at, and the transaction will expire at that time.
+Una transacción programada expira en 30 minutos. En futuras implementaciones, permitiremos al usuario establecer la hora en la que la transacción programada debe ejecutarse, y la transacción caducará en ese momento.
 
 </details>
 
@@ -139,6 +139,6 @@ A scheduled transaction expires in 30 minutes. In future implementations, we wil
 
 <summary>What does a schedule transaction receipt contain?</summary>
 
-The transaction receipt for a schedule that was created contains the new schedule entity ID and the scheduled transaction ID.
+El recibo de la transacción de un programa que fue creado contiene el nuevo ID de entidad de programación y el ID de transacción programada.
 
 </details>

@@ -1,39 +1,39 @@
-# Transfer HBAR
+# Transferir HBAR
 
 ## Summary
 
-In this section, you will learn how to transfer **HBAR** from your account to another on the Hedera test network.
+En esta sección, aprenderás a transferir **HBAR** de tu cuenta a otra en la red de pruebas de Hedera.
 
 ***
 
-## Prerequisites <a href="#pre-requisites" id="pre-requisites"></a>
+## Prerrequisitos <a href="#pre-requisites" id="pre-requisites"></a>
 
-- Completed the [Introduction](introduction.md) step.
-- Completed the [Environment Setup](environment-set-up.md) step.
-- Completed the [Created an Account](create-an-account.md) step.
+- Completado el paso [Introduction](introduction.md)
+- Completado el paso [Configuración del entorno](environment-set-up.md.
+- Completado el paso [Creado una Cuenta](create-an-account.md)
 
 {% hint style="info" %}
-_**Note:** You can always check the "_[_Code Check ✅_](transfer-hbar.md#code-check) _" section at the bottom of each page to view the entire code if you run into issues. You can also post your issue to the respective SDK channel in our Discord community_ [_here_](http://hedera.com/discord) _or on the GitHub repository_ [_here_](https://github.com/hashgraph/hedera-docs)_._
+_**Nota:** Siempre puedes comprobar "_[_Code Check ✅_](transfer-hbar. d#code-check) _" sección en la parte inferior de cada página para ver el código completo si tiene problemas. También puedes publicar tu problema en el canal SDK respectivo en nuestra comunidad de Discord_ [_here_](http://hedera. om/discord) _o en el repositorio de GitHub_ [_here_](https://github.com/hashgraph/hedera-docs)_._
 {% endhint %}
 
 ***
 
-## Step 1. Create a transfer transaction
+## Paso 1. Crear transacción de transferencia
 
-Use your new account created in the "[Create an account](create-an-account.md)" section and transfer 1,000 **tinybars** from your account to the new account. The account sending the **HBAR** needs to sign the transaction using its private keys to authorize the transfer. Since you are transferring from the account associated with the client, you do not need to explicitly sign the transaction as the operator account(account transferring the **HBAR**) signs all transactions to authorize the payment of the transaction fee.
+Usa tu nueva cuenta creada en la sección "[Crear una cuenta](create-an-account.md)" y transfiere 1.000 **tinybars** de tu cuenta a la nueva cuenta. La cuenta que envía el **HBAR** necesita firmar la transacción usando sus claves privadas para autorizar la transferencia. Puesto que estás transfiriendo desde la cuenta asociada al cliente, no necesitas firmar explícitamente la transacción ya que la cuenta del operador (cuenta que transfiere el **HBAR**) firma todas las transacciones para autorizar el pago de la tarifa de la transacción.
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-//System.out.println("The new account balance is: " +accountBalance.hbars);
+//System.out.println("El nuevo saldo de cuenta es: " +accountBalance. barras);
 //-----------------------<enter code below>--------------------------------------
 
 //Transfer HBAR
 TransactionResponse sendHbar = new TransferTransaction()
-     .addHbarTransfer(myAccountId, Hbar.fromTinybars(-1000)) //Sending account
-     .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000)) //Receiving account
-     .execute(client);
+     . ddHbarTransfer(myAccountId, Hbar.fromTinybars(-1000)) //Enviando cuenta
+     .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000)) //Recibiendo cuenta
+     .execute(cliente);
 ```
 
 {% endtab %}
@@ -41,14 +41,14 @@ TransactionResponse sendHbar = new TransferTransaction()
 {% tab title="JavaScript" %}
 
 ```javascript
-//console.log("The new account balance is: " +accountBalance.hbars.toTinybars() +" tinybar.");
-//-----------------------<enter code below>--------------------------------------
+//console.log("El nuevo saldo de cuenta es: " +accountBalance.hbars.toTinybars() +" tinybar. );
+//-------------------------------<enter code below>------------------------------
 
-//Create the transfer transaction
+//Crear la transacción de transferencia
 const sendHbar = await new TransferTransaction()
-     .addHbarTransfer(myAccountId, Hbar.fromTinybars(-1000)) //Sending account
-     .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000)) //Receiving account
-     .execute(client);
+     . ddHbarTransfer(myAccountId, Hbar.fromTinybars(-1000)) //Enviando cuenta
+     .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000)) //Recibiendo cuenta
+     .execute(cliente);
 ```
 
 {% endtab %}
@@ -56,17 +56,17 @@ const sendHbar = await new TransferTransaction()
 {% tab title="Go" %}
 
 ```java
-//Print the balance of tinybars
-//fmt.Println("The account balance for the new account is ", accountBalance.Hbars.AsTinybar())
+//Imprime el saldo de tinybars
+//fmt.Println("El saldo de la cuenta para la nueva cuenta es ", accountBalance.Hbars. sTinybar())
 //-----------------------<enter code below>--------------------------------------
 
-//Transfer hbar from your testnet account to the new account
-transaction := hedera.NewTransferTransaction().
+//Transferencia hbar de tu cuenta testnet a la nueva cuenta
+transacción := hedera.NewTransferTransaction().
         AddHbarTransfer(myAccountId, hedera.HbarFrom(-1000, hedera.HbarUnits.Tinybar)).
-        AddHbarTransfer(newAccountId,hedera.HbarFrom(1000, hedera.HbarUnits.Tinybar))
+        AddHbarTransfer(newAccountId,hedera.HbarFrom(1000, hedera.HbarUnits. inybar))
 
-//Submit the transaction to a Hedera network
-txResponse, err := transaction.Execute(client)
+//Envía la transacción a una red Hedera
+txResponse, err := transacción. xecute(client)
 
 if err != nil {
     panic(err)
@@ -77,20 +77,20 @@ if err != nil {
 {% endtabs %}
 
 {% hint style="info" %}
-_**Note:** The net value of the transfer must equal zero (the total number of_ **HBAR** _sent by the sender must equal the total number of_ **HBAR** _received by the recipient)._
+_**Nota:** El valor neto de la transferencia debe ser igual a cero (el número total de_ **HBAR** _enviado por el remitente debe ser igual al número total de_ **HBAR** _recibido por el destinatario).
 {% endhint %}
 
 ***
 
-## Step 2. Verify the transfer transaction reached consensus
+## Paso 2. Verificar el consenso alcanzado en la transacción de transferencia
 
-To verify the transfer transaction reached consensus by the network, you will submit a request to obtain the receipt of the transaction. The receipt status will let you know if the transaction was successful (reached consensus) or not.
+Para verificar la transacción de transferencia alcanzada por la red, usted presentará una solicitud para obtener la recepción de la transacción. El estado del recibo le informará si la transacción fue exitosa (alcanzado consensus) o no.
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client).status);
+System.out.println("La transacción de transferencia fue: " +sendHbar.getReceipt(cliente).status);
 ```
 
 {% endtab %}
@@ -98,9 +98,9 @@ System.out.println("The transfer transaction was: " +sendHbar.getReceipt(client)
 {% tab title="JavaScript" %}
 
 ```javascript
-//Verify the transaction reached consensus
+//Verificar la transacción alcanzado consenso
 const transactionReceipt = await sendHbar.getReceipt(client);
-console.log("The transfer transaction from my account to the new account was: " + transactionReceipt.status.toString());
+consola. og("La transacción de mi cuenta a la nueva cuenta fue: " + transactionReceipt.status.toString());
 ```
 
 {% endtab %}
@@ -108,17 +108,17 @@ console.log("The transfer transaction from my account to the new account was: " 
 {% tab title="Go" %}
 
 ```java
-//Request the receipt of the transaction
-transferReceipt, err := txResponse.GetReceipt(client)
+//Solicita la recepción de la transacción
+transferRecipt, err := txResponse. etReceipt(client)
 
 if err != nil {
     panic(err)
 }
 
-//Get the transaction consensus status
-transactionStatus := transferReceipt.Status
+//Obtener el estado del consenso de transacción
+transactionStatus := transferRecipt. tatus
 
-fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
+fmt.Printf("El estado del consenso de transacciones es %v\n", transactionStatus)
 ```
 
 {% endtab %}
@@ -126,9 +126,9 @@ fmt.Printf("The transaction consensus status is %v\n", transactionStatus)
 
 ***
 
-## Code Check ✅
+## Comprobar código ✅
 
-Your complete code file should look something like this:
+Tu archivo de código completo debería verse algo así:
 
 <details>
 
@@ -216,74 +216,74 @@ public class HederaExamples {
 ```javascript
 const {
   Hbar,
-  Client,
+  Cliente,
   PrivateKey,
   AccountBalanceQuery,
-  TransferTransaction,
+  Transferencia,
   AccountCreateTransaction,
 } = require("@hashgraph/sdk");
-require("dotenv").config();
+requerido("dotenv"). onfig();
 
 async function environmentSetup() {
-  // Grab your Hedera testnet account ID and private key from your .env file
-  const myAccountId = process.env.MY_ACCOUNT_ID;
-  const myPrivateKey = process.env.MY_PRIVATE_KEY;
+  // Acoge el ID de tu cuenta testnet de Hedera y la clave privada de tu . archivo nv
+  const myAccountId = process.env. Y_ACCOUNT_ID;
+  const myPrivateKey = process.env. PLAYLIST_BTN
 
-  // If we weren't able to grab it, we should throw a new error
+  // Si no fuimos capaces de agarrarlo, deberíamos lanzar un nuevo error
   if (myAccountId == null || myPrivateKey == null) {
     throw new Error(
-      "Environment variables myAccountId and myPrivateKey must be present"
+      "Las variables de entorno myAccountId y myPrivateKey deben estar presentes"
     );
   }
 
-  // Create your connection to the Hedera network
-  const client = Client.forTestnet();
+  // Crea tu conexión a la red Hedera
+  const client = Client. orTestnet();
 
-  //Set your account as the client's operator
-  client.setOperator(myAccountId, myPrivateKey);
+  //Establecer su cuenta como el operador del cliente
+  cliente. etOperator(myAccountId, myPrivateKey);
 
-  // Set default max transaction fee & max query payment
+  // Establecer la cuota máxima de transacción por defecto y el pago máximo de la consulta
   client.setDefaultMaxTransactionFee(new Hbar(100));
-  client.setDefaultMaxQueryPayment(new Hbar(50));
+  cliente. etDefaultMaxQueryPayment(new Hbar(50));
 
-  // Create new keys
+  // Crear nuevas claves
   const newAccountPrivateKey = PrivateKey.generateED25519();
-  const newAccountPublicKey = newAccountPrivateKey.publicKey;
+  const newAccountPublicKey = newAccountPrivateKey. ublicKey;
 
-  // Create a new account with 1,000 tinybar starting balance
+  // Crear una nueva cuenta con 1, 00 tinybar starting balance
   const newAccountTransactionResponse = await new AccountCreateTransaction()
-    .setKey(newAccountPublicKey)
+    . etKey(newAccountPublicKey)
     .setInitialBalance(Hbar.fromTinybars(1000))
-    .execute(client);
+    . xecute(client);
 
-  // Get the new account ID
-  const getReceipt = await newAccountTransactionResponse.getReceipt(client);
+  // Obtener el nuevo ID de cuenta
+  const getReceipt = await newAccountTransactionResponse. etReceipt(client);
   const newAccountId = getReceipt.accountId;
 
-  console.log("\nNew account ID: " + newAccountId);
+  consola. og("\nNuevo ID de cuenta: " + newAccountId);
 
-  // Verify the account balance
+  // Verificar el saldo de la cuenta
   const accountBalance = await new AccountBalanceQuery()
-    .setAccountId(newAccountId)
-    .execute(client);
+    . etAccountId(newAccountId)
+    .execute(cliente);
 
-  console.log(
-    "\nNew account balance is: " +
-      accountBalance.hbars.toTinybars() +
-      " tinybars."
+  consola. og(
+    "\nNuevo saldo de cuenta es: " +
+      accountBalance.hbars. oTinybars() +
+      " tinybars.
   );
 
-  // Create the transfer transaction
+  // Crear la transacción de transferencia
   const sendHbar = await new TransferTransaction()
-    .addHbarTransfer(myAccountId, Hbar.fromTinybars(-1000))
+    . ddHbarTransfer(myAccountId, Hbar.fromTinybars(-1000))
     .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000))
-    .execute(client);
+    . xecute(client);
 
-  // Verify the transaction reached consensus
+  // Verifica el consenso alcanzado por la transacción
   const transactionReceipt = await sendHbar.getReceipt(client);
-  console.log(
-    "\nThe transfer transaction from my account to the new account was: " +
-      transactionReceipt.status.toString()
+  consola. og(
+    "\nLa transacción de transferencia de mi cuenta a la nueva cuenta fue: " +
+      transactionReceipt. tatus.toString()
   );
 }
 environmentSetup();
@@ -295,7 +295,7 @@ environmentSetup();
 
 <details>
 
-<summary>Go</summary>
+<summary>Ir</summary>
 
 ```go
 package main
@@ -402,16 +402,16 @@ func main() {
 
 </details>
 
-#### Sample output:
+#### Salida de muestreo:
 
 ```bash
-New account ID: 0.0.4382765
+Nueva cuenta ID: 0.0.4382765
 
-New account balance is: 1000 tinybars.
+El saldo de nueva cuenta es: 1000 tinybars.
 
-The transfer transaction from my account to the new account was: SUCCESS
+La transacción de transferencia de mi cuenta a la nueva cuenta fue: SUCCESS
 ```
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+¿Tienes una pregunta? [Preguntarlo en StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}

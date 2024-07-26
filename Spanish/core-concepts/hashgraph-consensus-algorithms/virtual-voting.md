@@ -1,30 +1,30 @@
-# Virtual Voting
+# Votación virtual
 
-It is not enough to ensure that every member knows every event. It is also\
+No basta con garantizar que todos los miembros conozcan todos los acontecimientos. It is also\
 necessary to agree on a linear ordering of the events, and thus of the transactions\
-recorded inside the events. Most Byzantine fault tolerance protocols without a\
-leader depend on members sending each other votes...Some of these\
-protocols require receipts on votes sent to everyone...And they\
-may require multiple rounds of voting, which further increases the number of voting\
-messages sent.
+recorded inside the events. La mayoría de los protocolos de tolerancia a defectos byzantinos sin un líder\
+dependen de que los miembros se envíen uno al otro. .Algunos de estos protocolos\
+requieren recibos de votos enviados a todos. Y ellos\
+pueden requerir múltiples rondas de votación, lo que incrementa aún más el número de mensajes de voto\
+enviados.
 
-This pure voting approach becomes bandwidth prohibitive and impractical in a network of any significant size but has the properties of being the fairest and most secure method of reaching consensus. The hashgraph algorithm implements voting that achieves the same fair and secure properties but is also very fast and practical. It accomplishes this through **virtual voting**.
+Este enfoque puro de voto se convierte en prohibitivo y poco práctico de ancho de banda en una red de cualquier tamaño significativo, pero tiene las propiedades de ser el método más justo y seguro de alcanzar el consentimiento. El algoritmo hashgraph implementa votaciones que logran las mismas propiedades justas y seguras pero también es muy rápido y práctico. Lo logra mediante **votación virtual**.
 
-The hashgraph algorithm does not require any votes to be sent across the network to calculate the votes of each member. Members can calculate every other member’s votes by internally looking at each of their copies of the hashgraph and applying the virtual voting algorithm. Votes are calculated locally as a function of the ancestors of a given event.
+El algoritmo hashgraph no requiere que se envíe ningún voto a través de la red para calcular los votos de cada miembro. Los miembros pueden calcular los votos de todos los demás miembros examinando internamente cada una de sus copias del hashgraph y aplicando el algoritmo de votación virtual. Los votos se calculan localmente en función de los antepasados de un evento determinado.
 
-This virtual voting has several benefits. In addition to saving bandwidth, it ensures that members always calculate their votes according to the rules. If Alice is honest, she will calculate virtual votes for the virtual Bob that are honest. Even if the real Bob is a cheater, he cannot attack Alice by making the virtual Bob vote incorrectly.
+Esta votación virtual tiene varios beneficios. Además de ahorrar ancho de banda, asegura que los miembros siempre calculen sus votos de acuerdo a las reglas. Si Alice es honesto, calculará votos virtuales para el Bob virtual que son honestos. Incluso si el verdadero Bob es un estafador, no puede atacar a Alicia haciendo que el virtual Bob vote incorrectamente.
 
-With this virtual voting algorithm, Byzantine agreement is guaranteed.
+Con este algoritmo de votación virtual, el acuerdo Byzantine está garantizado.
 
-Virtual voting happens in 3 steps:
+La votación virtual ocurre en 3 pasos:
 
-1. Divide Rounds
-2. Decide Fame
-3. Find Order
+1. Dividir Rondas
+2. Decidir fama
+3. Buscar pedido
 
-## Divide Rounds
+## Dividir Rondas
 
-To begin the process of virtual voting, we must first define rounds and witnesses. In the hashgraph history, the first event for a member’s node is that node’s first **witness**. The first witness is the beginning of the first round \(r\) for that node. All subsequent events are part of that first round until a new witness is discovered. A witness is discovered when a node creates a new event that can **strongly see** ⅔ of the witnesses in the current round. For example, event w can strongly see event x when w can trace its ancestry through parent relationships that pass through other events that reside on at least ⅔ of the member nodes. When an event is determined to strongly see ⅔ of the witness of the current round, that event is considered the next witness for that node. That new witness is the first event in the next round \(r+1\) for that node. Each event is assigned a round as the event is added to the hashgraph.
+Para comenzar el proceso de votación virtual, primero debemos definir rondas y testigos. En la historia del hashgraph, el primer evento para el nodo de un miembro es el primer **testigo**. El primer testigo es el comienzo de la primera ronda \(r\) para ese nodo. Todos los acontecimientos posteriores forman parte de esa primera ronda hasta que se descubre un nuevo testigo. Un testigo se descubre cuando un nodo crea un nuevo evento que **puede ver fuertemente** 2.3 de los testigos en la ronda actual. Por ejemplo, event w puede ver fuertemente el evento x cuando w puede rastrear su ascendencia a través de las relaciones de los padres que pasan a través de otros eventos que residen en al menos 2 de los nodos de los miembros. Cuando un evento está determinado a ver fuertemente 2 º 3 del testigo de la ronda actual, ese evento se considera el siguiente testigo para ese nodo. Ese nuevo testigo es el primer evento en la siguiente ronda \(r+1\) para ese nodo. A cada evento se le asigna una ronda mientras el evento se añade al hashgraph.
 
 ```text
 procedure divideRounds
@@ -32,21 +32,21 @@ procedure divideRounds
 for each event x
     r <- max round of parents of x (or 1 if none exist)
     if x can strongly see more than 2n/3 round r witnesses
-        x.round <- r+1
+        x. pulido <- r+1
     else
       x.round <- r
-    x.witness <- (x has no self parent)
-                or (x.round > x.selfParent.round)
+    x. itness <- (x no tiene autopadre)
+                o (x. encontrado > x.selfParent.round)
 ```
 
-## Decide Fame
+## Decidir fama
 
-The next step is deciding whether a witness is a famous witness or not. A witness is famous if many of the witnesses in the next round can see it, and it is not famous if many can’t. Event A can **see** Event B if Event B is an ancestor of Event A. When deciding the fame of Witness A, we must look at the witnesses of the following round. If the witnesses of the following round can see Witness A, they count as a vote in favor of Witness A’s fame. Likewise, if a witness in the next round can not see Witness A, then that witness’ vote is that Witness A is not famous. In order for Witness A to be considered famous, a future witness must be able to strongly see that at least ⅔ of voting witnesses have voted in favor of Witness A being famous. If ⅔ of voting witnesses have voted that Witness A is not famous, then Witness A will be decided to be not famous.
+El siguiente paso es decidir si un testigo es un testigo famoso o no. Un testigo es famoso si muchos de los testigos de la siguiente ronda pueden verlo, y no es famoso si muchos no pueden. El evento A puede **ver** el evento B si el evento B es un antepasado del evento A. A la hora de decidir la fama de Witness A, debemos ver los testigos de la siguiente ronda. Si los testigos de la siguiente ronda pueden ver a Witness A, cuentan como un voto a favor de la fama de Witness A. De la misma manera, si un testigo en la próxima ronda no puede ver a Witness A, entonces el voto de ese testigo es que el Testigo A no es famoso. Para que el Testigo A sea considerado famoso, un futuro testigo debe ser capaz de ver con fuerza que al menos 2 de los testigos de los votos han votado a favor de que el Testigo A sea famoso. Si 2 de los testigos de las votaciones han votado que el Testigo A no es famoso, entonces el Testigo A se decidirá a no ser famoso.
 
-## Find Order
+## Buscar pedido
 
-Now that we have calculated the all witnesses of a round to be famous or not famous, we can determine the order of events that occurred before the famous witness events. This is done by calculating:
+Ahora que hemos calculado todos los testigos de una ronda para ser famosos o no famosos, podemos determinar el orden de los acontecimientos que ocurrieron antes de los famosos testigos. Esto se hace calculando:
 
-1. The **round received** for all events that have yet to be ordered and that have occurred before a round where the fame of all witnesses has been decided. The event’s round received is the first round where all famous witnesses of that round can see \(or are descendants of\) the event in question.
-2. The **timestamp** for each event. This is done by gathering the earliest ancestors of the famous witnesses of the round received that are also descendants of the event in question, and taking the median timestamp of those gathered events.
-3. The **ordering of events** first by: round received, consensus timestamp, then signature.
+1. La **ronda recibida** para todos los eventos que aún deben ser ordenados y que han ocurrido antes de una ronda en la que se ha decidido la fama de todos los testigos. La ronda del evento recibida es la primera ronda donde todos los testigos famosos de esa ronda pueden ver \(o son descendientes de\) el evento en cuestión.
+2. La **marca de tiempo** para cada evento. Esto se hace reuniendo a los primeros antepasados de los famosos testigos de la ronda recibida que también son descendientes del evento en cuestión. y tomando el timestamp mediano de esos eventos reunidos.
+3. El **orden de los eventos** primero por: ronda recibida, marca de tiempo de consenso, luego firma.

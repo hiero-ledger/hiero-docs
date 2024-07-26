@@ -1,31 +1,31 @@
 ---
-description: Join Hedera Mainnet
+description: Rejoindre le réseau principal de Hedera
 ---
 
 # Mainnet
 
-## Overview
+## Aperçu
 
-The Hedera mainnet (short for main network) is where applications are run in production, with transaction fees paid in [HBAR](https://www.hedera.com/hbar). Transactions are submitted to the Hedera mainnet by any application or retail user; they're automatically consensus timestamped and fairly ordered.&#x20
+Le réseau principal Hedera (abréviation du réseau principal) est l'endroit où des applications sont exécutées en production, avec des frais de transaction payés en [HBAR](https://www.hedera.com/hbar). Les transactions sont soumises au réseau principal de Hedera par n'importe quelle application ou par un utilisateur au détail ; elles sont automatiquement acceptées par consensus et commandées de façon équitable.&#x20
 
-Data associated with Hedera's services and stored on-chain can be queried by any Hedera account. Every transaction requires payment in the form of a **transaction fee** denominated in _**tinybars**_ (100,000,000 tℏ = 1 ℏ). You can learn more about transaction fees and estimate your application costs [here](https://www.hedera.com/fees).&#x20
+Les données associées aux services de Hedera et stockées sur la chaîne peuvent être consultées par n'importe quel compte Hedera. Chaque transaction nécessite un paiement sous la forme d'un **frais de transaction** libellé en _**tinybars**_ (100 000 000 t<unk> = 1 <unk> ). Vous pouvez en savoir plus sur les frais de transaction et estimer les coûts de votre application [here](https://www.hedera.com/fees).&#x20
 
-If you're looking to test your application (or just experiment), please visit [Testnet Access](../testnet/testnet-access.md). The Hedera testnet enables developers to prototype and test applications in a simulated mainnet environment that uses test _HBAR_ for paying transaction fees.
+Si vous souhaitez tester votre application (ou simplement expérimenter), veuillez visiter [Testnet Access](../testnet/testnet-access.md). Le réseau de test Hedera permet aux développeurs de prototyper et de tester des applications dans un environnement simulé qui utilise le test _HBAR_ pour payer les frais de transaction.
 
 {% hint style="warning" %}
-**Transaction Throttles**\
-Transactions on the Hedera Mainnet are currently throttled. You will receive a `"BUSY"` response if the number of transactions submitted to the network exceeds the threshold value.
+**Throttles**\
+Les transactions sur le réseau principal de Hedera sont actuellement limitées. Vous recevrez une réponse `"BUSY"` si le nombre de transactions soumises au réseau dépasse la valeur seuil.
 {% endhint %}
 
-#### Network Throttles
+#### Grottles réseau
 
-| Network Request Types       | Throttle (tps)                                                                                                                                                                         |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cryptocurrency Transactions | <p>AccountCreateTransaction: 2 tps</p><p>AccountBalanceQuery: unlimited</p><p>TransferTransaction (inc. tokens): 10,000 tps<br>Other: 10,000 tps</p>                                                      |
-| Consensus Transactions      | <p>TopicCreateTransaction: 5 tps</p><p>Other: 10,000 tps</p>                                                                                                                                              |
-| Token Transactions          | <p>TokenMint:</p><ul><li>125 TPS for fungible mint</li><li>50 TPS for NFT mint</li></ul><p>TokenAssociateTransaction: 100 tps<br>TransferTransaction (inc. tokens): 10,000 tps</p><p>Other: 3,000 tps</p> |
-| Schedule Transactions       | <p>ScheduleSignTransaction: 100 tps<br>ScheduleCreateTransaction: 100 tps</p>                                                                                                                             |
-| File Transactions           | 10 tps                                                                                                                                                                                                    |
-| Smart Contract Transactions | <p>ContractExecuteTransaction: 350 tps<br>ContractCreateTransaction: 350 tps</p>                                                                                                                          |
-| Queries                     | <p>ContractGetInfo: 700 tps<br>ContractGetBytecode: 700 tps<br>ContractCallLocal: 700 tps<br><br>FileGetInfo: 700 tps<br>FileGetContents: 700 tps<br><br>Other: 10,000 tps</p>                            |
-| Receipts                    | unlimited (no throttle)                                                                                                                                                                |
+| Types de requête réseau       | Gaz (tps)                                                                                                                                                                                           |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Transactions en cryptomonnaie | <p>AccountCreateTransaction: 2 tps</p><p>AccountBalanceQuery: unlimited</p><p>TransferTransaction (inc. tokens): 10 000 tps<br>Autre : 10 000 tps</p>                                                                  |
+| Transactions de consensus     | <p>TopicCreateTransaction: 5 tps</p><p>Autre : 10 000 tps</p>                                                                                                                                                          |
+| Transactions de jeton         | <p>TokenMint:</p><ul><li>125 TPS pour la menthe fungible</li><li>50 TPS pour la menthe NFT</li></ul><p>TokenAssociateTransaction: 100 tps<br>TransferTransaction (inc. jetons): 10 000 tps</p><p>Autre : 3 000 tps</p> |
+| Planifier les transactions    | <p>Transaction ScheduleSign: 100 tps<br>ScheduleCreateTransaction: 100 tps</p>                                                                                                                                         |
+| Transactions de fichier       | 10 Tps                                                                                                                                                                                                                 |
+| Transactions Smart Contract   | <p>ContractExecuteTransaction: 350 tps<br>ContractCreateTransaction: 350 tps</p>                                                                                                                                       |
+| Requêtes                      | <p>ContractGetInfo : 700 tps<br>ContractGetBytecode : 700 tps<br>ContractCallLocal: 700 tps<br><br>FileGetInfo : 700 tps<br>FileGetContents: 700 tps<br><br>Autres: 10, 00 tps</p>                                     |
+| Reçus                         | illimité (sans limite)                                                                                                                                                                              |

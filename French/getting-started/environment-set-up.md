@@ -1,39 +1,39 @@
-# Environment Setup
+# Configuration de l'environnement
 
 ## Summary
 
-This environment setup guide will provide you with the necessary steps to get your development environment ready for building applications on the Hedera Network. You will set up a new project directory, establish a `.env` environment variable file to store your Hedera Testnet account ID and private keys and configure your Hedera Testnet client.
+Ce guide de configuration de l'environnement vous fournira les étapes nécessaires pour préparer votre environnement de développement à la construction d'applications sur le réseau Hedera. Vous allez configurer un nouveau répertoire de projet, établir un `. nv` fichier variable d'environnement pour stocker votre identifiant de compte Hedera Testnet et vos clés privées et configurer votre client Hedera Testnet.
 
 ***
 
-## Prerequisites
+## Pré-requis
 
-- Completed the [Introduction](introduction.md) step.
+- L'étape [Introduction](introduction.md) a été terminée.
 
 {% hint style="info" %}
-_**Note:** You can always check the "_[_Code Check ✅_](environment-set-up.md#code-check) _" section at the bottom of each page to view the entire code if you run into issues. You can also post your issue to the respective SDK channel in our Discord community_ [_here_](http://hedera.com/discord) _or on the GitHub repository_ [_here_](https://github.com/hashgraph/hedera-docs)_._
+_**Note:** Vous pouvez toujours vérifier "_[vérification de _Code ✅_](environment-set-up. d#code-check) _" section en bas de chaque page pour afficher le code entier si vous rencontrez des problèmes. Vous pouvez également poster votre problème sur le salon SDK respectif dans notre communauté Discord_ [_here_](http://hedera. om/discord) _ou sur le dépôt GitHub_ [_here_](https://github.com/hashgraph/hedera-docs)_._
 {% endhint %}
 
 ***
 
-## **Step 1: Create your project directory**
+## **Étape 1 : Créer votre répertoire de projet**
 
-Open your IDE of choice and follow the below steps to create your new project directory.
+Ouvrez votre IDE de choix et suivez les étapes ci-dessous pour créer votre nouveau répertoire de projet.
 
 {% tabs %}
 {% tab title="Java Gradle" %}
-Create a new Gradle project and name it `HederaExamples`. Add the following dependencies to your `build.gradle` file.
+Créez un nouveau projet Gradle et nommez-le `HederaExamples`. Ajoutez les dépendances suivantes à votre fichier `build.gradle`.
 
 {% code title="build.gradle " %}
 
 ```gradle
-dependencies {
+dépendances {
 
-    implementation 'com.hedera.hashgraph:sdk:2.32.0'
-    implementation 'io.grpc:grpc-netty-shaded:1.57.2'
-    implementation 'io.github.cdimascio:dotenv-java:2.3.2'
-    implementation 'org.slf4j:slf4j-nop:2.0.9'
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implémentation 'com.hedera.hashgraph:sdk:2.32.0'
+    implémentation 'io.grpc:grpc-netty-shaded:1.57.2'
+    implémentation 'io.github.cdimascio:dotenv-java:2.3.2'
+    implémentation 'org.slf4j:slf4j-nop:2.0.9'
+    implémentation 'com.google.code.gson:gson:2.8.8'
 }
 ```
 
@@ -41,36 +41,36 @@ dependencies {
 {% endtab %}
 
 {% tab title="Java Maven" %}
-Create a new Maven project and name it `HederaExamples`. Add the following dependencies to your `pom.xml` file.
+Créez un nouveau projet Maven et nommez-le `HederaExamples`. Ajoute les dépendances suivantes à votre fichier `pom.xml`.
 
 {% code title="pom.xml " %}
 
 ```xml
 <dependencies>
         <dependency>
-            <groupId>com.hedera.hashgraph</groupId>
+            <groupId>com. edera. ashgraph</groupId>
             <artifactId>sdk</artifactId>
-            <version>2.32.0</version>
+            <version>2. 2.0</version>
         </dependency>
         <dependency>
-            <groupId>io.grpc</groupId>
+            <groupId>io. rpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
-            <version>1.57.2</version>
+            <version>1.57.</version>
         </dependency>
         <dependency>
-            <groupId>io.github.cdimascio</groupId>
+            <groupId>io. ithub. dimascio</groupId>
             <artifactId>dotenv-java</artifactId>
-            <version>2.3.2</version>
+            <version>2.3.</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
+            <groupId>org. lf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
-            <version>2.0.9</version>
+            <version>2. .9</version>
         </dependency>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
+            <groupId>com. Code fils</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.8</version>
+            <version>2. .8</version>
         </dependency>
 </dependencies>
 ```
@@ -79,39 +79,39 @@ Create a new Maven project and name it `HederaExamples`. Add the following depen
 {% endtab %}
 
 {% tab title="JavaScript" %}
-Open your terminal and create a directory called _`hello-hedera-js-sdk`_. After you create the project directory navigate to the directory by running the following command:
+Ouvrez votre terminal et créez un répertoire appelé _`hello-hedera-js-sdk`_. Après avoir créé le répertoire du projet, accédez au répertoire en exécutant la commande suivante :
 
 ```bash
 mkdir hello-hedera-js-sdk && cd hello-hedera-js-sdk
 ```
 
-Initialize a _`node.js`_ project in this new directory by running the following command:
+Initialiser un projet _`node.js`_ dans ce nouveau répertoire en exécutant la commande suivante :
 
 ```bash
 npm init -y
 ```
 
-This is what your console should look like after running the command:
+C'est à quoi votre console devrait ressembler après avoir exécuté la commande :
 
 ```bash
 {
   "name": "hello-hedera-js-sdk",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index. s",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "mots-clés": [],
+  "auteur": "",
+  "licence": "ISC"
 }
 ```
 
 {% endtab %}
 
 {% tab title="Go" %}
-Open your terminal and create a project directory called something like `hedera-go-examples` to store your Go source code.
+Ouvrez votre terminal et créez un répertoire de projet appelé quelque chose comme `hedera-go-examples` pour stocker votre code source Go.
 
 ```bash
 mkdir hedera-go-examples && cd hedera-go-examples
@@ -122,11 +122,11 @@ mkdir hedera-go-examples && cd hedera-go-examples
 
 ***
 
-## Step 2: Install Dependencies and SDKs
+## Étape 2 : Installer les dépendances et les SDK
 
 {% tabs %}
 {% tab title="Java" %}
-Create a new Java class and name it something like _`HederaExamples`_. Import the following classes to use in your example:
+Créez une nouvelle classe Java et nommez-la comme _`HederaExamples`_. Importer les classes suivantes à utiliser dans votre exemple :
 
 ```java
 import com.hedera.hashgraph.sdk.Hbar;
@@ -136,7 +136,7 @@ import com.hedera.hashgraph.sdk.AccountId;
 import com.hedera.hashgraph.sdk.PublicKey;
 import com.hedera.hashgraph.sdk.PrivateKey;
 import com.hedera.hashgraph.sdk.AccountBalance;
-import com.hedera.hashgraph.sdk.AccountBalanceQuery;
+import com.hedera.hashgraph.sdk. ccountBalanceQuery;
 import com.hedera.hashgraph.sdk.TransferTransaction;
 import com.hedera.hashgraph.sdk.TransactionResponse;
 import com.hedera.hashgraph.sdk.ReceiptStatusException;
@@ -146,72 +146,72 @@ import com.hedera.hashgraph.sdk.AccountCreateTransaction;
 import java.util.concurrent.TimeoutException;
 ```
 
-_**Note:** You may install the latest version of the Java SDK_ [_here_](https://github.com/hashgraph/hedera-sdk-java)_._
+_**Remarque :** Vous pouvez installer la dernière version du Java SDK_ [_here_](https://github.com/hashgraph/hedera-sdk-java)_._
 {% endtab %}
 
 {% tab title="JavaScript" %}
-Install the [JavaScript SDK](https://github.com/hashgraph/hedera-sdk-js) with your favorite package manager _`npm`_ or _`yarn`_ by running the following command:
+Installez le [SDK JavaScript](https://github.com/hashgraph/hedera-sdk-js) avec votre gestionnaire de paquets préféré _`npm`_ ou _`yarn`_ en exécutant la commande suivante :
 
 ```bash
-// Install Hedera's JS SDK with NPM
+// Installez Hedera's JS SDK avec NPM
 npm install --save @hashgraph/sdk
 
-// Install with Yarn
+// Installez avec Yarn
 yarn add @hashgraph/sdk
 ```
 
-Install _`dotenv`_ with your favorite package manager. This will allow our node environment to use your testnet _**account ID**_ and the _**private key**_ we will store in a _`.env`_ file next.
+Installez _`dotenv`_ avec votre gestionnaire de paquets favori. Cela permettra à notre environnement de node d'utiliser votre identifiant de compte testnet _\*\*_ et la _**clé privée**_ que nous stockerons dans un fichier _`.env`_ suivant.
 
 ```bash
-// Install with NPM
+// Installer avec NPM
 npm install dotenv
 
-// Install with Yarn
+// Installer avec Yarn
 yarn add dotenv
 ```
 
-Create a _`index.js`_ file by running the following command:
+Créez un fichier _`index.js`_ en exécutant la commande suivante :
 
 ```bash
 touch index.js
 ```
 
-Your project structure should look something like this:
+La structure de votre projet devrait ressembler à ceci :
 
 ![](../.gitbook/assets/project\_directory.png)
 {% endtab %}
 
 {% tab title="Go" %}
-Create a `hedera_examples.go` file in `hedera-go-examples` root directory. You will write all of your code in this file.
+Créez un fichier `hedera_examples.go` dans le répertoire racine `hedera-go-examples`. Tu vas écrire tout ton code dans ce fichier.
 
 ```bash
 touch hedera_examples.go
 ```
 
-Create the Go "module" file by running the below command. The `go.mod` file defines the module's properties and dependencies and provides a way to manage versioning for Go projects.
+Créez le fichier Go "module" en exécutant la commande ci-dessous. Le fichier `go.mod` définit les propriétés et les dépendances du module et fournit un moyen de gérer le versioning pour les projets Go.
 
 ```go
 go mod init hedera_examples.go
 ```
 
-Install the [Go SDK](https://github.com/hashgraph/hedera-sdk-go):
+Installez le [Go SDK](https://github.com/hashgraph/hedera-sdk-go):
 
 ```go-module
-go get github.com/hashgraph/hedera-sdk-go/v2@latest
+aller sur github.com/hashgraph/hedera-sdk-go/v2@latest
 ```
 
-And the [DotEnv package](https://github.com/joho/godotenv):&#x20
+Et le [paquet DotEnv](https://github.com/joho/godotenv):&#x20
 
 ```go-module
 go get github.com/joho/godotenv
 ```
 
-Import the following packages to your `hedera_examples.go` file:
+Importez les paquets suivants dans votre fichier `hedera_examples.go` :
 
 ```go
-package main
+import du paquet
 
-import (
+(
     "fmt"
     "os"
 
@@ -224,22 +224,22 @@ import (
 {% endtabs %}
 
 {% hint style="info" %}
-_**Note:** Testnet **HBAR** is required for this next step. Please follow the instructions to create a Hedera account on the_ [_portal_](https://docs.hedera.com/guides/getting-started/introduction) _before you move on to the next step._
+_**Note :** Le réseau de test **HBAR** est requis pour cette étape suivante. Veuillez suivre les instructions pour créer un compte Hedera sur le_ [_portal_](https://docs.hedera.com/guides/getting-started/introduction) _avant de passer à l'étape suivante._
 {% endhint %}
 
 ***
 
-## Step 3: **Create your .env File**
+## Étape 3 : \*\*Créez votre fichier .env \*\*
 
-Create the `.env` file in your project's root directory. The `.env` file stores your environment variables, such as your account ID and private key.&#x20
+Créez le fichier `.env` à la racine de votre projet. Le fichier `.env` stocke vos variables d'environnement, telles que l'ID de votre compte et la clé privée.&#x20
 
-_**📣 Note**: If you have not created an account, please do so_ [_here_](introduction.md) _before this step._
+_**📣 Note**: Si vous n'avez pas créé de compte, veuillez le faire_ [_here_](introduction.md) _avant cette étape._
 
 {% tabs %}
 {% tab title="Hedera Developer Portal" %}
-If you created your testnet account through the developer portal, grab the Hedera Testnet account ID and DER-encoded private key from your [Hedera portal profile](https://portal.hedera.com/) (see screenshot below) and assign them to the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` environment variables in your `.env` file:&#x20
+Si vous avez créé votre compte testnet via le portail développeur, récupérez l'ID du compte Hedera Testnet et la clé privée encodée en DER à partir de votre [profil portail Heder](https://portal. edera.com/) (voir capture d'écran ci-dessous) et attribuez-les aux variables d'environnement `MY_ACCOUNT_ID` et `MY_PRIVATE_KEY` dans votre fichier `.env`: &#x20
 
-<figure><img src="../.gitbook/assets/DER portal (1).png" alt="" width="563"><figcaption><p>Hedera Developer Portal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/DER portal (1).png" alt="" width="563"><figcaption><p>du portail développeur Hedera</p></figcaption></figure>
 
 ```markdown
 MY_ACCOUNT_ID=0.0.1234
@@ -249,7 +249,7 @@ MY_PRIVATE_KEY=302e020100300506032b657004220420ed5a93073.....
 {% endtab %}
 
 {% tab title="Hedera Faucet" %}
-Alternatively, if you used the faucet to create a testnet account, grab your faucet account ID and the private key (how to export a private key from MetaMask [here](https://support.metamask.io/hc/en-us/articles/360015289632-How-to-export-an-account-s-private-key))  and assign them to the `MY_ACCOUNT_ID` and `MY_PRIVATE_KEY` environment variables in your `.env` file:
+Alternativement, si vous avez utilisé le robinet pour créer un compte testnet, saisissez votre ID de compte de robinet et la clé privée (comment exporter une clé privée depuis MetaMask [here](https://support. etamask.io/hc/en-us/articles/360015289632-How-to-export-an-account-s-private-key)) et assignez-les aux variables d'environnement `MY_ACCOUNT_ID` et `MY_PRIVATE_KEY` dans votre fichier `.env` :
 
 <figure><img src="../.gitbook/assets/faucet-success-account-id.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -261,21 +261,21 @@ MY_PRIVATE_KEY=0xfd154395435c81233b2fc906486f35e068...
 {% endtab %}
 {% endtabs %}
 
-Next, you will load your account ID and private key variables from the `.env` file created in the previous step.
+Ensuite, vous chargerez votre ID de compte et les variables de clé privée à partir du fichier `.env` créé à l'étape précédente.
 
 {% tabs %}
 {% tab title="Java" %}
-Within the _`main`_ method, add your testnet account ID and private key from the environment file.
+Dans la méthode _`main`_, ajoutez votre ID de compte testnet et votre clé privée à partir du fichier d'environnement.
 
 {% code title="HederaExamples.java" %}
 
 ```java
-public class HederaExamples {
+public class HederaExemples {
 
     public static void main(String[] args) {
 
         //Grab your Hedera Testnet account ID and private key
-        AccountId myAccountId = AccountId.fromString(Dotenv.load().get("MY_ACCOUNT_ID"));
+        AccountId myAccountId = AccountId. romString(Dotenv.load().get("MY_ACCOUNT_ID"));
         PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load().get("MY_PRIVATE_KEY"));  
     }
 }
@@ -314,38 +314,38 @@ environmentSetup();
 ```go
 func main() {
 
-    //Loads the .env file and throws an error if it cannot load the variables from that file correctly
-    err := godotenv.Load(".env")
+    //Charge le . nv file and throws an error if it cannot load the variables from this file correctly
+    err := godotenv. oad(".env")
     if err != nil {
-        panic(fmt.Errorf("Unable to load environment variables from .env file. Error:\n%v\n", err))
+        panique (fmt. rrorf("Impossible de charger les variables d'environnement à partir du fichier .env. Erreur :\n%v\n", err))
     }
 
-    //Grab your testnet account ID and private key from the .env file
-    myAccountId, err := hedera.AccountIDFromString(os.Getenv("MY_ACCOUNT_ID"))
-    if err != nil {
-        panic(err)
+    //Saisissez votre ID de compte testnet et votre clé privée à partir du . fichier nv
+    monAccountId, err := hedera.AccountIDFromString(os. etenv("MY_ACCOUNT_ID"))
+    si erreur! nil {
+        panique
     }
 
-    myPrivateKey, err := hedera.PrivateKeyFromString(os.Getenv("MY_PRIVATE_KEY"))
-    if err != nil {
-        panic(err)
-    }
+    myPrivateKey, err := hedera. rivateKeyFromString(os. etenv("MY_PRIVATE_KEY"))
+    if err ! nil {
+        panique
 
-    //Print your testnet account ID and private key to the console to make sure there was no error
-    fmt.Printf("The account ID is = %v\n", myAccountId)
-    fmt.Printf("The private key is = %v\n", myPrivateKey)
+
+    //Imprime l'ID de votre compte testnet et votre clé privée dans la console pour vous assurer qu'il n'y a pas eu d'erreur
+    fmt. rintf("The account ID is = %v\n", monAccountId)
+    fmt. rintf (La clé privée est = %v\n", myPrivateKey)
 }
 ```
 
 {% endcode %}
 
-In your terminal, enter the following command to create your `go.mod` file. This module is used for tracking dependencies and is required.
+Dans votre terminal, entrez la commande suivante pour créer votre fichier `go.mod`. Ce module est utilisé pour le suivi des dépendances et est requis.
 
 ```go-module
 go mod init hedera_examples.go
 ```
 
-Run your code to see your testnet account ID and private key printed to the console.
+Exécutez votre code pour voir votre ID de compte testnet et votre clé privée imprimés sur la console.
 
 ```go-module
 go run hedera_examples.go
@@ -356,29 +356,29 @@ go run hedera_examples.go
 
 ***
 
-## Step 4: Create your Hedera Testnet client
+## Étape 4 : Créez votre client Hedera Testnet
 
-Create a Hedera Testnet [client](../support-and-community/glossary.md#client) and set the operator information using the testnet account ID and private key for transaction and query fee authorization. The _operator_ is the default account that will pay for the transaction and query fees in HBAR. You will need to sign the transaction or query with the private key of that account to authorize the payment. In this case, the operator ID is your testnet `account ID**.**` and the operator private key is the corresponding testnet account private key.
+Créez un réseau de test Hedera [client](../support-and-community/glossary.md#client) et définissez les informations de l'opérateur en utilisant l'ID du compte testnet et la clé privée pour l'autorisation de transaction et de requête. _operator_ est le compte par défaut qui paiera les frais de transaction et de requête en HBAR. Vous devrez signer la transaction ou la requête avec la clé privée de ce compte pour autoriser le paiement. Dans ce cas, l'identifiant de l'opérateur est votre `ID du compte testnet**.**` et la clé privée de l'opérateur est la clé privée correspondante du compte testnet.
 
 {% hint style="warning" %}
-To avoid encountering the **`INSUFFICIENT_TX_FEE`** error while conducting transactions, you can adjust the maximum transaction fee limit through the **`.setDefaultMaxTransactionFee()`** method. Similarly, the maximum query payment can be adjusted using the **`.setDefaultMaxQueryPayment()`** method.
+Pour éviter de rencontrer l'erreur **`INSUFFICIENT_TX_FEE`** lors de la conduite des transactions, vous pouvez ajuster la limite maximale des frais de transaction via la méthode **`.setDefaultMaxTransactionFee()`**. De même, le paiement maximal des requêtes peut être ajusté en utilisant la méthode **.setDefaultMaxQueryPayment()\`** .
 {% endhint %}
 
 <details>
 
-<summary>🚨 How to resolve the <em>INSUFFIENT_TX_FEE</em> error</summary>
+<summary>🚨 Comment résoudre l' <em>INSUFFIENT_TX_FEE</em> erreur</summary>
 
-To resolve this error, you must adjust the max transaction fee to a higher value suitable for your needs.
+Pour résoudre cette erreur, vous devez ajuster les frais de transaction maximum à une valeur plus élevée adaptée à vos besoins.
 
-Here is a simple example addition to your code:
+Voici un exemple simple d'ajout à votre code :
 
 ```javascript
-const maxTransactionFee = new Hbar(XX); // replace XX with desired fee in Hbar
+const maxTransactionFee = new Hbar(XX); // remplace XX avec les frais désirés dans Hbar
 ```
 
-In this example, you can set `maxTransactionFee` to any value greater than 5 HBAR (or 500,000,000 tinybars) to avoid the "_INSUFFICIENT\_TX\_FEE_" error for transactions greater than 5 HBAR. Please replace `XX` with the desired value.
+Dans cet exemple, vous pouvez définir `maxTransactionFee` à n'importe quelle valeur supérieure à 5 HBAR (ou 500,000, 00 tinybars) pour éviter l'erreur "_INSUFFICIENT\_TX\_FEE_" pour les transactions supérieures à 5 HBAR. Veuillez remplacer `XX` par la valeur désirée.
 
-To implement this new max transaction fee, you use the `setDefaultMaxTransactionFee()` method as shown below:
+Pour implémenter ce nouveau frais de transaction maximum, vous utilisez la méthode `setDefaultMaxTransactionFee()` comme montré ci-dessous:
 
 ```javascript
 client.setDefaultMaxTransactionFee(maxTransactionFee);
@@ -390,16 +390,16 @@ client.setDefaultMaxTransactionFee(maxTransactionFee);
 {% tab title="Java" %}
 
 ```java
-//Create your Hedera Testnet client
+//Créez votre client Hedera Testnet
 Client client = Client.forTestnet();
 
-//Set your account as the client's operator
-client.setOperator(myAccountId, myPrivateKey);
+//Définir votre compte comme l'opérateur du client
+client. etOperator(monAccountId, monPrivateKey);
 
-//Set the default maximum transaction fee (in Hbar)
-client.setDefaultMaxTransactionFee(new Hbar(100));
+//Définir les frais de transaction maximum par défaut (en Hbar)
+client. etDefaultMaxTransactionFee(new Hbar(100));
 
-//Set the maximum payment for queries (in Hbar)
+//Définir le paiement maximum pour les requêtes (en Hbar)
 client.setMaxQueryPayment(new Hbar(50));
 ```
 
@@ -408,16 +408,16 @@ client.setMaxQueryPayment(new Hbar(50));
 {% tab title="JavaScript" %}
 
 ```javascript
-//Create your Hedera Testnet client
+//Créez votre client Hedera Testnet
 const client = Client.forTestnet();
 
-//Set your account as the client's operator
-client.setOperator(myAccountId, myPrivateKey);
+//Définir votre compte en tant que client opérateur
+du client. etOperator(monAccountId, monPrivateKey);
 
-//Set the default maximum transaction fee (in Hbar)
-client.setDefaultMaxTransactionFee(new Hbar(100));
+//Définir les frais de transaction maximum par défaut (en Hbar)
+client. etDefaultMaxTransactionFee(new Hbar(100));
 
-//Set the maximum payment for queries (in Hbar)
+//Définir le paiement maximum pour les requêtes (en Hbar)
 client.setMaxQueryPayment(new Hbar(50));
 ```
 
@@ -426,25 +426,25 @@ client.setMaxQueryPayment(new Hbar(50));
 {% tab title="Go" %}
 
 ```go
-//Create your testnet client
+//Créer votre client testnet
 client := hedera.ClientForTestnet()
 client.SetOperator(myAccountId, myPrivateKey)
 
-// Set default max transaction fee
-client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
+// Définir les frais de transaction max par défaut
+client. etDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
 
-// Set max query payment
+// Définir max query payment
 client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
 ```
 
 {% endtab %}
 {% endtabs %}
 
-**Your project environment is now set up to submit transactions and queries to the Hedera test network successfully!**
+**Votre environnement de projet est maintenant configuré pour soumettre des transactions et des requêtes au réseau de test Hedera avec succès !**
 
-Next, you will learn how to [create an account](create-an-account.md).
+Ensuite, vous apprendrez comment [créer un compte](create-an-account.md).
 
-## Code Check :white\_check\_mark:
+## Vérification du code :white\_check\_mark:
 
 ***
 
@@ -459,31 +459,31 @@ import com.hedera.hashgraph.sdk.AccountId;
 import com.hedera.hashgraph.sdk.PublicKey;
 import com.hedera.hashgraph.sdk.PrivateKey;
 import com.hedera.hashgraph.sdk.AccountBalance;
-import com.hedera.hashgraph.sdk.AccountBalanceQuery;
+import com.hedera. ashgraph.sdk.AccountBalanceQuery;
 import com.hedera.hashgraph.sdk.TransferTransaction;
 import com.hedera.hashgraph.sdk.TransactionResponse;
 import com.hedera.hashgraph.sdk.ReceiptStatusException;
 import com.hedera.hashgraph.sdk.PrecheckStatusException;
 import com.hedera.hashgraph.sdk.AccountCreateTransaction;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent. ImeoutException ;
 
-public class HederaExamples {
+classes publiques HederaExemples {
 
         public static void main(String[] args) {
                 
         //Grab your Hedera Testnet account ID and private key
-        AccountId myAccountId = AccountId.fromString(Dotenv.load().get("MY_ACCOUNT_ID"));+
-        PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load().get("MY_PRIVATE_KEY"));
-        //Create your Hedera Testnet client
+        AccountId myAccountId = AccountId. romString(Dotenv.load().get("MY_ACCOUNT_ID"));+
+        PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load(). et("MY_PRIVATE_KEY"));
+        //Créez votre client Hedera Testnet
         
-<strong>        Client client = Client.forTestnet();
-</strong>        client.setOperator(myAccountId, myPrivateKey);
+<strong>        Client client = Client. orTestnet();
+client</strong>        . etOperator(monAccountId, monPrivateKey);
         
-        // Set default max transaction fee & max query payment
-        client.setDefaultMaxTransactionFee(new Hbar(100)); 
-        client.setMaxQueryPayment(new Hbar(50)); 
+        // Définir les frais de transaction max par défaut & max paiement de requête
+        client. etDefaultMaxTransactionFee(new Hbar(100)); 
+        client. etMaxQueryPayment(new Hbar(50)); 
         
-        System.out.println("Client setup complete.");
+        System. ut.println("Configuration du client terminée.");
     }
 }
 </code></pre>
@@ -502,33 +502,34 @@ const {
   Client,
 } = require("@hashgraph/sdk");
 
-require("dotenv").config();
+require("dotenv"). onfig();
 
-async function environmentSetup() {
-  //Grab your Hedera testnet account ID and private key from your .env file
+fonction async environmentSetup() {
+  //Récupérez votre identifiant de compte Hedera testnet et votre clé privée . nv file
   const myAccountId = process.env.MY_ACCOUNT_ID;
-  const myPrivateKey = process.env.MY_PRIVATE_KEY;
+  const myPrivateKey = process.env. Y_PRIVATE_KEY;
 
-  // If we weren't able to grab it, we should throw a new error
-  if (!myAccountId || !myPrivateKey) {
+  // Si nous n'avons pas pu le saisir, nous devrions lancer une nouvelle erreur
+  si (!myAccountId || ! yPrivateKey) {
     throw new Error(
-      "Environment variables MY_ACCOUNT_ID and MY_PRIVATE_KEY must be present"
+      "Les variables d'environnement MY_ACCOUNT_ID et MY_PRIVATE_KEY doivent être présentes"
     );
   }
   
-  //Create your Hedera Testnet client
-  const client = Client.forTestnet();
+  //Créez votre client Hedera Testnet
+  const client = client. orTestnet();
 
-  //Set your account as the client's operator
-  client.setOperator(myAccountId, myPrivateKey);
+  //Définir votre compte en tant qu'opérateur client
+  . etOperator(monAccountId, monPrivateKey);
 
-  //Set the default maximum transaction fee (in Hbar)
-  client.setDefaultMaxTransactionFee(new Hbar(100));
+  //Définir les frais de transaction maximum par défaut (en Hbar)
+  client. etDefaultMaxTransactionFee(new Hbar(100));
 
-  //Set the maximum payment for queries (in Hbar)
-  client.setDefaultMaxQueryPayment(new Hbar(50));
+  //Définir le paiement maximum pour les requêtes (en Hbar)
+  client. etDefaultMaxQueryPayment(new Hbar(50));
   
-  console.log("Client setup complete.");
+  
+ console.log("Configuration du client.");
 }
 environmentSetup();
 ```
@@ -539,49 +540,49 @@ environmentSetup();
 
 <details>
 
-<summary>Go</summary>
+<summary>Aller à</summary>
 
 {% code title="hedera_examples.go" %}
 
 ```go
-package main
+import du package main
 
-import (
+(
 	"fmt"
 	"os"
 
 	"github.com/hashgraph/hedera-sdk-go/v2"
-	"github.com/joho/godotenv"
+	"github. om/joho/godotenv"
 )
 
 func main() {
 
-	//Loads the .env file and throws an error if it cannot load the variables from that file correctly
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic(fmt.Errorf("Unable to load environment variables from .env file. Error:\n%v\n", err))
+	//Charge le . fichier nv et lance une erreur si elle ne peut pas charger les variables de ce fichier correctement
+	err := godotenv. oad(".env")
+	si err != nil {
+		panique(fmt.Errorf("Impossible de charger les variables d'environnement à partir du fichier .env. Erreur:\n%v\n", err))
 	}
 
-	//Grab your testnet account ID and private key from the .env file
-	myAccountId, err := hedera.AccountIDFromString(os.Getenv("MY_ACCOUNT_ID"))
+	//Saisissez votre identifiant de compte testnet et votre clé privée à partir du . fichier nv
+	monAccountId, err := hedera.AccountIDFromString(os. etenv("MY_ACCOUNT_ID"))
 	if err != nil {
-		panic(err)
-	}
+		panique(err)
 
-	myPrivateKey, err := hedera.PrivateKeyFromString(os.Getenv("MY_PRIVATE_KEY"))
-	if err != nil {
-		panic(err)
-	}
 
-	//Create your testnet client
+	myPrivateKey, err := hedera.PrivateKeyFromString(os. etenv("MY_PRIVATE_KEY"))
+	si err != nil {
+		panique(err)
+
+
+	//Créez votre client testnet
 	client := hedera.ClientForTestnet()
-	client.SetOperator(myAccountId, myPrivateKey)
+	client. etOperator(myAccountId, myPrivateKey)
 
-	// Set default max transaction fee & max query payment
-	client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
+	// Définir les frais de transaction max et le paiement max de requête
+	client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera. barUnits.Hbar))
 	client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
 	
-	fmt.Println(“Client setup complete.”)
+	fmt.Println("Client setup complete.")
 }
 ```
 
@@ -590,9 +591,9 @@ func main() {
 </details>
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+Vous avez une question ? [Demandez-le sur StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}
 
 ***
 
-**Contributors:** [fabianstraubinger99](https://github.com/fabianstraubinger99)
+**Contributeurs:** [fabianstraubinger99](https://github.com/fabianstraubinger99)

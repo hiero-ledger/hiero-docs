@@ -1,32 +1,32 @@
-# Verifying Smart Contracts
+# 正在验证智能合同
 
-Smart contract verification is the process of verifying that the smart contract bytecode uploaded to the network matches the expected smart contract source files. Verification is _not_ required for contracts deployed on the Hedera network, but it is best practice and essential to maintaining the contract's security and integrity by identifying vulnerabilities that could be exploited, as smart contracts are immutable once deployed. It also enables transparency and builds trust within the user community by proving that the deployed bytecode matches the contract's original source code.&#x20
+智能合同验证是验证智能合同字节代码上传到网络符合预期智能合同源文件的过程。 Hedera 网络上的合同需要验证_not_。 但这是最佳做法，也是通过查明可加以利用的弱点来维护合同的安全和完整性所必不可少的。 因为智能合约在部署后是不可改变的。 它还通过证明所部署的字节代码与合同的原始源代码相匹配，从而提高透明度并在用户社区内建立信任。
 
-To initiate verification, you can use a community-hosted Hedera Mirror Node Explorer, like [HashScan](https://hashscan.io/) ([Arkhia](https://explorer.arkhia.io/) and [Dragon Glass](https://app.dragonglass.me/) do not currently support this feature), that integrates with [Sourcify](../../support-and-community/glossary.md#sourcify): A Solidity source code and metadata verification tool. Once you upload your files to the verification tool, Sourcify recompiles the submitted source code and metadata files to check them against the deployed bytecode. If a match is found, the contract's verification status is updated to either a [_<mark style="color:green;">Full (Perfect) Match</mark>_](https://docs.sourcify.dev/docs/full-vs-partial-match/#full-perfect-matches) or a [_<mark style="color:green;">Partial Match</mark>_](https://docs.sourcify.dev/docs/full-vs-partial-match/#partial-matches)_<mark style="color:green;">.</mark>_
+为了启动验证，您可以使用社区托管的 Hedera 镜像节点探索器，如 [HashScan](https://hashscan.io/) ([Arkhia](https://explorer.arkhia.io/) 和 [Dragon Glass](https://app. ragonglass.me/) 目前不支持此功能，它与 [Sourcify](../../support-community/glossary.md#sourcify)：一个团结源代码和元数据验证工具。 一旦您将文件上传到验证工具。源代码重新编译提交的源代码和元数据文件，对照部署的字节代码检查它们。 如果找到匹配，合同的验证状态将更新为 [_<mark style="color:green;">Full (Perfect) Match</mark>_](https://docs.sourcify。 ev/docs/full vs-partial-match/#full 完美-matches)或[_<mark style="color:green;">Partial Match</mark>_](https://docs.sourcify.dev/docs/fullvs-partial-match/#partial-matches)_<mark style="color:green;">.</mark>_
 
-The verification status is publicly available across all community-hosted Hedera Mirror Node Explorers. To learn what differentiates a _Full (Perfect) Match_ from a _Partial Match_, check out the Sourcify documentation [here](https://docs.sourcify.dev/docs/full-vs-partial-match/).
+所有社区托管的 Hedera 镜像节点探索者都可以公开获取验证状态。 To learn what differentiates a _Full (Perfect) Match_ from a _Partial Match_, check out the Sourcify documentation [here](https://docs.sourcify.dev/docs/full-vs-partial-match/).
 
 {% hint style="info" %}
-**Note**: This is an initial beta release, and both the HashScan user interface and API functionalities are scheduled for enhancements in upcoming updates.
+\*\*注意：这是一个初步测试版版本，HashScan 用户界面和 API 功能都已计划在即将到来的更新中得到增强。
 {% endhint %}
 
-For verification, you will need the following items:
+为了验证，您将需要以下项目：
 
-**➡** [**Smart Contract Source Code**](verifying-smart-contracts-beta.md#smart-contract-source-code)
+**:right_箭头:** [**智能合同源代码**](验证智能合同-测试.md#智能合同-源代码)
 
-**➡** [**The Metadata File**](verifying-smart-contracts-beta.md#the-metadata-file)
+**:right_箭头:** [**元数据文件**](验证 ying-smart-contracts-beta.md#the-metetdata-file)
 
-**➡** [**Deployed Smart Contract Address**](verifying-smart-contracts-beta.md#deployed-smart-contract-address)
+**:right_箭头:** [**部署智能合同地址**](验证智能合同-测试.md#部署-智能合同-地址)
 
 ***
 
-## Smart Contract Source Code
+## 智能合同源代码
 
-This is the actual code for your smart contract written in Solidity. The source code includes all the contract's functions, variables, and logic. It's crucial for the verification process, where the deployed bytecode is compared to the compiled bytecode of this source code.
+这是您智能合约的实际代码，以Solidy书写。 源代码包括合同的所有功能、变量和逻辑。 它对验证过程至关重要，在这个过程中，已部署的字节代码与已编译的源代码相比较。
 
-#### Example:
+#### 示例：
 
-A simple `HelloWorld` Solidity smart contract:
+简单的 `HelloWorld` Solidity 智能合约：
 
 ```solidity
 pragma solidity ^0.8.17;
@@ -59,75 +59,75 @@ contract HelloWorld {
 
 ***
 
-## The Metadata File
+## 元数据文件
 
-When you compile a Solidity smart contract, it generates a JSON metadata file. This file contains settings used when the smart contract was originally compiled. These settings can include the compiler version, optimization details, and more. The metadata file is crucial for ensuring that the bytecode generated during verification matches the deployed bytecode.&#x20
+当您编译团结智能合约时，它生成一个 JSON 元数据文件。 此文件包含智能合同最初编译时使用的设置。 这些设置可以包括编译器版本、优化细节等等。 元数据文件对于确保验证过程中生成的字节代码匹配部署的字节代码至关重要。&#x20
 
-> _Metadata is not part of the EVM spec because it's handled externally by compilers and tools like Sourcify. See Sourcify's Metadata documentation_ [_here_](https://docs.sourcify.dev/docs/metadata/#metadata)_._&#x20
+> _元数据不是EVM速度的一部分，因为它是由编译器和诸如Sourcify之类的工具外部处理的。 查看Sourcify的元数据文档_ [_here_](https://docs.sourcify.dev/docs/metadata/#metadata)_._&#x20
 
-You have options for generating the metadata file. The recommended skill levels for each option are in parentheses. Choose the option that best fits your experience with smart contracts:
+您有生成元数据文件的选项。 每个选项推荐的技能水平载于括号内。 选择最符合您智能合同体验的选项：
 
 <details>
 
-<summary>Remix IDE (beginner)</summary>
+<summary>Remix IDE (初学者)</summary>
 
-To create a metadata file in Remix, compile your smart contract and the compiled artifacts will be saved in the `artifacts/` directory and the `<dynamic_hash>.json` metadata file will be under `artifacts/build-info` and used for verification. Alternatively, you can copy and paste it from the Solidity compiler tab. Please see the image below.&#x20
+在 Remix中创建元数据文件， 编译您的智能合约和编译的艺术品将保存在`artifacts/`目录和 `<dynamic_hash>中。 son元数据文件将在 `articfacts/build-info\` 下用于验证。 或者，您可以从Solidity 编译器选项卡复制并粘贴它。 请查看下面的图片。&#x20
 
 ![](../../.gitbook/assets/remix-metadata.png)
 
-See the Remix IDE docs for more detailed documentation [here](https://remix-ide.readthedocs.io/en/latest/contract\_metadata.html).
+更详细的文档 [here](https://remix-ide.readthedocs.io/enura/contract\_metadata.html)
 
-**Note:** Taking the bytecode and metadata from Remix and then deploying that on Hedera results in a _**full (perfect) match**_. Taking the bytecode and metadata from Remix _after_ deploying the contract on Hedera results in a _**partial match**_ or _**The deployed and recompiled bytecode don't match**_ error. _The requirement for verification with a contract compiled in Remix is just the smart contract's Solidity file._&#x20
+**注意：** 从 Remix 拿走字节代码和元数据，然后在Hedera 上将其部署为 _**完整(完美) 匹配**_。 从 Remix _after _ 部署合同后的 Hedera 中的文本代码和元数据生成一个 _**部分匹配**_ 或 _**。部署并重新编译的字节代码不匹配**_ 错误。 _需要通过在 Remix 中编译的合同进行验证，这只是智能合同的 Solidity 文件。_&#x20
 
 </details>
 
 <details>
 
-<summary>Hardhat (intermediate)</summary>
+<summary>硬帽子(中间)</summary>
 
-To create the `.json` metadata file with Hardhat, compile the contract using the `npx hardhat compile` command. The compiled artifacts will be saved in the `artifacts/` directory and the `<dynamic_hash>.json` metadata file will be under `artifacts/build-info` and used for verification. See Sourcify Hardhat metadata documentation [here](https://docs.sourcify.dev/docs/metadata/#hardhat).&#x20
+若要使用 Hardhat 创建 `.json` 元数据文件，请使用 `npx hardhat compile` 命令编译合同。 编译出来的伪影将保存在`artifacts/`目录中，以及`<dynamic_hash>.json`元数据文件将被保存在`artifacts/build-info`中并用于验证。 参见Sourcify Hardhat元数据文档 [here](https://docs.sourcify.dev/docs/metadata/#hardhat).&#x20
 
 <img src="../../.gitbook/assets/hardhat-contract-artifacts.png" alt="" data-size="original">
 
-**Note**: The requirement for verification with a contract compiled with Hardhat is only the `build-info` JSON file.
+**注意**：与Hardhat编译的合同需要验证，这只是`build-info`JSON文件。
 
 </details>
 
 <details>
 
-<summary>Foundry (intermediate)</summary>
+<summary>Foundry (中间)</summary>
 
-To create the metadata file with Foundry, compile the contract using the `forge build` command. The compilation outputs to `out/CONTRACT_NAME` folder. The `.json` file contains the metadata of the contract under `"rawMetadata"` and `"metadata"` fields. However, you don't need to extract the metadata manually for verification. See Sourcify Foundry metadata documentation [here](https://docs.sourcify.dev/docs/metadata/#foundry).&#x20
+若要使用 Foundy 创建元数据文件，请使用 `forge build` 命令编译合同。 编译输出到 `out/CONTRACT_NAME` 文件夹。 `.json`文件包含`rawMetadata`和`metadata`字段'下合同的元数据。 然而，您不需要手动提取元数据以进行验证。 见 Sourcify Foundry metadata 文档 [here](https://docs.sourcify.dev/docs/metadata/#foundry).&#x20
 
 ![](../../.gitbook/assets/foundry-out-folder.png)
 
-**Note**: The requirements for verification with a contract compiled with Foundry are both the `.json` metadata and the Solidity source file.&#x20
+**注意**: 与 Foundy 编译的合同验证的要求既是 `.json` 元数据，也是 Solidity 源文件。&#x20
 
 </details>
 
 <details>
 
-<summary><strong>Solidity compiler (advanced)</strong></summary>
+<summary><strong>团结编译器 (高级)</strong></summary>
 
-You can pass the `--metadata` flag to the Solidity command line compiler to get the metadata output printed.&#x20
-
-```
-solc --metadata contracts/HelloWorld.sol
-```
-
-Write the metadata into a file with
+您可以将 "--metadata" 标志传递到 Solidity 命令行编译器以获取元数据输出打印。
 
 ```
-solc --metadata contracts/HelloWorld.sol > metadata.json
+solc --metatacontracts/HelloWorld.sol
 ```
 
-**Note:`solc` vs. `solcjs`**
+将元数据写入一个文件
 
-**📣** `solcjs` will not generate the metadata using the `--metadata` flag. The option is only supported in `solc`.
+```
+solc --metatacontracts/HelloWorld.sol > metadata.json
+```
+
+**注:`solc` vs. `solcjs`**
+
+**📣** `solcjs`将不使用 `--metadata` 标志生成元数据。 仅在 `solc` 中支持此选项。
 
 </details>
 
-An example metadata file for the `HelloWorld` smart contract:
+`HelloWorld`智能合同的示例元数据文件：
 
 ```json
 {
@@ -177,56 +177,56 @@ An example metadata file for the `HelloWorld` smart contract:
 
 ***
 
-## Deployed Smart Contract Address
+## 部署智能合同地址
 
-Even though Hedera uses the `0.0.XXXXXXX` account ID format, it accommodates Ethereum's address format for EVM compatibility. Once your smart contract is deployed on Hedera's network, you'll receive an address like the one below. This serves as your deployed smart contract address.
+即使Hedera 使用 `0.0.XXXXXXX` 账户ID 格式，但它也符合EVM 兼容性的EVM 地址格式。 一旦你的智能合约部署在赫德拉的网络上，你将收到一个地址，就像下面的地址。 这是你部署的智能合同地址。
 
-#### Example:
+#### 示例：
 
-An example deployed EVM smart contract address:
+部署EVM智能合同地址的一个例子：
 
 ```
 0x403925982ef5a6461daba0a103bd6be20b9c4216
 ```
 
 {% hint style="info" %}
-_**Note**: The `0.0.XXXXXXX` smart contract address format can not be used in the verification process._
+_**注意**：`0.0.XXXXXXX` 智能合同地址格式不能用于验证过程。_
 {% endhint %}
 
 ***
 
-## Different Instances of Sourcify: Hedera's Custom Approach
+## 来源地的不同实例：黑德拉的自定义方法
 
-It's important to note that multiple instances of Sourcify do exist, tailored to the specific needs of different networks. Hedera runs an independent instance of Sourcify, distinct from the public-facing Sourcify.dev instances like Etherscan and other Etherscan clones.
+必须指出的是，确实存在多种源代码实例，这些实例是针对不同网络的具体需要而设计的。 Hedera 经营一个独立的源代码实例，不同于公众对Sourcify.dev 实例，如以太扫描和其他以太扫描克隆。
 
-Running an independent instance of Sourcify allows Hedera to have more control over the verification process, tailoring it to the custom needs of the Hedera ecosystem. For instance, after a testnet reset, Hedera requires the ability to reset testnet smart contract verifications - something Sourcify.dev cannot accommodate.&#x20
+运行一个独立的源代码实例使Hedera能够更多地控制核查过程， 使之适应Hedera生态系统的自定义需要。 例如，在测试网重置后，Hedera 需要能够重置测试网智能合同验证 - Sourcify.dev 无法适应。&#x20
 
-> _**Verified Smart Contracts Testnet Reset:** When the Hedera Testnet is reset, the contract must be redeployed and verified. The contract will receive a new contract EVM address and contract ID. The smart contract will need to be verified using the new addresses._
+> _**验证智能合同测试网重置：** 当Hedera Testnet重置时，合同必须重新部署和验证。 合同将收到一份新的EVM地址和合同ID。 智能合同需要使用新地址验证。_
 
-An essential detail to remember is that smart contracts verified on Hedera's Sourcify instance won't automatically appear as verified on Sourcify.dev or vice versa. Users interested in having their smart contract recognized across multiple platforms should consider verifying on both instances.
+要记住的一个基本细节是，在HederaSourcify.dev上验证的智能合同不会自动在Sourcify.dev或反之亦然。 希望在多个平台上识别其智能合同的用户应考虑在这两种情况下进行核查。
 
 ***
 
-## Verify Your Smart Contract
+## 验证您的智能合同
 
-Learn how to verify your smart contract:
+学习如何验证您的智能合同：
 
-{% content-ref url="../../tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan.md" %}
-[how-to-verify-a-smart-contract-on-hashscan.md](../../tutorials/smart-contracts/how-to-verify-a-smart-contract-on-hashscan.md)
+{% content-ref url="../../tutorials/smart-contracts/how to verify-a-smart-contract-on-hashscan.md" %}
+[how-to-verify-a-smart-contract-on-hashscan.md](../../tutorials/smart-contracts/how to verify-a smart-contract-on-hashscan.md)
 {% endcontent-ref %}
 
 ***
 
-## Additional Resources
+## 额外资源
 
-**➡** [**Sourcify Documentation**](https://docs.sourcify.dev/docs/intro)
+**➡️** [**Sourcify Documentation**](https://docs.sourcify.dev/docs/intro)
 
-**➡** [**HashScan Network Explorer**](https://hashscan.io/)
+**:right_箭头:** [**HashScan Network Explorer**](https://hashscan.io/)
 
-**➡** [**Smart Contract Verifier Page**](https://verify.hashscan.io/)
+**:right_箭头:** [**智能合同验证页面**](https://verify.hashscan.io/)
 
-**➡** [**Full vs Partial Match Documentation**](https://docs.sourcify.dev/docs/full-vs-partial-match/)
+**➡️** [**Full vs Partial Match Documentation**](https://docs.sourcify.dev/docs/fullvs-partial-match/)
 
-**➡** [**Hardhat Documentation**](https://hardhat.org/hardhat-runner/docs/guides/compile-contracts)
+**➡️** [**Hardhat Documentation**](https://hardhat.org/hardhat-runner/docs/guides/compile-contracts)
 
-**➡** [**Solidity Documentation**](https://docs.soliditylang.org/en/v0.8.23/)
+**➡️** [**Solidity Documentation**](https://docs.soliditylang.org/en/v0.8.23/)

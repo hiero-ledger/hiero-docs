@@ -1,14 +1,14 @@
-# Auto Account Creation
+# Création automatique de compte
 
-Auto account creation is a unique flow in which applications, like wallets and exchanges, can create free user "accounts" instantly, even without an internet connection. Applications can make these by generating an **account alias.** The alias account ID format used to specify the account alias in Hedera transactions comprises the shard ID, realm ID, and account alias <mark style="color:purple;">`<shardNum>.<realmNum>.<alias>`</mark>. This is an alternative account identifier compared to the standard account number format <mark style="color:purple;">`<shardId>.<realmId>.<accountNum>`</mark><mark style="color:blue;">.</mark>
+La création de comptes automatiques est un flux unique dans lequel les applications, telles que les portefeuilles et les échanges, peuvent créer instantanément des comptes utilisateurs gratuits, même sans connexion Internet. Applications can make these by generating an **account alias.** The alias account ID format used to specify the account alias in Hedera transactions comprises the shard ID, realm ID, and account alias <mark style="color:purple;">`<shardNum>.<realmNum>.<alias>`</mark>. Ceci est un identifiant de compte alternatif comparé au format de numéro de compte standard <mark style="color:purple;">`<shardId>.<realmId>`<accountNum>\`</mark><mark style="color:blue;">.</mark>
 
-The account alias can be either one of the supported types:
+L'alias du compte peut être l'un des types pris en charge :
 
 <details>
 
-<summary>Public Key</summary>
+<summary>Clé publique</summary>
 
-The public key alias can be an ED25519 or ECDSA secp256k1 public key type. \
+L'alias de la clé publique peut être un type de clé publique ED25519 ou ECDSA secp256k1. \
 \
 **Example**\
 \
@@ -37,69 +37,67 @@ EDDSA ED25519 Public Key Alias Account ID: \
 
 <details>
 
-<summary>EVM Address</summary>
+<summary>Adresse EVM</summary>
 
-The EVM address alias is created by using the rightmost 20 bytes of the 32 byte `Keccak-256` hash of an `ECDSA secp256k1` public key. This calculation is in the manner described by the [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf). The EVM address is not equivalent to the ECDSA public key. \
+L'alias d'adresse EVM est créé en utilisant les 20 octets les plus à droite du hash `Keccak-256` de 32 octets d'une clé publique `ECDSA secp256k1`. Ce calcul se fait de la manière décrite par le [Livre Jaune Ethereum](https://ethereum.github.io/yellowpaper/paper.pdf). L'adresse EVM n'est pas équivalente à la clé publique ECDSA. \
 \
-The acceptable format for Hedera transactions is the EVM Address Alias Account ID. The acceptable format for Ethereum public addresses to denote an account address is the hex encoded public address. \
+Le format acceptable pour les transactions Hedera est l'ID du compte d'alias d'adresse EVM. Le format acceptable pour les adresses publiques Ethereum pour désigner une adresse de compte est l'adresse publique encodée en hexa. \
 \
-**Example**\
+**Exemple**\
 \
-EVM Address: `b794f5ea0ba39494ce839613fffba74279579268`\
+Adresse EVM : `b794f5ea0ba39494ce839613fffba74279579268`\
 \
-HEX Encoded EVM Address: `0xb794f5ea0ba39494ce839613fffba74279579268`\
-\
-EVM Address Alias Account ID: `0.0.b794f5ea0ba39494ce839613fffba74279579268`
+HEX Adresse EVM encodée EVM : `0xb794f5ea0ba39494ce839613fffba74279579268`\EVM Adresse Alias Account ID: `0. .b794f5ea0ba39494ce839613fffba74279579268`
 
 </details>
 
-The <mark style="color:purple;">`<shardNum>.<realmNum>.<alias>`</mark> format is only acceptable when specified in the `TransferTransaction`, `AccountInfoQuery`, and `AccountBalanceQuery` transaction types. If this format is used to specify an account in any other transaction type, the transaction will not succeed.&#x20
+Le format <mark style="color:purple;">`<shardNum>.<realmNum>.<alias>`</mark> n'est acceptable que s'il est spécifié dans les types de transaction `TransferTransaction`, `AccountInfoQuery`, et `AccountBalanceQuery`. Si ce format est utilisé pour spécifier un compte dans un autre type de transaction, la transaction ne réussira pas.&#x20
 
-Reference Hedera Improvement Proposal: [HIP-583](https://hips.hedera.com/hip/hip-583)
+Référence de la proposition d'amélioration de Hedera : [HIP-583](https://hips.hedera.com/hip/hip-583)
 
-## **Auto Account Creation Flow**
+## **Flux de création automatique de compte**
 
-### **1. Create an account alias**
+### **1. Créer un alias de compte**
 
-Create an account alias and convert it to the alias account ID format. The alias account ID format requires appending the shard number and realm numbers to the account alias. This form of account is purely a local account, i.e., not registered with the Hedera network.&#x20
+Créez un alias de compte et convertissez-le au format ID du compte alias. Le format de l'identifiant du compte d'alias nécessite l'ajout du numéro de fragment et des numéros de Realm à l'alias du compte. Ce formulaire de compte est purement un compte local, c'est-à-dire qu'il n'est pas enregistré sur le réseau Hedera.&#x20
 
-### **2. Deposit tokens to the account alias account ID**
+### **2. Déposez des jetons sur l'ID du compte Alias du compte**
 
-Once the alias account ID is created, applications can create a transaction to transfer tokens to the alias account ID for users. Users can transfer HBAR, custom fungible or non-fungible tokens to the alias account ID. This will trigger the creation of the official Hedera account. When using the auto account creation flow, the first token transferred to the alias account ID is automatically associated to the account.
+Une fois que l'identifiant du compte alias est créé, les applications peuvent créer une transaction pour transférer des jetons vers l'ID du compte alias pour les utilisateurs. Les utilisateurs peuvent transférer des jetons HBAR, fungible ou non-fongibles sur l'ID du compte alias. Cela déclenchera la création du compte officiel Hedera. Lorsque vous utilisez le flux de création de compte automatique, le premier jeton transféré à l'ID du compte alias est automatiquement associé au compte.
 
-The initial transfer of tokens to the alias account ID will do a few things:
+Le transfert initial de jetons vers l'ID du compte alias fera quelques choses:
 
-1. The system will first create a system-initiated transaction to create a new account on Hedera. This is to create a new account on Hedera officially. This transaction occurs one nanosecond before the subsequent token transfer transaction.&#x20
-2. After the new account is created, the system will assign a new account number, and the account alias will be stored with the account in the alias field in the state. The new account will have an "auto-created account" set in the account memo field.
-   - For accounts created using the public key alias, the account will be assigned the account public key that matches the alias public key.&#x20
-   - For an account created via an EVM address alias, the account will not have an account public key, creating a [hollow account](auto-account-creation.md#auto-account-creation-evm-address-alias).
-3. Once the new account is officially created, the token transfer transaction instantiated by the user will transfer the tokens to the new account.&#x20
-4. The account specified to pay for the token transfer transaction fees will also be charged the account creation transaction fees in tinybar.&#x20
+1. Le système créera d'abord une transaction initiée par le système pour créer un nouveau compte sur Hedera. Ceci est de créer un nouveau compte sur Hedera officiellement. Cette transaction se produit une nanoseconde avant la transaction de transfert de jeton subséquente.&#x20
+2. Une fois le nouveau compte créé, le système attribuera un nouveau numéro de compte et l'alias du compte sera stocké avec le compte dans le champ alias de l'état. Le nouveau compte aura un "compte auto-créé" défini dans le champ mémo du compte.
+   - Pour les comptes créés en utilisant l'alias de la clé publique, le compte sera assigné à la clé publique qui correspond à la clé publique de l'alias.&#x20
+   - Pour un compte créé via un alias d'adresse EVM, le compte n'aura pas de clé publique de compte, créant un [compte creux](auto-account-creation.md#auto-account-creation-evm-addresss-alias).
+3. Une fois que le nouveau compte est officiellement créé, la transaction de transfert de jetons instanciée par l'utilisateur transférera les jetons vers le nouveau compte. &#x20
+4. Le compte spécifié pour payer les frais de transaction de transfert de jetons sera également facturé les frais de transaction de création de compte dans tinybar.&#x20
 
-The above interactions introduce the concept of [parent and child transactions](../transactions-and-queries.md#nested-transactions). The parent transaction is the transaction that represents the transfer of tokens from the sender account to the destination account. The child transaction is the transaction the system initiated to create the account. This concept is important since the parent transaction record or receipt will not return the new account number ID. You must get the transaction record or receipt of the child transaction. The parent and child transactions will share the same transaction ID, except the child transaction has an added nonce value. &#x20
+Les interactions ci-dessus introduisent le concept de [transactions parentales et enfants](../transactions-and-queries.md#nested-transactions). La transaction parent est la transaction qui représente le transfert de jetons du compte de l'expéditeur vers le compte de destination. La transaction enfant est la transaction que le système a initiée pour créer le compte. Ce concept est important car le relevé de transaction ou le reçu parent ne retournera pas le nouveau numéro de compte. Vous devez obtenir le relevé de transaction ou la réception de la transaction enfant. Les transactions parent et enfant partageront le même ID de transaction, sauf que la transaction enfant a une valeur nonce ajoutée. &#x20
 
 {% hint style="info" %}
-**parent transaction**: the transaction responsible for transferring the tokens to the alias account ID destination account.
+**transaction parente** : la transaction responsable du transfert des jetons vers le compte de destination de l'alias ID.
 
-**child transaction**: the transaction that created the new account
+**transaction enfant** : la transaction qui a créé le nouveau compte
 {% endhint %}
 
-### **3. Get the new account number**
+### **3. Obtenir le nouveau numéro de compte**
 
-You can obtain the new account number in any of the following ways:
+Vous pouvez obtenir le nouveau numéro de compte de l'une des façons suivantes :
 
-- Request the parent transaction record or receipt and set the child transaction record boolean flag equal to true.&#x20
-- Request the transaction receipt or record of the account create transaction by using the transaction ID of the parent transfer transaction and incrementing the nonce value from 0 to 1.
-- Specify the account alias account ID in an `AccountInfoQuery` transaction request. The response will return the account's account number account ID.
-- Inspect the parent transfer transaction record transfer list for the account with a transfer equal to the token transfer value.
+- Demander l'enregistrement ou le reçu de la transaction parent et définir le marquage booléen de la transaction enfant égal à vrai.&#x20
+- Demander la réception ou l'enregistrement de l'opération de créer une transaction en utilisant l'ID de l'opération de transfert parent et en incrémentant la valeur du nonce de 0 à 1.
+- Spécifiez l'ID du compte alias du compte dans une demande de transaction `AccountInfoQuery`. La réponse retournera l'ID du compte du compte.
+- Inspectez la liste des transferts de transactions parentes pour le compte avec un transfert égal à la valeur de transfert de jeton.
 
-## Auto Account Creation: EVM Address Alias
+## Création automatique du compte : alias d'adresse EVM
 
-Accounts created with the auto account creation flow using an [EVM address alias](account-properties.md#account-alias-evm-address) result in creating a **hollow account**. Hollow accounts are incomplete accounts with an account number and alias but not an account key. The hollow account can accept token transfers into the account in this state. It cannot transfer tokens from the account or modify any account properties until the account key has been added and the account is complete.
+Les comptes créés avec le flux de création automatique de compte en utilisant un [alias d'adresse EVM](account-properties.md#account-alias-evm-address) résultent en la création d'un **compte creux**. Les comptes creux sont des comptes incomplets avec un numéro de compte et un alias mais pas une clé de compte. Le compte creux peut accepter des transferts de jetons dans le compte dans cet état. Il ne peut pas transférer de jetons depuis le compte ou modifier des propriétés de compte tant que la clé du compte n'a pas été ajoutée et que le compte n'est pas terminé.
 
-To update the hollow account into a complete account, the hollow account needs to be specified as a transaction fee payer account for a Hedera transaction. It must also sign the transaction with the ECDSA private key corresponding to the EVM address alias. When the hollow account becomes a complete account, you can use the account to pay for transaction fees or update account properties as you would with regular Hedera accounts.
+Pour mettre à jour le compte creux dans un compte complet, le compte creux doit être spécifié comme un compte payeur de frais de transaction pour une transaction Hedera. Elle doit également signer la transaction avec la clé privée ECDSA correspondant à l'alias d'adresse EVM. Quand le compte creux devient un compte complet, vous pouvez utiliser le compte pour payer des frais de transaction ou mettre à jour les propriétés du compte comme vous le feriez avec des comptes Hedera réguliers.
 
-## Examples
+## Exemples
 
 <details>
 
@@ -113,10 +111,10 @@ To update the hollow account into a complete account, the hollow account needs t
 
 <details>
 
-<summary>Auto-create an account using an EVM address (public address) alias</summary>
+<summary>Créer automatiquement un compte en utilisant une adresse EVM (adresse publique) alias</summary>
 
 :black\_circle: [Java ](https://github.com/hashgraph/hedera-sdk-java/blob/develop/examples/src/main/java/AutoCreateAccountTransferTransactionExample.java)\
-:black\_circle: [JavaScript ](https://github.com/hashgraph/hedera-sdk-js/blob/develop/examples/transfer-using-evm-address.js)\
+:black\_circle: [JavaScript](https://github.com/hashgraph/hedera-sdk-js/blob/develop/examples/transfer-using-evm-address.js)\
 :black\_circle: [Go](https://github.com/hashgraph/hedera-sdk-go/blob/develop/examples/account\_create\_token\_transfer/main.go)
 
 </details>

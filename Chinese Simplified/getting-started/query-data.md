@@ -1,38 +1,38 @@
-# Query Ledger Data
+# 查询账单数据
 
 ## Summary
 
-In this section, we will guide you through querying your account balance, enabling you to retrieve the most current information about the available funds in your new Hedera account.
+在本节中，我们将引导您查询您的账户余额。 允许您检索关于您新Hedera账户可用资金的最新信息。
 
 ## Prerequisites <a href="#pre-requisites" id="pre-requisites"></a>
 
-- Completed the [Introduction](introduction.md) step.
-- Completed the [Environment Setup](environment-set-up.md) step.
-- Completed the [Created an Account](create-an-account.md) step.
-- Completed the [Transfer HBAR ](transfer-hbar.md)step.
+- 完成 [Introduction](introduction.md) 步骤。
+- 完成了[环境设置](环境-设置.md)。
+- 完成了[创建一个帐户](创建一个帐户。md)
+- 完成[Transfer HBAR ](transfer-hbar.md)步骤。
 
 {% hint style="info" %}
-_**Note:** You can always check the "_[_Code Check ✅_](query-data.md#code-check) _" section at the bottom of each page to view the entire code if you run into issues. You can also post your issue to the respective SDK channel in our Discord community_ [_here_](http://hedera.com/discord) _or on the GitHub repository_ [_here_](https://github.com/hashgraph/hedera-docs)_._
+_**注意:** 您可以随时检查"_[_Code检查:check_mark_buton:_](query-data)。 d#code-check) _" 部分在每个页面底部以查看整个代码，如果你遇到了问题。 您还可以将您的问题发布到我们Discord社区的SDK频道_ [_here_](http://hedera. om/discord) _或 GitHub 仓库_ [_here_](https://github.com/hashgraph/hedera-docs)_._
 {% endhint %}
 
 ***
 
-## Query the account balance
+## 查询帐户余额
 
-### **Get the cost of requesting the query**
+### **获取请求查询的成本**
 
-You can request the cost of a query prior to submitting the query to the Hedera network. Checking an account balance is free of charge today. You can verify that by the method below.
+您可以在将查询提交给Hedera网络之前请求查询的费用。 今天检查帐户余额是免费的。 您可以通过下面的方法验证这一点。
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-//Request the cost of the query
+//request the cost of the queryCost
 Hbar queryCost = new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .getCost(client);
 
-System.out.println("The cost of this query is: " +queryCost);
+System.out.println("此查询的成本: " +queryCost);
 ```
 
 {% endtab %}
@@ -40,12 +40,12 @@ System.out.println("The cost of this query is: " +queryCost);
 {% tab title="JavaScript" %}
 
 ```javascript
-//Request the cost of the query
-const queryCost = await new AccountBalanceQuery()
+//request the cost
+const queryCost = require new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .getCost(client);
 
-console.log("The cost of query is: " +queryCost);
+console.log("查询的成本: " +queryCost);
 ```
 
 {% endtab %}
@@ -70,9 +70,9 @@ println("The account balance query cost is:", cost.String())
 {% endtab %}
 {% endtabs %}
 
-### **Get the account balance**
+### **获取账户余额**
 
-You will verify the account balance was updated for the new account by requesting a get account balance query. The current account balance should be the sum of the initial balance (1,000 _**tinybars**_) plus the transfer amount (1,000 **tinybars**) and equal to 2,000 **tinybars**.
+您将通过请求获取账户余额查询来验证新账户余额已更新。 经常账户余额应为初始余额(1,000_**tinybars**_)加上转账金额(1,000**tinybars**)，等于2,000**tinybars**。
 
 {% tabs %}
 {% tab title="Java" %}
@@ -91,12 +91,12 @@ System.out.println("The account balance after the transfer: " +accountBalanceNew
 {% tab title="JavaScript" %}
 
 ```javascript
-//Check the new account's balance
-const getNewBalance = await new AccountBalanceQuery()
-     .setAccountId(newAccountId)
-     .execute(client);
+//检查新账户余额
+const getNewBalance = 等待新账户余额()
+     etAccountId(newAccountId)
+     xecute(client);
 
-console.log("The account balance after the transfer is: " +getNewBalance.hbars.toTinybars() +" tinybar.")
+console.log("传输后的帐户余额: " +getNewBalance.hbars.toTinybars() +" tinybar.")
 ```
 
 {% endtab %}
@@ -104,38 +104,38 @@ console.log("The account balance after the transfer is: " +getNewBalance.hbars.t
 {% tab title="Go" %}
 
 ```go
-//Check the new account's balance
-newAccountBalancequery := hedera.NewAccountBalanceQuery().
-     SetAccountID(newAccountId)
+//检查新账户余额
+newAccountBalancequer:= hedera.NewAccountBalanceQuery().
+     设置帐户ID(newAccountId)
 
-//Sign with client operator private key and submit the query to a Hedera network
-newAccountBalance, err := newAccountBalancequery.Execute(client)
-if err != nil {
+//Signing with client operators private key and submitter to a Hedera 网络
+newAccountBalance, err := newAccountBalance查询. xecute(client)
+if err != nil 密切相关,
     panic(err)
 }
 
-//Print the balance of tinybars
-fmt.Println("The hbar account balance for this account is", newAccountBalance.Hbars.AsTinybar())
+/ 打印tinybars
+fmt. rintln("此帐户的 hbar 帐户余额", newAccountBalance.Hbars.AsTinybar())
 ```
 
 {% endtab %}
 {% endtabs %}
 
 {% hint style="success" %}
-:star: **Congratulations! You have successfully transferred **_**HBAR**_\*\* to another account on the Hedera Testnet! If you have followed the tutorial from the beginning, you have completed the following thus far:\*\*&#x20
+:star: **Congratulations! 您已成功将 **_**HBAR**_\*\* 转到Hedera Testnet上的另一个帐户！ 如果你从一开始就学习了这个教程，那么到目前为止你已经完成了以下课程：\*\*&#x20
 
-- Set up your Hedera environment to submit transactions and queries.
-- Created an account.
-- Transferred **HBAR** to another account.
+- 设置您的 Hedera 环境来提交交易和查询。
+- 创建了一个帐户。
+- 已将 **HBAR** 转到另一个账户。
 
-Do you want to keep learning? Visit our the [SDKs & APIs](../sdks-and-apis/) section to take your learning experience to the next level. You can also find additional Java SDK examples [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java).
+您想要继续学习吗？ 访问我们的 [SDK 和 APIs] (../sdks-andapis/) 部分来将您的学习体验提升到下一关。 您也可以找到额外的 Java SDK 示例 [here](https://github.com/hashgraph/hedera-sdk-java/tree/main/examples/src/main/java)。
 {% endhint %}
 
 ***
 
-## Code Check ✅
+## 代码检查 :check_mark_buton：
 
-Your complete code file should look something like this:
+您完整的代码文件应该看起来像这样：
 
 <details>
 
@@ -469,7 +469,7 @@ func main() {
 
 </details>
 
-#### Sample output:
+#### 示例输出：
 
 ```bash
 New account ID: 0.0.13724748
@@ -482,5 +482,5 @@ The account balance after the transfer: 2000 tinybars.
 ```
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+有一个问题？ [在 StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}

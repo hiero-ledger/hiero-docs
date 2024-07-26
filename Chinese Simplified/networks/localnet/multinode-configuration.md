@@ -1,68 +1,68 @@
-# Multinode Configuration
+# Multinode 配置
 
-## Using Multinode Configuration
+## 使用Multinode 配置
 
-Multinode configuration is an advanced feature designed for specific scenarios that require multiple consensus nodes. This configuration demands higher resources and involves more complexity, making it suitable primarily for testing and development environments. Before attempting to use the multinode setup, it's crucial to ensure that the local node operates correctly in the default single-node mode.
+Multinode 配置是一个高级功能，用于需要多个共识节点的特定场景。 这种配置需要更多的资源，需要更加复杂，从而主要适合测试和发展环境。 在尝试使用 multinode 设置之前，必须确保本地节点在默认单节点模式下正常运行。
 
 <details>
 
-<summary><strong>Multinode Mode Requirements</strong></summary>
+<summary><strong>多种模式要求</strong></summary>
 
-To run the multinode mode, ensure the following configurations are set at minimum in Docker **Settings** -> **Resources** and at least 14 GB of memory are available for Docker:
+要运行 multinode 模式， 确保在Docker **Settings** -> **Resources** 中至少设置了以下配置，Docker至少可以使用14GB 内存：
 
-- **CPUs:** 6
-- **Memory:** 14 GB
-- **Swap:** 1 GB
-- **Disk Image Size:** 64 GB
+- **CPU:** 6
+- **内存：** 14 GB
+- **交换：** 1 GB
+- **磁盘图像大小：** 64 GB
 
 <img src="../../.gitbook/assets/localnode-multinode-requirements.png" alt="" data-size="original">
 
 </details>
 
 {% hint style="info" %}
-_**📣 Note**: Creating a decentralized network where each node runs independently on its own machine is currently unsupported. Nonetheless, advanced networking and configuration capabilities are available, allowing nodes to communicate with each other similar to their interactions on the Hedera Mainnet._
+_**📣 Note**: 创建一个分散的网络，在这个网络中，每个节点在自己的机器上独立运行目前不受支持。 尽管如此，高级的网络和配置功能已经可用，可以让节点在Hedera Mainnet上进行类似的相互交流。_
 {% endhint %}
 
-#### **Starting Multinode Mode**
+#### **启动Multinode 模式**
 
-To start Hedera Local Node in multinode mode, append the `--multinode` flag to your [start command](single-node-configuration.md#npm). For example:
-
-```bash
-# npm command to start the local network in multinode mode
-npm run start -- -d --multinode
-
-# docker command to start the local network in multinode mode
-docker compose up -d --multinode
-```
-
-Verify the successful launch of multinode mode by inspecting Docker output of `docker ps --format "table {{.Names}}" | grep network` or the Docker Desktop dashboard. You should identify four running nodes:
+要在 multinode 模式中启动 Hedera 本地节点，请将 `--multinode` 标签附加到您的 [start command](sin-configuration.md#npm)。 例如：
 
 ```bash
-network-node
-network-node-1
-network-node-2
-network-node-3
+# npm 命令在multinode 模式下启动本地网络
+npm 运行开始 -- -d --multinode
+
+# docker 命令在multinode 模式下启动本地网络
+docker compose -d --multinode
 ```
 
-_📣 **Note**: In multinode mode, you need at least three healthy nodes for operational network._
+Verify the successful launch of multinode mode by inspecting Docker output of `docker ps --format "table {{.Names}}" | grep network` or the Docker Desktop dashboard. 您应该识别四个正在运行的节点：
 
-#### **Starting and Stopping Nodes**
+```bash
+网络节点
+网络节点1
+网络节点2
+网络节点3
+```
 
-Individual nodes can be started or stopped to test consensus, synchronization, and node selection processes using `npm` or `docker` management commands:&#x20
+_📣 **注意**: 在multinode 模式中，你至少需要三个健康的节点进行操作网络。
+
+#### **启动和停止节点**
+
+可以启动或停止单个节点来测试共识、同步和节点选择过程，使用 `npm` 或 `docker` 管理命令：&#x20
 
 <details>
 
 <summary><strong>npm commands</strong></summary>
 
 ```bash
-# npm command to start an individual node
-npm run start network-node-3
+# npm 命令启动单个节点
+npm 运行启动网络节点 3
 
-# npm command to stop an individual node
-npm run stop network-node-3
+# npm 命令停止单个节点
+npm 运行停止网络节点 3
 
-# npm command to restart an individual node
-npm run restart network-node-3
+# npm 命令重启单个节点
+npm 运行重新启动网络节点 node-3
 ```
 
 </details>
@@ -90,10 +90,10 @@ docker compose down
 
 </details>
 
-Alternatively, run `docker compose down -v; git clean -xfd; git reset --hard` to stop the local node and reset it to its original state.
+或者，运行 `docker compose -v; git clean -xfd; git reset --hard` 以停止本地节点并将其重置为原始状态。
 
-#### Multinode Mode Diagram
+#### 多码模式图
 
-The following diagram illustrates the architecture and flow of data in multinode mode.
+下面的图表显示了多式联运模式下的数据结构和流量。
 
-<figure><img src="../../.gitbook/assets/multinode-diagram.jpeg" alt="" width="535"><figcaption><p>Multinode mode diagram</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/multinode-diagram.jpeg" alt="" width="535"><figcaption><p>多种模式图</p></figcaption></figure>

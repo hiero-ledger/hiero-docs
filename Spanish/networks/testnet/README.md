@@ -1,60 +1,60 @@
 ---
-description: Join a Hedera Testnet
+description: Únete a una red de pruebas de Hedera
 ---
 
 # Testnets
 
-## Overview
+## Resumen
 
-Hedera test networks provide developers access to a free testing environment for Hedera network services. Testnets simulate the exact development environment as you would expect for mainnet. This includes transaction fees, throttles, available services, etc. To create a Hedera Testnet or Previewnet account, you can visit the [Hedera Developer Portal](https://portal.hedera.com/login).
+Las redes de pruebas de Hedera proporcionan a los desarrolladores acceso a un entorno de pruebas gratuito para los servicios de red de Hedera. Las redes de prueba simulan el entorno de desarrollo exacto como esperarías para mainnet. Esto incluye tasas de transacción, limites, servicios disponibles, etc. Para crear una cuenta de Hedera Testnet o Previewnet, puedes visitar el [Portal de Desarrollador de Hedera](https://portal.hedera.com/login).
 
-Once your application has been built and tested in this test environment, you can expect to migrate your decentralized application (dApp) to mainnet without any changes.
+Una vez que su aplicación ha sido construida y probada en este entorno de prueba, puede esperar migrar su aplicación descentralizada (dApp) a mainnet sin ningún cambio.
 
-<table><thead><tr><th width="324">Test Networks</th><th>Description</th></tr></thead><tbody><tr><td><strong>Testnet</strong></td><td>Testnet runs the same code as the Hedera Mainnet, designed to provide a pre-production environment for developers about to move to mainnet. You can find compatible SDKs <a href="../../sdks-and-apis/sdks/#hedera-supported-sdks">here</a>.</td></tr><tr><td><strong>Previewnet</strong></td><td><p>Code that is under development by the Hedera team and likely to be used in an upcoming release designed to give developers early exposure to features coming down the pipe. Updates to the network are made frequently. There is no guarantee an SDK will readily support the up-and-coming features.</p><p><strong>Note:</strong> Updates to this network are triggered by a new release and are frequent. These updates will not be reflected on the status page.</p></td></tr></tbody></table>
+<table><thead><tr><th width="324">Probar redes</th><th>Descripción</th></tr></thead><tbody><tr><td><strong>Testnet</strong></td><td>Testnet ejecuta el mismo código que el Hedera Mainnet, diseñado para proporcionar un entorno de preproducción para desarrolladores que están a punto de mudarse a mainnet. Puedes encontrar SDKs compatibles <a href="../../sdks-and-apis/sdks/#hedera-supported-sdks">aquí</a>.</td></tr><tr><td><strong>Vista previa</strong></td><td><p>Código que está siendo desarrollado por el equipo de Hedera y que probablemente será utilizado en una próxima versión diseñada para dar a los desarrolladores una exposición temprana a las características que bajan la tubería. Las actualizaciones a la red se realizan con frecuencia. No hay garantía de que un SDK soporte fácilmente las características de arriba y venir.</p><p><strong>Note:</strong> Updates to this network are triggered by a new release and are frequent. Estas actualizaciones no se reflejarán en la página de estado.</p></td></tr></tbody></table>
 
-<table><thead><tr><th width="325">Network Service</th><th>Availability</th></tr></thead><tbody><tr><td><strong>Cryptocurrency</strong></td><td>Limited</td></tr><tr><td><strong>Consensus Service</strong></td><td>Limited</td></tr><tr><td><strong>File Service</strong></td><td>Limited</td></tr><tr><td><strong>Smart Contract Service</strong></td><td>Limited</td></tr><tr><td><strong>Token Service</strong></td><td>Limited</td></tr></tbody></table>
+<table><thead><tr><th width="325">Servicio de red</th><th>Disponibilidad</th></tr></thead><tbody><tr><td><strong>Criptomoneda</strong></td><td>Limitado</td></tr><tr><td><strong>Servicio de consenso</strong></td><td>Limitado</td></tr><tr><td><strong>Servicio de archivos</strong></td><td>Limitado</td></tr><tr><td><strong>Servicio de Contrato Inteligente</strong></td><td>Limitado</td></tr><tr><td><strong>Token Service</strong></td><td>Limitado</td></tr></tbody></table>
 
-### Test Network Resets
+### Probar reinicios de red
 
-The mirror node and consensus node test network are scheduled to reset once a quarter. When a testnet reset occurs, all account, token, contract, topic, schedule, and file data are wiped.
+El nodo espejo y la red de pruebas de nodos consensuados están programados para reiniciarse una vez que el cuadrilátero. Cuando se produce un reinicio de red de pruebas, todos los datos de cuenta, token, contrato, tópico, horario y archivo se borran.
 
-Developers will no longer have access to the state data from test network consensus nodes. For example, you will not be able to perform transactions or queries on an account that existed before the reset.&#x20
+Los desarrolladores ya no tendrán acceso a los datos de estado de los nodos de prueba de consenso de red. Por ejemplo, no podrá realizar transacciones o consultas en una cuenta que existía antes de reiniciar.&#x20
 
-The testnet mirror node will be available for developers to store any data before access is completely removed for two weeks after the date of the reset. You will be able to query old testnet information for the two-week period if it is available.
+El nodo espejo testnet estará disponible para que los desarrolladores almacenen cualquier dato antes de que se elimine completamente el acceso durante dos semanas después de la fecha del reinicio. Podrá consultar la información antigua de la red de pruebas durante el período de dos semanas si está disponible.
 
-**What you should do:**
+**Lo que deberías hacer:**
 
-- Take note of the upcoming reset dates.
-- Have the ability to recreate test data for your application to minimize interruptions.
-- After the reset, you will need to visit the [Hedera Developer Portal](https://portal.hedera.com/register) to get your new testnet account ID.
-  - The public and private key pair will remain the same after resets.
-- Subscribe to the [Hedera status page](https://status.hedera.com/) to receive reset notifications.
-- Mirror Node operators can reference the instructions [here](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#reset) to set up your mirror node
-  - GCP GCS and AWS S3 buckets: `hedera-testnet-streams-2023-01`
+- Tome nota de las próximas fechas de reinicio.
+- Tener la capacidad de recrear los datos de prueba para su aplicación para minimizar las interrupciones.
+- Después de reiniciar, tendrás que visitar el [Portal de Desarrolladores de Hedera](https://portal.hedera.com/register) para obtener el ID de tu nueva cuenta de testnet.
+  - El par de claves públicas y privadas seguirá siendo el mismo después de los reinicios.
+- Suscríbete a la [página de estado de Hedera](https://status.hedera.com/) para recibir notificaciones de reinicio.
+- Los operadores de nodo de réplica pueden hacer referencia a las instrucciones [here](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#reset) para configurar su nodo espejo
+  - Buckets GCP GCS y AWS S3: `hedera-testnet-streams-2023-01`
 
-If you have any questions or concerns, please connect with us via [Discord](https://hedera.com/discord).
+Si tienes alguna pregunta o preocupación, por favor conecta con nosotros a través de [Discord](https://hedera.com/discord).
 
-**Reset Dates:**
+**Restablecer fechas:**
 
 **2024**
 
-- February 1, 2024 - Completed
-- April 25, 2024
-- July 25, 2024
-- Oct 31, 2024
+- 1 de febrero de 2024 - Completado
+- 25 de abril de 2024
+- 25 de julio de 2024
+- 31 de octubre de 2024
 
 **2023**
 
-- January 26, 2023 - Completed&#x20
-- April 27, 2023 - Skipped&#x20
-- July 27, 2023 - Completed
-- October 26, 2023 - Skipped
+- 26 de enero de 2023 - Completado&#x20
+- 27 de abril de 2023 - Saltado&#x20
+- 27 de julio de 2023 - Completado
+- 26 de octubre de 2023 - Omitido
 
-### Test Network Throttles
+### Probar lanzamientos de red
 
 {% hint style="warning" %}
-**Limited Support**\
-Transactions are currently throttled for testnets. You will receive a **`BUSY`** response if the number of transactions submitted to the network exceeds the threshold value.
+**Soporte Limitado**\
+Las transacciones están actualmente atascadas para redes de prueba. Usted recibirá una respuesta **`BUSY`** si el número de transacciones enviadas a la red excede el valor umbral.
 {% endhint %}
 
-<table><thead><tr><th width="322">Network Request Type</th><th>Throttle (tps)</th></tr></thead><tbody><tr><td><strong>Cryptocurrency Transactions</strong></td><td><p><code>AccountCreateTransaction</code>: 2 tps</p><p><code>AccountBalanceQuery</code>: unlimited<br><code>TransferTransaction</code> (inc. tokens): 10,000 tps</p><p><code>Other</code>: 10,000 tps</p></td></tr><tr><td><strong>Consensus Transactions</strong></td><td><p><code>TopicCreateTransaction</code>: 5 tps</p><p><code>Other</code>: 10,000 tps</p></td></tr><tr><td><strong>Token Transactions</strong></td><td><p><code>TokenMintTransaction</code>:</p><ul><li>125 TPS for fungible mint</li><li>50 TPS for NFT mint</li></ul><p><code>TokenAssociateTransaction</code>: 100 tps<br><code>TransferTransaction</code> (inc. tokens): 10,000 tps</p><p><code>Other</code>: 3,000 tps</p></td></tr><tr><td><strong>Schedule Transactions</strong></td><td><code>ScheduleSignTransaction</code>: 100 tps<br><code>ScheduleCreateTransaction</code>: 100 tps</td></tr><tr><td><strong>File Transactions</strong></td><td>10 tps</td></tr><tr><td><strong>Smart Contract Transactions</strong></td><td><code>ContractExecuteTransaction</code>: 350 tps<br><code>ContractCreateTransaction</code>: 350 tps</td></tr><tr><td><strong>Queries</strong></td><td><code>ContractGetInfo</code>: 700 tps<br><code>ContractGetBytecode</code>: 700 tps<br><code>ContractCallLocal</code>: 700 tps<br><br><code>FileGetInfo</code>: 700 tps<br><code>FileGetContents</code>: 700 tps<br><br><code>Other</code>: 10,000 tps</td></tr><tr><td><strong>Receipts</strong></td><td>unlimited (no throttle)</td></tr></tbody></table>
+<table><thead><tr><th width="322">Tipo de solicitud de red</th><th>Impulso (tps)</th></tr></thead><tbody><tr><td><strong>Transacciones de criptomonedas</strong></td><td><p><code>AccountCreateTransaction</code>: 2 tps</p><p><code>AccountBalanceQuery</code>: ilimitado<br><code>Transferencia</code> (inc. tokens): 10,000 tps</p><p><code>Otra</code>: 10.000 tps</p></td></tr><tr><td><strong>Consenso de transacciones</strong></td><td><p><code>TopicCreateTransaction</code>: 5 tps</p><p><code>Otra</code>: 10.000 tps</p></td></tr><tr><td><strong>Transacciones de Token</strong></td><td><p><code>TokenMintTransaction</code>:</p><ul><li>125 TPS para menta fungible</li><li>50 TPS para la menta NFT</li></ul><p><code>TokenAssociateTransaction</code>: 100 tps<br><code>TransferTransaction</code> (inc. tokens): 10,000 tps</p><p><code>Otra</code>: 3.000 tps</p></td></tr><tr><td><strong>Programar transacciones</strong></td><td><code>ScheduleSignTransaction</code>: 100 tps<br><code>ScheduleCreateTransaction</code>: 100 tps</td></tr><tr><td><strong>Transacciones de archivo</strong></td><td>10 tps</td></tr><tr><td><strong>Transacciones inteligentes de contrato</strong></td><td><code>ContractExecuteTransaction</code>: 350 tps<br><code>ContractCreateTransaction</code>: 350 tps</td></tr><tr><td><strong>Consultas</strong></td><td><code>ContractGetInfo</code>: 700 tps<br><code>ContractGetBytecode</code>: 700 tps<br><code>ContractCallLocal</code>: 700 tps<br><br><code>FileGetInfo</code>: 700 tps<br><code>FileGetContents</code>: 700 tps<br><br><code>Other</code>: 10, 10, 10, 00 tps</td></tr><tr><td><strong>recibos</strong></td><td>ilimitado (sin limitador)</td></tr></tbody></table>

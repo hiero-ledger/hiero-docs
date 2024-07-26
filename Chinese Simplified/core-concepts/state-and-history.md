@@ -1,44 +1,44 @@
-# State and History
+# 状态和历史
 
-### Understanding State Machines
+### 理解状态机
 
-A "[state machine](../support-and-community/glossary.md#state-machine)" represents a conceptual approach to how a program operates: it maintains a "state" and modifies this state in response to specific "transactions." In a "replicated state machine," the duty and accountability for managing this evolving state are distributed across several computers, offering fault tolerance.
+“[state machine](../supportand-community/glossary.md#state-machine)”是一种概念性的方法来处理一个程序的运作方式：它保持一个“state”，并根据具体的“交易”来修改这个状态。 在“复制状态机器”中，管理这种演变状态的职责和责任在几台计算机上分配，提供了过失容忍度。
 
-Hedera enables a replicated state machine. Numerous nodes, even potentially opposing ones, can consistently maintain the state of a dataset. For example, the HBAR quantity across a group of accounts. As detailed earlier, transactions are submitted to the network, and subsequently, the [hashgraph](../support-and-community/glossary.md#hashgraph) algorithm assigns them a consensus timestamp and a position in the consensus sequence. Once all nodes reach an agreement on the transaction sequence, they sequentially apply them to the state. This procedure ensures each node's state copy remains consistent. Every node applies (for example, adjusts the payer & recipient balances for an HBAR payment) the transactions to the state following the mutually agreed sequence, thus preserving a uniform state with other nodes at any specific moment.
+Hedera 启用复制状态机。 许多节点，甚至可能相互对立的节点，能够始终保持数据集的状态。 例如，一组帐户的HBAR数量。 如早些时候详细说明的，交易被提交到网络，然后是 [hashgraph](... 支持和社区/glossary.md#hashgraph) 算法分配给他们一个协商一致的时间戳和在协商一致顺序中的位置。 一旦所有节点就交易序列达成协议，它们将按顺序应用于状态。 这一程序确保节点的状态副本保持一致。 每个节点按照共同商定的顺序将交易结果应用于状态（例如调整支付者和收款者的余额） 因此，在任何特定时刻都保持与其他节点的统一状态。
 
 <figure><img src="../.gitbook/assets/hh-consensus-service-whitepaper-icons.png" alt=""><figcaption></figcaption></figure>
 
-### State vs. History
+### 状态与历史
 
-The latest state (e.g., the HBAR balances of each account) and the history of the transactions that altered that state are two distinct data structures with different properties. State is mutable by definition, constantly changing as transactions are applied to it. In contrast, the history of transactions is generally considered immutable and irreversible. State and history present very different storage burdens. At the high throughput that Hedera can support, history will grow very quickly, increasing the burden of storing it. State will also grow as new accounts, files, and smart contracts are created, but at a slower pace.
+最新状态 (例如) 每个账户的HBAR余额以及改变这种状况的交易历史是两个不同的数据结构，具有不同的属性。 国家在定义上是可变的，随着交易的适用而不断变化。 相比之下，交易的历史一般被认为是不可改变和不可逆转的。 国家和历史造成了非常不同的储存负担。 在赫代拉能够支持的高生产率上，历史将很快发展，增加了储存历史的负担。 随着新账户、文件和智能合约的创建，状态也会增长，但速度较慢。
 
-### Roles of Distributed Technology (DLT) Node
+### 分布式技术(DLT) 节点的作用
 
-There are three mostly independent functions that a [distributed ledger technology (DLT)](../support-and-community/glossary.md#distributed-ledger-technology-dlt) node can perform:
+一个[分布式分类账技术(DLT)](../support-community/glossary.md#distributed-ledge-technology-dlt)节点可以履行的三项主要独立功能：
 
-- Contribute to [consensus](../support-and-community/glossary.md#consensus)
-- Persist history of transactions
-- Persist state
+- 为 [consensus](../support-community/glossary.md#consensus)
+- 交易的持续历史
+- 保持状态
 
-As nodes have limited resources, it is generally the case that a node cannot optimally perform all roles – and choices must be made as to which functions to prioritize.
+因为节点资源有限。 通常的情况是，节点不能最佳地执行所有角色 - 并且必须选择优先级的函数。
 
-### Priorities of Hedera Mainnet Nodes
+### Hedera Mainnet节点的优先级
 
-For Hedera Mainnet nodes, the priorities contribute to consensus and persists state. The hashgraph, which contains all the transactions that change the state, is constantly pruned after transactions are assigned a place in consensus order. Mainnet nodes can delete older portions of the hashgraph because the algorithm delivers finality – once a transaction has been assigned a timestamp, ordered, and then applied to the state, there is no chance of reversal. Consequently, there is no need to keep historical transactions around in case they might be necessary to apply them in a different order. To prevent such historical transactions from filling up the node’s storage, mainnet nodes delete historical transactions.
+对于Hedera Mainnet节点来说，优先事项有助于达成共识和保持状态。 包含更改状态的所有交易的哈希图，在交易被指定为协商一致的顺序后不断打印。 Mainnet节点可以删除哈希图中较旧的部分，因为算法传递了终结性——一旦交易被分配到时间戳， 下令、然后再应用于国家，是不可能逆转的。 因此，没有必要将历史交易保持在周围，以便按不同的顺序进行交易。 为了防止这种历史交易填充节点的存储，mainnet节点删除历史交易。
 
-But there is value in the history being persisted, even if not by mainnet nodes. An auditor might want to determine the identities of the parties that sent HBAR to a given account or the times of those transfers, neither of which would be available from the state (e.g., the balances of the accounts) alone.
+但历史上仍然存在着一些价值，即使不是主节点。 审计员不妨确定向某一特定账户寄出该银行的当事方的身份或这些转账的时间。 两者都无法从国家那里获得(e)。 只是账户余额而已。
 
-### Roles of Mirror Nodes
+### 镜像节点的角色
 
-[Mirror nodes](mirror-nodes/) in the Hedera architecture, in addition to maintaining state, can also store transaction history. A particular mirror can choose whether to store all history, no history, or possibly only a fraction of the history, perhaps only for particular transaction types, particular accounts, etc. In addition to the history, mirror nodes store information that allows them to prove that their history is correct, even for some kinds of partial histories. This prevents a malicious mirror node from lying about what it is storing. A [client](../support-and-community/glossary.md#client) seeking a transaction from the past would query an appropriate mirror for the record of that transaction. As the burden of storing history is borne by mirrors and not mainnet nodes, the latter can be optimized for the more fundamental role of consensus and state storage.
+Hedera 架构中的[镜像节点](镜像节点/)，除了保持状态外，还可以存储交易历史。 一个特定的镜像可以选择是储存所有历史，没有历史，还是只储存一部分历史。 也许只针对特定交易类型、特定账户等。 除了历史之外，镜像节点存储信息，使它们能够证明其历史正确， 甚至对于某些类型的部分历史。 这将防止恶意镜像节点在其储存的东西上撒谎。 [client](../supportand-community/glossary.md#客户端) 寻求从过去的交易会查询该交易记录的适当镜像。 由于存储历史的负担由镜像而不是主节点承担， 后者可以得到优化，以发挥更重要的共识和国家储存的作用。
 
-## FAQ
+## 常见问题
 
 <details>
 
-<summary>What is the concept of <code>state</code> in the Hedera Network?</summary>
+<summary>Hedera Network中 <code>状态</code> 的概念是什么？</summary>
 
-The state in the Hedera Network is the current status of all data, like the amount of HBAR in a set of accounts. It is maintained across multiple nodes in a consistent representation, providing fault tolerance. The state constantly changes as transactions are applied to it.
+Hedera 网络中的状态是所有数据的当前状态，如一组账户中HBAR的数量。 它在多个节点上以前后一致的代表性保持不变，提供了过失宽容。 随着交易被应用于交易，状态不断变化。
 
 </details>
 
@@ -46,14 +46,14 @@ The state in the Hedera Network is the current status of all data, like the amou
 
 <summary>How does Hedera handle history?</summary>
 
-The history of transactions is maintained as a separate data structure from the state. It provides a record of transactions that have changed the state over time. It is usually envisaged as immutable and irreversible. Mirror nodes in the Hedera architecture store the transaction history, while mainnet nodes focus on consensus and state storage.
+交易历史是作为单独的数据结构与状态保持的。 它提供了随着时间的推移改变了状态的交易记录。 它通常被认为是不可改变和不可逆转的。 Hedera 架构中的镜像节点存储交易历史，而主节点则侧重于共识和状态存储。
 
 </details>
 
 <details>
 
-<summary>What are the roles of mainnet nodes and mirror nodes?</summary>
+<summary>主机节点和镜像节点的角色是什么？</summary>
 
-Mainnet nodes prioritize contributing to consensus and persisting state. They delete historical transactions after they are assigned a place in the consensus order. Mirror nodes, on the other hand, store the transaction history and maintain state, providing a record of past transactions for audit purposes.
+保持优先的节点，以促进共识和持续的状态。 它们在协商一致的顺序中为它们指定一个位置后删除历史交易。 另一方面，镜像节点，存储交易历史并保持状态，为审计目的提供过去交易的记录。
 
 </details>

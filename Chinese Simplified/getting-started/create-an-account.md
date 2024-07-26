@@ -1,39 +1,39 @@
-# Create an Account
+# 创建帐户
 
 ## Summary
 
-In this section, you will learn how to make a simple Hedera account. Hedera accounts are the entry point by which you can interact with the [Hedera APIs](../sdks-and-apis/hedera-api/). Accounts hold a balance of HBAR used to pay for API calls for the various transaction and query types.
+在本节中，您将学习如何创建一个简单的 Hedera 帐户。 Hedera 账户是您可以与 [Hedera API] (../sdks-and-apis/hedera-api/)交互的切入点。 账户持有用于支付各种交易和查询类型的 API 调用的HBAR 余额。
 
 ***
 
-## Prerequisites
+## 必备条件
 
-- Completed the [Introduction](introduction.md) step.
-- Completed the [Environment Setup](environment-set-up.md) step.
+- 完成 [Introduction](introduction.md) 步骤。
+- 完成了[环境设置](环境-设置.md)。
 
 ***
 
-## Step 1: Import modules
+## 第 1 步：导入模块
 
-Import the following modules to your code file.
+导入以下模块到您的代码文件。
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-import com.hedera.hashgraph.sdk.AccountId;
-import com.hedera.hashgraph.sdk.HederaPreCheckStatusException;
-import com.hedera.hashgraph.sdk.HederaReceiptStatusException;
-import com.hedera.hashgraph.sdk.PrivateKey;
-import com.hedera.hashgraph.sdk.Client;
-import com.hedera.hashgraph.sdk.TransactionResponse;
-import com.hedera.hashgraph.sdk.PublicKey;
-import com.hedera.hashgraph.sdk.AccountCreateTransaction;
-import com.hedera.hashgraph.sdk.Hbar;
-import com.hedera.hashgraph.sdk.AccountBalanceQuery;
-import com.hedera.hashgraph.sdk.AccountBalance;
-import io.github.cdimascio.dotenv.Dotenv;
-import java.util.concurrent.TimeoutException;
+导入 com.hedera.hedera.hashgraph.sdk.AccountId;
+import com.hedera.hedera.hederaPreCheckStatusException;
+importer com.hedera.hashgraph.sdk.HederaReceiptStatusException;
+import com.hedera.hedera.hashgraph.sdk.PrivateKey;
+import com.hedera.hedera.hasgraph.sdk.Client;
+import com.hedera.hedera.hgraph.sdk.TransactionResponse;
+import com.himport。 edera.hashgraph.sdk.PublicKey;
+importer com.hedera.hashgraph.sdk.AccountCreateTransaction;
+importer com.hedera.hashgraph.sdk.Hbar;
+importer com.hedera.hasgraphs.sdk.AccountBalance;
+importer com.hedera.hedera.hasgraph.sdk.AccountBalation;
+importyo.github.cdimascio.dotenv.Dotenv;
+import java.util.urt.TimeoutException;
 ```
 
 {% endtab %}
@@ -41,7 +41,7 @@ import java.util.concurrent.TimeoutException;
 {% tab title="JavaScript" %}
 
 ```javascript
-const { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, Hbar } = require("@hashgraph/sdk");
+const Community, Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, Hbar } = require("@hashgraph/sdk");
 require("dotenv").config();
 ```
 
@@ -50,7 +50,7 @@ require("dotenv").config();
 {% tab title="Go" %}
 
 ```go
-import (
+导入 (
     "fmt"
     "os"
 
@@ -64,9 +64,9 @@ import (
 
 ***
 
-## Step 2: Generate keys for the new account
+## 第 2 步：为新账户生成密钥
 
-Generate a private and public key to associate with the account you will create.
+生成一个私钥和公钥来关联您将要创建的帐户。
 
 {% tabs %}
 {% tab title="Java" %}
@@ -89,10 +89,10 @@ PublicKey newAccountPublicKey = newAccountPrivateKey.getPublicKey();
 ```javascript
 //const client = Client.forTestnet();
 //client.setOperator(myAccountId, myPrivateKey);
-//-----------------------<enter code below>--------------------------------------
+/------------------------------------------------------<enter code below>------------------------------
 
-//Create new keys
-const newAccountPrivateKey = PrivateKey.generateED25519(); 
+/create new key
+const newPrivateKey = PrivateKey.generateED25519(); 
 const newAccountPublicKey = newAccountPrivateKey.publicKey;
 ```
 
@@ -120,11 +120,11 @@ newAccountPublicKey := newAccountPrivateKey.PublicKey()
 
 ***
 
-## Step 3: Create a new account
+## 第 3 步：创建一个新账户
 
-Create a new account using _`AccountCreateTransaction()`_. Use the public key created in the previous step to enter in the _`setKey()`_ field. This will associate the key pair generated in the previous step with the new account. The public key of the account is visible to the public and can be viewed in a mirror node explorer. The private key is used to authorize account-related transactions like transferring _HBAR_ or tokens from that account to another account. The account will have an initial balance of _1,000 tinybars_ funded from your testnet account created by the Hedera portal.
+使用 _`AccountCreateTransaction()` 创建一个新帐户。 使用前一步创建的公钥输入`setKey()`_ 字段。 这将把前一步生成的密钥对与新账户关联起来。 该帐户的公钥对公众来说是可见的，可以在镜像节点探索器中查看。 私钥用于授权与账户有关的交易，例如从该账户传输_HBAR_或令牌到另一账户。 该账户的初始余额为 _1,000tinybars_，由您由Hedera portal创建的测试网账户供资。
 
-You can view transactions successfully submitted to the network by getting the transaction ID and searching for it in a mirror node explorer. The transaction ID is composed of the account ID that paid for the transaction and the transaction's valid start time e.g. _`0.0.1234@1609348302`_<mark style="color:blue;">.</mark> The transaction's valid start time is the time the transaction begins to be valid on the network. The SDK automatically generates a transaction ID for each transaction behind the scenes.
+您可以通过获取事务 ID并在镜像节点探索器中搜索来查看提交到网络的交易。 事务ID由支付交易费用的帐户ID和有效的交易开始时间，例如_`0.0'。 234@16093448302`_<mark style="color:blue;">。</mark> 交易的有效开始时间是交易在网络上有效的时间。 SDK 自动为幕后每个交易生成一个事务ID。
 
 {% tabs %}
 {% tab title="Java" %}
@@ -154,29 +154,29 @@ const newAccount = await new AccountCreateTransaction()
 {% tab title="Go" %}
 
 ```go
-//Create new account and assign the public key
+//Create new account and assigning public key
 newAccount, err := hedera.NewAccountCreateTransaction().
     SetKey(newAccountPublicKey).
-    SetInitialBalance(hedera.HbarFrom(1000, hedera.HbarUnits.Tinybar)).
+    SetalBalance(hedera.HbarFrom(1000, hedera.HbarUnits.Tinybar)).
     Execute(client)
 ```
 
 {% endtab %}
 {% endtabs %}
 
-## Step 4: Get the new account ID
+## 第 4 步：获取新帐户 ID
 
-The _account ID_ for the new account is returned in the receipt of the transaction that created the account. The receipt provides information about the transaction like whether it was successful or not and any new entity IDs that were created. Entities include accounts, smart contracts, tokens, files, topics, and scheduled transactions. The _account ID_ is in x.y.z format where z is the account number. The preceding values (x and y) default to zero today and represent the shard and realm number respectively. Your new _account ID_ should result in something like _`0.0.1234`_.
+新账户的 _account ID_ 将在收到创建该账户的交易时退回。 收据提供了有关交易的信息，如交易是否成功，以及是否创建了任何新的实体ID。 实体包括账户、智能合同、令牌、文件、主题和预定交易。 _account ID_ 是 x.y.z 格式，z是帐户号码。 上面的值 (x 和 y) 预设为零，分别表示碎片和范围数。 您新的 _account ID_ 应该产生类似_`0.0.1234`_的结果。
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-// Get the new account ID
-AccountId newAccountId = newAccount.getReceipt(client).accountId;
+// 获取新账户 ID
+AccountId = newAccount.getreceipt(client).accountId;
 
-//Log the account ID
-System.out.println("New account ID is: " +newAccountId);
+//Log 帐户 ID
+System.out.println("新帐户 ID 是：" +newAccountId);
 ```
 
 {% endtab %}
@@ -184,12 +184,12 @@ System.out.println("New account ID is: " +newAccountId);
 {% tab title="JavaScript" %}
 
 ```javascript
-// Get the new account ID
-const getReceipt = await newAccount.getReceipt(client);
-const newAccountId = getReceipt.accountId;
+// 获取新账户 ID
+const getReceipt = 等待newAccount.getreceipt(client);
+const newAccountID = getReceipt. ccountId;
 
-//Log the account ID
-console.log("The new account ID is: " +newAccountId);
+//Log 账户 ID
+console.log("新帐户 ID 是"+newAccountId")；
 ```
 
 {% endtab %}
@@ -197,17 +197,17 @@ console.log("The new account ID is: " +newAccountId);
 {% tab title="Go" %}
 
 ```go
-//Request the receipt of the transaction
-receipt, err := newAccount.GetReceipt(client)
-if err != nil {
+//request the receiving of the transaction
+receivt, err := newAccount. etreceipt(客户端)
+nil ●
     panic(err)
 }
 
-//Get the new account ID from the receipt
-newAccountId := *receipt.AccountID
+/get the new account ID from the receiving
+newAccountId := *receive. ccountID
 
-//Log the account ID
-fmt.Printf("The new account ID is %v\n", newAccountId)
+//Log 帐户 ID
+fmt.Printf("新帐户 ID 是 %v\n", newAccountId)
 ```
 
 {% endtab %}
@@ -215,20 +215,20 @@ fmt.Printf("The new account ID is %v\n", newAccountId)
 
 ***
 
-## Step 5: Verify the new account balance
+## 第 5 步：验证新账户余额
 
-Next, you will submit a query to the Hedera test network to return the balance of the new account using the new _account ID_. The current account balance for the new account should be 1,000 _tinybars_. Getting the balance of an account is free today.
+接下来，您将向Hedera测试网络提交查询，使用新账户ID_返回新账户的余额。 新账户的经常账户余额应该是1,000_tinybars_。 获取帐户余额今天是免费的。
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-//Check the new account's balance
-AccountBalance accountBalance = new AccountBalanceQuery()
+//检查新帐户余额
+AccountBalanceQuery()
      .setAccountId(newAccountId)
      .execute(client);
 
-System.out.println("New account balance: " +accountBalance.hbars);
+System.out.println("新帐户余额: "+accountBalance.hbars);
 ```
 
 {% endtab %}
@@ -236,12 +236,12 @@ System.out.println("New account balance: " +accountBalance.hbars);
 {% tab title="JavaScript" %}
 
 ```javascript
-//Verify the account balance
-const accountBalance = await new AccountBalanceQuery()
+///校验帐户余额
+const account BalanceQuery()
      .setAccountId(newAccountId)
      .execute(client);
 
-console.log("The new account balance is: " +accountBalance.hbars.toTinybars() +" tinybar.");
+console.log("The new account balance is "+accountBalance.hbars.toTinybars() +" tinybar.");
 ```
 
 {% endtab %}
@@ -249,36 +249,36 @@ console.log("The new account balance is: " +accountBalance.hbars.toTinybars() +"
 {% tab title="Go" %}
 
 ```go
-//Create the account balance query
-query := hedera.NewAccountBalanceQuery().
-     SetAccountID(newAccountId)
+//Create 账户余额查询
+查询 := hedera.NewAccountBalanceQuery().
+     设置帐户ID(newAccountId)
 
-//Sign with client operator private key and submit the query to a Hedera network
-accountBalance, err := query.Execute(client)
-if err != nil {
+//Signing with client operators private key and submitting to a Hedera 网络
+accountBalance, err := 查询。 xecute(client)
+if err != nil 密切相关,
     panic(err)
 }
 
-//Print the balance of tinybars
-fmt.Println("The account balance for the new account is ", accountBalance.Hbars.AsTinybar())
+/ 打印tinybars
+fmt. rintln("新帐户的帐户余额是 ", accountBalance.Hbars.AsTinybar())
 ```
 
 {% endtab %}
 {% endtabs %}
 
 {% hint style="success" %}
-:star: **Congratulations! You have successfully completed the following:**
+:star: **Congratulations! 您已成功完成以下任务:**
 
-- Created a new Hedera account with an initial balance of 1,000 tinybars.
-- Obtained the new account ID by requesting the receipt of the transaction.
-- Verified the starting balance of the new account by submitting a query to the network.
+- 创建了一个新的 Hedera 帐户，初始余额为1 000个小巴。
+- 通过请求收到交易来获取新的帐户 ID。
+- 通过向网络提交查询来验证新账户的起始余额。
 
-You are now ready to transfer some HBAR to the new account :money\_mouth:!
+您现在准备好将一些HBAR 转移到新帐户 :money\_mouth: ！
 {% endhint %}
 
 ***
 
-## Code Check :white\_check\_mark:
+## 代码检查:whit\_check\_mark：
 
 <details>
 
@@ -509,13 +509,13 @@ func main() {
 
 </details>
 
-#### Sample output:
+#### 示例输出：
 
 ```bash
-New account ID: 0.0.13724748
-New account balance: 1000 tinybars.
+新账户ID： 0.0.13724748
+新账户余额： 1000 tinybar。
 ```
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+有一个问题？ [在 StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}

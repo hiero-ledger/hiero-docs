@@ -6,7 +6,7 @@ In this section, you will learn how to make a simple Hedera account. Hedera acco
 
 ***
 
-## Prerequisites
+## Pré-requis
 
 - Completed the [Introduction](introduction.md) step.
 - Completed the [Environment Setup](environment-set-up.md) step.
@@ -291,55 +291,55 @@ import com.hedera.hashgraph.sdk.HederaReceiptStatusException;
 import com.hedera.hashgraph.sdk.PrivateKey;
 import com.hedera.hashgraph.sdk.Client;
 import com.hedera.hashgraph.sdk.TransactionResponse;
-import com.hedera.hashgraph.sdk.PublicKey;
+import com. edera.hashgraph.sdk.PublicKey;
 import com.hedera.hashgraph.sdk.AccountCreateTransaction;
 import com.hedera.hashgraph.sdk.Hbar;
 import com.hedera.hashgraph.sdk.AccountBalanceQuery;
 import com.hedera.hashgraph.sdk.AccountBalance;
 import io.github.cdimascio.dotenv.Dotenv;
-​
-import java.util.concurrent.TimeoutException;
-​
-public class HederaExamples {
-​
-    public static void main(String[] args) throws TimeoutException, HederaPreCheckStatusException, HederaReceiptStatusException {​
+Ω
+import java. Concurrent. ImeoutException ;
+<unk>
+classe publique HederaExemples{
+<unk>
+    public static void main(String[] args) lance TimeoutException, HederaPreCheckStatusException, HederaReceiptStatusException {<unk>
         
-        //Grab your Hedera Testnet account ID and private key
-        AccountId myAccountId = AccountId.fromString(Dotenv.load().get("MY_ACCOUNT_ID"));
-        PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load().get("MY_PRIVATE_KEY"));
+        //Saisissez votre ID de compte Hedera Testnet et votre clé privée
+        AccountId myAccountId = AccountId. romString(Dotenv.load().get("MY_ACCOUNT_ID"));
+        PrivateKey myPrivateKey = PrivateKey.fromString(Dotenv.load(). et("MY_PRIVATE_KEY"));
         
-        //Create your Hedera Testnet client
-        Client client = Client.forTestnet();
-        client.setOperator(myAccountId, myPrivateKey);
+        //Créez votre client Hedera Testnet
+        Client client = Client. orTestnet();
+        client. etOperator(monAccountId, monPrivateKey);
         
-        // Set default max transaction fee & max query payment
-        client.setDefaultMaxTransactionFee(new Hbar(100)); 
-        client.setDefaultMaxQueryPayment(new Hbar(50)); 
+        // Définir les frais de transaction max par défaut et le paiement max de requête
+        client. etDefaultMaxTransactionFee(new Hbar(100)); 
+        client. etDefaultMaxQueryPayment(new Hbar(50)); 
         
-        // Generate a new key pair
-        PrivateKey newAccountPrivateKey = PrivateKey.generateED25519();
-        PublicKey newAccountPublicKey = newAccountPrivateKey.getPublicKey();
-​
-        //Create new account and assign the public key
+        // Générer une nouvelle paire de clés
+        Clé privée newAccountPrivateKey = PrivateKey. enerateED25519();
+        PublicKey newAccountPublicKey = newAccountPrivateKey. etPublic();
+Ω
+        //Créez un nouveau compte et assignez la clé publique
         TransactionResponse newAccount = new AccountCreateTransaction()
-                .setKey(newAccountPublicKey)
-                .setInitialBalance( Hbar.fromTinybars(1000))
-                .execute(client);
-​
-        // Get the new account ID
-        AccountId newAccountId = newAccount.getReceipt(client).accountId;
-​
-        System.out.println("\nNew account ID: " +newAccountId);
+                . etKey(newAccountPublicKey)
+                . etInitialBalance( Hbar.fromTinybars(1000))
+                . xecute(client);
+Ω
+        // Obtenir le nouveau compte ID
+        AccountId newAccountId = newAccount. etReceipt(client).accountId;
+Ω
+        System.out. rintln("\nNouvel ID de compte : " +newAccountId);
         
-        //Check the new account's balance
+        //Vérifiez le solde du nouveau compte
         AccountBalance accountBalance = new AccountBalanceQuery()
-                .setAccountId(newAccountId)
-                .execute(client);
-​
-        System.out.println("New account balance: " +accountBalance.hbars);
-​
+                . etAccountId(newAccountId)
+                . xecute(client) ;
+Ω
+        Système. ut.println("Solde du nouveau compte: " +accountBalance.hbars);
+Ω
     }
-}
+
 ```
 
 </details>
@@ -358,54 +358,54 @@ const {
   AccountBalanceQuery,
   AccountCreateTransaction,
 } = require("@hashgraph/sdk");
-require("dotenv").config();
+requis ("dotenv"). onfig();
 
-async function environmentSetup() {
-  // Grab your Hedera testnet account ID and private key from your .env file
+fonction async environmentSetup() {
+  // Récupérez votre identifiant de compte Hedera testnet et votre clé privée . nv file
   const myAccountId = process.env.MY_ACCOUNT_ID;
-  const myPrivateKey = process.env.MY_PRIVATE_KEY;
+  const myPrivateKey = process.env. Y_PRIVATE_KEY ;
 
-  // If we weren't able to grab it, we should throw a new error
+  // Si nous n'avons pas pu le saisir, nous devrions lancer une nouvelle erreur
   if (myAccountId == null || myPrivateKey == null) {
     throw new Error(
       "Environment variables myAccountId and myPrivateKey must be present"
     );
   }
 
-  // Create your connection to the Hedera Network
-  const client = Client.forTestnet();
+  // Créez votre connexion au réseau Hedera
+  const client = client. orTestnet();
   client.setOperator(myAccountId, myPrivateKey);
 
-  //Set the default maximum transaction fee (in Hbar)
-  client.setDefaultMaxTransactionFee(new Hbar(100));
+  //Définir les frais de transaction maximum par défaut (en Hbar)
+  client. etDefaultMaxTransactionFee(new Hbar(100));
 
-  //Set the maximum payment for queries (in Hbar)
-  client.setDefaultMaxQueryPayment(new Hbar(50));
+  //Définir le paiement maximum pour les requêtes (en Hbar)
+  client. etDefaultMaxQueryPayment(new Hbar(50));
 
-  // Create new keys
+  // Créer de nouvelles clés
   const newAccountPrivateKey = PrivateKey.generateED25519();
-  const newAccountPublicKey = newAccountPrivateKey.publicKey;
+  const newAccountPublicKey = newAccountPrivateKey. ublicKey;
 
-  // Create a new account with 1,000 tinybar starting balance
-  const newAccount = await new AccountCreateTransaction()
-    .setKey(newAccountPublicKey)
+  // Créer un nouveau compte avec 1, format@@0 00 tinybar starting balance
+  const newAccount = waiting new AccountCreateTransaction()
+    . etKey(newAccountPublicKey)
     .setInitialBalance(Hbar.fromTinybars(1000))
-    .execute(client);
+    . xecute(client);
 
-  // Get the new account ID
-  const getReceipt = await newAccount.getReceipt(client);
+  // Obtenir le nouveau compte ID
+  const getReceipt = attendre newAccount. etReceipt(client);
   const newAccountId = getReceipt.accountId;
   
-  console.log("\nNew account ID: " + newAccountId);
+  console. og("\nNouvel ID de compte : " + newAccountId);
 
-  // Verify the account balance
-  const accountBalance = await new AccountBalanceQuery()
-    .setAccountId(newAccountId)
+  // Vérifiez le solde du compte
+  const accountBalance = wait new AccountBalanceQuery()
+    . etAccountId(newAccountId)
     .execute(client);
 
-  console.log(
+  console. og(
     "The new account balance is: " +
-      accountBalance.hbars.toTinybars() +
+      accountBalance. bars.toTinybars() +
       " tinybar."
   );
 

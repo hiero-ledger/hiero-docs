@@ -1,10 +1,10 @@
 # Run Your Mirror Node with Amazon Web Services S3 (AWS)
 
-## Prerequisites
+## Prerrequisitos
 
 - An [Amazon Web Services](https://aws.amazon.com/free/?trk=ps\_a131L0000085DvcQAE\\&trkCampaign=acq\_paid\_search\_brand\\&sc\_channel=ps\\&sc\_campaign=acquisition\_US\\&sc\_publisher=google\\&sc\_category=core\\&sc\_country=US\\&sc\_geo=NAMER\\&sc\_outcome=acq\\&sc\_detail=aws%20account\\&sc\_content=Account\_e\\&sc\_segment=432339156165\\&sc\_medium=ACQ-P|PS-GO|Brand|Desktop|SU|AWS|Core|US|EN|Text\\&s\_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\\&ef\_id=Cj0KCQjw8IaGBhCHARIsAGIRRYrLfWc3ykRf\_hAUeVvf4nNEYvacHwk\_w1jAuSj6hQZ8\_muh0T5p3acaAkZDEALw\_wcB:G:s\\&s\_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\\&all-free-tier.sort-by=item.additionalFields.SortRank\\&all-free-tier.sort-order=asc\\&awsf.Free%20Tier%20Types=*all\\&awsf.Free%20Tier%20Categories=*all) account.
-- Basic understanding of Hedera Mirror Nodes.
-- [Docker](https://www.docker.com/) (`>= v20.10.x)` installed and opened on your machine. Run `docker -v` in your terminal to check the version you have installed.
+- Entendimiento básico de los nodos irror de Hedera.
+- [Docker](https://www.docker.com/) (`>= v20.10.x)` installed and opened on your machine. Ejecuta `docker -v` en tu terminal para comprobar la versión instalada.
 - [Java](https://www.java.com/en/) (openjdk@17: Java version 17), [Gradle](https://gradle.org/install/) (the latest version), and [PostgreSQL](https://www.postgresql.org/) (the latest version) are installed on your machine.
 
 ## 1. Create an IAM user
@@ -29,115 +29,115 @@ This step will teach you how to create a new IAM (_Identity and Access Managemen
 {% tab title="Custom Policy" %}
 
 - Enable access to billing data
-  - Follow step 2 [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started\_create-admin-group.html)
-- From the IAM left navigation bar select **Polices**
-- Click on **Create policy**
-  - Service
-    - Enter **S3** as your service
-  - Actions
-    - Access level
-    - Select **List** and **Read**
-- Resources
-  - Select **Specify bucket resource ARN for the GetBucketLocation**
-  - Add ARN
+  - Sigue el paso 2 [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started\_create-admin-group.html)
+- Desde la barra de navegación izquierda del IAM seleccione **Políticas**
+- Haga clic en **Crear política**
+  - Servicio
+    - Introduce **S3** como tu servicio
+  - Acciones
+    - Nivel de acceso
+    - Selecciona **Lista** y **Lectura**
+- Recursos
+  - Selecciona **Especifica el ARN del recurso del cubo para la GetBucketLocation**
+  - Añadir ARN
     - hedera-mainnet-streams
-  - Add ARN
+  - Añadir ARN
     - hedera-mainnet-streams/\*
-- Click **Next:Tags**
-- Click **Next: Review**
-  - Enter a name for the policy
-- Click **Create policy**
-- From the left navigation bar on the IAM console select **User** **Groups**
-- Click **Create group**
-- Enter a user group name
-- Select the policy that was created in the previous step
-- Click **Create Group**
-- Click **Users** from the IAM console left navigation bar
-- Click on **Add user**
-- Enter username
-- Select **Programmatic access for Access type**
-- Click **Next: Permissions**
-- Select the group that was created in the previous step
-- Click **Next: Tags**
-- Click **Next: Review**
-- Click **Create user**
-- Copy or download your **Access key ID** and **Secret access key**
+- Haga clic **Siguiente:Etiquetas**
+- Haga clic **Siguiente: revisión**
+  - Introduzca un nombre para la política
+- Haga clic en **Crear política**
+- Desde la barra de navegación izquierda de la consola IAM seleccione **Usuario** **grupos**
+- Haga clic en **Crear grupo**
+- Introduzca un nombre de grupo de usuarios
+- Seleccione la política creada en el paso anterior
+- Haga clic en **Crear grupo**
+- Haga clic en **Usuarios** de la barra de navegación izquierda de la consola IAM
+- Haga clic en **Agregar usuario**
+- Introduzca nombre de usuario
+- Seleccione **Acceso programático para el tipo de acceso**
+- Haz clic **Siguiente: permisos**
+- Seleccione el grupo que fue creado en el paso anterior
+- Haz clic **Siguiente: Etiquetas**
+- Haga clic **Siguiente: revisión**
+- Haga clic en **Crear usuario**
+- Copia o descarga tu **ID de clave de acceso** y tu **clave de acceso secreta**
   {% endtab %}
   {% endtabs %}
 
-## 2. Clone the Mirror Node Repository
+## 2. Clonar el repositorio de nodo espejo
 
-- Open your terminal and run the following commands to clone the mirror node [repository](https://github.com/hashgraph/hedera-mirror-node), then `cd` into the `hedera-mirror-node` folder:
+- Abre tu terminal y ejecuta los siguientes comandos para clonar el nodo espejo [repository](https://github.com/hashgraph/hedera-mirror-node), luego `cd` en la carpeta `hedera-mirror-node`:
 
-<pre class="language-bash"><code class="lang-bash"><strong>git clone https://github.com/hashgraph/hedera-mirror-node.git
+<pre class="language-bash"><code class="lang-bash"><strong>clon de git https://github.com/hashgraph/hedera-mirror-node.git
 </strong>cd hedera-mirror-node
 </code></pre>
 
-## 3. Configure Mirror Node
+## 3. Configurar nodo espejo
 
-The `application.yml` file is the main configuration file for the Hedera Mirror Node. In this step, we will update the configuration file with your specific settings, such as your AWS access key, secret, and the Hedera network you want to mirror.
+El archivo `application.yml` es el archivo de configuración principal para el nodo Mirror de Hedera. En este paso, actualizaremos el archivo de configuración con sus ajustes específicos, como su clave de acceso AWS, secreto y la red Hedera que desea replicar.
 
-- Open the `application.yml` file in the root directory with a text editor of your choice.
-- `cd` into the `hedera-mirror-node` directory from your terminal or IDE.
-- Find the following fields and replace the placeholders with your actual AWS access key, secret key, project ID, and the network you want to mirror:
+- Abre el archivo `application.yml` en el directorio raíz con un editor de texto de tu elección.
+- `cd` en el directorio `hedera-mirror-node` desde tu terminal o IDE.
+- Encuentre los siguientes campos y reemplace los marcadores de posición con su clave de acceso AWS real, clave secreta, ID del proyecto y la red que desea replicar:
 
-| Item              | Description                              |
-| ----------------- | ---------------------------------------- |
-| **accessKey**     | AWS access key                           |
-| **cloudProvider** | s3                                       |
-| **secretKey**     | AWS secret key                           |
-| **network**       | Enter a network to run a mirror node for |
+| Objeto                | Descripción                                          |
+| --------------------- | ---------------------------------------------------- |
+| **accessKey**         | Clave de acceso AWS                                  |
+| **Proveedor de nube** | s3                                                   |
+| **Clave secreta**     | Clave secreta AWS                                    |
+| **red**               | Introduzca una red para ejecutar un nodo espejo para |
 
 {% code title="application.yml" %}
 
 ```yaml
 hedera:
-  mirror:
-    importer: 
-      downloader:
+  espejo:
+    importador: 
+      descargador:
         accessKey: ENTER ACCESS KEY HERE
         cloudProvider: "s3"
-        secretKey: ENTER SECRET KEY HERE
-      network: PREVIEWNET/TESTNET/MAINNET #Pick one network
+        secretKey: ENTER SECRET KEY AERE
+      red: PREVIEWNET/TESTNET/MAINNET #Elige una red
 ```
 
 {% endcode %}
 
-## 4. Run Your Mirror Node
+## 4. Ejecuta tu nodo espejo
 
-Start and run the Hedera Mirror Node using Docker. Docker packages development tools in a self-contained environment called a _container_ that can include libraries, code, runtime, and more.
+Iniciar y ejecutar el nodo Mirror de Hedera usando Docker. Docker paquetes herramientas de desarrollo en un entorno autónomo llamado _container_ que puede incluir bibliotecas, código, tiempo de ejecución y más.
 
-- From the mirror node directory, run the following command:
+- Desde el directorio del nodo espejo, ejecute el siguiente comando:
 
 ```bash
-docker compose up -d db && docker logs hedera-mirror-node-db-1 --follow
+docker compone -d db && docker logs hedera-mirror-node-db-1 --follow
 ```
 
-## 5. Access Your Mirror Node Data
+## 5. Accede a tus datos de nodo espejo
 
-After the mirror node is run successfully, it downloads data from the Hedera Network and stores it in a PostgreSQL database. To access the mirror node data, enter the database container and connect to it using Docker and the `psql` command-line tool.
+Después de que el nodo espejo se ejecute con éxito, descarga datos de la red Hedera y lo almacena en una base de datos PostgreSQL. Para acceder a los datos del nodo espejo, ingrese el contenedor de la base de datos y conéctese usando Docker y la herramienta de línea de comandos `psql`.
 
-- Open a new terminal and run the following command to view the list of containers:
+- Abrir un nuevo terminal y ejecutar el siguiente comando para ver la lista de contenedores:
 
 ```bash
-docker ps
+acopladores ps
 ```
 
 <figure><img src="../../../.gitbook/assets/docker ps (1).png" alt=""><figcaption></figcaption></figure>
 
-- Run the following command to enter the `hedera-mirror-node-db-1` container:
+- Ejecuta el siguiente comando para ingresar al contenedor `hedera-mirror-node-db-1`:
 
 ```bash
 docker exec -it hedera-mirror-node-db-1 bash
 ```
 
-- Enter the following command to access and query the database:
+- Introduzca el siguiente comando para acceder y consultar la base de datos:
 
 ```bash
 psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pass port=5432"
 ```
 
-- Enter the following command to view the complete list of all the database tables:
+- Introduzca el siguiente comando para ver la lista completa de todas las tablas de la base de datos:
 
 ```bash
 \dt
@@ -145,16 +145,16 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 
 <figure><img src="../../../.gitbook/assets/list of relations s3 mirror.png" alt=""><figcaption></figcaption></figure>
 
-- To exit the `psql` database console, run the quit command:
+- Para salir de la consola de base de datos `psql`, ejecuta el comando quit:
 
 ```bash
-\q
+q
 ```
 
-- Lastly, run the following command to stop Docker and remove the created containers:
+- Por último, ejecute el siguiente comando para detener Docker y eliminar los contenedores creados:
 
 ```bash
-docker compose down
+docker componer abajo
 ```
 
-#### Congratulations! You have successfully run and deployed a Hedera Mirror Node with Amazon Web Services S3 (AWS)  🚀
+#### ¡Felicidades! Has ejecutado y desplegado con éxito un nodo Hedera Mirror con Amazon Web Services S3 (AWS) 🚀

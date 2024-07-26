@@ -1,195 +1,195 @@
 ---
-description: The Hedera Mainnet is currently comprised of permissioned consensus nodes operated by the Hedera Governing Council
+description: El Mainnet de Hedera se compone actualmente de nodos de consenso autorizados operados por el Consejo de Gobierno de Hedera
 ---
 
-# Node Requirements
+# Requisitos del nodo
 
-The following is provided to help [_Hedera Governing Council_](https://hedera.com/council) members deploy their permissioned mainnet consensus node. Please note, this information is not intended to apply to Hedera's transition to a permissionless network.
+Lo siguiente se proporciona para ayudar a los miembros de [_Hedera Governing ► l_](https://hedera.com/council) a implementar su nodo de consenso de red mainnet permitido. Tenga en cuenta que esta información no pretende aplicar a la transición de Hedera a una red sin permisos.
 
-## Minimum Node Platform Requirements
+## Requisitos mínimos de la plataforma del nodo
 
-Currently, the Hedera Mainnet will perform at a rate determined by the lowest-performing node. To ensure a common level of performance minimum hardware, connectivity, and hosting requirements have been defined for the initial permissioned, Governing Council nodes.
+Actualmente, el Mainnet de Hedera se ejecutará a una velocidad determinada por el nodo de menor rendimiento. Para garantizar un nivel común de rendimiento mínimo de los requerimientos de hardware, conectividad y alojamiento se han definido para los nodos del Consejo de Gobierno inicial.
 
 {% hint style="warning" %}
-To ensure accurate conformity with the minimum requirements, please provide node hardware, connectivity, and hosting details to Hedera prior to purchase (devops@swirldslabs.com).
+Para garantizar una conformidad exacta con los requisitos mínimos, por favor proporcione hardware de nodos, conectividad y datos de alojamiento a Hedera antes de comprar (devops@swirldslabs.com).
 {% endhint %}
 
-- CPU: X86/X64 compatible (Intel Xeon or AMD EPYC); 24 cores/48 threads meeting or exceeding the following benchmarks:
-  - Geekbench 6 single-core score
-    - Minimum: 1000 or greater
-    - Recommended: 1500 or greater
-  - Passmark single thread rating:
-    - Minimum to remain on Mainnet: 2300 or greater
-    - Recommended: 2800 or greater
-- Network Connectivity: Sustained 1Gb/s internet bandwidth via a single 1-Gigabit / 10-Gigabit Ethernet interface
-- Memory: 256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM or faster (minimum), 320GB or higher PC4-25600 3200MHz (recommended)
-- Storage: It is recommended to mount 240 GB SSD with Raid 1 as a root volume `/` and then provide usable storage via different devices later mounted during installation. This may not be possible on your hardware, so alternatively all required storage may be allocated to the root volume.
-  - Minimum: 5TB of SSD NVMe usable storage
-  - Recommended:
-    - 2 x 240GB SSD with RAID 1 for OS Storage
-    - 2 x NVMe devices as a 7.5TB RAID 0 (or 4x as RAID 10 array)
-- Storage performance: If mounted to root volume, the root volume must meet these requirements. If provisioned via RAID, the RAID array should meet these requirements:
-  - Sequential write sustained:
-    - Minimum: 2,000GB/s
-    - Recommended: 3,000GB/s
-  - Sequential read sustained:
-    - Minimum: 3,000GB/s
-    - Recommended: 4,500GB/s
-  - Random read, synchronous:
-    - Minimum: 250,000 IOPS
-    - Recommended: 375,000 IOPS
-  - Random read, AIO:
-    - Minimum: 500,000 IOPS
-    - Recommended: 750,000 IOPS
-  - Random write, synchronous:
-    - Minimum 100,000 IOPS
-    - Recommended: 150,000 IOPS
-  - Less than 200µs random read latency, average
-- Nodes must pass the Hedera performance test suite performed at installation time
+- CPU: compatible con X86/X64 (Intel Xeon o AMD EPYC); reunión de 24 núcleos/48 hilos o excediendo las siguientes pruebas de rendimiento:
+  - Banco de Geekbench 6 puntuación de un solo núcleo
+    - Mínimo: 1000 o mayor
+    - Recomendado: 1500 o superior
+  - Calificación de un hilo de pasaje:
+    - Mínimo para permanecer en Mainnet: 2300 o mayor
+    - Recomendado: 2800 o mayor
+- Conectividad a la red: Se ha mantenido el ancho de banda de 1Gb/s a través de una sola interfaz Ethernet de 1-Gigabit / 10-Gigabit
+- Memoria: 256 GB PC4-21300 2666MHz DDR4 ECC Registrado DIMM o más rápido (mínimo), 320GB o superior PC4-25600 3200MHz (recomendado)
+- Almacenamiento: Se recomienda montar 240 GB SSD con incursión 1 como volumen raíz `/` y luego proporcionar almacenamiento utilizable a través de diferentes dispositivos montados más tarde durante la instalación. Esto puede no ser posible en su hardware, por lo que alternativamente todo el almacenamiento requerido puede ser asignado al volumen de root.
+  - Mínimo: 5TB de almacenamiento utilizable SSD NVMe
+  - Recomendado:
+    - 2 x 240GB SSD con RAID 1 para OS Storage
+    - 2 x dispositivos NVMe como RAID 0 7.5TB (o 4x como arreglo RAID 10)
+- Rendimiento de almacenamiento: Si se monta a volumen de raíz, el volumen de la raíz debe cumplir con estos requisitos. Si se proporciona a través de RAID, la matriz RAID debe cumplir estos requisitos:
+  - Escritura secuencial sostenida:
+    - Mínimo: 2.000 GB/s
+    - Recomendado: 3,000GB/s
+  - Lectura secuencial sostenida:
+    - Mínimo: 3,000GB/s
+    - Recomendado: 4,500GB/s
+  - Lectura aleatoria, sincrónica:
+    - Mínimo: 250.000 IOPS
+    - Recomendado: 375.000 IOPS
+  - Leer aleatoriamente, AIO:
+    - Mínimo: 500,000 IOPS
+    - Recomendado: 750,000 IOPS
+  - Escritura aleatoria, sincrónica:
+    - Mínimo 100,000 IOPS
+    - Recomendado: 150.000 IOPS
+  - latencia de lectura aleatoria de menos de 200μs, promedio
+- Los nodos deben pasar la suite de pruebas de rendimiento de Hedera realizada al momento de la instalación
 
-### **Node Operating System:**
+### **Sistema operativo del nodo:**
 
 - Linux
-  - Kernel minimum version 3.10+
-  - Actively Support Long-Term-Support Release
+  - Kernel mínimo versión 3.10+
+  - Compatibilidad activa con la versión de soporte a largo plazo
     - Ubuntu LTS 22.04
     - RHEL 8
 
-### **Node Software:**
+### **Software del nodo:**
 
-- Docker Engine (`docker-ce` version 20.10.6)
-  - Deployed with root privileges
-  - Privileged container support enabled (optional)
-    - If privileged container support is disabled then host machine must run the Havege Daemon
-- Docker Compose (`docker-compose` version 1.29.2)
-- IPTables Support (`linux-kernel` version 3.10+)
-- Havege Daemon (`haveged` version 1.9.14)
-  - If privileged container support is enabled then this requirement is optional
-- HashDeep Utilities (`hashdeep` version 4.4)
-  - Required for update integrity validation
-- Bindplane Collector (`bindplane-collector` version 4+)
-  - Required for node software log monitoring
-- JQ CLI (`jq` version 1.5+)
-  - Required dependency for the Node Management Tools
-- GNU CoreUtils (`coreutils` version 8.00+)
-  - Required dependency for the Node Management Tools
-- cURL CLI (`curl` version 7.58.0+)
-  - Required dependency for the Node Management Tools
-- InCron Daemon (`incron` version 0.5.12+)
-  - Required dependency for the Node Management Tools
-  - Required for automated network upgrade
-- Rsync CLI (`rsync` version 3.0.0+)
-  - Required dependency for the Node Management Tools
-  - Required for automated network upgrade
-- Node Management Tools (`node-mgmt-tools` version 0.1.0+)
-  - Updates deployed via the node upgrade process
-  - Must be installed at the following path: `/opt/hgcapp/node-mgmt-tools`
-    - The path must be writable and executable by the `hgcadmin` user account
+- Motor Docker (`docker-ce` versión 20.10.6)
+  - Desplegado con privilegios de root
+  - Soporte de contenedor privado habilitado (opcional)
+    - Si el soporte de contenedor privilegiado está deshabilitado, entonces la máquina del host debe ejecutar el Daemon de Havege
+- Docker Compose (`docker-compose` versión 1.29.2)
+- Soporte IPTables (`linux-kernel` versión 3.10+)
+- Daemon de Havege (versión 'haveged' 1.9.14)
+  - Si el soporte de contenedor privilegiado está habilitado, este requisito es opcional
+- HashDeep Utilities (versión `hashdeep` 4.4)
+  - Requerido para validación de integridad de actualización
+- Coleccionista de Bindplane (versión 4+)
+  - Requerido para la monitorización del registro del software del nodo
+- JQ CLI (`jq` versión 1.5+)
+  - Dependencia necesaria para las herramientas de administración de nodos
+- GNU CoreUtils (`coreutils` versión 8.00+)
+  - Dependencia necesaria para las herramientas de administración de nodos
+- cURL CLI (`curl` versión 7.58.0+)
+  - Dependencia necesaria para las herramientas de administración de nodos
+- InCron Daemon (`incron` versión 0.5.12+)
+  - Dependencia necesaria para las herramientas de administración de nodos
+  - Requerido para la actualización automática de red
+- CLI de Rsync (`rsync` versión 3.0.0+)
+  - Dependencia necesaria para las herramientas de administración de nodos
+  - Requerido para la actualización automática de red
+- Herramientas de gestión de nodos (`node-mgmt-tools` versión 0.1.0+)
+  - Actualizaciones implementadas mediante el proceso de actualización de node
+  - Debe instalarse en la siguiente ruta: `/opt/hgcapp/node-mgmt-tools`
+    - La ruta debe ser escribible y ejecutable por la cuenta de usuario `hgcadmin`
 
-### **System User Accounts:**
+### **Cuentas de usuario del sistema:**
 
-- _**Node Software Account (mandatory)**_
-  - User Specification
-    - Name: `hedera`
-    - Unix UID: `2000`
-    - Group Membership
-      - Primary: `hedera`
-      - Secondary: `admin` or `wheel` _(depending on Linux distribution)_
-    - Permissions:
-      - Read, Write, and Execute Access to the entire `/opt/hgcapp` folder tree
-  - Group Specification
-    - Name: `hedera`
+- _**Cuenta de software del nodo (obligatorio)**_
+  - Especificación del usuario
+    - Nombre: `hedera`
+    - UID Unix: `2000`
+    - Membresía de grupo
+      - Primario: `hedera`
+      - Segundo: `admin` o `wheel` _(dependiendo de la distribución de Linux)_
+    - Permisos:
+      - Lee, Escribe y Ejecuta el acceso a todo el árbol de carpetas `/opt/hgcapp`
+  - Especificación del grupo
+    - Nombre: `hedera`
     - Unix GID: `2000`
 
 {% hint style="info" %}
-**Note:** Reference Configurations available in Appendices B, C, D
+**Nota:** Configuraciones de referencia disponibles en Apéndices B, C, D
 {% endhint %}
 
 ### Proxy
 
-Access to the node via public APIs must be mediated by an in-line proxy. Below are the specifications for establishing this proxy.
+El acceso al nodo a través de APIs públicas debe ser mediado por un proxy en línea. Debajo están las especificaciones para establecer este proxy.
 
-- 2- core-x86/x64 CPU
-- 2GB RAM
-- 100GB SSD storage
-- 200Mb/s sustained internet network connectivity with public static IP address
-- Supported Docker (Hedera to provide Docker image with HAProxy)
+- 2- CPU core-x86/x64
+- 2GB de RAM
+- 100GB de almacenamiento SSD
+- Conectividad sostenida de red de 200Mb/s con dirección IP pública estática
+- Docker soportado (Hedera para proporcionar imagen de Docker con HAProxy)
 
-### Network Connectivity
+### Conectividad de red
 
-Node Connectivity
+Conectividad del nodo
 
-- 1Gbps internet connectivity – sustained (not burstable)
-  - Unmetered preferred
-  - Deployed with firewalled access to other mainnet consensus nodes
-- Node deployed in dedicated (isolated) DMZ network
-  - Static IP (FQDN is not supported)
-  - TCP Port 50111 open to 0.0.0.0/0
-  - TCP Port 50211 open to 0.0.0.0/0
-  - TCP Port 50212 open to 0.0.0.0/0
-  - TCP Port 80 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-  - TCP Port 443 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-  - UDP Port 123 open ingress and egress to 0.0.0.0/0 (for NTP pool synchronization of system time)
+- Conectividad a Internet de 1Gbps – sostenida (no rota)
+  - Preferencias ilimitadas
+  - Desplegado con acceso bloqueado por fuego a otros nodos de consenso de la red principal
+- Nodo desplegado en red DMZ dedicada (aislada)
+  - IP estática (FQDN no es compatible)
+  - Puerto TCP 50111 abierto a 0.0.0.0/0
+  - Puerto TCP 50211 abierto a 0.0.0.0/0
+  - Puerto TCP 50212 abierto a 0.0.0.0/0
+  - Puerto TCP 80 abierto desde 0.0.0.0/0 (para conectividad del repositorio de paquetes OS)
+  - Puerto TCP 443 abierto desde 0.0.0/0 (para conectividad del repositorio del sistema operativo)
+  - Puerto UDP 123 abierto y progreso a 0.0.0.0/0 (para sincronización del tiempo del sistema en el pool NTP)
 
-Proxy Connectivity
+Conectividad del proxy
 
-- Static IP address (FQDN not supported)
-- 200Mb/s internet connectivity
-- TCP Port 80 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-- TCP Port 443 open egress to 0.0.0.0/0 (for OS package repository connectivity)
-- TCP Port 50211 open to 0.0.0.0/0
-- TCP Port 50212 open to 0.0.0.0/0
+- Dirección IP estática (FQDN no soportado)
+- Conectividad a Internet 200Mb/s
+- Puerto TCP 80 abierto desde 0.0.0.0/0 (para conectividad del repositorio de paquetes OS)
+- Puerto TCP 443 abierto desde 0.0.0/0 (para conectividad del repositorio del sistema operativo)
+- Puerto TCP 50211 abierto a 0.0.0.0/0
+- Puerto TCP 50212 abierto a 0.0.0.0/0
 
-Interface Bonding (optional)
+Vinculación de interfaz (opcional)
 
-- If using interface bonding, note that mutual TLS is in use, and Layer 3 Policy Based Routing (PBR) with dual-pathways is not supported. Only Layer 2 interface bonding using mode 1 (autonomous ports using active-backup) or mode 4 (LACP 802.3ad active/active) is supported.
+- Si se utiliza el enlace a la interfaz, tenga en cuenta que TLS está en uso mutuo, y que las rutas basadas en políticas de capa 3 (PBR) con rutas duales no están soportadas. Sólo se admite la unión de interfaz de capa 2 usando el modo 1 (puertos autónomos usando una copia de seguridad activa) o el modo 4 (LACP 802.3ad activo/activo).
 
-### Hosting
+### Alojamiento
 
-- Industry-standard hosting requirements for security and availability
-  - Tier 1 Data Center Hosting facility
-  - SSAE 16 /18, SOC 2 Type 2 compliant
-- Hedera will seek to avoid duplicating hosting providers across Council members
+- Requisitos de alojamiento estándar de la industria para seguridad y disponibilidad
+  - Instalación de Centro de Datos de Nivel 1
+  - SAE 16 /18, SOC 2 Tipo 2 compatible
+- Hedera intentará evitar duplicar los proveedores de alojamiento entre los miembros del Consejo
 
-### Software & Installation
+### Software e instalación
 
-- Any 64-bit Long Term Support (LTS) Linux distribution
-  - Approved distributions:
+- Cualquier distribución Linux de 64 bits de soporte a largo plazo (LTS)
+  - Distribuciones aprobadas:
     - Ubuntu
     - Red Hat Enterprise
     - Oracle Linux
-    - CentOS (Only through 2023)
+    - CentOS (sólo hasta 2023)
 
-## Network Topology /(Typical Corporate Datacenter Configuration/)
+## Topología de red /(Configuración típica del Datacenter Corporativo/)
 
 ![](../../../../.gitbook/assets/Network-topology.jpg)
 
-## Deployment Steps
+## Pasos de despliegue
 
-The following steps outline the process for Council Members to add their consensus node to the mainnet.
+Los siguientes pasos describen el proceso para que los miembros del Consejo añadan su nodo de consenso a la red principal.
 
-1. Initial contact with Council Member and node hosting entity
-   1. Identify key individuals and project managers
-   2. Establish regular deployment team meeting cadence
-2. Conveyance of technical requirements and discussion of deployment options
-3. Node platform acquisition
-   1. Hardware or virtual instance
-   2. Network connectivity
-   3. Hosting facility
-4. Configuration of the operating system on platform
-   1. Provisioning of accounts as specified
-   2. Provisioning of network access (firewall rules/access control lists)
-5. Conveyance of credentials to Hedera
-   1. Includes any special instructions for permissioned access such as VPNs
-   2. Discussion of support and escalation paths between organizations
-6. Hedera undertakes configuration review
-   1. Platform
-   2. Connectivity
-7. Deployment of Hedera consensus node software and required supporting libraries
-8. Add connection configuration for a Hedera performance testnet
-   1. Hedera executes functional, stability and performance tests for all network services
-9. Review of test results and determination of preparedness for mainnet connectivity
-   1. Review key management documentation related to Council Member's accounts including: fee account, proxy staking account, et al.
-   2. Update private keys using provided tools
-10. Schedule mainnet connection
-11. Mainnet live
+1. Contacto inicial con miembro del Consejo y entidad de alojamiento de nodos
+   1. Identificar individuos clave y administradores de proyectos
+   2. Establecer cadencia de reunión regular del equipo de despliegue
+2. Transmisión de requisitos técnicos y discusión de opciones de implementación
+3. Adquisición de plataforma de nodo
+   1. Hardware o instancia virtual
+   2. Conectividad de red
+   3. Instalación de alojamiento
+4. Configuración del sistema operativo en la plataforma
+   1. Aprovisionamiento de cuentas como se especifica
+   2. Aprovisionamiento del acceso a la red (listas de control de acceso/reglas/cortafuegos)
+5. Transmisión de credenciales a Hedera
+   1. Incluye instrucciones especiales para acceder a permisos como VPN
+   2. Discusión de las vías de apoyo y escalada entre organizaciones
+6. Hedera lleva a cabo la revisión de configuración
+   1. Plataforma
+   2. Conectividad
+7. Despliegue del software de nodos de consenso de Hedera y bibliotecas de soporte requeridas
+8. Añadir configuración de conexión para una red de pruebas de rendimiento de Hedera
+   1. Hedera ejecuta pruebas de funcionalidad, estabilidad y rendimiento para todos los servicios de red
+9. Revisión de los resultados de las pruebas y determinación de la preparación para la conectividad de la red principal
+   1. Revisar documentación de gestión clave relacionada con las cuentas de los miembros del Consejo, incluyendo: cuenta de tarifas, cuenta de apostador para proxy, etc.
+   2. Actualizar claves privadas usando herramientas proporcionadas
+10. Programar conexión a la red principal
+11. Mainnet en vivo

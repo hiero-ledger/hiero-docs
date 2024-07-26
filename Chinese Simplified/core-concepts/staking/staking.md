@@ -1,73 +1,71 @@
-# Staking Program
+# Staking 程序
 
-The staking feature will be rolled out in four phases. The first two phases are described below, and the final two phases will be available at the start of Phase I.
+这项工作将分四个阶段推出。 下文介绍前两个阶段，最后两个阶段将在第一阶段开始时提供。
 
-## **Phase I: Technical Availability \[Complete]**
+## **Phase I: 技术可用性 \[Complete]**
 
-The staking functionality is now available and live on both the Hedera Testnet and Mainnet as of July 21, 2022. In phase I, users will technically be able to stake their account to mainnet nodes but this will not contribute to a node’s consensus weight (voting power). This initial technical availability release does not reward participants for staking but enables a level playing field whereby all market participants have the possibility to join the staking program and avoids giving an unfair advantage to the first few who stake.
+截至2022年7月21日，这种搭载功能已在Hedera Testnet和Mainnet上供使用。 第一阶段， 用户在技术上将能够将其帐户置于主节点上，但这将不会有助于某个节点的协商一致权重(投票权)。 这种最初的技术可得性不会奖励参与者的参与，而是能够创造一个公平的竞争环境，使所有市场参与者都有可能加入风险方案，并避免给最初几个参与者带来不公平的好处。
 
-## **Phase II: Ecosystem Development \[Complete]**
+## **第二阶段：生态系统开发\[Complete]**
 
-During this phase, supported exchanges and wallets will be able to integrate the staking functionality to provide account holders an easy way to stake their HBAR, but will not distribute rewards. In addition, web applications for delegating stake will likely be built for utilization by the retail ecosystem. During this phase, there will be visibility of stake per node, and staking to a node will affect its consensus weight (voting power) with monthly updates.
+在这一阶段， 支持的交易所和钱包将能够整合staking 功能，为账户持有人提供一个轻松的方式来处理他们的 HBAR， 但不会分发奖励。 此外，可能还会建造供零售生态系统使用的网络应用程序。 在这一阶段，每个节点的利益攸关方都会引人注目。 与某个节点关联会影响其协商一致的权重(投票权)，每月更新。
 
-## **Phase III: Staking Rewards Program Launch \[Complete]**
+## **第三阶段：Staking 奖励计划启动\[Complete]**
 
-The Hedera Governing Council will determine when the Hedera ecosystem has reached a minimum viable set of integrations to enable staking rewards. Once this is determined, the council (through CoinCom) will vote to update the reward rate, and subsequently, the mainnet will be updated with the agreed-upon reward rate. The latest staking reward rate voted on by CoinComm can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).\
-\
-Once updated, the staking reward account (0.0.800) will be eligible to distribute rewards earned by stakers, once the rewards threshold of 250M total HBAR has been met. Rewards will continue to be distributed even if, after this time, the balance of account 0.0.800 goes below 250M.
+赫德拉管理委员会将确定赫德拉生态系统何时达到最低限度的可行集成，以便能够获得奖励。 一旦确定这一点，理事会(通过CoinCom)将投票更新奖励率。 然后将根据商定的奖励率更新主网。 CoinComm 投票的最新摇滚奖励率可以找到 [here](https://hedera.com/blog/hedera-governing-council-votes-approve-changes-staking-algorithm)。更新后的staking 奖励帐户 (0.0). 一旦达到25万兆美元HBAR总额的奖励阈值，就有资格分配星球获得的奖励。 即使在这段时间后，0.0.800的账户余额低于250M，奖金仍将继续分配。
 
-## Phase IV: Complete Staking Implementation
+## 第四阶段：完成预订工作
 
-In this phase, 24-hour updates will be released for visibility into the stake per node, and the node uptime feature will be released. This means that instead of updating node stake visibility on a monthly basis, node stake visibility will be updated on a 24-hour epoch interval. When the uptime feature takes effect, staked accounts will not earn rewards when nodes cannot participate in consensus (unavailable or offline).
+在这个阶段，24小时的更新将发布，以提高每个节点的可见性，节点更新时间功能将被发布。 这意味着，不是每月更新节点的可见性，而是24小时更新节点的可见性。 当更新功能生效时，当节点不能参与共识时(不可用或离线)，系统账户将不会获得奖励。
 
-## **Staking Nodes**
+## **Staging Nodes**
 
 {% hint style="info" %}
-The Hedera Governing Council voted to change the min stake value from half of the max node stake value to 1/4 of the max node stake value.
+Hedera Governing Council 投票决定将最小值从最大节点值的一半改为最大节点值的1/4。
 {% endhint %}
 
-All consensus nodes run by the Hedera Governing Council distribute rewards to the accounts staked to them. You can find information about each node in the network by visiting one of the Hedera network explorers or getting the network [address book](../../sdks-and-apis/rest-api.md#api-v1-network-nodes). In the future, network participation will open up to community nodes and eventually to the public as part of Hedera’s decentralization efforts.
+赫德拉管理委员会管理的所有协商一致节点都向他们所涉账户发放奖励。 您可以通过访问某个Hedera 网络探索器或获取网络[地址簿](../../sdks-andapis/rest-api.md#api-v1-network-nodes)来找到网络中每个节点的信息。 今后，网络参与将向社区节点开放，并最终向公众开放，作为赫德拉语权力下放努力的一部分。
 
-Nodes have a **minimum stake** and **maximum stake**. The node's minimum stake must be met for the accounts staked to that node to be eligible to earn staking rewards. Staked tokens that go over the maximum stake will no longer impact the proportion of rewards returned. The maximum stake threshold for each node will be the total number of HBAR divided by the total number of nodes in the network. The minimum node stake threshold value will be 1/4 of the maximum node stake value. These values will change as more nodes are added to the network or can change by vote of the Hedera Governing Council.
+节点有**最小的利害关系** 和 **最大的利害关系** 。 该节点的最小份额必须满足，才能有资格获得仓储奖励。 超过最大股份的相关代币将不再影响回报的比例。 每个节点的最大利害关系阈值将是除以网络中的节点总数的HBAR总数。 最小节点利害关系阈值将是最大节点利害关系值的1/4。 随着更多节点加入网络或通过赫德拉理事会的表决改变，这些价值观将会改变。
 
-#### Example:
+#### 示例：
 
-Minimum Stake: ​50,000,000,000 hbars\*(1/26nodes)\*(1/4)
+最小Stake：适合50,000,000,000,000hbars\*(1/26节点)\*(1/4)
 
-Maximum Stake: ​50,000,000,000 hbars\*(1/26nodes)
+最大密度：50,000,000,000,000hbars\*(1/26节点)
 
-## **Lockup Period**
+## **锁定周期**
 
-There is **no lock-up period** when accounts are staked to a node. Stakers do not need to choose an amount of HBAR to stake from their account. The account's entire balance is staked automatically to the selected node or account. There is no concept of “bonding” or “slashing” of your tokens. The staked account balance is liquid at all times.
+当账户被关联到节点时，\*\*没有锁定期。 利益攸关者不需要从他们的账户中选择一个金额的 HBAR。 该帐户的整个余额被自动关联到所选节点或帐户。 您的代币没有“粘合”或“粘合”的概念。 隐藏账户余额在任何时候都是液态的。
 
-## **Staking Reward Account**
+## **Staking 奖励帐户**
 
-The staking reward account distributes rewards to eligible staked accounts. The staking reward account ID is [0.0.800](https://hashscan.io/#/mainnet/account/0.0.800?type=) on mainnet. Anyone in the community can contribute to the rewards pool by transferring HBAR into that account. This account has no keys, and therefore, any HBAR transferred into this account cannot be returned to the owner. If you choose to contribute to the rewards pool, please make sure to double-check your transfer transaction details.
+Staking奖励帐户分配给符合条件的有价证券帐户奖励。 错位奖励帐户 ID 在主机上是 [0.0.800](https://hashscan.io/#/mainnet/account/0.0.800?type=)。 社区中的任何人都可以通过将HBAR转入该帐户来为奖励池作出贡献。 这个账户没有钥匙，因此转入此账户的任何HBAR都不能退还给所有者。 如果您选择对奖励池作出贡献，请确保重复检查您的转账交易细节。
 
-The staking reward account needs to meet a minimum balance before rewards can begin to distribute rewards earned to the eligible staked accounts. The minimum HBAR balance threshold for the reward account is 250 million HBAR voted on by the Hedera Governing Council. If this balance is not met staking rewards will not be distributed. You can view the balance of this account by visiting any of the Hedera network explorers.
+股票奖励帐户需要达到最低余额，然后才能开始将所得奖励分配给合格的股票帐户。 奖赏帐户的最低现金资源余额门槛是2.5亿韩元，由赫德拉理事会投票决定。 如果不能获得这笔余额，将不会分配这笔预扣奖励。 您可以通过访问任何Hedera网络探索器查看此帐户的余额。
 
-Once the minimum threshold is met, rewards will continue to be distributed to staked accounts as long as there is a balance in the rewards account even if it falls below the initial minimum threshold. The reward rate will initially be set to zero. The Hedera Governing Council will vote and update the reward rate when the Hedera Staking Reward Program goes live. The latest reward rate can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).&#x20
+一旦达到最低阈值 只要奖励帐户有余额，即使低于起始最低限额，奖励将继续分配给有价帐户。 奖励率最初设置为零。 Hedera Governing Council 将在Hedera Staking Award Program 生效时投票并更新奖励率。 最新奖励率可以找到 [here](https://hedera.com/blog/hedera-governing-council-votes-approve-changes-to-staking-algorithm).&#x20
 
-## **Staking Rewards**
+## **Staking 奖励**
 
-In Phase I, the staking reward rate will initially be zero. The Hedera Governing Council will determine when the Hedera ecosystem has reached a minimum viable set of integrations to enable staking rewards. Once this is determined, the council (through CoinCom) will vote to update the reward rate, and subsequently, the mainnet will be updated with the agreed-upon reward rate.
+在第一阶段中，预扣奖励率最初为零。 赫德拉管理委员会将确定赫德拉生态系统何时达到最低限度的可行集成，以便能够获得奖励。 一旦确定这一点，理事会(通过CoinCom)将投票更新奖励率。 然后将根据商定的奖励率更新主网。
 
-Any account can elect to stake to a node or another account. The **minimum staking period** is the minimum amount of time an account needs to be staked to a consensus node before the account is eligible to earn rewards. The minimum staking period is **one day (24 hours).** The staking period begins at midnight UTC and ends at midnight UTC. The staking period is defined by the Hedera Governing Council. The earned rewards are not transferred to the staked account immediately after an account has been staked for one full staking period. Please see the Staking Reward Distribution section for what scenarios trigger the payment of a reward.
+任何帐户都可以选择与某个节点或另一个帐户相关联。 **最小隐藏周期** 是帐户需要被关联到一个协商一致节点后才有资格获得奖励的最短时间。 最低预订时间为 **一天(24小时)。** 预订时间从午夜UTC 开始，到午夜UTC 结束。 筹划期由赫德拉理事会确定。 赚取的奖励不会在一个帐户被绑定到一个完整的存档期后立即转到有关帐户。 请查看Staking 奖励发行版，了解哪些情景引发支付奖励。
 
-Accounts staked for less than the defined minimum staking period are not eligible to earn rewards for that period. Nodes and accounts accumulate stake and rewards per whole HBAR. Fractions are rounded down.
+在规定的最低隐藏期内存入的账户没有资格在此期间获得奖励。 节点和帐户每次积累所有股份和奖励。 分块四舍五入。
 
-For a staked account to be eligible to earn rewards, the following must be true:
+为了有资格赚取奖励的有价账户必须是正确的：
 
-- The staking reward account needs to have met the initial threshold balance of HBAR
-  - Once the minimum threshold value has been met, the rewards account will continue to reward staked accounts even if the balance falls below the initial threshold
-- The account the node is staked to meets the minimum node stake threshold value
-- The account needs to be staked for the minimum staking period
-- The reward rate is voted on by the Hedera Governing Council and updated on mainnet
+- Staking奖励帐户需要达到HBAR 的初始阈值
+  - 一旦达到最低阈值 即使余额低于起始阈值，奖励账户也将继续奖励相关账户
+- 该节点被标记为符合最小节点利益阈值的帐户
+- 该账户需要在最小的隐藏时间内被隐藏
+- 奖金率由赫德拉理事会表决并在主体上更新。
 
-Rewards will continue to be earned when a node is down or inactive in the first phase. The Council (through CoinCom) has voted to implement a maximum cap of [2.5% annual reward rate](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm). The actual reward rate will vary depending on how many HBAR are staked for rewards, but the rate will not exceed the cap. In the future, when nodes are down or inactive the staked account will not be eligible to earn rewards.
+当某个节点处于第一个阶段或处于不活动状态时，将继续获得奖励。 理事会(通过CoinCom)投票决定执行最高限额[2.5%的年度奖励率](https://hedera.com/blog/hedera-governing-council-votes-approve-changes-staking-algorithm)。 实际奖励率将根据打中的六溴环十二烷获得奖励的数量而有所变化，但奖励率将不会超过上限。 今后，当节点被关闭或停用时，有记录的账户将没有资格获得奖励。
 
-This staking system offers an additional unique functionality: **indirect staking**. If account A stakes to node N, then the stake increases the consensus weight of N, and account A is rewarded for every 24-hour period that it stakes. If account A stakes to account B, and account B stakes to node N, then the stake from both A and B will increase the consensus weight of N, but the rewards for both A and B will be received by B.
+此隐藏系统提供了额外的独特功能：**间接触发**。 如果帐户A关系到节点N，那么利害关系方会增加N的协商一致权重 账户A和账户A每24小时被奖励。 如果帐户A关系到帐户B，帐户B关系到节点N, 然后A和B的利害关系方将增加N的协商一致权重， 但A和B的奖金将由B提供。
 
-An account can optionally decline to earn rewards when staked. The account will still be counted towards meeting the node’s minimum stake value.
+账户可以选择性地拒绝获取奖励。 该帐户仍将被计入达到节点的最小值值。
 
-**📣 If you're interested in checking out the wallets and exchanges supporting staking HBAR, head to the** [**Stake HBAR**](stake-hbar.md) **page.**
+**📣 如果你有兴趣查看支持Staking HBAR的钱包和交易所，头部**[**Stake HBAR**](stake-hbar.md) **页面**

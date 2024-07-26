@@ -1,17 +1,17 @@
-# Creating Smart Contracts
+# 创建智能合同
 
-A [smart contract](../../support-and-community/glossary.md#smart-contract) is an immutable program consisting of a set of logic (state variables, functions, event handlers, etc.) or rules that can be deployed, stored, and accessed on a [distributed ledger technology](../../support-and-community/glossary.md#distributed-ledger-technology-dlt) such as Hedera. The functions contained within a smart contract can update and manage the state of the contract and read data from the deployed contract. They may also create and call other smart contracts functions on the network. Smart contracts are secure, tamper-proof, and transparent, offering a new level of trust and efficiency.
+[智能合同](../../support-community/glossary.md#smart-contract) 是一个不可变的程序，由一组逻辑(状态变量、函数、事件处理器等)组成。 或者可以在[分布式分类账技术](../../supportand-community/glossary.md#分布式分类账-技术-dlt)上部署、储存和访问的规则，例如Hedera。 智能合同中包含的功能可以更新和管理合同状态，并读取部署合同中的数据。 他们还可以在网络上创建和呼叫其他智能合约功能。 智能合同是安全的、可篡改的和透明的，提供了新水平的信任和效率。
 
-Hedera supports any language that compiles to the Ethereum Mainnet. This includes [Solidity](../../support-and-community/glossary.md#solidity) and [Vyper](../../support-and-community/glossary.md#vyper). These programming languages compile code and produce [bytecode](../../support-and-community/glossary.md#bytecode) that the [Ethereum Virtual Machine (EVM)](../../support-and-community/glossary.md#ethereum-virtual-machine-evm) can interpret and understand.
+Hedera 支持任何编译到Ethereum Mainnet的语言。 这包括 [Solidity](../../supportand-community/glossary.md#solidity) 和 [Vyper](../../supportand-community/glossary.md#vyper)。 这些编程语言编译代码并生成 [bytecode](../../supportand-community/glossary.md#bytecode)，[Etherum虚拟机(EVM)](../../supportand-community/glossary.md#efum-virtal-mye-evm)可以解释和理解。
 
-- To learn more about the Solidity programming language, check out the documentation maintained by the Solidity team [here](https://docs.soliditylang.org/en/v0.8.19/).
-- To learn more about Vyper, check out the documentation maintained by the Vyper team [here](https://docs.vyperlang.org/en/stable/).
+- 要了解更多有关团结编程语言的信息，请查看团结团队 [here](https://docs.soliditylang.org/en/v0.8.19/)
+- 要了解更多关于Vyper的信息，请查阅Vyper团队 [here](https://docs.vyperlang.org/en/stable/)。
 
-In addition, many tools are available to write and compile smart contracts, including the popular [Remix IDE](../../support-and-community/glossary.md#remix-ide) and [Hardhat](../../support-and-community/glossary.md#hardhat). The Remix IDE is a user-friendly platform that allows you to easily write and compile your smart contracts and perform other tasks such as debugging and testing. Using these tools, you can create powerful and secure smart contracts that can be used for various purposes, from simple token transfers to complex financial instruments.
+此外，还有许多工具可用来编写和编译智能合同，包括流行的 [Remix IDE](../../supportand-community/glossary.md#remix-ide) 和 [Hardhat](../../supportand-community/glossary.md#hardhat)。 Remix IDE是一个方便用户的平台，您可以方便地编写和编译您的智能合约，并执行其他任务，例如调试和测试。 使用这些工具，您可以创建强大和安全的智能合约，用于各种目的。 从简单的代币转账到复杂的金融工具。
 
-**Example**
+**示例**
 
-The following is a very simple example of a smart contract written in the Solidity programming language. The smart contract defines the `owner` and `message` state variables, along with functions like `set_message` (which modifies state details by writing) and `get_message`(which reads state details).
+以下是用团结编程语言编写的智能合同的一个非常简单的例子。 智能合同定义了 `所有者` 和 `message` 状态变量， 还有一些函数，如`set_message` (通过写入更改状态细节)和`get_message` (该函数读取状态细节)。
 
 ```solidity
 pragma solidity >=0.7.0 <0.8.9;
@@ -44,48 +44,48 @@ contract HelloHedera {
 
 ***
 
-## Things you should consider when creating a contract
+## 创建合同时您应该考虑的事项
 
-**Automatic Token Associations**
+**自动令牌关联**
 
-An auto association slot is one or more slots you approve that allow tokens to be sent to your contract without explicit authorization for each token type. If this property is not set, you must approve each token before it is transferred to the contract for the transfer to be successful via the `TokenAssociateTransaction` in the SDKs. Learn more about auto-token associations [here](../accounts/account-properties.md#automatic-token-associations).
+自动关联栏位是您批准的一个或多个栏位，这些栏位允许代币在没有对每个代币类型的明确授权的情况下发送到您的合同。 如果未设置此属性。 您必须先批准每个令牌才能通过SDK中的`TokenAssociateTransaction`成功传输到合同。 了解更多关于自动令牌关联 [here](../accounts/account-properties.md#automatic-token-associations)。
 
-This functionality is exclusively accessible when configuring a `ContractCreateTransaction` API through the Hedera SDKs. If you are deploying a contract on Hedera using EVM tools such as Hardhat and the Hedera JSON RPC Relay, please note that this property cannot be configured, as EVM tools lack compatibility with Hedera's unique features.
+在通过 Hedera SDK 配置 `ContractCreateTransaction` API时，此功能是唯一可访问的。 如果您正在Hedera使用Hardhat和Hedera JSON RPC 中的工具，在Hedera部署一个合同， 请注意，此属性无法配置，因为EVM工具与Hedera的独特功能不兼容。
 
-**Admin Key**
+**管理员密钥**
 
-Contracts have the option to have an [admin key](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_create.proto#L117). This concept is native to Hedera contracts and allows the contract account properties to be updated. Note that this does not impact the contract [bytecode](../../support-and-community/glossary.md#bytecode) and does not relate to upgradability. If the admin key is not set, you will not be able to update the following Hedera native properties (noted in [ContractUpdateTransactionBody](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto) protobuf) for your contract once it is deployed:
+合同可以有一个[admin key](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_create.proto#L117)。 这个概念是赫德拉合同的原生概念，允许更新合同帐户属性。 请注意这不会影响合同 [bytecode](../../supportand-community/glossary.md#bytecode)并且与升级无关。 If the admin key is not set, you will not be able to update the following Hedera native properties (noted in [ContractUpdateTransactionBody](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto) protobuf) for your contract once it is deployed:
 
-- [`autoRenewPeriod`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L78)
+- [`autoReform Period`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L78)
 - [`memoField`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L88)
 - [`max_automatic_token_associations`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L105)
-- [`auto_renew_account_id`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L111)
+- [`auto_refor_account_id`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L111)
 - [`staked_id`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L116)
-- [`decline_reward`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L134)
+- [`decline_rewid`](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract\_update.proto#L134)
 
-You cannot set the admin key field if you deploy a contract via tools like Hardhat. This field can be set if desired by deploying a contract using one of the Hedera [SDKs](../../sdks-and-apis/sdks/).&#x20
+如果您通过硬件等工具部署合同，您不能设置管理员密钥栏。 如果需要的话，可以通过使用Hedera [SDKs]部署合同来设置此字段 (../../sdks-andapis/sdks/)&#x20
 
-**Max Contract Storage Size**
+**最大合同存储大小**
 
-Contracts on Hedera have  a storage size limit of 16,384,000 key value pairs (\~100MB).&#x20
+Hedera 上的合约存储大小限制为16,384,000 密钥对(\~100MB).&#x20
 
 **Rent**
 
-While rent is not enabled for contracts deployed on Hedera today, you will want to be familiar with the concept of rent, as it may potentially impact the costs of maintaining your contract state on the network. Please refer to the Smart Contract Rent documentation [here](smart-contract-rent.md).
+对于今天部署在黑德拉的合同来说，租金尚未启用，您将想熟悉租金概念， 因为它可能会影响网络上维护您的合同状态的费用。 请参阅智能合同租金文档 [here](智能合同-租用.md)。
 
-**Transaction and Gas Fees**
+**交易和天然气费**
 
-There are Hedera transaction fees and EVM fees associated with deploying a contract. To view the list of base fees, check out the fees page [here](../../networks/mainnet/fees/) and the fee estimator calculator [here](https://hedera.com/fees).
+Hedera的交易费和与部署合同有关的EVM费。 要查看基本费用列表, 请查看费用页面 [here](../../nets/mainnet/fees/) 和费用估计计算器 [here](https://hedera.com/fees)。
 
 ***
 
-## Smart Contract FAQs
+## 智能合同常见问题解答
 
 <details>
 
-<summary>What is a smart contract?</summary>
+<summary>智能合约是什么？</summary>
 
-A smart contract is a program that is written in a language that can be interpreted by the EVM. Please refer to the [glossary](../../support-and-community/glossary.md) for more keywords and definitions.
+智能合约是一个用EVM可以解释的语言编写的程序。 请参阅 [glossary](../../support-community/glossary.md) 以了解更多关键词和定义。
 
 </details>
 
@@ -93,15 +93,15 @@ A smart contract is a program that is written in a language that can be interpre
 
 <summary>What programming language does Hedera support for smart contracts?</summary>
 
-Hedera supports Solidity and Vyper.
+赫德拉支持团结和维珀。
 
 </details>
 
 <details>
 
-<summary>Can I write and compile my smart contracts using Remix IDE or other Ethereum ecosystem tools? </summary>
+<summary>我可以使用 Remix IDE 或其他以太坊生态系统工具编写和编译我的智能合约吗？ </summary>
 
-You can use Remix IDE or other Ethereum ecosystem tools to write, compile, and deploy your smart contract on Hedera. Check out our EVM-compatible tools [here](../../#evm-compatible-tools).&#x20
+您可以使用 Remix IDE 或其他 Etherum 生态系统工具在Hedera 编写、编译和部署您的智能合同。 查看我们的EVM兼容工具 [here](../../#evm-compatible-tools).&#x20
 
 </details>
 
@@ -109,7 +109,7 @@ You can use Remix IDE or other Ethereum ecosystem tools to write, compile, and d
 
 <summary>Where can I find the smart contracts that are deployed to each Hedera network (previewnet, testnet, mainnet)?</summary>
 
-On your favorite trusted Block Explorer (also called Mirror Node Explorer on Hedera). To view community-hosted explorers check out the network explorer tools page [here](../../networks/community-mirror-nodes.md).&#x20
+在您最喜欢的信任区块资源管理器上(也称为Heder上的镜像节点探索器)。 要查看社区托管的探索者，请查看网络浏览器工具页 [here](../../networks/community miror-nodes.md).&#x20
 
 </details>
 
@@ -117,6 +117,6 @@ On your favorite trusted Block Explorer (also called Mirror Node Explorer on Hed
 
 <summary>Which ERC token standards are supported on Hedera?</summary>
 
-Hedera supports ERC-20 and ERC-721 token standards and can find the full list of supported standards [here](tokens-managed-by-smart-contracts/).
+Hedera 支持 ERC-20 和 ERC-721 令牌标准，并且可以找到支持标准的完整列表 [here](tokens-managed by smart-mart-contracts/)。
 
 </details>

@@ -1,30 +1,30 @@
-# JSON-RPC Relay
+# JSON-RPC 继电器
 
-The [Hedera JSON-RPC Relay](https://github.com/hashgraph/hedera-json-rpc-relay) is an open-source project implementing the Ethereum JSON-RPC standard. The JSON-RPC relay allows developers to interact with Hedera nodes using familiar Ethereum tools. This allows Ethereum developers and users to deploy, query, and execute contracts as they usually would. Check out the interactive[ OpenRPC Specification](https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/hashgraph/hedera-json-rpc-relay/main/docs/openrpc.json\\&uiSchema%5BappBar%5D%5Bui:splitView%5D=false\\&uiSchema%5BappBar%5D%5Bui:input%5D=false\\&uiSchema%5BappBar%5D%5Bui:examplesDropdown%5D=false) and a simple [list of endpoints](https://github.com/hashgraph/hedera-json-rpc-relay/blob/main/docs/rpc-api.md).&#x20
+[Hedera JSON-RPC 继电器](https://github.com/hashgraph/hedera-json-rpc-remedy)是一个开源项目，执行以太坊JSON-RPC 标准。 JSON-RPC 继电器允许开发人员使用熟悉的 Ethereum 工具与Hedera 节点交互。 这使得Etherum开发者和用户能够部署、查询和执行他们通常要签订的合同。 查看交互式[ OpenRPC Specification](https://playground.open rpc.org/?schemaUrl=https://raw.githubusercontent.com/hashgraph/hedera-json-rpc-reiny/main/docs/openrpc)。 son\&uiSchema%5BAppBar%5D%5Bui:splitView%5D=false\&uiSchema%5BappBar%5D%5Bui:input%5D=false\&uiSchema%5BappBar%5D%5Bui:exampown%5D=false) 和一个简单的 [list of endpoints](https://github)。 om/hashgraph/hedera-json-rpc-reiny/blob/main/docs/rpc-api.md).&#x20
 
-## HBAR decimal places&#x20
+## HBAR 十进制位置 &#x20
 
-The Hedera JSON RPC Relay **`msg.value`** uses 18 decimals when it returns HBAR. As a result, the **`gasPrice`** value returns 18 decimal places since it is only utilized from the JSON RPC Relay. Refer to the [HBAR page](../../../sdks-and-apis/sdks/hbars.md) for a list of Hedera APIs and the decimal places they return.&#x20
+Hedera JSON RPC 继电器 **`msg.value`** 返回HBAR时使用18个小数。 因此，**`gasPrice`** 值返回18个小数点，因为它只在JSONRPC 继电器中使用。 请参阅[HBAR page](../../../sdks-and/sdks/hbars.md)的Hedera API列表和他们返回的十进制位置。&#x20
 
-## Community Hosted JSON-RPC Relays
+## 社区托管JSON-RPC 继电器
 
-Anyone in the community can set up their own JSON RPC relay that applications can use to deploy, query, and execute smart contracts. The list of community-hosted Hedera JSON RPC relays and endpoints for previewnet, testnet, and mainnet can be found in the table below and in their associated docs or website.&#x20
+社区中的任何人都可以建立自己的JSON RPC 继电器，应用程序可以用来部署、查询和执行智能合同。 社区托管的Hedera JSON RPC 继电器和预览网端口、测试网的列表， 可在下表及其相关文件或网站上查找。 #x20
 
-#### JSON-RPC Relay Endpoints
+#### JSON-RPC 中继端点
 
-<table><thead><tr><th width="132">Network</th><th width="96" align="center">Chain ID</th><th width="266" align="center">Hashio RPC URL</th><th align="center">thirdweb RPC URL</th></tr></thead><tbody><tr><td><strong>Mainnet</strong></td><td align="center">295</td><td align="center"><a href="https://mainnet.hashio.io/api">https://mainnet.hashio.io/api</a></td><td align="center"><a href="https://295.rpc.thirdweb.com">https://295.rpc.thirdweb.com</a></td></tr><tr><td><strong>Testnet</strong></td><td align="center">296</td><td align="center"><a href="https://testnet.hashio.io/api">https://testnet.hashio.io/api</a></td><td align="center"><a href="https://296.rpc.thirdweb.com">https://296.rpc.thirdweb.com</a></td></tr><tr><td><strong>Previewnet</strong></td><td align="center">297</td><td align="center"><a href="https://previewnet.hashio.io/api">https://previewnet.hashio.io/api</a></td><td align="center"><a href="https://297.rpc.thirdweb.com">https://297.rpc.thirdweb.com</a></td></tr></tbody></table>
+<table><thead><tr><th width="132">网络</th><th width="96" align="center">链表 ID</th><th width="266" align="center">Hashio RPC URL</th><th align="center">thirdweb RPC URL</th></tr></thead><tbody><tr><td><strong>Mainnet</strong></td><td align="center">295</td><td align="center"><a href="https://mainnet.hashio.io/api">https://mainnet.hashio.io/api</a></td><td align="center"><a href="https://295.rpc.thirdweb.com">https:////295.rpc.thirdweb.com</a></td></tr><tr><td><strong>Testnet</strong></td><td align="center">296</td><td align="center"><a href="https://testnet.hashio.io/api">https://testnet.hashio.io/api</a></td><td align="center"><a href="https://296.rpc.thirdweb.com">https:///296.rpc.thirdweb.com</a></td></tr><tr><td><strong>预览网</strong></td><td align="center">297</td><td align="center"><a href="https://previewnet.hashio.io/api">https://previewnet.hashio.io/api</a></td><td align="center"><a href="https://297.rpc.thirdweb.com">https:///297.rpc.thirdweb.com</a></td></tr></tbody></table>
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>Hashio</strong></td><td><a href="../../../.gitbook/assets/hashio (1).png">hashio (1).png</a></td><td><a href="https://swirldslabs.com/hashio/">https://swirldslabs.com/hashio/</a></td></tr><tr><td align="center"><strong>Arkhia</strong></td><td><a href="../../../.gitbook/assets/arkhia-logo.png">arkhia-logo.png</a></td><td><a href="https://www.arkhia.io/features/#api-services">https://www.arkhia.io/features/#api-services</a></td></tr><tr><td align="center"><strong>Validation Cloud</strong></td><td><a href="../../../.gitbook/assets/validation cloud logo.png">validation cloud logo.png</a></td><td><a href="https://docs.validationcloud.io/about/hedera/json-rpc-relay-api">https://docs.validationcloud.io/about/hedera/json-rpc-relay-api</a></td></tr><tr><td align="center"><strong>thirdweb</strong></td><td><a href="../../../.gitbook/assets/thirdweb-logo.jpg">thirdweb-logo.jpg</a></td><td><a href="https://thirdweb.com/hedera">https://thirdweb.com/hedera</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>Hashio</strong></td><td><a href="../../../.gitbook/assets/hashio (1).png">hashio (1).png</a></td><td><a href="https://swirldslabs.com/hashio/">https://swirldslabs.com/hashio/</a></td></tr><tr><td align="center"><strong>Arkhia</strong></td><td><a href="../../../.gitbook/assets/arkhia-logo.png">arkhia-logo.png</a></td><td><a href="https://www.arkhia.io/features/#api-services">https://www.arkhia.io/features/#api-services</a></td></tr><tr><td align="center"><strong>验证云</strong></td><td><a href="../../../.gitbook/assets/validation cloud logo.png">验证云logo.png</a></td><td><a href="https://docs.validationcloud.io/about/hedera/json-rpc-relay-api">https://docs.validationcloud.io/about/hedera/json-rpc-relie-api</a></td></tr><tr><td align="center"><strong>第三网络</strong></td><td><a href="../../../.gitbook/assets/thirdweb-logo.jpg">thirdweb-logo.jpg</a></td><td><a href="https://thirdweb.com/hedera">https://thirdweb.com/hedera</a></td></tr></tbody></table>
 
 {% hint style="info" %}
-**Note:** If you want to add your own hosted JSON-RPC relay to this list, please open an issue in the [Hedera docs GitHub repository](https://github.com/hashgraph/hedera-docs). Please be sure to visit the community-hosted websites to review any limitations specific to their instance.&#x20;
+**注意：** 如果您想要将您自己托管的 JSON 中继添加到这个列表中。 请在 [Hedera docs GitHub 仓库](https://github) 中打开一个问题。 om/hashgraph/hedera-docs)。 请务必访问社区托管的网站以审查针对其实例的任何限制。&#x20;
 {% endhint %}
 
-{% content-ref url="../../../tutorials/more-tutorials/json-rpc-connections/" %}
+{% content-ref url="../../../../tutorials/more-tutorials/json-rpc-connections/" %}
 [json-rpc-connections](../../../tutorials/more-tutorials/json-rpc-connections/)
 {% endcontent-ref %}
 
-## FAQ
+## 常见问题
 
 <details>
 
@@ -32,7 +32,7 @@ Anyone in the community can set up their own JSON RPC relay that applications ca
 
 - [**Hashio**](https://swirldslabs.com/hashio/)&#x20
 - [**Arkhia**](https://www.arkhia.io/features/#api-services)
-- [**Validation Cloud**](https://docs.validationcloud.io/about/hedera/json-rpc-relay-api)
+- [**Validation Cloud**](https://docs.validationcloud.io/about/hedera/json-rpc-continy-api)
 
 </details>
 
@@ -40,7 +40,7 @@ Anyone in the community can set up their own JSON RPC relay that applications ca
 
 <summary>How do I connect to the Hedera Network over RPC?</summary>
 
-The configuration guide to connect to the Hedera Network over RPC can be found [here](../../../tutorials/more-tutorials/json-rpc-connections/).
+通过 RPC 连接到 Hedera 网络的配置指南可以找到 [here](../../../tutorials/more-tutorials/json-rpc-connections/)。
 
 </details>
 
@@ -48,7 +48,7 @@ The configuration guide to connect to the Hedera Network over RPC can be found [
 
 <summary>Where can I find the Hedera JSON-RPC relay endpoints?</summary>
 
-The endpoints for previewnet, testnet, and mainnet can be found on [Hashio](https://swirldslabs.com/hashio/), accessible through the [Swirlds Labs](https://swirldslabs.com/) website. Feel free to join the discussion on [Stack Overflow](https://stackoverflow.com/questions/76153239/how-can-i-connect-to-hedera-testnet-over-rpc/76153290#76153290) for more questions.
+The endpoints for previewnet, testnet, and mainnet can be found on [Hashio](https://swirldslabs.com/hashio/), accessible through the [Swirlds Labs](https://swirldslabs.com/) website. 请随时参加关于[堆栈溢出](https://stackoverflow.com/questions/76153239/how-can-i-connect-to-hedera-testnet-overrpc/76153290#76153290)的讨论，以了解更多问题。
 
 </details>
 
@@ -56,7 +56,7 @@ The endpoints for previewnet, testnet, and mainnet can be found on [Hashio](http
 
 <summary><strong>How does Hedera handle decimals in HBAR and gas prices?</strong></summary>
 
-The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPrice` value also returns 18 decimal places. _Check out the_ [_HBAR page_](../../../sdks-and-apis/sdks/hbars.md) _for the full list of Hedera APIs and their decimal representation._&#x20
+JSON-RPC 继电器 `msg.value` 使用18位小数值返回HBAR。 `gasPrice`值也返回18位小数。 查看[_HBAR page_](../../../../sdks-and/sdks/hbars.md) _完整的Hedera API及其十进制的代表权列表。_&#x20
 
 </details>
 
@@ -64,6 +64,6 @@ The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPr
 
 <summary>How can I contribute or log errors?</summary>
 
-To contribute or log errors, please refer to the [Contributing Guide](../../../support-and-community/contributing-guide.md) and submit them as issues in the [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
+若要提交或记录错误，请参阅[贡献指南](../../../supportand-community/contributing-guide.md)，并将其作为问题提交到[GitHub 仓库](https://github.com/hashgraph/hedera-json-rpc-remedy/issues)。
 
 </details>

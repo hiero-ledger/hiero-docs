@@ -1,88 +1,88 @@
 ---
-description: Distributed consensus algorithm
+description: Algorithme de consensus distribué
 ---
 
-# Hashgraph Consensus Algorithm
+# Algorithme de consensus Hashgraph
 
-The hashgraph consensus algorithm enables distributed consensus in an innovative, efficient way. Hashgraph is a distributed consensus algorithm and data structure that is fast, fair, and secure. This indirectly creates a trusted community, even when members do not necessarily trust each other.
+L'algorithme de consensus hashgraph permet un consensus distribué de manière innovatrice et efficace. Hashgraph est un algorithme de consensus distribué et la structure de données qui est rapide, équitable et sécurisé. Cela crée indirectement une communauté de confiance, même lorsque les membres ne se font pas nécessairement confiance.
 
-The [hashgraph consensus algorithm](./) and platform code are open-source under an Apache 2.0 license.
+Le [algorithme de consensus hashgraph](./) et le code de la plate-forme sont open-source sous une licence Apache 2.0.
 
 {% embed url="https://www.youtube.com/watch?v=cje1vuVKhwY&t=5s" %}
 
-## Performance
+## Performances
 
-### Cost
+### Coûts
 
-The hashgraph is inexpensive, in the sense of avoiding proof-of-work. Individuals and organizations running hashgraph nodes do not need to purchase expensive custom mining rigs. Instead, they can run readily available, cost-effective hardware. The hashgraph is 100% efficient, wasting no resources on computations that slow it down.
+Le hashgraphe est peu coûteux, dans le sens où il évite des preuves de travail. Les individus et les organisations qui utilisent des nœuds hashgraph n’ont pas besoin d’acheter des plates-formes minières sur mesure coûteuses. Au lieu de cela, ils peuvent fonctionner facilement et à moindre coût. Le hashgraph est 100% efficace, ne gaspillant aucune ressource sur les calculs qui le ralentissent.
 
-### Efficiency
+### Efficacité
 
-The hashgraph is 100% efficient, as that term is used in the blockchain community. In blockchain, work is sometimes wasted mining a block that later is considered stale and is discarded by the community. In hashgraph, the equivalent of a “block” never becomes stale. Hashgraph is also efficient in its use of bandwidth. Whatever is the amount of bandwidth required merely to inform all the nodes of a given transaction (even without achieving consensus on a timestamp for that transaction), hashgraph adds only a very small overhead beyond that absolute minimum. Additionally, hashgraph’s voting algorithm does not require any additional messages be sent in order for nodes to vote (or those votes to be counted) beyond those messages by which the community learned of the transaction itself.
+Le hashgraph est 100% efficace, car ce terme est utilisé dans la communauté blockchain. Dans la blockchain, le travail est parfois gaspillé à miner un bloc qui plus tard est considéré comme obsolète et est jeté par la communauté. Dans le hashgraph, l’équivalent d’un « bloc» ne devient jamais dépassé. Hashgraph est également efficace dans son utilisation de la bande passante. Quelle que soit la quantité de bande passante requise pour simplement informer tous les nœuds d'une transaction donnée (même sans parvenir à un consensus sur un timestamp pour cette transaction), hashgraph n'ajoute qu'une très petite surcharge au-delà de ce minimum absolu. De plus, l’algorithme de vote du hashgraphe ne nécessite pas d’envoi de messages supplémentaires pour que les nœuds puissent voter (ou ces votes à compter) au-delà des messages par lesquels la communauté a appris la transaction elle-même.
 
-### Throughput
+### Débit
 
-The hashgraph is fast. It is limited only by the bandwidth. If each member has enough bandwidth to download and upload a given number of transactions per second, the system as a whole can handle close to that many. Even a fast home internet connection could be fast enough to handle all of the transactions of the entire VISA card network, worldwide.
+Le hashgraphe est rapide. Il est limité uniquement par la bande passante. Si chaque membre a suffisamment de bande passante pour télécharger et télécharger un nombre donné de transactions par seconde, le système dans son ensemble peut gérer près de cela beaucoup. Même une connexion Internet à domicile rapide pourrait être assez rapide pour gérer toutes les transactions de l'ensemble du réseau de cartes VISA dans le monde entier.
 
-### **State Efficiency**
+### **Efficacité d'État**
 
-Once an event occurs, within seconds everyone in the community will know where it should be placed in history with 100% certainty. More importantly, everyone will know that everyone else knows this. At that point, they can just incorporate the effects of the transaction and, unless needed for future audit or compliance, then discard it. So in a minimal cryptocurrency system, each member would only need to store the current balance of each account that isn’t empty. They wouldn’t need to remember the full history of the transactions that resulted in those balances all the way back to ‘genesis’.
+Une fois qu'un événement se produit, en quelques secondes, tout le monde dans la communauté saura où il devrait être placé dans l'historique avec une certitude totale. Plus important encore, tout le monde saura que tout le monde le sait. À ce moment-là, ils peuvent simplement incorporer les effets de la transaction et, à moins que cela ne soit nécessaire pour la vérification ou la conformité future, puis les écarter. Ainsi, dans un système minimal de cryptomonnaies, chaque membre n’aura besoin que de stocker le solde actuel de chaque compte qui n’est pas vide. Ils n’auraient pas besoin de se souvenir de l’histoire complète des transactions qui ont abouti à ces soldes jusqu’à la « genèse ».
 
-## Security
+## Sécurité
 
-### Asynchronous Byzantine Fault Tolerance
+### Tolérance de Défaut Byzantine asynchrone
 
-The hashgraph consensus algorithm is asynchronous Byzantine Fault Tolerant. This means that no single member (or small group of members) can prevent the community from reaching a consensus. Nor can they change the consensus once it has been reached. Each member will eventually reach a point where they know for sure that they have reached consensus. Blockchain does not have a guarantee of Byzantine agreement, because a member never reaches certainty that agreement has been achieved (there’s just a probability that rises over time). Blockchain is also non-Byzantine because it doesn’t automatically deal with network partitions. If a group of miners is isolated from the rest of the internet, that can allow multiple chains to grow, which conflict with each other on the order of transactions.
+L'algorithme de consensus de hashgraph est asynchrone Byzantine Fault Tolerant. Cela signifie qu’aucun membre (ou petit groupe de membres) ne peut empêcher la communauté d’obtenir un consensus. Ils ne peuvent pas non plus changer le consensus une fois qu'il aura été atteint. Chaque membre finira par arriver à un point où il sait avec certitude qu'il est parvenu à un consensus. La Blockchain n'a pas de garantie de l'accord Byzantin, parce qu’un membre n’obtient jamais la certitude qu’un accord a été conclu (il y a juste une probabilité qui augmente au fil du temps). La Blockchain est également non-Byzantine car elle ne gère pas automatiquement les partitions réseau. Si un groupe de mineurs est isolé du reste de l'Internet, qui peuvent permettre à plusieurs chaînes de grandir, ce qui entre en conflit sur l'ordre des transactions.
 
-It is worth noting that the term “Byzantine Fault Tolerant” (BFT) is sometimes used in a weaker sense by other consensus algorithms. But here, it is used in its original, stronger sense that (1) every member eventually knows consensus has been reached, (2) attackers may collude, and (3) attackers even control the internet itself (with some limits). Hashgraph is Byzantine, even by this stronger definition.
+Il convient de noter que le terme « Byzantine Fault Tolerant» (BFT) est parfois utilisé dans un sens plus faible par d’autres algorithmes de consensus. Mais ici, il est utilisé dans son sens original, plus fort que (1) chaque membre sait que le consensus a été atteint, (2) des attaquants peuvent se heurter et (3) des attaquants contrôlent même l'internet lui-même (avec quelques limites). Hashgraph est Byzantine, même par cette définition plus forte.
 
-There are different degrees of BFT, depending on the assumptions made about the network and transmission of messages. The strongest form of BFT is asynchronous BFT- meaning that it can achieve consensus even if malicious actors are able to control the network and delete or slow down messages of their choosing. The only assumptions made are that more than 2⁄3 are following the protocol correctly and that if messages are repeatedly sent from one node to another over the internet, eventually one will get through, and then eventually another will, and so on. Some systems are partially asynchronous, which are secure only if the attackers do not have too much power and do not manipulate the timing of messages too much. For instance, a partially asynchronous system could prove Byzantine under the assumption that messages get passed over the internet in ten seconds. This assumption ignores the reality of botnets, Distributed Denial of Service attacks, and malicious firewalls.
+Il y a différents degrés de BFT, selon les hypothèses faites au sujet du réseau et de la transmission des messages. La forme la plus puissante de BFT est une BFT asynchrone, ce qui signifie qu'elle peut atteindre un consensus même si les acteurs malveillants sont capables de contrôler le réseau et de supprimer ou de ralentir les messages de leur choix. Les seules hypothèses faites sont que plus de 2<unk> 3 suivent correctement le protocole et que si les messages sont envoyés à plusieurs reprises d'un nœud à un autre sur Internet, finalement, on finira par passer, et ensuite par une autre volonté, et ainsi de suite. Certains systèmes sont partiellement asynchrones, qui ne sont sécurisés que si les attaquants n'ont pas trop de puissance et ne manipulent pas trop le moment des messages. Par exemple, un système partiellement asynchrone pourrait s'avérer Byzantin en supposant que les messages sont passés sur Internet en dix secondes. Cette hypothèse ignore la réalité des botnets, des attaques par déni distribué de service et des pare-feu malveillants.
 
-### ACID Compliance
+### Conformité ACID
 
-The hashgraph is ACID compliant. ACID (Atomicity, Consistency, Isolation, Durability) is a database term and applies to the hashgraph when it is used as a distributed database. A community of nodes uses it to reach a consensus on the order in which transactions occurred. After reaching consensus, each node feeds those transactions to that node’s local copy of the database, sending in each one in the consensus order. If the local database has all the standard properties of a database (ACID), then the community as a whole can be said to have a single, distributed database with those same properties. In blockchain, there is never a moment when you know that consensus has been reached, so it would not be ACID compliant.
+Le hashgraph est conforme à l'ACID. L'ACID (Atomicité, Consistencie, Isolation, Durabilité) est un terme de base de données et s'applique au hashgraphe lorsqu'il est utilisé comme base de données distribuée. Une communauté de noeuds l'utilise pour parvenir à un consensus sur l'ordre dans lequel les transactions se sont produites. Après avoir atteint un consensus, chaque nœud envoie ces transactions à la copie locale de la base de données de ce nœud, en envoyant chacun dans l'ordre de consensus. Si la base de données locale a toutes les propriétés standards d'une base de données (ACID), alors on peut dire que la communauté dans son ensemble a une base de données unique et distribuée avec ces mêmes propriétés. Dans la blockchain, il n'y a jamais un moment où vous savez que le consensus a été atteint, donc il ne serait pas conforme à l'ACID.
 
-### Distributed Denial of Service (DDoS) Attack Resilience
+### Résistance d'attaque (DDoS) déni de service distribué
 
-One form of Denial of Service (DoS) attack occurs when an attacker is able to flood an honest node on a network with meaningless messages, preventing that node from performing other (valid) duties and roles. A Distributed Denial of Service (DDoS) uses public services or devices to unwittingly amplify that DoS attack - making them an even greater threat.
+Une forme d'attaque de déni de service (DoS) se produit quand un attaquant est capable d'inonder un noeud honnête sur un réseau avec des messages insignifiants empêchant ce noeud d'effectuer d'autres tâches et rôles (valides). Un déni de service distribué (DDoS) utilise des services ou des dispositifs publics pour amplifier involontairement cette attaque de DoS, ce qui en fait une menace encore plus grande.
 
-In a distributed ledger, a DDoS attack could target the nodes that contribute to the definition of consensus and, potentially, prevent that consensus from being established.
+Dans un livre distribué, une attaque DDoS pourrait cibler les nœuds qui contribuent à la définition du consensus et, empêcher éventuellement l'établissement de ce consensus.
 
-Hashgraph is DDoS resilient as it empowers no single node or a small number of nodes with special rights or responsibilities in establishing consensus. Both Bitcoin and hashgraph are distributed in a way that resists DDoS attacks. An attacker might flood one member or miner with packets, to temporarily disconnect them from the internet. But the community as a whole will continue to operate normally. An attack on the system as a whole would require flooding a large fraction of the members with packets, which is more difficult. There have been a number of proposed alternatives to blockchain-based on leaders or round-robin. These have been proposed to avoid the proof-of-work costs of Bitcoin. But they have the drawback of being sensitive to DDoS attacks. If the attacker attacks the current leader, and switches to attacking the new leader as soon as one is chosen, then the attacker can freeze the entire system while still attacking only one computer at a time. Hashgraph avoids this problem, while still not needing proof-of-work.
+Hashgraph est DDoS résistant car il n'autorise aucun noeud ou un petit nombre de nœuds ayant des droits ou des responsabilités spéciaux dans l'établissement d'un consensus. Bitcoin et hashgraph sont distribués d'une manière qui résiste aux attaques DDoS. Un attaquant pourrait inonder un membre ou un mineur de paquets, pour le déconnecter temporairement de l'internet. Mais la communauté dans son ensemble continuera à fonctionner normalement. Une attaque sur le système dans son ensemble nécessiterait d'inonder une grande partie des membres avec des paquets, ce qui est plus difficile. Il y a eu un certain nombre d'alternatives proposées à la blockchain basée sur les leaders ou le round-robin. Celles-ci ont été proposées pour éviter les coûts de preuve de travail du Bitcoin. Mais ils ont l'inconvénient d'être sensibles aux attaques DDoS. Si l'attaquant attaque le chef actuel, et passe à attaquer le nouveau chef dès qu'il est choisi, alors l'attaquant peut geler tout le système tout en n'attaquant qu'un seul ordinateur à la fois. Hashgraph évite ce problème, mais n'a toujours pas besoin de preuves de travail.
 
-## Fairness
+## Équité
 
-Hashgraph is fair because there is no leader or miner given special permissions for determining the consensus timestamp assigned to a transaction. Instead, the consensus timestamp for transactions are calculated via a voting process in which the nodes collectively and democratically establish the consensus. We can distinguish between three aspects of fairness.
+Hashgraph est juste parce qu'il n'y a pas de leader ou de mineur donné des autorisations spéciales pour déterminer l'horodatage du consensus attribué à une transaction. Au lieu de cela, l'horodatage du consensus pour les transactions est calculé par un processus de vote dans lequel les nœuds établissent collectivement et démocratiquement le consensus. Nous pouvons distinguer trois aspects de l'équité.
 
-### Fair Access
+### Accès équitable
 
-Hashgraph is fundamentally fair because no individual can stop a transaction from entering the system, or even delay it very much. If one (or few) malicious nodes attempts to prevent a given transaction from being delivered to the rest of the community and so be added into consensus, then the random nature of the gossip protocol will ensure that the transaction flows around that blockage.
+Hashgraph est fondamentalement juste car aucun individu ne peut empêcher une transaction d'entrer dans le système, ou même le retarder beaucoup. Si un (ou plusieurs) nœuds malveillants tente d'empêcher une transaction donnée d'être livrée au reste de la communauté et ainsi être ajoutée à un consensus, alors la nature aléatoire du protocole de ragot assurera que la transaction coule autour de ce blocage.
 
-### Fair Timestamps
+### Horodatages équitables
 
-Hashgraph gives each transaction a consensus timestamp that reflects when the majority of the network members received that transaction. This consensus timestamp is “fair”, because it is not possible for a malicious node to corrupt it and make it differ by very much from that time. Every transaction is assigned a consensus time, which is the median of the times at which each member says it first received it. Received here refers to the time that a given node was first passed the transaction from another node through gossip. This is part of the consensus, and so has all the guarantees of being Byzantine. If more than 2⁄3 of participating members are honest and have reliable clocks on their computer, then the timestamp itself will be honest and reliable, because it is generated by an honest and reliable member or falls between two times that were generated by honest and reliable members. Because hashgraph takes the median of all these times, the consensus timestamp is robust. Even if a few of the clocks are a bit off, or even if a few of the nodes maliciously give times that are far off, the consensus timestamp is not significantly impacted.
+Hashgraph donne à chaque transaction un timestamp de consensus qui reflète lorsque la majorité des membres du réseau ont reçu cette transaction. Cet horodatage du consensus est « juste », parce qu'il n'est pas possible pour un nœud malveillant de le corrompre et de le rendre très différent à partir de ce moment-là. Chaque transaction est assignée à un temps de consensus, qui est la médiane des moments où chaque membre l'indique pour la première fois. Reçu ici fait référence au moment où un noeud donné a été passé pour la première fois la transaction à partir d'un autre noeud à travers des commutations. Cela fait partie du consensus, de même que toutes les garanties d'être Byzantine. Si plus de 2 <unk> 3 des membres participants sont honnêtes et ont des horloges fiables sur leur ordinateur, alors l'horodatage lui-même sera honnête et fiable, parce qu'elle est générée par un membre honnête et fiable ou tombe entre deux fois qui ont été générés par des membres honnêtes et fiables. Parce que le hashgraph prend la médiane de tous ces temps, l'horodatage du consensus est robuste. Même si quelques horloges sont un peu éteintes, ou même si certains nœuds donnent de manière malveillante des temps qui sont éloignés, le timestamp du consensus n'est pas significativement impacté.
 
-This consensus timestamping is useful for things such as a legal obligation to perform some action by a particular time. There will be a consensus on whether an event happened by a deadline, and the timestamp is resistant to manipulation by an attacker. In a blockchain, each block contains a timestamp, but it reflects only a single clock: the one on the computer of the miner who mined that block.
+Cet horodatage consensuel est utile pour des choses telles qu'une obligation légale d'exécuter une action à un moment donné. Il y aura un consensus sur la question de savoir si un événement s'est produit par un délai, et le timestamp est résistant à la manipulation par un attaquant. Dans une blockchain, chaque bloc contient un horodatage, mais il ne reflète qu'une seule horloge: celle sur l'ordinateur du mineur qui a miné ce bloc.
 
-### Fair Transaction Order
+### Commande de transaction équitable
 
-Transactions are put into order according to their timestamps. Because the timestamps assigned to individual transactions are fair, so is the resulting order. This is critically important for some use cases. For example, imagine a stock market, where Alice and Bob both try to buy the last available share of a stock at the same moment for the same price. In a blockchain, a miner might put both of those transactions in a single block, and have complete freedom to choose what order they occur. Or the miner might choose to only include Alice’s transaction, and delay Bob’s to a future block. In hashgraph, there is no way for an individual to unduly affect the consensus order of those transactions. The best Alice can do is to invest in a better internet connection so that her transaction reaches everyone before Bob’s. That’s the fair way to compete.
+Les transactions sont passées en ordre selon leur horodatage. Parce que les horodatages attribués à des transactions individuelles sont justes, la commande qui en résulte aussi. C'est extrêmement important pour certains cas d'utilisation. Par exemple, imaginez un marché boursier, où Alice et Bob essaient tous deux d'acheter la dernière action disponible au même moment pour le même prix. Dans une blockchain, un mineur pourrait mettre ces deux transactions en un seul bloc, et avoir une liberté totale pour choisir l'ordre dans lequel elles se produisent. Ou bien le mineur pourrait choisir d’inclure uniquement la transaction d’Alice, et de retarder le passage de Bob’s à un bloc futur. En ce qui concerne le hashgraphe, il n'y a aucun moyen pour un individu d'affecter indûment l'ordre de consensus de ces transactions. Le mieux que Alice puisse faire est d’investir dans une meilleure connexion Internet afin que sa transaction atteigne tout le monde avant Bob’s. C’est la manière juste de rivaliser.
 
-## FAQ
+## Foire Aux Questions
 
 <details>
 
-<summary>What is the hashgraph consensus algorithm? How does it work?</summary>
+<summary>What is the hashgraph consensus algorithm? Comment ça marche ?</summary>
 
-The hashgraph consensus algorithm is a distributed consensus mechanism used by Hedera. It uses a data structure called a [hashgraph](../../support-and-community/glossary.md#hashgraph), and a consensus mechanism called the Gossip protocol. This combination allows for fast, fair, and secure consensus. The algorithm works by each node in the network sharing information (or “gossiping”) about the transactions it knows about with other nodes in random order.
+L'algorithme de consensus hashgraph est un mécanisme de consensus distribué utilisé par Hedera. Il utilise une structure de données appelée [hashgraph](../../support-and-community/glossary.md#hashgraph) et un mécanisme de consensus appelé protocole Gossip. Cette combinaison permet un consensus rapide, juste et sûr. L'algorithme fonctionne par chaque nœud du réseau partageant des informations (ou « commutations ») sur les transactions qu'il connaît avec d'autres nœuds dans un ordre aléatoire.
 
 </details>
 
 <details>
 
-<summary>How secure is the hashgraph consensus algorithm?</summary>
+<summary>Quelle est la sécurité de l'algorithme de consensus hashgraph ?</summary>
 
-Hashgraph is secure because it is asynchronous Byzantine Fault Tolerant (aBFT). This means that no single member or small group of members can prevent the community from reaching a consensus or changing the consensus once it has been reached. It is also ACID compliant when used as a distributed database, and it is resilient to [Distributed Denial of Service (DDoS)](../../support-and-community/glossary.md#distributed-denial-of-service-ddos) attacks.
+Hashgraph est sécurisé car il est asynchrone Fault Tolerant (aBFT). Cela signifie qu’aucun membre ou petit groupe de membres ne peut empêcher la communauté de parvenir à un consensus ou de modifier le consensus une fois qu’il a été atteint. Il est également conforme à l'ACID lorsqu'il est utilisé comme une base de données distribuée, et il est résistant aux attaques [DDoS déni de service distribué](../../support-and-community/glossary.md#distributed-denial-of-service-ddos).
 
 </details>
 
@@ -90,6 +90,6 @@ Hashgraph is secure because it is asynchronous Byzantine Fault Tolerant (aBFT). 
 
 <summary>What is virtual voting?</summary>
 
-Virtual voting is an integral part of the hashgraph consensus algorithm. It allows nodes to know what others would vote for without needing actual votes sent over the internet. This is accomplished by examining the history of gossip (who spoke to whom and in what order) to determine how a node would vote based on the information it is likely to have.
+Le vote virtuel fait partie intégrante de l'algorithme de consensus du hashgraphe. Il permet aux nœuds de savoir pour quoi les autres voteraient sans avoir besoin de véritables votes envoyés sur Internet. Ceci est accompli en examinant l'histoire des commérages (qui ont parlé à qui et dans quel ordre) pour déterminer comment un nœud voterait en fonction des informations qu'il est susceptible de avoir.
 
 </details>

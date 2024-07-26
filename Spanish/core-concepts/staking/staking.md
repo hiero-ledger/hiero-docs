@@ -1,73 +1,73 @@
-# Staking Program
+# Programa Staking
 
-The staking feature will be rolled out in four phases. The first two phases are described below, and the final two phases will be available at the start of Phase I.
+La función de apuestas se desplegará en cuatro fases. Las dos primeras fases se describen a continuación y las dos últimas estarán disponibles al inicio de la Fase I.
 
-## **Phase I: Technical Availability \[Complete]**
+## **Fase I: Disponibilidad técnica \[Complete]**
 
-The staking functionality is now available and live on both the Hedera Testnet and Mainnet as of July 21, 2022. In phase I, users will technically be able to stake their account to mainnet nodes but this will not contribute to a node’s consensus weight (voting power). This initial technical availability release does not reward participants for staking but enables a level playing field whereby all market participants have the possibility to join the staking program and avoids giving an unfair advantage to the first few who stake.
+La funcionalidad de apuesta ahora está disponible y en vivo tanto en Hedera Testnet como en Mainnet a partir del 21 de julio de 2022. En la fase I, los usuarios serán técnicamente capaces de colocar su cuenta en nodos de red principal, pero esto no contribuirá al peso consensual del nodo (poder de voto). Este lanzamiento inicial de disponibilidad técnica no premia a los participantes por apuestas, sino que permite una igualdad de condiciones para que todos los participantes del mercado tengan la posibilidad de participar en el programa de apuestas, y evita dar una ventaja injusta a los primeros que están en juego.
 
-## **Phase II: Ecosystem Development \[Complete]**
+## **Fase II: Desarrollo del ecosistema \[Complete]**
 
-During this phase, supported exchanges and wallets will be able to integrate the staking functionality to provide account holders an easy way to stake their HBAR, but will not distribute rewards. In addition, web applications for delegating stake will likely be built for utilization by the retail ecosystem. During this phase, there will be visibility of stake per node, and staking to a node will affect its consensus weight (voting power) with monthly updates.
+Durante esta fase, las bolsas y billeteras soportadas serán capaces de integrar la funcionalidad de apuesta para proporcionar a los titulares de cuentas una forma fácil de apostar su HBAR, pero no distribuirá recompensas. Además, es probable que las aplicaciones web para delegar la participación se construyan para su utilización por el ecosistema minorista. Durante esta fase, habrá visibilidad de la apuesta por nodo, y apostar a un nodo afectará su peso consensuado (poder de voto) con actualizaciones mensuales.
 
-## **Phase III: Staking Rewards Program Launch \[Complete]**
+## **Fase III: Recompensas del programa de lanzamiento \[Complete]**
 
-The Hedera Governing Council will determine when the Hedera ecosystem has reached a minimum viable set of integrations to enable staking rewards. Once this is determined, the council (through CoinCom) will vote to update the reward rate, and subsequently, the mainnet will be updated with the agreed-upon reward rate. The latest staking reward rate voted on by CoinComm can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).\
+El Consejo de Gobierno de Hedera determinará cuándo el ecosistema de Hedera ha alcanzado un conjunto mínimo viable de integraciones que permitan obtener recompensas. Una vez que esto se determine, el Consejo (a través de CoinCom) votará para actualizar la tasa de recompensa, y de forma constante, el mainnet se actualizará con la tarifa de recompensa acordada. La última tasa de recompensa de apuesta votada por CoinComm se puede encontrar [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).
 \
-Once updated, the staking reward account (0.0.800) will be eligible to distribute rewards earned by stakers, once the rewards threshold of 250M total HBAR has been met. Rewards will continue to be distributed even if, after this time, the balance of account 0.0.800 goes below 250M.
+Una vez actualizada, la cuenta de recompensa de apuesta (0.0. 00) será elegible para distribuir recompensas ganadas por los interesados, una vez que el límite de recompensas de 250M total de HBAR haya sido alcanzado. Las recompensas continuarán siendo distribuidas incluso si, después de este tiempo, el saldo de la cuenta 0.0.800 va por debajo de 250M.
 
-## Phase IV: Complete Staking Implementation
+## Fase IV: Implementación completa de consumo
 
-In this phase, 24-hour updates will be released for visibility into the stake per node, and the node uptime feature will be released. This means that instead of updating node stake visibility on a monthly basis, node stake visibility will be updated on a 24-hour epoch interval. When the uptime feature takes effect, staked accounts will not earn rewards when nodes cannot participate in consensus (unavailable or offline).
+En esta fase, las actualizaciones de 24 horas serán publicadas para que sean visibles en la apuesta por nodo, y la función de actualización del nodo será lanzada. Esto significa que en lugar de actualizar la visibilidad de la apuesta del nodo sobre una base mensual, la visibilidad de la apuesta del nodo se actualizará en un intervalo epoch de 24 horas. Cuando la función de tiempo de actividad entra en vigor, las cuentas apuestadas no ganarán recompensas cuando los nodos no puedan participar en el consenso (no disponible o sin conexión).
 
-## **Staking Nodes**
+## **Nodos de Tomando**
 
 {% hint style="info" %}
-The Hedera Governing Council voted to change the min stake value from half of the max node stake value to 1/4 of the max node stake value.
+El Consejo de Gobierno de Hedera votó para cambiar el valor mínimo de la estaca de la mitad del valor máximo de la apuesta del nodo a 1/4 del valor máximo de la estaca del nodo.
 {% endhint %}
 
-All consensus nodes run by the Hedera Governing Council distribute rewards to the accounts staked to them. You can find information about each node in the network by visiting one of the Hedera network explorers or getting the network [address book](../../sdks-and-apis/rest-api.md#api-v1-network-nodes). In the future, network participation will open up to community nodes and eventually to the public as part of Hedera’s decentralization efforts.
+Todos los nodos de consenso dirigidos por el Consejo de Gobierno de la Hedera distribuyen recompensas a las cuentas que les interesan. Puede encontrar información sobre cada nodo en la red visitando uno de los exploradores de la red Hedera o obteniendo la [libreta de direcciones](../../sdks-and-apis/rest-api.md#api-v1-network-nodes). En el futuro, la participación en la red se abrirá a los nodos comunitarios y, eventualmente, al público como parte de los esfuerzos de descentralización de Hedera.
 
-Nodes have a **minimum stake** and **maximum stake**. The node's minimum stake must be met for the accounts staked to that node to be eligible to earn staking rewards. Staked tokens that go over the maximum stake will no longer impact the proportion of rewards returned. The maximum stake threshold for each node will be the total number of HBAR divided by the total number of nodes in the network. The minimum node stake threshold value will be 1/4 of the maximum node stake value. These values will change as more nodes are added to the network or can change by vote of the Hedera Governing Council.
+Los nodos tienen una **apuesta mínima** y una **apuesta máxima**. La apuesta mínima del nodo debe ser cumplida para que las cuentas apostadas a ese nodo sean elegibles para ganar recompensas apuestas. Los tokens tomados que superen la apuesta máxima ya no afectarán a la proporción de recompensas devueltas. El umbral máximo de apuesta para cada nodo será el número total de HBAR dividido por el número total de nodos en la red. El valor umbral mínimo de la apuesta del nodo será 1/4 del valor máximo de la apuesta del nodo. Estos valores cambiarán a medida que se añadan más nodos a la red o pueden cambiar por voto del Consejo de Gobierno de Hedera.
 
-#### Example:
+#### Ejemplo:
 
-Minimum Stake: ​50,000,000,000 hbars\*(1/26nodes)\*(1/4)
+Toma mínima: 50.000.000 hbars\*(1/26nodes)\*(1/4)
 
-Maximum Stake: ​50,000,000,000 hbars\*(1/26nodes)
+Toma máxima: 50.000.000 hbars\*(1/26nodes)
 
-## **Lockup Period**
+## **Periodo de bloqueo**
 
-There is **no lock-up period** when accounts are staked to a node. Stakers do not need to choose an amount of HBAR to stake from their account. The account's entire balance is staked automatically to the selected node or account. There is no concept of “bonding” or “slashing” of your tokens. The staked account balance is liquid at all times.
+No hay **período de bloqueo** cuando las cuentas son apostadas a un nodo. Los interesados no necesitan elegir una cantidad de HBAR para apostar desde su cuenta. El saldo completo de la cuenta se apuestan automáticamente al nodo o cuenta seleccionada. No hay ningún concepto de “vinculación” o “recortar” de sus fichas. El saldo de cuenta apuestado es líquido en todo momento.
 
-## **Staking Reward Account**
+## **Cuenta de Recompensa**
 
-The staking reward account distributes rewards to eligible staked accounts. The staking reward account ID is [0.0.800](https://hashscan.io/#/mainnet/account/0.0.800?type=) on mainnet. Anyone in the community can contribute to the rewards pool by transferring HBAR into that account. This account has no keys, and therefore, any HBAR transferred into this account cannot be returned to the owner. If you choose to contribute to the rewards pool, please make sure to double-check your transfer transaction details.
+La cuenta de recompensa apuestada distribuye recompensas a cuentas apostadas elegibles. El ID de la cuenta de recompensa apuestada es [0.0.800](https://hashscan.io/#/mainnet/account/0.0.800?type=) en mainnet. Cualquiera en la comunidad puede contribuir al fondo de recompensas transfiriendo HBAR a esa cuenta. Esta cuenta no tiene llaves, y por lo tanto, cualquier HBAR transferido a esta cuenta no puede ser devuelto al propietario. Si eliges contribuir al fondo de recompensas, por favor asegúrate de revisar los detalles de tu transacción de transferencia.
 
-The staking reward account needs to meet a minimum balance before rewards can begin to distribute rewards earned to the eligible staked accounts. The minimum HBAR balance threshold for the reward account is 250 million HBAR voted on by the Hedera Governing Council. If this balance is not met staking rewards will not be distributed. You can view the balance of this account by visiting any of the Hedera network explorers.
+La cuenta de recompensa apuestada necesita alcanzar un saldo mínimo antes de que las recompensas puedan comenzar a distribuir recompensas ganadas a las cuentas apostadas elegibles. El umbral mínimo de saldo de HBAR para la cuenta de recompensa es de 250 millones de HBAR votados por el Consejo de Gobierno de Hedera. Si este saldo no se cumple, las recompensas de apuesta no se distribuirán. Puede ver el saldo de esta cuenta visitando cualquiera de los exploradores de la red Hedera.
 
-Once the minimum threshold is met, rewards will continue to be distributed to staked accounts as long as there is a balance in the rewards account even if it falls below the initial minimum threshold. The reward rate will initially be set to zero. The Hedera Governing Council will vote and update the reward rate when the Hedera Staking Reward Program goes live. The latest reward rate can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).&#x20
+Una vez alcanzado el umbral mínimo, las recompensas continuarán distribuidas a las cuentas apuestadas siempre y cuando haya un saldo en la cuenta de recompensas incluso si cae por debajo del umbral mínimo inicial. La tasa de recompensa se establecerá inicialmente en cero. El Consejo de Gobierno de Hedera votará y actualizará la tasa de recompensa cuando el Programa de Recompensas de Hedera salga en vivo. La última tasa de recompensa puede encontrarse [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).&#x20
 
-## **Staking Rewards**
+## **Recompensas de recogida**
 
-In Phase I, the staking reward rate will initially be zero. The Hedera Governing Council will determine when the Hedera ecosystem has reached a minimum viable set of integrations to enable staking rewards. Once this is determined, the council (through CoinCom) will vote to update the reward rate, and subsequently, the mainnet will be updated with the agreed-upon reward rate.
+En la Fase I, la tasa de recompensa inicial será cero. El Consejo de Gobierno de Hedera determinará cuándo el ecosistema de Hedera ha alcanzado un conjunto mínimo viable de integraciones que permitan obtener recompensas. Una vez que esto se determine, el Consejo (a través de CoinCom) votará para actualizar la tasa de recompensa, y de forma constante, el mainnet se actualizará con la tarifa de recompensa acordada.
 
-Any account can elect to stake to a node or another account. The **minimum staking period** is the minimum amount of time an account needs to be staked to a consensus node before the account is eligible to earn rewards. The minimum staking period is **one day (24 hours).** The staking period begins at midnight UTC and ends at midnight UTC. The staking period is defined by the Hedera Governing Council. The earned rewards are not transferred to the staked account immediately after an account has been staked for one full staking period. Please see the Staking Reward Distribution section for what scenarios trigger the payment of a reward.
+Cualquier cuenta puede optar por apostar a un nodo u otra cuenta. El **periodo mínimo de apuesta** es la cantidad mínima de tiempo que una cuenta necesita ser apostada a un nodo de consenso antes de que la cuenta sea elegible para ganar recompensas. El periodo mínimo de apuesta es **un día (24 horas).** El periodo de apuestas comienza a medianoche UTC y termina a medianoche UTC. El Consejo de Gobierno de la Hedera define el período de apuestas. Las recompensas ganadas no se transfieren a la cuenta apuestada inmediatamente después de que una cuenta haya sido apostada por un período completo de apuesta. Por favor vea la sección Distribución de Recompensas de Toma para ver qué escenarios activan el pago de una recompensa.
 
-Accounts staked for less than the defined minimum staking period are not eligible to earn rewards for that period. Nodes and accounts accumulate stake and rewards per whole HBAR. Fractions are rounded down.
+Las cuentas apostadas por menos del período de apuesta mínimo definido no son elegibles para ganar recompensas por ese período. Los nodos y las cuentas acumulan apuestas y recompensas por cada HBAR completo. Las fracciones se redondean hacia abajo.
 
-For a staked account to be eligible to earn rewards, the following must be true:
+Para que una cuenta apuestada sea elegible para ganar recompensas, lo siguiente debe ser cierto:
 
-- The staking reward account needs to have met the initial threshold balance of HBAR
-  - Once the minimum threshold value has been met, the rewards account will continue to reward staked accounts even if the balance falls below the initial threshold
-- The account the node is staked to meets the minimum node stake threshold value
-- The account needs to be staked for the minimum staking period
-- The reward rate is voted on by the Hedera Governing Council and updated on mainnet
+- La cuenta de recompensa de apuesta debe haber alcanzado el saldo de umbral inicial de HBAR
+  - Una vez que se ha alcanzado el valor umbral mínimo, la cuenta de recompensas continuará recompensando las cuentas apostadas incluso si el saldo cae por debajo del umbral inicial
+- La cuenta que el nodo está apostado para cumplir con el valor umbral mínimo de la apuesta del nodo
+- La cuenta debe ser apostada por el período mínimo de apuesta
+- La tasa de recompensa es votada por el Consejo de Gobierno de Hedera y actualizada en la red principal
 
-Rewards will continue to be earned when a node is down or inactive in the first phase. The Council (through CoinCom) has voted to implement a maximum cap of [2.5% annual reward rate](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm). The actual reward rate will vary depending on how many HBAR are staked for rewards, but the rate will not exceed the cap. In the future, when nodes are down or inactive the staked account will not be eligible to earn rewards.
+Las recompensas continuarán ganándose cuando un nodo esté caído o inactivo en la primera fase. El Consejo (a través de CoinCom) ha votado a favor de implementar un límite máximo de [2,5% anual de tasa de recompensa](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm). La tarifa de recompensa real variará dependiendo de la cantidad de HBAR que se apuesten para recompensas, pero la tasa no excederá el límite. En el futuro, cuando los nodos estén abajo o inactivos, la cuenta apuestada no será elegible para ganar recompensas.
 
-This staking system offers an additional unique functionality: **indirect staking**. If account A stakes to node N, then the stake increases the consensus weight of N, and account A is rewarded for every 24-hour period that it stakes. If account A stakes to account B, and account B stakes to node N, then the stake from both A and B will increase the consensus weight of N, but the rewards for both A and B will be received by B.
+Este sistema de apuestas ofrece una funcionalidad única adicional: **apuestas indirectas**. Si la cuenta A apuesta al nodo N, entonces la apuesta aumenta el peso consensuado de N, y la cuenta A es recompensada por cada periodo de 24 horas que apuesta. Si la cuenta A apuesta a la cuenta B, y la cuenta B apuesta al nodo N, entonces la apuesta tanto de A como de B aumentará el peso consensuado de N, pero las recompensas tanto para A como B serán recibidas por B.
 
-An account can optionally decline to earn rewards when staked. The account will still be counted towards meeting the node’s minimum stake value.
+Una cuenta puede declinar opcionalmente para ganar recompensas cuando se apuesta. La cuenta seguirá contándose para cumplir con el valor mínimo de apuesta del nodo.
 
-**📣 If you're interested in checking out the wallets and exchanges supporting staking HBAR, head to the** [**Stake HBAR**](stake-hbar.md) **page.**
+\*\*📣 Si estás interesado en revisar las billeteras y los intercambios de soporte para staking HBAR, dirígete a la página \*\* [**Tomar HBAR**](stake-hbar.md) \*\*. \*\*

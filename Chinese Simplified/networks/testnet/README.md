@@ -1,60 +1,60 @@
 ---
-description: Join a Hedera Testnet
+description: 加入Hedera Testnet
 ---
 
 # Testnets
 
-## Overview
+## 概览
 
-Hedera test networks provide developers access to a free testing environment for Hedera network services. Testnets simulate the exact development environment as you would expect for mainnet. This includes transaction fees, throttles, available services, etc. To create a Hedera Testnet or Previewnet account, you can visit the [Hedera Developer Portal](https://portal.hedera.com/login).
+Hedera 测试网络为开发者提供了免费测试环境的机会。 测试网模拟了您所期望的主网的确切开发环境。 这包括交易费、节流、可用服务等。 若要创建 Hedera Testnet 或 Previewnet 帐户，您可以访问 [Hedera 开发者门户](https://portal.hedera.com/login)。
 
-Once your application has been built and tested in this test environment, you can expect to migrate your decentralized application (dApp) to mainnet without any changes.
+一旦您的应用程序在这个测试环境中建立并测试完毕， 你可以指望将你分散的应用程序 (dApp) 迁移到主网而不做任何更改。
 
-<table><thead><tr><th width="324">Test Networks</th><th>Description</th></tr></thead><tbody><tr><td><strong>Testnet</strong></td><td>Testnet runs the same code as the Hedera Mainnet, designed to provide a pre-production environment for developers about to move to mainnet. You can find compatible SDKs <a href="../../sdks-and-apis/sdks/#hedera-supported-sdks">here</a>.</td></tr><tr><td><strong>Previewnet</strong></td><td><p>Code that is under development by the Hedera team and likely to be used in an upcoming release designed to give developers early exposure to features coming down the pipe. Updates to the network are made frequently. There is no guarantee an SDK will readily support the up-and-coming features.</p><p><strong>Note:</strong> Updates to this network are triggered by a new release and are frequent. These updates will not be reflected on the status page.</p></td></tr></tbody></table>
+<table><thead><tr><th width="324">测试网络</th><th>描述</th></tr></thead><tbody><tr><td><strong>Testnet</strong></td><td>Testnet运行与Hedera Mainnet相同的代码，旨在为即将移动到主网的开发者提供一个生产前的环境。 You can find compatible SDKs <a href="../../sdks-and-apis/sdks/#hedera-supported-sdks">here</a>.</td></tr><tr><td><strong>预览网</strong></td><td><p>Hedera 团队正在开发的代码，很可能用于即将发布的版本，其目的是让开发者早日暴露进来的功能。 网络经常更新。 不能保证SDK会随时支持即将到来的功能。</p><p><strong>注意：</strong> 此网络的更新是由新版本触发的并且是频繁的。 这些更新将不会反映在状态页面上。</p></td></tr></tbody></table>
 
-<table><thead><tr><th width="325">Network Service</th><th>Availability</th></tr></thead><tbody><tr><td><strong>Cryptocurrency</strong></td><td>Limited</td></tr><tr><td><strong>Consensus Service</strong></td><td>Limited</td></tr><tr><td><strong>File Service</strong></td><td>Limited</td></tr><tr><td><strong>Smart Contract Service</strong></td><td>Limited</td></tr><tr><td><strong>Token Service</strong></td><td>Limited</td></tr></tbody></table>
+<table><thead><tr><th width="325">网络服务</th><th>可用性</th></tr></thead><tbody><tr><td><strong>Cryptocurrency</strong></td><td>限量的</td></tr><tr><td><strong>Consensus Service</strong></td><td>限量的</td></tr><tr><td><strong>文件服务</strong></td><td>限量的</td></tr><tr><td><strong>智能合同服务</strong></td><td>限量的</td></tr><tr><td><strong>令牌服务</strong></td><td>限量的</td></tr></tbody></table>
 
-### Test Network Resets
+### 测试网络重置项
 
-The mirror node and consensus node test network are scheduled to reset once a quarter. When a testnet reset occurs, all account, token, contract, topic, schedule, and file data are wiped.
+镜像节点和协商一致的节点测试网络计划每季度重置一次。 当测试网重置发生时，所有帐户、令牌、合同、主题、计划和文件数据都被擦除。
 
-Developers will no longer have access to the state data from test network consensus nodes. For example, you will not be able to perform transactions or queries on an account that existed before the reset.&#x20
+开发者将不再能够从测试网络协商一致节点访问状态数据。 例如，您将无法在重置之前的帐户执行交易或查询。&#x20
 
-The testnet mirror node will be available for developers to store any data before access is completely removed for two weeks after the date of the reset. You will be able to query old testnet information for the two-week period if it is available.
+测试网镜像节点在重置日期两周后完全移除访问之前可供开发者存储任何数据。 如果可用，您将能查询两周期间的旧测试网信息。
 
-**What you should do:**
+**你应该做什么：**
 
-- Take note of the upcoming reset dates.
-- Have the ability to recreate test data for your application to minimize interruptions.
-- After the reset, you will need to visit the [Hedera Developer Portal](https://portal.hedera.com/register) to get your new testnet account ID.
-  - The public and private key pair will remain the same after resets.
-- Subscribe to the [Hedera status page](https://status.hedera.com/) to receive reset notifications.
-- Mirror Node operators can reference the instructions [here](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#reset) to set up your mirror node
-  - GCP GCS and AWS S3 buckets: `hedera-testnet-streams-2023-01`
+- 注意即将到来的重置日期。
+- 拥有为您的应用程序重新创建测试数据的能力，以尽量减少中断。
+- 重置后，您需要访问 [Hedera 开发者门户](https://portal.hedera.com/register) 来获取您的新测试网帐号ID。
+  - 重置后公钥和私钥对将保持不变。
+- 订阅[Hedera 状态页面](https://status.hedera.com/) 接收重置通知。
+- 镜像节点操作员可以参考指示 [here](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#reset) 来设置您的镜像节点
+  - GCP GCS 和 AWS 3 桶： `hedera-testnet-streams-2023-01`
 
-If you have any questions or concerns, please connect with us via [Discord](https://hedera.com/discord).
+如果您有任何问题或问题，请通过 [Discord](https://hedera.com/discord)与我们联系。
 
-**Reset Dates:**
+**重置日期:**
 
 **2024**
 
-- February 1, 2024 - Completed
-- April 25, 2024
-- July 25, 2024
-- Oct 31, 2024
+- 2024年2月1日——完成
+- 2024 年 4 月 25 日
+- 7月25日，2024
+- 2024 年 10 月 31 日
 
 **2023**
 
-- January 26, 2023 - Completed&#x20
-- April 27, 2023 - Skipped&#x20
-- July 27, 2023 - Completed
-- October 26, 2023 - Skipped
+- 1月26日，2023 - 完成 &#x20
+- 2023年4月27日-跳过 &#x20
+- 2023年7月27日―― 完成
+- 10月26日，2023 - 跳过
 
-### Test Network Throttles
+### 测试网络阈值
 
 {% hint style="warning" %}
-**Limited Support**\
-Transactions are currently throttled for testnets. You will receive a **`BUSY`** response if the number of transactions submitted to the network exceeds the threshold value.
+**Limited Support**
+交易目前被用于测试网。 如果提交到网络的交易数量超过阈值，您将收到\*\*`BUSY`\*\* 的回复。
 {% endhint %}
 
-<table><thead><tr><th width="322">Network Request Type</th><th>Throttle (tps)</th></tr></thead><tbody><tr><td><strong>Cryptocurrency Transactions</strong></td><td><p><code>AccountCreateTransaction</code>: 2 tps</p><p><code>AccountBalanceQuery</code>: unlimited<br><code>TransferTransaction</code> (inc. tokens): 10,000 tps</p><p><code>Other</code>: 10,000 tps</p></td></tr><tr><td><strong>Consensus Transactions</strong></td><td><p><code>TopicCreateTransaction</code>: 5 tps</p><p><code>Other</code>: 10,000 tps</p></td></tr><tr><td><strong>Token Transactions</strong></td><td><p><code>TokenMintTransaction</code>:</p><ul><li>125 TPS for fungible mint</li><li>50 TPS for NFT mint</li></ul><p><code>TokenAssociateTransaction</code>: 100 tps<br><code>TransferTransaction</code> (inc. tokens): 10,000 tps</p><p><code>Other</code>: 3,000 tps</p></td></tr><tr><td><strong>Schedule Transactions</strong></td><td><code>ScheduleSignTransaction</code>: 100 tps<br><code>ScheduleCreateTransaction</code>: 100 tps</td></tr><tr><td><strong>File Transactions</strong></td><td>10 tps</td></tr><tr><td><strong>Smart Contract Transactions</strong></td><td><code>ContractExecuteTransaction</code>: 350 tps<br><code>ContractCreateTransaction</code>: 350 tps</td></tr><tr><td><strong>Queries</strong></td><td><code>ContractGetInfo</code>: 700 tps<br><code>ContractGetBytecode</code>: 700 tps<br><code>ContractCallLocal</code>: 700 tps<br><br><code>FileGetInfo</code>: 700 tps<br><code>FileGetContents</code>: 700 tps<br><br><code>Other</code>: 10,000 tps</td></tr><tr><td><strong>Receipts</strong></td><td>unlimited (no throttle)</td></tr></tbody></table>
+<table><thead><tr><th width="322">网络请求类型</th><th>Throtle (tps)</th></tr></thead><tbody><tr><td><strong>加密货币交易</strong></td><td><p><code>AccountCreateTransaction</code>: 2 tps</p><p><code>AccountBalanceQuery</code>: 无限<br><code>TransferTransaction</code> (inct. tokens): 10,000 tps</p><p><code>其它</code>: 100tps</p></td></tr><tr><td><strong>共识交易</strong></td><td><p><code>主题创建交易</code>: 5 tps</p><p><code>其它</code>: 100tps</p></td></tr><tr><td><strong>代币交易</strong></td><td><p><code>TokenMintTransaction</code>:</p><ul><li>125 TPS 用于可互换的心情</li><li>NFT mint 50 TPS</li></ul><p><code>TokenAssociateTransactions</code>: 100 tps<br><code>TransferTransaction</code> (inct. tokens): 100,000 tps</p><p><code>其它</code>: 3,000吨点</p></td></tr><tr><td><strong>交易计划</strong></td><td><code>ScheduleSignTransaction</code>: 100 tps<br><code>ScheduleCreateTransaction</code>: 100 tps</td></tr><tr><td><strong>文件交易</strong></td><td>10 tps</td></tr><tr><td><strong>智能合同交易</strong></td><td><code>合同执行交易</code>: 350 tps<br><code>合同创建交易</code>: 350 tps</td></tr><tr><td><strong>查询</strong></td><td><code>ContractGetInfo</code>: 700 tps<br><code>ContractGetBytecode</code>: 700 tps<br><code>ContractCallLocal</code>: 700 tps<br><br><code>FileGetInfo</code>: 700 tps<br><code>FileGetcontent</code>: 700 tps<br><br><code>Other</code>: 10, 00 tps</td></tr><tr><td><strong>收款</strong></td><td>无限制(无节点)</td></tr></tbody></table>

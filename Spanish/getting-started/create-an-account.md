@@ -1,21 +1,21 @@
-# Create an Account
+# Crear una cuenta
 
 ## Summary
 
-In this section, you will learn how to make a simple Hedera account. Hedera accounts are the entry point by which you can interact with the [Hedera APIs](../sdks-and-apis/hedera-api/). Accounts hold a balance of HBAR used to pay for API calls for the various transaction and query types.
+En esta sección, aprenderás a hacer una simple cuenta de Hedera. Las cuentas de hedera son el punto de entrada por el cual puedes interactuar con las [APIs de Hedera](../sdks-and-apis/hedera-api/). Las cuentas tienen un saldo de HBAR utilizado para pagar llamadas API para los diversos tipos de transacciones y consultas.
 
 ***
 
-## Prerequisites
+## Prerrequisitos
 
-- Completed the [Introduction](introduction.md) step.
-- Completed the [Environment Setup](environment-set-up.md) step.
+- Completado el paso [Introduction](introduction.md)
+- Completado el paso [Configuración del entorno](environment-set-up.md.
 
 ***
 
-## Step 1: Import modules
+## Paso 1: Importar módulos
 
-Import the following modules to your code file.
+Importa los siguientes módulos a tu archivo de código.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -27,7 +27,7 @@ import com.hedera.hashgraph.sdk.HederaReceiptStatusException;
 import com.hedera.hashgraph.sdk.PrivateKey;
 import com.hedera.hashgraph.sdk.Client;
 import com.hedera.hashgraph.sdk.TransactionResponse;
-import com.hedera.hashgraph.sdk.PublicKey;
+import com. edera.hashgraph.sdk.PublicKey;
 import com.hedera.hashgraph.sdk.AccountCreateTransaction;
 import com.hedera.hashgraph.sdk.Hbar;
 import com.hedera.hashgraph.sdk.AccountBalanceQuery;
@@ -64,9 +64,9 @@ import (
 
 ***
 
-## Step 2: Generate keys for the new account
+## Paso 2: Generar claves para la nueva cuenta
 
-Generate a private and public key to associate with the account you will create.
+Generar una clave privada y pública para asociar con la cuenta que va a crear.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -74,11 +74,11 @@ Generate a private and public key to associate with the account you will create.
 ```java
 //Create your Hedera Testnet client
 //Client client = Client.forTestnet();
-//client.setOperator(myAccountId, myPrivateKey)
+//cliente. etOperator(myAccountId, myPrivateKey)
 //-----------------------<enter code below>--------------------------------------
 
-// Generate a new key pair
-PrivateKey newAccountPrivateKey = PrivateKey.generateED25519();
+// Generar un nuevo par de claves
+newAccountPrivateKey = PrivateKey.generateED25519();
 PublicKey newAccountPublicKey = newAccountPrivateKey.getPublicKey();
 ```
 
@@ -105,8 +105,8 @@ const newAccountPublicKey = newAccountPrivateKey.publicKey;
 //client.SetOperator(myAccountId, myPrivateKey)
 //-----------------------<enter code below>--------------------------------------
 
-//Generate new keys for the account you will create
-newAccountPrivateKey, err := hedera.PrivateKeyGenerateEd25519()
+//Genera nuevas claves para la cuenta crearás
+newAccountPrivateKey, err := hedera. rivateKeyGenerateEd25519()
 
 if err != nil {
   panic(err)
@@ -120,17 +120,17 @@ newAccountPublicKey := newAccountPrivateKey.PublicKey()
 
 ***
 
-## Step 3: Create a new account
+## Paso 3: Crear una nueva cuenta
 
-Create a new account using _`AccountCreateTransaction()`_. Use the public key created in the previous step to enter in the _`setKey()`_ field. This will associate the key pair generated in the previous step with the new account. The public key of the account is visible to the public and can be viewed in a mirror node explorer. The private key is used to authorize account-related transactions like transferring _HBAR_ or tokens from that account to another account. The account will have an initial balance of _1,000 tinybars_ funded from your testnet account created by the Hedera portal.
+Crea una nueva cuenta usando _`AccountCreateTransaction()`_. Utilice la clave pública creada en el paso anterior para ingresar en el campo _`setKey()`_. Esto asociará el par de claves generado en el paso anterior con la nueva cuenta. La clave pública de la cuenta es visible para el público y se puede ver en un explorador de nodo espejo. La clave privada se utiliza para autorizar transacciones relacionadas con la cuenta como transferir _HBAR_ o tokens de esa cuenta a otra cuenta. La cuenta tendrá un saldo inicial de _1,000 tinybars_ financiado con su cuenta testnet creada por el portal Hedera.
 
-You can view transactions successfully submitted to the network by getting the transaction ID and searching for it in a mirror node explorer. The transaction ID is composed of the account ID that paid for the transaction and the transaction's valid start time e.g. _`0.0.1234@1609348302`_<mark style="color:blue;">.</mark> The transaction's valid start time is the time the transaction begins to be valid on the network. The SDK automatically generates a transaction ID for each transaction behind the scenes.
+Puede ver las transacciones enviadas con éxito a la red obteniendo el ID de transacción y buscando por ellas en un explorador de nodos espejos. El ID de la transacción está compuesto por el ID de la cuenta que pagó por la transacción y la hora de inicio válida de la transacción, por ejemplo, _`0.0. 234@1609348302`_<mark style="color:blue;">.</mark> La hora de inicio válida de la transacción es la hora en que la transacción comienza a ser válida en la red. El SDK genera automáticamente un ID de transacción para cada transacción detrás de las escenas.
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-//Create new account and assign the public key
+//Crear nueva cuenta y asignar la clave pública
 TransactionResponse newAccount = new AccountCreateTransaction()
      .setKey(newAccountPublicKey)
      .setInitialBalance(Hbar.fromTinybars(1000))
@@ -142,7 +142,7 @@ TransactionResponse newAccount = new AccountCreateTransaction()
 {% tab title="JavaScript" %}
 
 ```javascript
-//Create a new account with 1,000 tinybar starting balance
+//Crear una nueva cuenta con 1000 tinybar empezando saldo
 const newAccount = await new AccountCreateTransaction()
     .setKey(newAccountPublicKey)
     .setInitialBalance(Hbar.fromTinybars(1000))
@@ -154,7 +154,7 @@ const newAccount = await new AccountCreateTransaction()
 {% tab title="Go" %}
 
 ```go
-//Create new account and assign the public key
+//Crear nueva cuenta y asignar la clave pública
 newAccount, err := hedera.NewAccountCreateTransaction().
     SetKey(newAccountPublicKey).
     SetInitialBalance(hedera.HbarFrom(1000, hedera.HbarUnits.Tinybar)).
@@ -164,18 +164,18 @@ newAccount, err := hedera.NewAccountCreateTransaction().
 {% endtab %}
 {% endtabs %}
 
-## Step 4: Get the new account ID
+## Paso 4: Obtener el nuevo ID de cuenta
 
-The _account ID_ for the new account is returned in the receipt of the transaction that created the account. The receipt provides information about the transaction like whether it was successful or not and any new entity IDs that were created. Entities include accounts, smart contracts, tokens, files, topics, and scheduled transactions. The _account ID_ is in x.y.z format where z is the account number. The preceding values (x and y) default to zero today and represent the shard and realm number respectively. Your new _account ID_ should result in something like _`0.0.1234`_.
+El ID de _cuenta_ para la nueva cuenta es devuelto en el recibo de la transacción que creó la cuenta. El recibo proporciona información sobre la transacción como si fue exitosa o no y cualquier nueva entidad IDs que fueron creados. Las entidades incluyen cuentas, contratos inteligentes, tokens, archivos, temas y transacciones programadas. El ID de _cuenta_ está en formato x.y.z donde z es el número de cuenta. Los valores anteriores (x y y) por defecto a cero hoy y representan el fragmento y número de reino respectivamente. Su nuevo ID de _cuenta_ debería resultar en algo como _`0.0.1234`_.
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-// Get the new account ID
+// Obtener el nuevo ID de cuenta
 AccountId newAccountId = newAccount.getReceipt(client).accountId;
 
-//Log the account ID
+//Registrar el ID de la cuenta
 System.out.println("New account ID is: " +newAccountId);
 ```
 
@@ -184,12 +184,12 @@ System.out.println("New account ID is: " +newAccountId);
 {% tab title="JavaScript" %}
 
 ```javascript
-// Get the new account ID
+// Obtener el nuevo ID de cuenta
 const getReceipt = await newAccount.getReceipt(client);
-const newAccountId = getReceipt.accountId;
+const newAccountId = getReceipt. ccountId;
 
-//Log the account ID
-console.log("The new account ID is: " +newAccountId);
+//Log el ID de la cuenta
+console.log("El nuevo ID de la cuenta es: " +newAccountId);
 ```
 
 {% endtab %}
@@ -197,17 +197,17 @@ console.log("The new account ID is: " +newAccountId);
 {% tab title="Go" %}
 
 ```go
-//Request the receipt of the transaction
-receipt, err := newAccount.GetReceipt(client)
-if err != nil {
+//Solicita el recibo de la transacción
+, err := newAccount. etReceipt(cliente)
+si es error! nil {
     panic(err)
 }
 
-//Get the new account ID from the receipt
-newAccountId := *receipt.AccountID
+//Obtener el nuevo ID de cuenta del recibo
+newAccountId := *receipt. ccountID
 
-//Log the account ID
-fmt.Printf("The new account ID is %v\n", newAccountId)
+//Registrar el ID de la cuenta
+fmt.Printf("El nuevo ID de la cuenta es %v\n", newAccountId)
 ```
 
 {% endtab %}
@@ -215,20 +215,20 @@ fmt.Printf("The new account ID is %v\n", newAccountId)
 
 ***
 
-## Step 5: Verify the new account balance
+## Paso 5: Verifique el nuevo saldo de la cuenta
 
-Next, you will submit a query to the Hedera test network to return the balance of the new account using the new _account ID_. The current account balance for the new account should be 1,000 _tinybars_. Getting the balance of an account is free today.
+A continuación, enviará una consulta a la red de pruebas de Hedera para devolver el saldo de la nueva cuenta usando el nuevo _account ID_. El saldo de la cuenta corriente para la nueva cuenta debe ser de 1,000 _tinybars_. Obtener el saldo de una cuenta es gratis hoy.
 
 {% tabs %}
 {% tab title="Java" %}
 
 ```java
-//Check the new account's balance
-AccountBalance accountBalance = new AccountBalanceQuery()
+//Compruebe el saldo de la nueva cuenta
+AccountBalance de cuenta = new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .execute(client);
 
-System.out.println("New account balance: " +accountBalance.hbars);
+System.out.println("Nuevo saldo de cuenta: " +accountBalance.hbars);
 ```
 
 {% endtab %}
@@ -236,7 +236,7 @@ System.out.println("New account balance: " +accountBalance.hbars);
 {% tab title="JavaScript" %}
 
 ```javascript
-//Verify the account balance
+//Verificar el saldo de la cuenta
 const accountBalance = await new AccountBalanceQuery()
      .setAccountId(newAccountId)
      .execute(client);
@@ -249,36 +249,36 @@ console.log("The new account balance is: " +accountBalance.hbars.toTinybars() +"
 {% tab title="Go" %}
 
 ```go
-//Create the account balance query
-query := hedera.NewAccountBalanceQuery().
+//Crear consulta de saldo de cuenta
+consulta := hedera.NewAccountBalanceQuery().
      SetAccountID(newAccountId)
 
 //Sign with client operator private key and submit the query to a Hedera network
-accountBalance, err := query.Execute(client)
+accountBalance, err := consulta. xecute(client)
 if err != nil {
     panic(err)
 }
 
-//Print the balance of tinybars
-fmt.Println("The account balance for the new account is ", accountBalance.Hbars.AsTinybar())
+//Imprime el balance de tinybars
+fmt. rintln("El saldo de cuenta para la nueva cuenta es ", cuenta Balance.Hbars.AsTinybar())
 ```
 
 {% endtab %}
 {% endtabs %}
 
 {% hint style="success" %}
-:star: **Congratulations! You have successfully completed the following:**
+:star: **¡Felicidades! Has completado con éxito lo siguiente:**
 
-- Created a new Hedera account with an initial balance of 1,000 tinybars.
-- Obtained the new account ID by requesting the receipt of the transaction.
-- Verified the starting balance of the new account by submitting a query to the network.
+- Creó una nueva cuenta de Hedera con un saldo inicial de 1.000 tinybars.
+- Obtuvo el nuevo ID de cuenta solicitando la recepción de la transacción.
+- Verificó el saldo inicial de la nueva cuenta enviando una consulta a la red.
 
-You are now ready to transfer some HBAR to the new account :money\_mouth:!
+Ahora estás listo para transferir algo de HBAR a la nueva cuenta :money\_mouth:!
 {% endhint %}
 
 ***
 
-## Code Check :white\_check\_mark:
+## Comprobar código :white\_check\_mark:
 
 <details>
 
@@ -353,59 +353,59 @@ public class HederaExamples {
 ```javascript
 const {
   Hbar,
-  Client,
+  Cliente,
   PrivateKey,
   AccountBalanceQuery,
   AccountCreateTransaction,
 } = require("@hashgraph/sdk");
-require("dotenv").config();
+requerido("dotenv"). onfig();
 
 async function environmentSetup() {
-  // Grab your Hedera testnet account ID and private key from your .env file
+  // Acoge el ID de tu cuenta testnet de Hedera y la clave privada de tu . nv file
   const myAccountId = process.env.MY_ACCOUNT_ID;
-  const myPrivateKey = process.env.MY_PRIVATE_KEY;
+  const myPrivateKey = process.env. PLAYLIST_BTN
 
-  // If we weren't able to grab it, we should throw a new error
+  // Si no fuimos capaces de agarrarlo, deberíamos lanzar un nuevo error
   if (myAccountId == null || myPrivateKey == null) {
     throw new Error(
-      "Environment variables myAccountId and myPrivateKey must be present"
+      "Las variables de entorno myAccountId y myPrivateKey deben estar presentes"
     );
   }
 
-  // Create your connection to the Hedera Network
-  const client = Client.forTestnet();
+  // Crea tu conexión a la Red Hedera
+  const client = Client. orTestnet();
   client.setOperator(myAccountId, myPrivateKey);
 
   //Set the default maximum transaction fee (in Hbar)
-  client.setDefaultMaxTransactionFee(new Hbar(100));
+  client. etDefaultMaxTransactionFee(new Hbar(100));
 
   //Set the maximum payment for queries (in Hbar)
-  client.setDefaultMaxQueryPayment(new Hbar(50));
+  client. etDefaultMaxQueryPayment(new Hbar(50));
 
-  // Create new keys
+  // Crear nuevas claves
   const newAccountPrivateKey = PrivateKey.generateED25519();
-  const newAccountPublicKey = newAccountPrivateKey.publicKey;
+  const newAccountPublicKey = newAccountPrivateKey. ublicKey;
 
-  // Create a new account with 1,000 tinybar starting balance
+  // Crear una nueva cuenta con 1, 00 tinybar starting balance
   const newAccount = await new AccountCreateTransaction()
-    .setKey(newAccountPublicKey)
+    . etKey(newAccountPublicKey)
     .setInitialBalance(Hbar.fromTinybars(1000))
-    .execute(client);
+    . xecute(client);
 
-  // Get the new account ID
-  const getReceipt = await newAccount.getReceipt(client);
+  // Obtener el nuevo ID de cuenta
+  const getReceipt = await newAccount. etReceipt(client);
   const newAccountId = getReceipt.accountId;
   
-  console.log("\nNew account ID: " + newAccountId);
+  consola. og("\nNuevo ID de cuenta: " + newAccountId);
 
-  // Verify the account balance
+  // Verificar el saldo de la cuenta
   const accountBalance = await new AccountBalanceQuery()
-    .setAccountId(newAccountId)
-    .execute(client);
+    . etAccountId(newAccountId)
+    .execute(cliente);
 
-  console.log(
-    "The new account balance is: " +
-      accountBalance.hbars.toTinybars() +
+  consola. og(
+    "El nuevo saldo de cuenta es: " +
+      contabilidad. bars.toTinybars() +
       " tinybar."
   );
 
@@ -420,10 +420,10 @@ environmentSetup();
 
 <details>
 
-<summary>Go</summary>
+<summary>Ir</summary>
 
 ```go
-package main
+paquete principal
 
 import (
 	"fmt"
@@ -435,87 +435,87 @@ import (
 
 func main() {
 
-	//Loads the .env file and throws an error if it cannot load the variables from that file correctly
-	err := godotenv.Load(".env")
+	//Carga el . archivo nv y arroja un error si no puede cargar correctamente las variables de ese archivo
+	err := godotenv. oad(".env")
 	if err != nil {
-		panic(fmt.Errorf("Unable to load environment variables from .env file. Error:\n%v\n", err))
+		panic(fmt. rrorf("No se pueden cargar las variables de entorno desde el archivo .env. Error:\n%v\n", err))
 	}
 
-	//Grab your testnet account ID and private key from the .env file
+	//Acoge el ID de tu cuenta de testnet y la clave privada del . nv file
 	myAccountId, err := hedera.AccountIDFromString(os.Getenv("MY_ACCOUNT_ID"))
 	if err != nil {
 		panic(err)
 	}
 
-	myPrivateKey, err := hedera.PrivateKeyFromString(os.Getenv("MY_PRIVATE_KEY"))
+	myPrivateKey, err := hedera. rivateKeyFromString(os. etenv("MY_PRIVATE_KEY"))
+	si err ! nil {
+		panic(err)
+	}
+
+	//Imprime el ID de tu cuenta testnet y la clave privada en la consola para asegurarse de que no hubo ningún error
+	fmt. rintf("\nEl ID de la cuenta es = %v\n", myAccountId)
+	fmt. rintf("La clave privada es = %v", myPrivateKey)
+
+	//Crear su cliente de red de pruebas
+	cliente := hedera.ClientForTestnet()
+	cliente. etOperator(myAccountId, myPrivateKey)
+
+	// Establecer la tarifa máxima de transacción por defecto y el pago máximo de la consulta
+	cliente. SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
+	client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera. barUnits.Hbar))
+
+	//Generar nuevas claves para la cuenta creará
+	newAccountPrivateKey, err := hedera. rivateKeyGenerateEd25519()
 	if err != nil {
 		panic(err)
 	}
 
-	//Print your testnet account ID and private key to the console to make sure there was no error
-	fmt.Printf("\nThe account ID is = %v\n", myAccountId)
-	fmt.Printf("The private key is = %v", myPrivateKey)
+	newAccountPublicKey := newAccountPrivateKey. ublicKey()
 
-	//Create your testnet client
-	client := hedera.ClientForTestnet()
-	client.SetOperator(myAccountId, myPrivateKey)
-
-	// Set default max transaction fee & max query payment
-	client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
-	client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
-
-	//Generate new keys for the account you will create
-	newAccountPrivateKey, err := hedera.PrivateKeyGenerateEd25519()
-	if err != nil {
-		panic(err)
-	}
-
-	newAccountPublicKey := newAccountPrivateKey.PublicKey()
-
-	//Create new account and assign the public key
+	//Crear nueva cuenta y asignar la clave pública
 	newAccount, err := hedera.NewAccountCreateTransaction().
 		SetKey(newAccountPublicKey).
 		SetInitialBalance(hedera.HbarFrom(1000, hedera.HbarUnits.Tinybar)).
 		Execute(client)
 
-	//Request the receipt of the transaction
-	receipt, err := newAccount.GetReceipt(client)
+	//Request la recepción de la transacción
+	recibo, err := newAccount. etReceipt(client)
 	if err != nil {
 		panic(err)
 	}
 
-	//Get the new account ID from the receipt
-	newAccountId := *receipt.AccountID
+	//Obtener el nuevo ID de cuenta desde el recibo
+	newAccountId := *receipt. ccountID
 
-	//Print the new account ID to the console
+	//Imprime el nuevo ID de cuenta en la consola
 	fmt.Println("\n")
-	fmt.Printf("New account ID: %v\n", newAccountId)
+	fmt. rintf("Nueva cuenta ID: %v\n", newAccountId)
 
-	//Create the account balance query
-	query := hedera.NewAccountBalanceQuery().
+	//Crear la consulta de saldo de cuenta
+	consulta := hedera.NewAccountBalanceQuery().
 		SetAccountID(newAccountId)
 
-	//Sign with client operator private key and submit the query to a Hedera network
-	accountBalance, err := query.Execute(client)
-	if err != nil {
+	//Sign con la clave privada del operador del cliente y envíe la consulta a una red Hedera
+	accountBalance, err := query. xecute(client)
+	si err != nil {
 		panic(err)
 	}
 
-	//Print the balance of tinybars
-	fmt.Println("New account balance for the new account is", accountBalance.Hbars.AsTinybar())
+	//Imprime el balance de tinybars
+	fmt. rintln("Nuevo saldo de cuenta para la nueva cuenta es", accountBalance.Hbars.AsTinybar())
 }
 
 ```
 
 </details>
 
-#### Sample output:
+#### Salida de muestreo:
 
 ```bash
-New account ID: 0.0.13724748
-New account balance: 1000 tinybars.
+Nueva cuenta ID: 0.0.13724748
+Nuevo saldo de cuenta: 1000 tinybars.
 ```
 
 {% hint style="info" %}
-Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
+¿Tienes una pregunta? [Preguntarlo en StackOverflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph)
 {% endhint %}

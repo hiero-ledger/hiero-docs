@@ -1,67 +1,67 @@
-# Multinode Configuration
+# Configuration multi-nœuds
 
-## Using Multinode Configuration
+## Utiliser la configuration multi-nœuds
 
-Multinode configuration is an advanced feature designed for specific scenarios that require multiple consensus nodes. This configuration demands higher resources and involves more complexity, making it suitable primarily for testing and development environments. Before attempting to use the multinode setup, it's crucial to ensure that the local node operates correctly in the default single-node mode.
+La configuration multi-nœuds est une fonctionnalité avancée conçue pour des scénarios spécifiques qui nécessitent plusieurs nœuds de consensus. Cette configuration requiert des ressources plus élevées et implique plus de complexité, ce qui la rend idéale pour les environnements de test et de développement. Avant d'essayer d'utiliser la configuration du multinoeud, il est crucial de s'assurer que le noeud local fonctionne correctement en mode mono-noeud par défaut.
 
 <details>
 
-<summary><strong>Multinode Mode Requirements</strong></summary>
+<summary><strong>Exigences de mode multinoeud</strong></summary>
 
-To run the multinode mode, ensure the following configurations are set at minimum in Docker **Settings** -> **Resources** and at least 14 GB of memory are available for Docker:
+Pour exécuter le mode multinoeud, assurez-vous que les configurations suivantes sont définies au minimum dans Docker **Paramètres** -> **Ressources** et qu'au moins 14 Go de mémoire sont disponibles pour Docker:
 
-- **CPUs:** 6
-- **Memory:** 14 GB
-- **Swap:** 1 GB
-- **Disk Image Size:** 64 GB
+- **CPUS :** 6
+- **Mémoire :** 14 Go
+- **Échange :** 1 Go
+- **Taille de l'image du disque :** 64 Go
 
 <img src="../../.gitbook/assets/localnode-multinode-requirements.png" alt="" data-size="original">
 
 </details>
 
 {% hint style="info" %}
-_**📣 Note**: Creating a decentralized network where each node runs independently on its own machine is currently unsupported. Nonetheless, advanced networking and configuration capabilities are available, allowing nodes to communicate with each other similar to their interactions on the Hedera Mainnet._
+_**📣 Note** : Créer un réseau décentralisé où chaque nœud fonctionne indépendamment sur sa propre machine n'est pas pris en charge. Néanmoins, des capacités avancées de réseautage et de configuration sont disponibles, permettant aux nœuds de communiquer les uns avec les autres similaires à leurs interactions sur le réseau principal d'Hedera._
 {% endhint %}
 
-#### **Starting Multinode Mode**
+#### **Démarrage du mode multi-nodes**
 
-To start Hedera Local Node in multinode mode, append the `--multinode` flag to your [start command](single-node-configuration.md#npm). For example:
+Pour démarrer Hedera Local Node en mode multinode, ajoutez le drapeau `--multinode` à votre [commande de démarrage](single-node-configuration.md#npm). Par exemple :
 
 ```bash
-# npm command to start the local network in multinode mode
+# npm commande pour démarrer le réseau local en mode multinode
 npm run start -- -d --multinode
 
-# docker command to start the local network in multinode mode
+# docker commande pour démarrer le réseau local en mode multinode
 docker compose up -d --multinode
 ```
 
-Verify the successful launch of multinode mode by inspecting Docker output of `docker ps --format "table {{.Names}}" | grep network` or the Docker Desktop dashboard. You should identify four running nodes:
+Vérifiez le lancement réussi du mode multi-nœuds en inspectant la sortie Docker de `docker ps --format "table {{.Names}}" | réseau grep` ou le tableau de bord Docker Desktop. Vous devriez identifier quatre nœuds en cours d'exécution :
 
 ```bash
-network-node
+nœud réseau
 network-node-1
 network-node-2
 network-node-3
 ```
 
-_📣 **Note**: In multinode mode, you need at least three healthy nodes for operational network._
+_📣 **Note**: En mode multinode, vous avez besoin d'au moins trois nœuds sains pour le réseau opérationnel._
 
-#### **Starting and Stopping Nodes**
+#### **Démarrage et arrêt des nœuds**
 
-Individual nodes can be started or stopped to test consensus, synchronization, and node selection processes using `npm` or `docker` management commands:&#x20
+Les nœuds individuels peuvent être démarrés ou arrêtés pour tester les processus de consensus, de synchronisation et de sélection de nœuds en utilisant les commandes de gestion `npm` ou `docker`: &#x20
 
 <details>
 
-<summary><strong>npm commands</strong></summary>
+<summary><strong>commandes npm</strong></summary>
 
 ```bash
-# npm command to start an individual node
+# npm commande pour démarrer un noeud individuel
 npm run start network-node-3
 
-# npm command to stop an individual node
+# npm commande pour arrêter un noeud individuel
 npm run stop network-node-3
 
-# npm command to restart an individual node
+# npm commande pour redémarrer un noeud individuel
 npm run restart network-node-3
 ```
 
@@ -69,31 +69,31 @@ npm run restart network-node-3
 
 <details>
 
-<summary><strong>docker commands</strong></summary>
+Les commandes <summary><strong>docker</strong></summary>
 
 ```bash
-# Docker command to start an individual node
+# Commande Docker pour démarrer un noeud individuel
 docker compose start network-node-3
 
-# Docker command to stop an individual node
+# Commande Docker pour arrêter un noeud individuel
 docker compose stop network-node-3
 
-# Docker command to restart an individual node
+# Commande Docker pour redémarrer un noeud individuel
 docker compose restart network-node-3
 
-# Docker command to check logs of the individual node
+# Commande Docker pour vérifier les logs de chaque noeud
 docker compose logs network-node-3 -f
 
-# Docker command to stop local network and remove containers
-docker compose down
+# Commande Docker pour arrêter le réseau local et supprimer les conteneurs
+docker compose vers le bas
 ```
 
 </details>
 
-Alternatively, run `docker compose down -v; git clean -xfd; git reset --hard` to stop the local node and reset it to its original state.
+Alternativement, exécutez `docker compose down -v; git clean -xfd; git reset --hard` pour arrêter le noeud local et le réinitialiser à son état d'origine.
 
-#### Multinode Mode Diagram
+#### Schéma du mode multi-nœud
 
-The following diagram illustrates the architecture and flow of data in multinode mode.
+Le diagramme suivant illustre l'architecture et le flux des données en mode multinoeuds.
 
-<figure><img src="../../.gitbook/assets/multinode-diagram.jpeg" alt="" width="535"><figcaption><p>Multinode mode diagram</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/multinode-diagram.jpeg" alt="" width="535"><figcaption><p>Schéma en mode multinœud</p></figcaption></figure>

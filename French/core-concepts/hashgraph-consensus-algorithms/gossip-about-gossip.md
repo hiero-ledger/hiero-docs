@@ -1,28 +1,28 @@
-# Gossip About Gossip
+# Ragots à propos de Gossip
 
-Hashgraph consensus uses a **gossip protocol**. This means that a member such as Alice will choose another member at random, such as Bob, and then Alice will tell Bob all of the information she knows so far. Alice then repeats with a different random member. Bob repeatedly does the same, and all other members do the same. In this way, if a single member becomes aware of new information, it will spread exponentially fast through the community until every member is aware of It.
+Le consensus de Hashgraph utilise un **protocole de commutation**. Cela signifie qu'un membre tel qu'Alice choisira un autre membre au hasard, comme Bob, puis Alice dira à Bob toutes les informations qu'elle sait jusqu'ici. Alice se répète ensuite avec un membre aléatoire différent. Bob fait la même chose à plusieurs reprises, et tous les autres membres font de même. De cette façon, si un seul membre prend connaissance de nouvelles informations, il se répandra exponentiellement vite à travers la communauté jusqu'à ce que chaque membre en soit conscient.
 
-The synchronization of information between two members through the gossip protocol is called a **gossip sync**. Upon completion of a gossip sync, each participating member commemorates the gossip sync with an event. An **event** is stored in memory as a data structure composed of a timestamp, an array of zero or more transactions, two parent hashes, and a cryptographic signature. The two parent hashes are the hash of the last event created by the self-parent prior to the gossip sync and the hash of the last event created by the other-parent prior to the gossip sync. For example, if Alice and Bob perform a gossip sync, Alice would create a new event commemorating the gossip sync where the self-parent hash would be the hash of the last event Alice created prior to the gossip sync and the other-parent hash would be the hash of the last event Bob created prior to the gossip sync. Bob would also create an event commemorating the gossip sync, but the self-parent hash would be the hash of the last event he created before the gossip sync and the other-parent hash would be the hash of the last event Alice created before the gossip sync. Gossip continues until all members have received the newly created event.
+La synchronisation des informations entre deux membres via le protocole gossip est appelée **synchro de ragots**. Une fois la synchronisation des ragots terminée, chaque membre participant commémore la synchronisation des ragots avec un événement. Un **événement** est stocké en mémoire sous la forme d'une structure de données composée d'un timestamp, un tableau de zéro ou plus de transactions, deux hachages parents, et une signature cryptographique. Les deux hashs parents sont le hachage du dernier événement créé par le parent avant la synchronisation des ragots et le hachage du dernier événement créé par l'autre parent avant la synchronisation des ragots. Par exemple, si Alice et Bob effectuent une synchronisation de commutations, Alice créerait un nouvel événement commémorant la synchronisation des commérages où le hash auto-parent serait le hash du dernier événement Alice créé avant la synchronisation des commérages et le hash des autres parents serait le hash du dernier événement Bob créé avant la synchronisation des commérages. Bob créerait également un événement commémorant la synchronisation des commérats, mais le hash auto-parent serait le hash du dernier événement qu'il a créé avant la synchronisation des commutateurs et l'autre hash parent serait le hash du dernier événement créé par Alice avant la synchronisation des commérages. Gossip continue jusqu'à ce que tous les membres aient reçu l'événement nouvellement créé.
 
-## Gossip About Gossip
+## Ragots à propos de Gossip
 
-The history of how these events are related to each other through their parent hashes is called **gossip about gossip**. This history expresses itself as a type of directed acyclic graph \(DAG\), a graph of hashes, or a hashgraph. The hashgraph records the history of how members communicated. It grows directionally over time as more gossip syncs take place and events are created. All members keep a local copy of the hashgraph which continues to update as members sync with one another.
+L'histoire de la manière dont ces événements sont liés les uns aux autres par le biais de leurs hashes parents est appelée **commémorer sur les ragots**. Cette histoire s'exprime comme un type de graphique acyclique orienté \\(DAG\\), un graphe de hachage, ou un hashgraph. Le hashgraph enregistre l'historique de la communication des membres. Il grandit de façon directe, avec le temps, au fur et à mesure que de nouvelles synchro ont lieu et que des événements sont créés. Tous les membres conservent une copie locale du hashgraph qui continue à se mettre à jour au fur et à mesure que les membres se synchronisent.
 
-These hashgraphs may be slightly different at any given moment, but they will always be consistent. Consistent means that if \[Alice\] and \[Bob\] both contain event x, then they will both contain exactly the same set of ancestors for x, and will both contain exactly the same set of edges between those ancestors.
+Ces hashgraphes peuvent être légèrement différents à un moment donné, mais ils seront toujours cohérents. Conformément signifie que si \[Alice\] et \[Bob\] tous les deux contiennent un événement x, ils contiendront tous les deux exactement le même ensemble d'ancêtres pour x, et contiendra tous les deux exactement le même ensemble de bords entre ces ancêtres.
 
-Each event contains the following:
+Chaque événement contient les éléments suivants :
 
-- Timestamp
-- Two hashes of two events below itself
-  - Self-parent
-  - Other-parent
+- Horodatage
+- Deux hashs de deux événements en-dessous de lui-même
+  - Auto-parent
+  - Autre parent
 - Transactions
-- Digital signature
+- Signature numérique
 
-| Item                                   | Description                                                                      |
-| :------------------------------------- | :------------------------------------------------------------------------------- |
-| **Timestamp:**         | The timestamp of when the member created the event commemorating the gossip sync |
-| **Transactions:**      | The event can hold zero or more transactions                                     |
-| **Hash 1:**            | Self-parent hash                                                                 |
-| **Hash 2:**            | Other-parent hash                                                                |
-| **Digital Signature:** | Cryptographically signed by the creator of the event                             |
+| Élément                                  | Libellé                                                                                                      |
+| :--------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| **Horodatage :**         | L'horodatage de la date à laquelle le membre a créé l'événement en commémorant la synchronisation des ragots |
+| **Transactions:**        | L'événement peut contenir zéro ou plus de transactions                                                       |
+| **Hachage 1:**           | Hachage auto-parent                                                                                          |
+| **Hachage 2:**           | Hachage autre parent                                                                                         |
+| **Signature numérique:** | Signé cryptographiquement par le créateur de l'événement                                                     |

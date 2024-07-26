@@ -1,102 +1,102 @@
-# Run Your Own Mirror Node with Google Cloud Storage (GCS)
+# Ejecuta tu propio nodo de espejo con Google Cloud Storage (GCS)
 
-## Prerequisites
+## Prerrequisitos
 
-- A [Google Cloud Platform ](https://cloud.google.com/)account.
-- Basic understanding of Hedera Mirror Nodes.
-- [Docker](https://www.docker.com/) (`>= v20.10.x)` installed and opened on your machine. Run `docker -v` in your terminal to check the version you have installed.
-- [Java](https://www.java.com/en/) (openjdk@17: Java version 17), [Gradle](https://gradle.org/install/) (the latest version), and [PostgreSQL](https://www.postgresql.org/) (the latest version) are installed on your machine.
+- Una [Google Cloud Platform](https://cloud.google.com/)account.
+- Entendimiento básico de los nodos irror de Hedera.
+- [Docker](https://www.docker.com/) (`>= v20.10.x)` instalado y abierto en su máquina. Ejecuta `docker -v` en tu terminal para comprobar la versión instalada.
+- [Java](https://www.java.com/en/) (openjdk@17: Java version 17), [Gradle](https://gradle.org/install/) (la última versión), y [PostgreSQL](https://www.postgresql.org/) (la última versión) están instalados en su máquina.
 
-## 1. Obtain Google Cloud Platform Requester Pay Information
+## 1. Obtén información de pago de Google Cloud Platform
 
-In this step, you will generate your Google Cloud Platform HMAC access keys. These keys are needed to authenticate requests between your machine and Google Cloud Storage. They are similar to a username and password. Follow these steps to retrieve your **access key, secret**, and **project ID**:
+En este paso, generarás tus claves de acceso HMAC a Google Cloud Platform. Estas claves son necesarias para autenticar solicitudes entre su equipo y Google Cloud Storage. Son similares a un nombre de usuario y una contraseña. Sigue estos pasos para recuperar tu **clave de acceso, secreto**, y **ID del proyecto**:
 
-- Create a new [project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and link your [billing account](https://cloud.google.com/billing/docs/how-to/manage-billing-account).
-- From the left navigation bar, select **Cloud Storage > Settings.**
-- Click the **Interoperability** tab and scroll down to the **User account HMAC** section.
-- If you don't already have a default project set, set it now.
-- Click **create keys** to generate access keys for your account.
+- Crea un nuevo [project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) y vincula tu [cuenta de facturación](https://cloud.google.com/billing/docs/how-to/manage-billing-account).
+- En la barra de navegación izquierda, selecciona **Almacenamiento en la nube > Configuración.**
+- Haga clic en la pestaña **Interoperabilidad** y desplácese a la sección **Cuenta de usuario HMAC**.
+- Si aún no tiene un conjunto de proyectos predeterminado, establézcalo ahora.
+- Haga clic en **crear claves** para generar claves de acceso para su cuenta.
 
 <figure><img src="../../../.gitbook/assets/gcs mirror2.png" alt=""><figcaption></figcaption></figure>
 
-- You should see the **access key** and **secret** columns populate on the access keys table.
-- You will use these keys to configure the **`application.yml`** file in a later step.
+- Deberías ver la **clave de acceso** y las columnas **secreta** rellenan en la tabla de teclas de acceso.
+- Utilizarás estas claves para configurar el archivo **`application.yml`** en un paso posterior.
 
-## 2. Clone Hedera Mirror Node Repository
+## 2. Clonar repositorio de nodo irror de Hedera
 
-- Open your terminal and run the following commands to clone the `hedera-mirror-node` [repository](https://github.com/hashgraph/hedera-mirror-node) then `cd` into the `hedera-mirror-node` folder:
+- Abre tu terminal y ejecuta los siguientes comandos para clonar `hedera-mirror-node` [repository](https://github.com/hashgraph/hedera-mirror-node) y luego `cd` en la carpeta `hedera-mirror-node`:
 
 ```bash
-git clone https://github.com/hashgraph/hedera-mirror-node
+git clon https://github.com/hashgraph/hedera-mirror-node
 cd hedera-mirror-node
 ```
 
-## 3. Configure Mirror Node
+## 3. Configurar nodo espejo
 
-The **`application.yml`** file is the main configuration file for the Hedera Mirror Node. We'll update that file with your GCP keys and the Hedera Network you want to mirror.
+El archivo **`application.yml`** es el archivo de configuración principal para el nodo Mirror de Hedera. Actualizaremos ese archivo con tus claves GCP y la red Hedera que quieres reproducir.
 
-- Open the `application.yml` file in the root directory with a text editor of your choice.
-- Find the following section and replace the placeholders with your actual GCP **access key**, **secret key**, **project ID**, and the network you want to mirror:
+- Abre el archivo `application.yml` en el directorio raíz con un editor de texto de tu elección.
+- Encuentra la siguiente sección y reemplaza los marcadores de posición con tu **clave de acceso**, **clave secreta**, **ID del proyecto**, y la red que quieres replicar:
 
-| Item              | Description                                             |
-| ----------------- | ------------------------------------------------------- |
-| **accessKey**     | Your access key from your GCP account                   |
-| **cloudProvider** | GCP                                                     |
-| **secretKey**     | Your secret key from your GCP account                   |
-| **gcpProjectId**  | Your GCP project ID                                     |
-| **network**       | Enter the network you would to run your mirror node for |
+| Objeto                | Descripción                                              |
+| --------------------- | -------------------------------------------------------- |
+| **accessKey**         | Tu clave de acceso desde tu cuenta GCP                   |
+| **Proveedor de nube** | GCP                                                      |
+| **Clave secreta**     | Tu clave secreta de tu cuenta GCP                        |
+| **gcpProjectId**      | Su ID de proyecto GCP                                    |
+| **red**               | Introduzca la red que desea ejecutar su nodo espejo para |
 
 {% code title="application.yml" %}
 
 ```yaml
 hedera:
-  mirror:
-    importer:
-      downloader:
+  espejo:
+    importador:
+      descargador:
         accessKey: ENTER ACCESS KEY HERE
         cloudProvider: "GCP"
         secretKey: ENTER SECRET KEY HERE
         gcpProjectId: ENTER GCP PROJECT ID HERE
-      network: PREVIEWNET/TESTNET/MAINNET #Pick one network
+      network: PREVIEWNET/TESTNET/MAINNET #Elige una red
 ```
 
 {% endcode %}
 
-- Save the changes and close the file.
+- Guarda los cambios y cierra el archivo.
 
-## 4. Start Your Hedera Mirror Node
+## 4. Inicia tu nodo Hedera Mirror
 
-Now let's start the Hedera Mirror Node using Docker. Docker allows you to easily run applications in a self-contained environment called a _container_.
+Ahora vamos a iniciar el nodo Mirror de Hedera usando Docker. Docker le permite ejecutar fácilmente aplicaciones en un entorno autónomo llamado _container_.
 
-- From the `hedera-mirror-node` directory, run the following command:
-
-```bash
-docker compose up -d db && docker logs hedera-mirror-node-db-1 --follow
-```
-
-## 5. Access Your Hedera Mirror Node Data
-
-This step shows you how to access the data that your Hedera Mirror Node is collecting. The mirror node stores its data in a PostgreSQL database, and you're using Docker to connect to that database. To access the mirror node data, we'll have to enter the **`hedera-mirror-node-db-1`** container.
-
-- Open a new terminal and run the following command to view the list of containers:
+- Desde el directorio `hedera-mirror-node`, ejecuta el siguiente comando:
 
 ```bash
-docker ps
+docker compone -d db && docker logs hedera-mirror-node-db-1 --follow
 ```
 
-- Enter the following command to access the Docker container:
+## 5. Accede a tus datos del nodo Hedera Mirror
+
+Este paso te muestra cómo acceder a los datos que tu nodo Hedera Mirror está recopilando. El nodo réplica almacena sus datos en una base de datos PostgreSQL, y está usando Docker para conectarse a esa base de datos. Para acceder a los datos del nodo espejo, tendremos que introducir el contenedor **`hedera-mirror-node-db-1`**.
+
+- Abrir un nuevo terminal y ejecutar el siguiente comando para ver la lista de contenedores:
+
+```bash
+acopladores ps
+```
+
+- Introduzca el siguiente comando para acceder al contenedor Docker:
 
 ```bash
 docker exec -it hedera-mirror-node-db-1 bash
 ```
 
-- Enter the following command to access the database:
+- Introduzca el siguiente comando para acceder a la base de datos:
 
 ```bash
 psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pass port=5432"
 ```
 
-- Enter the following command to view the complete list of database tables:
+- Introduzca el siguiente comando para ver la lista completa de tablas de base de datos:
 
 ```bash
 \dt
@@ -104,16 +104,16 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 
 ![](<../../../.gitbook/assets/image (4).png>)
 
-- To exit the `psql` console, run the quit command:
+- Para salir de la consola `psql`, ejecuta el comando quit:
 
 ```bash
-\q
+q
 ```
 
-- Lastly, run the following command to stop and remove the created containers:
+- Por último, ejecute el siguiente comando para detener y eliminar los contenedores creados:
 
 ```bash
-docker compose down
+docker componer abajo
 ```
 
-#### Congratulations! You have successfully run and deployed a Hedera Mirror Node with Google Cloud Storage (GCS) 🚀
+#### ¡Felicidades! Has ejecutado y desplegado con éxito un nodo Hedera Mirror con Google Cloud Storage (GCS) 🚀

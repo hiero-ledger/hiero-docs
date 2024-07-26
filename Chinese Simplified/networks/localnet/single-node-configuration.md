@@ -1,40 +1,40 @@
-# Single Node Configuration
+# 单个节点配置
 
-## Using Single Node Configuration
+## 使用单节点配置
 
-Single node configuration simulates the network’s functions on a smaller scale (single node), ideal for debugging, testing, and prototype development.
+单个节点配置模拟网络在较小规模(单个节点)、用于调试、测试和原型开发的理想功能。
 
 <details>
 
-<summary><strong>Single Node Mode Requirements</strong></summary>
+<summary><strong>单节点模式要求</strong></summary>
 
-Ensure the **`VirtioFS`** file sharing implementation is enabled in the docker settings.
+在停泊器设置中启用 **`VirtioFS`** 文件共享实现。
 
-![](<../../.gitbook/assets/docker-compose-settings (1).png>)
+![](../../.gitbook/assets/docker-compose-settings\(1\).png)
 
-Ensure the following configurations are set at minimum in Docker **Settings** -> **Resources** and are available for use:
+请确保以下配置至少在 Docker **Settings** -> **Resources** 中设置为可用：
 
-**CPUs:** 6
+**CPU:** 6
 
-**Memory:** 8GB
+**内存:** 8GB
 
-**Swap:** 1 GB
+**交换：** 1 GB
 
-**Disk Image Size:** 64 GB
+**磁盘图像大小：** 64 GB
 
 ![](../../.gitbook/assets/docker-settings.png)
 
-Ensure the **`Allow the default Docker sockets to be used (requires password)`** is enabled in Docker **Settings -> Advanced**.
+确认 **`允许使用默认Docker 套接字(需要密码)`** 已在 Docker **设置 -> 高级** 中启用。
 
 ![](../../.gitbook/assets/docker-socket-setting.png)
 
-**Note:** The image may look different if you are on a different version
+**注意：** 如果您处于不同的版本，图像可能看起来不同。
 
 </details>
 
-#### **Starting and Stopping Node**
+#### **启动和停止节点**
 
-Before launching the network commands, confirm that Docker is installed and open on your machine. To stop your local node, use the following `npm` or `docker` commands. Before proceeding with this operation, make sure to back up any manually created files in the working directory.
+在启动网络命令之前，请确认Docker已安装并在您的机器上打开。 要停止您的本地节点，请使用以下`npm`或`docker`命令。 在继续此操作之前，请确保备份工作目录中手动创建的文件。
 
 <details>
 
@@ -43,14 +43,14 @@ Before launching the network commands, confirm that Docker is installed and open
 {% code overflow="wrap" %}
 
 ```bash
-# npm command to start the local network and generate accounts in detached mode
-npm run start -- -d
+# npm 命令启动本地网络并在分离模式下生成账户
+npm 运行开始 -- -d
 
-# npm command to stop
-npm run stop
+# npm 命令停止
+npm 运行停止
 
-# npm command to restart node
-npm run restart
+# npm 命令重启节点
+npm 运行重启
 ```
 
 {% endcode %}
@@ -62,25 +62,25 @@ npm run restart
 <summary><strong>docker commands</strong></summary>
 
 ```bash
-# Docker command to start the local network. Does not generate accounts
-docker compose up -d
+# 启动本地网络的 Docker 命令。 不生成账户
+Docker compose up -d
 
-# Docker command to stop services
-docker compose stop
+# Docker 命令以停止服务
+Docker compose 停止
 
-# Docker command to restart local network
-docker compose restart
+# Docker 命令以重启本地网络
+docker compose reading
 
-# Docker command to stop local network and remove containers
-docker compose down
+# Docker 命令以停止本地网络并移除容器
+docker composed
 ```
 
 </details>
 
-Alternatively, run `docker compose down -v; git clean -xfd; git reset --hard` to stop the local node and reset it to its original state. The full list of available commands can be found [here](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#commands).
+或者，运行 `docker compose -v; git clean -xfd; git reset --hard` 以停止本地节点并将其重置为原始状态。 可用命令的完整列表可以找到 [here](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#commands)。
 
-#### Single Node Mode Diagram
+#### 单个节点模式图
 
-The following diagram illustrates the architecture and flow of data in single node mode.
+以下图表显示单个节点模式下数据的结构和流量。
 
-<figure><img src="../../.gitbook/assets/localnet-single-node-diagram.png" alt="" width="563"><figcaption><p>Single node mode diagram</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/localnet-single-node-diagram.png" alt="" width="563"><figcaption><p>单节点模式图</p></figcaption></figure>

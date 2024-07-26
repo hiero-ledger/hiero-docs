@@ -1531,7 +1531,7 @@ The maximum number of rows the REST API can return was changed from 500 to 100. 
 **TESTNET UPDATE COMPLETED: NOVEMBER 12, 2021**
 {% endhint %}
 
-### Smart Contracts
+### Contrats intelligents
 
 With Hedera's increased focus on [Smart Contracts](https://hedera.com/blog/hedera-evm-smart-contracts-now-bring-highest-speed-programmability-to-tokenization), we took the time to revamp the mirror node's smart contract support and lay the groundwork for future enhancements. As detailed in the [design document](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/design/smart-contracts.md), plans include new contract-specific REST APIs and Ethereum-compatible APIs in the future.
 

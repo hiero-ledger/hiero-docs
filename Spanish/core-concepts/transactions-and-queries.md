@@ -1,109 +1,109 @@
 ---
-description: An overview of Hedera API transactions and queries
+description: Un resumen de las transacciones y consultas de la API de Hedera
 ---
 
-# Transactions and Queries
+# Transacciones y consultas
 
-## Transactions
+## Transacciones
 
-**Transactions** are requests sent by a client to a node with the expectation that they are submitted to the network for processing into consensus order and subsequent application to state. Each transaction (e.g. `TokenCreateTransaction()`) has an associated transaction fee that compensates the Hedera network for that processing and subsequent maintenance in a consensus state. Users can set a max transaction fee for the amount the user is willing to spend. The user is only charged the actual transaction fee.
+Las **transacciones** son peticiones enviadas por un cliente a un nodo con la expectativa de que se sometan a la red para procesarlas al orden de consenso y a la aplicación posterior al estado. Cada transacción (por ejemplo, `TokenCreateTransaction()`) tiene una cuota de transacción asociada que compensa a la red Hedera por ese procesamiento y posterior mantenimiento en un estado de consenso. Los usuarios pueden establecer una cuota máxima de transacción por la cantidad que el usuario está dispuesto a gastar. Al usuario sólo se le cobra la cuota real de la transacción.
 
-**Transaction ID**
+**ID de la transacción**
 
-Each transaction has a unique transaction ID. The transaction ID is used for the following:
+Cada transacción tiene un ID de transacción único. El ID de transacción se utiliza para lo siguiente:
 
-- Obtaining receipts, records, state proofs
-- Internally by the network for detecting when duplicate transactions are submitted
+- Obteniendo recibos, registros, pruebas de estado
+- Internamente por la red para detectar cuando se envían transacciones duplicadas
 
-The transaction ID is composed by using the transaction's valid start time and the account ID of the account that is paying for the transaction. The transaction's valid start time is the time the transaction begins to be processed on the network. The transaction's valid start time can be set to a future date/time. A transaction ID looks something like `0.0.9401@1598924675.82525000`where `0.0.9401` is the transaction fee payer account ID and `1598924675.82525000` is the timestamp in `seconds.nanoseconds`.
+El ID de la transacción se compone de usar la hora de inicio válida de la transacción y el ID de cuenta de la cuenta que está pagando la transacción. La hora de inicio válida de la transacción es la hora en que la transacción comienza a ser procesada en la red. La hora de inicio válida de la transacción puede establecerse a una fecha/hora futura. Un ID de transacción se ve algo como `0.0.9401@1598924675.82525000`donde `0.0.9401` es el ID de la cuenta de pagador de transacción y `1598924675.82525000` es el timestamp en `seconds.nanoseconds`.
 
-Transactions have a valid duration of up to 180 seconds and begin at the transaction's valid start time. This means that the transaction has up to 180 seconds to be accepted by one of the nodes in the network. If the transaction is not accepted in this timeframe, the transaction will expire. The transaction will have to be created, signed, and submitted again.
+Las transacciones tienen una duración válida de hasta 180 segundos y comienzan a la hora de inicio válida de la transacción. Esto significa que la transacción tiene hasta 180 segundos para ser aceptada por uno de los nodos de la red. Si la transacción no es aceptada en este intervalo de tiempo, la transacción caducará. La transacción tendrá que ser creada, firmada y enviada de nuevo.
 
-A **transaction** generally includes the following:
+Una **transacción** generalmente incluye lo siguiente:
 
-- **Node Account**: the account of the node the transaction is being sent to (e.g. `0.0.3`)
-- **Transaction ID**: the identifier for a transaction has two components, the account ID of the paying account plus the transaction’s valid start time
-- **Transaction Fee**: the maximum fee the paying account is willing to pay for the transaction
-- **Valid Duration**: the number of seconds that the client wishes the transaction to be deemed valid for, starting at the transaction's valid start time
-- **Memo**: a string of text up to 100 bytes of data (optional)
-- **Transaction**: type of request, for instance, an HBAR transfer or a smart contract call
-- **Signatures**: at minimum, the paying account will sign the transaction as authorization. Other signatures may be present as well.
+- **Cuenta del nodo**: la cuenta del nodo al que se está enviando la transacción (por ejemplo, `0.0.3`)
+- **ID de la transacción**: el identificador de una transacción tiene dos componentes, el ID de la cuenta de pago más la hora de inicio válida de la transacción
+- **Tarifa de transacción**: la cuota máxima que la cuenta de pago está dispuesta a pagar por la transacción
+- **Duración válida**: el número de segundos para los que el cliente desea que la transacción se considere válida, comenzando por la hora de inicio válida de la transacción
+- **Memo**: una cadena de texto de hasta 100 bytes de datos (opcional)
+- **Transacción**: tipo de solicitud, por ejemplo, una transferencia HBAR o una llamada inteligente al contrato
+- **Firma**: como mínimo, la cuenta de pago firmará la transacción como autorización. Otras firmas también pueden estar presentes.
 
-The lifecycle of a transaction in the Hedera ecosystem begins when a client creates a transaction. Once the transaction is created it is cryptographically signed at a minimum by the account paying for the fees associated with the transaction. Additional signatures may be required depending on the properties set for the account, topic, or token. The client is able to stipulate the maximum fee it is willing to pay for the processing of the transaction and, for a smart contract operation, the maximum amount of gas. Once the required signatures are applied to the transaction the client then submits the transaction to any node on the Hedera network.
+El ciclo de vida de una transacción en el ecosistema de Hedera comienza cuando un cliente crea una transacción. Una vez creada la transacción es firmada criptográficamente como mínimo por la cuenta que paga las comisiones asociadas a la transacción. Las firmas adicionales pueden ser requeridas dependiendo de las propiedades establecidas para la cuenta, el tema o el token. El cliente es capaz de sofocar la cuota máxima que está dispuesto a pagar por el procesamiento de la transacción y, para una operación de contrato inteligente, la cantidad máxima de gas. Una vez que las firmas requeridas se aplican a la transacción, el cliente envía la transacción a cualquier nodo de la red Hedera.
 
-The receiving node validates (for instance, confirms the paying account has sufficient balance to pay the fee) the transaction and, if validation is successful, submits the transaction to the Hedera network for consensus by adding the transaction to an event and gossiping that event to another node. Quickly, that event flows out to all the other nodes. The network receives this transaction exponentially fast via the [gossip about gossip protocol](hashgraph-consensus-algorithms/gossip-about-gossip.md). The consensus timestamp for an event (and so the transactions within) is calculated by each node independently calculating the median of the times that the nodes of the network received that event. You may find more information on how the consensus timestamp is calculated [here](https://docs.hedera.com/docs/hashgraph-overview#section-fair-timestamps). The hashgraph algorithm delivers the finality of consensus. Once assigned a consensus timestamp the transaction is then applied to the consensus state in the order determined by each transaction’s consensus timestamp. At that point, the fees for the transaction are also processed. In this manner, every node in the network maintains a consensus state because they all apply the same transactions in the same order. Each node also creates and temporarily stores receipts/records in support of the client subsequently querying for the status of a transaction.
+El nodo receptor valida (por ejemplo, confirma que la cuenta de pago tiene saldo suficiente para pagar la cuota) la transacción y, si la validación es exitosa, envía la transacción a la red Hedera para obtener consenso añadiendo la transacción a un evento y chispeando ese evento a otro nodo. Rápido, ese evento fluye a todos los demás nodos. La red recibe esta transacción de forma exponencialmente rápida a través del [chismes sobre el protocolo de chismes](hashgraph-consens→ algorithms/gossip-about-gossip.md). La marca de tiempo de consenso para un evento (y así las transacciones dentro) es calculada por cada nodo de forma independiente calculando el promedio de las veces que los nodos de la red recibieron ese evento. Puede encontrar más información sobre cómo se calcula el timestamp de consenso [here](https://docs.hedera.com/docs/hashgraph-overview#section-f.Utimestamps). El algoritmo hashgraph proporciona la finalidad del consenso. Una vez asignado una marca de tiempo de consenso, la transacción se aplica al estado de consenso en el orden determinado por la marca de tiempo de cada transacción. En ese punto, las comisiones para la transacción también se procesan. De esta manera, cada nodo de la red mantiene un estado de consenso porque todos aplican las mismas transacciones en el mismo orden. Cada nodo también crea y almacena temporalmente recibos y registros en soporte del cliente consultando posteriormente para el estado de una transacción.
 
-### Nested Transactions
+### Transacciones anidadas
 
-A **nested transaction** triggers subsequent transactions after executing a top-level transaction. The top-level transaction that a user submits is a **parent transaction**. Each subsequent transaction the parent transaction triggers as a result of the execution of the parent transaction is a **child transaction**. An example of a nested transaction is when a user submits the top-level transfer transaction to an account alias that triggers an account create transaction behind scenes. This parent/child transaction relationship is also observed with Hedera contracts interacting with HTS precompile. A parent transaction supports up to 999 child transactions since the platform reserves 1000 nanoseconds per user-submitted transaction.
+Una **transacción anidada** activa las transacciones posteriores después de ejecutar una transacción de alto nivel. La transacción de nivel superior que envía un usuario es una **transacción padre**. Cada transacción subsiguiente que la transacción padre activa como resultado de la ejecución de la transacción padre es una **transacción hijo**. Un ejemplo de una transacción anidada es cuando un usuario envía la transacción de alto nivel a un alias de cuenta que activa una cuenta para crear una transacción detrás de escenas. Esta relación de transacción padre/hijo también se observa con los contratos de Hedera interactuando con HTS precompile. Una transacción padre soporta hasta 999 transacciones hijas, ya que la plataforma reserva 1000 nanosegundos por cada transacción enviada por el usuario.
 
-**Transaction IDs**
+**ID de transacción**
 
-Parent and child transactions share the payer account ID and transaction valid start timestamp. The child transaction IDs have an additional **nonce** value that represents the order in which the child transactions were executed. The parent transaction has a nonce value of 0. The nonce value of child transactions increments by 1 for each child transaction executed as a result of the parent transaction.
+Las transacciones padre e hijo comparten el ID de la cuenta de pagador y la transacción de fecha de inicio válida. Los IDs de transacción hijo tienen un valor **nunca** adicional que representa el orden en el que las transacciones hijas fueron ejecutadas. La transacción padre tiene un valor nonce de 0. El valor nonce de las transacciones hijas incrementa 1 por cada transacción hija ejecutada como resultado de la transacción padre.
 
-Parent Transaction ID: <mark style="color:red;">payerAccountId</mark>@<mark style="color:blue;">transactionValidStart</mark>
+ID de transacción padre: <mark style="color:red;">payerAccountId</mark>@<mark style="color:blue;">transactionValidStart</mark>
 
 Child Transaction ID: <mark style="color:red;">payerAccountId</mark>@<mark style="color:blue;">transactionValidStart</mark>/<mark style="color:green;">nonce</mark>
 
-Example:
+Ejemplo:
 
-- Parent Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>
-- Child 1 Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>/<mark style="color:green;">1</mark>
-- Child 2 Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>/<mark style="color:green;">2</mark>
+- ID de transacción padre: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>
+- Niño 1 ID de transacción: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>/<mark style="color:green;">1</mark>
+- Niño 2 ID de transacción: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>/<mark style="color:green;">2</mark>
 
-**Transaction Records**
+**Registros de transacción**
 
-Nested transaction records are returned by requesting the record for the parent transaction and setting the `setIncludeChildren(<value>)` to true. This returns records for all child transactions associated with the parent transaction. Child transaction records include the parent consensus timestamp and the child transaction ID.
+Los registros de transacción anidados se devuelven al solicitar el registro para la transacción padre y establecer el `setIncludeChildren(<value>)` como verdadero. Esto devuelve registros para todas las transacciones hijas asociadas con la transacción padre. Los registros de transacciones hijas incluyen la marca de tiempo del consenso padre y el ID de transacción hija.
 
-The parent consensus timestamp field in a child transaction record is not populated in cases when the child transaction was triggered **before** the parent transaction. An example of this case is creating an account using an account alias. The user submits the transfer transaction to create and fund the new account using the account alias. The transfer transaction (parent) triggers the account create transaction (child). However, the child transaction occurs before the parent transaction, so the new account is created before completing the transfer. The parent consensus timestamp is not populated in this case.
+El campo de la marca de tiempo del consenso padre en un registro de transacción hijo no se llena en casos cuando la transacción hijo se activó **antes** de la transacción padre. Un ejemplo de este caso es crear una cuenta usando un alias de cuenta. El usuario envía la transacción de transferencia para crear y financiar la nueva cuenta usando el alias de la cuenta. La transacción de transferencia (padre) activa la cuenta crear transacción (hijo). Sin embargo, la transacción hijo se produce antes de la transacción padre, por lo que la nueva cuenta se crea antes de completar la transferencia. La marca de tiempo del consenso de los padres no está poblada en este caso.
 
-**Transaction Receipts**
+**Recibos de transacción**
 
-Nested transaction receipts can be returned by requesting the parent transaction receipt and setting the boolean value equal to true to return all child transaction receipts.
+Los recibos de transacción anidados pueden ser devueltos solicitando el recibo de la transacción padre y estableciendo el valor booleano igual a verdadero para devolver todos los recibos de transacción hija.
 
-**Child Transaction Fees**
+**Tarifas de Transacción Hijo**
 
-The transaction fee for the child transaction is included in the record of the parent transaction. The transaction fee will return zero in the child transaction.
+La tarifa de transacción para la transacción secundaria se incluye en el registro de la transacción padre. El cargo de transacción devolverá cero en la transacción hija.
 
-## Queries
+## Consultas
 
-**Queries** are processed only by the single node to which they are sent. Clients send queries to retrieve some aspect of the current consensus state like the balance of an account. Certain queries are free but generally, queries are subject to fees. The full list of queries can be found [here](../sdks-and-apis/sdks/queries.md).
+Las **consultas** son procesadas sólo por el nodo único al que son enviadas. Los clientes envían consultas para recuperar algún aspecto del estado de consenso actual como el saldo de una cuenta. Algunas consultas son gratuitas, pero en general, las consultas están sujetas a tasas. La lista completa de consultas se puede encontrar [here](../sdks-and-apis/sdks/queries.md).
 
-A query includes a header that includes a normal HBAR transfer transaction that will serve as the means by which the client pays the node the appropriate fee. There is no way to give partial payment to a node for processing the query meaning if a user overpaid for the query the user will not receive a refund. The node processing the query will submit that payment transaction to the network for processing into a consensus statement in order to receive its fee.
+Una consulta incluye un encabezado que incluye una transacción normal de transferencia HBAR que servirá como el medio por el cual el cliente paga el nodo la comisión apropiada. No hay forma de dar un pago parcial a un nodo para procesar la consulta significando si un usuario sobrepagado por la consulta el usuario no recibirá un reembolso. El nodo que procesa la consulta enviará esa transacción de pago a la red para procesarla en una declaración de consenso con el fin de recibir su honorario.
 
-A client can determine the appropriate fee for a query by first asking a node for the cost and not the actual data. Such a COST\_ANSWER query is free to the client.
+Un cliente puede determinar la tarifa apropiada para una consulta solicitando primero un nodo por el costo y no por los datos reales. Tal consulta COST\_ANSWER es libre para el cliente.
 
-For more information about query fees, please visit Hedera API fees [overview](https://www.hedera.com/fees).
+Para obtener más información sobre las comisiones por consulta, por favor visite las comisiones de la API de Hedera [overview](https://www.hedera.com/fees).
 
-### Recall:
+### Recordar:
 
 {% hint style="info" %}
-Recall
+Retirada
 
-Hedera does not have **miners** or a special group of nodes that are responsible for adding transactions to the ledger like alternative distributed ledger solutions. The influence of each node to the determination of the consensus timestamp for an event is proportional to its stake in HBAR.
+Hedera no tiene **mineros** o un grupo especial de nodos que sean responsables de agregar transacciones al libro de contabilidad como soluciones alternativas distribuidas de contadores. La influencia de cada nodo a la determinación de la marca de tiempo de consenso para un evento es proporcional a su participación en HBAR.
 {% endhint %}
 
 ![](../.gitbook/assets/transaction-flow.png)
 
-Once a transaction has been submitted to the network, clients may seek confirmation it was successfully processed. There are multiple confirmation methods - varying in the level of information provided, the duration for which the confirmation is available, the degree of trust, and the corresponding cost.
+Una vez que una transacción ha sido enviada a la red, los clientes pueden buscar confirmación se procesó correctamente. Hay varios métodos de confirmación - variando en el nivel de información proporcionada, la duración durante la cual la confirmación está disponible, el grado de confianza y el coste correspondiente.
 
 ![](../.gitbook/assets/query-confirmation.png)
 
-## Confirmations
+## Confirmaciones
 
-- **Receipts:** Receipts provide minimal information - simply whether or not the transaction was successfully processed into a consensus state. Receipts are generated by default and are persisted for 3 minutes. Receipts are free.
-- **Records:** Records provide greater detail about the transaction than do receipts — such as the consensus timestamp it received or the results of a smart contract function call. Records are generated by default but are persisted for 3 minutes.
-- **State proofs (coming soon):** When querying for a record, a client can optionally indicate that it desires the network to return a state proof in addition to the record. A state-proof, documents network consensus on the contents of that record in the consensus state — this collective assertion includes signatures of most of the network nodes. Because state proofs are cryptographically signed by a supermajority of the network, they are secure and potentially admissible in a court of law.
+- **Recibidos:** Los recibos proporcionan información mínima - simplemente si la transacción se procesó o no con éxito en un estado de consenso. Los recibos se generan por defecto y persisten durante 3 minutos. Los recibos son gratuitos.
+- **Grabaciones:** Los registros proporcionan más detalles sobre la transacción que los recibos — tales como la marca de tiempo de consenso que recibió o los resultados de una llamada a la función de contrato inteligente. Los registros se generan por defecto, pero persisten durante 3 minutos.
+- **Pruebas de estado (próximamente):** Al consultar un registro, un cliente puede indicar opcionalmente que desea que la red devuelva una prueba de estado además del registro. Una prueba de estado, documenta el consenso de la red sobre el contenido de ese registro en el estado de consenso — esta afirmación colectiva incluye firmas de la mayoría de los nodos de red. Dado que las pruebas estatales son criptográficamente firmadas por una gran mayoría de la red, son seguras y potencialmente admisibles en un tribunal de justicia.
 
 {% hint style="info" %}
-An early version of a state proof, state proof alpha, is now available. Please check out the Mirror Node REST API section to get started.
+Una versión temprana de una prueba de estado alfa, prueba de estado, ya está disponible. Por favor, echa un vistazo a la sección de API REST de Mirror Node para empezar.
 {% endhint %}
 
 {% content-ref url="../sdks-and-apis/rest-api.md" %}
 [rest-api.md](../sdks-and-apis/rest-api.md)
 {% endcontent-ref %}
 
-For a more detailed review of the confirmation methods, please check out this [blog post](https://www.hedera.com/blog/transaction-confirmation-methods-in-hedera).
+Para una revisión más detallada de los métodos de confirmación, por favor echa un vistazo a esta [publicación del blog](https://www.hedera.com/blog/transaction-confirmation-methods-in-hedera).
 
 ## FAQ
 
@@ -111,7 +111,7 @@ For a more detailed review of the confirmation methods, please check out this [b
 
 <summary>What are the transaction and query fees associated with using Hedera?</summary>
 
-You can refer to the fees page on Hedera's website for a detailed breakdown of transaction and query costs. If you're looking for an estimation tool, you can use the [Hedera fee estimator](https://hedera.com/fees).
+Puede consultar la página de tarifas en el sitio web de Hedera para obtener un desglose detallado de los costes de transacción y consulta. Si estás buscando una herramienta de estimación, puedes usar [Hedera fee estimator](https://hedera.com/fees).
 
 </details>
 
@@ -119,15 +119,15 @@ You can refer to the fees page on Hedera's website for a detailed breakdown of t
 
 <summary>What are transactions?</summary>
 
-Transactions are requests sent by a client to a node with the expectation that they are submitted to the network for processing into consensus order and subsequent application to state. Each transaction has a unique transaction ID composed of the transaction's valid start time and the account ID of the account that is paying for the transaction. This ID is used for obtaining receipts, records, and state proofs and for detecting when duplicate transactions are submitted.
+Las transacciones son peticiones enviadas por un cliente a un nodo con la expectativa de que sean enviadas a la red para procesarlas en orden de consenso y la posterior aplicación al estado. Cada transacción tiene un ID de transacción único compuesto por la hora de inicio válida de la transacción y el ID de cuenta de la cuenta que está pagando por la transacción. Este ID se utiliza para obtener recibos, registros y pruebas de estado y para detectar cuando se envían transacciones duplicadas.
 
 </details>
 
 <details>
 
-<summary>What are queries?</summary>
+<summary>¿Qué son las consultas?</summary>
 
-Queries are requests processed only by the single node to which they are sent. [Clients](../support-and-community/glossary.md#client) send queries to retrieve some aspect of the current consensus state, like the balance of an account. Certain queries are free, but generally, queries are subject to fees.
+Las consultas son peticiones procesadas sólo por el nodo único al que son enviadas. [Clients](../support-and-community/glossary.md#client) envía consultas para recuperar algún aspecto del estado de consenso actual, como el saldo de una cuenta. Algunas consultas son gratis, pero en general, las consultas están sujetas a tasas.
 
 </details>
 
@@ -135,6 +135,6 @@ Queries are requests processed only by the single node to which they are sent. [
 
 <summary>What is the difference between receipts, records, and state proofs?</summary>
 
-Receipts provide minimal information - whether or not the transaction was successfully processed into a consensus state. Records provide greater detail about the transaction than receipts, such as the consensus timestamp it received or the results of a smart contract function call. State proofs are a feature that will allow a client to indicate optionally that it desires the network to return a state proof in addition to the record.
+Los recibos proporcionan información mínima - si la transacción fue o no procesada con éxito en un estado de consenso. Los registros proporcionan más detalles sobre la transacción que los recibos, como la marca de tiempo de consenso que recibió o los resultados de una llamada a la función de contrato inteligente. Las pruebas de estado son una característica que permitirá a un cliente indicar opcionalmente que desea que la red devuelva una prueba de estado además del registro.
 
 </details>

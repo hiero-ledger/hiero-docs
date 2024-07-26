@@ -1,56 +1,56 @@
-# Single Node Configuration
+# Configuration du nœud unique
 
-## Using Single Node Configuration
+## Utilisation de la configuration d'un nœud unique
 
-Single node configuration simulates the network’s functions on a smaller scale (single node), ideal for debugging, testing, and prototype development.
+La configuration à un seul nœud simule les fonctions du réseau à plus petite échelle (nœud unique), idéale pour le débogage, le test et le développement de prototypes.
 
 <details>
 
-<summary><strong>Single Node Mode Requirements</strong></summary>
+<summary><strong>Exigences de mode à un nœud simple</strong></summary>
 
-Ensure the **`VirtioFS`** file sharing implementation is enabled in the docker settings.
+Assurez-vous que l'implémentation **`VirtioFS`** de partage de fichiers est activée dans les paramètres du docker.
 
 ![](<../../.gitbook/assets/docker-compose-settings (1).png>)
 
-Ensure the following configurations are set at minimum in Docker **Settings** -> **Resources** and are available for use:
+Assurez-vous que les configurations suivantes sont définies au minimum dans Docker **Paramètres** -> **Ressources** et sont disponibles pour utilisation :
 
-**CPUs:** 6
+**CPUS :** 6
 
-**Memory:** 8GB
+**Mémoire :** 8Go
 
-**Swap:** 1 GB
+**Échange :** 1 Go
 
-**Disk Image Size:** 64 GB
+**Taille de l'image du disque :** 64 Go
 
 ![](../../.gitbook/assets/docker-settings.png)
 
-Ensure the **`Allow the default Docker sockets to be used (requires password)`** is enabled in Docker **Settings -> Advanced**.
+Assurez-vous que le **`Autoriser l'utilisation des sockets Docker par défaut (nécessite un mot de passe)`** est activé dans Docker **Paramètres -> Avancé**.
 
 ![](../../.gitbook/assets/docker-socket-setting.png)
 
-**Note:** The image may look different if you are on a different version
+**Note:** L'image peut sembler différente si vous êtes sur une version différente
 
 </details>
 
-#### **Starting and Stopping Node**
+#### **Démarrage et arrêt du nœud**
 
-Before launching the network commands, confirm that Docker is installed and open on your machine. To stop your local node, use the following `npm` or `docker` commands. Before proceeding with this operation, make sure to back up any manually created files in the working directory.
+Avant de lancer les commandes réseau, confirmez que Docker est installé et ouvert sur votre machine. Pour arrêter votre nœud local, utilisez les commandes suivantes `npm` ou `docker`. Avant de procéder à cette opération, assurez-vous de sauvegarder tous les fichiers créés manuellement dans le répertoire de travail.
 
 <details>
 
-<summary><strong>npm commands</strong></summary>
+<summary><strong>commandes npm</strong></summary>
 
 {% code overflow="wrap" %}
 
 ```bash
-# npm command to start the local network and generate accounts in detached mode
+# npm commande pour démarrer le réseau local et générer des comptes en mode détaché
 npm run start -- -d
 
-# npm command to stop
+# npm commande pour arrêter
 npm run stop
 
-# npm command to restart node
-npm run restart
+# npm commande npm pour redémarrer le noeud
+npm run redémarrer
 ```
 
 {% endcode %}
@@ -59,28 +59,28 @@ npm run restart
 
 <details>
 
-<summary><strong>docker commands</strong></summary>
+Les commandes <summary><strong>docker</strong></summary>
 
 ```bash
-# Docker command to start the local network. Does not generate accounts
+# Commande Docker pour démarrer le réseau local. Ne génère pas les comptes
 docker compose up -d
 
-# Docker command to stop services
+# Commande Docker pour arrêter les services
 docker compose stop
 
-# Docker command to restart local network
+# Commande Docker pour redémarrer le réseau local
 docker compose restart
 
-# Docker command to stop local network and remove containers
-docker compose down
+# Commande Docker pour arrêter le réseau local et supprimer les conteneurs
+docker composer vers le bas
 ```
 
 </details>
 
-Alternatively, run `docker compose down -v; git clean -xfd; git reset --hard` to stop the local node and reset it to its original state. The full list of available commands can be found [here](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#commands).
+Alternativement, exécutez `docker compose down -v; git clean -xfd; git reset --hard` pour arrêter le noeud local et le réinitialiser à son état d'origine. La liste complète des commandes disponibles peut être trouvée [here](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#commands).
 
-#### Single Node Mode Diagram
+#### Schéma du mode à un nœud
 
-The following diagram illustrates the architecture and flow of data in single node mode.
+Le diagramme suivant illustre l'architecture et le flux des données en mode noeud unique.
 
-<figure><img src="../../.gitbook/assets/localnet-single-node-diagram.png" alt="" width="563"><figcaption><p>Single node mode diagram</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/localnet-single-node-diagram.png" alt="" width="563"><figcaption><p>Mode nœud unique schéma</p></figcaption></figure>

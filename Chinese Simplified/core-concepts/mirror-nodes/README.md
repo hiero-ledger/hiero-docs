@@ -1,88 +1,88 @@
 ---
-description: Store history and cost-effectively query data
+description: 存储历史记录和具有成本效益的查询数据
 ---
 
-# Mirror Nodes
+# 镜像节点
 
-Mirror nodes provide a way to store and cost-effectively query historical data from the public ledger while minimizing the use of Hedera network resources. Mirror nodes support the Hedera network services currently available and can be used to retrieve the following information:
+镜像节点提供了一个存储和成本效益高的查询公共分类账历史数据的方法，同时尽量减少Hedera网络资源的使用。 镜像节点支持目前可用的Hedera网络服务，可用来检索以下信息：
 
-- Transactions and records
-- Event files
-- Balance files
+- 交易和记录
+- 事件文件
+- 平衡文件
 
-## Understanding Mirror Nodes
+## 了解镜像节点
 
-Hedera Mirror Nodes receive information from Hedera network consensus nodes, either mainnet or testnet, and provide a more effective means to perform:
+Hedera 镜像节点接收来自Hedera 网络协商一致节点的信息，不管是主网还是测试网，并且提供了更有效的操作方式：
 
-- Queries
-- Analytics
-- Audit support
-- Monitoring
+- 查询
+- 分析
+- 审计支助
+- 监测
 
-While mirror nodes receive information from the consensus nodes, they do not contribute to consensus themselves. The trust of Hedera is derived based on the consensus reached by the consensus nodes. That trust is transferred to the mirror nodes using signatures, chain of hashes, and state proofs.
+虽然镜像节点从协商一致的节点获得信息，但它们本身并无助于协商一致。 赫代拉的信任产生于协商一致节点达成的共识。 这种信任使用签名、哈希链和状态证明转移到镜像节点。
 
-To make the initial deployments easier, the mirror nodes strive to take away the burden of running a full Hedera node through the creation of periodic files that contain processed information (such as account balances or transaction records) and have the full trust of the Hedera consensus nodes. The mirror node software reduces the processing burden by receiving pre-constructed files from the network, validating those, populating a database, and providing REST APIs.
+为了使初步部署更加容易， 镜像节点通过创建包含已处理信息(例如帐户余额或交易记录)的定期文件并完全信任Hedera协商一致节点来消除运行完整Hedera节点的负担。 镜像节点软件通过接收来自网络的预构建文件来减轻处理负担，验证那些生成的文件，并提供REST API。
 
-![](../../.gitbook/assets/betamirrornode-overview.jpg)
+![](../../.gitbook/assets/betaimirornode-overview.jpg)
 
-Mirror nodes work by validating the signature files associated with the record, balance, and event files from the consensus nodes that were uploaded to a cloud storage solution from the network.
+通过验证与记录相关的签名文件, 平衡, 镜像节点工作。 和来自共识节点的事件文件已从网络上传到云存储解决方案。
 
-As transactions reach consensus on the Hedera network, either mainnet or testnet, Hedera consensus nodes add the transaction and its associated records to a record file. A record file contains a series of ordered transactions and their associated records. After a given amount of time, a record file is closed and a new one is created. This process repeats as the network continues to receive transactions.
+当交易就Hedera Net或测试网达成共识时， Hedera 协商一致节点将交易及其相关记录添加到记录文件。 记录文件包含一系列订单交易及其相关记录。 在一段时间后，记录文件已关闭，新文件已创建。 当网络继续接收交易时，这个过程重复了。
 
-Once a record file is closed, the consensus nodes generate a signature file. The signature file contains a signature for the corresponding record file’s hash. Along with the signature file of the consensus node, the record file also contains the hash of the previous record file. The former record file can now be verified by matching the hash of the previous record file.
+一旦一个记录文件被关闭，协商一致的节点会生成一个签名文件。 签名文件包含相应记录文件哈希的签名。 除了共识节点的签名文件外，记录文件还包含上一个记录文件的哈希值。 先前的记录文件现在可以通过匹配上一个记录文件的哈希进行验证。
 
-Hedera consensus nodes push new record files and signature files to the cloud storage provider – currently AWS S3 and Google File Storage are supported. Mirror nodes download these files, verify their signatures based on their hashes, and only then make them available to be processed.
+Hedera 协商一致的节点将新记录文件和签名文件推送到云存储提供商——目前支持AWS S3和谷歌文件存储。 镜像节点下载这些文件，根据它们的哈希来验证它们的签名，然后才让它们可以处理。
 
-### Smart Contract Synthetic Logs
+### 智能合同合成日志
 
-Starting with [v0.79](../../networks/release-notes/mirror-node.md#v0.79) of Hedera Mirror Node release, synthetic event logs for Hedera Token Service (HTS) token transactions have been introduced to mimic the behavior of smart contract tokens. Synthetic events are generated for transactions such as:
+从 [v0.79]起(../../networks/release-notes/miror-node.md#v0)。 另见Hedera Mirror Node 发布的第9段。 Hedera Token Service (HTS) 令牌交易的合成事件日志已被引入，以模仿智能合同令牌的行为。 为以下交易生成了合成事件：
 
 - `CryptoTransfer`
-- `CryptoApproveAllowance`
+- `CryptoApprouvealledance`
 - `CryptoDeleteAllowance`
 - `TokenMint`
 - `TokenWipe`
 - `TokenBurn`
 
-This feature enables developers to effectively monitor HTS token activities as if they were smart contract tokens. An example code implementation demonstrating using ethers.js to listen to synthetic events can be found [here](https://github.com/ed-marquez/hedera-example-hts-synthetic-events-sdk-ethers).&#x20
+此功能使开发人员能够有效地监视HTS 令牌活动，就好像它们是智能合约令牌一样。 示例代码实现使用 ethers.js 聆听合成事件可以找到 [here](https://github.com/ed-marquez/hedera-example-hts-synthetic-events-sdk-ethers).&#x20
 
-### REST API from Hedera
+### 来自 Hedera 的REST API
 
-Hedera provides REST APIs to easily query a mirror node that is hosted by Hedera, removing the complexity of having to run your own. Check out the mirror node REST API docs below.
+Hedera 提供REST API，便于查询由Hedera主持的镜像节点，从而消除了运行您自己的复杂程度。 查看下面的镜像节点 REST API 文档。
 
-{% content-ref url="../../sdks-and-apis/rest-api.md" %}
+{% content-ref url="../../sdks-and/apis/rest-api.md" %}
 [rest-api.md](../../sdks-and-apis/rest-api.md)
 {% endcontent-ref %}
 
-### Run a Mirror Node
+### 运行镜像节点
 
-Anyone can run a Hedera Mirror Node by downloading and configuring the software on their computer. By running a mirror node, you are able to connect to the appropriate cloud storage and store account balance files, record files, and event files as described above. Please check out the below links on how to get started.
+任何人都可以通过下载和配置计算机上的软件来运行Hedera 镜像节点。 通过运行镜像节点，您可以连接到适当的云存储和存储帐户平衡文件， 记录文件和上述事件文件。 请查看下面的链接如何开始操作。
 
-{% content-ref url="run-your-own-beta-mirror-node/" %}
-[run-your-own-beta-mirror-node](run-your-own-beta-mirror-node/)
+{% content-ref url="run-your own-beta-miror-node/" %}
+[run-your-own-beta-mirror-node](run-your-own-beta-miror-node/)
 {% endcontent-ref %}
 
 {% content-ref url="one-click-mirror-node-deployment.md" %}
-[one-click-mirror-node-deployment.md](one-click-mirror-node-deployment.md)
+[one-click-mirror-node-deployment.md](单击镜像-节点部署.md)
 {% endcontent-ref %}
 
-## FAQ
+## 常见问题
 
 <details>
 
-<summary>How is data stored in a Hedera Mirror Node? Is it a specific type of database, or does it use a unique data structure?</summary>
+<summary>数据如何存储在赫德拉镜像节点？ 这是一个特定类型的数据库，还是使用一个独特的数据结构？</summary>
 
-Hedera Mirror Nodes use [PostgreSQL](../../support-and-community/glossary.md#postgresql) databases to store the transaction and event data organized in a structure that mirrors the Hedera Network. Once the mirror node receives record files from Hedera Consensus nodes, the data is validated and loaded into the database.&#x20
+Hedera Mirror Nodes use [PostgreSQL](../../support-and-community/glossary.md#postgresql) databases to store the transaction and event data organized in a structure that mirrors the Hedera Network. 镜像节点收到Hedera共识节点的记录文件后，数据将被验证并加载到数据库。&#x20
 
 </details>
 
 <details>
 
-<summary>How do I run my own Hedera Mirror Node? What are the hardware and software requirements?</summary>
+<summary>如何运行我自己的Hedera 镜像节点？ 什么是硬件和软件需要？</summary>
 
-Setting up a Hedera Mirror Node involves both hardware and software components. The requirements can be found [here](run-your-own-beta-mirror-node/).
+设置Hedera 镜像节点涉及硬件和软件组件。 要求可以找到 [here](运行您自己的镜像节点/)。
 
-To run your mirror node, follow the steps in the "[Run Your Own Mirror Node](run-your-own-beta-mirror-node/)" guide.
+要运行您的镜像节点，请按照"[运行您自己的镜像节点](运行您自己的镜像节点/)"指南中的步骤操作。
 
 </details>
 
@@ -90,7 +90,7 @@ To run your mirror node, follow the steps in the "[Run Your Own Mirror Node](run
 
 <summary>Are there costs associated with running a mirror node?</summary>
 
-No, Hedera does not charge for running a mirror node. However, there are costs associated with purchasing the hardware, internet connection, and potential cloud service fees. The hardware and software requirements can be found [here](run-your-own-beta-mirror-node/).
+否，Hedera 不会因为运行镜像节点而收费。 然而，购买硬件、互联网连接和可能的云服务费用都有相关的费用。 硬件和软件要求可以找到 [here](运行您自己的乙型镜像节点/)。
 
 </details>
 
@@ -98,7 +98,7 @@ No, Hedera does not charge for running a mirror node. However, there are costs a
 
 <summary>How do I configure a mirror node and query data?</summary>
 
-You can configure your own Hedera Mirror Node by following the step-by-step instructions provided in the "[How to Configure a Mirror Node and Query Data](../../tutorials/more-tutorials/how-to-configure-a-mirror-node-and-query-specific-data.md)" guide. The guide provides instructions on prerequisites, node setup, configuration, and querying the node. Additionally, you can find more details about retention and transaction and entity filtering in the guide.
+你可以按照"[如何配置镜像节点和查询数据](.)中提供的分步指令来配置你自己的 Hedera 镜像节点。 /../tutorials/more-tutorials/how to configure-a-miror-node-and-query-specify-data.md)”指南。 指南提供关于前提、节点设置、配置和查询节点的说明。 此外，您可以在指南中找到更多关于保留和交易以及实体过滤的详细信息。
 
 </details>
 
@@ -106,6 +106,6 @@ You can configure your own Hedera Mirror Node by following the step-by-step inst
 
 <summary>How can I provide feedback or create an issue to log errors?</summary>
 
-To provide feedback or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide.md) and submit an issue in the Hedera Docs [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
+若要提供反馈或日志错误，请参阅[贡献指南](../../supportand-community/contributing-guide.md)，并在Hedera Docs[GitHub 仓库](https://github.com/hashgraph/hedera-json-rpc-remedy/issues)。
 
 </details>
