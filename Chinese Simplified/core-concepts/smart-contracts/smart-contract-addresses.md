@@ -26,7 +26,7 @@ EVM 合同地址：[`0x86ecca95fecdb515d068975b75eac4357contractd6e86c5`](https:
 
 在Hedera Network, 智能合同也可以通过智能合同ID来确认。 智能合同 ID 是Hedera 网络本机的合同标识符。 智能合同EVM地址和智能合同ID都是通过Hedera交易在Hedera与合同互动时被接受的智能合同标识符。
 
-合同ID示例：`0.0.123`&#x20
+Example Contract ID: `0.0.123`
 
 在某些情况下，EVM地址是合同编号的十六进制编码格式。
 
@@ -34,7 +34,7 @@ EVM 合同地址：[`0x86ecca95fecdb515d068975b75eac4357contractd6e86c5`](https:
 
 当查看合同信息时，你可能会看到Hedera Network Explorers中注意到的两种地址类型，如 [HashScan](https://hashscan.io/)。
 
-<figure><img src="../../.gitbook/assets/contract-hashscan-evm-address-id-example.png" alt=""><figcaption><p>EVM 地址 & 合同编号示例在 HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/contract ID.png" alt=""><figcaption><p>EVM 地址 & 合同编号示例在 HashScan</p></figcaption></figure>
 
 ***
 
