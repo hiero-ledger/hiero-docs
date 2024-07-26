@@ -143,7 +143,7 @@ Comme la valeur du versement dépasse ces seuils, l'expéditeur et le récepteur
 
 **R3**
 
-![](../../../.gitbook/assets/r3.jpeg)
+![](../../../.gitbook/assets/r3.jpg)
 
 **R4**
 
