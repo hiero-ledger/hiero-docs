@@ -1,16 +1,17 @@
-# How to Set Up a Hedera Local Node using the NPM CLI Tool
+# Set Up a Hedera Local Node using the NPM CLI
 
 Hedera is an open-source, public, proof-of-stake network. Its network services offer low and fixed fees, 10k TPS, and instant transaction finality. Learn more about the [Hedera platform and how it works](https://hedera.com/how-it-works).
 
-In this tutorial, we will adopt, set up, and run a Hedera node locally using the [@hashgraph/hedera-local](https://www.npmjs.com/package/@hashgraph/hedera-local) NPM Command Line Interface (CLI) tool with `docker compose`. 
+In this tutorial, we will adopt, set up, and run a Hedera node locally using the [@hashgraph/hedera-local](https://www.npmjs.com/package/@hashgraph/hedera-local) NPM Command Line Interface (CLI) tool with `docker compose`.
 
 > This tutorial is based on the [Hedera Local Node README documentation](https://github.com/hashgraph/hedera-local-node).
 
-> Already familiar with using a cloud service? Check  out the other options for setting up and running the Hedera node locally. See the [Useful resources section](https://docs.google.com/document/d/1gWKWF-fzc0VlKhRhjZhecatHnTXkHy9RQeKfD6Klnak/edit#heading=h.5zlu1j5vb4rk) for more information.
+> Already familiar with using a cloud service? Check out the other options for setting up and running the Hedera node locally. See the [Useful resources section](https://docs.google.com/document/d/1gWKWF-fzc0VlKhRhjZhecatHnTXkHy9RQeKfD6Klnak/edit#heading=h.5zlu1j5vb4rk) for more information.
 
 ## Prerequisites
 
 To get started with this tutorial, ensure that you have the following software installed:
+
 * [Node.js](https://nodejs.org/) >= v14.x (Check version: `node -v`)
 * NPM >= v6.14.17 (Check version: `npm -v`)
 * [Docker](https://www.docker.com/) >= v20.10.x (Check version: `docker -v`)
@@ -18,6 +19,7 @@ To get started with this tutorial, ensure that you have the following software i
 * Hardware: Minimum 16GB RAM
 
 ### Installation
+
 * Node.js and NPM: Refer to the [official installation guide](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs).
 * Docker: See [Docker Setup Guide](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#note) to get docker up and running (note: specific instructions may vary based on the OS).
 
@@ -38,7 +40,7 @@ The command below can be used to install the official release from the [NPM](htt
 npm install @hashgraph/hedera-local -g
 ```
 
-> __Note: This version may not reflect the most recent changes to the main branch of this repository. It also uses a baked in version of the Docker Compose definitions and will not reflect any local changes made to the repository.__
+> **Note: This version may not reflect the most recent changes to the main branch of this repository. It also uses a baked in version of the Docker Compose definitions and will not reflect any local changes made to the repository.**
 
 #### Local development Installation
 
@@ -49,6 +51,7 @@ npm install && npm install -g
 ```
 
 ### Running the Node:
+
 Start the local node (Note: Ensure Docker is running):
 
 ```js
@@ -64,8 +67,8 @@ npm run start
 
 **Other NPM commands:**
 
-* `npm run restart` to restart the network 
-* `npm run stop` to stop the network 
+* `npm run restart` to restart the network
+* `npm run stop` to stop the network
 * `npm run generate-accounts` to generate new accounts - network must be running first
 
 **You should see the following response in the terminal:**
@@ -153,24 +156,26 @@ hedera-local-node % npm run start -- -d
 [Hedera-Local-Node] INFO (CleanUpState) [✔︎] Clean up of mirror node properties finished.
 ```
 
-![Running Hedera Node on Terminal](../../.gitbook/assets/hedera-local-node-npm-cli/01-hedera-local-node-terminal-npm-cli-running.png)
+![Running Hedera Node on Terminal](../../.gitbook/assets/01-hedera-local-node-terminal-npm-cli-running.png)
 
 ## Verify Running Node
 
 There are different ways to verify that a node is running;
+
 * Check Block Number using Hashscan Block Explorer
 * Send cURL request to `getBlockNumber`
 
 ### Check Block Number using Hashscan Block Explorer
+
 Visit the local mirror node explorer endpoint ([http://localhost:8080/devnet/dashboard](http://localhost:8080/devnet/dashboard)) in your web browser. Ensure that `LOCALNET` is selected, as this will show you the Hedera network running within your local network.
 
 Select any of the listed blocks to view the details (Consensus, Block, Transaction Hash, etc) for a particular block.
 
-![Hedera Explorer - View LOCALNET](../../.gitbook/assets/hedera-local-node-npm-cli/02-hedera-local-node-terminal-view-localnet.png)
+![Hedera Explorer - View LOCALNET](../../.gitbook/assets/02-hedera-local-node-terminal-view-localnet.png)
 
-![Hedera Explorer - View LOCALNET Details](../../.gitbook/assets/hedera-local-node-npm-cli/03-hedera-local-node-terminal-view-localnet-details.png)
+![Hedera Explorer - View LOCALNET Details](../../.gitbook/assets/03-hedera-local-node-terminal-view-localnet-details.png)
 
-### Send cURL request to getBlockNumber 
+### Send cURL request to getBlockNumber
 
 Let's verify that we are able to interact with Hedera Testnet using JSON-RPC by issuing an `eth_getBlockByNumber` JSON-RPC request.
 
@@ -227,15 +232,13 @@ hedera-local-node % npm run start -- -d
 
 **Fix**
 
-* **Option 1:**
-Instead of starting another instance of the network, use the `npm run generate-accounts` to generate new accounts for an already started network.
-
-* **Option 2:**
-If you get the above error, ensure that you terminate any existing Docker processes for the local node, and also any other processes that are bound to these port numbers,  before running the npm start command. You can run `docker compose down -v`, `git clean -xfd`, `git reset --hard` to fix this.
+* **Option 1:** Instead of starting another instance of the network, use the `npm run generate-accounts` to generate new accounts for an already started network.
+* **Option 2:** If you get the above error, ensure that you terminate any existing Docker processes for the local node, and also any other processes that are bound to these port numbers, before running the npm start command. You can run `docker compose down -v`, `git clean -xfd`, `git reset --hard` to fix this.
 
 ## Useful Terms
 
 For an in depth explanation of the different terms below, see the [glossary documentation](https://docs.hedera.com/hedera/support-and-community/glossary).
+
 * Accounts list (ED25519 keys)
 * Private keys
 * Public address
@@ -249,9 +252,10 @@ Want to learn how to deploy smart contracts on Hedera? Visit the guide on how to
 In this tutorial, we successfully set up and ran the Hedera local node using the [NPM CLI](https://www.npmjs.com/package/@hashgraph/hedera-local) tool, generated default accounts and solved common errors encountered when running the local node.
 
 ## Useful Resources
+
 * Set and Run a Hedera Node using the [Local Hedera Package](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#using-hedera-local).
 * [Setup node using Docker CLI](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#docker).
 * Use [local network variables](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#network-variables) to interact with Consensus and Mirror Nodes
 * Using [Grafana and Prometheus Endpoints](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#grafana--prometheus).
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Owanate, Technical Writer</p><p><a href="https://github.com/owans">GitHub</a> | <a href="https://https://medium.com/@owanateamachree">Medium</a></p></td><td><a href="https://medium.com/@owanateamachree">https://https://medium.com/@owanateamachree</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Owanate, Technical Writer</p><p><a href="https://github.com/owans">GitHub</a> | <a href="https://https/medium.com/@owanateamachree">Medium</a></p></td><td><a href="https://medium.com/@owanateamachree">https://medium.com/@owanateamachree</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
