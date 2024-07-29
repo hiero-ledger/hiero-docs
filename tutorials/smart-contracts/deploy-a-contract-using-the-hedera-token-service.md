@@ -33,9 +33,9 @@ The HTS.sol will serve as a reference to the contract that was compiled. The HTS
 
 To write a contract using HTS, you will need to add the HTS Solidity support libraries to your project and import them into your contract. Please see the HTS.sol example for reference. The IHederaTokenService.sol will need to be in the same directory as the other two files. An explanation of the functions can be found [here](../../sdks-and-apis/sdks/smart-contracts/hedera-service-solidity-libraries.md).
 
-* [HederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-token-service)
-* [HederaResponseCodes.sol](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile)
-* [IHederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-token-service)
+* [HederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/HederaTokenService.sol)
+* [HederaResponseCodes.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/HederaResponseCodes.sol)
+* [IHederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol)
 
 {% tabs %}
 {% tab title="HTS.sol" %}
