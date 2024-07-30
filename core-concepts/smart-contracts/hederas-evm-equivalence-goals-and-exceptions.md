@@ -6,11 +6,7 @@ While Hedera strives for EVM equivalence, it's important to recognize certain un
 
 ### Network and Security Differences
 
-<table><thead><tr><th width="211">Function</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Network State Data Structure</strong></td><td>Virtual Merkle Tree</td><td>Merkle Patricia Trie</td></tr><tr><td><strong>Hashing Algorithm</strong></td><td>SHA-384</td><td>Keccak-256<strong>*</strong></td></tr><tr><td><strong>Security</strong></td><td>High security with aBFT</td><td>Secure with decentralized PoS network</td></tr></tbody></table>
-
-{% hint style="info" %}
-**\*Note**: Hedera'a EVM supports Keccak-256. Transactions received through `EthereumTransaction` (via the JSON-RPC relay) are hashed using Keccak-256. Only transactions using ED25519 keys through the Hedera API (HAPI) are hashed using SHA-384.
-{% endhint %}
+<table><thead><tr><th width="211">Function</th><th>Hedera</th><th>Ethereum</th></tr></thead><tbody><tr><td><strong>Network State Data Structure</strong></td><td>Virtual Merkle Tree</td><td>Merkle Patricia Trie</td></tr><tr><td><strong>Hashing Algorithm</strong></td><td>SHA-384</td><td>Keccak-256</td></tr><tr><td><strong>Security</strong></td><td>High security with aBFT</td><td>Secure with decentralized PoS network</td></tr></tbody></table>
 
 ### Account and Authorization Differences
 

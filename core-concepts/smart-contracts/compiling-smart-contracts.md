@@ -101,7 +101,7 @@ The exchange rate contract allows you to convert from tinycents to tinybars and 
 
 | Contract Address | Source                                                                                                                                                                                                             |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `0x168`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/exchange-rate](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/exchange-rate) |
+| `0x168`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/exchange-rate-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/exchange-rate-precompile) |
 
 **Example ⬇**
 
@@ -149,7 +149,7 @@ The Hedera Token Service smart contract precompile provides functions to use the
 
 | Contract Address | Source                                                                                                                                                                                         |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0x167`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service) |
+| `0x167`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/hts-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/hts-precompile) |
 
 **Example ⬇**
 
@@ -975,7 +975,7 @@ The Hedera Account Service contract provides functions to interact with the Hede
 
 | Contract Address | Source                                                                                                                                                                                                                 |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0x16a`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-account-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-account-service) |
+| `0x16a`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-account-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/precompile/hedera-account-service) |
 
 #### Example ⬇
 
@@ -1023,7 +1023,7 @@ The `PRNG` system contract allows you to generate a pseudo-random number that ca
 
 | Contract Address | Source                                                                                                                                                                                           |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `0x169`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/pseudo-random-number-generator](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/pseudo-random-number-generator) |
+| `0x169`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/util-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/release/0.8/contracts/util-precompile) |
 
 **Example ⬇**
 
@@ -1054,4 +1054,4 @@ Reference: [HIP-351](https://hips.hedera.com/hip/hip-351).
 
 ## Additional Resources
 
-**➡** [**HTS Precompile Methods**](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/README.md)
+**➡** [**HTS Precompile Methods**](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/precompile/hedera-token-service/README.md)

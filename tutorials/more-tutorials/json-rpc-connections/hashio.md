@@ -6,7 +6,7 @@ description: >-
 
 # Configuring Hashio RPC endpoints
 
-[Hashio](https://www.hashgraph.com/hashio/) is a public RPC endpoint hosted by Swirlds Labs. As a _public_ endpoint, it:
+[Hashio](https://swirldslabs.com/hashio/) is a public RPC endpoint hosted by Swirlds Labs. As a _public_ endpoint, it:
 
 * Is free to use
 * Does not have any sign-up requirements

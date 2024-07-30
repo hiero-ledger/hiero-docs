@@ -165,7 +165,7 @@ JSON_RPC_RELAY_URL = https://testnet.hashio.io/api
 ETH_PRIVATE_KEY = 0x7a9e... [Run create-account.js and paste value of “New private key (RAW EVM)”]
 ```
 
-This example uses the [Hashio instance of the JSON RPC Relay](https://www.hashgraph.com/hashio/), hosted by [Hashgraph](https://www.hashgraph.com/). URLs are also available for the Hedera Mainnet and Previewnet.
+This example uses the [Hashio instance of the JSON RPC Relay](https://swirldslabs.com/hashio/), hosted by Swirlds Labs. URLs are also available for the Hedera Mainnet and Previewnet.
 
 Deploy the contract with the following command:
 

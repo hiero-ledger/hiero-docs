@@ -2,7 +2,7 @@
 
 ## Overview
 
-MetaMask is a popular Ethereum wallet and browser extension that developers can integrate into a variety of third-party applications. MetaMask Snaps is an open-source solution to enhance MetaMask's functionalities beyond its native capabilities. The [Hedera Wallet Snap](https://snaps.metamask.io/snap/npm/hashgraph/hedera-wallet-snap/), developed by [Tuum Tech](https://www.tuum.tech/) and managed by [Hashgraph](https://www.hashgraph.com/), enables users to interact directly with the Hedera network without relying on [Hedera JSON-RPC Relay](https://github.com/hashgraph/hedera-json-rpc-relay), offering Hedera native functionalities like sending HBAR to different accounts and retrieving account information.
+MetaMask is a popular Ethereum wallet and browser extension that developers can integrate into a variety of third-party applications. MetaMask Snaps is an open-source solution to enhance MetaMask's functionalities beyond its native capabilities. The [Hedera Wallet Snap](https://snaps.metamask.io/snap/npm/hashgraph/hedera-wallet-snap/), developed by [Tuum Tech](https://www.tuum.tech/) and managed by [Swirlds Labs](https://swirldslabs.com/), enables users to interact directly with the Hedera network without relying on [Hedera JSON-RPC Relay](https://github.com/hashgraph/hedera-json-rpc-relay), offering Hedera native functionalities like sending HBAR to different accounts and retrieving account information.
 
 ## What is a Snap?
 
