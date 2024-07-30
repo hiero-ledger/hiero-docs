@@ -31,7 +31,7 @@ Use your new account created in the "[Create an account](create-an-account.md)" 
 //Transfer HBAR
 TransactionResponse sendHbar = new TransferTransaction()
      .addHbarTransfer(myAccountId, Hbar.fromTinybars(-1000)) //Sending account
-     .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000)) //Receiving account
+     .addHbarTransfer(newAccountId, evmAddress, Hbar.fromTinybars(1000)) //Receiving account
      .execute(client);
 ```
 {% endtab %}
@@ -44,7 +44,7 @@ TransactionResponse sendHbar = new TransferTransaction()
 //Create the transfer transaction
 const sendHbar = await new TransferTransaction()
      .addHbarTransfer(myAccountId, Hbar.fromTinybars(-1000)) //Sending account
-     .addHbarTransfer(newAccountId, Hbar.fromTinybars(1000)) //Receiving account
+     .addHbarTransfer(newAccountId, evmAddress, Hbar.fromTinybars(1000)) //Receiving account
      .execute(client);
 ```
 {% endtab %}
@@ -58,7 +58,7 @@ const sendHbar = await new TransferTransaction()
 //Transfer hbar from your testnet account to the new account
 transaction := hedera.NewTransferTransaction().
         AddHbarTransfer(myAccountId, hedera.HbarFrom(-1000, hedera.HbarUnits.Tinybar)).
-        AddHbarTransfer(newAccountId,hedera.HbarFrom(1000, hedera.HbarUnits.Tinybar))
+        AddHbarTransfer(newAccountId, evmAddress, hedera.HbarFrom(1000, hedera.HbarUnits.Tinybar))
 
 //Submit the transaction to a Hedera network
 txResponse, err := transaction.Execute(client)
@@ -213,6 +213,8 @@ async function environmentSetup() {
   // Grab your Hedera testnet account ID and private key from your .env file
   const myAccountId = process.env.MY_ACCOUNT_ID;
   const myPrivateKey = process.env.MY_PRIVATE_KEY;
+  
+  // 
 
   // If we weren't able to grab it, we should throw a new error
   if (myAccountId == null || myPrivateKey == null) {

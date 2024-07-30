@@ -15,7 +15,7 @@ To get started with this tutorial, ensure that you have the following software i
 * [Node.js](https://nodejs.org/) >= v14.x (Check version: `node -v`)
 * NPM >= v6.14.17 (Check version: `npm -v`)
 * [Docker](https://www.docker.com/) >= v20.10.x (Check version: `docker -v`)
-* [Docker Compose](https://docs.docker.com/compose/) >= v2.12.2 (Check version: `docker compose version`)
+* [Docker Compose](https://docs.docker.com/compose/) >= v2.12.3 (Check version: `docker compose version`)
 * Hardware: Minimum 16GB RAM
 
 ### Installation

@@ -8,9 +8,9 @@ description: >-
 
 ## Introduction
 
-MetaMask is a widely used Ethereum wallet and browser extension – MetaMask Snaps is an open-source solution designed to enhance the capabilities of this wallet. Snaps are created by developers using JavaScript and enable users to interact with various blockchains, protocols, and [decentralized applications (dApps)](../../support-and-community/glossary.md#decentralized-application-dapp) that are not natively supported by MetaMask. To learn more about Snaps, visit the [MetaMask Snap Guide](https://docs.metamask.io/snaps/).
+MetaMask is a widely used Ethereum wallet and browser extension – MetaMask Snaps is an open-source solution designed to enhance the capabilities of this wallet. Snaps are created by developers using JavaScript and enable users to interact with various blockchains, protocols, and [decentralized applications (dApps)](../../support-and-community/glossary.md#decentralized-application-dapp) that MetaMask does not natively support. To learn more about Snaps, visit the [MetaMask Snap Guide](https://docs.metamask.io/snaps/).
 
-The [Hedera Wallet Snap](https://snaps.metamask.io/snap/npm/hashgraph/hedera-wallet-snap/), developed by [Tuum Tech](https://www.tuum.tech/) and managed by [Swirlds Labs](https://swirldslabs.com/), enables users to interact directly with the Hedera network, offering functionalities like sending HBAR to different accounts and retrieving account information.
+The [Hedera Wallet Snap](https://snaps.metamask.io/snap/npm/hashgraph/hedera-wallet-snap/), developed by [Tuum Tech](https://www.tuum.tech/) and managed by [Hashgraph](https://www.hashgraph.com/), enables users to interact directly with the Hedera network. It offers functionalities like sending HBAR to different accounts and retrieving account information.
 
 **What You Will Learn**
 
@@ -27,7 +27,7 @@ This tutorial will demonstrate how dApp builders and developers can seamlessly i
 * React JS ([Documentation](https://react.dev/))
 * MetaMask ([Documentation](https://docs.metamask.io/wallet/))
 * Hedera Wallet Snap for MetaMask ([Documentation](https://docs.tuum.tech/hedera-wallet-snap/basics/introduction))
-* Hedera JSON-RPC Relay ([Hashio](https://swirldslabs.com/hashio/))
+* Hedera JSON-RPC Relay ([Hashio](https://www.hashgraph.com/hashio/))
 * Ethers JS ([Documentation](https://docs.ethers.org/v6/))
 * Mirror Node REST API ([Learn More](https://hedera.com/blog/how-to-look-up-transaction-history-on-hedera-using-mirror-nodes-back-to-the-basics))
 * Mirror Node Explorer ([HashScan](https://hashscan.io/))
@@ -373,7 +373,7 @@ When the <mark style="background-color:purple;">**Connect Wallet**</mark> button
 The **walletConnectFcn()** function performs the following steps:
 
 1. **Creates an ethers provider**: It initializes an ethers provider using the **Web3Provider** from the [**ethers**](https://docs.ethers.org/v6/) library, which connects to MetaMask. An Ethers provider serves as a bridge between your application and the Hedera network. It allows you to perform actions like sending transactions and querying data.
-2. **Switches to Hedera Testnet**: It determines the **chainId** based on the chosen Hedera network (testnet, previewnet, or mainnet) and sends a **wallet\_addEthereumChain** request to MetaMask to add the corresponding Hedera network. A chain ID is a unique identifier that represents a blockchain network. This is an important step that includes setting the native currency (HBAR) and providing the JSON-RPC and network explorer URLs. For the JSON-RPC provider, this example uses [Hashio](https://swirldslabs.com/hashio/), a community-hosted [JSON-RPC relay](https://github.com/hashgraph/hedera-json-rpc-relay) provided by Swirlds Labs (note that anyone can host their own relay and/or use other commercial providers, like [Arkhia](https://www.arkhia.io/features/#api-services)). For network explorer, [HashScan](https://hashscan.io/) is used. (Keep in mind that HashScan supports [EIP-3091](https://eips.ethereum.org/EIPS/eip-3091), which makes it easy to explore historical data like blocks, transactions, accounts, contracts, and tokens from wallets like MetaMask).
+2. **Switches to Hedera Testnet**: It determines the **chainId** based on the chosen Hedera network (testnet, previewnet, or mainnet) and sends a **wallet\_addEthereumChain** request to MetaMask to add the corresponding Hedera network. A chain ID is a unique identifier that represents a blockchain network. This is an important step that includes setting the native currency (HBAR) and providing the JSON-RPC and network explorer URLs. For the JSON-RPC provider, this example uses [Hashio](https://www.hashgraph.com/hashio/), a community-hosted [JSON-RPC relay](https://github.com/hashgraph/hedera-json-rpc-relay) provided by [Hashgraph](https://www.hashgraph.com/) (note that anyone can host their own relay and/or use other commercial providers, like [Arkhia](https://www.arkhia.io/features/#api-services)). For network explorer, [HashScan](https://hashscan.io/) is used. (Keep in mind that HashScan supports [EIP-3091](https://eips.ethereum.org/EIPS/eip-3091), which makes it easy to explore historical data like blocks, transactions, accounts, contracts, and tokens from wallets like MetaMask).
 3. **Connects and Pairs Account**: The function sends an **eth\_requestAccounts** request to MetaMask to access the user's Hedera account. Upon successful connection, the selected account is returned.
 
 Finally, the **connectWallet()** function in **App.jsx** updates the React state with the connected testnet account and provider information, allowing the dApp to display the connected testnet account information.
