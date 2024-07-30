@@ -6,7 +6,7 @@ Some of the key functions defined in the Hedera Token Service System Contract in
 
 ## Supported
 
-{% @github-files/github-code-block url="https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/HederaTokenService.sol" %}
+{% @github-files/github-code-block url="https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/HederaTokenService.sol" %}
 
 #### Example
 

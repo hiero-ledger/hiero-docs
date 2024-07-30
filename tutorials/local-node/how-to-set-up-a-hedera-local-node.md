@@ -12,7 +12,7 @@ By the end of this tutorial, you'll be equipped to run a Hedera local node and g
 * [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) >= v6.14.17**\*\***
 * Minimum 16GB RAM
 * [Docker](https://www.docker.com/) >= v20.10.x
-* [Docker Compose](https://docs.docker.com/compose/) >= v2.12.3
+* [Docker Compose](https://docs.docker.com/compose/) >= v2.12.2
 * Have Docker running on your machine with the correct configurations.
 
 <details>

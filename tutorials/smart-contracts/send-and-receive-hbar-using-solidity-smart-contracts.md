@@ -100,8 +100,8 @@ main();
 pragma solidity >=0.7.0 <0.9.0;
 
 // Compile with remix for remote imports to work - otherwise keep precompiles locally
-import "https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/HederaTokenService.sol";
-import "https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/HederaResponseCodes.sol";
+import "https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/HederaTokenService.sol";
+import "https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/HederaResponseCodes.sol";
  
 contract hbarToAndFromContract is HederaTokenService{
     //============================================ 
