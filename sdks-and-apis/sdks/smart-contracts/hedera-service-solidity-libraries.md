@@ -4,14 +4,14 @@
 
 Hedera Token Service integration allows you to write token transactions natively in Solidity smart contracts. There are a few **Solidity source files** available to developers.
 
-* [HederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/HederaTokenService.sol)
-* [HederaResponseCodes.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/HederaResponseCodes.sol)
-* [IHederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol)
-* [ExpiryHelper.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/ExpiryHelper.sol)
-* [FeeHelper.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/FeeHelper.sol)
-* [KeyHelper.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/KeyHelper.sol)
+* [HederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/HederaTokenService.sol)
+* [HederaResponseCodes.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/HederaResponseCodes.sol)
+* [IHederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol)
+* [ExpiryHelper.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/ExpiryHelper.sol)
+* [FeeHelper.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/FeeHelper.sol)
+* [KeyHelper.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/KeyHelper.sol)
 
-The Hedera Token Service Solidity file provides the transactions to interact with tokens created on Hedera. The Hedera Response Codes contract provides the response codes associated with network errors. The IHedera Token Service is a supporting library for the Hedera Token Service Solidity file. You can grab these libraries [here](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/hts-precompile) to add to your project and import them to your Solidity contract. Please see the example file below.
+The Hedera Token Service Solidity file provides the transactions to interact with tokens created on Hedera. The Hedera Response Codes contract provides the response codes associated with network errors. The IHedera Token Service is a supporting library for the Hedera Token Service Solidity file. You can grab these libraries [here](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service) to add to your project and import them to your Solidity contract. Please see the example file below.
 
 {% code title="ContractExample.sol" %}
 ```solidity
@@ -31,7 +31,7 @@ int response = HederaTokenService.transferToken(tokenAddress, msg.sender, addres
 {% endcode %}
 
 {% hint style="info" %}
-**Note:** Although the [IHederaTokenService.sol ](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol)file is not imported in the contract, you will need it in your project directory for the supporting libraries to reference.
+**Note:** Although the [IHederaTokenService.sol ](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol)file is not imported in the contract, you will need it in your project directory for the supporting libraries to reference.
 {% endhint %}
 
 ## HederaTokenService.sol API Docs
@@ -39,7 +39,7 @@ int response = HederaTokenService.transferToken(tokenAddress, msg.sender, addres
 ### Create Tokens
 
 {% hint style="info" %}
-[HIP-358](https://hips.hedera.com/hip/hip-358): Token create precompile is live on previewnet and testnet. The [TokenCreateContract](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/TokenCreateContract.sol) example contains four examples of how to create a token using the token create solidity libraries.
+[HIP-358](https://hips.hedera.com/hip/hip-358): Token create precompile is live on previewnet and testnet. The [TokenCreateContract](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/examples/token-create/TokenCreateContract.sol) example contains four examples of how to create a token using the token create solidity libraries.
 {% endhint %}
 
 ### <mark style="color:purple;">`createFungibleToken(token, initialTotalSupply, decimals)`</mark>
@@ -92,7 +92,7 @@ ABI Version: 2
 
 | **Param**        | **Type**                                                                                                                                                     | **Description**             |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
-| `tokenTransfers` | [IHederaTokenService.TokenTransferList\[\] ](https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/IHederaTokenService.sol#L39)memory | The list of token transfers |
+| `tokenTransfers` | [IHederaTokenService.TokenTransferList\[\] ](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol)memory | The list of token transfers |
 
 ### <mark style="color:purple;">`transferToken(token, sender, receiver, amount)`</mark>
 
@@ -455,7 +455,7 @@ Updates the properties of a token including the name, symbol, treasury account, 
 | **Param**   | **Type**                                                                                                                                                 | **Description**                         |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
 | `token`     | address                                                                                                                                                  | The Hedera token ID in Solidity format. |
-| `tokenInfo` | [IHederaTokenService.HederaToken](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The token properties to update.         |
+| `tokenInfo` | [IHederaTokenService.HederaToken](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol) memory | The token properties to update.         |
 
 ### <mark style="color:purple;">`updateTokenExpiryInfo(token, expiryInfo)`</mark>
 
@@ -464,7 +464,7 @@ Update the token expiration time.
 | **Param**    | **Type**                                                                                                                                            | **Description**                         |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
 | `token`      | address                                                                                                                                             | The Hedera token ID in Solidity format. |
-| `expiryInfo` | [IHederaTokenService.Expiry](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The expiry properties of a token.       |
+| `expiryInfo` | [IHederaTokenService.Expiry](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol) memory | The expiry properties of a token.       |
 
 ### <mark style="color:purple;">`updateTokenKeys(token, keys)`</mark>
 
@@ -473,7 +473,7 @@ Update the keys set on a token. The key type is defined in the key parameter.
 | **Param** | **Type**                                                                                                                                                  | **Description**                         |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
 | `token`   | address                                                                                                                                                   | The Hedera token ID in Solidity format. |
-| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The token key type.                     |
+| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol) memory | The token key type.                     |
 
 ### <mark style="color:purple;">`updateTokenKeys(token, keys)`</mark>
 
@@ -482,7 +482,7 @@ Update the keys set on a token. The key type is defined in the key parameter.
 | **Param** | **Type**                                                                                                                                                  | **Description**                         |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
 | `token`   | address                                                                                                                                                   | The Hedera token ID in Solidity format. |
-| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol) memory | The token key type.                     |
+| `keys`    | [IHederaTokenService.TokenKey\[\]](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol) memory | The token key type.                     |
 
 ## Gas Cost
 
