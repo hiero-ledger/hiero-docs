@@ -50,7 +50,7 @@ All fees are subject to change. The fees below reflect a base price for the tran
 
 ### Smart Contract Service
 
-<table><thead><tr><th width="501">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>ContractCreate</td><td>$1.0</td></tr><tr><td>ContractUpdated</td><td>$0.026</td></tr><tr><td>ContractDelete</td><td>$0.007</td></tr><tr><td>ContractCall</td><td>$0.05</td></tr><tr><td>ContractCallLocal</td><td>$0.001</td></tr><tr><td>ContractGetByteCode</td><td>$0.05</td></tr><tr><td>GetBySolidityID</td><td>$0.0001</td></tr><tr><td>ContractGetInfo</td><td>$0.0001</td></tr><tr><td>ContractGetRecords</td><td>$0.0001</td></tr><tr><td>ContractAutoRenew</td><td>$0.026</td></tr></tbody></table>
+<table><thead><tr><th width="501">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>ContractCreate</td><td>$1.0</td></tr><tr><td>ContractUpdate</td><td>$0.026</td></tr><tr><td>ContractDelete</td><td>$0.007</td></tr><tr><td>ContractCall</td><td>$0.05</td></tr><tr><td>ContractCallLocal</td><td>$0.001</td></tr><tr><td>ContractGetByteCode</td><td>$0.05</td></tr><tr><td>GetBySolidityID</td><td>$0.0001</td></tr><tr><td>ContractGetInfo</td><td>$0.0001</td></tr><tr><td>ContractGetRecords</td><td>$0.0001</td></tr><tr><td>ContractAutoRenew</td><td>$0.026</td></tr></tbody></table>
 
 ### Miscellaneous
 
