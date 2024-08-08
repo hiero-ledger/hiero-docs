@@ -229,7 +229,7 @@ const {
   AccountCreateTransaction,
   AccountBalanceQuery,
   TransferTransaction,
-} = require("@hashgraph/sdk
+} = require("@hashgraph/sdk")
 require("dotenv").config();
 
 async function environmentSetup() {
