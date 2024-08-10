@@ -88,7 +88,13 @@ npm install
 npm run build
 ```
 
-(4) Create or edit a file named `.env` in the root directory of this project, with the following fields set:
+(4) Create `.env` in the root directory of this project by copying `.env.example` and naming it `.env`.
+
+```shell
+cp .env.example .env
+```
+
+Then set the following fields:
 
 {% tabs %}
 {% tab title="Hedera Mainnet" %}
