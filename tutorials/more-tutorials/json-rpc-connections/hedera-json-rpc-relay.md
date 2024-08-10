@@ -88,7 +88,7 @@ npm install
 npm run build
 ```
 
-(4) Create `.env` in the root directory of this project by copying `.env.example` and naming it `.env`.
+(4) Create a file named `.env` in the root directory of this project by copying `.env.example` and naming it `.env`.
 
 ```shell
 cp .env.example .env
