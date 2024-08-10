@@ -75,17 +75,17 @@ git clone -b main --single-branch git@github.com:hashgraph/hedera-json-rpc-relay
 
 </details>
 
-(2) Enter the directory that you have cloned, and install dependencies. It is recommended that you have NodeJS version `18` or later for this.
+(2) Enter the directory that you have cloned, and install dependencies. It is recommended that you have NodeJS version `20` or later for this.
 
 ```sh
 cd hedera-json-rpc-relay
 npm install
 ```
 
-(3) Link dependencies within its sub-packages.
+(3) Build the project's sub-packages.
 
 ```sh
-npm run setup
+npm run build
 ```
 
 (4) Create or edit a file named `.env` in the root directory of this project, with the following fields set:
