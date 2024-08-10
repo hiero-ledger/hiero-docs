@@ -18,8 +18,8 @@ Hedera Smart Contract Service Workshop Part 5/6 | Hardhat & EtherJs
 
 ## Prerequisites
 
-* ✅ Complete the [Introduction](00-intro.md) section of this same tutorial.
-* ✅ Optionally, complete the [Hedera SDK JS](01-hederasdkjs.md) section of this tutorial.
+* ✅ Complete the [Introduction](setup.md) section of this same tutorial.
+* ✅ Optionally, complete the [Hedera SDK JS](hedera-sdk-js.md) section of this tutorial.
 
 ## Set up the project
 
