@@ -25,7 +25,7 @@ To ensure accurate conformity with the minimum requirements, please provide node
     * Recommended: 2800 or greater
 * Network Connectivity: Sustained 1Gb/s internet bandwidth via a single 1-Gigabit / 10-Gigabit Ethernet interface
 * Memory: 256 GB PC4-21300 2666MHz DDR4 ECC Registered DIMM or faster (minimum), 320GB or higher PC4-25600 3200MHz (recommended)
-* Storage: It is recommended to mount 240 GB SSD with Raid 1 as the root volume `/` plua provide the NVMe storage via different devices that are mounted to `/opt`. This may not be possible on your hardware, so alternatively all required storage may be allocated to the root volume `/`
+* Storage: It is recommended to mount 240 GB SSD with Raid 1 as the root volume `/` plus provide the NVMe storage via different devices that are mounted to `/opt`. This may not be possible on your hardware, so alternatively all required storage may be allocated to the root volume `/`
   * Minimum: 5TB of SSD NVMe usable storage mounted to `/`
   * Recommended:
     * 2 x 240GB SSD with RAID 1 for OS Storage mounted to `/`
