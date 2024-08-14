@@ -551,7 +551,6 @@ func main() {
 	//Create your testnet client
 	client := hedera.ClientForTestnet()
 	client.SetOperator(myAccountId, myPrivateKey)
-
 	// Set default max transaction fee & max query payment
 	client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
 	client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
