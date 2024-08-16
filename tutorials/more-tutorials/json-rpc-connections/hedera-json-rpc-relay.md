@@ -82,7 +82,7 @@ cd hedera-json-rpc-relay
 npm install
 ```
 
-(3) Build the project's sub-packages.
+(3) Build the project, including its sub-packages.
 
 ```sh
 npm run build
@@ -129,7 +129,7 @@ For example, if your account ID is `0.0.12345`, your private key is `a1b2c3`, an
 ```sh
 HEDERA_NETWORK=testnet
 OPERATOR_ID_MAIN=0.0.12345
-OPERATOR_KEY_MAIN=a1b2c3
+OPERATOR_KEY_MAIN=302e0201...
 CHAIN_ID=0x128
 MIRROR_NODE_URL=https://testnet.mirrornode.hedera.com/
 ```
