@@ -54,7 +54,7 @@ System.out.println("Token metadata update status: " + transactionStatus);
 {% code overflow="wrap" %}
 ```javascript
 // Create the transaction
-const tokenUpdateNftsTx = await new TokenNftsUpdateTransaction()
+const tokenUpdateNftsTx = await new TokenUpdateNftsTransaction()
     .setTokenId(tokenId)
     .setSerialNumbers([nftSerials])
     .setMetadata(newMetadata)

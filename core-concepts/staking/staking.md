@@ -52,9 +52,9 @@ Once the minimum threshold is met, rewards will continue to be distributed to st
 
 In Phase I, the staking reward rate will initially be zero. The Hedera Governing Council will determine when the Hedera ecosystem has reached a minimum viable set of integrations to enable staking rewards. Once this is determined, the council (through CoinCom) will vote to update the reward rate, and subsequently, the mainnet will be updated with the agreed-upon reward rate.
 
-Any account can elect to stake to a node or another account. The **minimum staking period** is the minimum amount of time an account needs to be staked to a consensus node before the account is eligible to earn rewards. The minimum staking period is **one day (24 hours).** The staking period begins at midnight UTC and ends at midnight UTC. The staking period is defined by the Hedera Governing Council. The earned rewards are not transferred to the staked account immediately after an account has been staked for one full staking period. Please see the Staking Reward Distribution section for what scenarios trigger the payment of a reward.
+Any account can elect to stake to a node or another account. The **minimum staking period** is the minimum amount of time an account needs to be staked to a consensus node before the account is eligible to earn rewards. The minimum staking period is **one day (24 hours).** The staking period begins at midnight UTC and ends at midnight UTC. The Hedera Governing Council defines the staking period. The earned rewards are not transferred to the staked account immediately after an account has been staked for one full staking period. Please see the Staking Reward Distribution section for what scenarios trigger the payment of a reward.
 
-Accounts staked for less than the defined minimum staking period are not eligible to earn rewards for that period. Nodes and accounts accumulate stake and rewards per whole HBAR. Fractions are rounded down.
+Accounts staked for less than the defined minimum staking period are not eligible to earn rewards for that period. Nodes and accounts accumulate stake and rewards per whole HBAR. Fractions are rounded down. When a node is deleted, it returns zero rewards.
 
 For a staked account to be eligible to earn rewards, the following must be true:
 

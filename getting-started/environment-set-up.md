@@ -342,7 +342,7 @@ go run hedera_examples.go
 
 ## Step 4: Create your Hedera Testnet client
 
-Create a Hedera Testnet [client](../support-and-community/glossary.md#client) and set the operator information using the testnet account ID and private key for transaction and query fee authorization. The _operator_ is the default account that will pay for the transaction and query fees in HBAR. You will need to sign the transaction or query with the private key of that account to authorize the payment. In this case, the operator ID is your testnet `account ID**.**` and the operator private key is the corresponding testnet account private key.
+Create a Hedera Testnet [client](../support-and-community/glossary.md#client) and set the operator information using the testnet account ID and private key for transaction and query fee authorization. The _operator_ is the default account that will pay for the transaction and query fees in HBAR. You will need to sign the transaction or query with the private key of that account to authorize the payment. In this case, the operator ID is your testnet account ID, and the operator private key is the corresponding testnet account private key.
 
 {% hint style="warning" %}
 To avoid encountering the **`INSUFFICIENT_TX_FEE`** error while conducting transactions, you can adjust the maximum transaction fee limit through the **`.setDefaultMaxTransactionFee()`** method. Similarly, the maximum query payment can be adjusted using the **`.setDefaultMaxQueryPayment()`** method.
@@ -383,7 +383,7 @@ client.setOperator(myAccountId, myPrivateKey);
 client.setDefaultMaxTransactionFee(new Hbar(100));
 
 //Set the maximum payment for queries (in Hbar)
-client.setMaxQueryPayment(new Hbar(50));
+client.setDefaultMaxQueryPayment(new Hbar(50));
 ```
 {% endtab %}
 
@@ -399,7 +399,7 @@ client.setOperator(myAccountId, myPrivateKey);
 client.setDefaultMaxTransactionFee(new Hbar(100));
 
 //Set the maximum payment for queries (in Hbar)
-client.setMaxQueryPayment(new Hbar(50));
+client.setDefaultMaxQueryPayment(new Hbar(50));
 ```
 {% endtab %}
 
@@ -455,11 +455,11 @@ public class HederaExamples {
         //Create your Hedera Testnet client
         
 <strong>        Client client = Client.forTestnet();
-</strong>        client.setOperator(myAccountId, myPrivateKey);
-        
+</strong>        
+        client.setOperator(myAccountId, myPrivateKey);
         // Set default max transaction fee &#x26; max query payment
         client.setDefaultMaxTransactionFee(new Hbar(100)); 
-        client.setMaxQueryPayment(new Hbar(50)); 
+        client.setDefaultMaxQueryPayment(new Hbar(50)); 
         
         System.out.println("Client setup complete.");
     }
@@ -551,7 +551,6 @@ func main() {
 	//Create your testnet client
 	client := hedera.ClientForTestnet()
 	client.SetOperator(myAccountId, myPrivateKey)
-
 	// Set default max transaction fee & max query payment
 	client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
 	client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))

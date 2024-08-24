@@ -44,7 +44,8 @@ In this tutorial, you will be using Hedera SDK JS to interact with HSCS. Specifi
 
 ## Prerequisites
 
-* ✅ Complete the [Introduction](00-intro.md) section of this same tutorial.
+* ✅ Complete the [Setup](setup.md) section of this same tutorial.
+* ✅ Complete the [Solidity](solidity.md) section of this same tutorial.
 
 ## Set up the project
 

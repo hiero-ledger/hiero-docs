@@ -156,7 +156,7 @@ hedera-local-node % npm run start -- -d
 [Hedera-Local-Node] INFO (CleanUpState) [✔︎] Clean up of mirror node properties finished.
 ```
 
-![Running Hedera Node on Terminal](../../.gitbook/assets/hedera-local-node-npm-cli/01-hedera-local-node-terminal-npm-cli-running.png)
+![Running Hedera Node on Terminal](../../.gitbook/assets/01-hedera-local-node-terminal-npm-cli-running.png)
 
 ## Verify Running Node
 
@@ -171,9 +171,9 @@ Visit the local mirror node explorer endpoint ([http://localhost:8080/devnet/das
 
 Select any of the listed blocks to view the details (Consensus, Block, Transaction Hash, etc) for a particular block.
 
-![Hedera Explorer - View LOCALNET](../../.gitbook/assets/hedera-local-node-npm-cli/02-hedera-local-node-terminal-view-localnet.png)
+![Hedera Explorer - View LOCALNET](../../.gitbook/assets/02-hedera-local-node-terminal-view-localnet.png)
 
-![Hedera Explorer - View LOCALNET Details](../../.gitbook/assets/hedera-local-node-npm-cli/03-hedera-local-node-terminal-view-localnet-details.png)
+![Hedera Explorer - View LOCALNET Details](../../.gitbook/assets/03-hedera-local-node-terminal-view-localnet-details.png)
 
 ### Send cURL request to getBlockNumber
 

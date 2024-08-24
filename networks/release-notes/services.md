@@ -6,15 +6,150 @@ description: Hedera Services release information
 
 Please visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
-## [v0.52](https://github.com/hashgraph/hedera-services/releases)
+## Release 0.53
 
 {% hint style="info" %}
-**MAINNET UPDATE SCHEDULED: AUGUST 14, 2024**
+**MAINNET UPDATE SCHEDULED: SEPTEMBER 11, 2024**
 {% endhint %}
 
 {% hint style="info" %}
+**TESTNET UPDATE SCHEDULED: AUGUST 28, 2024**
+{% endhint %}
+
+### [Build 0.53.1](https://github.com/hashgraph/hedera-services/releases/tag/v0.53.1)
+
+#### What's changed
+
+* fix: change order of descriptor variables by [@lpetrovic05](https://github.com/lpetrovic05) in [#15016](https://github.com/hashgraph/hedera-services/pull/15016)
+
+### [Build 0.53.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.53.0)
+
+#### What's changes
+
+* docs: 13690 Added a design doc for `Ledger State API` by [@imalygin](https://github.com/imalygin) in [#13730](https://github.com/hashgraph/hedera-services/pull/13730)
+* chore: update Gradle to 8.8 / setup-gradle to v3.4.2 by [@jjohannes](https://github.com/jjohannes) in [#13757](https://github.com/hashgraph/hedera-services/pull/13757)
+* chore: Cleanup obsolete `test-clients` code and resources by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#14050](https://github.com/hashgraph/hedera-services/pull/14050)
+* docs: update token reject design doc by [@MiroslavGatsanoga](https://github.com/MiroslavGatsanoga) in [#14061](https://github.com/hashgraph/hedera-services/pull/14061)
+* fix: passing upgrade `@HapiTest` by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13992](https://github.com/hashgraph/hedera-services/pull/13992)
+* feat: Ensure overwritten operations check for sufficient gas first by [@lukelee-sl](https://github.com/lukelee-sl) in [#11441](https://github.com/hashgraph/hedera-services/pull/11441)
+* test: HIP-904 Create HAPI tests for a hollow account on an alias on which we have a deleted account by [@zhpetkov](https://github.com/zhpetkov) in [#14036](https://github.com/hashgraph/hedera-services/pull/14036)
+* feat: HIP-904 Charge automatic associations during `CryptoTransfer` by [@Neeharika-Sompalli](https://github.com/Neeharika-Sompalli) in [#14107](https://github.com/hashgraph/hedera-services/pull/14107)
+* chore: inline pces proposal 2.0 by [@cody-littley](https://github.com/cody-littley) in [#14056](https://github.com/hashgraph/hedera-services/pull/14056)
+* feat: implement HIP-632 `isAuthorizedRaw` method by [@david-bakin-sl](https://github.com/david-bakin-sl) in [#14130](https://github.com/hashgraph/hedera-services/pull/14130)
+
+**➡ See the full list of changes** [**here**](https://github.com/hashgraph/hedera-services/releases/tag/v0.53.0)**.**\
+
+
+## Release 0.52
+
+### Release Highlights
+
+[**HIP-632**](https://hips.hedera.com/hip/hip-632)
+
+#### isAuthorizedRaw Functionality
+
+* Accepts three parameters:
+  * `address`
+  * `messageHash`
+  * `signatureBlob`
+* Validates the provided address (Hedera Account ID or virtual address)
+* Determines signature type based on `signatureBlob` length:
+  * 65 bytes: ECDSA
+  * 64 bytes: ED25519
+
+#### ECDSA Signature Handling
+
+* Extracts `v`, `r`, and `s` components
+* Runs ECRECOVER to recover signing address
+* Compares result with the account's virtual addresses
+
+#### ED25519 Signature Handling
+
+* Retrieves Hedera address
+* Checks for single associated key on account
+* Verifies signature against message hash and account key
+
+#### Benefits
+
+* Similar functionality to Ethereum's ECRECOVER precompile
+* Supports both ECDSA and ED25519 signature verification
+* Works with Hedera Account IDs and virtual addresses
+* Simplifies signature verification in smart contracts
+* Streamlines transaction authentication within contracts
+* Enhances Hedera-Ethereum authorization flow compatibility
+* Improves developer experience with familiar authorization mechanism
+
+#### [HIP 904](https://hips.hedera.com/hip/hip-904)
+
+#### TokenRect Functionality
+
+* Allows users to reject undesired tokens
+* Transfers thefull balance of one or more tokens from the requesting account to the treasury
+* Supports rejection of both fungible and non-fungible tokens
+* Handles up to 10 token rejections in a single transaction
+* Bypasses custom fees and royalties defined for the rejected tokens
+
+#### Benefits of TokenReject
+
+* Enables users to remove unwanted tokens from their accounts
+* Protects users from potential scams or unwanted airdrops
+* Allows rejection of tokens regardless of how they were acquired (manual or automatic association)
+* Helps users manage their token holdings more effectively
+* Prevents users from being forced to pay exorbitant or potentially malicious fees to remove tokens
+* Maintains account association with the token, allowing for future transactions if desired
+* Provides a simple mechanism for users to clean up their accounts
+* Enhances user control over their token portfolio
+* Improves overall user experience in token management
+
+### [Build 0.52.2](https://github.com/hashgraph/hedera-services/releases/tag/v0.52.2)
+
+{% hint style="success" %}
+**MAINNET UPDATE SCHEDULED: AUGUST 21, 2024**
+{% endhint %}
+
+{% hint style="success" %}
+**TESTNET UPDATE SCHEDULED: AUGUST 14, 2024**
+{% endhint %}
+
+#### What's Changed
+
+* chore(0.52): updates the buildkit and docker daemon configuration to use the registry mirror by [@nathanklick](https://github.com/nathanklick) in [#14777](https://github.com/hashgraph/hedera-services/pull/14777)
+* fix: immediately finalize transfer lists for scheduled crypto transfer by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#14799](https://github.com/hashgraph/hedera-services/pull/14799)
+
+### [Build 0.52.1](https://github.com/hashgraph/hedera-services/releases/tag/v0.52.1)
+
+#### What's Changed
+
+* ci: fix gradle publish failures in release-0.52 for hedera.com.evm by [@rbarkerSL](https://github.com/rbarkerSL) in [#14513](https://github.com/hashgraph/hedera-services/pull/14513)
+* fix: 14489 cherry pick docker rate limit fix in release052 by [@rbarkerSL](https://github.com/rbarkerSL) in [#14490](https://github.com/hashgraph/hedera-services/pull/14490)
+* fix(bug): Removed daemon config changes ([#14599](https://github.com/hashgraph/hedera-services/pull/14599)) by [@rbarkerSL](https://github.com/rbarkerSL) in [#14602](https://github.com/hashgraph/hedera-services/pull/14602)
+* fix: cherry pick misc fixes by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#14609](https://github.com/hashgraph/hedera-services/pull/14609)
+
+### [Build 0.52.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.52.0)
+
+{% hint style="success" %}
 **TESTNET UPDATE SCHEDULED: JULY 31, 2024**
 {% endhint %}
+
+#### What's Changed
+
+* The `accounts.maxNumber` and `nfts.MaxAllowedMints` values both remain at 20 million for this release
+* feat: extract `HederaNetwork` interface with initial `SubProcessNetwork` impl by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#13540](https://github.com/hashgraph/hedera-services/pull/13540)
+* build: make annotation library dependencies transitive by [@jjohannes](https://github.com/jjohannes) in [#13643](https://github.com/hashgraph/hedera-services/pull/13643)
+* chore: Address compiler warnings in LoggerApiSpecAssertions by [@jjohannes](https://github.com/jjohannes) in [#13644](https://github.com/hashgraph/hedera-services/pull/13644)
+* chore: disabled new backpressure via settings by [@cody-littley](https://github.com/cody-littley) in [#13635](https://github.com/hashgraph/hedera-services/pull/13635)
+* chore: Add `FakePlatform` and `FakeServicesRegistry` by [@Neeharika-Sompalli](https://github.com/Neeharika-Sompalli) in [#13549](https://github.com/hashgraph/hedera-services/pull/13549)
+* docs: File Service design doc by [@derektriley](https://github.com/derektriley) in [#13615](https://github.com/hashgraph/hedera-services/pull/13615)
+* build: (de)activate selection of javac lint features by [@jjohannes](https://github.com/jjohannes) in [#11838](https://github.com/hashgraph/hedera-services/pull/11838)
+* fix(reconnect): use AtomicLong for anticipatedMessages counter by [@anthony-swirldslabs](https://github.com/anthony-swirldslabs) in [#13650](https://github.com/hashgraph/hedera-services/pull/13650)
+* feat: Move to fully connected network by [@kfa-aguda](https://github.com/kfa-aguda) in [#13010](https://github.com/hashgraph/hedera-services/pull/13010)
+* docs: add design document for HIP-904 token cancel airdrop transaction by [@MiroslavGatsanoga](https://github.com/MiroslavGatsanoga) in [#12787](https://github.com/hashgraph/hedera-services/pull/12787)
+
+**➡ See the full list of changes** [**here**](https://github.com/hashgraph/hedera-services/releases/tag/v0.52.0)**.**
+
+### **Performance Results**
+
+<figure><img src="../../.gitbook/assets/‎0.52_Performance Measurement Results_Extract.‎001.png" alt=""><figcaption></figcaption></figure>
 
 ## [v0.51](https://github.com/hashgraph/hedera-services/releases/tag/v0.51.5)
 
@@ -30,14 +165,14 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 
 #### [HIP 206](https://hips.hedera.com/hip/hip-206)
 
-**Functionality:**
+**Functionality**
 
 * Defines a new function to the Hedera Token Service system contract that allows for the atomic transfer of HBAR, fungible tokens and non-fungible tokens.
   * Function cryptoTransfer(TransferList transferList,TokenTransferList\[] tokenTransfer)
 * Exposes an existing HAPI call via smart contracts.
 * Transfer respects granted allowances. &#x20;
 
-**Benefits:**
+**Benefits**
 
 * Enables native royalty support on the EVM since native $hbar can now be transferred using spending allowances
 * Direct interaction with HBAR and HTS tokens
@@ -48,14 +183,14 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 
 #### [HIP 906](https://hips.hedera.com/hip/hip-906)
 
-**Functionality:**
+**Functionality**
 
 * Introduces a new Hedera Account Service system contract.
 * Enables querying and granting approval of HBAR to a spender account from smart contracts code
   * hbarAllowance, hbarApprove
 * Developers do not have to context switch out of smart contract code
 
-**Benefits:**
+**Benefits**
 
 * Introduces new account proxy contract for HBAR allowances
 * Enables grant, retrieve, and manage HBAR allowances within smart contracts

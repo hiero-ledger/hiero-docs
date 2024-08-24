@@ -4,9 +4,31 @@ description: Hedera mirror node release notes
 
 # Hedera Mirror Node
 
-For the latest versions supported on each network please visit the Hedera status [page](https://status.hedera.com/).
+For the latest versions supported on each network, please visit the Hedera status [page](https://status.hedera.com/).
 
 ## Latest Releases
+
+## [v0.110.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.110.0)
+
+[HIP-968](https://hips.hedera.com/hip/hip-968) adds the ability to query for tokens by name. The `/api/v1/tokens` endpoint gains a new `name` query parameter that returns one or more tokens that match a subset of the token name. Searches are case-insensitive and can match any part of the name. Note that it cannot be combined with the `account.id` or `token.id` parameters and pagination is not supported.
+
+[HIP-1008](https://hips.hedera.com/hip/hip-1008) adds a `transaction.hash` query parameter to `/api/v1/contracts/results/logs`. This makes it easier for Ethereum tools like Hardhat and Metamask to retrieve transaction receipts for HTS operations.
+
+[HIP-869](https://hips.hedera.com/hip/hip-869) dynamic address book continues in this release. The design was updated for the new `admin_key` field and support was added for the new `NodeCreate`, `NodeUpdate` and `NodeDelete` transactions.
+
+### Upgrading
+
+This release requires the [pg\_trgm](https://www.postgresql.org/docs/current/pgtrgm.html) PostgreSQL extension to be installed to support querying for tokens by name. Failure to install the extension before upgrading the mirror node will cause the importer to fail on startup. First, verify with your SQL provider that it supports the `pg_trgm` extension. Then run the following SQL on the `mirror_node` database as the owner:
+
+```
+create extension if not exists pg_trgm;
+```
+
+## [v0.109.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.109.0)
+
+This release adds support for the `TokenReject` transaction from [HIP-904 Frictionless Airdrops](https://hips.hedera.com/hip/hip-904). Similarly, support for unlimited max automatic token associations from HIP-904 was added to the `/api/v1/contracts/call` API.
+
+There were a number of other notable bug fixes and performance optimizations. Please check the full changelog below for further details.
 
 ## [v0.108.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.108.0)
 

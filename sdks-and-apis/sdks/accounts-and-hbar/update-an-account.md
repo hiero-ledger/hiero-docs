@@ -10,31 +10,28 @@ A transaction that updates the properties of an existing account. The network wi
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
-* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate the cost of your transaction fee.
 
 **Transaction Signing Requirements**
 
-* The account key(s) are required to sign the transaction
-* If you are updating the keys on the account the OLD KEY and NEW KEY must sign
-  * If either is a key list then the key list keys are all required to sign
-  * If either is a threshold key, the threshold value is required to sign
-* If you do not have the required signatures, the network will throw an INVALID\_SIGNATURE error
+* The account key(s) are required to sign the transaction.
+* If you are updating the keys on the account, the OLD KEY and NEW KEY must sign.
+  * If either is a key list, the key list keys are all required to sign.
+  * If either is a threshold key, the threshold value is required to sign.
+* If you do not have the required signatures, the network will throw an `INVALID_SIGNATURE` error.
+
+#### Maximum Auto-Associations and Fees
+
+Accounts have a property, `maxAutoAssociations`, and the property's value determines the maximum number of automatic token associations allowed.
+
+<table><thead><tr><th width="159" align="center">Property Value</th><th>Description</th></tr></thead><tbody><tr><td align="center"><code>0</code></td><td>Automatic <strong>token</strong> associations or <a data-footnote-ref href="#user-content-fn-1"><strong>token airdrops</strong></a> are not allowed, and the account must be manually associated with a token. This also applies if the value is less than or equal to <code>usedAutoAssociations</code>.</td></tr><tr><td align="center"><code>-1</code></td><td>The number of automatic <strong>token</strong> associations an account can have is unlimited. <code>-1</code> is the default value for new automatically-created accounts. [NOT ENABLED] </td></tr><tr><td align="center"><code>> 0</code></td><td>If the value is a positive number (number greater than 0), the number of automatic token associations an account can have is limited to that number. </td></tr></tbody></table>
+
+Reference: [HIP-904](https://hips.hedera.com/hip/hip-904)
 
 ### Methods
 
-| Method                                            | Type      | Requirement |
-| ------------------------------------------------- | --------- | ----------- |
-| `setAccountId(<accountId>)`                       | AccountId | Required    |
-| `setKey(<key>)`                                   | Key       | Optional    |
-| `setReceiverSignatureRequired(<boolean>)`         | Boolean   | Optional    |
-| `setMaxAutomaticTokenAssociations(<amount>)`      | int       | Optional    |
-| `setAccountMemo(<memo>)`                          | String    | Optional    |
-| `setAutoRenewPeriod(<duration>)`                  | Duration  | Optional    |
-| `setStakedAccountId(<stakedAccountId>)`           | AccountId | Optional    |
-| `setStakedNodeId(<stakedNodeId>)`                 | long      | Optional    |
-| `setDeclineStakingReward(<declineStakingReward>)` | boolean   | Optional    |
-| `setExpirationTime(<expirationTime>)`             | Instant   | Disabled    |
+<table><thead><tr><th width="507.3333333333333">Method</th><th width="114">Type</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setAccountId(&#x3C;accountId>)</code></td><td>AccountId</td><td>Required</td></tr><tr><td><code>setKey(&#x3C;key>)</code></td><td>Key</td><td>Optional</td></tr><tr><td><code>setReceiverSignatureRequired(&#x3C;boolean>)</code></td><td>Boolean</td><td>Optional</td></tr><tr><td><code>setMaxAutomaticTokenAssociations(&#x3C;amount>)</code></td><td>int</td><td>Optional</td></tr><tr><td><code>setAccountMemo(&#x3C;memo>)</code></td><td>String</td><td>Optional</td></tr><tr><td><code>setAutoRenewPeriod(&#x3C;duration>)</code></td><td>Duration</td><td>Optional</td></tr><tr><td><code>setStakedAccountId(&#x3C;stakedAccountId>)</code></td><td>AccountId</td><td>Optional</td></tr><tr><td><code>setStakedNodeId(&#x3C;stakedNodeId>)</code></td><td>long</td><td>Optional</td></tr><tr><td><code>setDeclineStakingReward(&#x3C;declineStakingReward>)</code></td><td>boolean</td><td>Optional</td></tr><tr><td><code>setExpirationTime(&#x3C;expirationTime>)</code></td><td>Instant</td><td>Disabled</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -120,7 +117,7 @@ println("The transaction consensus status is ", transactionStatus)
 
 Return the properties of an account create transaction.
 
-<table><thead><tr><th width="362.3333333333333">Method</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>getKey()</code></td><td>Key</td><td>Returns the public key on the account</td></tr><tr><td><code>getInitialBalance()</code></td><td>Hbar</td><td>Returns the initial balance of the account</td></tr><tr><td><code>getReceiverSignatureRequired()</code></td><td>boolean</td><td>Returns whether the receiver signature is required or not</td></tr><tr><td><code>getExpirationTime()</code></td><td>Instant</td><td>Returns the expiration time</td></tr><tr><td><code>getAccountMemo()</code></td><td>String</td><td>Returns the account memo</td></tr><tr><td><code>getDeclineStakingReward()</code></td><td>boolean</td><td>Returns whether or not the account is declining rewards</td></tr><tr><td><code>getStakedNodeId()</code></td><td>long</td><td>Returns the node ID the account is staked to</td></tr><tr><td><code>getStakedAccountId()</code></td><td>AccountId</td><td>Returns the account ID the node is staked to</td></tr><tr><td><code>getAutoRenewPeriod()</code></td><td>Duration</td><td>Returns the auto renew period on the account</td></tr></tbody></table>
+<table><thead><tr><th width="362.3333333333333">Method</th><th width="113">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>getKey()</code></td><td>Key</td><td>Returns the public key on the account</td></tr><tr><td><code>getInitialBalance()</code></td><td>Hbar</td><td>Returns the initial balance of the account</td></tr><tr><td><code>getReceiverSignatureRequired()</code></td><td>boolean</td><td>Returns whether the receiver signature is required or not</td></tr><tr><td><code>getExpirationTime()</code></td><td>Instant</td><td>Returns the expiration time</td></tr><tr><td><code>getAccountMemo()</code></td><td>String</td><td>Returns the account memo</td></tr><tr><td><code>getDeclineStakingReward()</code></td><td>boolean</td><td>Returns whether or not the account is declining rewards</td></tr><tr><td><code>getStakedNodeId()</code></td><td>long</td><td>Returns the node ID the account is staked to</td></tr><tr><td><code>getStakedAccountId()</code></td><td>AccountId</td><td>Returns the account ID the node is staked to</td></tr><tr><td><code>getAutoRenewPeriod()</code></td><td>Duration</td><td>Returns the auto renew period on the account</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -165,3 +162,5 @@ accountKey := transaction.GetKey()
 ```
 {% endtab %}
 {% endtabs %}
+
+[^1]: 

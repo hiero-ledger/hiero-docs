@@ -75,20 +75,26 @@ git clone -b main --single-branch git@github.com:hashgraph/hedera-json-rpc-relay
 
 </details>
 
-(2) Enter the directory that you have cloned, and install dependencies. It is recommended that you have NodeJS version `18` or later for this.
+(2) Enter the directory that you have cloned, and install dependencies. It is recommended that you have NodeJS version `20` or later for this.
 
 ```sh
 cd hedera-json-rpc-relay
 npm install
 ```
 
-(3) Link dependencies within its sub-packages.
+(3) Build the project, including its sub-packages.
 
 ```sh
-npm run setup
+npm run build
 ```
 
-(4) Create or edit a file named `.env` in the root directory of this project, with the following fields set:
+(4) Create a file named `.env` in the root directory of this project by copying `.env.example` and naming it `.env`.
+
+```shell
+cp .env.example .env
+```
+
+Then set the following fields:
 
 {% tabs %}
 {% tab title="Hedera Mainnet" %}
@@ -114,16 +120,16 @@ For either **Previewnet or Testnet** you may use the Hedera Portal. See [Hedera 
 Note that setting up a **Mainnet** account and funding it is out of scope for this article.
 {% endhint %}
 
-(5a) Copy your account ID value into the `.env` file in the `OPERATOR_ID_MAIN` field.
+(5a) Copy your **Account ID** value into the `.env` file in the `OPERATOR_ID_MAIN` field.
 
-(5b) Copy your account's private key into the `.env` file in the `OPERATOR_KEY_MAIN` field.
+(5b) Copy your account's **DER Encoded Private Key** into the `.env` file in the `OPERATOR_KEY_MAIN` field.
 
-For example, if your account ID is `0.0.12345`, your private key is `0xa1b2c3`, and you are connecting to Testnet, the `.env` file should look like the following.
+For example, if your account ID is `0.0.12345`, your private key is `a1b2c3`, and you are connecting to Testnet, the `.env` file should look like the following.
 
 ```sh
 HEDERA_NETWORK=testnet
 OPERATOR_ID_MAIN=0.0.12345
-OPERATOR_KEY_MAIN=0xa1b2c3
+OPERATOR_KEY_MAIN=302e0201...
 CHAIN_ID=0x128
 MIRROR_NODE_URL=https://testnet.mirrornode.hedera.com/
 ```

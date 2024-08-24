@@ -12,10 +12,6 @@ For friendly, language-specific access to the Hedera API and its network service
 
 Hedera and the developer community contribute to and maintain Hedera Services Code SDKs across various languages.
 
-{% hint style="warning" %}
-**Note:** v1 of the Java and JavaScript SDKs are deprecated and support will be discontinued after October 2021. Please install the latest 2.x version or migrate from v1 to the latest 2.x version. You can reference the migration documentation titled "MIGRATING\_V1" within each repository.
-{% endhint %}
-
 {% hint style="info" %}
 **Note:** The Hedera JavaScript SDK supports React Native with Expo on Android devices and Android emulators. It does not currently support React Native Bare.
 {% endhint %}

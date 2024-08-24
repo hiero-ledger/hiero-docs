@@ -38,7 +38,7 @@ import java.util.concurrent.TimeoutException;
 
 {% tab title="JavaScript" %}
 ```javascript
-const { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, Hbar } = require("@hashgraph/sdk");
+const { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, TransferTransaction, Hbar } = require("@hashgraph/sdk");
 require("dotenv").config();
 ```
 {% endtab %}
