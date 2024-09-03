@@ -1,4 +1,4 @@
-redirects:  
+redirects:
     docs/hashgraph-overview: core-concepts/hashgraph-consensus-algorithms/README.md
     getting-started/hcs-submit-your-first-message: tutorials/hcs-submit-your-first-message.md
     docs/hedera-api: sdks-and-apis/hedera-api.md
@@ -90,3 +90,4 @@ redirects:
     testnet: networks/testnet.md
     testnet/testnet-access: networks/testnet/testnet-access.md
     testnet/testnet-nodes: networks/testnet/testnet-nodes.md
+    tutorials/hello-world/hfs-files: tutorials/hello-world/README.md
