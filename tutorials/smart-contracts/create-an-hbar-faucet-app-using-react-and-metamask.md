@@ -10,8 +10,6 @@ This tutorial will show you how to create a Hedera React app using TypeScript an
 
 <summary>Project Repos</summary>
 
-The complete TypeScript project can be found on GitHub [here](https://github.com/a-ridley/hbar-faucet-for-metamask).
-
 The complete JavaScript project can be found on GitHub [here](https://github.com/a-ridley/hbar-faucet-for-metamask-JS).
 
 </details>
@@ -229,7 +227,7 @@ export default function Home() {
         variant="h4"
         color="white"
       >
-        Let's buidl a dApp on Hedera
+        Let's build a dApp on Hedera
       </Typography>
     </Stack>
   )
@@ -325,12 +323,16 @@ Once we’ve set up our context, we use it to share the application state throug
 Add the following code to the top of the file `src/components/Navbar.tsx`:
 
 ```typescript
+import { GlobalAppContext } from "../contexts/GlobalAppContext"
+import { useContext } from 'react'; 
+import { connectToMetamask } from "../services/metamaskServices"
+
 export default function NavBar() {
   // use the GlobalAppContext to keep track of the metamask account connection
   const { metamaskAccountAddress, setMetamaskAccountAddress } = useContext(GlobalAppContext);
 ```
 
-Next, we will create a new function to connect to MetaMask and store the wallet address in the GlobalAppContext.
+Next, we will create a new function before the return statement to connect to MetaMask and store the wallet address in the GlobalAppContext.
 
 ```typescript
 const retrieveWalletAddress = async () => {
@@ -343,7 +345,7 @@ const retrieveWalletAddress = async () => {
   }
 ```
 
-Now we can add an onClick to our button and change the text to say 'Connect to MetaMask\`. onClick will call retrieveWalletAddress.
+Now we can enhance the existing code in <Button> by adding an onClick, and by changing the text to say 'Connect to MetaMask\`. onClick will call retrieveWalletAddress.
 
 Your completed button code will look like this:
 
@@ -392,7 +394,7 @@ Your completed button code will look like this:
   		variant="h4"
   		color="white"
 	>
-  	  Let's buidl a dApp on Hedera
+  	  Let's build a dApp on Hedera
 	</Typography>
 	<Button
   	  variant="contained"
