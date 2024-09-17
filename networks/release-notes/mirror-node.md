@@ -8,6 +8,28 @@ For the latest versions supported on each network, please visit the Hedera statu
 
 ## Latest Releases
 
+## [V0.113.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.113.0)
+
+Full ingest support for the new [HIP-904](https://hips.hedera.com/hip/hip-904) token airdrop transactions was implemented. In the future, two new airdrop REST APIs will be added to support querying for outstanding and pending airdrops.
+
+A major focus of this release was to finalize our Citus database integration. Transaction state proof performance was optimized by reducing the set of partitions to scan for multiple tables. A similar optimization when querying the `record_file` table improved the performance of multiple contract results and logs APIs. The biggest change in terms of time and data was a reworking of the transaction table indexes for Citus that improved the performance of `/api/v1/accounts/{id}` and `/api/v1/transactions?account.id` when low volume accounts were searched. The entity list endpoints like `/api/v1/accounts`, `/api/v1/contracts`, etc. saw an increase to their max age to offload their response to CDNs at the cost of some staleness in data.
+
+As mentioned last release, the web3 tests continue to see a large refactoring effort. This release closes 14 tasks associated with the project and should be fully complete in the near future.
+
+## [v0.112.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.112.0)
+
+Our sharded database, [Citus](https://www.citusdata.com/), saw some major performance improvements that should make it suitable for a replacement for our production instances. Transaction hash look-ups saw a speed boost due to the addition of a new `distribution_id` column used to target the appropriate shard of data. A performance bottleneck caused by the use of SSL for communication between the coordinator and workers was identified and remediated. This change alone provides dramatic improvements across the board. The coordinator connection pool to the workers saw a boost as well, again improve overall performance. After seeing some memory problems due to the increase in query volume, we adjusted the `worker_mem` lower to a more appropriate level. Finally, we enabled topic message lookup in the REST API to improve the performance of the topic message endpoints.
+
+This release continues the theme of improving test maintainability. There were a large number of tasks that refactored the web3 tests to use the web3j contract wrappers. This change will also help reduce the runtime of the tests and increase our security by not storing solidity binary files in source control. Similarly, a new `RecordFileDownloaderPerformanceTest` was added to provide a foundation for further performance testing. This class can bulk generate record, sidecar, and signature files using a declarative configuration and feed the data into the importer to test its performance. Such capability will be used in the future to perform 10K TPS performance testing in CI to improve our release velocity.
+
+## [v0.111.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.111.0)
+
+This release updates the accounts REST API for [HIP-540](https://hips.hedera.com/HIP/hip-540.html). Immutable keys will now return `null` instead of `0x3200` to match the behavior of the `CryptoGetInfoQuery` HAPI query.
+
+Initial support for [HIP-869](https://hips.hedera.com/HIP/hip-869.html) dynamic address book was added. The importer can now ingest the new `NodeCreate`, `NodeUpdate`, and `NodeDelete` HAPI transactions. In this phase, these transactions do not update the address book information the mirror node uses to verify stream files or the data returned via its APIs. The one exception is the new `admin_key` that is used to update the internal mirror node state of the address book, but is not yet exposed via any API.
+
+A number of important test improvements were completed. The web3 module continues to see its tests refactored to use a new object oriented wrapper classes to invoke its test contracts. This avoids boilerplate solidity function parameter encoding and makes it easier to debug tests that fail. With the recent swing in hbar price, it became more difficult to choose an appropriate starting balance in hbars for the acceptance test operator account. To solve this, acceptance tests now specify the starting balance in USD and use the exchange rate information to convert it to hbars so it is not impacted by market fluctuations. Finally, the `RecordFileParserPerformanceTest` was updated to support the 10,000 TPS canonical tests we conduct in the performance environment. This lays the groundwork to shift left in our testing and move performance testing into GitHub Actions.
+
 ## [v0.110.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.110.0)
 
 [HIP-968](https://hips.hedera.com/hip/hip-968) adds the ability to query for tokens by name. The `/api/v1/tokens` endpoint gains a new `name` query parameter that returns one or more tokens that match a subset of the token name. Searches are case-insensitive and can match any part of the name. Note that it cannot be combined with the `account.id` or `token.id` parameters and pagination is not supported.

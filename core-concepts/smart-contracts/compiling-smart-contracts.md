@@ -99,8 +99,8 @@ The following is a list of available system contracts on Hedera:
 
 The exchange rate contract allows you to convert from tinycents to tinybars and from tinybars to tinycents.
 
-| Contract Address | Source                                                                                                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Contract Address | Source                                                                                                                                                                                                           |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `0x168`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/exchange-rate](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/exchange-rate) |
 
 **Example ⬇**
@@ -147,8 +147,8 @@ Reference: [HIP-475](https://hips.hedera.com/hip/hip-475).
 
 The Hedera Token Service smart contract precompile provides functions to use the native Hedera Token Service in smart contracts. Tokens created using this method can also be managed using the native Hedera Token Service APIs.
 
-| Contract Address | Source                                                                                                                                                                                         |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Contract Address | Source                                                                                                                                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `0x167`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service) |
 
 **Example ⬇**
@@ -967,21 +967,21 @@ interface IHederaTokenService {
 
 </details>
 
-Reference: [HIP-358](https://hips.hedera.com/hip/hip-358), [HIP-206](https://hips.hedera.com/hip/hip-206), [HIP-376](https://hips.hedera.com/hip/hip-376), [HIP-514](https://hips.hedera.com/hip/hip-514).
+Reference: [HIP-358](https://hips.hedera.com/hip/hip-358), [HIP-206](https://hips.hedera.com/hip/hip-206), [HIP-376](https://hips.hedera.com/hip/hip-376), [HIP-514](https://hips.hedera.com/hip/hip-514), [HIP-719](https://hips.hedera.com/hip/hip-719).
 
 ### ➡ **Hedera Account Service**
 
-The Hedera Account Service contract provides functions to interact with the Hedera network to manage HBAR allowances.&#x20;
+The Hedera Account Service contract provides functions to interact with the Hedera network to manage HBAR allowances.
 
-| Contract Address | Source                                                                                                                                                                                                                 |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Contract Address | Source                                                                                                                                                                                                                             |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `0x16a`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-account-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-account-service) |
 
 #### Example ⬇
 
 <details>
 
-<summary>IHederaAccountService.sol </summary>
+<summary>IHederaAccountService.sol</summary>
 
 ```solidity
 // SPDX-License-Identifier: Apache-2.0
@@ -1021,8 +1021,8 @@ Reference: [HIP-906](https://hips.hedera.com/hip/hip-906), [HIP-632](https://hip
 
 The `PRNG` system contract allows you to generate a pseudo-random number that can be used in smart contracts.
 
-| Contract Address | Source                                                                                                                                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Contract Address | Source                                                                                                                                                                                                                                             |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `0x169`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/pseudo-random-number-generator](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/pseudo-random-number-generator) |
 
 **Example ⬇**

@@ -10,6 +10,7 @@ A transaction that updates the properties of an existing account. The network wi
 
 **Transaction Fees**
 
+* The sender pays for the token association fee and the rent for the first auto-renewal period.
 * Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate the cost of your transaction fee.
 
@@ -25,7 +26,11 @@ A transaction that updates the properties of an existing account. The network wi
 
 Accounts have a property, `maxAutoAssociations`, and the property's value determines the maximum number of automatic token associations allowed.
 
-<table><thead><tr><th width="159" align="center">Property Value</th><th>Description</th></tr></thead><tbody><tr><td align="center"><code>0</code></td><td>Automatic <strong>token</strong> associations or <a data-footnote-ref href="#user-content-fn-1"><strong>token airdrops</strong></a> are not allowed, and the account must be manually associated with a token. This also applies if the value is less than or equal to <code>usedAutoAssociations</code>.</td></tr><tr><td align="center"><code>-1</code></td><td>The number of automatic <strong>token</strong> associations an account can have is unlimited. <code>-1</code> is the default value for new automatically-created accounts. [NOT ENABLED] </td></tr><tr><td align="center"><code>> 0</code></td><td>If the value is a positive number (number greater than 0), the number of automatic token associations an account can have is limited to that number. </td></tr></tbody></table>
+<table><thead><tr><th width="159" align="center">Property Value</th><th>Description</th></tr></thead><tbody><tr><td align="center"><code>0</code></td><td>Automatic <strong>token</strong> associations or <a data-footnote-ref href="#user-content-fn-1"><strong>token airdrops</strong></a> are not allowed, and the account must be manually associated with a token. This also applies if the value is less than or equal to <code>usedAutoAssociations</code>.</td></tr><tr><td align="center"><code>-1</code></td><td>The number of automatic <strong>token</strong> associations an account can have is unlimited. <code>-1</code> is the default value for new automatically-created accounts. </td></tr><tr><td align="center"><code>> 0</code></td><td>If the value is a positive number (number greater than 0), the number of automatic token associations an account can have is limited to that number. </td></tr></tbody></table>
+
+{% hint style="info" %}
+The sender pays the `maxAutoAssociations` fee and the rent for the first auto-renewal period for the association. This is in addition to the typical transfer fees. This ensures the receiver can receive tokens without association and makes it a smoother transfer process.
+{% endhint %}
 
 Reference: [HIP-904](https://hips.hedera.com/hip/hip-904)
 

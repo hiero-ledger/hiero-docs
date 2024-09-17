@@ -1,6 +1,6 @@
 # How to Connect MetaMask to Hedera
 
-This guide will show you how to add the Hedera network to MetaMask through three different methods:
+[**Download the MetaMask wallet**](https://metamask.io/download/), then configure the Hedera network/testnet settings in the MM network settings with one of the three methods below:
 
 **➡** [**Connecting via HashScan**](how-to-connect-metamask-to-hedera.md#id-1.-connecting-via-hashscan)
 

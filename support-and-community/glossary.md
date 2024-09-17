@@ -62,6 +62,12 @@ A set of regulations and laws to help prevent crimes that produce monetary gain,
 
 The contract Application Binary Interface (ABI) is the standard way to interact with contracts in the Ethereum ecosystem, both from outside the blockchain and for contract-to-contract interaction. Data is encoded according to its type, as described in this specification.
 
+### Asset Tokenization Studio (ATS)
+
+***
+
+Asset Tokenization Studio (ATS) is an open-source solution for tokenizing real-world assets (RWAs) on the Hedera network. It enables issuers to create, manage, and operate digital securities in compliance with global regulatory standards. ATS provides a user-friendly web interface, a customizable Software Development Kit (SDK), and secure, audited smart contracts to streamline the tokenization process. Learn more [here](broken-reference).&#x20;
+
 ### Asynchronous Byzantine Fault Tolerance (aBFT)
 
 ***
@@ -175,6 +181,12 @@ In the context of the [Hedera SDK](../sdks-and-apis/), a client is an object tha
 
 Sometimes referred to as a hardware wallet, and is a physical [cryptocurrency](glossary.md#cryptocurrency) device _not_ connected to the internet. A cold wallet is considered to be more secure than a [hot wallet](glossary.md#hot-wallet).
 
+### Compliance
+
+***
+
+In the context of asset tokenization, compliance is adherence to legal, regulatory, and procedural standards that govern the issuance, management, and trading of [digital securities](glossary.md#digital-security). Compliance ensures that tokenized assets, such as [security tokens](glossary.md#security-token), meet the necessary requirements set by financial regulators and adhere to laws such as [Know Your Customer (KYC)](glossary.md#know-your-customer-kyc), [Anti-Money Laundering (AML)](glossary.md#anti-money-laundering-aml), and securities regulations.
+
 ### Consensus
 
 ***
@@ -273,6 +285,24 @@ Examples: [Stader Labs](https://www.staderlabs.com/hedera/), [hashport](https://
 
 [W3C Decentralized Identifiers (DIDs)](https://www.w3.org/TR/did-core/) are a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. DIDs are URIs that associate a DID subject with a DID document allowing trustable interactions associated with that subject.
 
+### Digital Asset
+
+***
+
+A digital asset is a broad term that encompasses any asset that exists in a digital form. In the context of [asset tokenization](../open-source-solutions/asset-tokenization-studio-ats/#what-is-asset-tokenization), digital assets can include a variety of representations on a blockchain or other distributed ledger technology, such as [digital securities](glossary.md#digital-security), [digital tokens](glossary.md#digital-token), and [security tokens](glossary.md#security-token). Digital assets can represent anything from ownership in [real-world assets (RWAs) ](glossary.md#real-world-asset-rwa)to access rights within a blockchain ecosystem.
+
+### Digital Security
+
+***
+
+In asset tokenization, a digital security is a digital form of a traditional security, like a stock, bond, or real estate asset. It is a subset of [digital assets](glossary.md#digital-asset) and must comply with securities regulations. When issued on a blockchain or other distributed ledger technologies (DLTs), digital securities are considered [security tokens](glossary.md#security-token). They represent tangible assets and include embedded ownership rights, such as voting and dividend payments. Unlike general [digital tokens](glossary.md#digital-token), digital securities are directly linked to financial assets and are subject to strict regulatory controls.
+
+### Digital Token
+
+***
+
+A digital token is a broader term that refers to any digital representation of value, asset, or access rights on a blockchain or other forms of distributed ledger technology (DLT). Unlike [digital securities](glossary.md#digital-security), digital tokens are not necessarily tied to an investment contract or ownership of a [real-world asset](glossary.md#real-world-asset-rwa). They can serve various purposes, such as providing access to a platform, enabling transactions, or representing ownership of non-financial assets. Digital tokens can be classified into different categories, including utility tokens, which grant access to specific features or services within a blockchain or other DLT ecosystems. While some digital tokens may be subject to regulatory oversight, many are not, depending on their function and usage.
+
 ### Directed Acyclic Graph (DAG)
 
 ***
@@ -298,6 +328,12 @@ A distributed ledger is a database shared by multiple participants in which each
 ***
 
 A technology that allows the existence of distributed ledgers, such as blockchains and [DAGs](glossary.md#directed-acyclic-graph-dag), that use distributed ledgers stored on separate, connected devices in a network to ensure data accuracy and security. Unlike traditional databases, [distributed ledgers](glossary.md#distributed-ledger) have no central [data store](https://www.techtarget.com/whatis/definition/data-store) or administration functionality.&#x20;
+
+### Dividends
+
+***
+
+A portion of a company's earnings distributed to shareholders. In asset tokenization, [security tokens ](glossary.md#security-token)can include embedded rights to dividends, enabling digital securites holders to receive payouts automatically via [smart contracts](glossary.md#smart-contract).
 
 ### Double Spend Problem
 
@@ -424,6 +460,12 @@ A fork is an event in which a [blockchain](glossary.md#blockchain) splits into t
 ***
 
 A fractional fee is a type of custom fee that can be set when creating a token on the Hedera network. Fractional fees are calculated as a fraction of the total value of the tokens that are being transferred in a transaction.
+
+### Fractional Ownership
+
+***
+
+The concept of dividing ownership of a real-world asset into smaller fractions allowing multiple investors to own portions of the asset. In [asset tokenization](../open-source-solutions/asset-tokenization-studio-ats/#what-is-asset-tokenization), fractional ownership is facilitated by issuing security tokens that represent fractional shares of an asset.
 
 ### Fungible Token
 
@@ -620,6 +662,12 @@ An open-source project implementing the Ethereum JSON-RPC standard. The [Hedera 
 A standard for the investment industry in which an investor’s identity can be verified and evaluated for business relationships. Players in the blockchain industry must heed to KYC standards because cryptocurrency exchanges require them for [Anti-money laundering (AML)](glossary.md#anti-money-laundering-aml) compliance.
 
 ## L
+
+### Liquidity
+
+***
+
+The ease of buying or selling an asset in the market without impacting its price is known as liquidity. [Tokenization](glossary.md#tokenization) seeks to enhance liquidity by enabling 24/7 trading of [fractionalized](glossary.md#fractional-ownership) [digital securities](glossary.md#digital-security) on digital exchanges.
 
 ### Liquidity Pool
 
@@ -843,6 +891,12 @@ For example, if a public ledger can programmatically (via software as opposed to
 
 A simplified version of dank sharding aimed at improving data availability without the full complexity of sharding.
 
+### Proxy Contract
+
+***
+
+A smart contract that acts as an intermediary layer wrapped around each [security token](glossary.md#security-token), directing operations to the main logic contract and allowing for upgrades and modifications. In the context of asset tokenization, proxy contracts are used to update [digital securities](glossary.md#digital-security) without disrupting their operation. If the rules or functions of a token need to change (e.g., due to new regulations), the proxy can be updated via the [resolver contract](glossary.md#resolver-contract) to point to a new logic contract. This allows all assets to be updated without interrupting their operation. Learn more in the context of asset tokenzation [here](../open-source-solutions/asset-tokenization-studio-ats/#in-depth-architecture-of-ats).&#x20;
+
 ### Public Key
 
 ***
@@ -869,6 +923,14 @@ The minimum number of members required to vote on a proposal before it can be ac
 
 ## R
 
+### Real-World Asset (RWA)
+
+***
+
+A real-world asset (RWA) is a tangible or intangible asset with intrinsic value, such as real estate, commodities, equities, or intellectual property. In asset tokenization, RWAs are digitized into tokens on a blockchain or other distributed ledger technologies (DLTs), enabling fractional ownership, easier transferability, and increased liquidity.
+
+When a tokenized RWA represents ownership, investment, or entitlement to profits (like shares in real estate or equity), it is usually classified as a [security token](glossary.md#security-token) and is subject to securities regulations. However, if the token merely provides access or usage rights without investment characteristics, it may not be considered a security token.
+
 ### Record File
 
 ***
@@ -880,6 +942,12 @@ A record file is a file that contains the details of a transaction that occurred
 ***
 
 The Remix IDE is a user-friendly platform that allows you to easily write and compile your smart contracts and perform other tasks such as debugging and testing. Learn more about it [here](https://remix-project.org/).
+
+### Resolver Contract
+
+***
+
+A smart contract that links to various logic modules and executes functions for [digital securities](glossary.md#digital-security). In asset tokenization, resolver contracts manage different aspects of token operations, like [compliance](glossary.md#compliance) and transfers. When a tokenized asset needs to perform an action, it refers to the resolver contract to find the right module to execute that function. Learn more about resolver contracts in the context of the [asset tokenization studio's architecture](../open-source-solutions/asset-tokenization-studio-ats/#in-depth-architecture-of-ats).
 
 ### REST API
 
@@ -905,11 +973,17 @@ A security model outlines network security measures designed to protect a networ
 
 For example, [Hedera's security model](../core-concepts/smart-contracts/security.md) relies on the unique Hashgraph consensus algorithm that ensures fairness, security, and speed. It utilizes digital signatures for transaction verification, and it operates a permissioned network with trusted entities as nodes. Hedera also provides services like the Hedera Token Service (HTS) and Hedera Smart Contract Service (HSCS), built with security considerations in mind.
 
+### Security Token
+
+***
+
+A security token is a specific type of digital token that represents ownership or an interest in a real-world asset, such as equity in a company, a bond, or real estate. These tokens are issued on a blockchain or other forms of distributed ledger technology (DLT) and are considered securities under financial regulations, meaning they must comply with securities laws. Security tokens typically come with various embedded rights, including voting rights, dividends, or other financial incentives associated with the underlying asset. They facilitate fractional ownership and trading of traditionally illiquid assets, enhancing liquidity and accessibility. All security tokens are [digital securities](glossary.md#digital-security), but not all [digital tokens](glossary.md#digital-token) qualify as security tokens, as they may not represent ownership in a financial asset.
+
 ### Shard
 
 ***
 
-A shard is a wedge of a blockchain network. Shards contain tokenized digital assets; a shard is defined by the contained asset and by the properties of the digital asset. Shards function as a distributed ledger: sharing data between shards is a cornerstone of their build.
+A shard is a partition or segment of a [distributed ledger](glossary.md#distributed-ledger) network, such as a [blockchain](glossary.md#blockchain) or [Directed Acyclic Graph (DAG)](glossary.md#directed-acyclic-graph-dag). In asset tokenization, shards can contain distinct sets of tokenized digital assets and are defined by the specific properties and rules of those assets. Shards function as interconnected segments of the overall network, allowing for parallel processing and efficient data management. Sharing data between shards is essential for maintaining consistency and ensuring the network's integrity.
 
 ### Smart Contract
 
@@ -995,13 +1069,19 @@ A timestamp is a piece of recorded data that verifies the data existed at a spec
 
 ***
 
-A token generally refers to a type of cryptocurrency representing an asset or a specific use and resides on its own blockchain. Tokens can represent any fungible and tradable assets, from commodities to loyalty points to even other cryptocurrencies.
+A token generally refers to a type of cryptocurrency that represents an asset or a specific use and resides on its own blockchain. Tokens can represent any fungible and tradable asset, from commodities to loyalty points to even other cryptocurrencies.
+
+### Token Lifecycle
+
+***
+
+The entire process of a [digital token's](glossary.md#digital-token) existence, from issuance and distribution to trading and eventual redemption or retirement. The token lifecycle in asset tokenization involves the creation, compliance management, trading, and potential updates with a modular [multi-layer implementation](../open-source-solutions/asset-tokenization-studio-ats/#how-asset-tokenization-studio-ats-works) (core, define, customize).&#x20;
 
 ### Tokenization
 
 ***
 
-Tokenization is the process of underwriting the value of a token with a real-world tangible, such as gold, real estate, art, a stamp collection, etc.
+Tokenization is the process of converting rights to a real-world asset (RWA) or financial instrument into a digital token on a blockchain or other forms of distributed ledgers. This digital token represents ownership, interest, or other forms of value associated with the asset, such as equity in a company, real estate, or a piece of art. Tokenization enables fractional ownership, increased liquidity, and easier transferability of assets, allowing them to be traded more efficiently on digital platforms.
 
 ### Transaction
 

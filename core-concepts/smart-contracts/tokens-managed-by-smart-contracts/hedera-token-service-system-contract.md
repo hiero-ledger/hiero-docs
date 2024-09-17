@@ -2,7 +2,7 @@
 
 Hedera enables the native creation of fungible and non-fungible tokens through its SDKs, eliminating the need for smart contracts. This approach leverages Hedera's core features like high TPS, security, and low latency for an optimized user experience. Additionally, the Hedera Token Service provides a cost-effective method for tokenization. Smart contracts on Hedera can also interact with this service via the Hedera Token Service System contract, offering functionalities like token creation, burning, and minting through the EVM.
 
-Some of the key functions defined in the Hedera Token Service System Contract include:&#x20;
+Some of the key functions defined in the Hedera Token Service System Contract include:
 
 ## Supported
 
@@ -18,4 +18,4 @@ Some of the key functions defined in the Hedera Token Service System Contract in
 
 #### Additional References
 
-* [HIP-206](https://hips.hedera.com/hip/hip-206)
+* [HIP-206](https://hips.hedera.com/hip/hip-206), [HIP-719](https://hips.hedera.com/hip/hip-719)

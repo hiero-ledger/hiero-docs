@@ -18,6 +18,12 @@ The latest version of Solidity is supported on all networks (v0.8.9).
 The [max contract key](https://github.com/hashgraph/hedera-services/pull/9592/files) value pairs are 16,384,000 (\~100 MB).  The system gas throttle is 15 million gas per second. Contract call and contract create are throttled at 8 million gas per second.
 {% endhint %}
 
+{% hint style="info" %}
+#### Admin Key Support for Contracts
+
+With [HIP-904](https://hips.hedera.com/hip/hip-904), contracts now support Admin Key settings. Set an Admin Key during the `ContractCreate` transaction to manage and update token properties. For frictionless-airdrop enabled contracts, set `maxAutoAssociations` during the `ContractCreate` transaction, ensuring that balance and associations can be managed with a valid Admin Key.
+{% endhint %}
+
 **Transaction Signing Requirements**
 
 * The client operator account is required to sign the transaction.

@@ -6,6 +6,10 @@ A `TokenUpdateNftsTransaction` updates the metadata property of non-fungible tok
 🚨 Metadata keys, like other [token keys](define-a-token.md#token-keys), must be set during the token creation. If metadata keys are not set when the token is created, they cannot be added later, and you won't be able to update the token's metadata.
 {% endhint %}
 
+{% hint style="info" %}
+With the introduction of [HIP-850](https://hips.hedera.com/hip/hip-850), the **Supply Key** now has the enhanced capability to update the metadata of NFTs while they are held in the treasury account. This enhancement allows for dynamic updates to NFT serial numbers before they are distributed, ensuring that once the NFTs leave the treasury account, their metadata remains immutable. This approach provides security and control, preventing unauthorized modifications after distribution.
+{% endhint %}
+
 <table><thead><tr><th width="248">Property</th><th>Description</th></tr></thead><tbody><tr><td><strong>Token ID</strong></td><td>The ID of the NFT to update.</td></tr><tr><td><strong>Serial Numbers</strong></td><td>The list of serial numbers to be updated.</td></tr><tr><td><strong>Metadata</strong></td><td>The new metadata of the NFT(s).</td></tr></tbody></table>
 
 **Transaction Signing Requirements**

@@ -12,9 +12,88 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 **MAINNET UPDATE SCHEDULED: SEPTEMBER 11, 2024**
 {% endhint %}
 
-{% hint style="info" %}
-**TESTNET UPDATE SCHEDULED: AUGUST 28, 2024**
+### Release Highlights
+
+#### [**HIP-719**](https://hips.hedera.com/hip/hip-719) **- isAssociated()**&#x20;
+
+#### **Functionality**
+
+Extends HTS token interactions functions:
+
+* `associate`
+* `dissociate`
+* `isAssociated`
+
+#### **EVM calls:**
+
+* `HederaStackedWorldStateUpdater.get()`
+
+#### **Returns:**
+
+* `HederaEvmWorldStateTokenAccount`
+
+<table><thead><tr><th width="257">Function Selector</th><th>Function Signature</th></tr></thead><tbody><tr><td>0x0a754de6</td><td><code>associate()</code></td></tr><tr><td>0x5c9217e0</td><td><code>dissociate()</code></td></tr><tr><td>0x4d8fdd6d</td><td><code>isAssociated()</code></td></tr></tbody></table>
+
+#### **Benefits**
+
+* Enables developers to call functions in a way familiar to ERC-20 and ERC-721.
+* Token functions are callable by both EOAs and contracts.
+
+#### [**HIP-904**](https://hips.hedera.com/hip/hip-904) **-** tokenReject, account infinite maxAutoAssociation & Sender pays auto association
+
+#### **Functionality**
+
+* This is a partial release of the functionality that enables the sender to pay for association (today, if someone sends you a token, you, as the receiver, are responsible for token association).
+* The value `-1` is now permitted for max\_auto\_associations, and this value means “unlimited.”
+* used\_auto\_associations is incremented every time an auto-association is made.
+* The default value for `max_auto_associations` for new automatically-created accounts will now be `-1`. This means, if an account is created automatically (by performing a token transfer to an alias that does not yet exist, see [HIP-583](https://hips.hedera.com/hip/hip-583)), then the automatically created account is configured with unlimited automatic token associations. Accounts created by using the [AccountCreateTransaction](https://docs.hedera.com/hedera/sdks-and-apis/sdks/accounts-and-hbar/create-an-account) (HAPI: [CryptoCreate](https://github.com/hashgraph/hedera-protobufs/blob/main/services/crypto\_create.proto)) will continue to have a max\_auto\_associations default of 0. Accounts created before this feature is released will remain unchanged.
+* Introduces the new TokenRejectTransaction.
+
+#### **Benefits**
+
+* `maxAutoassociation` users can update their account preferences to unlimited association, allowing them to receive any airdrops without explicitly having to associate with that token.
+* The account holder no longer prepays for unused slots, regardless of the setting for `max_auto_associations`. Slots are only paid for when used and are initially paid for by the sender during automatic associations. The account is responsible for covering rent for each association after the first auto-renewal period.
+
+#### [**HIP-850**](https://hips.hedera.com/hip/hip-850) **- HTS Mutable metadata in treasury**
+
+#### **Functionality**
+
+* This function enables the Supply Key to update an NFT metadata field while the NFT is held in the treasury account via the TokenUpdateNftsTransaction function for a specific NFT serial number.
+
+#### **Benefits**
+
+* NFT owners can return an NFT to treasury custody to update parameters within the metadata of the NFT.&#x20;
+* NFT cannot be updated by unauthorized parties once distributed.
+
+[**HIP-993**](https://hips.hedera.com/hip/hip-993) **- Improve record stream legibility and extensibility**
+
+#### **Functionality**
+
+* Itemized auto-creation fees
+* Unified child consensus times
+* Clean hollow account completion records
+* Synthetic file creations at genesis
+* Use natural order for preceding dispatch records
+
+Outstanding improvements:
+
+* Fail fast on throttled child transactions
+
+#### **Benefits**
+
+* This HIP refines the legibility and extensibility of the record stream.
+
+### [Build 0.53.5](https://github.com/hashgraph/hedera-services/releases/tag/v0.53.5)
+
+{% hint style="success" %}
+**TESTNET UPDATE SCHEDULED: SEPTEMBER 4, 2024**
 {% endhint %}
+
+#### What's Changed
+
+* feat: add enableDAB flag to enable and disable DAB features by [@iwsimon](https://github.com/iwsimon) in [#15232](https://github.com/hashgraph/hedera-services/pull/15232)
+* ci: resolves release issue preventing the publication of the docker images by [@nathanklick](https://github.com/nathanklick) in [#15158](https://github.com/hashgraph/hedera-services/pull/15158)
+* fix: hedera-evm and hedera-evm-impl are overwriting each other in MC by [@rbarkerSL](https://github.com/rbarkerSL) in [#15175](https://github.com/hashgraph/hedera-services/pull/15175)
 
 ### [Build 0.53.1](https://github.com/hashgraph/hedera-services/releases/tag/v0.53.1)
 
@@ -44,9 +123,9 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 
 ### Release Highlights
 
-[**HIP-632**](https://hips.hedera.com/hip/hip-632)
+#### [**HIP-632**](https://hips.hedera.com/hip/hip-632) **- isAuthorizedRaw**
 
-#### isAuthorizedRaw Functionality
+#### **Functionality**
 
 * Accepts three parameters:
   * `address`
@@ -101,11 +180,17 @@ Please visit the [Hedera status page](https://status.hedera.com/) for the latest
 * Enhances user control over their token portfolio
 * Improves overall user experience in token management
 
-### [Build 0.52.2](https://github.com/hashgraph/hedera-services/releases/tag/v0.52.2)
+### [Build 0.52.3](https://github.com/hashgraph/hedera-services/releases/tag/v0.52.3)
 
 {% hint style="success" %}
-**MAINNET UPDATE SCHEDULED: AUGUST 21, 2024**
+**MAINNET UPDATE SCHEDULED: AUGUST 28, 2024**
 {% endhint %}
+
+#### What's Changed
+
+* fix: invalid `feeSchedules.json` by [@Neeharika-Sompalli](https://github.com/Neeharika-Sompalli) in [#14881](https://github.com/hashgraph/hedera-services/pull/14881)
+
+### [Build 0.52.2](https://github.com/hashgraph/hedera-services/releases/tag/v0.52.2)
 
 {% hint style="success" %}
 **TESTNET UPDATE SCHEDULED: AUGUST 14, 2024**
