@@ -227,7 +227,7 @@ export default function Home() {
         variant="h4"
         color="white"
       >
-        Let's build a dApp on Hedera
+        Let's buidl a dApp on Hedera
       </Typography>
     </Stack>
   )
@@ -394,7 +394,7 @@ Your completed button code will look like this:
   		variant="h4"
   		color="white"
 	>
-  	  Let's build a dApp on Hedera
+  	  Let's buidl a dApp on Hedera
 	</Typography>
 	<Button
   	  variant="contained"
