@@ -115,7 +115,7 @@ To ensure accurate conformity with the minimum requirements, please provide node
 Access to the node via public APIs must be mediated by an in-line proxy. Below are the specifications for establishing this proxy.
 
 * 2- core-x86/x64 CPU
-* 2GB RAM
+* 4GB RAM
 * 100GB SSD storage
 * 200Mb/s sustained internet network connectivity with public static IP address
 * Supported Docker (Hedera to provide Docker image with HAProxy)
