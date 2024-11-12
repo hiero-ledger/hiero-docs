@@ -7,11 +7,21 @@ description: >-
 
 # Hedera Consensus Service gRPC API
 
+{% hint style="warning" %}
+#### Important Notice: Deprecation of the Insecure Hedera Consensus Service (HCS) Mirror Node Endpoints
+
+We are phasing out the legacy Hedera Consensus Service (HCS) mirror node endpoints. The APIs have transitioned from the legacy _hcs_.&#x20;
+
+`<env>.mirrornode.hedera.com:5600` endpoints to the new `<env>.mirrornode.hedera.com:443` endpoints.
+
+For more details, please read our [blog post announcement](https://hedera.com/blog/deprecation-of-the-insecure-hedera-consensus-service-hcs-mirror-node-endpoints).
+{% endhint %}
+
 {% hint style="info" %}
 **HCS Mirror Node Endpoints:**\
 **PREVIEWNET:** previewnet.mirrornode.hedera.com:443\
 **TESTNET**: testnet.mirrornode.hedera.com:443\
-**MAINNET**: mainnet-public.mirrornode.hedera.com:443
+**MAINNET**: mainnet.mirrornode.hedera.com:443
 {% endhint %}
 
 {% hint style="warning" %}
@@ -34,7 +44,7 @@ If you building your client with a predefined Hedera network (previewnet, testne
 ```java
 // You will need to upgrade to v2.0.6 or higher
 Client client = Client.forMainnet();
-client.setMirrorNetwork(Collections.singletonList("mainnet-public.mirrornode.hedera.com:443"))
+client.setMirrorNetwork(Collections.singletonList("mainnet.mirrornode.hedera.com:443"))
 ```
 {% endcode %}
 {% endtab %}
@@ -43,14 +53,14 @@ client.setMirrorNetwork(Collections.singletonList("mainnet-public.mirrornode.hed
 ```javascript
 // You will need to upgrade to v2.0.23 or higher
 const client = Client.forMainnet()
-client.setMirrorNetwork("mainnet-public.mirrornode.hedera.com:443")
+client.setMirrorNetwork("mainnet.mirrornode.hedera.com:443")
 ```
 {% endtab %}
 
 {% tab title="Go" %}
 ```go
 hedera.ClientForMainnet()
-client.SetMirrorNetwork([]string{"mainnet-public.mirrornode.hedera.com:443"})
+client.SetMirrorNetwork([]string{"mainnet.mirrornode.hedera.com:443"})
 ```
 {% endtab %}
 {% endtabs %}

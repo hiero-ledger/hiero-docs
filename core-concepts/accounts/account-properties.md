@@ -127,7 +127,11 @@ Hedera accounts must generally approve custom tokens before transferring them in
 
 Accounts can automatically approve up to 5,000 tokens without manually preauthorizing each custom token. Suppose an account needs to hold a balance for custom tokens greater than 5,000. In that case, the account must manually approve each additional token using the transaction to associate the tokens. There is no limit on the total number of tokens an account can hold. This property is mutable and can be changed after it is set.
 
-Reference Hedera Improvement Proposal: [HIP-23](https://hips.hedera.com/hip/hip-23)
+## Maximum Auto-Associations
+
+The property `maxAutoAssociations` of Hedera accounts defines the maximum number of automatic associations allowed. If this is `0`, then automatic token associations or airdrops are not allowed, and it requires manual association with the token. This is also if the value is lesser or equal to `usedAutoAssociations`. The default value of the property is `-1` for the new automatically created accounts in a way that basically allows unlimited number of auto-associations \[NOT ENABLED]. If the value is a positive number, this puts a limit on the number of auto token associations to that value.
+
+Reference Hedera Improvement Proposal: [HIP-23](https://hips.hedera.com/hip/hip-23), [HIP-904](https://hips.hedera.com/hip/hip-904)
 
 ## Balances
 
@@ -256,7 +260,7 @@ The auto renew account is the account that will be used to pay for the auto rene
 
 <summary><strong>Auto Renew Period</strong></summary>
 
-The interval at which this account will be charged the auto renewal fees. The maximum auto renew period for an account is be limited to 3 months (8100000 sec seconds). The minimum auto renew period is 30 days. The auto renew period is mutable and can be updated at any time. If there are insufficient funds, then it extends as long as possible. If it is empty when it expires, then it is deleted.
+The interval at which this account will be charged the auto renewal fees. The maximum auto renew period for an account is be limited to 3 months (8000001 sec seconds). The minimum auto renew period is 30 days. The auto renew period is mutable and can be updated at any time. If there are insufficient funds, then it extends as long as possible. If it is empty when it expires, then it is deleted.
 
 </details>
 

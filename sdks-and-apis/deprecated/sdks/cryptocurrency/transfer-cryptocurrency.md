@@ -19,7 +19,7 @@ For a CryptoTransferTransactionBody:
 
 **Spender Account Allowances**
 
-An account can have [another account](../../../sdks/cryptocurrency/approve-an-allowance.md) spend tokens on its behalf. If the delegated spender account is transacting tokens from the owner account that authorized the allowance, the owner account needs to be specified in the transfer transaction by calling one of the following:
+An account can have [another account](../../../sdks/accounts-and-hbar/approve-an-allowance.md) spend tokens on its behalf. If the delegated spender account is transacting tokens from the owner account that authorized the allowance, the owner account needs to be specified in the transfer transaction by calling one of the following:
 
 * `addApprovedHbarTransfer()`
 * `addApprovedTokenTransfer()`

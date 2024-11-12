@@ -29,7 +29,7 @@ OP_CREATE2 = 6;
 
 **Example**:
 
-<figure><img src="../../.gitbook/assets/call trace.png" alt=""><figcaption><p>Call trace example on HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/smart-contracts-core-concepts-call-trace.png" alt=""><figcaption><p>Call trace example on HashScan</p></figcaption></figure>
 
 ***
 
@@ -72,4 +72,4 @@ The Hedera [mirror node](../../support-and-community/glossary.md#mirror-nodes) s
 
 State trace can be viewed on a supported Hedera Network Explorer.
 
-<figure><img src="../../.gitbook/assets/network explorer example.png" alt=""><figcaption><p>State trace example on HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/smart-contracts-network-explorer-example.png" alt=""><figcaption><p>State trace example on HashScan</p></figcaption></figure>

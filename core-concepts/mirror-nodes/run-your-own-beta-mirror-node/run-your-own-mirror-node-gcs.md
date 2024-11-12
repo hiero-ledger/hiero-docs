@@ -50,7 +50,7 @@ The **`application.yml`** file is the main configuration file for the Hedera Mir
 ```yaml
 hedera:
   mirror:
-    importer: 
+    importer:
       downloader:
         accessKey: ENTER ACCESS KEY HERE
         cloudProvider: "GCP"
@@ -100,7 +100,7 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 \dt
 ```
 
-![](<../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
+![](<../../../.gitbook/assets/image (4).png>)
 
 * To exit the `psql` console, run the quit command:
 

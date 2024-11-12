@@ -12,13 +12,26 @@ The public key alias can be an ED25519 or ECDSA secp256k1 public key type. \
 \
 **Example**\
 \
-DER Encoded ED25519 Public Key Alias:\
+ECDSA secp256k1 Public Key:\
+`02d588ec1000770949ab77516c77ee729774de1c8fe058cab6d64f1b12ffc8ff07`\
 \
+DER Encoded ECDSA secp256k1 Public Key Alias:\
 `302d300706052b8104000a03220002d588ec1000770949ab77516c77ee729774de1c8fe058cab6d64f1b12ffc8ff07`\
 \
-ED25519 Public Key Alias Account ID: \
-\
+ECDSA secp256k1 Public Key Alias Account ID: \
 `0.0.302d300706052b8104000a03220002d588ec1000770949ab77516c77ee729774de1c8fe058cab6d64f1b12ffc8ff07`
+\
+\
+\
+\
+EDDSA ED25519 Public Key:\
+`1a5a62bb9f35990d3fea1a5bb7ef6f1df0a297697adef1e04510c9d4ecc5db3f`\
+\
+DER Encoded EDDSA ED25519 Public Key Alias:\
+`302a300506032b65700321001a5a62bb9f35990d3fea1a5bb7ef6f1df0a297697adef1e04510c9d4ecc5db3f`\
+\
+EDDSA ED25519 Public Key Alias Account ID: \
+`0.0.302a300506032b65700321001a5a62bb9f35990d3fea1a5bb7ef6f1df0a297697adef1e04510c9d4ecc5db3f`
 
 </details>
 

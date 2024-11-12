@@ -1,7 +1,7 @@
 ---
 cover: >-
   ../.gitbook/assets/Hero-Desktop-EnterpriseApplications_2022-12-08-192047_ivzd
-  (1) (1) (1) (1).webp
+  (2).webp
 coverY: 0
 ---
 

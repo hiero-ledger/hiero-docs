@@ -10,7 +10,7 @@ Fee estimates are based on assumptions about the details of a specific API call.
 
 ### Mainnet Fees
 
-Mainnet transaction and query fees can be estimated using the [Hedera Fee Estimator](https://www.hedera.com/fees). The Fee Estimator allows you to determine fees (in both USD and HBAR, using the current exchange rate live on the mainnet) for individual transactions & queries based on their characteristics, as well as projected costs based on expected volume for those transactions. The estimations may not be 100% accurate and the underlying prices are subject to change without prior notice.
+Mainnet transaction and query fees can be estimated using the [Hedera Fee Estimator](https://hedera.com/fees). The Fee Estimator allows you to determine fees (in both USD and HBAR, using the current exchange rate live on the mainnet) for individual transactions & queries based on their characteristics, as well as projected costs based on expected volume for those transactions. The estimations may not be 100% accurate and the underlying prices are subject to change without prior notice.
 
 ## HBAR Denominations and Abbreviations
 
@@ -30,100 +30,28 @@ All fees are subject to change. The fees below reflect a base price for the tran
 
 ### Cryptocurrency Service
 
-| Operations                   | USD ($)  |
-| ---------------------------- | -------- |
-| CryptoCreate                 | $0.05    |
-| CryptoAccountAutoRenew       | $0.00022 |
-| CryptoDeleteAllowance        | $0.05    |
-| CryptoApproveAllowance       | $0.05    |
-| CryptoUpdate                 | $0.00022 |
-| CryptoTransfer               | $0.0001  |
-| CryptoTransfer (custom fees) | $0.002   |
-| CryptoDelete                 | $0.005   |
-| CryptoGetAccountRecords      | $0.0001  |
-| CryptoGetAccountBalance      | $0.00    |
-| CryptoGetInfo                | $0.0001  |
-| CryptoGetStakers             | $0.0001  |
+<table><thead><tr><th width="482">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>CryptoCreate</td><td>$0.05</td></tr><tr><td>CryptoAccountAutoRenew</td><td>$0.00022</td></tr><tr><td>CryptoDeleteAllowance</td><td>$0.05</td></tr><tr><td>CryptoApproveAllowance</td><td>$0.05</td></tr><tr><td>CryptoUpdate</td><td>$0.00022</td></tr><tr><td>CryptoTransfer</td><td>$0.0001</td></tr><tr><td>CryptoTransfer (custom fees)</td><td>$0.002</td></tr><tr><td>CryptoDelete</td><td>$0.005</td></tr><tr><td>CryptoGetAccountRecords</td><td>$0.0001</td></tr><tr><td>CryptoGetAccountBalance</td><td>$0.00</td></tr><tr><td>CryptoGetInfo</td><td>$0.0001</td></tr><tr><td>CryptoGetStakers</td><td>$0.0001</td></tr></tbody></table>
 
 ### Consensus Service
 
-| Operations             | USD ($)  |
-| ---------------------- | -------- |
-| ConsensusCreateTopic   | $0.01    |
-| ConsensusUpdateTopic   | $0.00022 |
-| ConsensusDeleteTopic   | $0.005   |
-| ConsensusSubmitMessage | $0.0001  |
-| ConsensusGetTopicInfo  | $0.0001  |
+<table><thead><tr><th width="484">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>ConsensusCreateTopic</td><td>$0.01</td></tr><tr><td>ConsensusUpdateTopic</td><td>$0.00022</td></tr><tr><td>ConsensusDeleteTopic</td><td>$0.005</td></tr><tr><td>ConsensusSubmitMessage</td><td>$0.0001</td></tr><tr><td>ConsensusGetTopicInfo</td><td>$0.0001</td></tr></tbody></table>
 
 ### Token Service
 
-| Operations                     | USD ($) |
-| ------------------------------ | ------- |
-| TokenCreate                    | $1.00   |
-| TokenCreate (custom fees)      | $2.00   |
-| TokenUpdate                    | $0.001  |
-| TokenFeeScheduleUpdate         | $0.001  |
-| TokenDelete                    | $0.001  |
-| TokenAssociate                 | $0.05   |
-| TokenDissociate                | $0.05   |
-| TokenMint (fungible)           | $0.001  |
-| TokenMint (non-fungible)       | $0.02   |
-| TokenMint (bulk mint 10k NFTs) | $200    |
-| TokenBurn                      | $0.001  |
-| TokenGrantKyc                  | $0.001  |
-| TokenRevokeKyc                 | $0.001  |
-| TokenFreeze                    | $0.001  |
-| TokenUnfreeze                  | $0.001  |
-| TokenPause                     | $0.001  |
-| TokenUnpause                   | $0.001  |
-| TokenWipe                      | $0.001  |
-| TokenGetInfo                   | $0.0001 |
-| TokenGetNftInfo                | $0.0001 |
-| TokenGetNftInfos               | $0.0001 |
-| TokenGetAccountNftInfos        | $0.0001 |
+<table><thead><tr><th width="486">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>TokenAirdrop (no prior association with token)</td><td>$0.10</td></tr><tr><td>TokenClaimAirdrop</td><td>$0.001</td></tr><tr><td>TokenCancelAirdrop</td><td>$0.001</td></tr><tr><td>TokenReject</td><td>$0.001</td></tr><tr><td>TokenCreate</td><td>$1.00</td></tr><tr><td>TokenCreate (custom fees)</td><td>$2.00</td></tr><tr><td>TokenUpdate</td><td>$0.001</td></tr><tr><td>TokenFeeScheduleUpdate</td><td>$0.001</td></tr><tr><td>TokenDelete</td><td>$0.001</td></tr><tr><td>TokenAssociate</td><td>$0.05</td></tr><tr><td>TokenDissociate</td><td>$0.05</td></tr><tr><td>TokenMint (fungible)</td><td>$0.001</td></tr><tr><td>TokenMint (non-fungible)</td><td>$0.02</td></tr><tr><td>TokenMint (bulk mint 10k NFTs)</td><td>$200</td></tr><tr><td>TokenBurn</td><td>$0.001</td></tr><tr><td>TokenGrantKyc</td><td>$0.001</td></tr><tr><td>TokenRevokeKyc</td><td>$0.001</td></tr><tr><td>TokenFreeze</td><td>$0.001</td></tr><tr><td>TokenUnfreeze</td><td>$0.001</td></tr><tr><td>TokenPause</td><td>$0.001</td></tr><tr><td>TokenUnpause</td><td>$0.001</td></tr><tr><td>TokenWipe</td><td>$0.001</td></tr><tr><td>TokenGetInfo</td><td>$0.0001</td></tr><tr><td>TokenGetNftInfo</td><td>$0.0001</td></tr><tr><td>TokenGetNftInfos</td><td>$0.0001</td></tr><tr><td>TokenGetAccountNftInfos</td><td>$0.0001</td></tr><tr><td>TokenUpdateNfts (updates metadata of 1 NFT)</td><td>$0.001</td></tr><tr><td>TokenUpdateNfts (update multiple NFTs in a single call)</td><td>N * $0.001</td></tr></tbody></table>
 
 ### Schedule Transaction
 
-| Operations      | USD ($) |
-| --------------- | ------- |
-| ScheduleCreate  | $0.01   |
-| ScheduleSign    | $0.001  |
-| ScheduleDelete  | $0.001  |
-| ScheduleGetInfo | $0.0001 |
+<table><thead><tr><th width="491">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>ScheduleCreate</td><td>$0.01</td></tr><tr><td>ScheduleSign</td><td>$0.001</td></tr><tr><td>ScheduleDelete</td><td>$0.001</td></tr><tr><td>ScheduleGetInfo</td><td>$0.0001</td></tr></tbody></table>
 
 ### File Service
 
-| Operations      | USD ($) |
-| --------------- | ------- |
-| FileCreate      | $0.05   |
-| FileUpdate      | $0.05   |
-| FileDelete      | $0.007  |
-| FileAppend      | $0.05   |
-| FileGetContents | $0.0001 |
-| FileGetInfo     | $0.0001 |
+<table><thead><tr><th width="495">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>FileCreate</td><td>$0.05</td></tr><tr><td>FileUpdate</td><td>$0.05</td></tr><tr><td>FileDelete</td><td>$0.007</td></tr><tr><td>FileAppend</td><td>$0.05</td></tr><tr><td>FileGetContents</td><td>$0.0001</td></tr><tr><td>FileGetInfo</td><td>$0.0001</td></tr></tbody></table>
 
 ### Smart Contract Service
 
-| Operations          | USD ($) |
-| ------------------- | ------- |
-| ContractCreate      | $1.0    |
-| ContractUpdated     | $0.026  |
-| ContractDelete      | $0.007  |
-| ContractCall        | $0.05   |
-| ContractCallLocal   | $0.001  |
-| ContractGetByteCode | $0.05   |
-| GetBySolidityID     | $0.0001 |
-| ContractGetInfo     | $0.0001 |
-| ContractGetRecords  | $0.0001 |
-| ContractAutoRenew   | $0.026  |
+<table><thead><tr><th width="501">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>ContractCreate</td><td>$1.0</td></tr><tr><td>ContractUpdate</td><td>$0.026</td></tr><tr><td>ContractDelete</td><td>$0.007</td></tr><tr><td>ContractCall</td><td>$0.05</td></tr><tr><td>ContractCallLocal</td><td>$0.001</td></tr><tr><td>ContractGetByteCode</td><td>$0.05</td></tr><tr><td>GetBySolidityID</td><td>$0.0001</td></tr><tr><td>ContractGetInfo</td><td>$0.0001</td></tr><tr><td>ContractGetRecords</td><td>$0.0001</td></tr><tr><td>ContractAutoRenew</td><td>$0.026</td></tr></tbody></table>
 
 ### Miscellaneous
 
-| Operations            | USD ($) |
-| --------------------- | ------- |
-| EthereumTransaction   | $0.0001 |
-| PrngTransaction       | $0.001  |
-| GetVersion            | $0.001  |
-| GetByKey              | $0.0001 |
-| TransactionGetReceipt | $0.0000 |
-| TransactionGetRecord  | $0.0001 |
+<table><thead><tr><th width="508">Operations</th><th>USD ($)</th></tr></thead><tbody><tr><td>EthereumTransaction</td><td>$0.0001</td></tr><tr><td>PrngTransaction</td><td>$0.001</td></tr><tr><td>GetVersion</td><td>$0.001</td></tr><tr><td>GetByKey</td><td>$0.0001</td></tr><tr><td>TransactionGetReceipt</td><td>$0.0000</td></tr><tr><td>TransactionGetRecord</td><td>$0.0001</td></tr></tbody></table>

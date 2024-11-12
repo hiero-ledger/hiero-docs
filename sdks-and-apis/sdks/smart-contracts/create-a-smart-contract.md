@@ -1,6 +1,6 @@
 # Create a smart contract
 
-A transaction that creates a new smart contract instance. After the contract is created you can get the new contract ID by requesting the receipt of the transaction. To create the solidity smart contract, you can use [remix](https://remix.ethereum.org/#optimize=false\&runs=200\&evmVersion=null\&version=soljson-v0.8.7+commit.e28d00a7.js) or another [Solidity](https://docs.soliditylang.org/en/v0.8.9/) compiler. After you have the hex-encoded bytecode of the smart contract you need to store that on a file using the [Hedera File Service](../file-storage/create-a-file.md). Then you will create the smart contract instance that will run the bytecode stored in the Hedera file, referenced by file ID. Alternatively, you can use the <mark style="color:purple;">`ContractCreateFlow()`</mark> API to create the file storing the bytecode and contract in a single step.
+A transaction that creates a new smart contract instance. After the contract is created you can get the new contract ID by requesting the receipt of the transaction. To create the solidity smart contract, you can use [remix](https://remix.ethereum.org/#optimize=false\&runs=200\&evmVersion=null\&version=soljson-v0.8.7+commit.e28d00a7.js) or another [Solidity](https://docs.soliditylang.org/en/v0.8.9/) compiler. After you have the hex-encoded bytecode of the smart contract you need to store that on a file using the [Hedera File Service](../file-service/create-a-file.md). Then you will create the smart contract instance that will run the bytecode stored in the Hedera file, referenced by file ID. Alternatively, you can use the <mark style="color:purple;">`ContractCreateFlow()`</mark> API to create the file storing the bytecode and contract in a single step.
 
 The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs are passed in the `constructorParameters`.
 
@@ -15,16 +15,14 @@ The latest version of Solidity is supported on all networks (v0.8.9).
 {% hint style="info" %}
 **Smart Contract State Size and Gas Limits**
 
-The contract state size limit is 10 MB and the system gas throttle is 15 million gas per second. Contract call and contract create are throttled at 8 million gas per second.
+The [max contract key](https://github.com/hashgraph/hedera-services/pull/9592/files) value pairs are 16,384,000 (\~100 MB).  The system gas throttle is 15 million gas per second. Contract call and contract create are throttled at 8 million gas per second.
 {% endhint %}
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
+{% hint style="info" %}
+#### Admin Key Support for Contracts
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
+With [HIP-904](https://hips.hedera.com/hip/hip-904), contracts now support Admin Key settings. Set an Admin Key during the `ContractCreate` transaction to manage and update token properties. For frictionless-airdrop enabled contracts, set `maxAutoAssociations` during the `ContractCreate` transaction, ensuring that balance and associations can be managed with a valid Admin Key.
+{% endhint %}
 
 **Transaction Signing Requirements**
 
@@ -34,12 +32,12 @@ The contract state size limit is 10 MB and the system gas throttle is 15 million
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for base transaction fee
-* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate the cost of your transaction fee.
 
 **Smart Contract Properties**
 
-| **Field**                        | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Field                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Admin Key**                    | Sets the state of the instance and its fields can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance. Note that if it is created with no admin keys, then there is no administrator to authorize changing the admin keys, so there can never be any admin keys for that instance. |
 | **Gas**                          | The gas to run the constructor.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
@@ -57,9 +55,9 @@ The contract state size limit is 10 MB and the system gas throttle is 15 million
 
 The <mark style="color:purple;">`ContractCreateFlow()`</mark>streamlines the creation of a contract by taking the bytecode of the contract and creating the file on Hedera to store the bytecode for you.
 
-First, a <mark style="color:purple;">`FileCreateTransaction()`</mark> will be executed to create a file on Hedera to store the specified contract bytecode. Then, the <mark style="color:purple;">`ContractCreateTransaction()`</mark> will be executed to create the contract instance on Hedera. Lastly, a [<mark style="color:blue;">`FileDeleteTransaction()`</mark>](../file-storage/delete-a-file.md) will be executed to remove the file.
+First, a <mark style="color:purple;">`FileCreateTransaction()`</mark> will be executed to create a file on Hedera to store the specified contract bytecode. Then, the <mark style="color:purple;">`ContractCreateTransaction()`</mark> will be executed to create the contract instance on Hedera. Lastly, a [<mark style="color:blue;">`FileDeleteTransaction()`</mark>](../file-service/delete-a-file.md) will be executed to remove the file.
 
-The response will return the contract create transaction information like the new contract ID. You will not get the ID of the file that was created that stored your contract bytecode. If you would like to know the file ID of your contract bytecode, you can [create a file](../file-storage/create-a-file.md) and use the <mark style="color:purple;">`ContractCreateTransaction()`</mark> API directly.
+The response will return the contract create transaction information like the new contract ID. You will not get the ID of the file that was created that stored your contract bytecode. If you would like to know the file ID of your contract bytecode, you can [create a file](../file-service/create-a-file.md) and use the <mark style="color:purple;">`ContractCreateTransaction()`</mark> API directly.
 
 ### Methods
 
@@ -155,21 +153,21 @@ Creates a smart contract instance using the file ID of the contract bytecode.
 
 ### Methods
 
-| Method                                              | Type                                                        | Requirement |
-| --------------------------------------------------- | ----------------------------------------------------------- | ----------- |
-| `setGas(<gas>)`                                     | long                                                        | Required    |
-| `setBytecodeFileId(<fileId>)`                       | [FileId](../../deprecated/sdks/specialized-types.md#fileid) | Required    |
-| `setInitialBalance(<initialBalance>)`               | Hbar                                                        | Optional    |
-| `setAdminKey(<keys>)`                               | Key                                                         | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                                   | Optional    |
-| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters                                  | Optional    |
-| `setContractMemo(<memo>)`                           | String                                                      | Optional    |
-| `setStakedNodeId(<stakedNodeId>)`                   | long                                                        | Optional    |
-| `setStakedAccountId(<stakedAccountId>)`             | AccountId                                                   | Optional    |
-| `setDeclineStakingReward(<declineStakingReward>)`   | boolean                                                     | Optional    |
-| `setAutoRenewAccountId(<accountId)`                 | AccountId                                                   | Optional    |
-| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                                    | Optional    |
-| `setMaxAutomaticTokenAssociations()`                | int                                                         | Optional    |
+| Method                                              | Type                                     | Requirement |
+| --------------------------------------------------- | ---------------------------------------- | ----------- |
+| `setGas(<gas>)`                                     | long                                     | Required    |
+| `setBytecodeFileId(<fileId>)`                       | [FileId](../specialized-types.md#fileid) | Required    |
+| `setInitialBalance(<initialBalance>)`               | Hbar                                     | Optional    |
+| `setAdminKey(<keys>)`                               | Key                                      | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | byte \[ ]                                | Optional    |
+| `setConstructorParameters(<constructorParameters>)` | ContractFunctionParameters               | Optional    |
+| `setContractMemo(<memo>)`                           | String                                   | Optional    |
+| `setStakedNodeId(<stakedNodeId>)`                   | long                                     | Optional    |
+| `setStakedAccountId(<stakedAccountId>)`             | AccountId                                | Optional    |
+| `setDeclineStakingReward(<declineStakingReward>)`   | boolean                                  | Optional    |
+| `setAutoRenewAccountId(<accountId)`                 | AccountId                                | Optional    |
+| `setAutoRenewPeriod(<autoRenewPeriod>)`             | Duration                                 | Optional    |
+| `setMaxAutomaticTokenAssociations()`                | int                                      | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

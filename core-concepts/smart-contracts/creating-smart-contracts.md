@@ -65,6 +65,10 @@ Contracts have the option to have an [admin key](https://github.com/hashgraph/he
 
 You cannot set the admin key field if you deploy a contract via tools like Hardhat. This field can be set if desired by deploying a contract using one of the Hedera [SDKs](../../sdks-and-apis/sdks/).&#x20;
 
+**Max Contract Storage Size**
+
+Contracts on Hedera have  a storage size limit of 16,384,000 key value pairs (\~100MB).&#x20;
+
 **Rent**
 
 While rent is not enabled for contracts deployed on Hedera today, you will want to be familiar with the concept of rent, as it may potentially impact the costs of maintaining your contract state on the network. Please refer to the Smart Contract Rent documentation [here](smart-contract-rent.md).

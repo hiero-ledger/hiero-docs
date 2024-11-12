@@ -9,16 +9,16 @@ A transaction that deletes a smart contract from a Hedera network. Once a smart 
 
 **Transaction Fees**
 
-* Please see the transaction and query [NextCall a smart contract function](http://127.0.0.1:5000/s/3UlLhrwSBZKwLvX6vlUX/docs/sdks/smart-contracts/call-a-smart-contract-function) table for base transaction fee
+* Please see the transaction and query [NextCall a smart contract function](https://app.gitbook.com/s/3UlLhrwSBZKwLvX6vlUX/docs/sdks/smart-contracts/call-a-smart-contract-function) table for base transaction fee
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 ### Methods
 
-| Method                                      | Type                                                                | Description                                                          | Requirement |
-| ------------------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------- |
-| `setContractId(<contractId>)`               | [ContractId](../../deprecated/sdks/specialized-types.md#contractid) | Sets the contract ID (x.z.y) which should be deleted.                | Required    |
-| `setTransferAccountId(<transferAccountId>)` | [AccountId](../../deprecated/sdks/specialized-types.md#accountid)   | Sets the account ID (x.z.y) which will receive all remaining hbars   | Optional    |
-| `setTransferContractId(<contractId>)`       | [ContractId](../../deprecated/sdks/specialized-types.md#contractid) | Sets the contract ID (x.z.y) which will receive all remaining hbars. | Optional    |
+| Method                                      | Type                                             | Description                                                          | Requirement |
+| ------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------- | ----------- |
+| `setContractId(<contractId>)`               | [ContractId](../specialized-types.md#contractid) | Sets the contract ID (x.z.y) which should be deleted.                | Required    |
+| `setTransferAccountId(<transferAccountId>)` | [AccountId](../specialized-types.md#accountid)   | Sets the account ID (x.z.y) which will receive all remaining hbars   | Optional    |
+| `setTransferContractId(<contractId>)`       | [ContractId](../specialized-types.md#contractid) | Sets the contract ID (x.z.y) which will receive all remaining hbars. | Optional    |
 
 {% tabs %}
 {% tab title="Java" %}

@@ -126,12 +126,12 @@ client.SetOperator(operatorAccountID, operatorKey)
 
 The .env file is created in the root directory of the SDK. The `.env` file stores account ID and the associated private key information to reference throughout your code. You will need to import the relevant dotenv module to your project files. The sample .env file may look something like this:
 
-{% code title=".env" %}
-```bash
+**.env**
+
+```
 MY_ACCOUNT_ID=0.0.941
 MY_PRIVATE_KEY=302e020100300506032b65700422042012a4a4add3d885bd61d7ce5cff88c5ef2d510651add00a7f64cb90de3359bc5e
 ```
-{% endcode %}
 
 {% tabs %}
 {% tab title="Java" %}
@@ -205,10 +205,10 @@ Client client = Client.forTestnet()
 client.setOperator(myAccountId, myPrivateKey);
 
 //Set the default maximum transaction fee (in Hbar)
-client.setDefaultMaxTransactionFee(new Hbar(100));
+client.setDefaultMaxTransactionFee(new Hbar(10));
 
 //Set the maximum payment for queries (in Hbar)
-client.setDefaultMaxQueryPayment(new Hbar(50));
+client.setDefaultMaxQueryPayment(new Hbar(5));
 
 //v2.0.0
 ```
@@ -224,10 +224,10 @@ const client = Client.forTestnet()
 client.setOperator(myAccountId, myPrivateKey);
 
 //Set the default maximum transaction fee (in Hbar)
-client.setDefaultMaxTransactionFee(new Hbar(100));
+client.setDefaultMaxTransactionFee(new Hbar(10));
 
 //Set the maximum payment for queries (in Hbar)
-client.setDefaultMaxQueryPayment(new Hbar(50));
+client.setDefaultMaxQueryPayment(new Hbar(5));
 
 //v2.0.0
 ```
@@ -243,10 +243,10 @@ client := hedera.ClientForTestnet()
 client.SetOperator(myAccountId, myPrivateKey)
 
 // Set default max transaction fee
-client.SetDefaultMaxTransactionFee(hedera.HbarFrom(100, hedera.HbarUnits.Hbar))
+client.SetDefaultMaxTransactionFee(hedera.HbarFrom(10, hedera.HbarUnits.Hbar))
 
 // Set max query payment
-client.setDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
+client.setDefaultMaxQueryPayment(hedera.HbarFrom(5, hedera.HbarUnits.Hbar))
 
 //v2.0.0
 ```

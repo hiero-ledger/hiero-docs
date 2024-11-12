@@ -463,7 +463,7 @@ contractQuery, err := hedera.NewContractCallQuery().
 	SetGas(100000).
 	//Set the query payment for the node returning the request
         //This value must cover the cost of the request otherwise will fail
-	SetQueryPayment(hedera.NewHbar(1)).
+	SetQueryPayment(hedera.NewHbar(2)).
 	//Set the contract function to call
 	SetFunction("getMessage", nil). // nil -> no parameters
 	//Submit the query to a Hedera network
@@ -563,7 +563,7 @@ const contractCallQuery = new ContractCallQuery()
         .setFunction("get_message")
         //Set the query payment for the node returning the request
         //This value must cover the cost of the request otherwise will fail 
-        .setQueryPayment(new Hbar(10));
+        .setQueryPayment(new Hbar(2));
 
 //Submit the transaction to a Hedera network 
 const contractUpdateResult = await contractCallQuery.execute(client);

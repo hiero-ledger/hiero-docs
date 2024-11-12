@@ -23,9 +23,9 @@ The total number of NFT serial number deletions contained within the transaction
 
 ### Methods
 
-| **Method**                                          | **Type**                                                                    | **Description**                                     |
-| --------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------- |
-| `deleteAllNftAllowances(<nftId>, <ownerAccountId>)` | <p>NFT ID,<br><a href="../specialized-types.md#accountid">AccountId</a></p> | Removes the NFT allowance from the spender account. |
+| **Method**                                          | **Type**                                                                               | **Description**                                     |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `deleteAllNftAllowances(<nftId>, <ownerAccountId>)` | <p>NFT ID,<br><a href="../../../sdks/specialized-types.md#accountid">AccountId</a></p> | Removes the NFT allowance from the spender account. |
 
 {% tabs %}
 {% tab title="Java" %}

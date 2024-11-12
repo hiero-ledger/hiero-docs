@@ -63,7 +63,7 @@ Rent is defined as the recurring payment required for contracts (and, eventually
 * **Auto-renewal payments** The auto-renewal fee for a contract is $0.026 USD per 90 days.
 * **Storage payments** will start once a total of **100 million key-value pairs** are stored cumulatively across the network. These storage fees will be part of the rent payment collected when a contract is auto-renewed. The storage fee rate is $0.02 per key-value pair per year.
 
-<img src="../../.gitbook/assets/image (3).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/smart-contracts-rent-storage-payments.png" alt="" data-size="original">
 
 </details>
 

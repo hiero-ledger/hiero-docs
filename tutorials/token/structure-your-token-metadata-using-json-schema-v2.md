@@ -35,7 +35,7 @@ We recommend you complete one of the two tutorials below that teach you how to c
 
 It's essential to understand that the token metadata JSON schema V2 requires you to store metadata using a storage solution, centralized or decentralized, such as IPFS or Arweave.
 
-When creating a non-fungible token using the Hedera Token Service, you set the metadata value to the metadata JSON file to define your NFT, wherever it’s stored. This technique allows you to connect the metadata to the token created on the Hedera network. It's not allowed to use the "memo" or "symbol" fields on the NFT.&#x20;
+When creating a non-fungible token using the Hedera Token Service, you set the metadata value to the metadata JSON file to define your NFT, wherever it’s stored. This technique allows you to connect the metadata to the token created on the Hedera network. The "memo" or "symbol" fields are not allowed on the NFT.&#x20;
 
 An excerpt from the [NFT minting tutorial](https://docs.hedera.com/hedera/tutorials/token-service/create-and-transfer-your-first-nft#2.-mint-a-new-nft) shows this connection when minting a new NFT.
 
@@ -142,7 +142,7 @@ It's recommended to use the **is\_default\_file** field to indicate which file i
 {% endtab %}
 
 {% tab title="properties" %}
-It's not allowed to define additional fields on the root level of the metadata object.&#x20;
+Additional fields are not allowed to be defined at the root level of the metadata object.&#x20;
 
 ```json
 // ❌ Not allowed to add "website" to the root of the object
@@ -174,12 +174,12 @@ If you want to add custom fields, you can add them to the `properties` object. F
 {% endtab %}
 
 {% tab title="attributes" %}
-The `attributes` field is specifically used to calculate rarity of NFTs. It's an industry-accepted way to define traits and their values for a collectible NFT collection in order to calculate the rarity score of the NFT.&#x20;
+The `attributes` field is specifically used to calculate the rarity of NFTs. It's an industry-accepted way to define traits and their values for a collectible NFT collection in order to calculate the rarity score of the NFT.&#x20;
 
-The `attributes` fied consists of an array of `attribute` objects. This is the structure of such an object:
+The `attributes` field consists of an array of `attribute` objects. This is the structure of such an object:
 
 * **trait\_type**: (required) Name of the trait.
-* **value**: (required) Value for the trait, e.g. for a `trait_type = clothing`, values can be `pants`, `shirt`, or `t-shirt`.
+* **value**: (required) Value for the trait, e.g., for a `trait_type = clothing`, values can be `pants`, `shirt`, or `t-shirt`.
 * **display\_type**: (optional) Allows you to specify how the trait should be displayed. For instance, you can set it to `datetime` so the person or bot knows the value should be interpreted as a date.
 * **max\_value**: (optional) It's possible to set a `max_value` for a numerical value.&#x20;
 
@@ -262,7 +262,7 @@ A localized file would have the same structure, but doesn't specify any localiza
 {% endtab %}
 
 {% tab title="description, creator, creatorDID, checksum, and format" %}
-Here's a list of remaining optional fields you can define according to the Token Metadata JSON Schema V2 specification.
+Here's a list of optional fields you can define according to the Token Metadata JSON Schema V2 specification.
 
 * **description**: A text that describes your token or NFT collection.
 * **creator**: Identifies the artist name(s).
@@ -326,9 +326,9 @@ This is what a full Token Metadata JSON Schema V2 specification looks like.
 
 ***
 
-## How to verify your token metadata is correct?
+## How do you verify your token metadata is correct?
 
-When you create token metadata for the first time, you want to verify your metadata against the Token Metadata JSON Schema V2. To help you in this, Hedera has created an [NFT utilities SDK](https://github.com/hashgraph/hedera-nft-utilities#token-metadata-validator) **(only for JavaScript)** to verify your metadata against the JSON Schema V2.&#x20;
+When you create token metadata for the first time, you want to verify your metadata against the Token Metadata JSON Schema V2. To help you, Hedera has created an [NFT utilities SDK](https://github.com/hashgraph/hedera-nft-utilities#token-metadata-validator) **(only for JavaScript)** to verify your metadata against the JSON Schema V2.&#x20;
 
 You can install the package using Yarn or NPM.
 
@@ -336,7 +336,7 @@ You can install the package using Yarn or NPM.
 npm i -s @hashgraph/nft-utilities
 ```
 
-Next, you need to import the `validator` function which accepts your metadata as a JSON object and the schema version against which you want to verify the metadata (`2.0.0`). Here's the code.
+Next, you need to import the `validator` function that accepts your metadata as a JSON object and the schema version against which you want to verify the metadata (`2.0.0`). Here's the code.
 
 ```javascript
 const metadata = {
@@ -376,7 +376,7 @@ The package will return errors and warnings using the below interface. This snip
 
 ## Want to learn more about token metadata?
 
-Here's a video that talks about the importance of structuring your token metadata and how to do it according to Token Metadata JSON Schema V2.
+Here's a video about how crucial structuring your token metadata is and how to do it according to Token Metadata JSON Schema V2.
 
 {% embed url="https://www.youtube.com/watch?v=o8lY5nQ7pYo" %}
 

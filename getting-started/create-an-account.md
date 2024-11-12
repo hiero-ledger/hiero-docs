@@ -4,9 +4,14 @@
 
 In this section, you will learn how to make a simple Hedera account. Hedera accounts are the entry point by which you can interact with the [Hedera APIs](../sdks-and-apis/hedera-api/). Accounts hold a balance of HBAR used to pay for API calls for the various transaction and query types.
 
+***
+
 ## Prerequisites
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><a href="introduction.md"><mark style="color:purple;"><strong>INTRODUCTION</strong></mark></a></td><td><a href="introduction.md">introduction.md</a></td></tr><tr><td align="center"><a href="environment-set-up.md"><mark style="color:purple;"><strong>ENVIRONMENT SETUP</strong></mark></a></td><td><a href="environment-set-up.md">environment-set-up.md</a></td></tr></tbody></table>
+* Completed the [Introduction](introduction.md) step.
+* Completed the [Environment Setup](environment-set-up.md) step.
+
+***
 
 ## Step 1: Import modules
 
@@ -33,7 +38,7 @@ import java.util.concurrent.TimeoutException;
 
 {% tab title="JavaScript" %}
 ```javascript
-const { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, Hbar } = require("@hashgraph/sdk");
+const { Client, PrivateKey, AccountCreateTransaction, AccountBalanceQuery, TransferTransaction, Hbar } = require("@hashgraph/sdk");
 require("dotenv").config();
 ```
 {% endtab %}
@@ -50,6 +55,8 @@ import (
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## Step 2: Generate keys for the new account
 
@@ -98,6 +105,8 @@ newAccountPublicKey := newAccountPrivateKey.PublicKey()
 ```
 {% endtab %}
 {% endtabs %}
+
+***
 
 ## Step 3: Create a new account
 
@@ -180,6 +189,8 @@ fmt.Printf("The new account ID is %v\n", newAccountId)
 {% endtab %}
 {% endtabs %}
 
+***
+
 ## Step 5: Verify the new account balance
 
 Next, you will submit a query to the Hedera test network to return the balance of the new account using the new _account ID_. The current account balance for the new account should be 1,000 _tinybars_. Getting the balance of an account is free today.
@@ -235,6 +246,8 @@ fmt.Println("The account balance for the new account is ", accountBalance.Hbars.
 You are now ready to transfer some HBAR to the new account :money\_mouth:!
 {% endhint %}
 
+***
+
 ## Code Check :white\_check\_mark:
 
 <details>
@@ -271,7 +284,7 @@ public class HederaExamples {
         
         // Set default max transaction fee & max query payment
         client.setDefaultMaxTransactionFee(new Hbar(100)); 
-        client.setMaxQueryPayment(new Hbar(50)); 
+        client.setDefaultMaxQueryPayment(new Hbar(50)); 
         
         // Generate a new key pair
         PrivateKey newAccountPrivateKey = PrivateKey.generateED25519();
@@ -308,11 +321,11 @@ public class HederaExamples {
 {% code title="index.js" %}
 ```javascript
 const {
+  Hbar,
   Client,
   PrivateKey,
-  AccountCreateTransaction,
   AccountBalanceQuery,
-  Hbar,
+  AccountCreateTransaction,
 } = require("@hashgraph/sdk");
 require("dotenv").config();
 
@@ -336,7 +349,7 @@ async function environmentSetup() {
   client.setDefaultMaxTransactionFee(new Hbar(100));
 
   //Set the maximum payment for queries (in Hbar)
-  client.setMaxQueryPayment(new Hbar(50));
+  client.setDefaultMaxQueryPayment(new Hbar(50));
 
   // Create new keys
   const newAccountPrivateKey = PrivateKey.generateED25519();

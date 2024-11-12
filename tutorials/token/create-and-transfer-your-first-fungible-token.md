@@ -205,8 +205,8 @@ System.out.println("Alice's balance: " + balanceCheckAlice.tokens + " units of t
 
 //TRANSFER STABLECOIN FROM TREASURY TO ALICE
 TransferTransaction tokenTransferTx = new TransferTransaction()
-        .addTokenTransfer(tokenId, treasuryId, -2500)
-        .addTokenTransfer(tokenId, aliceAccountId, 2500)
+        .addTokenTransfer(tokenId, treasuryId, -5)
+        .addTokenTransfer(tokenId, aliceAccountId, 5)
         .freezeWith(client)
         .sign(treasuryKey);
         
@@ -238,8 +238,8 @@ console.log(`- Alice's balance: ${balanceCheckTx.tokens._map.get(tokenId.toStrin
 
 // TRANSFER STABLECOIN FROM TREASURY TO ALICE
 let tokenTransferTx = await new TransferTransaction()
-	.addTokenTransfer(tokenId, treasuryId, -2500)
-	.addTokenTransfer(tokenId, aliceId, 2500)
+	.addTokenTransfer(tokenId, treasuryId, -5)
+	.addTokenTransfer(tokenId, aliceId, 5)
 	.freezeWith(client)
 	.sign(treasuryKey);
 
@@ -272,8 +272,8 @@ fmt.Println("Alice's balance:", balanceCheckAlice.Tokens, "units of token ID", t
 
 //TRANSFER THE STABLECOIN TO ALICE
 tokenTransferTx, err := hedera.NewTransferTransaction().
-	AddTokenTransfer(tokenId, treasuryAccountId, -2500).
-	AddTokenTransfer(tokenId, aliceAccountId, 2500).
+	AddTokenTransfer(tokenId, treasuryAccountId, -5).
+	AddTokenTransfer(tokenId, aliceAccountId, 5).
 	FreezeWith(client)
 
 //SIGN WITH THE TREASURY KEY TO AUTHORIZE THE TRANSFER
@@ -332,7 +332,7 @@ public class CreateFungibleTutorial {
         //Create treasury account
         TransactionResponse treasuryAccount = new AccountCreateTransaction()
                 .setKey(treasuryPublicKey)
-                .setInitialBalance(new Hbar(10))
+                .setInitialBalance(new Hbar(5))
                 .execute(client);
 
         AccountId treasuryId = treasuryAccount.getReceipt(client).accountId;
@@ -344,7 +344,7 @@ public class CreateFungibleTutorial {
         //Create Alice's account
         TransactionResponse aliceAccount = new AccountCreateTransaction()
                 .setKey(alicePublicKey)
-                .setInitialBalance(new Hbar(10))
+                .setInitialBalance(new Hbar(5))
                 .execute(client);
 
         AccountId aliceAccountId = aliceAccount.getReceipt(client).accountId;
@@ -404,8 +404,8 @@ public class CreateFungibleTutorial {
 
         // TRANSFER STABLECOIN FROM TREASURY TO ALICE
         TransferTransaction tokenTransferTx = new TransferTransaction()
-                .addTokenTransfer(tokenId, treasuryId, -2500)
-                .addTokenTransfer(tokenId, aliceAccountId, 2500)
+                .addTokenTransfer(tokenId, treasuryId, -5)
+                .addTokenTransfer(tokenId, aliceAccountId, 5)
                 .freezeWith(client)
                 .sign(treasuryKey);
 
@@ -498,8 +498,8 @@ async function createFungibleToken() {
 
 	//TRANSFER STABLECOIN FROM TREASURY TO ALICE
 	let tokenTransferTx = await new TransferTransaction()
-		.addTokenTransfer(tokenId, treasuryId, -2500)
-		.addTokenTransfer(tokenId, aliceId, 2500)
+		.addTokenTransfer(tokenId, treasuryId, -5)
+		.addTokenTransfer(tokenId, aliceId, 5)
 		.freezeWith(client)
 		.sign(treasuryKey);
 	let tokenTransferSubmit = await tokenTransferTx.execute(client);
@@ -537,7 +537,7 @@ func main() {
 	//LOADS THE .ENV FILE AND THROWS AN EROOR IF IT CANNOT LOAD THE VARIABLES
 	err := godotenv.Load(".env")
 	if err != nil {
-		panic(fmt.Errorf("Unable to load enviroment variables from .env file. Error:\n%v\n", err))
+		panic(fmt.Errorf("Unable to load environment variables from .env file. Error:\n%v\n", err))
 	}
 
 	//GRAB YOUR TESTNET ACCOUNT ID AND KEY FROMZ THE .ENV FILE
@@ -566,7 +566,7 @@ func main() {
 	//CREATE TREASURY ACCOUNT
 	treasuryAccount, err := hedera.NewAccountCreateTransaction().
 		SetKey(treasuryPublicKey).
-		SetInitialBalance(hedera.NewHbar(10)).
+		SetInitialBalance(hedera.NewHbar(5)).
 		Execute(client)
 	
 	//GET THE RECEIPT OF THE TRANSACTION
@@ -582,7 +582,7 @@ func main() {
 	//CREATE AILICE'S ACCOUNT
 	aliceAccount, err := hedera.NewAccountCreateTransaction().
 		SetKey(alicePublicKey).
-		SetInitialBalance(hedera.NewHbar(10)).
+		SetInitialBalance(hedera.NewHbar(5)).
 		Execute(client)
 
 	//GET THE RECEIPT OF THE TRANSACTION
@@ -649,8 +649,8 @@ func main() {
 
 	//Transfer the STABLECOIN from treasury to Alice
 	tokenTransferTx, err := hedera.NewTransferTransaction().
-		AddTokenTransfer(tokenId, treasuryAccountId, -2500).
-		AddTokenTransfer(tokenId, aliceAccountId, 2500).
+		AddTokenTransfer(tokenId, treasuryAccountId, -5).
+		AddTokenTransfer(tokenId, aliceAccountId, 5).
 		FreezeWith(client)
 
 	//SIGN WITH THE TREASURY KEY TO AUTHORIZE THE TRANSFER

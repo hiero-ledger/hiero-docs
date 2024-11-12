@@ -15,12 +15,7 @@ The amount of gas used, as well as other attributes of the transaction, e.g. siz
 * Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
-| Method                        | Type                               | Description                                                            | Requirement |
-| ----------------------------- | ---------------------------------- | ---------------------------------------------------------------------- | ----------- |
-| `setContractId(<contractId>)` | ContractID                         | The ID of the contract to call.                                        | Required    |
-| `setFunction(<name, params>)` | String, ContractFunctionParameters | Which function to call and the parameters to pass to the function.     | Required    |
-| `setGas(<gas>)`               | long                               | The maximum amount of gas to use for the call.                         | Required    |
-| `setPayableAmount(<amount>)`  | Hbar                               | Number of hbars sent (the function must be payable if this is nonzero) | Optional    |
+<table><thead><tr><th width="275">Method</th><th width="143">Type</th><th width="203">Description</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setContractId(&#x3C;contractId>)</code></td><td>ContractID</td><td>The ID of the contract to call.</td><td>Required</td></tr><tr><td><code>setFunction(&#x3C;name, params>)</code></td><td>String, ContractFunctionParameters</td><td>Which function to call and the parameters to pass to the function.</td><td>Required</td></tr><tr><td><code>setGas(&#x3C;gas>)</code></td><td>long</td><td>The maximum amount of gas to use for the call.</td><td>Required</td></tr><tr><td><code>setPayableAmount(&#x3C;amount>)</code></td><td>Hbar</td><td>Number of HBARs sent (the function must be payable if this is nonzero)</td><td>Optional</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -30,7 +25,7 @@ ContractCreateTransaction transaction = new ContractExecuteTransaction()
      .setContractId(newContractId)
      .setGas(100_000_000)
      .setFunction("set_message", new ContractFunctionParameters()
-           .addString("hello from hedera again!"))
+          .addString("hello from hedera again!"))
 
 //Sign with the client operator private key to pay for the transaction and submit the query to a Hedera network
 TransactionResponse txResponse = transaction.execute(client);
@@ -54,7 +49,7 @@ const transaction = new ContractExecuteTransaction()
      .setContractId(newContractId)
      .setGas(100_000_000)
      .setFunction("set_message", new ContractFunctionParameters()
-           .addString("hello from hedera again!"))
+          .addString("hello from hedera again!"))
 
 //Sign with the client operator private key to pay for the transaction and submit the query to a Hedera network
 const txResponse = await transaction.execute(client);

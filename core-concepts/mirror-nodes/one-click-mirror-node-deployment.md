@@ -26,12 +26,12 @@ Click [here](https://console.cloud.google.com/marketplace/details/mirror-node-pu
 
 * Importer GCP access key
 * Importer GCS bucket name
-  * Mainnet: hedera-mainnet-streams
-  * Testnet: hedera-stable-testnet-streams-2020-08-27
+  * Mainnet: `hedera-mainnet-streams`
+  * Testnet: `hedera-stable-testnet-streams-2024-02`
 * Importer GCP billing project ID
 * Importer GCP secret key
 
-Once you deploy your mirror node, you can access the mirror node via the [gRPC API](../../sdks-and-apis/hedera-consensus-service-api.md) or the R[EST API](../../sdks-and-apis/rest-api.md).
+Once you deploy your mirror node, you can access the mirror node via the [gRPC API](../../sdks-and-apis/hedera-consensus-service-api.md) or the [REST API](../../sdks-and-apis/rest-api.md).
 
 #### **gRPC API**
 

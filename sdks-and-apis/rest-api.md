@@ -8,7 +8,7 @@ Hedera Mirror Nodes store the history of transactions that occurred on mainnet, 
 
 To make a request, use the network endpoint and the REST API of choice. For example, to get a list of transactions on mainnet you would make the following request.
 
-{% embed url="https://mainnet-public.mirrornode.hedera.com/api/v1/transactions" %}
+{% embed url="https://mainnet.mirrornode.hedera.com/api/v1/transactions" %}
 
 <details>
 
@@ -25,7 +25,7 @@ To make a request, use the network endpoint and the REST API of choice. For exam
 
 {% hint style="info" %}
 **MAINNET BASEURL**\
-`https://mainnet-public.mirrornode.hedera.com/`
+`https://mainnet.mirrornode.hedera.com/`
 
 **TESTNET BASEURL**\
 `https://testnet.mirrornode.hedera.com/`
@@ -33,11 +33,11 @@ To make a request, use the network endpoint and the REST API of choice. For exam
 **PREVIEWNET BASEURL**\
 `https://previewnet.mirrornode.hedera.com/`
 
-You may also check out [DragonGlass](https://app.dragonglass.me/hedera/pricing), [Arkhia](https://www.arkhia.io/features/#api-services) or [Ledger Works](https://lworks.io) as alternatives.‌
+You may also check out [Validation Cloud](https://validationcloud.io), [DragonGlass](https://app.dragonglass.me/hedera/pricing), [Arkhia](https://www.arkhia.io/features/#api-services) or [Ledger Works](https://lworks.io) as alternatives.‌
 {% endhint %}
 
 {% hint style="warning" %}
-Public mainnet mirror node requests are throttled at 100 requests per second (rps). This may change in the future depending upon performance or security considerations. At this time, no authentication is required.
+Public mainnet mirror node requests per second (RPS) are currently throttled at **50 per IP address**. These configurations may change in the future depending on performance or security considerations. At this time, no authentication is required.
 {% endhint %}
 
 ## Accounts <a href="#accounts" id="accounts"></a>
@@ -488,6 +488,10 @@ A single transaction can also be returned by specifying the transaction ID in th
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
 
+{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/results/{transactionIdOrHash}/opcodes" method="get" %}
+[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
+{% endswagger %}
+
 {% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/contracts/{contractIdOrAddress}/results/logs" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
@@ -509,22 +513,6 @@ A single transaction can also be returned by specifying the transaction ID in th
 {% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/blocks/{hashOrNumber}" method="get" %}
 [https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
 {% endswagger %}
-
-## State Proof Alpha
-
-The Hedera Mirror Node state proof alpha api provides the ability to cryptographically prove a transaction is valid on Hedera network. The request returns the content of the address book file, signature files, and record file that can be used to validate the transaction occurred on the Hedera network. The address book file contains the consensus node account IDs and their public key files. The signature files are of the supermajority consensus nodes that signed the record file the transaction is contained in.
-
-{% swagger src="https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml" path="/api/v1/transactions/{transactionId}/stateproof" method="get" %}
-[https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml](https://raw.githubusercontent.com/hashgraph/hedera-mirror-node/main/hedera-mirror-rest/api/v1/openapi.yml)
-{% endswagger %}
-
-| Response Item        | Description                                                                      | Format          |
-| -------------------- | -------------------------------------------------------------------------------- | --------------- |
-| **record\_file**     | The record file content for the specified transaction                            | base64 encoding |
-| **signature\_files** | The signatures file content from the consensus nodes that signed the transaction | base64 encoding |
-| **address\_books**   | The address book file contents                                                   | base64 encoding |
-
-Save the response to a json file and use the [check-state-proof](https://github.com/hashgraph/hedera-mirror-node/tree/master/hedera-mirror-rest/check-state-proof) cli commands to confirm the validity of the transaction. You can find the instructions [here](https://github.com/hashgraph/hedera-mirror-node/tree/master/hedera-mirror-rest/check-state-proof).
 
 ## Network
 

@@ -10,7 +10,11 @@ Private keys _can only_ be recovered once lost if created with an associated rec
 
 The choice between ECDSA and ED25519 keys primarily depends on your specific use case:
 
-<table data-header-hidden><thead><tr><th width="193.33333333333331"></th><th></th><th></th></tr></thead><tbody><tr><td></td><td><strong>ECDSA</strong></td><td><strong>Ed25519</strong></td></tr><tr><td><strong>Use Cases</strong></td><td>Ideal if you want to use <a href="../support-and-community/glossary.md#metamask">MetaMask</a> or need support for more EVM developer tooling. Suited for apps interfacing with Ethereum or EVM-compatible networks due to the associated EVM address.</td><td>Preferred if key length, security, and performance are important. ECDSA public keys are twice as long for the same level of security. It's your only option for Hedera native wallets like <a href="https://www.hashpack.app/">HashPack</a> as they don't support ECDSA accounts.</td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="193.33333333333331"></th><th></th><th></th></tr></thead><tbody><tr><td></td><td><strong>ECDSA</strong></td><td><strong>Ed25519</strong></td></tr><tr><td><strong>Use Cases</strong></td><td>Ideal if you want to use <a href="../support-and-community/glossary.md#metamask">MetaMask</a> or need support for more EVM developer tooling. Suited for apps interfacing with Ethereum or EVM-compatible networks due to the associated EVM address.</td><td>Preferred if key length, security, and performance are important. ECDSA public keys are twice as long for the same level of security.</td></tr></tbody></table>
+
+{% hint style="info" %}
+**Note**: Hedera wallets such as [HashPack](https://www.hashpack.app/) support both key types.
+{% endhint %}
 
 ## Key Structures
 

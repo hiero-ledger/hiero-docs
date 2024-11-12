@@ -41,10 +41,10 @@ In this tutorial, a treasury account will be created to transfer HTS tokens to B
 
 ## Create Treasury Account
 
-We create the treasury account which will be the holder of the fungible and non-fungible tokens. The treasury account will be created with an initial balance of 100 HBAR.
+We create the treasury account, which will be the holder of the fungible and non-fungible tokens. The treasury account will be created with an initial balance of 5 HBAR.
 
 ```javascript
-const [treasuryAccId, treasuryAccPvKey] = await createAccount(client, 100);
+const [treasuryAccId, treasuryAccPvKey] = await createAccount(client, 5);
 ```
 
 #### Set Up Helper Functions
@@ -251,7 +251,7 @@ const tokenId = await createFungibleToken(client, treasuryAccId, supplyKey, trea
 
 An alias is an initial public key that will convert into a Hedera account through auto-account creation. An alias consists of \<shard>.\<realm>.\<bytes>.
 
-To learn more about accounts created via an account alias go [here](../../sdks-and-apis/sdks/cryptocurrency/create-an-account.md).
+To learn more about accounts created via an account alias go [here](../../sdks-and-apis/sdks/accounts-and-hbar/create-an-account.md).
 
 ```javascript
  const privateKey = PrivateKey.generateECDSA();
@@ -317,14 +317,14 @@ export const transferNft = async (client: Client, nftTokenId: TokenId, nftId: nu
 
 #### Transfer FT and an NFT to Bob using their alias&#x20;
 
-Transfer 10 fungible tokens to Bob using their alias and the helper function _**sendToken**_.
+Transfer 5 fungible tokens to Bob using their alias and the helper function _**sendToken**_.
 
 Transfer the NFT with serial number 1 to Bob using the helper function _**transfertNFT**_.
 
 {% tabs %}
 {% tab title="Send Bob 10 FT" %}
 ```javascript
-await sendToken(client, tokenId, treasuryAccId, aliasAccountId, 10, treasuryAccPvKey);
+await sendToken(client, tokenId, treasuryAccId, aliasAccountId, 5, treasuryAccPvKey);
 ```
 {% endtab %}
 
@@ -362,9 +362,9 @@ console.log(`The normal account ID of the given alias: ${accountId}`);
 
 <figure><img src="https://images.hedera.com/normal-account-id-both-hip-542.png?w=436&#x26;auto=compress%2Cformat&#x26;fit=crop&#x26;dm=1680227702&#x26;s=ed33d949bedd10e7de6a645ff9805f57" alt=""><figcaption></figcaption></figure>
 
-#### Show Bob's new account owns the 10 FT tokens
+#### Show Bob's new account owns the 5 FT tokens
 
-Complete an AccountBalanceQuery to show that Bob's new account owns the 10 fungible tokens the treasury account sent.
+Complete an AccountBalanceQuery to show that Bob's new account owns the 5 fungible tokens the treasury account sent.
 
 ```javascript
  const accountBalances = await new AccountBalanceQuery()
@@ -382,7 +382,7 @@ Complete an AccountBalanceQuery to show that Bob's new account owns the 10 fungi
    throw new Error(`account balance does not have tokens for token id: ${tokenId}.`);
  }
  
- tokenBalanceAccountId.toInt() === 10
+ tokenBalanceAccountId.toInt() === 5
    ? console.log(
      `Account is created successfully using HTS 'TransferTransaction'`
    )
@@ -397,7 +397,7 @@ Complete an AccountBalanceQuery to show that Bob's new account owns the 10 fungi
 
 #### Show Bob's new account owns the NFT
 
-First create a helper function that creates a TokenNftInfoQuery transaction and returns the account id of the nft owner for a specific nft serial number.
+First, create a helper function that creates a TokenNftInfoQuery transaction and returns the account id of the NFT owner for a specific NFT serial number.
 
 ```javascript
 export const getNftOwnerByNftId = async (client: Client, nftTokenId: TokenId, exampleNftId: number) => {

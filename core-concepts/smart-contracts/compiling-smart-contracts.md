@@ -2,7 +2,7 @@
 
 Compiling a smart contract involves using the contract's source code to generate its [**bytecode**](../../support-and-community/glossary.md#bytecode) and the contract [**Application** **Binary Interface (ABI)**](../../support-and-community/glossary.md#application-binary-interface-abi). The Ethereum Virtual Machine (EVM) executes the bytecode to understand and execute the smart contract. Meanwhile, other smart contracts use the ABI to understand how to interact with the deployed contracts on the Hedera network.
 
-<figure><img src="../../.gitbook/assets/compiling smart contracts image.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/compiling-smart-contracts-graphic.png" alt="" width="375"><figcaption></figcaption></figure>
 
 **Compiling Solidity**
 
@@ -99,9 +99,9 @@ The following is a list of available system contracts on Hedera:
 
 The exchange rate contract allows you to convert from tinycents to tinybars and from tinybars to tinycents.
 
-| Contract Address | Source                                                                                                                                                                                               |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0x168            | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/exchange-rate-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/exchange-rate-precompile) |
+| Contract Address | Source                                                                                                                                                                                                           |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0x168`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/exchange-rate](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/exchange-rate) |
 
 **Example ⬇**
 
@@ -145,11 +145,11 @@ Reference: [HIP-475](https://hips.hedera.com/hip/hip-475).
 
 ### ➡ **Hedera Token Service**
 
-The [Hedera Token Service](../../support-and-community/glossary.md#hedera-token-service-hts) smart contract precompile provides functions to use the native Hedera Token Service in smart contracts. Tokens created using this method can also manage the tokens using the native Hedera Token Service APIs.
+The Hedera Token Service smart contract precompile provides functions to use the native Hedera Token Service in smart contracts. Tokens created using this method can also be managed using the native Hedera Token Service APIs.
 
-| Contract Address | Source                                                                                                                                                                           |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0x167            | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/hts-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/hts-precompile) |
+| Contract Address | Source                                                                                                                                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `0x167`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-token-service) |
 
 **Example ⬇**
 
@@ -967,15 +967,63 @@ interface IHederaTokenService {
 
 </details>
 
-Reference: [HIP-358](https://hips.hedera.com/hip/hip-358), [HIP-206](https://hips.hedera.com/hip/hip-206), [HIP-376](https://hips.hedera.com/hip/hip-376), [HIP-514](https://hips.hedera.com/hip/hip-514).
+Reference: [HIP-358](https://hips.hedera.com/hip/hip-358), [HIP-206](https://hips.hedera.com/hip/hip-206), [HIP-376](https://hips.hedera.com/hip/hip-376), [HIP-514](https://hips.hedera.com/hip/hip-514), [HIP-719](https://hips.hedera.com/hip/hip-719).
+
+### ➡ **Hedera Account Service**
+
+The Hedera Account Service contract provides functions to interact with the Hedera network to manage HBAR allowances.
+
+| Contract Address | Source                                                                                                                                                                                                                             |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0x16a`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-account-service](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/hedera-account-service) |
+
+#### Example ⬇
+
+<details>
+
+<summary>IHederaAccountService.sol</summary>
+
+```solidity
+// SPDX-License-Identifier: Apache-2.0
+pragma solidity >=0.4.9 <0.9.0;
+pragma experimental ABIEncoderV2;
+
+interface IHederaAccountService {
+
+    /// Returns the amount of hbars that the spender has been authorized to spend on behalf of the owner.
+    /// @param owner The account that has authorized the spender
+    /// @param spender The account that has been authorized by the owner
+    /// @return responseCode The response code for the status of the request. SUCCESS is 22.
+    /// @return amount The amount of hbar that the spender has been authorized to spend on behalf of the owner.
+    function hbarAllowance(address owner, address spender)
+    external
+    returns (int64 responseCode, int256 amount);
+
+    /// Allows spender to withdraw hbars from the owner account multiple times, up to the value amount. If this function is called
+    /// again it overwrites the current allowance with the new amount.
+    /// @param owner The owner of the hbars
+    /// @param spender the account address authorized to spend
+    /// @param amount the amount of hbars authorized to spend.
+    /// @return responseCode The response code for the status of the request. SUCCESS is 22.
+    function hbarApprove(
+        address owner,
+        address spender,
+        int256 amount
+    ) external returns (int64 responseCode);
+}
+```
+
+</details>
+
+Reference: [HIP-906](https://hips.hedera.com/hip/hip-906), [HIP-632](https://hips.hedera.com/hip/hip-632).
 
 ### ➡ **Pseudo Random Number Generator (PRNG)**
 
 The `PRNG` system contract allows you to generate a pseudo-random number that can be used in smart contracts.
 
-| Contract Address | Source                                                                                                                                                                             |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0x169            | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/util-precompile](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/util-precompile) |
+| Contract Address | Source                                                                                                                                                                                                                                             |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0x169`          | [https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/pseudo-random-number-generator](https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/pseudo-random-number-generator) |
 
 **Example ⬇**
 
@@ -1000,6 +1048,10 @@ Reference: [HIP-351](https://hips.hedera.com/hip/hip-351).
 
 ***
 
-### Compiling Smart Contract Example
+## Compiling Smart Contract Example
 
-* [Hardhat](../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-and-hedera-json-rpc-relays.md)
+**➡** [**Hardhat Tutorial**](../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md)
+
+## Additional Resources
+
+**➡** [**HTS Precompile Methods**](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/README.md)

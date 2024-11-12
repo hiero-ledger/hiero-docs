@@ -23,20 +23,20 @@ Construct _**HBAR**_ from different representations.
 {% tabs %}
 {% tab title="Java" %}
 ```java
-//100 HBAR
-new Hbar(100);
+//10 HBAR
+new Hbar(10);
 
-//100 HBAR from hbar value
-Hbar.from(100);
+//10 HBAR from hbar value
+Hbar.from(10);
 
 //100 tinybars from HBAR convert to unit
 Hbar.from(100, HbarUnit.TINYBAR);
 
-// 100 HBAR converted from string value
-Hbar.fromString("100");
+// 10 HBAR converted from string value
+Hbar.fromString("10");
 
 //100 tinybars from string value
-Hbar.fromString("100", HbarUnit.TINYBAR);
+Hbar.fromString("10", HbarUnit.TINYBAR);
 
 //v2.0.0
 ```
@@ -44,17 +44,17 @@ Hbar.fromString("100", HbarUnit.TINYBAR);
 
 {% tab title="JavaScript" %}
 ```javascript
-// 100 HBAR
-new Hbar(100);
+// 10 HBAR
+new Hbar(10);
 
-//100 HBAR
-Hbar.from(100);
+//10 HBAR
+Hbar.from(10);
 
 //100 tinybars
 Hbar.from(100, HbarUnit.TINYBAR);
 
-// 100 HBAR converted from string value
-Hbar.fromString("100");
+// 10 HBAR converted from string value
+Hbar.fromString("10");
 
 //100 tinybars from string value
 Hbar.fromString("100", HbarUnit.TINYBAR);
@@ -64,10 +64,10 @@ Hbar.fromString("100", HbarUnit.TINYBAR);
 {% tab title="Go" %}
 ```go
 //100 HBAR
-hedera.NewHbar(100)
+hedera.NewHbar(10)
 
 //100 tinybars
-hedera.HbarFrom(100, hedera.HbarUnits.Tinybar)
+hedera.HbarFrom(10, hedera.HbarUnits.Tinybar)
 
 //v2.0.0
 ```
@@ -87,14 +87,14 @@ Convert _**HBAR**_ to a different unit/format.
 {% tabs %}
 {% tab title="Java" %}
 ```java
-//100 HBAR converted to tinybars
-new Hbar(100).to(HbarUnit.TINYBAR);
+//10 HBAR converted to tinybars
+new Hbar(10).to(HbarUnit.TINYBAR);
 
-//100 HBAR converted to tinybars
-new Hbar(100).toString(HbarUnit.TINYBAR);
+//10 HBAR converted to tinybars
+new Hbar(10).toString(HbarUnit.TINYBAR);
 
-//100 HBAR converted to tinybars
-new Hbar(100).toTinybars();
+//10 HBAR converted to tinybars
+new Hbar(10).toTinybars();
 
 //v2.0.0
 ```
@@ -102,27 +102,27 @@ new Hbar(100).toTinybars();
 
 {% tab title="JavaScript" %}
 ```javascript
-//100 HBAR converted to tinybars
-new Hbar(100).to(HbarUnit.TINYBAR);
+//10 HBAR converted to tinybars
+new Hbar(10).to(HbarUnit.TINYBAR);
 
-//100 HBAR converted to tinybars
-new Hbar(100).toString(HbarUnit.TINYBAR);
+//10 HBAR converted to tinybars
+new Hbar(10).toString(HbarUnit.TINYBAR);
 
-//100 HBAR converted to tinybars
-new Hbar(100).toTinybars();
+//10 HBAR converted to tinybars
+new Hbar(10).toTinybars();
 ```
 {% endtab %}
 
 {% tab title="Go" %}
 ```go
-//100 HBAR converted to tinybars
-hedera.NewHbar(100).As(hedera.HbarUnits.Tinybar)
+//10 HBAR converted to tinybars
+hedera.NewHbar(10).As(hedera.HbarUnits.Tinybar)
 
-//100 HBAR to string format
-hedera.NewHbar(100).String()
+//10 HBAR to string format
+hedera.NewHbar(10).String()
 
-//100 HBAR converted to tinybars
-hedera.NewHbar(100).AsTinybar()
+//10 HBAR converted to tinybars
+hedera.NewHbar(10).AsTinybar()
 //v2.0.0
 ```
 {% endtab %}

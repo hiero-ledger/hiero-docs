@@ -6,10 +6,10 @@ The Decentralized on Hedera stamp is the official way to denote that your applic
 
 For use on white or light backgrounds.
 
-![](<../.gitbook/assets/Built On Hedera \_ BLACK.png>)
+![](<../.gitbook/assets/built-on-hedera\_ black.png>)
 
 For use on black or dark backgrounds
 
-![](<../.gitbook/assets/Built On Hedera \_ WHITE\_Background (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png>)
+![](../.gitbook/assets/built-on-hedera\_white\_background.png)
 
 For Hedera logo usage, details, and more view the complete [Hedera Brand page](https://hedera.com/brand).

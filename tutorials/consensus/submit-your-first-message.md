@@ -21,10 +21,10 @@ We recommend you complete the following introduction to get a basic understandin
 
 ## Table of Contents
 
-1. Create Topic
-2. Subscribe to Topic
-3. Submit Message
-4. Code Check
+1. [Create Topic](submit-your-first-message.md#id-1.-create-your-first-topic)
+2. [Subscribe to Topic](submit-your-first-message.md#id-2.-subscribe-to-a-topic)
+3. [Submit Message](submit-your-first-message.md#id-3.-submit-a-message)
+4. [Code Check](submit-your-first-message.md#code-check)
 
 ***
 

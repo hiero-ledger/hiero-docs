@@ -2,7 +2,7 @@
 description: >-
   Learn how to submit a demo application, create pull requests, or log issues in
   the Hedera Contributing Guide.
-cover: ../.gitbook/assets/28_ultraviolet (1) (1) (2).jpg
+cover: broken-reference
 coverY: 31
 ---
 
@@ -30,7 +30,8 @@ If you'd like to propose changes directly to the documentation, you can submit a
 2. **Clone the Forked Repository:** Clone the forked repository to your local system and make changes. Be sure to follow the repository's coding and style guidelines.
 3. **Commit Your Changes:** Once you've made your changes, commit them with a clear, detailed message describing the changes you've made.&#x20;
    1. Use [sign-off](https://github.com/hashgraph/.github/blob/main/CONTRIBUTING.md#sign-off) when making each of your commits.&#x20;
-   2. Alternatively, you can use auto sign-off by installing `cp hooks-git/prepare-commit-msg .git/hooks && chmod +x .git/hooks/prepare-commit-msg`.
+      1. Alternatively, you can use auto sign-off by installing `cp hooks-git/prepare-commit-msg .git/hooks && chmod +x .git/hooks/prepare-commit-msg`.
+   2. Use [this guide](https://pre-commit.com/#3-install-the-git-hook-scripts) to install the pre-commit hook scripts to check for files with names that would conflict on a case-insensitive filesystem like MacOS HFS+ or Windows FAT.
 4. **Push Your Changes:** Push your committed changes to your forked repository on GitHub.
 5. **Submit a Pull Request:** Back in the `hedera-docs` repository, click the "Pull Requests" tab and then the "New pull request" button. Select your forked repository and the branch containing your changes, then click "Create pull request".
 6. **Describe Your Changes:** Give your pull request a title and describe the proposed changes. This description should make it clear why the changes should be incorporated.
@@ -78,6 +79,14 @@ Thank you for your valuable contribution to the Hedera community! We look forwar
 
 <details>
 
+<summary>GitBook Markdown Syntax</summary>
+
+Please refer to the [GitBook Markdown Syntax guide](https://raw.githubusercontent.com/audacity/audacity-support/main/community/contributing/tutorials/gitbook-markdown-syntax.md).&#x20;
+
+</details>
+
+<details>
+
 <summary>Use of HBAR</summary>
 
 When referring to the Hedera native currency, use the singular form of the noun **HBAR**. For example:
@@ -93,6 +102,19 @@ When referring to fractions of **HBAR**, use the plural form **tinybars**. For e
 * "I will transfer 1,000 **tinybars** from my account to yours"
 
 Do not use the singular form of the noun, as any reference should be plural since one **HBAR** equals 100,000 **tinybars**.
+
+</details>
+
+<details>
+
+<summary>Use of web2 and web3</summary>
+
+When documenting or referring to "web2" and "web3," it's important to maintain consistency. Both terms should be in lowercase. The only exception to this rule is when either term starts a sentence. In such cases, the initial letter should be capitalized. For example:&#x20;
+
+* ❌ **Incorrect**: "web3 technologies are evolving rapidly."
+* ✅ **Correct**: "Web3 represents a shift towards decentralization."
+* ✅ **Correct**: "In the context of web2, user data is often controlled by centralized entities."
+* ✅ **Correct**: "The principles of transparency and user empowerment are fundamental to the development of web3 platforms."
 
 </details>
 

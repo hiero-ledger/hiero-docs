@@ -21,8 +21,6 @@ By the end of this tutorial, you'll be equipped to run a Hedera local node and g
 
 Ensure the **`VirtioFS`** file sharing implementation is enabled in the docker settings.
 
-**Note:** The image may look different if you are on a different version
-
 ![](../../.gitbook/assets/docker-compose-settings.png)
 
 Ensure the following configurations are set at minimum in Docker **Settings** -> **Resources** and are available for use:
@@ -32,9 +30,13 @@ Ensure the following configurations are set at minimum in Docker **Settings** ->
 * **Swap:** 1 GB
 * **Disk Image Size:** 64 GB
 
-**Note:** The image may look different if you are on a different version
-
 ![](<../../.gitbook/assets/docker settings.png>)
+
+Ensure the **`Allow the default Docker sockets to be used (requires password)`** is enabled in Docker **Settings -> Advanced**.
+
+![](../../.gitbook/assets/docker-socket-setting.png)
+
+**Note:** The image may look different if you are on a different version
 
 </details>
 
@@ -44,22 +46,21 @@ _**\*\***Local node can be run using Docker or NPM but we will use Docker for th
 
 ## Table of Contents
 
-1. [Set Up Local Node](how-to-set-up-a-hedera-local-node.md#step-1-local-node-setup)
-2. [Start Local Node](how-to-set-up-a-hedera-local-node.md#step-2-start-local-node)
-3. [Generate Keys](how-to-set-up-a-hedera-local-node.md#step-3-generate-keys)
-4. [Stop Local Node](how-to-set-up-a-hedera-local-node.md#step-4-stop-local-node)
-5. [Additional Resources](how-to-set-up-a-hedera-local-node.md#additional-resources)
+1. [Start Your Local Network](how-to-set-up-a-hedera-local-node.md#start-your-local-network)
+2. [Generate Keys](how-to-set-up-a-hedera-local-node.md#generate-keys)
+3. [Stop Your Local Network](how-to-set-up-a-hedera-local-node.md#stop-your-local-network)
+4. [Additional Resources](how-to-set-up-a-hedera-local-node.md#additional-resources)
 
 ***
 
-## Step 1: Local Node Setup
+## Start Your Local Network
 
 Open a new terminal and navigate to your preferred directory where your Hedera Local Node project will live. Run the following command to clone the repo and install dependencies to your local machine:
 
 ```bash
 git clone https://github.com/hashgraph/hedera-local-node.git
 cd hedera-local-node
-npm install && npm install -g
+npm install
 ```
 
 For Windows users: You will need to update the file endings of `compose-network/mirror-node/init.sh` by running this in WSL:
@@ -68,97 +69,23 @@ For Windows users: You will need to update the file endings of `compose-network/
 dos2unix compose-network/mirror-node/init.sh
 ```
 
-***
-
-## Step 2: Start Local Node
-
-Let's start by initializing and starting your local environment. Make sure Docker is installed and open on your machine before running this command:
+Ensure Docker is installed and open on your machine before running this command to get the network up and running:
 
 ```bash
-hedera start -d
+// starts and generates the first 30 accounts
+npm run start -- -d
+
+or
+
+// will start local node but will not generate the first 30 accounts
+docker compose up -d
 ```
-
-The `hedera start -d` command will start your local node and generate 10 accounts with predefined private keys for each key type. There are three key types: _ECDSA, ECDSA alias, and ED25519._ All of them are usable via HederaSDK. Only Alias ECDSA accounts can be imported into a wallet like Metamask or used in ethers.&#x20;
-
-<details>
-
-<summary><code>hedera start -d</code></summary>
-
-```
-Checking docker compose version...
-Applying local config settings...
-Successfully applied local config settings
-Starting hedera local node in single-node mode...
-Stopping the network...
-Stopping the docker containers...
-Cleaning the volumes and temp files...
-Detecting the network...
-Starting the network...
-Preparing Node...
-Importing fees...
-Waiting for topic creation...
-Generating accounts in synchronous mode...
-|-----------------------------------------------------------------------------------------|
-|-----------------------------| Accounts list ( ECDSA  keys) |----------------------------|
-|-----------------------------------------------------------------------------------------|
-|    id    |                            private key                            |  balance |
-|-----------------------------------------------------------------------------------------|
-| 0.0.1002 - 0xb65eb09db3e76bab4aa06988f445b40d6ef6fae8a8d401ac1693bab9ac927df1 - 10000 ℏ |
-| 0.0.1003 - 0x1f5c6e6d1bb629c545d44b21b895b7c2b667f430d27f4998c2e2d36bf1568746 - 10000 ℏ |
-| 0.0.1004 - 0xfe7086884f8863f0ccf66fbcd7dfc7485f9ff88d7705e6c55b4e2366161edb89 - 10000 ℏ |
-| 0.0.1005 - 0x1c6a05ee1a00e0b7b46d1693fbad7d4d7f2da322d4b7e11e26b2f099d7293ecb - 10000 ℏ |
-| 0.0.1006 - 0x1144fb7da2f1f4f2f9cde0d5742a8be8e6bae842f978de3ef65bd8591f2e5fe8 - 10000 ℏ |
-| 0.0.1007 - 0x13182eadc0f7ff7624926b194f62fab8b09ff78ca54d5138d1af4131c070459e - 10000 ℏ |
-| 0.0.1008 - 0x78fa1228d87f870c6515e6a43acb2fd0dd306f538a41c57c9f90d47a8fd076e1 - 10000 ℏ |
-| 0.0.1009 - 0x6c7ac42aa92ea72d1e3eef0a095ecbe7dba1830b83080d068b6d28215140cd61 - 10000 ℏ |
-| 0.0.1010 - 0xd91171ea81f8bfe4555b40f6e2997465a785853266ad0ef7f2e1f9843c0e502d - 10000 ℏ |
-| 0.0.1011 - 0x4a48ae9ec00c80c811836dd0225f22a0b7fbc44a48dc7db45d8748e036db7353 - 10000 ℏ |
-|-----------------------------------------------------------------------------------------|
-
-|--------------------------------------------------------------------------------------------------------------------------------------|
-|------------------------------------------------| Accounts list (Alias ECDSA keys) |--------------------------------------------------|
-|--------------------------------------------------------------------------------------------------------------------------------------|
-|    id    |               public address               |                             private key                            | balance |
-|--------------------------------------------------------------------------------------------------------------------------------------|
-| 0.0.1012 - 0x67D8d32E9Bf1a9968a5ff53B87d777Aa8EBBEe69 - 0x105d050185ccb907fba04dd92d8de9e32c18305e097ab41dadda21489a211524 - 10000 ℏ |
-| 0.0.1013 - 0x05FbA803Be258049A27B820088bab1cAD2058871 - 0x2e1d968b041d84dd120a5860cee60cd83f9374ef527ca86996317ada3d0d03e7 - 10000 ℏ |
-| 0.0.1014 - 0x927E41Ff8307835A1C081e0d7fD250625F2D4D0E - 0x45a5a7108a18dd5013cf2d5857a28144beadc9c70b3bdbd914e38df4e804b8d8 - 10000 ℏ |
-| 0.0.1015 - 0xc37f417fA09933335240FCA72DD257BFBdE9C275 - 0x6e9d61a325be3f6675cf8b7676c70e4a004d2308e3e182370a41f5653d52c6bd - 10000 ℏ |
-| 0.0.1016 - 0xD927017F5a6a7A92458b81468Dc71FCE6115B325 - 0x0b58b1bd44469ac9f813b5aeaf6213ddaea26720f0b2f133d08b6f234130a64f - 10000 ℏ |
-| 0.0.1017 - 0x5C41A21F14cFe9808cBEc1d91b55Ba75ed327Eb6 - 0x95eac372e0f0df3b43740fa780e62458b2d2cc32d6a440877f1cc2a9ad0c35cc - 10000 ℏ |
-| 0.0.1018 - 0xcdaD5844f865F379beA057fb435AEfeF38361B68 - 0x6c6e6727b40c8d4b616ab0d26af357af09337299f09c66704146e14236972106 - 10000 ℏ |
-| 0.0.1019 - 0x6e5D3858f53FC66727188690946631bDE0466B1A - 0x5072e7aa1b03f531b4731a32a021f6a5d20d5ddc4e55acbb71ae202fc6f3a26d - 10000 ℏ |
-| 0.0.1020 - 0x29cbb51A44fd332c14180b4D471FBBc6654b1657 - 0x60fe891f13824a2c1da20fb6a14e28fa353421191069ba6b6d09dd6c29b90eff - 10000 ℏ |
-| 0.0.1021 - 0x17b2B8c63Fa35402088640e426c6709A254c7fFb - 0xeae4e00ece872dd14fb6dc7a04f390563c7d69d16326f2a703ec8e0934060cc7 - 10000 ℏ |
-|--------------------------------------------------------------------------------------------------------------------------------------|
-
-|-----------------------------------------------------------------------------------------|
-|-----------------------------| Accounts list (ED25519 keys) |----------------------------|
-|-----------------------------------------------------------------------------------------|
-|    id    |                            private key                            |  balance |
-|-----------------------------------------------------------------------------------------|
-| 0.0.1022 - 0x1d0bdde18f1a570a0204297e1cba9b3f90a3c7774ac01bc7dd8d83db436085c0 - 10000 ℏ |
-| 0.0.1023 - 0x1c174991c38b78ad063117625587275fa0ee74e7bc72513a6453f1bfd247248f - 10000 ℏ |
-| 0.0.1024 - 0x10745c43037fd81cd4ef1524cb2270b7de45485c30f70468a4c3a87a4272271d - 10000 ℏ |
-| 0.0.1025 - 0xd19f919d393efbfc6895d52b084d07f0cc95f3cb80345aba76677081c0aea39c - 10000 ℏ |
-| 0.0.1026 - 0xb1ef6aa2a56f7ee88c3572d87e53f97b59ec6ff2079b232a9662b29b95c3db6f - 10000 ℏ |
-| 0.0.1027 - 0xea54f3665ac84365b1db0eb5b04aab227237d0d0c6e0e80ee773b0ffc6f8b551 - 10000 ℏ |
-| 0.0.1028 - 0x15f5ba26f0367b62ee06804bec3347144a0edcc748fa589e609f32462dae389c - 10000 ℏ |
-| 0.0.1029 - 0x069ba185244a4ee23e9464fc620d8337527eca2df3df596052bb524fe51811ba - 10000 ℏ |
-| 0.0.1030 - 0xd078136746079fb394a6d4442e2be55e9350c5734423835d14926099021d4ee0 - 10000 ℏ |
-| 0.0.1031 - 0xd1bd93d037cdb0d53bdc5cf35db51989c1d6e7a08747eecd1ae16ea81fe76fd0 - 10000 ℏ |
-|-----------------------------------------------------------------------------------------|
-
-Local node has been successfully started in detached mode.
-```
-
-</details>
 
 ***
 
-## Step 3: Generate Keys
+## Generate Keys
 
-To generate accounts with random private keys, run the `generate-accounts` command. Specify the number of accounts generated by appending the number to the `hedera start` or `hedera generate-account` command. For example, to generate 5 accounts at startup, run `hedera start 5`.&#x20;
+To generate accounts with random private keys, run the `generate-accounts` command. Specify the number of accounts generated by appending the number to the `hedera generate-account` command. For example, to generate 5 accounts, run `hedera generate-accounts 5`.&#x20;
 
 <details>
 
@@ -213,9 +140,9 @@ Grab any of the account private keys generated from the  _**Alias ECDSA keys Acc
 
 ***
 
-## Step 4: Stop Local Node&#x20;
+## Stop Your Local Network
 
-To stop your local node, you can run the `hedera stop` command to stop and remove the Docker container volumes and clean the manually generated files. If you want to keep any files created manually in the working directory, please save them before executing this command.
+To stop your local node, you can run the `hedera stop` command. If you want to keep any files created manually in the working directory, please save them before executing this command.
 
 <details>
 
@@ -271,6 +198,8 @@ HEAD is now at ......
 ```
 
 </details>
+
+_**📣 Note**: All available commands can be checked out_ [_here_](https://github.com/hashgraph/hedera-local-node/tree/main?tab=readme-ov-file#using-hedera-local)_._
 
 ***
 

@@ -33,9 +33,9 @@ The HTS.sol will serve as a reference to the contract that was compiled. The HTS
 
 To write a contract using HTS, you will need to add the HTS Solidity support libraries to your project and import them into your contract. Please see the HTS.sol example for reference. The IHederaTokenService.sol will need to be in the same directory as the other two files. An explanation of the functions can be found [here](../../sdks-and-apis/sdks/smart-contracts/hedera-service-solidity-libraries.md).
 
-* [HederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/HederaTokenService.sol)
-* [HederaResponseCodes.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/HederaResponseCodes.sol)
-* [IHederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/hts-precompile/IHederaTokenService.sol)
+* [HederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/HederaTokenService.sol)
+* [HederaResponseCodes.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/HederaResponseCodes.sol)
+* [IHederaTokenService.sol](https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/IHederaTokenService.sol)
 
 {% tabs %}
 {% tab title="HTS.sol" %}
@@ -332,7 +332,7 @@ fmt.Printf("The contract bytecode file ID: %v\n", byteCodeFileID)
 
 ## 3. Deploy a Hedera Smart Contract
 
-Create the contract and set the file ID to the file that contains the hex-encoded bytecode from the previous step. You will need to set the gas high enough to deploy the contract. The gas should be estimated to be within 25% of the actual gas cost to avoid paying extra gas. You can read more about gas and fees [here](broken-reference).
+Create the contract and set the file ID to the file that contains the hex-encoded bytecode from the previous step. You will need to set the gas high enough to deploy the contract. The gas should be estimated to be within 25% of the actual gas cost to avoid paying extra gas. You can read more about gas and fees [here](../../core-concepts/smart-contracts/deploying-smart-contracts.md#gas-schedule-and-fees).
 
 {% hint style="warning" %}
 _**Note:** You will need to set the gas value high enough to deploy the contract. If you don't have enough gas, you will receive an <mark style="color:blue;">`INSUFFICIENT_GAS`</mark> response. If you set the value too high you will be refunded a maximum of 20% of the amount that was set for the transaction._
@@ -418,26 +418,19 @@ fmt.Printf("The contract ID %v\n", contractId)
 
 ## 4. Call the <mark style="color:purple;">`tokenAssociate`</mark> Contract Function
 
-The <mark style="color:blue;">`tokenAssociate`</mark> function in the contract will associate a token that was created using the native Hedera Token Service. You can create a new token using HTS or using an existing token in this example. Use the <mark style="color:blue;">`ContractExecuteTransaction()`</mark> API to call the contract's <mark style="color:blue;">`tokenAssociate`</mark> function. You will pass the token ID and account ID in Solidity <mark style="color:blue;">`address`</mark> format to the contract function. The contract function parameters must be provided in the order expected by the function to execute successfully.
+The <mark style="color:blue;">`tokenAssociate`</mark> function in the contract was previously used to associate tokens created with the Hedera Token Service (HTS). However, due to a change in the security model, it is no longer possible to associate HTS tokens using this function. Instead, you should use the Hedera `SDK` to perform token associations. You will pass the token ID and account ID to the function. The parameters must be provided in the order expected by the function to execute successfully.
 
 {% tabs %}
 {% tab title="Java" %}
 ```java
 //Associate the token to an account using the HTS contract
-ContractExecuteTransaction associateToken = new ContractExecuteTransaction()
-     //The contract to call
-     .setContractId(newContractId)
-     //The gas for the transaction
-     .setGas(2_000_000)
-     //The contract function to call and parameters to pass
-     .setFunction("tokenAssociate", new ContractFunctionParameters()
-              //The account ID to associate the token to
-              .addAddress(accountIdTest.toSolidityAddress())
-              //The token ID to associate to the account
-              .addAddress(tokenId.toSolidityAddress()));
+TokenAssociateTransaction transaction = new TokenAssociateTransaction()
+        .setAccountId(accountIdTest)
+        .setTokenId(Collections.singletonList(tokenId))
+        .freezeWith(client);
 
 //Sign with the account key to associate and submit to the Hedera network
-TransactionResponse associateTokenResponse = associateToken.freezeWith(client).sign(privateKeyTest).execute(client);
+TransactionResponse associateTokenResponse = transaction.sign(privateKeyTest).execute(client);
 
 System.out.println("The transaction status: " +associateTokenResponse.getReceipt(client).status);
 ```
@@ -445,22 +438,15 @@ System.out.println("The transaction status: " +associateTokenResponse.getReceipt
 
 {% tab title="JavaScript" %}
 ```javascript
-//Associate the token to an account using the HTS contract
- const associateToken = new ContractExecuteTransaction()
-      //The contract to call
-      .setContractId(newContractId)
-      //The gas for the transaction
-      .setGas(2000000)
-      //The contract function to call and parameters to pass
-      .setFunction("tokenAssociate", new ContractFunctionParameters()
-           //The account ID to associate the token to
-           .addAddress(accountIdTest.toSolidityAddress())
-           //The token ID to associate to the account
-           .addAddress(tokenId.toSolidityAddress()));
+//Associate the token to an account using the SDK
+const transaction = new TokenAssociateTransaction()
+  .setAccountId(accountIdTest)
+  .setTokenIds([tokenId])
+  .freezeWith(client);
 
-//Sign with the account key and submit to the Hedera network
-const signTx = await associateToken.freezeWith(client).sign(accountKeyTest);
-    
+//Sign the transaction with the client
+const signTx = await transaction.sign(accountKeyTest);
+
 //Submit the transaction
 const submitAssociateTx = await signTx.execute(client);
 
@@ -468,42 +454,37 @@ const submitAssociateTx = await signTx.execute(client);
 const txReceipt = await submitAssociateTx.getReceipt(client);
 
 //Get transaction status
-const txStatus = txReceipt.status
+const txStatus = txReceipt.status;
 
-console.log("The associate transaction was " + txStatus.toString())
+console.log("The associate transaction was " + txStatus.toString());
 ```
 {% endtab %}
 
 {% tab title="Go" %}
 ```go
-//Construct a Solidity address from token ID
-tokenIdToSol := tokenId.ToSolidityAddress()
-
-//Construct a Solidity address from account ID
-accountIdToSol := accountIdTest.ToSolidityAddress()
-
-//Add the function parameters in order for tokenAssociate
-contractParamsAccount, err := hedera.NewContractFunctionParameters().AddAddress(accountIdToSol)
-
-contractParamsToken, err := contractParamsAccount.AddAddress(tokenIdToSol)
-
 //Associate an account with a token
-associateTx, err := hedera.NewContractExecuteTransaction().
-	//The contract ID
-	SetContractID(contractId).
-	//The max gas
-	SetGas(2000000).
-	//The contract function to call and parameters
-	SetFunction("tokenAssociate", contractParamsToken).
-	Execute(client)
+associateTx, err := hedera.NewTokenAssociateTransaction().
+    SetAccountID(accountIdTest).
+    SetTokenIDs(tokenId).
+    FreezeWith(client)
 
 if err != nil {
-	println(err.Error(), ": error executing contract")
-	return
+  panic(err)
+}
+
+//Sign with the private key of the account that is being associated to a token, submit the transaction to a Hedera network
+associateTxResponse, err := associateTx.Sign(privateKeyTest).Execute(client)
+
+if err != nil {
+  panic(err)
 }
 
 //Get the receipt
-associateTxReceipt, err := associateTx.GetReceipt(client)
+associateTxReceipt, err := associateTxResponse.GetReceipt(client)
+
+if err != nil {
+  panic(err)
+}
 
 //Get transaction status
 txStatus := associateTxReceipt.Status
@@ -515,91 +496,83 @@ fmt.Printf("The associate transaction status %v\n", txStatus)
 
 ***
 
-## 5. Get the <mark style="color:purple;">`tokenAssociate`</mark> Transaction Record
+## 5. Call the <mark style="color:purple;">`approveTokenAllowance`</mark> Function
 
-The contract execute transaction that triggered a subsequent token associate transaction in the contract is an example of a **nested transaction.** The contract execute transaction is the parent transaction and the token associate transaction is referred to as the child transaction. Both parent and child transactions share the same payer account ID and transaction valid duration with the exception of the child transaction having a nonce value at the end. The nonce value increments for each subsequent child transaction.
-
-* Parent Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>
-* Child Transaction ID: <mark style="color:red;">0.0.2252</mark>@<mark style="color:blue;">1640119571.329880313</mark>/<mark style="color:green;">1</mark>
-
-The parent transaction record, receipt, or response will only return the parent transaction information. If you would like to get the child transaction record, receipt, or response you will need to use the <mark style="color:blue;">`TransactionRecordQuery()`</mark> or <mark style="color:blue;">`TransactionReceiptQuery()`</mark> and set children equal to true. The child transaction record will also have a <mark style="color:blue;">`parentConsensusTimestamp`</mark> field populated with the consensus timestamp of the parent transaction.
-
-To confirm the account was associated with the token, request the balance of the account. The account balance should show the ID of the token that was associated with a zero balance.
+Using the `approveTokenAllowance` function is a crucial step before initiating a transfer with a smart contract on Hedera. This function grants the necessary permissions from the token owner to authorize the transfer. It serves as a stringent access control measure, ensuring that only approved contracts or accounts can spend the designated tokens. You will pass the owner which is the account that owns the fungible tokens and grants the allowance to the spender, the spender who is the account authorized by the owner to spend fungible tokens from the owner's account. The spender covers the transaction fees for token transfers. And the amount which is the number of tokens the spender is authorized to spend from the owner's account.
 
 {% tabs %}
 {% tab title="Java" %}
 ```java
-//Get the child token associate transaction record
-TransactionRecord childRecords = new TransactionRecordQuery()
-        //Set the bool flag equal to true
-        .setIncludeChildren(true)
-        //The transaction ID of th parent contract execute transaction
-        .setTransactionId(associateTokenResponse.transactionId)
-        .execute(client);
+// Convert the contract ID to an account ID
+AccountId contractIdAsAccountId = AccountId.fromString(newContractId.toString());
 
-System.out.println("The transaction record for the associate transaction" +childRecords.children.get(0));
+//Approve the token allowance
+AccountAllowanceApproveTransaction transaction = new AccountAllowanceApproveTransaction()
+    .approveHbarAllowance(treasuryAccountId, newContractId, Hbar.from(5));
 
-//The balance of the account
-AccountBalance accountBalance3 = new AccountBalanceQuery()
-        .setAccountId(accountIdTest)
-        .execute(client);
+//Sign the transaction with the owner account key and the transaction fee payer key (client)  
+TransactionResponse txResponse = transaction.freezeWith(client).sign(treasuryKey).execute(client);
 
-System.out.println("The " + tokenId + " should now be associated to my account: " + accountBalance3.tokens);
+//Request the receipt of the transaction
+TransactionReceipt receipt = txResponse.getReceipt(client);
+
+//Get the transaction consensus status
+Status transactionStatus = receipt.status;
+
+System.out.println("The transaction consensus status for the allowance function is " +transactionStatus);
 ```
 {% endtab %}
 
 {% tab title="JavaScript" %}
 ```javascript
-//Get the token associate transaction record
-const childRecords = new TransactionRecordQuery()
-    //Set children equal to true for child records
-    .setIncludeChildren(true)
-    //The parent transaction ID
-    .setTransactionId(submitAssociateTx.transactionId)
-    .setQueryPayment(new Hbar(10))
-    .execute(client);
-    
+//Approve the token allowance
+const transactionAllowance = new AccountAllowanceApproveTransaction()
+  .approveTokenAllowance(tokenId, treasuryAccountId, newContractId, 5)
+  .freezeWith(client);
 
-console.log("The transaction record for the associate transaction" +JSON.stringify((await childRecords).children));
+//Sign the transaction with the owner account key
+const signTxAllowance = await transactionAllowance.sign(treasuryKey);
 
-//The balance of the account
-const accountBalance = new AccountBalanceQuery()
-    .setAccountId(accountIdTest)
-    .execute(client);
+//Sign the transaction with the client operator private key and submit to a Hedera network
+const txResponseAllowance = await signTxAllowance.execute(client);
 
-console.log("The " + tokenId + " should now be associated to my account: " + (await accountBalance).tokens.toString());
+//Request the receipt of the transaction
+const receiptAllowance = await txResponseAllowance.getReceipt(client);
+
+//Get the transaction consensus status
+const transactionStatusAllowance = receiptAllowance.status;
+
+console.log(
+  "The transaction consensus status for the allowance function is " +
+    transactionStatusAllowance.toString()
+);
 ```
 {% endtab %}
 
 {% tab title="Go" %}
 ```go
-//Get the child transaction record
-childRecord, err := hedera.NewTransactionRecordQuery().
-	//Set boolean equal to true
-	SetIncludeChildren(true).
-	//Parent transaction ID
-	SetTransactionID(associateTx.TransactionID).
-	Execute(client)
+//Create the transaction
+transaction := hedera.NewAccountAllowanceApproveTransaction().
+     ApproveHbarAllowance(ownerAccount, spenderAccountId, Hbar.fromTinybars(500)
+        FreezeWith(client)
 
 if err != nil {
-	println(err.Error(), ": error getting record")
-	return
+    panic(err)
 }
 
-//Log the child record
-fmt.Printf("The associate child transaction record %v\n", childRecord.Children)
+//Sign the transaction with the owner account private key   
+txResponse, err := transaction.Sign(ownerAccountKey).Execute(client)
 
-//The balance of the account
-accountBalance, err := hedera.NewAccountBalanceQuery().
-	SetAccountID(accountIdTest).
-	Execute(client)
-
+//Request the receipt of the transaction
+receipt, err := txResponse.GetReceipt(client)
 if err != nil {
-	println(err.Error(), ": error getting balance")
-	return
+    panic(err)
 }
 
-fmt.Printf("The account token balance %v\n", accountBalance.Tokens)
+//Get the transaction consensus status
+transactionStatus := receipt.Status
+
+println("The transaction consensus status is ", transactionStatus)
 ```
 {% endtab %}
 {% endtabs %}
@@ -630,7 +603,7 @@ ContractExecuteTransaction tokenTransfer = new ContractExecuteTransaction()
           //The account to transfer the tokens to
           .addAddress(accountIdTest.toSolidityAddress())
           //The number of tokens to transfer
-         .addInt64(100));
+         .addInt64(5));
 
 //Sign the token transfer transaction with the treasury account to authorize the transfer and submit
 ContractExecuteTransaction signTokenTransfer = tokenTransfer.freezeWith(client).sign(treasuryKey);
@@ -641,7 +614,7 @@ TransactionResponse submitTransfer = signTokenTransfer.execute(client);
 //Get transaction status
 Status txStatus = submitTransfer.getReceipt(client).status;
 
-//Verify your account received the 100 tokens
+//Verify your account received the 5 tokens
  AccountBalance newAccountBalance = new AccountBalanceQuery()
       .setAccountId(accountIdTest)
       .execute(client);
@@ -665,7 +638,7 @@ const tokenTransfer = new ContractExecuteTransaction()
          //The account to transfer the tokens to
          .addAddress(accountIdTest.toSolidityAddress())
           //The number of tokens to transfer
-         .addInt64(100));
+         .addInt64(5));
 
 //Sign the token transfer transaction with the treasury account to authorize the transfer and submit
 const signTokenTransfer = await tokenTransfer.freezeWith(client).sign(treasuryKey);
@@ -679,7 +652,7 @@ const transferTxStatus = await (await submitTransfer.getReceipt(client)).status;
 //Get the transaction status
 console.log("The transfer transaction status " +transferTxStatus.toString());
 
-//Verify the account received the 100 tokens
+//Verify the account received the 5 tokens
 const newAccountBalance = new AccountBalanceQuery()
        .setAccountId(accountIdTest)
        .execute(client);
@@ -741,9 +714,8 @@ _**Note:** Check out our_ [_smart contract mirror node rest APIs_](../../sdks-an
 
 #### Congratulations :tada:! You have learned how to deploy a contract using the Hedera Token Service and completed the following:
 
-* Created a smart contract that calls HTS transactions
-* Associated an HTS token by using the deployed contract
-* Requested a transaction record for a nested transaction
+* Associated an HTS token by using the SDK
+* Approved the token allowance so that the contract can transfer tokens
 * Transferred tokens using the deployed contract
 
 ***
@@ -771,10 +743,10 @@ public class HTS {
 
     public static void main(String[] args) throws TimeoutException, PrecheckStatusException, ReceiptStatusException, InterruptedException, IOException {
 
-        AccountId accountIdTest = AccountId.fromString(Dotenv.load().get("PREVIEWNET_ACCOUNT_ID"));
-        PrivateKey privateKeyTest = PrivateKey.fromString(Dotenv.load().get("PREVIEWNET_PRIVATE_KEY"));
+        AccountId accountIdTest = AccountId.fromString(Dotenv.load().get("MY_ACCOUNT_ID"));
+        PrivateKey privateKeyTest = PrivateKey.fromString(Dotenv.load().get(MY_PRIVATE_KEY"));
 
-        Client client = Client.forPreviewnet();
+        Client client = Client.forTestnet();
         client.setOperator(accountIdTest, privateKeyTest);
 
         //Import the HTS.json file from the resources folder
@@ -798,7 +770,7 @@ public class HTS {
         //Create a treasury account
         AccountCreateTransaction treasuryAccount = new AccountCreateTransaction()
                 .setKey(treasuryKey)
-                .setInitialBalance(new Hbar(100))
+                .setInitialBalance(new Hbar(10))
                 .setAccountMemo("treasury account");
 
         //Submit the account create transaction
@@ -864,40 +836,35 @@ public class HTS {
         //Log the smart contract ID
         System.out.println("The smart contract ID is " + newContractId);
 
-        //Associate the token to an account using the HTS contract
-        ContractExecuteTransaction associateToken = new ContractExecuteTransaction()
-                //The contract to call
-                .setContractId(newContractId)
-                //The gas for the transaction
-                .setGas(2_000_000)
-                //The contract function to call and parameters to pass
-                .setFunction("tokenAssociate", new ContractFunctionParameters()
-                        //The account ID to associate the token to
-                        .addAddress(accountIdTest.toSolidityAddress())
-                        //The token ID to associate to the account
-                        .addAddress(tokenId.toSolidityAddress()));
+        //Associate the token to an account using the SDK
+        TokenAssociateTransaction transaction = new TokenAssociateTransaction()
+                .setAccountId(accountIdTest)
+                .setTokenId(Collections.singletonList(tokenId))
+                .freezeWith(client)
+
 
         //Sign with the account key to associate and submit to the Hedera network
-        TransactionResponse associateTokenResponse = associateToken.freezeWith(client).sign(privateKeyTest).execute(client);
+        TransactionResponse associateTokenResponse = transaction.sign(privateKeyTest).execute(client);
 
         System.out.println("The transaction status: " +associateTokenResponse.getReceipt(client).status);
 
-        //Get the child token associate transaction record
-        TransactionRecord childRecords = new TransactionRecordQuery()
-                //Set the bool flag equal to true
-                .setIncludeChildren(true)
-                //The transaction ID of th parent contract execute transaction
-                .setTransactionId(associateTokenResponse.transactionId)
-                .execute(client);
+        // Convert the contract ID to an account ID
+        AccountId contractIdAsAccountId = AccountId.fromString(newContractId.toString());
+        
+        //Approve the token allowance so that the contract can transfer tokens from the treasury account
+        AccountAllowanceApproveTransaction transaction = new AccountAllowanceApproveTransaction()
+                .approveTokenAllowance(tokenId, treasuryAccountId, contractIdAsAccountId, 10);
 
-        System.out.println("The transaction record for the associate transaction" +childRecords.children.get(0));
+        //Sign the transaction with the owner account key and the transaction fee payer key (client)  
+        TransactionResponse txResponse = transaction.freezeWith(client).sign(treasuryKey).execute(client);
 
-        //The balance of the account
-        AccountBalance accountBalance3 = new AccountBalanceQuery()
-                .setAccountId(accountIdTest)
-                .execute(client);
+        //Request the receipt of the transaction
+        TransactionReceipt receipt = txResponse.getReceipt(client);
 
-        System.out.println("The " + tokenId + " should now be associated to my account: " + accountBalance3.tokens);
+        //Get the transaction consensus status
+        Status transactionStatus = receipt.status;
+
+        System.out.println("The transaction consensus status is " +transactionStatus);
 
         //Transfer the new token to the account
         //Contract function params need to be in the order of the paramters provided in the tokenTransfer contract function
@@ -912,7 +879,7 @@ public class HTS {
                         //The account to transfer the tokens to
                         .addAddress(accountIdTest.toSolidityAddress())
                         //The number of tokens to transfer
-                        .addInt64(100));
+                        .addInt64(5);
 
         //Sign the token transfer transaction with the treasury account to authorize the transfer and submit
         ContractExecuteTransaction signTokenTransfer = tokenTransfer.freezeWith(client).sign(treasuryKey);
@@ -926,7 +893,7 @@ public class HTS {
         //Get the transaction status
         System.out.println("The transfer transaction status " +txStatus);
 
-        //Verify your account received the 100 tokens
+        //Verify your account received the 5 tokens
         AccountBalance newAccountBalance = new AccountBalanceQuery()
                 .setAccountId(accountIdTest)
                 .execute(client);
@@ -946,201 +913,207 @@ public class HTS {
 require("dotenv").config();
 
 const {
-    Client,
-    PrivateKey,
-    ContractCreateTransaction,
-    ContractExecuteTransaction,
-    FileCreateTransaction,
-    ContractFunctionParameters,
-    Hbar,
-    AccountId,
-    AccountCreateTransaction,
-    TokenCreateTransaction,
-    TokenType,
-    TransactionRecordQuery,
-    AccountBalanceQuery
+  Hbar,
+  Client,
+  AccountId,
+  TokenType,
+  PrivateKey,
+  AccountBalanceQuery,
+  FileCreateTransaction,
+  TokenCreateTransaction,
+  ContractCreateTransaction,
+  ContractExecuteTransaction,
+  ContractFunctionParameters,
+  AccountCreateTransaction,
+  AccountAllowanceApproveTransaction,
+  TokenAssociateTransaction,
 } = require("@hashgraph/sdk");
 
 // Import the compiled contract
 const htsContract = require("./HTS.json");
 
-async function htsContract() {
-    //Grab your Hedera testnet account ID and private key from your .env file
-    const accountIdTest = AccountId.fromString(process.env.PREVIEWNET_ACCOUNT_ID);
-    const accountKeyTest = PrivateKey.fromStringED25519(process.env.PREVIEWNET_PRIVATE_KEY);
+async function htsContractFunction() {
+  //Grab your Hedera testnet account ID and private key from your .env file
+  const accountIdTest = AccountId.fromString(process.env.MY_ACCOUNT_ID);
+  const accountKeyTest = PrivateKey.fromStringED25519(
+    process.env.MY_PRIVATE_KEY
+  );
 
-   
-    // If we weren't able to grab it, we should throw a new error
-    if (accountIdTest == null ||
-        accountKeyTest == null ) {
-        throw new Error("Environment variables myAccountId and myPrivateKey must be present");
-    }
- 
+  // If we weren't able to grab it, we should throw a new error
+  if (accountIdTest == null || accountKeyTest == null) {
+    throw new Error(
+      "Environment variables myAccountId and myPrivateKey must be present"
+    );
+  }
 
-    const client = Client.forPreviewnet();
-    client.setOperator(accountIdTest, accountKeyTest);
+  const client = Client.forTestnet();
+  client.setOperator(accountIdTest, accountKeyTest);
 
-   //Get the contract bytecode
-    const bytecode = htsContract.data.bytecode.object;
+  //Get the contract bytecode
+  const bytecode = htsContract.data.bytecode.object;
 
-    //Treasury Key
-    const treasuryKey = PrivateKey.generateED25519();
+  //Treasury Key
+  const treasuryKey = PrivateKey.generateED25519();
 
-    //Create token treasury account
-    const treasuryAccount = new AccountCreateTransaction()
-            .setKey(treasuryKey)
-            .setInitialBalance(new Hbar(100))
-            .setAccountMemo("treasury account");
-    
-    //Submit the transaction to a Hedera network
-    const submitAccountCreateTx = await treasuryAccount.execute(client);
-    
-    //Get the receipt of the transaction
-    const newAccountReceipt = await submitAccountCreateTx.getReceipt(client);
+  //Create token treasury account
+  const treasuryAccount = new AccountCreateTransaction()
+    .setKey(treasuryKey)
+    .setInitialBalance(new Hbar(5))
+    .setAccountMemo("treasury account");
 
-    //Get the account ID from the receipt
-    const treasuryAccountId = newAccountReceipt.accountId;
+  //Submit the transaction to a Hedera network
+  const submitAccountCreateTx = await treasuryAccount.execute(client);
 
-    console.log("The new account ID is " +treasuryAccountId);
+  //Get the receipt of the transaction
+  const newAccountReceipt = await submitAccountCreateTx.getReceipt(client);
 
-    //Create a token to interact with
-    const createToken =  new TokenCreateTransaction()
-            .setTokenName("HTS demo")
-            .setTokenSymbol("H")
-            .setTokenType(TokenType.FungibleCommon)
-            .setTreasuryAccountId(treasuryAccountId)
-            .setInitialSupply(500);
-            
-    //Sign with the treasury key
-    const signTokenTx = await createToken.freezeWith(client).sign(treasuryKey)
-    
-    //Submit the transaction to a Hedera network
-    const submitTokenTx = await signTokenTx.execute(client);
+  //Get the account ID from the receipt
+  const treasuryAccountId = newAccountReceipt.accountId;
 
-    //Get the token ID from the receipt
-    const tokenId = await (await submitTokenTx.getReceipt(client)).tokenId;
+  console.log("The new account ID is " + treasuryAccountId);
 
-    //Log the token ID
-    console.log("The new token ID is " +tokenId);
+  //Create a token to interact with
+  const createToken = new TokenCreateTransaction()
+    .setTokenName("HTS demo")
+    .setTokenSymbol("H")
+    .setTokenType(TokenType.FungibleCommon)
+    .setTreasuryAccountId(treasuryAccountId)
+    .setInitialSupply(500);
 
-    //Create a file on Hedera and store the hex-encoded bytecode
-    const fileCreateTx = new FileCreateTransaction()
-        .setContents(bytecode);
+  //Sign with the treasury key
+  const signTokenTx = await createToken.freezeWith(client).sign(treasuryKey);
 
-    //Submit the file to the Hedera test network signing with the transaction fee payer key specified with the client
-    const submitTx = await fileCreateTx.execute(client);
+  //Submit the transaction to a Hedera network
+  const submitTokenTx = await signTokenTx.execute(client);
 
-    //Get the receipt of the file create transaction
-    const fileReceipt = await submitTx.getReceipt(client);
+  //Get the token ID from the receipt
+  const tokenId = await (await submitTokenTx.getReceipt(client)).tokenId;
 
-    //Get the file ID from the receipt
-    const bytecodeFileId = fileReceipt.fileId;
+  //Log the token ID
+  console.log("The new token ID is " + tokenId);
 
-    //Log the file ID
-    console.log("The smart contract byte code file ID is " +bytecodeFileId)
+  //Create a file on Hedera and store the hex-encoded bytecode
+  const fileCreateTx = new FileCreateTransaction().setContents(bytecode);
 
-    //Deploy the contract instance
-    const contractTx = await new ContractCreateTransaction()
-        //The bytecode file ID
-        .setBytecodeFileId(bytecodeFileId)
-        //The max gas to reserve
-        .setGas(2000000);
+  //Submit the file to the Hedera test network signing with the transaction fee payer key specified with the client
+  const submitTx = await fileCreateTx.execute(client);
 
-    //Submit the transaction to the Hedera test network
-    const contractResponse = await contractTx.execute(client);
+  //Get the receipt of the file create transaction
+  const fileReceipt = await submitTx.getReceipt(client);
 
-    //Get the receipt of the file create transaction
-    const contractReceipt = await contractResponse.getReceipt(client);
+  //Get the file ID from the receipt
+  const bytecodeFileId = fileReceipt.fileId;
 
-    //Get the smart contract ID
-    const newContractId = contractReceipt.contractId;
+  //Log the file ID
+  console.log("The smart contract byte code file ID is " + bytecodeFileId);
 
-    //Log the smart contract ID
-    console.log("The smart contract ID is " + newContractId);
+  //Deploy the contract instance
+  const contractTx = await new ContractCreateTransaction()
+    //The bytecode file ID
+    .setBytecodeFileId(bytecodeFileId)
+    //The max gas to reserve
+    .setGas(2000000);
 
-    //Associate the token to an account using the HTS contract
-    const associateToken = new ContractExecuteTransaction()
-        //The contract to call
-        .setContractId(newContractId)
-        //The gas for the transaction
-        .setGas(2000000)
-        //The contract function to call and parameters to pass
-        .setFunction("tokenAssociate", new ContractFunctionParameters()
-             //The account ID to associate the token to
-             .addAddress(accountIdTest.toSolidityAddress())
-             //The token ID to associate to the account
-             .addAddress(tokenId.toSolidityAddress()));
+  //Submit the transaction to the Hedera test network
+  const contractResponse = await contractTx.execute(client);
 
-    //Sign with the account key and submit to the Hedera network
-    const signTx = await associateToken.freezeWith(client).sign(accountKeyTest);
-    
-    //Submit the transaction
-    const submitAssociateTx = await signTx.execute(client);
+  //Get the receipt of the file create transaction
+  const contractReceipt = await contractResponse.getReceipt(client);
 
-    //Get the receipt
-    const txReceipt = await submitAssociateTx.getReceipt(client);
+  //Get the smart contract ID
+  const newContractId = contractReceipt.contractId;
 
-    //Get transaction status
-    const txStatus = txReceipt.status
+  //Log the smart contract ID
+  console.log("The smart contract ID is " + newContractId);
 
-    console.log("The associate transaction was " + txStatus.toString())
+  //Associate the token to an account using the SDK
+  const transaction = new TokenAssociateTransaction()
+    .setAccountId(accountIdTest)
+    .setTokenIds([tokenId])
+    .freezeWith(client);
 
-    //Get the token associate transaction record
-    const childRecords = new TransactionRecordQuery()
-        //Set children equal to true for child records
-        .setIncludeChildren(true)
-        //The parent transaction ID
-        .setTransactionId(submitAssociateTx.transactionId)
-        .setQueryPayment(new Hbar(10))
-        .execute(client);
-    
+  //Sign the transaction with the client
+  const signTx = await transaction.sign(accountKeyTest);
 
-    console.log("The transaction record for the associate transaction" +JSON.stringify((await childRecords).children));
+  //Submit the transaction
+  const submitAssociateTx = await signTx.execute(client);
 
-    //The balance of the account
-    const accountBalance = new AccountBalanceQuery()
-        .setAccountId(accountIdTest)
-        .execute(client);
+  //Get the receipt
+  const txReceipt = await submitAssociateTx.getReceipt(client);
 
-    console.log("The " + tokenId + " should now be associated to my account: " + (await accountBalance).tokens.toString());
+  //Get transaction status
+  const txStatus = txReceipt.status;
 
-     //Transfer the new token to the account
-    //Contract function params need to be in the order of the parameters provided in the tokenTransfer contract function
-    const tokenTransfer = new ContractExecuteTransaction()
-            .setContractId(newContractId)
-            .setGas(2000000)
-            .setFunction("tokenTransfer", new ContractFunctionParameters()
-                    //The ID of the token
-                    .addAddress(tokenId.toSolidityAddress())
-                    //The account to transfer the tokens from
-                    .addAddress(treasuryAccountId.toSolidityAddress())
-                    //The account to transfer the tokens to
-                    .addAddress(accountIdTest.toSolidityAddress())
-                    //The number of tokens to transfer
-                    .addInt64(100));
+  console.log("The associate transaction was " + txStatus.toString());
 
-    //Sign the token transfer transaction with the treasury account to authorize the transfer and submit
-    const signTokenTransfer = await tokenTransfer.freezeWith(client).sign(treasuryKey);
+  //Approve the token allowance
+  const transactionAllowance = new AccountAllowanceApproveTransaction()
+    .approveTokenAllowance(tokenId, treasuryAccountId, newContractId, 5)
+    .freezeWith(client);
 
-    //Submit transfer transaction
-    const submitTransfer = await signTokenTransfer.execute(client);
+  //Sign the transaction with the owner account key
+  const signTxAllowance = await transactionAllowance.sign(treasuryKey);
 
-    //Get transaction status
-    const transferTxStatus = await (await submitTransfer.getReceipt(client)).status;
+  //Sign the transaction with the client operator private key and submit to a Hedera network
+  const txResponseAllowance = await signTxAllowance.execute(client);
 
-    //Get the transaction status
-    console.log("The transfer transaction status " +transferTxStatus.toString());
+  //Request the receipt of the transaction
+  const receiptAllowance = await txResponseAllowance.getReceipt(client);
 
-    //Verify your account received the 100 tokens
-    const newAccountBalance = new AccountBalanceQuery()
-            .setAccountId(accountIdTest)
-            .execute(client);
+  //Get the transaction consensus status
+  const transactionStatusAllowance = receiptAllowance.status;
 
-    console.log("My new account balance is " +(await newAccountBalance).tokens.toString());
+  console.log(
+    "The transaction consensus status for the allowance function is " +
+      transactionStatusAllowance.toString()
+  );
 
+  //Transfer the new token to the account
+  //Contract function params need to be in the order of the parameters provided in the tokenTransfer contract function
+  const tokenTransfer = new ContractExecuteTransaction()
+    .setContractId(newContractId)
+    .setGas(2000000)
+    .setFunction(
+      "tokenTransfer",
+      new ContractFunctionParameters()
+        //The ID of the token
+        .addAddress(tokenId.toSolidityAddress())
+        //The account to transfer the tokens from
+        .addAddress(treasuryAccountId.toSolidityAddress())
+        //The account to transfer the tokens to
+        .addAddress(accountIdTest.toSolidityAddress())
+        //The number of tokens to transfer
+        .addInt64(5)
+    );
+
+  //Sign the token transfer transaction with the treasury account to authorize the transfer and submit
+  const signTokenTransfer = await tokenTransfer
+    .freezeWith(client)
+    .sign(treasuryKey);
+
+  //Submit transfer transaction
+  const submitTransfer = await signTokenTransfer.execute(client);
+
+  //Get transaction status
+  const transferTxStatus = await (
+    await submitTransfer.getReceipt(client)
+  ).status;
+
+  //Get the transaction status
+  console.log("The transfer transaction status " + transferTxStatus.toString());
+
+  //Verify your account received the 10 tokens
+  const newAccountBalance = new AccountBalanceQuery()
+    .setAccountId(accountIdTest)
+    .execute(client);
+
+  console.log(
+    "My new account balance is " + (await newAccountBalance).tokens.toString()
+  );
 }
 
-void htsContract();
+void htsContractFunction();
+
 ```
 
 </details>
@@ -1149,8 +1122,7 @@ void htsContract();
 
 <summary>Go</summary>
 
-```go
-package main
+<pre class="language-go"><code class="lang-go">package main
 
 import (
 	"encoding/json"
@@ -1178,18 +1150,18 @@ func main() {
 	}
 
 	//Grab your testnet account ID and private key from the .env file
-	accountIdTest, err := hedera.AccountIDFromString(os.Getenv("PREVIEWNET_ACCOUNT_ID"))
+	accountIdTest, err := hedera.AccountIDFromString(os.Getenv("MY_ACCOUNT_ID"))
 	if err != nil {
 		panic(err)
 	}
 
-	privateKeyTest, err := hedera.PrivateKeyFromString(os.Getenv("PREVIEWNET_PRIVATE_KEY"))
+	privateKeyTest, err := hedera.PrivateKeyFromString(os.Getenv("MY_PRIVATE_KEY"))
 	if err != nil {
 		panic(err)
 	}
 
 	//Create your testnet client
-	client := hedera.ClientForPreviewnet()
+	client := hedera.ClientForTestnet()
 	client.SetOperator(accountIdTest, privateKeyTest)
 
 	//Treasury Key
@@ -1198,7 +1170,7 @@ func main() {
 	//Create token treasury account
 	treasuryAccount := hedera.NewAccountCreateTransaction().
 		SetKey(treasuryKey).
-		SetInitialBalance(hedera.NewHbar(100)).
+		SetInitialBalance(hedera.NewHbar(5).
 		SetAccountMemo("treasury account")
 
 	//Submit the transaction to a Hedera network
@@ -1247,7 +1219,7 @@ func main() {
 
 	var contract contract = contract{}
 
-	err = json.Unmarshal([]byte(rawSmartContract), &contract)
+	err = json.Unmarshal([]byte(rawSmartContract), &#x26;contract)
 	if err != nil {
 		println(err.Error(), ": error unmarshaling the json file")
 		return
@@ -1299,65 +1271,57 @@ func main() {
 	//Log the contract ID
 	fmt.Printf("The contract ID %v\n", contractId)
 
-	//Construct a Solidity address from token ID
-	tokenIdToSol := tokenId.ToSolidityAddress()
-
-	//Construct a Solidity address from account ID
-	accountIdToSol := accountIdTest.ToSolidityAddress()
-
-	//Add the function parameters in order for tokenAssociate
-	contractParamsAccount, err := hedera.NewContractFunctionParameters().AddAddress(accountIdToSol)
-
-	contractParamsToken, err := contractParamsAccount.AddAddress(tokenIdToSol)
-
 	//Associate an account with a token
-	associateTx, err := hedera.NewContractExecuteTransaction().
-		//The contract ID
-		SetContractID(contractId).
-		//The max gas
-		SetGas(2000000).
-		//The contract function to call and parameters
-		SetFunction("tokenAssociate", contractParamsToken).
-		Execute(client)
+	associateTx, err := hedera.NewTokenAssociateTransaction().
+    	SetAccountID(accountIdTest).
+    	SetTokenIDs(tokenId).
+    	FreezeWith(client)
+
+<strong>	if err != nil {
+</strong>	  panic(err)
+	}
+
+	//Sign with the private key of the account that is being associated to a token, submit the transaction to a Hedera network
+	associateTxResponse, err := associateTx.Sign(privateKeyTest).Execute(client)
 
 	if err != nil {
-		println(err.Error(), ": error executing contract")
-		return
+	  panic(err)
 	}
 
 	//Get the receipt
-	associateTxReceipt, err := associateTx.GetReceipt(client)
+	associateTxReceipt, err := associateTxResponse.GetReceipt(client)
+
+	if err != nil {
+	  panic(err)
+	}
 
 	//Get transaction status
 	txStatus := associateTxReceipt.Status
 
 	fmt.Printf("The associate transaction status %v\n", txStatus)
 
-	//Get the child transaction record
-	childRecord, err := hedera.NewTransactionRecordQuery().
-		SetIncludeChildren(true).
-		SetTransactionID(associateTx.TransactionID).
-		Execute(client)
-	if err != nil {
-		println(err.Error(), ": error getting record")
-		return
-	}
-
-	//Log the child record
-	fmt.Printf("The associate child transaction record %v\n", childRecord.Children)
-
-	//The balance of the account
-	accountBalance, err := hedera.NewAccountBalanceQuery().
-		SetAccountID(accountIdTest).
-		Execute(client)
+	//Create the transaction
+	transaction := hedera.NewAccountAllowanceApproveTransaction().
+     	ApproveHbarAllowance(ownerAccount, spenderAccountId, Hbar.fromTinybars(500))
+        	FreezeWith(client)
 
 	if err != nil {
-		println(err.Error(), ": error getting balance")
-		return
+    		panic(err)
 	}
 
-	//Log the account balance
-	fmt.Printf("The account token balance %v\n", accountBalance.Tokens)
+	//Sign the transaction with the owner account private key   
+	txResponse, err := transaction.Sign(ownerAccountKey).Execute(client)
+
+	//Request the receipt of the transaction
+	receipt, err := txResponse.GetReceipt(client)
+	if err != nil {
+    		panic(err)
+	}
+
+	//Get the transaction consensus status
+	transactionStatus := receipt.Status
+
+	println("The transaction consensus status is ", transactionStatus)
 	
 	//Transfer the token
 	transferTx := hedera.NewContractExecuteTransaction().
@@ -1402,7 +1366,7 @@ func main() {
 	fmt.Printf("The account token balance %v\n", transferAccountBalance.Tokens)
 
 }
-```
+</code></pre>
 
 </details>
 
@@ -1414,4 +1378,4 @@ func main() {
 
 **➡ Feel free to reach out in** [**Discord**](https://hedera.com/discord)**!**
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Simi, Sr. Software Manager </p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan </a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td></td><td></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Simi, Sr. Software Manager</p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td></td><td></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr><tr><td align="center"><p>Editor: Lucía, Developer</p><p>(Hashgraph Association)</p><p><a href="https://github.com/luciamunozdev">GitHub</a> | <a href="https://twitter.com/luciamunozdev">Twitter</a></p></td><td></td><td></td><td><a href="https://github.com/luciamunozdev">https://github.com/luciamunozdev</a></td></tr></tbody></table>

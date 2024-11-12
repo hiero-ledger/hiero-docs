@@ -2,7 +2,7 @@
 
 The [Hedera JSON RPC Relay](https://docs.hedera.com/hedera/core-concepts/smart-contracts/json-rpc-relay) enables developers to use their favorite EVM-compatible tools such as Truffle, Hardhat, Web3JS, EthersJS, to deploy and interact with smart contracts on the Hedera network. As highlighted in a [previous article](https://hedera.com/blog/anything-you-can-do-you-can-do-on-hedera-introducing-the-json-rpc-relay), the relay provides applications and tools seamless access to Hedera while masking implementation complexities and preventing reductions in performance, security, and scalability.
 
-This tutorial shows you how to deploy smart contracts on Hedera using Truffle and the [JSON RPC Relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md) with the following steps:
+This tutorial shows you how to deploy smart contracts on Hedera using Truffle and the [JSON RPC Relay](../../core-concepts/smart-contracts/json-rpc-relay.md) with the following steps:
 
 1. Create an account that has ECDSA keys using the Javascript SDK
 2. Compile a contract using Truffle
@@ -126,7 +126,7 @@ async function mirrorQueryFcn(publicKey) {
 
 Now it’s time to compile _**SimpleStorage**_, which is a basic smart contract that allows anyone to set and get data.
 
-```javascript
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
@@ -165,7 +165,7 @@ JSON_RPC_RELAY_URL = https://testnet.hashio.io/api
 ETH_PRIVATE_KEY = 0x7a9e... [Run create-account.js and paste value of “New private key (RAW EVM)”]
 ```
 
-This example uses the [Hashio instance of the JSON RPC Relay](https://swirldslabs.com/hashio/), hosted by Swirlds Labs. URLs are also available for the Hedera Mainnet and Previewnet.
+This example uses the [Hashio instance of the JSON RPC Relay](https://www.hashgraph.com/hashio/), hosted by [Hashgraph](https://www.hashgraph.com/). URLs are also available for the Hedera Mainnet and Previewnet.
 
 Deploy the contract with the following command:
 

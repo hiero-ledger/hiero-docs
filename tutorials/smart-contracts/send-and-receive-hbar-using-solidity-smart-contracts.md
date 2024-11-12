@@ -14,7 +14,7 @@ Throughout the tutorial, you also learn how to check the HBAR balance of the con
 
 ***
 
-## **Prerequisites**&#x20;
+## **Prerequisites**
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
@@ -29,7 +29,7 @@ We recommend you complete the following introduction to get a basic understandin
 2. [Get HBAR to ➡ Contract](send-and-receive-hbar-using-solidity-smart-contracts.md#getting-hbar-to-the-contract)
 3. [Get HBAR from ⬅ Contract](send-and-receive-hbar-using-solidity-smart-contracts.md#getting-hbar-from-the-contract)
 4. [Summary](send-and-receive-hbar-using-solidity-smart-contracts.md#summary)
-5. [Additional Resources ](send-and-receive-hbar-using-solidity-smart-contracts.md#additional-resources)
+5. [Additional Resources](send-and-receive-hbar-using-solidity-smart-contracts.md#additional-resources)
 
 ***
 
@@ -100,8 +100,8 @@ main();
 pragma solidity >=0.7.0 <0.9.0;
 
 // Compile with remix for remote imports to work - otherwise keep precompiles locally
-import "https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/HederaTokenService.sol";
-import "https://github.com/hashgraph/hedera-smart-contracts/blob/main/hts-precompile/HederaResponseCodes.sol";
+import "https://github.com/hashgraph/hedera-smart-contracts/blob/main/contracts/system-contracts/hedera-token-service/HederaTokenService.sol";
+import "https://github.com/hashgraph/hedera-smart-contracts/tree/main/contracts/system-contracts/HederaResponseCodes.sol";
  
 contract hbarToAndFromContract is HederaTokenService{
     //============================================ 
@@ -197,7 +197,7 @@ async function contractDeployFcn(bytecode, gasLim) {
 
 ## **Getting HBAR to the Contract**
 
-### **The **_**receive**_**/**_**fallback**_** Functions**
+### **The \_receive**_**/**_**fallback**\_\*\* Functions\*\*
 
 In this scenario, you (Operator) transfer 10 HBAR to the contract by triggering either the _**receive**_ or _**fallback**_ functions of the contract. As described in this [Solidity by Example](https://solidity-by-example.org/sending-ether/) page, the _**receive**_ function is called when _**msg.data**_ is empty, otherwise the _**fallback**_ function is called.
 
@@ -332,7 +332,7 @@ async function contractExecuteFcn(cId, gasLim, fcnName, params, amountHbar) {
 
 </details>
 
-### **Using **_**TransferTransaction**_** in the SDK**
+### **Using \_TransferTransaction**\_\*\* in the SDK\*\*
 
 Lastly in this scenario, the Treasury transfers 30 HBAR to the contract using [**TransferTransaction()**](https://docs.hedera.com/hedera/sdks-and-apis/sdks/cryptocurrency/transfer-cryptocurrency)**.** This is done with the helper function _**hbar2ContractSdkFcn**_. This scenario is just a quick recap and reminder of [Part 1 of the series](https://hedera.com/blog/how-to-send-and-receive-hbar-using-smart-contracts-part-1-using-the-sdk), so be sure to give that a read for more details.
 

@@ -34,7 +34,7 @@ The smart contract ID is **not a compatible** address format accepted or known i
 
 When viewing the contract information, you may see both types of addresses noted in Hedera Network Explorers like [HashScan](https://hashscan.io/).
 
-<figure><img src="../../.gitbook/assets/contract ID.png" alt=""><figcaption><p>EVM address &#x26; contract ID example on HashScan</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/contract-hashscan-evm-address-id-example.png" alt=""><figcaption><p>EVM address &#x26; contract ID example on HashScan</p></figcaption></figure>
 
 ***
 

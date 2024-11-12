@@ -18,7 +18,7 @@ The `execute()` method submits a transaction to a Hedera network. This method wi
 //Create the transaction
 AccountCreateTransaction transaction = new AccountCreateTransaction()
         .setKey(newPublicKey)
-        .setInitialBalance(new Hbar(1000));
+        .setInitialBalance(new Hbar(5));
 
 //Sign with client operator private key and submit the transaction to a Hedera network
 TransactionResponse txResponse = transaction.execute(client);
@@ -45,7 +45,7 @@ System.out.println("The node ID is " +nodeId);
 //Create the transaction
 const transaction = new AccountCreateTransaction()
         .setKey(newPublicKey)
-        .setInitialBalance(new Hbar(1000));
+        .setInitialBalance(new Hbar(5));
 
 //Sign with client operator private key and submit the transaction to a Hedera network
 const txResponse = await transaction.execute(client);
@@ -72,7 +72,7 @@ console.log("The node ID is " +nodeId);
 //Create the transaction
 transaction := hedera.NewAccountCreateTransaction().
         SetKey(publicKey).
-        SetInitialBalance(hedera.NewHbar(1000))
+        SetInitialBalance(hedera.NewHbar(5))
 
 //Sign with client operator private key and submit the transaction to a Hedera network
 txResponse, err := transaction.Execute(client)
