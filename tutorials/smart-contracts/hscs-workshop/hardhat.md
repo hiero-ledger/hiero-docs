@@ -502,7 +502,7 @@ When using EthersJs:
 { value: 123n * 10_000_000_000n }
 ```
 
-You might think: Why does the number of tinybar need to be multiplied by 10 million?
+You might think: Why does the number of tinybar need to be multiplied by 10 billion?
 
 The _Value of gas price and value fields_ part of HIP-410 offers this explanation.
 
