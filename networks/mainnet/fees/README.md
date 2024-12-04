@@ -6,7 +6,7 @@ description: Hedera network fees
 
 The Hedera testnet fees tables found below offer a low-end estimate of transaction and query fees for all network services. The tables below contain USD, HBAR, and Tinybar (tℏ) values per each API call. All operation fees on the Hedera testnet are paid in test HBAR, which is freely available and only useful for development purposes.
 
-Fee estimates are based on assumptions about the details of a specific API call. For instance, the fee for an HBAR cryptocurrency transfer (CryptoTransfer) assumes a single signature on the transaction and the fee for storing a file assumes a 48-byte sized file stored for 30 days. Transactions exceeding these base assumptions will be more expensive; we recommend increasing your maximum allowable fee to accommodate additional complexity.
+Fee estimates are based on assumptions about the details of a specific API call. For instance, the fee for an HBAR cryptocurrency transfer (CryptoTransfer) assumes a single signature on the transaction and the fee for storing a file assumes a 1,0000-byte sized file stored for 90 days. Transactions exceeding these base assumptions will be more expensive; we recommend increasing your maximum allowable fee to accommodate additional complexity.
 
 ### Mainnet Fees
 
