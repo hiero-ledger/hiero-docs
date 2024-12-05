@@ -1,4 +1,6 @@
 redirects:
+    getting-started/query-data: getting-started.md
+    getting-started/create-an-account: getting-started/create-and-fund-your-hedera-testnet-account.md
     docs/hashgraph-overview: core-concepts/hashgraph-consensus-algorithms/README.md
     getting-started/hcs-submit-your-first-message: tutorials/hcs-submit-your-first-message.md
     docs/hedera-api: sdks-and-apis/hedera-api.md
