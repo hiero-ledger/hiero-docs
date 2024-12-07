@@ -1,4 +1,7 @@
 redirects:
+    getting-started/environment-set-up: getting-started/environment-setup.md
+    getting-started/introduction: getting-started/create-and-fund-your-hedera-testnet-account.md
+    getting-started/introduction/create-hedera-portal-profile-faucet: getting-started/create-and-fund-your-hedera-testnet-account.md
     docs/hashgraph-overview: core-concepts/hashgraph-consensus-algorithms/README.md
     getting-started/hcs-submit-your-first-message: tutorials/hcs-submit-your-first-message.md
     getting-started/query-data: getting-started.md
