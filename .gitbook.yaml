@@ -1,4 +1,5 @@
 redirects:
+    tutorials/hello-world: getting-started.md
     core-concepts/smart-contracts/hederas-evm-equivalence-goals-and-exceptions: core-concepts/smart-contracts/understanding-hederas-evm-differences-and-compatibility/README.md
     docs/hashgraph-overview: core-concepts/hashgraph-consensus-algorithms/README.md
     getting-started/hcs-submit-your-first-message: tutorials/hcs-submit-your-first-message.md
