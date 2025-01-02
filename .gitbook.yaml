@@ -94,4 +94,9 @@ redirects:
     testnet: networks/testnet.md
     testnet/testnet-access: networks/testnet/testnet-access.md
     testnet/testnet-nodes: networks/testnet/testnet-nodes.md
-    tutorials/hello-world/hfs-files: tutorials/hello-world/README.md
+    tutorials/hello-world: getting-started/environment-setup.md
+    tutorials/hello-world/hfs-files: getting-started/environment-setup.md
+    tutorials/hello-world/create-fund-account: getting-started/web2-developers/transfer-hbar.md
+    tutorials/hello-world/hts-fungible-token: getting-started/web2-developers/create-a-token.md
+    tutorials/hello-world/hcs-topic: getting-started/web2-developers/create-a-topic.md
+    tutorials/hello-world/hscs-smart-contract: getting-started/evm-developers/deploy-a-contract.md
