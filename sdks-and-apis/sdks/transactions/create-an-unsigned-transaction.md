@@ -4,13 +4,21 @@ These methods allow you to build a transaction that requires further processing 
 
 <table data-header-hidden><thead><tr><th></th><th width="131.33333333333331"></th><th></th></tr></thead><tbody><tr><td><strong>Method</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>freeze()</code></td><td></td><td>Freeze this transaction from further modification to prepare for signing or serialization. You will need to set the node account ID (<code>setNodeAccountId()</code>) and transaction ID (<code>setTransactionId()</code>).</td></tr><tr><td><code>freezeWith(&#x3C;client>)</code></td><td>Client</td><td>Freeze this transaction from further modification to prepare for signing or serialization. Will use the 'Client', if available, to generate a default Transaction ID and select 1/3 nodes to prepare this transaction for.</td></tr><tr><td><code>freezeWithSigner(&#x3C;signer>)</code></td><td></td><td>Freeze the transaction with a local wallet. Local wallet available in Hedera JavaScript SDK only. >=<code>v2.11.0</code></td></tr></tbody></table>
 
+{% hint style="warning" %}
+#### Account Alias
+
+If an alias is set during account creation, it becomes [immutable](../../../support-and-community/glossary.md#immutability), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
+{% endhint %}
+
 {% tabs %}
 {% tab title="Java" %}
 ```java
 //Create an unsigned transaction 
 AccountCreateTransaction transaction = new AccountCreateTransaction()
-    .setKey(newPublicKey)
-    .setInitialBalance(Hbar.fromTinybars(1000));
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1));
 
 //Freeze the transaction for signing
 //The transaction cannot be modified after this point
@@ -26,8 +34,10 @@ System.out.println(freezeTransaction);
 ```java
 //Create an unsigned transaction 
 const transaction = new AccountCreateTransaction()
-    .setKey(newPublicKey)
-    .setInitialBalance(Hbar.fromTinybars(1000));
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1));
 
 //Freeze the transaction for signing
 //The transaction cannot be modified after this point
@@ -43,8 +53,10 @@ console.log(freezeTransaction);
 ```go
 //Create an unsigned transaction 
 transaction := hedera.NewAccountCreateTransaction().
-    SetKey(newKey.PublicKey()).
-    SetInitialBalance(hedera.NewHbar(1000))
+    SetKey(ecdsaPublicKey).
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    SetAlias(ecdsaPublicKey.ToEvmAddress())
+    SetInitialBalance(hedera.NewHbar(1)).
     
 //Freeze the transaction for signing
 //The transaction cannot be modified after this point

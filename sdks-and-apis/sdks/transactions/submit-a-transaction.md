@@ -12,13 +12,21 @@ The `execute()` method submits a transaction to a Hedera network. This method wi
 
 <table><thead><tr><th>Method</th><th width="157.33333333333331">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>execute(&#x3C;client>)</code></td><td>Client</td><td>Sign with the client operator and submit to a Hedera network</td></tr><tr><td><code>execute(&#x3C;client, timeout>)</code></td><td>Client, Duration</td><td>The duration of times the client will try to submit the transaction upon the network being busy</td></tr><tr><td><code>executeWithSigner(&#x3C;signer>)</code></td><td></td><td>Sign the transaction with a local wallet. This feature is available in the Hedera JavaScript SDK only. >=<code>v2.11.0</code></td></tr><tr><td><code>&#x3C;transactionResponse>.transactionId</code></td><td>TransactionId</td><td>Returns the transaction ID of the transaction</td></tr><tr><td><code>&#x3C;transactionResponse>.nodeId</code></td><td>AccountId</td><td>Returns the node ID of the node that processed the transaction</td></tr><tr><td><code>&#x3C;transactionResponse>.transactionHash</code></td><td>byte [ ]</td><td>Returns the hash of the transaction</td></tr><tr><td><code>&#x3C;transactionResponse>.setValidateStatus(&#x3C;validateStatus>)</code></td><td>boolean</td><td>Whether getReceipt() or getRecord() will throw an exception if the receipt status is not SUCCESS</td></tr><tr><td><code>&#x3C;transactionResponse>.getValidateStatus</code></td><td>boolean</td><td>Return whether getReceipt() or getRecord() will throw an exception if the receipt status is not SUCCESS</td></tr></tbody></table>
 
+{% hint style="warning" %}
+#### Account Alias
+
+If an alias is set during account creation, it becomes [immutable](../../../support-and-community/glossary.md#immutability), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
+{% endhint %}
+
 {% tabs %}
 {% tab title="Java" %}
 ```java
 //Create the transaction
 AccountCreateTransaction transaction = new AccountCreateTransaction()
-        .setKey(newPublicKey)
-        .setInitialBalance(new Hbar(5));
+        .setKey(ecdsaPublicKey)
+        //do not set if you need to rotate keys in the future
+        .setAlias(ecdsaPublicKey.toEvmAddress())
+        .setInitialBalance(new Hbar(1));
 
 //Sign with client operator private key and submit the transaction to a Hedera network
 TransactionResponse txResponse = transaction.execute(client);
@@ -44,8 +52,10 @@ System.out.println("The node ID is " +nodeId);
 ```javascript
 //Create the transaction
 const transaction = new AccountCreateTransaction()
-        .setKey(newPublicKey)
-        .setInitialBalance(new Hbar(5));
+        .setKey(ecdsaPublicKey)
+        //do not set if you need to rotate keys in the future
+        .setAlias(ecdsaPublicKey.toEvmAddress())
+        .setInitialBalance(new Hbar(1));
 
 //Sign with client operator private key and submit the transaction to a Hedera network
 const txResponse = await transaction.execute(client);
@@ -68,11 +78,13 @@ console.log("The node ID is " +nodeId);
 {% endtab %}
 
 {% tab title="Go" %}
-```java
+```go
 //Create the transaction
 transaction := hedera.NewAccountCreateTransaction().
-        SetKey(publicKey).
-        SetInitialBalance(hedera.NewHbar(5))
+        SetKey(ecdsaPublicKey).
+        //do not set if you need to rotate keys in the future
+        SetAlias(ecdsaPublicKey.ToEvmAddress()).
+        SetInitialBalance(hedera.NewHbar(1))
 
 //Sign with client operator private key and submit the transaction to a Hedera network
 txResponse, err := transaction.Execute(client)

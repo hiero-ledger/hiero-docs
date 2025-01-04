@@ -4,11 +4,83 @@ description: Hedera mirror node release notes
 
 # Hedera Mirror Node
 
-For the latest versions supported on each network, please visit the Hedera status [page](https://status.hedera.com/).
+Visit the [Hedera status page](https://status.hedera.com/) for the latest versions supported on each network.
 
 ## Latest Releases
 
-## [V0.113.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.113.0)
+## [v0.120.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.120.0)
+
+Smaller release focusing on paying down some technical debt. Spotless code formatting tool was ran against the whole codebase and a CI check added to enforce it stays formatted. A large number of Sonar issues were addressed reducing the number of overall code smells. Finally, a runbook was added that documents the steps to restore a database backup for Stackgres.
+
+## [v0.119.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.119.0)
+
+The `/api/v1/contracts/call` API that simulates smart contract executions now supports the [Ethereum Cancun](https://ethereum.org/en/roadmap/dencun/) upgrade. Additionally, there were a number of tasks completed integrating the latest modularized EVM library.
+
+The helm chart gained support for the Kubernetes [Gateway API](https://kubernetes.io/docs/concepts/services-networking/gateway/). The Gateway API provides a newer alternative to the existing Ingress support in the chart. Our Gateway API support is still preliminary since we can't use it in production environments until Google adds support for `GrpcRoute` and `RegularExpression` path matching in GKE.
+
+This release fixes a critical bug with the handling of claimed token airdrops. Now claimed airdrops will implicitly create a token association and properly track token balances. Any existing airdrops are corrected via a database migration. The same fixes were back-ported to `v0.118.1`.
+
+## [v0.118.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.118.0)
+
+A new developer quick start [guide](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/development.md) was added by a community member. This document is intended to help new contributors quickly setup their local development environment for the mirror node. Please try it out and hopefully make your first contribution!
+
+This release includes a new Redis-based distributed cache for the REST API. When enabled, API responses will be retrieved from the cache instead of querying the slower distributed database. This will protect the API against attacks and improve its scalability. For now, this functionality is disabled by default as we work towards stabilizing it.
+
+A number of new run books were added to improve the day two operations of managing the mirror node database. There are run books to aid in taking and restoring the database volume snapshot. There's also a run book to increase the database volume size. Finally, there's a run book to change the database machine type.
+
+## [v0.117.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.117.0)
+
+This is a smaller release as we focus on reworking the web3 module to use the modularized EVM library. All of the `ReadableKVState` classes are now implemented and the EVM properties are mapped. The next release should have most of the remaining pieces in place to start testing.
+
+## [v0.116.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.116.0)
+
+[HIP-991](https://hips.hedera.com/hip/hip-991) Permissionless revenue-generating Topic Ids for Topic Operators design was completed this sprint and relevant tasks created. Once this HIP is scheduled for inclusion in consensus nodes we'll proceed with implementing the design.
+
+[HIP-904](https://hips.hedera.com/hip/hip-904) Friction-less Airdrops saw the final tasks completed. Some of these tasks were cherry-picked to 0.115 like the NFT support in the REST APIs. In addition, we saw additional airdrop performance tests added to k6 and acceptance test coverage increased.
+
+Work continues on integrating the modularized EVM library into the web3 module. There were eight pull requests focused on adding the necessary key value state implementations to plug into this new library.
+
+Citus saw some some important work including the addition of automated backup. This will remain off by default until some upstream issues are resolved. We also upgraded Stackgres from 1.11 to 1.13 which contains some important fixes. See breaking changes for more details on upgrading.
+
+### Breaking Changes
+
+For the `hedera-mirror` Helm chart, if you're using Citus via Stackgres it has a minor version upgrade. Please follow the Stackgres upgrade [runbook](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/runbook/stackgres-upgrade.md) after upgrading the Helm release.
+
+If you're using the `hedera-mirror-common` Helm chart, there are some breaking changes to be aware of. Loki, Prometheus Operator, and Traefik all had major version upgrades that require manual steps. Run the below commands to ensure the CRDs are updated appropriately. Also note Loki had a schema change that will require its volume be manually deleted and recreated.
+
+```
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusagents.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+kubectl apply --server-side --force-conflicts -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.76.0/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
+kubectl apply --server-side --force-conflicts -k https://github.com/traefik/traefik-helm-chart/traefik/crds/
+helm upgrade common hedera/hedera-mirror-common ...
+kubectl delete crds ingressroutes.traefik.containo.us ingressroutetcps.traefik.containo.us ingressrouteudps.traefik.containo.us middlewares.traefik.containo.us middlewaretcps.traefik.containo.us serverstransports.traefik.containo.us tlsoptions.traefik.containo.us tlsstores.traefik.containo.us traefikservices.traefik.containo.us
+```
+
+## [v0.115.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.115.0)
+
+[HIP-904](https://hips.hedera.com/hip/hip-904) Friction-less Airdrops saw the final piece of functionality land in this release. NFT support was added to the `/api/v1/accounts/{id}/airdrops/outstanding` and `/api/v1/accounts/{id}/airdrops/pending` REST APIs.
+
+Starting a mirror node from scratch has been a frequent pain point for new mirror node operators. To help ease this process, a new database [bootstrap](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database/bootstrap.md) mechanism was added. A full mirror node database snapshot is now available in a public, requester pays GCS [bucket](https://console.cloud.google.com/storage/browser/mirrornode-db-export) for download. Documentation and scripts have been provided that help with downloading and importing that snapshot into your local database. This bootstrap process is currently in alpha and feedback is appreciated. In future releases, we'll work to automate the snapshot generation every release, offer a minimal snapshot without HCS data, and make the process more streamlined.
+
+## [v0.114.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.114.0)
+
+This release contains the two new REST APIs for [HIP-904](https://hips.hedera.com/hip/hip-904) token airdrops. The new `/api/v1/accounts/{sender}/airdrops/outstanding` REST API lists the outstanding airdrops sent by the sender which have not been claimed by recipients. The new `/api/v1/accounts/{receiver}/airdrops/pending` REST API lists the pending airdrops that the receiver has not yet claimed. Both of these APIs are still under development and only return fungible token airdrops at this time. In a subsequent release, non-fungible token airdrop support will be added.
+
+Our new Citus database saw a lot of performance optimizations enabling us to finally switch our production instances over. The stateproof REST API saw an optimization to reduce the number of partitions it scans. Likewise, the contract APIs `/contracts/{id}/results/logs`, `/contracts/results`, and `/contracts/logs` were heavily optimized. Finally, the change to populate the next link when the implicit timestamp range was hit also made it in.
+
+The long-running effort to refactor the web3 tests to be more maintainable and reduce execution time was completed. In all 10 pull requests were merged to close out this project. This lays the foundation for the next web3 project we're going to tackle: integration of the new modularized consensus node library.
+
+The monitor component now supports TLS connections to consensus nodes. A new `hedera.mirror.monitor.nodeValidation.tls` property was added with a default of `PLAINTEXT` to control this behavior. Set it to `BOTH` or `TLS` to connect to the consensus node's secure port. Note that this is currently less secure than it should be since we don't verify certificate hash information in the address book due to a limitation in the SDK.
+
+## [v0.113.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.113.0)
 
 Full ingest support for the new [HIP-904](https://hips.hedera.com/hip/hip-904) token airdrop transactions was implemented. In the future, two new airdrop REST APIs will be added to support querying for outstanding and pending airdrops.
 
@@ -209,7 +281,7 @@ Our distributed database effort saw some notable improvements including upgradin
 
 ### Upgrading
 
-If you're compiling locally, ensure you have upgraded to Java 21 in your terminal and IDE. For MacOS, we recommend using [SDKMAN!](https://sdkman.io/) to manage Java versions so that upgrading is as simple as `sdk install java 21-tem`. If you're using a custom `Dockerfile` ensure it is also updated to Java 21. We recommend [Eclipse Temurin](https://hub.docker.com/\_/eclipse-temurin) as the base image for our Java components.
+If you're compiling locally, ensure you have upgraded to Java 21 in your terminal and IDE. For MacOS, we recommend using [SDKMAN!](https://sdkman.io/) to manage Java versions so that upgrading is as simple as `sdk install java 21-tem`. If you're using a custom `Dockerfile` ensure it is also updated to Java 21. We recommend [Eclipse Temurin](https://hub.docker.com/_/eclipse-temurin) as the base image for our Java components.
 
 ## [v0.94.1](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.94.1)
 
@@ -235,7 +307,7 @@ We added an option to deduplicate account and token balance data for Citus that 
 
 ## [v0.91.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.91.0)
 
-This release adds support for ad-hoc transaction filters using the [Spring Expression Language](https://docs.spring.io/spring-framework/reference/core/expressions.html) (SpEL). SpEL filters can be used for both including or excluding transactions from being persisted to the database. Previous filtering [capability](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#transaction-and-entity-filtering) allowed mirror node operators to include or exclude certain entity IDs or transaction types, but if they needed something more custom they were out of luck. SpEL itself is pretty powerful and allows access to any bean or class on the classpath, so to reduce the attack surface we limit it to only allow filtering on the [TransactionBody](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_body.proto) and the [TransactionRecord](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction\_record.proto) contained within the record file. See the [docs](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#spring-expression-language-support) for additional details and examples. Below is an example that only includes transactions with certain memos:
+This release adds support for ad-hoc transaction filters using the [Spring Expression Language](https://docs.spring.io/spring-framework/reference/core/expressions.html) (SpEL). SpEL filters can be used for both including or excluding transactions from being persisted to the database. Previous filtering [capability](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#transaction-and-entity-filtering) allowed mirror node operators to include or exclude certain entity IDs or transaction types, but if they needed something more custom they were out of luck. SpEL itself is pretty powerful and allows access to any bean or class on the classpath, so to reduce the attack surface we limit it to only allow filtering on the [TransactionBody](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction_body.proto) and the [TransactionRecord](https://github.com/hashgraph/hedera-sdk-java/blob/develop/sdk/src/main/proto/transaction_record.proto) contained within the record file. See the [docs](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/configuration.md#spring-expression-language-support) for additional details and examples. Below is an example that only includes transactions with certain memos:
 
 ```
 hedera.mirror.importer.parser.include[0].expression=transactionBody.memo.contains("hedera")
@@ -271,7 +343,7 @@ There was good amount of technical debt addressed in `0.88`. For starters, we ha
 
 ## [v0.87](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.87.0)
 
-This release wraps up the initiative to ensure we capture all changes to Hedera entities. One of the oldest tickets in the repository going back to 2019 was completed, finally persisting the [FreezeTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/freeze.proto) details to the database. There's a new option to store the raw [TransactionRecord](https://github.com/hashgraph/hedera-protobufs/blob/main/services/transaction\_record.proto) protobuf bytes that is set to off by default. The custom fee table was split into separate main and history tables for consistency with other data and improved querying efficiency.
+This release wraps up the initiative to ensure we capture all changes to Hedera entities. One of the oldest tickets in the repository going back to 2019 was completed, finally persisting the [FreezeTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/freeze.proto) details to the database. There's a new option to store the raw [TransactionRecord](https://github.com/hashgraph/hedera-protobufs/blob/main/services/transaction_record.proto) protobuf bytes that is set to off by default. The custom fee table was split into separate main and history tables for consistency with other data and improved querying efficiency.
 
 An asynchronous database migration was added to efficiently update every account's crypto allowance amount after support for live allowance tracking was implemented in the last release. Furthermore, new crypto and fungible acceptance tests verify the live allowance tracking works correctly. Finally, we now rerun conditional migrations that would historically run only on initial startup. For migrations like balance initialization this means we automatically correct account and token relationship balances after ingesting the first balance file. For other migrations, it means they are triggered automatically based upon a specific record file version being ingested.
 
@@ -289,7 +361,7 @@ Traditionally, the mirror node has only stored the aggregated transfers from the
 
 Finally, we added an `entity_transaction` join table to start tracking all entities associated with a transaction. This will enable us provide a better transaction search experience and find all transactions associated with an entity. This functionality is disabled in this release as we iterate on it to make it performant.
 
-Support for Ethereum transaction type 1 as specified in [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930) is now available. Previously only legacy and type 2 Ethereum transactions were supported. The new EIP-2930 transactions can be sent either directly to HAPI via an [EthereumTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/ethereum\_transaction.proto) or via the [JSON-RPC Relay](https://swirldslabs.com/hashio/).
+Support for Ethereum transaction type 1 as specified in [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930) is now available. Previously only legacy and type 2 Ethereum transactions were supported. The new EIP-2930 transactions can be sent either directly to HAPI via an [EthereumTransaction](https://github.com/hashgraph/hedera-protobufs/blob/main/services/ethereum_transaction.proto) or via the [JSON-RPC Relay](https://swirldslabs.com/hashio/).
 
 [HIP-584](https://hips.hedera.com/hip/hip-584) EVM Archive node saw a large number of precompiles implemented. This includes all of the following:
 
@@ -811,7 +883,7 @@ In the last release, we began keeping track of the current balance of every acco
 
 As part of [HIP-406](https://hips.hedera.com/hip/hip-406), it details a pending reward calculation that can be used to estimate the reward payout between your last payout event and the staking period that just ended. The mirror node now does a similar calculation daily and will in a future release show this pending reward amount on the REST API.
 
-The [reconciliation](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/importer#reconciliation-job) job periodically runs and reconciles the balance files with the crypto transfers that occurred in the record files. This job allowed us to catch an [issue](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#record-missing-for-fail\_invalid-nft-transfers) with missing transactions for `FAIL_INVALID` crypto transfers that was fixed in hedera-services `v0.27.7`. This release contains the errata for the missing transactions that allows reconciliation to proceed successfully once again. It also saw performance improvements including a `delay` property to throttle its speed and added job status persistence so it doesn't restart from the beginning every time. A new `remediationStrategy` property provides a mechanism to continue after failure to aid in debugging multiple reconciliation errors.
+The [reconciliation](https://github.com/hashgraph/hedera-mirror-node/tree/main/docs/importer#reconciliation-job) job periodically runs and reconciles the balance files with the crypto transfers that occurred in the record files. This job allowed us to catch an [issue](https://github.com/hashgraph/hedera-mirror-node/blob/main/docs/database.md#record-missing-for-fail_invalid-nft-transfers) with missing transactions for `FAIL_INVALID` crypto transfers that was fixed in hedera-services `v0.27.7`. This release contains the errata for the missing transactions that allows reconciliation to proceed successfully once again. It also saw performance improvements including a `delay` property to throttle its speed and added job status persistence so it doesn't restart from the beginning every time. A new `remediationStrategy` property provides a mechanism to continue after failure to aid in debugging multiple reconciliation errors.
 
 ## [v0.63](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.63.0)
 
@@ -1078,7 +1150,7 @@ A number of changes were made in support of [HIP-410 Ethereum Transactions](http
 
 _Note: Existing fields omitted for brevity._
 
-A new exchange rate REST API `/api/v1/network/exchangerate` was added that returns the [exchange rate](https://github.com/hashgraph/hedera-protobufs/blob/main/services/exchange\_rate.proto) network file stored in `0.0.112`. It supports a `timestamp` parameter to retrieve the exchange rate at a certain time in the past.
+A new exchange rate REST API `/api/v1/network/exchangerate` was added that returns the [exchange rate](https://github.com/hashgraph/hedera-protobufs/blob/main/services/exchange_rate.proto) network file stored in `0.0.112`. It supports a `timestamp` parameter to retrieve the exchange rate at a certain time in the past.
 
 ```
 {
@@ -1969,7 +2041,7 @@ We made some operational improvements to our helm chart including alert dependen
 
 This release adds support for HAPI 0.13.2. This brings with it a new address book file format that is more compact and doesn't duplicate IP address and port information. We took the time to adjust our database to reflect the newer format while maintaining compatibility with the older format.
 
-A big focus of this release was on improving the Helm charts for use in production deployments. We now auto-generate passwords for components that require one and ensure they remain the same on upgrades by using Helm's [lookup](https://helm.sh/docs/chart\_template\_guide/functions\_and\_pipelines/#using-the-lookup-function) feature. We added `env`, `envFrom`, `volumes`, `volumeMounts` properties to all charts for more flexible configuration. We added a `global.image.tag` chart property to make it easier to test out custom versions. And we made it easier to use dependencies that can be outside the cluster like Redis and PostgreSQL.
+A big focus of this release was on improving the Helm charts for use in production deployments. We now auto-generate passwords for components that require one and ensure they remain the same on upgrades by using Helm's [lookup](https://helm.sh/docs/chart_template_guide/functions_and_pipelines/#using-the-lookup-function) feature. We added `env`, `envFrom`, `volumes`, `volumeMounts` properties to all charts for more flexible configuration. We added a `global.image.tag` chart property to make it easier to test out custom versions. And we made it easier to use dependencies that can be outside the cluster like Redis and PostgreSQL.
 
 Some internal improvements saw us automating our release process so that version bumps and release note generation can be kicked off via GitHub. This now also includes generating a CHANGELOG and keeping it up to date with the release notes. And finally we updated our acceptance tests to automatically pull and use the latest address book along with validating all nodes to ensure only the latest, valid nodes are used for validation.
 
@@ -2001,7 +2073,7 @@ We now expose the raw transaction bytes encoded in Base64 format in the REST API
 
 After scheduled transactions were made available in previewnet, we listened to user feedback and further iterated on the design to make it easier to use. This release adds support for this [revised scheduled transactions](https://github.com/hashgraph/hedera-services/blob/master/docs/scheduled-transactions/revised-spec.md) design planned to be released in HAPI v0.13. There was no impact to our REST API format, only the importer needed to be updated to parse and ingest the new proto format. Our monitor API and acceptance tests will be adjusted in the next release once the SDKs add support for the new design.
 
-This release also adds support for the newly announced account balance file format that was released in HAPI v0.12. The new [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/account\_balance\_file.proto)based format will eventually replace the CSV format in July 2021. Until then, both formats will exist simultaneously in the bucket so users can transition at their leisure. Besides being more efficient to parse, the new files are also compressed using Gzip for reduced storage and download costs. We also took the time to improve the balance file parsing performance regardless of format. Average parse times should decrease by about 27%.
+This release also adds support for the newly announced account balance file format that was released in HAPI v0.12. The new [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/account_balance_file.proto)based format will eventually replace the CSV format in July 2021. Until then, both formats will exist simultaneously in the bucket so users can transition at their leisure. Besides being more efficient to parse, the new files are also compressed using Gzip for reduced storage and download costs. We also took the time to improve the balance file parsing performance regardless of format. Average parse times should decrease by about 27%.
 
 For our REST API, we now expose an `entity_id` field on our transactions related APIs. This field represents the main entity associated with that transaction type. For example, if it was a HCS transaction it would be the topic ID created, updated, or deleted.
 
@@ -2363,7 +2435,7 @@ Contains a small change to the State Proof Alpha REST API to only return the cur
 
 Building upon the availability of the [State Proof Alpha REST API](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/docs/design/stateproofalpha.md) in the last release, we've added [sample code](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/hedera-mirror-rest/state-proof-demo) in JavaScript to retrieve the state proof from a mirror node and locally verify it. This allows users to obtain cryptographic proof that a particular transaction took place on Hedera. The validity of the proof can be checked independently to ensure that the supermajority of Hedera mainnet stake had reached consensus on that transaction. Similar to the promise of the ultimate state proofs, the user can trust this state proof alpha served by the mirror nodes, even when the user does not trust the mirror nodes.
 
-Importer can now be configured to connect to Amazon S3 using temporary security credentials via [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API\_AssumeRole.html). With this, a user that does not have permission to access an AWS resource can request a temporary role that will grant them that permission. See the [configuration documentation](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/docs/configuration.md#connect-to-s3-with-assumerole) for more information.
+Importer can now be configured to connect to Amazon S3 using temporary security credentials via [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html). With this, a user that does not have permission to access an AWS resource can request a temporary role that will grant them that permission. See the [configuration documentation](https://github.com/hashgraph/hedera-mirror-node/blob/v0.18.0/docs/configuration.md#connect-to-s3-with-assumerole) for more information.
 
 Importer also added two new properties to control the subset of data it should download and validate. The `hedera.mirror.importer.startDate` property can be used to exclude data from before this date and "fast-forward" to the point in time of interest. By default, the `startDate` will be set to the current time so mirror node operators can get up and running quicker with the latest data and reduce cloud storage retrieval costs. Note that this property only applies on the importer's first startup and can't be changed after that. The `hedera.mirror.importer.endDate` property can be used to exclude data after this date and halt the importer. By default it is set to a date far in the future so it will effectively never stop.
 

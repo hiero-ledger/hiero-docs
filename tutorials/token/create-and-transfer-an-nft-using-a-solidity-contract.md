@@ -17,8 +17,8 @@ Besides creating NFTs using Hedera SDK, you can use a Solidity Contract to creat
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](https://portal.hedera.com/register).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+1. Get a [Hedera testnet account](https://portal.hedera.com/register).
+2. Set up your environment [here](../../getting-started/environment-setup.md).
 
 If you are interested in creating, minting, and transferring NFTs using Hedera SDKs you can find the example [here](https://docs.hedera.com/guides/getting-started/try-examples/create-and-transfer-your-first-nft).
 
@@ -560,7 +560,7 @@ public class Deploy {
         Client client = Client.forTestnet();
         client.setOperator(operatorId, operatorKey);
 
-        PrivateKey aliceKey = PrivateKey.generateED25519();
+        PrivateKey aliceKey = PrivateKey.generateECDSA();
         AccountId aliceId = accountCreator(aliceKey, 100, client);
         System.out.print(aliceId);
 
@@ -677,7 +677,7 @@ async function accountCreator(pvKey, iBal) {
 
 const main = async () => {
   // Init Alice account
-  const aliceKey = PrivateKey.generateED25519();
+  const aliceKey = PrivateKey.generateECDSA();
   const aliceId = await accountCreator(aliceKey, 100);
 
   const bytecode = fs.readFileSync("./binaries/NFTCreator_sol_NFTCreator.bin");
@@ -799,7 +799,7 @@ func main() {
 	client := hedera.ClientForTestnet()
 	client.SetOperator(operatorId, operatorKey)
 
-	aliceKey, err := hedera.PrivateKeyGenerateEd25519()
+	aliceKey, err := hedera.PrivateKeyGenerateEcdsa()
 	if err != nil {
 		panic(err)
 	}
@@ -807,6 +807,7 @@ func main() {
 	//Create the transaction
 	accountCreate := hedera.NewAccountCreateTransaction().
 		SetKey(aliceKey.PublicKey()).
+		//Do NOT set an alias if you need to update/rotate keys in the future
 		SetMaxAutomaticTokenAssociations(10).
 		SetInitialBalance(hedera.NewHbar(100))
 

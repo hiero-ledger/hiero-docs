@@ -109,15 +109,7 @@ Hashio provides the URLs for each Hedera environment, which allows you to intera
 
 Import your newly created ECDSA-based Hedera account into MetaMask using your private key from above.
 
-<div>
-
-<figure><img src="../../.gitbook/assets/import accounts mm1.png" alt=""><figcaption><p>Use your private key to import your Hedera account into Metamask</p></figcaption></figure>
-
- 
-
-<figure><img src="../../.gitbook/assets/import accounts mm2.png" alt=""><figcaption><p>Your Hedera Account in Metamask</p></figcaption></figure>
-
-</div>
+<div><figure><img src="../../.gitbook/assets/import accounts mm1.png" alt=""><figcaption><p>Use your private key to import your Hedera account into Metamask</p></figcaption></figure> <figure><img src="../../.gitbook/assets/import accounts mm2.png" alt=""><figcaption><p>Your Hedera Account in Metamask</p></figcaption></figure></div>
 
 ## Summary
 

@@ -8,8 +8,8 @@ In this tutorial, you will learn how to create a simple smart contract on Hedera
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](../../getting-started/introduction.md).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+* Get a [Hedera testnet account](../more-tutorials/create-and-fund-your-hedera-testnet-account.md).
+* Set up your environment [here](../../getting-started/environment-setup.md).
 
 ***
 
@@ -183,8 +183,6 @@ You can alternatively use the [<mark style="color:purple;">`CreateContractFlow()
 {% hint style="warning" %}
 _**Note:** The bytecode is required to be hex-encoded. It should not be the actual data the hex represents._
 {% endhint %}
-
-
 
 {% tabs %}
 {% tab title="Java" %}

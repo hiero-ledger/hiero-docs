@@ -7,7 +7,7 @@ The Asset Tokenization Studio (ATS) web user interface offers an easy-to-use pla
 ## Prerequisites
 
 * [Hedera Testnet Account](https://portal.hedera.com/)
-* [HashPack](../../getting-started/introduction.md#testnet-ecdsa-account-via-hashpack) or [MetaMask Wallet](../../tutorials/more-tutorials/how-to-connect-metamask-to-hedera.md)
+* [HashPack](broken-reference) or [MetaMask Wallet](../../tutorials/more-tutorials/how-to-connect-metamask-to-hedera.md)
 
 ***
 
@@ -100,25 +100,15 @@ The above terms are defined [here](web-user-interface-ui.md#regulation-restricti
 
 * **Deal Size**: The total amount of capital that can be raised through this offering. This could represent an unlimited or capped amount, depending on the specific tokenization project or regulatory constraints.&#x20;
 
-<!---->
-
-* **Accredited Investors**: Investors who meet specific financial criteria (e.g., income, net worth) as defined by regulatory standards. Participation in certain tokenized offerings may be restricted to accredited investors due to regulatory requirements.
-
-<!---->
+- **Accredited Investors**: Investors who meet specific financial criteria (e.g., income, net worth) as defined by regulatory standards. Participation in certain tokenized offerings may be restricted to accredited investors due to regulatory requirements.
 
 * **Max Non-Accredited Investors**: The maximum number of non-accredited investors allowed to participate in the digital security offering. Digital securities may impose limits on non-accredited investor participation to comply with securities regulations, ensuring the offering remains within certain legal frameworks.
 
-<!---->
-
-* **Manual Investor Verification**: This is a process where investors must provide financial documentation or proof of identity, which is manually verified to ensure compliance with KYC (Know Your Customer) and AML (Anti-Money Laundering) regulations. In digital securities offerings, this step ensures that only eligible participants can invest in the asset.
-
-<!---->
+- **Manual Investor Verification**: This is a process where investors must provide financial documentation or proof of identity, which is manually verified to ensure compliance with KYC (Know Your Customer) and AML (Anti-Money Laundering) regulations. In digital securities offerings, this step ensures that only eligible participants can invest in the asset.
 
 * **International Investors**: Refers to the participation of investors from other countries in the digital security offering. Tokenized offerings may allow or restrict international investors based on local or international regulations, tax considerations, and compliance requirements.
 
-<!---->
-
-* **Resale Hold Period**: The minimum time an investor must wait before they can resell their digital security on secondary markets. The resale hold period is often mandated by regulatory bodies to prevent early liquidation and to comply with securities laws, ensuring the stability and legality of the offering.
+- **Resale Hold Period**: The minimum time an investor must wait before they can resell their digital security on secondary markets. The resale hold period is often mandated by regulatory bodies to prevent early liquidation and to comply with securities laws, ensuring the stability and legality of the offering.
 
 </details>
 
@@ -236,27 +226,15 @@ Enter the specific details of the new equity, such as nominal value and number o
 
 * **Voting Rights**: Tokens with voting rights grant their holders the right to participate in governance.&#x20;
 
-<!---->
-
-* **Information Rights**: The holders with these information rights may request transparency in the form of regular reports on how the company is performing.
-
-<!---->
+- **Information Rights**: The holders with these information rights may request transparency in the form of regular reports on how the company is performing.
 
 * **Liquidation Rights**: The holders of liquidation rights will have a claim on the assets if the firm dissolves normally after debts are paid.
 
-<!---->
-
-* **Conversion Rights**: These are the rights of equity holders to convert their equity tokens into another security; for example, preferred shares into common shares and equity into debt tokens.
-
-<!---->
+- **Conversion Rights**: These are the rights of equity holders to convert their equity tokens into another security; for example, preferred shares into common shares and equity into debt tokens.
 
 * **Subscription Rights**: The right of current equity holders to buy additional equity shares at pre-determined prices, often in advance of offering shares to the general market. This prevents ownership from being diluted.
 
-<!---->
-
-* **Redemption Rights**: The right of equity holders to force the company to buy back or redeem their shares, usually under specified conditions or at certain times.
-
-<!---->
+- **Redemption Rights**: The right of equity holders to force the company to buy back or redeem their shares, usually under specified conditions or at certain times.
 
 * **Put Rights**: A right given to the equity holder to sell his shares back to the company at a predetermined price or under certain conditions.
 

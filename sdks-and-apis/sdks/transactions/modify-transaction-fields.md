@@ -20,13 +20,21 @@ _**Note:** The SDKs do not require you to set these fields when submitting a tra
 
 <table><thead><tr><th width="432">Method</th><th width="314.3333333333333">Type</th></tr></thead><tbody><tr><td><code>setTransactionID(&#x3C;transactionId>)</code></td><td>TransactionID</td></tr><tr><td><code>setTransactionValidDuration(&#x3C;validDuration>)</code></td><td>Duration</td></tr><tr><td><code>setTransactionMemo(&#x3C;memo>)</code></td><td>String</td></tr><tr><td><code>setNodeAccountIds(&#x3C;nodeAccountIds>)</code></td><td>List&#x3C;AccountId></td></tr><tr><td><code>setMaxTransactionFee(&#x3C;maxTransactionFee>)</code></td><td>Hbar</td></tr><tr><td><code>setGrpcDeadline(&#x3C;grpcDeadline>)</code></td><td>Duration</td></tr><tr><td><code>setRegenerateTransactionId(&#x3C;regenerateTransactionId>)</code></td><td>boolean</td></tr></tbody></table>
 
+{% hint style="warning" %}
+#### Account Alias
+
+If an alias is set during account creation, it becomes [immutable](../../../support-and-community/glossary.md#immutability), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
+{% endhint %}
+
 {% tabs %}
 {% tab title="Java" %}
 ```java
 //Create the transaction and set the transaction properties
 Transaction transaction = new AccountCreateTransaction() //Any transaction can be applied here
-    .setKey(key)
-    .setInitialBalance(Hbar.fromTinybars(1000))
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1))
     .setMaxTransactionFee(new Hbar(2)) //Set the max transaction fee to 2 hbar
     .setTransactionMemo("Transaction memo"); //Set the node ID to submit the transaction to
     
@@ -38,8 +46,10 @@ Transaction transaction = new AccountCreateTransaction() //Any transaction can b
 ```javascript
 //Create the transaction and set the transaction properties
 const transaction = await new AccountCreateTransaction() //Any transaction can be applied here
-    .setKey(key)
-    .setInitialBalance(Hbar.fromTinybars(1000))
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1))
     .setMaxTransactionFee(new Hbar(2)) //Set the max transaction fee to 2 hbar
     .setTransactionMemo("Transaction memo"); //Set the node ID to submit the transaction to
 ```
@@ -49,8 +59,10 @@ const transaction = await new AccountCreateTransaction() //Any transaction can b
 ```go
 //Create the transaction and set the transaction properties
 transaction := hedera.NewAccountCreateTransaction(). //Any transaction can be applied here
-    SetKey(newKey.PublicKey()).
-    SetInitialBalance(hedera.NewHbar(1000)). 
+    SetKey(ecdsaPublicKey).
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    SetAlias(ecdsaPublicKey.ToEvmAddress()).
+    SetInitialBalance(hedera.NewHbar(1)).
     SetMaxTransactionFee(hedera.NewHbar(2)). //Set the max transaction fee to 2 hbar
     SetTransactionMemo("Transaction memo") //Set the transaction memo
 
@@ -61,7 +73,7 @@ transaction := hedera.NewAccountCreateTransaction(). //Any transaction can be ap
 
 ## Get transaction properties
 
-<table><thead><tr><th width="438">Method</th><th>Type</th></tr></thead><tbody><tr><td><code>getTransactionID()</code></td><td>TransactionID</td></tr><tr><td><code>getTransactionValidDuration()</code></td><td>Duration</td></tr><tr><td><code>getTransactionMemo()</code></td><td>String</td></tr><tr><td><code>getNodeAccountId()</code></td><td>AccountID</td></tr><tr><td><code>getMaxTransactionFee()</code></td><td>Hbar</td></tr><tr><td><code>getTransactionHash()</code></td><td>byte[ ]</td></tr><tr><td><code>getTransactionHashPerNode()</code></td><td>Map&#x3C;AccountId, byte [ ]></td></tr><tr><td><code>getSignatures()</code></td><td>Map&#x3C;AccountId, Map&#x3C;PublicKey, byte [ ]>></td></tr></tbody></table>
+<table><thead><tr><th width="340">Method</th><th>Type</th></tr></thead><tbody><tr><td><code>getTransactionID()</code></td><td>TransactionID</td></tr><tr><td><code>getTransactionValidDuration()</code></td><td>Duration</td></tr><tr><td><code>getTransactionMemo()</code></td><td>String</td></tr><tr><td><code>getNodeAccountId()</code></td><td>AccountID</td></tr><tr><td><code>getMaxTransactionFee()</code></td><td>Hbar</td></tr><tr><td><code>getTransactionHash()</code></td><td>byte[ ]</td></tr><tr><td><code>getTransactionHashPerNode()</code></td><td>Map&#x3C;AccountId, byte [ ]></td></tr><tr><td><code>getSignatures()</code></td><td>Map&#x3C;AccountId, Map&#x3C;PublicKey, byte [ ]>></td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -96,7 +108,7 @@ const maxTransactionFee = transaction.getMaxTransactionFee();
 //Create the transaction and set the transaction properties
 transaction := hedera.NewAccountCreateTransaction(). //Any transaction can be applied here
     SetKey(newKey.PublicKey()).
-    SetInitialBalance(hedera.NewHbar(100)). 
+    SetInitialBalance(hedera.NewHbar(100)).
     SetMaxTransactionFee(hedera.NewHbar(2)). //Set the max transaction fee to 2 hbar
     SetTransactionMemo("Transaction memo") //Add a transaction memo
 

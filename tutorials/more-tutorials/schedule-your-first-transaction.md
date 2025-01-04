@@ -10,8 +10,8 @@ In this tutorial, you'll learn how to create and sign a scheduled transaction. S
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](../../getting-started/introduction.md).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+* Get a [Hedera testnet account](broken-reference).
+* Set up your environment [here](broken-reference).
 
 ***
 

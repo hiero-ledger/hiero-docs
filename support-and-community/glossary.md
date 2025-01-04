@@ -66,7 +66,7 @@ The contract Application Binary Interface (ABI) is the standard way to interact 
 
 ***
 
-Asset Tokenization Studio (ATS) is an open-source solution for tokenizing real-world assets (RWAs) on the Hedera network. It enables issuers to create, manage, and operate digital securities in compliance with global regulatory standards. ATS provides a user-friendly web interface, a customizable Software Development Kit (SDK), and secure, audited smart contracts to streamline the tokenization process. Learn more [here](broken-reference).&#x20;
+Asset Tokenization Studio (ATS) is an open-source solution for tokenizing real-world assets (RWAs) on the Hedera network. It enables issuers to create, manage, and operate digital securities in compliance with global regulatory standards. ATS provides a user-friendly web interface, a customizable Software Development Kit (SDK), and secure, audited smart contracts to streamline the tokenization process. Learn more [here](../open-source-solutions/asset-tokenization-studio-ats/).&#x20;
 
 ### Asynchronous Byzantine Fault Tolerance (aBFT)
 
@@ -83,6 +83,12 @@ In the context of Hedera, aBFT means that the network can reach [consensus](glos
 ***
 
 A snapshot of the state of all accounts within the Hedera Network at the time of their creation. These files, which are stored and made accessible by mirror nodes, include details such as account balances and account status information. They are created at regular intervals and can be used to independently verify the state of the network.
+
+### BIP-39
+
+***
+
+The BIP-39 standard utilizes a 2048-word list, from which 12, 15, 18, 21, or 24 words are randomly selected to form the seed phrase. Each word corresponds to a specific number, and the combination of these numbers generates a unique private key.
 
 ### Bitcoin (BTC)
 
@@ -353,7 +359,7 @@ A cryptographic algorithm for digital signatures is a crucial component in distr
 
 ***
 
-A cryptographic algorithm used for data integrity and widely used in cryptocurrencies. In this term, "[secp256k1](../sdks-and-apis/sdks/keys/generate-a-new-key-pair.md#ecdsa-secp256k1\_)" refers to the specific parameters of the elliptic curve used, making it efficient for computations. Hedera supports this signature scheme for generating cryptographic keys and signing transactions.
+A cryptographic algorithm used for data integrity and widely used in cryptocurrencies. In this term, "[secp256k1](../sdks-and-apis/sdks/keys/generate-a-new-key-pair.md#ecdsa-secp256k1_)" refers to the specific parameters of the elliptic curve used, making it efficient for computations. Hedera supports this signature scheme for generating cryptographic keys and signing transactions.
 
 ### Ed25519
 
@@ -363,23 +369,33 @@ In the context of Hedera, Ed25519 is one of the signature schemes supported for 
 
 ### **EIP (Ethereum Improvement Proposal)**
 
+***
+
 A standard for proposing changes and new features to the Ethereum protocol. Some EIPs are relevant for Hedera's EVM compatibility and can be referenced [here](https://eips.ethereum.org/).&#x20;
+
+### ERC-1363
+
+***
+
+The [ERC-1363](https://erc1363.org/) payable token standard is an extension interface for ERC-20 tokens that supports executing code on a recipient contract after transfers or code on a spender contract after approvals in a single transaction. The following standard allows for the implementation of a standard API for token interaction with smart contracts.&#x20;
 
 ### ERC-20
 
 ***
 
-A technical standard for fungible tokens created using the Ethereum blockchain. A fungible token is interchangeable with another token—where the well-known non-fungible tokens (NFTs) are not interchangeable. ERC-20 allows developers to create smart-contract-enabled tokens that can be used with other products and services. These tokens represent an asset, right, ownership, access, cryptocurrency, or anything else that is not unique in and of itself but can be transferred. Check out the details of the ERC-20 standards [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/).
+A technical standard for fungible tokens created using the Ethereum blockchain. A fungible token is interchangeable with another token—where the well-known non-fungible tokens (NFTs) are not interchangeable. ERC-20 allows developers to create smart-contract-enabled tokens that can be used with other products and services. These tokens represent an asset, right, ownership, access, cryptocurrency, or anything else that is not unique in and of itself but can be transferred. Check out the details of the ERC-20 standards [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/). Hedera supports the creation and management of custom tokens through the [Hedera Token Service (HTS)](glossary.md#hedera-token-service-hts).&#x20;
 
-Hedera supports the creation and management of custom tokens through the [Hedera Token Service (HTS)](glossary.md#hedera-token-service-hts).&#x20;
+### ERC-3643
+
+***
+
+The ERC-3643 protocol is an open-source suite of smart contracts that enables the issuance, management, and transfer of permissioned tokens. Its built-in decentralized identity framework ensures that only users meeting pre-defined conditions can become token holders, even on permissionless blockchains. This standard was formalized in the Ethereum Improvement Proposal (EIP) [ERC-3643](https://eips.ethereum.org/EIPS/eip-3643).
 
 ### ERC-721
 
 ***
 
-A type of token standard — a template or format that other developers agree to follow. Following the same standards makes writing code easier, more predictable, and reusable. Each ERC-721 token is unique and not interchangeable with any other token - hence the term non-fungible. This unique characteristic allows ERC-721 tokens to represent ownership of unique items like a particular piece of real estate or a specific piece of art. Check out the details of the ERC-721 standard [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/).
-
-Hedera supports the creation and management of both [fungible](glossary.md#fungible-token) and [non-fungible tokens](glossary.md#non-fungible-token-nft) using the [ERC-721 token standard](https://eips.ethereum.org/EIPS/eip-721).&#x20;
+A type of token standard — a template or format that other developers agree to follow. Following the same standards makes writing code easier, more predictable, and reusable. Each ERC-721 token is unique and not interchangeable with any other token - hence the term non-fungible. This unique characteristic allows ERC-721 tokens to represent ownership of unique items like a particular piece of real estate or a specific piece of art. Check out the details of the ERC-721 standard [here](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/). Hedera supports the creation and management of both [fungible](glossary.md#fungible-token) and [non-fungible tokens](glossary.md#non-fungible-token-nft) using the [ERC-721 token standard](https://eips.ethereum.org/EIPS/eip-721).&#x20;
 
 ### Ether (ETH)
 
@@ -392,6 +408,12 @@ The [native cryptocurrency](glossary.md#native-cryptocurrency) for Ethereum.
 ***
 
 An open-source, [decentralized](glossary.md#decentralization) blockchain platform with [smart contract](glossary.md#smart-contract) functionality. Ether (ETH) is the native cryptocurrency of Ethereum. Developers can use Ethereum or an [Ethereum Virtual Machine (EVM)](glossary.md#ethereum-virtual-machine-evm) to create and run [decentralized applications](glossary.md#decentralized-application-dapp) containing smart contract functionality, as well as issue new crypto assets, known as [tokens](glossary.md#token).
+
+### Ethereum Request for Comments (ERC)
+
+***
+
+A technical standard used on the Ethereum blockchain to propose improvements, define protocols, or establish guidelines for functionality within Ethereum’s ecosystem. Each ERC proposal is publicly accessible and open for feedback from the developer community. If widely adopted, these proposals become formal standards that enhance the interoperability, usability, and security of Ethereum-based applications and tokens.[ ERC-20](glossary.md#erc-20) and [ERC-721](glossary.md#erc-721) are popular examples, defining standards for fungible and non-fungible tokens, respectively, and are instrumental in providing a common interface for token-related smart contracts.
 
 ### Ethereum Virtual Machine (EVM)
 
@@ -767,6 +789,10 @@ Uses for a nonce: authentication, initialization vectors, hashing, indexing, sma
 
 Within a distributed ledger, a nonce is proof of work for an encrypted (or hashed) block. Transaction verification and other data contained within that block can then be verified via the added nonce.
 
+### Non-View Functions
+
+Smart contract functions that modify the blockchain's state, such as updating variables, transferring tokens, or executing approvals. These functions require a transaction, consume gas fees, and result in permanent state changes on successful execution.
+
 ## O
 
 ### Off-Chain
@@ -805,7 +831,7 @@ In distributed ledger technology, oracles are third-party services that connect 
 
 Bitcoin Ordinals is a protocol that allows individual satoshis (SATs) in a Bitcoin blockchain to be assigned a unique identifier and transacted with extra data attached. This protocol became the foundation for a unique collaborative venture between [Hgraph](https://www.hgraph.io/), a developer tooling and Web3 consulting entity, and [Turtle Moon](https://twitter.com/TurtleMoonCC), a pioneer in NFT services. Together, they orchestrated the first token-gated vote on Bitcoin using the [H4NGRY](https://twitter.com/H444NGRY)'s Ordinals NFT collection titled "[Kid Pepes](https://magiceden.io/ordinals/marketplace/kidpepes)." Every vote cast during this initiative was instantaneously recorded on Hedera, serving as the trust layer of the voting system, with the final vote outcomes being inscribed back onto Bitcoin.
 
-The integration showcases a groundbreaking application of distributed ledger technology by initiating the voting process on Bitcoin, where ballot details including start and end times, a unique identifier, and a Hedera Consensus Service topic ID are inscribed. This process transitioned to Hedera for recording votes, offering a transparent, tamper-proof voting system. The final ballot results, which are recorded back on Bitcoin, can be validated against the original data points, embodying a robust, transparent, and innovative use of blockchain technology for democratic processes. Read more about this integration [here](https://medium.com/@hgraph\_io/hgraph-powers-the-first-token-gated-vote-on-ordinals-42829fd50d5b).&#x20;
+The integration showcases a groundbreaking application of distributed ledger technology by initiating the voting process on Bitcoin, where ballot details including start and end times, a unique identifier, and a Hedera Consensus Service topic ID are inscribed. This process transitioned to Hedera for recording votes, offering a transparent, tamper-proof voting system. The final ballot results, which are recorded back on Bitcoin, can be validated against the original data points, embodying a robust, transparent, and innovative use of blockchain technology for democratic processes. Read more about this integration [here](https://medium.com/@hgraph_io/hgraph-powers-the-first-token-gated-vote-on-ordinals-42829fd50d5b).&#x20;
 
 ## P
 
@@ -876,6 +902,15 @@ Proof of Work (PoW) is a consensus mechanism for confirming transactions and add
 Here’s how it works: To create a new block, a cryptocurrency miner competes with other miners to solve a cryptographic puzzle. This is done by generating a cryptographic hash that needs to match the target hash for the current block. The first miner that correctly generates the hash can add the block and once the hash solution is verified, receives block rewards in the form of cryptocurrency.
 
 When the puzzle gets solved and verified, PoW consensus is established, as the solution itself "proves" that "work" was done to solve it.
+
+### Proposed Token ID
+
+***
+
+A proposed Token ID in the context of Hedera refers to the unique identifier that is allocated by the Hedera network when a token is first issued. This Token ID is made up of three numerals separated by a dot, for example, `0.0.123344`, and it cannot change once issued. It is equivalent to a [smart contract address](../core-concepts/smart-contracts/smart-contract-addresses.md) for an [ERC token](glossary.md#erc-20).&#x20;
+
+Just like ERC tokens, there is no enforcement of the uniqueness of a token’s name or symbol on the Hedera network. This means that two tokens with the same name and/or symbol may exist on the network, but they will have different Token IDs.\
+In the context of the [**Guardian project**](https://docs.hedera.com/guardian), an issue was reported where the Token IDs appeared in UUID format instead of the Hedera Token ID value. This issue was reported on a local instance of the Guardian version `2.10.0`. Learn more from the [Hedera Blog](https://hedera.com/blog/mapping-hedera-token-service-standards-to-erc20-erc721-erc1155) and the [GitHub Issue](https://github.com/hashgraph/guardian/issues/1913).
 
 ### Protocol
 
@@ -962,6 +997,12 @@ Hedera's REST APIs allow developers to easily interact with the Hedera Network w
 ***
 
 A royalty fee refers to a specific type of custom fee that is applied to the transfer of non-fungible tokens (NFTs). A royalty fee is essentially a way to ensure that the original creator of an NFT continues to earn revenue from it even after the initial sale, as it allows them to earn a fraction of the sales every time the NFT is bought or sold in the future.
+
+### Rug Pull
+
+***
+
+A _rug pull_ in the [NFT](glossary.md#non-fungible-token-nft) ecosystem refers to a situation where developers or project creators abandon or withdraw support from a project unexpectedly, often after promoting it to attract investors. Typically, this involves the sudden removal of [liquidity](glossary.md#liquidity) or funds, leaving investors with worthless or devalued assets. Rug pulls are a form of fraud that can occur when creators hype up an NFT collection, collect large amounts of money from investors, and then disappear without delivering on promises, effectively "pulling the rug" out from under the community.
 
 ## S
 
@@ -1095,6 +1136,14 @@ In distributed ledger technology, a transaction (tx or TX) refers to an exchange
 
 A fee associated with a transaction that compensates the Hedera network for processing and maintaining the transaction in a consensus state.&#x20;
 
+### Transaction Hash
+
+***
+
+A transaction hash is a unique identifier generated when a transaction is submitted on a DLT network like Hedera. It is essentially a string of characters that represents the cryptographic hash of a transaction. This hash allows users to track and verify the transaction on the blockchain explorer. Each transaction hash is unique and serves as proof that the transaction has been successfully recorded on the ledger.
+
+For example, in the context of Hedera, when you submit a transaction (such as transferring HBAR), the network will return a transaction hash that can be used to verify its status or look up its details on explorers like HashScan.
+
 ### Transactions Per Second (TPS)
 
 ***
@@ -1110,6 +1159,12 @@ Trustless is a term associated with distributed ledger technology such as [block
 ### Turing Complete
 
 Turing complete means a system or a language has the ability to simulate any computer algorithm, no matter how complex. It's like saying if you give this system enough time and memory, it can run any program a computer can execute, whether it's a simple calculator or a complex video game. The importance of Turing completeness as it pertains to distributed ledger technology is that it allows for the programmatic development of smart contracts.
+
+### Universally Unique Identifier (UUID)
+
+***
+
+A **UUID** (Universally Unique Identifier) is a 128-bit identifier that uniquely identifies objects or entities across systems. It’s designed to be globally unique, even when generated by different systems or at different times. UUIDs are formatted as a 36-character string with five groups separated by hyphens (e.g., `550e8400-e29b-41d4-a716-446655440000`). They come in several versions based on how they’re generated, such as through time, random values, or hashing.
 
 ## V
 
@@ -1181,4 +1236,4 @@ In the DLT world, a white paper is a document containing technical information a
 
 ***
 
-zk-SNARK is an acronym for Zero-Knowledge _S_uccinct Non-Interactive Argument of Knowledge. In a ledger, zk-SNARK is a multi-theorem proof system that grants the power to control access to validated transaction information. This means that ledger data can be gated.
+zk-SNARK is an acronym for Zero-Knowledge _&#x53;_&#x75;ccinct Non-Interactive Argument of Knowledge. In a ledger, zk-SNARK is a multi-theorem proof system that grants the power to control access to validated transaction information. This means that ledger data can be gated.

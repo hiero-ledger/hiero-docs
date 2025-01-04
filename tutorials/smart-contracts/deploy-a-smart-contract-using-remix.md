@@ -15,7 +15,7 @@ Remix IDE is an open-source tool for developing smart contracts in Solidity for 
 ## Prerequisites
 
 * Web browser with access to [Remix IDE](https://remix.ethereum.org/).
-* [Create](../../getting-started/introduction.md) a Hedera ECDSA testnet account.
+* [Create](../more-tutorials/create-and-fund-your-hedera-testnet-account.md) a Hedera ECDSA testnet account.
 * [Download](https://metamask.io/download/) the MetaMask wallet browser extension.&#x20;
 
 ***

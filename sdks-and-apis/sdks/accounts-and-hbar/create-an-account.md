@@ -34,19 +34,27 @@ Accounts have a property, `maxAutoAssociations`, and the property's value determ
 The sender pays the `maxAutoAssociations` fee and the rent for the first auto-renewal period for the association. This is in addition to the typical transfer fees. This ensures the receiver can receive tokens without association and makes it a smoother transfer process.
 {% endhint %}
 
-Reference: [HIP-904](https://hips.hedera.com/hip/hip-904)
+**Reference**: [HIP-904](https://hips.hedera.com/hip/hip-904)
 
 #### Methods
 
 <table><thead><tr><th width="508">Method</th><th width="125.33333333333331">Type</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setKey(&#x3C;key>)</code></td><td>Key</td><td>Required</td></tr><tr><td><code>setAlias(&#x3C;alias>)</code></td><td>EvmAddress</td><td>Optional</td></tr><tr><td><code>setInitialBalance(&#x3C;initialBalance>)</code></td><td>HBar</td><td>Optional</td></tr><tr><td><code>setReceiverSignatureRequired(&#x3C;booleanValue>)</code></td><td>boolean</td><td>Optional</td></tr><tr><td><code>setMaxAutomaticTokenAssociations(&#x3C;amount>)</code></td><td>int</td><td>Optional</td></tr><tr><td><code>setStakedAccountId(&#x3C;stakedAccountId>)</code></td><td>AccountId</td><td>Optional</td></tr><tr><td><code>setStakedNodeId(&#x3C;stakedNodeId>)</code></td><td>long</td><td>Optional</td></tr><tr><td><code>setDeclineStakingReward(&#x3C;declineStakingReward>)</code></td><td>boolean</td><td>Optional</td></tr><tr><td><code>setAccountMemo(&#x3C;memo>)</code></td><td>String</td><td>Optional</td></tr><tr><td><code>setAutoRenewPeriod(&#x3C;autoRenewPeriod>)</code></td><td>Duration</td><td>Disabled</td></tr></tbody></table>
+
+{% hint style="warning" %}
+#### Account Alias
+
+If an alias is set during account creation, it becomes [immutable](../../../support-and-community/glossary.md#immutability), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
+{% endhint %}
 
 {% tabs %}
 {% tab title="Java" %}
 ```java
 //Create the transaction
 AccountCreateTransaction transaction = new AccountCreateTransaction()
-    .setKey(privateKey.getPublicKey())
-    .setInitialBalance(new Hbar(1000));
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress()
+    .setInitialBalance(new Hbar(1));
 
 //Submit the transaction to a Hedera network
 TransactionResponse txResponse = transaction.execute(client);
@@ -67,8 +75,10 @@ System.out.println("The new account ID is " +newAccountId);
 ```javascript
 //Create the transaction
 const transaction = new AccountCreateTransaction()
-    .setKey(privateKey.publicKey)
-    .setInitialBalance(new Hbar(1000));
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress()
+    .setInitialBalance(new Hbar(1));
 
 //Sign the transaction with the client operator private key and submit to a Hedera network
 const txResponse = await transaction.execute(client);
@@ -89,8 +99,10 @@ console.log("The new account ID is " +newAccountId);
 ```go
 //Create the transaction
 transaction := hedera.NewAccountCreateTransaction().
-        SetKey(privateKey.PublicKey()).
-        SetInitialBalance(hedera.NewHbar(1000))
+        SetKey(ecdsaPublicKey).
+        //do not set if you need to rotate keys in the future
+        SetAlias(ecdsaPublicKey.ToEvmAddress()).
+        SetInitialBalance(hedera.NewHbar(1))
 
 //Sign the transaction with the client operator private key and submit to a Hedera network
 txResponse, err := AccountCreateTransaction.Execute(client)
@@ -129,11 +141,13 @@ fmt.Printf("The new account ID is %v\n", newAccountId)
 {% tabs %}
 {% tab title="Java" %}
 ```java
-//Create an account with 1,000 hbar
+//Create an account with 1 hbar
 AccountCreateTransaction transaction = new AccountCreateTransaction()
     // The only _required_ property here is `key`
-    .setKey(newKey.getPublicKey())
-    .setInitialBalance(new Hbar(1000));
+    .setKey(newPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(newPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1));
 
 //Return the key on the account
 Key accountKey = transaction.getKey();
@@ -142,11 +156,13 @@ Key accountKey = transaction.getKey();
 
 {% tab title="JavaScript" %}
 ```javascript
-//Create an account with 1,000 hbar
+//Create an account with 1 HBAR 
 const transaction = new AccountCreateTransaction()
     // The only _required_ property here is `key`
-    .setKey(newKey.getPublicKey())
-    .setInitialBalance(new Hbar(1000));
+    .setKey(newPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(newPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1));
 
 //Return the key on the account
 const accountKey = transaction.getKey();
@@ -155,10 +171,12 @@ const accountKey = transaction.getKey();
 
 {% tab title="Go" %}
 ```go
-//Create an account with 1,000 hbar
+//Create an account with 1 hbar
 AccountCreateTransaction := hedera.NewAccountCreateTransaction().
-    SetKey(newKey.PublicKey()).
-        SetInitialBalance(hedera.NewHbar(1000))
+    SetKey(newPublicKey).
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    SetAlias(newPublicKey.ToEvmAddress()).
+    SetInitialBalance(hedera.NewHbar(1))
 
 //Return the key on the account
 accountKey, err := AccountCreateTransaction.GetKey()

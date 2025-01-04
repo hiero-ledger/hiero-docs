@@ -1,20 +1,26 @@
 # Sign a scheduled transaction
 
-A transaction that appends signatures to a scheduled transaction. You will need to know the schedule ID to reference the scheduled transaction to submit signatures. A record will be generated for each ScheduleSign transaction that is successful and the scheduled entity will subsequently update with the public keys that have signed the scheduled transaction. To view the keys that have signed the scheduled transaction, you can query the network for the schedule info. Once a scheduled transaction receives the last required signature, the scheduled transaction executes.
+A `ScheduleSignTransaction` is a consensus node transaction that adds signatures to a scheduled transaction. When this transaction is successful:
+
+* The signature is added to the scheduled transaction
+* A record of the transaction is created
+
+To view the signatures that have been added to a scheduled transaction, you can use a [`ScheduleInfoQuery`](get-schedule-info.md) to query the network. Once the scheduled transaction has received all the required signatures, it will execute immediately, unless it has been configured to execute at a specified expiration time.
 
 **Transaction Signing Requirements**
 
-* The key of the account paying for the transaction
+* The signature of the account paying for the transaction fees
+* The signature being applied to the scheduled transaction
 
 **Transaction Properties**
 
-| Field           | Description                                                     |
-| --------------- | --------------------------------------------------------------- |
-| **Schedule ID** | The ID of the scheduled transaction to submit the signature for |
+| Field           | Description                                                    |
+| --------------- | -------------------------------------------------------------- |
+| **Schedule ID** | The ID of the schedule transaction to submit the signature for |
 
 ## Methods
 
-<table><thead><tr><th width="351.3333333333333">Method</th><th>Type</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setScheduleId(&#x3C;scheduleId>)</code></td><td>ScheduleId</td><td>Required</td></tr><tr><td><code>clearScheduleId(&#x3C;scheduleId>)</code></td><td>ScheduleId</td><td>Optional</td></tr><tr><td><code>getScheduleId()</code></td><td>ScheduleId</td><td>Optional</td></tr></tbody></table>
+<table><thead><tr><th width="351.3333333333333">Method</th><th>Type</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setScheduleId(&#x3C;scheduleId>)</code></td><td>ScheduleId</td><td>Required</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}

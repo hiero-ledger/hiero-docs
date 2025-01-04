@@ -63,7 +63,7 @@ Once your DAO is created, you need to mint the NFT and deposit to the treasury t
 <figure><img src="../../.gitbook/assets/hashiodao-nft-mint.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-When a DAO is created, its financial resources are managed through the DAO treasury smart contract. This contract facilitates the distribution of funds by allowing transactions to be initiated by the admin. In this structure, the role of the admin is fulfilled by the voting (Governor_)_ contract.
+When a DAO is created, its financial resources are managed through the DAO treasury smart contract. This contract facilitates the distribution of funds by allowing transactions to be initiated by the admin. In this structure, the role of the admin is fulfilled by the voting (Governo&#x72;_)_ contract.
 {% endhint %}
 
 When the "Successfully minted NFT tokens" window pops up, click on the **Deposit** button and select the NFT and serial number from dropdown, and **Deposit Fund**.

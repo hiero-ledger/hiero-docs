@@ -16,8 +16,8 @@ In this tutorial, a treasury account will be created to transfer HTS tokens to B
 
 ## **Prerequisites**
 
-* Get a [Hedera Testnet](https://portal.hedera.com/register) account [here](../../getting-started/introduction.md).&#x20;
-* Set up your environment and create a client [here](../../getting-started/environment-set-up.md).&#x20;
+* Get a [Hedera Testnet](https://portal.hedera.com/register) account [here](create-and-fund-your-hedera-testnet-account.md).&#x20;
+* Set up your environment and create a client [here](../../getting-started/environment-setup.md).&#x20;
 
 <details>
 
@@ -55,11 +55,14 @@ We will create the functions necessary to create a new account, create fungible 
 {% tab title="Create Account With Initial Balance" %}
 ```javascript
 const createAccount = async (client:  Client, initialBalance: number) => {
- const accountPrivateKey = PrivateKey.generateED25519();
+ const accountPrivateKey = PrivateKey.generateECDSA();
+ const accountPublicKey = accountPrivateKey.publicKey;
  
  const response = await new AccountCreateTransaction()
    .setInitialBalance(new Hbar(initialBalance))
-   .setKey(accountPrivateKey)
+   .setKey(accountPublicKey)
+   //Do NOT set an alias if you need to update/rotate keys in the future
+   .setAlias(accountPublicKey.toEvmAddress())
    .execute(client);
  
  const receipt = await response.getReceipt(client);

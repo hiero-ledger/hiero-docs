@@ -16,8 +16,8 @@ _Smart contract entity auto renewal and expiry will be enabled in a future relea
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](../../getting-started/introduction.md).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+* Get a [Hedera testnet account](../more-tutorials/create-and-fund-your-hedera-testnet-account.md).
+* Set up your environment [here](../../getting-started/environment-setup.md).
 
 ***
 
@@ -332,7 +332,7 @@ fmt.Printf("The contract bytecode file ID: %v\n", byteCodeFileID)
 
 ## 3. Deploy a Hedera Smart Contract
 
-Create the contract and set the file ID to the file that contains the hex-encoded bytecode from the previous step. You will need to set the gas high enough to deploy the contract. The gas should be estimated to be within 25% of the actual gas cost to avoid paying extra gas. You can read more about gas and fees [here](../../core-concepts/smart-contracts/deploying-smart-contracts/#gas-schedule-and-fees).
+Create the contract and set the file ID to the file that contains the hex-encoded bytecode from the previous step. You will need to set the gas high enough to deploy the contract. The gas should be estimated to be within 25% of the actual gas cost to avoid paying extra gas. You can read more about gas and fees [here](../../core-concepts/smart-contracts/deploying-smart-contracts.md#gas-schedule-and-fees).
 
 {% hint style="warning" %}
 _**Note:** You will need to set the gas value high enough to deploy the contract. If you don't have enough gas, you will receive an <mark style="color:blue;">`INSUFFICIENT_GAS`</mark> response. If you set the value too high you will be refunded a maximum of 20% of the amount that was set for the transaction._
@@ -765,11 +765,14 @@ public class HTS {
         byte[] bytecode = object.getBytes(StandardCharsets.UTF_8);
 
         //Create a treasury Key
-        PrivateKey treasuryKey = PrivateKey.generateED25519();
+        PrivateKey treasuryKey = PrivateKey.generateECDSA();
+        PublicKey treasuryPublicKey = treasuryKey.getPublicKey();
 
         //Create a treasury account
         AccountCreateTransaction treasuryAccount = new AccountCreateTransaction()
-                .setKey(treasuryKey)
+                .setKey(treasuryPublicKey)
+                //Do NOT set an alias if you need to update/rotate keys in the future
+                .setAlias(treasuryPublicKey.toEvmAddress())
                 .setInitialBalance(new Hbar(10))
                 .setAccountMemo("treasury account");
 
@@ -935,7 +938,7 @@ const htsContract = require("./HTS.json");
 async function htsContractFunction() {
   //Grab your Hedera testnet account ID and private key from your .env file
   const accountIdTest = AccountId.fromString(process.env.MY_ACCOUNT_ID);
-  const accountKeyTest = PrivateKey.fromStringED25519(
+  const accountKeyTest = PrivateKey.fromStringECDSA(
     process.env.MY_PRIVATE_KEY
   );
 
@@ -953,11 +956,14 @@ async function htsContractFunction() {
   const bytecode = htsContract.data.bytecode.object;
 
   //Treasury Key
-  const treasuryKey = PrivateKey.generateED25519();
+  const treasuryKey = PrivateKey.generateECDSA();
+  const treasuryPublicKey = treasuryKey.publicKey;
 
   //Create token treasury account
   const treasuryAccount = new AccountCreateTransaction()
     .setKey(treasuryKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(treasuryPublicKey.toEvmAddress())
     .setInitialBalance(new Hbar(5))
     .setAccountMemo("treasury account");
 
@@ -1165,11 +1171,14 @@ func main() {
 	client.SetOperator(accountIdTest, privateKeyTest)
 
 	//Treasury Key
-	treasuryKey, err := hedera.PrivateKeyGenerateEd25519()
+	treasuryKey, err := hedera.PrivateKeyGenerateEcdsa()
+	treasuryPublicKey := treasuryKey.PublicKey()
 
 	//Create token treasury account
 	treasuryAccount := hedera.NewAccountCreateTransaction().
-		SetKey(treasuryKey).
+		SetKey(treasuryPublicKey).
+    		//Do NOT set an alias if you need to update/rotate keys in the future
+    		SetAlias(treasuryPublicKey.ToEvmAddress()).
 		SetInitialBalance(hedera.NewHbar(5).
 		SetAccountMemo("treasury account")
 
@@ -1378,4 +1387,4 @@ func main() {
 
 **➡ Feel free to reach out in** [**Discord**](https://hedera.com/discord)**!**
 
-<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Simi, Sr. Software Manager </p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan </a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td></td><td></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr><tr><td align="center"><p>Editor: Lucía, Developer</p><p>(Hashgraph Association)</p><p><a href="https://github.com/luciamunozdev">GitHub</a> | <a href="https://twitter.com/luciamunozdev">Twitter</a></p></td><td></td><td></td><td><a href="https://github.com/luciamunozdev">https://github.com/luciamunozdev</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Simi, Sr. Software Manager</p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan</a></td></tr><tr><td align="center"><p>Editor: Krystal, Technical Writer</p><p><a href="https://github.com/theekrystallee">GitHub</a> | <a href="https://twitter.com/theekrystallee">Twitter</a></p></td><td></td><td></td><td><a href="https://twitter.com/theekrystallee">https://twitter.com/theekrystallee</a></td></tr><tr><td align="center"><p>Editor: Lucía, Developer</p><p>(Hashgraph Association)</p><p><a href="https://github.com/luciamunozdev">GitHub</a> | <a href="https://twitter.com/luciamunozdev">Twitter</a></p></td><td></td><td></td><td><a href="https://github.com/luciamunozdev">https://github.com/luciamunozdev</a></td></tr></tbody></table>

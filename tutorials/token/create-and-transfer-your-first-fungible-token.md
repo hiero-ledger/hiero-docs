@@ -10,8 +10,8 @@ Fungible tokens share a single set of properties and have interchangeable value 
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](../../getting-started/introduction.md).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+1. Get a [Hedera testnet account](../more-tutorials/create-and-fund-your-hedera-testnet-account.md).
+2. Set up your environment [here](../../getting-started/environment-setup.md).
 
 ***
 
@@ -326,31 +326,35 @@ public class CreateFungibleTutorial {
         client.setOperator(myAccountId, myPrivateKey);
 
         //Treasury Key
-        PrivateKey treasuryKey = PrivateKey.generate();
+        PrivateKey treasuryKey = PrivateKey.generateECDSA();
         PublicKey treasuryPublicKey = treasuryKey.getPublicKey();
 
         //Create treasury account
         TransactionResponse treasuryAccount = new AccountCreateTransaction()
                 .setKey(treasuryPublicKey)
-                .setInitialBalance(new Hbar(5))
+                //Do NOT set an alias if you need to update/rotate keys in the future
+                .setAlias(treasuryPublicKey.toEvmAddress())
+                .setInitialBalance(new Hbar(1))
                 .execute(client);
 
         AccountId treasuryId = treasuryAccount.getReceipt(client).accountId;
 
         //Alice Key
-        PrivateKey aliceKey = PrivateKey.generate();
+        PrivateKey aliceKey = PrivateKey.generateECDSA();
         PublicKey alicePublicKey = aliceKey.getPublicKey();
 
         //Create Alice's account
         TransactionResponse aliceAccount = new AccountCreateTransaction()
                 .setKey(alicePublicKey)
-                .setInitialBalance(new Hbar(5))
+                //Do NOT set an alias if you need to update/rotate keys in the future
+                .setAlias(alicePublicKey.toEvmAddress())
+                .setInitialBalance(new Hbar(1))
                 .execute(client);
 
         AccountId aliceAccountId = aliceAccount.getReceipt(client).accountId;
 
         //Alice Key
-        PrivateKey supplyKey = PrivateKey.generate();
+        PrivateKey supplyKey = PrivateKey.generateECDSA();
         PublicKey supplyPublicKey = supplyKey.getPublicKey();
 
         // CREATE FUNGIBLE TOKEN (STABLECOIN)
@@ -459,7 +463,7 @@ const aliceKey = PrivateKey.fromString(process.env.ALICE_PVKEY);
 
 const client = Client.forTestnet().setOperator(operatorId, operatorKey);
 
-const supplyKey = PrivateKey.generate();
+const supplyKey = PrivateKey.generateECDSA();
 
 async function createFungibleToken() {
 	//CREATE FUNGIBLE TOKEN (STABLECOIN)
@@ -560,13 +564,14 @@ func main() {
 	client.SetOperator(myAccountId, myPrivateKey)
 
 	//CREATE TREASURY KEY
-	treasuryKey, err := hedera.GeneratePrivateKey()
+	treasuryKey, err := hedera.GenerateEcdsaPrivateKey()
 	treasuryPublicKey := treasuryKey.PublicKey()
 
 	//CREATE TREASURY ACCOUNT
 	treasuryAccount, err := hedera.NewAccountCreateTransaction().
-		SetKey(treasuryPublicKey).
-		SetInitialBalance(hedera.NewHbar(5)).
+    		SetKey(treasuryPublicKey).
+    		SetAlias(treasuryPublicKey.ToEvmAddress()).
+    		SetInitialBalance(hedera.NewHbar(1))
 		Execute(client)
 	
 	//GET THE RECEIPT OF THE TRANSACTION
@@ -576,7 +581,7 @@ func main() {
 	treasuryAccountId := *receipt.AccountID
 
 	//ALICE'S KEY
-	aliceKey, err := hedera.GeneratePrivateKey()
+	aliceKey, err := hedera.GenerateEcdsaPrivateKey()
 	alicePublicKey := aliceKey.PublicKey()
 
 	//CREATE AILICE'S ACCOUNT
@@ -592,7 +597,7 @@ func main() {
 	aliceAccountId := *receipt2.AccountID
 
 	//CREATE SUPPLY KEY
-	supplyKey, err := hedera.GeneratePrivateKey()
+	supplyKey, err := hedera.GenerateEcdsaPrivateKey()
 
 	//CREATE FUNGIBLE TOKEN (STABLECOIN)
 	tokenCreateTx, err := hedera.NewTokenCreateTransaction().

@@ -222,13 +222,13 @@ The `attributes` field consists of an array of `attribute` objects. This is the 
 }
 </code></pre>
 
-**Extra resources:** You can find all information about the `attributes` field in the detailed [schema specification](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md#attributestrait\_type).
+**Extra resources:** You can find all information about the `attributes` field in the detailed [schema specification](https://github.com/hashgraph/hedera-improvement-proposal/blob/main/HIP/hip-412.md#attributestrait_type).
 {% endtab %}
 
 {% tab title="localization" %}
 The standard also allows for localization. Each locale links to another metadata file containing localized metadata and files. This allows for a clean metadata structure. Don't define a new localization object for a localized metadata file to avoid infinite looping when parsing an NFT's metadata file.&#x20;
 
-Note that the `localization.uri` property contains `{locale}`. The `{locale}` part references a locale in the `locales` array. You should use two-letter language codes according to the [ISO 639-1 standard](https://en.wikipedia.org/wiki/List\_of\_ISO\_639-1\_codes) to define languages.
+Note that the `localization.uri` property contains `{locale}`. The `{locale}` part references a locale in the `locales` array. You should use two-letter language codes according to the [ISO 639-1 standard](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) to define languages.
 
 ```json
 {

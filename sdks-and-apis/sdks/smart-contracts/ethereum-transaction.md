@@ -1,9 +1,5 @@
 # Ethereum transaction
 
-{% hint style="info" %}
-This feature is on previewnet only. API is subject to change.
-{% endhint %}
-
 The raw Ethereum transaction (RLP encoded type 0, 1, and 2) will hold signed Ethereum transactions and execute them as Hedera transactions in a prescribed manner.
 
 {% hint style="warning" %}

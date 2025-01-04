@@ -13,7 +13,7 @@ Set-up your local network by following the instructions found in the [readme](ht
 
 ### 2. Configure your network
 
-Once you have your local network up and running, you will need to configure your Hedera client to point to your local network in your project of choice. Your project should have your language specific Hedera SDK as a dependency and imported into your project. You may reference the [environment set-up](../../../getting-started/environment-set-up.md) instructions if you don't know how.
+Once you have your local network up and running, you will need to configure your Hedera client to point to your local network in your project of choice. Your project should have your language specific Hedera SDK as a dependency and imported into your project. You may reference the [environment set-up](broken-reference) instructions if you don't know how.
 
 Your local network IP address and port will be <mark style="color:purple;">`127.0.0.1:50211`</mark> and your local mirror node IP and port will be <mark style="color:purple;">`127.0.0.1:5600`</mark>. The consensus node account ID is <mark style="color:purple;">`0.0.3`</mark>. This is the node account ID that will receive your transaction and query requests. It is recommended to store these variables in an environment or config file. These values will be hard-coded in the example for demonstration purposes.
 

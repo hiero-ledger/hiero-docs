@@ -32,20 +32,20 @@ To ensure accurate conformity with the minimum requirements, please provide node
     * 2 x NVMe devices as a 7.5TB RAID 0 (or 4x as RAID 10 array)
 * Storage performance: If mounted to root volume, the root volume must meet these requirements. If provisioned via RAID, the RAID array should meet these requirements:
   * Sequential write sustained:
-    * Minimum: 2,000GB/s
-    * Recommended: 3,000GB/s
+    * Minimum: 2,000 MBps
+    * Recommended: 3,000 MBps
   * Sequential read sustained:
-    * Minimum: 3,000GB/s
-    * Recommended: 4,500GB/s
+    * Minimum: 3,000 MBps
+    * Recommended: 6,200 MBps
   * Random read, synchronous:
     * Minimum: 250,000 IOPS
-    * Recommended: 375,000 IOPS
+    * Recommended: 1,000,000 IOPS
   * Random read, AIO:
     * Minimum: 500,000 IOPS
-    * Recommended: 750,000 IOPS
+    * Recommended: 1,000,000 IOPS
   * Random write, synchronous:
-    * Minimum 100,000 IOPS
-    * Recommended: 150,000 IOPS
+    * Minimum: 100,000 IOPS
+    * Recommended: 170,000 IOPS
   * Less than 200µs random read latency, average
 * Nodes must pass the Hedera performance test suite performed at installation time
 
@@ -116,8 +116,8 @@ To ensure accurate conformity with the minimum requirements, please provide node
 
 Access to the node via public APIs must be mediated by an in-line proxy. Below are the specifications for establishing this proxy.
 
-* 2-core x86/x64 CPU
-* 2GB RAM
+* 2- core-x86/x64 CPU
+* 4GB RAM
 * 100GB SSD storage
 * 200Mb/s sustained internet network connectivity with public static IP address
 * Supported Docker (Hedera to provide Docker image with HAProxy)
@@ -160,7 +160,7 @@ Interface Bonding (optional)
 
 ## Network Topology /(Typical Corporate Datacenter Configuration/)
 
-![](../../../../.gitbook/assets/Network-topology.jpg)
+![](<../../../../.gitbook/assets/network-topology (2).png>)
 
 ## Deployment Steps
 

@@ -63,7 +63,7 @@ Your new DAO should show up on the HashioDAO dashboard once the transaction is a
 Lastly, send in some HBAR to the treasury to finish setting up the DAO by clicking on the **Deposit** button under the **Assets** tab. Approve the transaction in your wallet.
 
 {% hint style="info" %}
-When a DAO is created, its financial resources are managed through the DAO treasury smart contract. This contract facilitates the distribution of funds by allowing transactions to be initiated by the admin. In this structure, the role of the admin is fulfilled by the voting (Governor_)_ contract.
+When a DAO is created, its financial resources are managed through the DAO treasury smart contract. This contract facilitates the distribution of funds by allowing transactions to be initiated by the admin. In this structure, the role of the admin is fulfilled by the voting (Governo&#x72;_)_ contract.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/hashiodao-deposit-assets.png" alt=""><figcaption></figcaption></figure>

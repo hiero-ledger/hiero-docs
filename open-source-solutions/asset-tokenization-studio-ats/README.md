@@ -30,7 +30,7 @@ The tokenization process involves several key steps:
 By transforming asset ownership into digital form, tokenization paves the way for a more efficient and inclusive financial system, opening up new opportunities for investors and asset owners.
 
 {% hint style="info" %}
-#### Request Access to Source Code
+### 💡Request Access to Source Code
 
 To explore the source code for ATS and customize it for your specific use case, you can request access. This allows you to review the core implementations, smart contracts, and integrations used in ATS. Please contact [Greg](mailto:greg@hashgraph.com) or [Sabrina](mailto:sabrina@hbar.fund) to get the necessary permissions to start building with ATS today.
 {% endhint %}

@@ -8,7 +8,6 @@ Mirror nodes provide a way to store and cost-effectively query historical data f
 
 * Transactions and records
 * Event files
-* Balance files
 
 ## Understanding Mirror Nodes
 
@@ -21,11 +20,13 @@ Hedera Mirror Nodes receive information from Hedera network consensus nodes, eit
 
 While mirror nodes receive information from the consensus nodes, they do not contribute to consensus themselves. The trust of Hedera is derived based on the consensus reached by the consensus nodes. That trust is transferred to the mirror nodes using signatures, chain of hashes, and state proofs.
 
-To make the initial deployments easier, the mirror nodes strive to take away the burden of running a full Hedera node through the creation of periodic files that contain processed information (such as account balances or transaction records) and have the full trust of the Hedera consensus nodes. The mirror node software reduces the processing burden by receiving pre-constructed files from the network, validating those, populating a database, and providing REST APIs.
+To make the initial deployments easier, mirror nodes historically provided periodic files containing processed information (such as account balances or transaction records). However, starting from [Hedera release v0.42.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.42.0), the generation and availability of account balance files by consensus nodes have been discontinued due to scalability challenges (see [HIP-794](https://hips.hedera.com/hip/hip-794)). Users needing balance information are now required to generate it from record files processed by mirror nodes.
 
-![](../../.gitbook/assets/betamirrornode-overview.jpg)
+The mirror node software reduces the processing burden by receiving pre-constructed files from the network, validating them, populating a database, and providing REST APIs.
 
-Mirror nodes work by validating the signature files associated with the record, balance, and event files from the consensus nodes that were uploaded to a cloud storage solution from the network.
+![](../../.gitbook/assets/placeholder-mirror-node.png)
+
+Mirror nodes work by validating the signature files associated with record and event files (previously also balance files) from the consensus nodes that were uploaded to a cloud storage solution from the network.
 
 As transactions reach consensus on the Hedera network, either mainnet or testnet, Hedera consensus nodes add the transaction and its associated records to a record file. A record file contains a series of ordered transactions and their associated records. After a given amount of time, a record file is closed and a new one is created. This process repeats as the network continues to receive transactions.
 
@@ -109,3 +110,4 @@ You can configure your own Hedera Mirror Node by following the step-by-step inst
 To provide feedback or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide.md) and submit an issue in the Hedera Docs [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
 
 </details>
+

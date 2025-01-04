@@ -12,9 +12,9 @@ This[ resource](https://www.wolfssl.com/true-random-vs-pseudorandom-number-gener
 
 ## **Prerequisites**
 
-* Get a [Hedera Testnet](https://portal.hedera.com/register) account [here](../../getting-started/introduction.md).&#x20;
+* Get a [Hedera Testnet](https://portal.hedera.com/register) account [here](broken-reference).&#x20;
 * Get the [example code from GitHub](https://github.com/ed-marquez/hedera-example-random-number/blob/master/index.js).
-* Set up your environment and create a client [here](../../getting-started/environment-set-up.md).&#x20;
+* Set up your environment and create a client [here](broken-reference).&#x20;
 
 _**📣 Note:** This tutorial requires the use of the following tools: Hedera_ [_JavaScript SDK_](../../sdks-and-apis/sdks/)_, Solidity with libraries for random number generation (_[_HIP-351_](https://hips.hedera.com/hip/hip-351)_), and the Mirror Node REST API (_[_learn more_](https://hedera.com/blog/how-to-look-up-transaction-history-on-hedera-using-mirror-nodes-back-to-the-basics)_) and explorer (_[_HashScan_](https://hashscan.io/#/mainnet/dashboard)_)._
 

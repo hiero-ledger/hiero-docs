@@ -1,6 +1,10 @@
 # Frequently Asked Questions (FAQs)
 
-## **What is asset tokenization?**
+## How Can I Access the Source Code for Asset Tokenization Studio?
+
+Currently, you can try out the interactive sandbox (demo) to explore the Asset Tokenization Studio (ATS) features. The source code will be publicly available soon. In the meantime, if you'd like to access the source code to customize ATS for your specific use case, you can request access. This will allow you to review the core implementations, smart contracts, and integrations used in ATS. Please contact [Greg](mailto:greg@hashgraph.com) or [Sabrina](mailto:sabrina@hbar.fund) to obtain the necessary permissions and start building with ATS today.
+
+## **What is Asset Tokenization?**
 
 Asset tokenization converts[ real-world assets (RWAs)](../../support-and-community/glossary.md#real-world-asset-rwa) like real estate, equities, bonds, or commodities into [digital tokens](../../support-and-community/glossary.md#digital-token) on a blockchain or other distributed ledger technology (DLT). This allows for [fractional ownership](../../support-and-community/glossary.md#fractional-ownership), greater liquidity, and easier transferability, making these assets accessible to a wider range of investors.
 

@@ -23,7 +23,7 @@ If you already have experience with the Hyperledger Fabric network and the first
 7. Hyperledger Fabric ordering nodes reassembles the fragmented messages into fabric transactions, form fabric blocks, and communicate the blocks to the Hyperledger Fabric peer nodes
 8. Hyperledger Fabric peer nodes update to have the same world state
 
-![](../../../.gitbook/assets/hcs\_fabric.png)
+![](../../../.gitbook/assets/hcs_fabric.png)
 
 ## Concepts
 
@@ -285,9 +285,9 @@ A successful run will end with the following message:
 \`========= All GOOD, BYFN execution completed ===========
 
 \| _**\_| | | | |**_\*\* \\\
-**| \_| | | | | | | |\_**\
-**\_**| |\*\*\_ | | | | |_| |_\
-_|\_\__| |_| \\_| |_\_\__/\`
+&#xNAN;**| \_| | | | | | | |\_**\
+&#xNAN;**\_**| |\*\*\_ | | | | |_| |_\
+&#xNAN;_|\_\__| |_| \\_| |_\_\__/\`
 
 ## 5. Tear down the network
 

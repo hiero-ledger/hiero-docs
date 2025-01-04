@@ -10,8 +10,8 @@ Using the Hedera Token Service, you can create non-fungible tokens (NFTs). NFTs 
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](../../getting-started/introduction.md).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+1. Get a [Hedera testnet account](../more-tutorials/create-and-fund-your-hedera-testnet-account.md).
+2. Set up your environment [here](../../getting-started/environment-setup.md).
 
 ***
 
@@ -231,7 +231,7 @@ CID := [][]byte{
 // Mint new NFT
 mintTx, err := hedera.NewTokenMintTransaction().
     SetTokenID(tokenId).
-    SetMetadata(CID).
+    SetMetadatas(CID).
     SetMaxTransactionFee(hedera.HbarFromTinybars(maxTransactionFee)).
     FreezeWith(client)
 
@@ -578,31 +578,35 @@ public class CreateYourFirstNft {
         client.setOperator(myAccountId, myPrivateKey);
 
         // Treasury Key
-        PrivateKey treasuryKey = PrivateKey.generateED25519();
+        PrivateKey treasuryKey = PrivateKey.generateECDSA();
         PublicKey treasuryPublicKey = treasuryKey.getPublicKey();
 
         // Create treasury account
         TransactionResponse treasuryAccount = new AccountCreateTransaction()
                 .setKey(treasuryPublicKey)
+                //Do NOT set an alias if you need to update/rotate keys in the future
+                .setAlias(treasuryPublicKey.toEvmAddress())
                 .setInitialBalance(new Hbar(10))
                 .execute(client);
 
         AccountId treasuryId = treasuryAccount.getReceipt(client).accountId;
 
         // Alice Key
-        PrivateKey aliceKey = PrivateKey.generateED25519();
+        PrivateKey aliceKey = PrivateKey.generateECDSA();
         PublicKey alicePublicKey = aliceKey.getPublicKey();
 
         // Create Alice's account
         TransactionResponse aliceAccount = new AccountCreateTransaction()
                 .setKey(alicePublicKey)
+                //Do NOT set an alias if you need to update/rotate keys in the future
+                .setAlias(alicePublicKey.toEvmAddress())
                 .setInitialBalance(new Hbar(10))
                 .execute(client);
 
         AccountId aliceAccountId = aliceAccount.getReceipt(client).accountId;
 
         // Generate the upply Key
-        PrivateKey supplyKey = PrivateKey.generateED25519();
+        PrivateKey supplyKey = PrivateKey.generateECDSA();
         PublicKey supplyPublicKey = supplyKey.getPublicKey();
 
         // Create the NFT
@@ -948,7 +952,7 @@ func main() {
 	client.SetOperator(myAccountId, myPrivateKey)
 
 	// Create a treasury Key
-	treasuryKey, err := hedera.GeneratePrivateKey()
+	treasuryKey, err := hedera.GenerateEcdsaPrivateKey()
 	if err != nil {
 		panic(err)
 	}
@@ -957,6 +961,8 @@ func main() {
 	// Create treasury account
 	treasuryAccount, err := hedera.NewAccountCreateTransaction().
 		SetKey(treasuryPublicKey).
+    		//Do NOT set an alias if you need to update/rotate keys in the future
+    		SetAlias(treasuryPublicKey.ToEvmAddress()).
 		SetInitialBalance(hedera.NewHbar(10)).
 		Execute(client)
 	if err != nil {
@@ -973,12 +979,14 @@ func main() {
 	treasuryAccountId := *receipt.AccountID
 
 	// Alice Key
-	aliceKey, err := hedera.GeneratePrivateKey()
+	aliceKey, err := hedera.GenerateEcdsaPrivateKey()
 	alicePublicKey := aliceKey.PublicKey()
 
 	// Create Alice's account
 	aliceAccount, err := hedera.NewAccountCreateTransaction().
 		SetKey(alicePublicKey).
+		//Do NOT set an alias if you need to update/rotate keys in the future
+    		SetAlias(alicePublicKey.ToEvmAddress()).
 		SetInitialBalance(hedera.NewHbar(10)).
 		Execute(client)
 
@@ -989,7 +997,7 @@ func main() {
 	aliceAccountId := *receipt2.AccountID
 
 	// Create a supply key
-	supplyKey, err := hedera.GeneratePrivateKey()
+	supplyKey, err := hedera.GenerateEcdsaPrivateKey()
 
 	// Create the NFT
 	nftCreate, err := hedera.NewTokenCreateTransaction().

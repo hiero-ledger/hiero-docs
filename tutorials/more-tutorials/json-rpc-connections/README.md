@@ -8,7 +8,7 @@ description: >-
 
 There are four options to establish a connection to Hedera Networks. Validation Cloud, Arkhia, and Hashio are all managed JSON-RPC providers; the Hedera JSON-RPC Relay is for running your own local JSON-RPC instance. Hashio is a Hedera community service offered by [Hashgraph](https://www.hashgraph.com/) that has limited capabilities.
 
-**➡** [**Hashio**](https://www.hashgraph.com/hashio/)**\*\***
+**➡** [**Hashio**](hashio.md)**\*\***
 
 **➡** [**Hedera JSON-RPC Relay**](hedera-json-rpc-relay.md)
 

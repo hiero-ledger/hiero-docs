@@ -9,7 +9,7 @@ By the end of this tutorial, you'll be equipped to run a Hedera local node and g
 ## Prerequisites
 
 * [Node.js](https://nodejs.org/en) >= v14.x
-* [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) >= v6.14.17**\*\***
+* [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) >= v6.14.1&#x37;**\*\***
 * Minimum 16GB RAM
 * [Docker](https://www.docker.com/) >= v20.10.x
 * [Docker Compose](https://docs.docker.com/compose/) >= v2.12.3
@@ -40,7 +40,7 @@ Ensure the **`Allow the default Docker sockets to be used (requires password)`**
 
 </details>
 
-_**\*\***Local node can be run using Docker or NPM but we will use Docker for this tutorial._ [_Here_](https://github.com/hashgraph/hedera-local-node#official-npm-release) _are the installation steps for NPM._&#x20;
+_**\*\***&#x4C;ocal node can be run using Docker or NPM but we will use Docker for this tutorial._ [_Here_](https://github.com/hashgraph/hedera-local-node#official-npm-release) _are the installation steps for NPM._&#x20;
 
 ***
 

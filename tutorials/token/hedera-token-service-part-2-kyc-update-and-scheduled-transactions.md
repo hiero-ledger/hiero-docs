@@ -12,8 +12,8 @@ In [Part 1](hedera-token-service-part-1-how-to-mint-nfts.md) of the series, you 
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](../../getting-started/introduction.md).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+* Get a [Hedera testnet account](../more-tutorials/create-and-fund-your-hedera-testnet-account.md).
+* Set up your environment [here](../../getting-started/environment-setup.md).
 
 ✅ _If you want the entire code used for this tutorial, skip to the_ [_Code Check_](hedera-token-service-part-2-kyc-update-and-scheduled-transactions.md#code-check) _section below._
 

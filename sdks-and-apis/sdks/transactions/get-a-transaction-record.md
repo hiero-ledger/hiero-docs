@@ -4,7 +4,7 @@ You can request a transaction record for up to 3 minutes after a transaction has
 
 #### Transaction Record Contents
 
-<table><thead><tr><th width="281">Property</th><th>Description</th></tr></thead><tbody><tr><td><strong>Transaction ID</strong></td><td>The ID of the transaction.</td></tr><tr><td><strong>Consensus timestamp</strong></td><td>The time the transaction reached consensus and was added to the ledger.</td></tr><tr><td><strong>Contract Call Result</strong></td><td>Record of the value returned by the smart contract function (if it completed and didn't fail) from ContractCallTransaction.</td></tr><tr><td><strong>Contract Create Result</strong></td><td>Record of the value returned by the smart contract constructor (if it completed and didn't fail) from ContractCreateTransaction.</td></tr><tr><td><strong>Receipt</strong></td><td>The receipt of the transaction.</td></tr><tr><td><strong>Transaction Fee</strong></td><td>The transaction fee that was charged.</td></tr><tr><td><strong>Transaction Hash</strong></td><td>The transaction hash.</td></tr><tr><td><strong>Transaction Memo</strong></td><td>The transaction memo if there was one added.</td></tr><tr><td><strong>Transfers</strong></td><td>A list of transfers made in the transaction. The list of transfers includes a payment made to the node, the service fee, and transaction fee.</td></tr><tr><td><strong>Token Transfers</strong></td><td>A list of the token transfers .</td></tr><tr><td><strong>ScheduleRef</strong></td><td>The schedule ID of the schedule transaction the record represents.</td></tr><tr><td><strong>Assessed Custom Fees</strong></td><td>This field applies to tokens that have custom fees and returns the custom fee(s) assessed in a token transfer transaction. This includes the amount, token ID, fee collector account ID (if applicable), and effective payer account ID. The effective payer accounts are accounts that were charged the custom fees.</td></tr><tr><td><strong>Automatic Associations</strong></td><td>The token(s) that were auto associated to the account in this transaction, if any</td></tr><tr><td><strong>Alias</strong></td><td>In the record of an internal <code>AccountCreateTransaction</code> triggered by a user transaction with a (previously unused) alias, the new account's alias.</td></tr><tr><td><strong>Parent Consensus Timestamp</strong></td><td>The parent consensus timestamp is found in the record of a child transaction. The parent consensus timestamp is the consensus timestamp related to the parent transaction to this child transaction.</td></tr><tr><td><strong>Ethereum Hash</strong></td><td>The keccak256 hash of the ethereumData. This field will only be populated for EthereumTransaction.</td></tr><tr><td><strong>Paid Staking Rewards</strong></td><td>List of accounts with the corresponding staking rewards paid as a result of a transaction. See <a href="https://hips.hedera.com/hip/hip-406">HIP-406</a>.<br>Network: <code>previewnet/testnet</code></td></tr><tr><td><strong>PRNG Bytes</strong></td><td>In the record of a PRNG transaction with no output range, a pseudorandom 384-bit string. See <a href="https://hips.hedera.com/hip/hip-351">HIP-351</a>.<br>Network: <code>previewnet</code></td></tr><tr><td><strong>PRNG Number</strong></td><td>In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit string. See <a href="https://hips.hedera.com/hip/hip-351">HIP-351</a>.<br>Network: <code>previewnet</code></td></tr><tr><td><strong>Pending Airdrop</strong></td><td>The pending airdrops are a result of the transaction. </td></tr><tr><td><strong>Include Children</strong></td><td>Whether or not to include the record for children transactions triggered by a parent transaction.</td></tr><tr><td><strong>Include Duplicates</strong></td><td>Whether or not to include the receipts for duplicate transactions.</td></tr><tr><td><strong>Reject Airdrop</strong></td><td>Transfer one or more tokens or token balances held by the requesting account to the treasury for each token type.</td></tr></tbody></table>
+<table><thead><tr><th width="281">Property</th><th>Description</th></tr></thead><tbody><tr><td><strong>Transaction ID</strong></td><td>The ID of the transaction.</td></tr><tr><td><strong>Consensus timestamp</strong></td><td>The time the transaction reached consensus and was added to the ledger.</td></tr><tr><td><strong>Contract Call Result</strong></td><td>Record of the value returned by the smart contract function (if it completed and didn't fail) from ContractCallTransaction.</td></tr><tr><td><strong>Contract Create Result</strong></td><td>Record of the value returned by the smart contract constructor (if it completed and didn't fail) from ContractCreateTransaction.</td></tr><tr><td><strong>Receipt</strong></td><td>The receipt of the transaction.</td></tr><tr><td><strong>Transaction Fee</strong></td><td>The transaction fee that was charged.</td></tr><tr><td><strong>Transaction Hash</strong></td><td>The transaction hash.</td></tr><tr><td><strong>Transaction Memo</strong></td><td>The transaction memo if there was one added.</td></tr><tr><td><strong>Transfers</strong></td><td>A list of transfers made in the transaction. The list of transfers includes a payment made to the node, the service fee, and transaction fee.</td></tr><tr><td><strong>Token Transfers</strong></td><td>A list of the token transfers .</td></tr><tr><td><strong>ScheduleRef</strong></td><td>The schedule ID of the schedule transaction the record represents.</td></tr><tr><td><strong>Assessed Custom Fees</strong></td><td>This field applies to tokens that have custom fees and returns the custom fee(s) assessed in a token transfer transaction. This includes the amount, token ID, fee collector account ID (if applicable), and effective payer account ID. The effective payer accounts are accounts that were charged the custom fees.</td></tr><tr><td><strong>Automatic Associations</strong></td><td>The token(s) that were auto associated to the account in this transaction, if any</td></tr><tr><td><strong>Alias</strong></td><td>In the record of an internal <code>AccountCreateTransaction</code> triggered by a user transaction with a (previously unused) alias, the new account's alias.</td></tr><tr><td><strong>Parent Consensus Timestamp</strong></td><td>The parent consensus timestamp is found in the record of a child transaction. The parent consensus timestamp is the consensus timestamp related to the parent transaction to this child transaction.</td></tr><tr><td><strong>Ethereum Hash</strong></td><td>The keccak256 hash of the ethereumData. This field will only be populated for EthereumTransaction.</td></tr><tr><td><strong>Paid Staking Rewards</strong></td><td>List of accounts with the corresponding staking rewards paid as a result of a transaction. See <a href="https://hips.hedera.com/hip/hip-406">HIP-406</a>.<br>Network: <code>previewnet/testnet</code></td></tr><tr><td><strong>PRNG Bytes</strong></td><td>In the record of a PRNG transaction with no output range, a pseudorandom 384-bit string. See <a href="https://hips.hedera.com/hip/hip-351">HIP-351</a>.<br>Network: <code>previewnet</code></td></tr><tr><td><strong>PRNG Number</strong></td><td>In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit string. See <a href="https://hips.hedera.com/hip/hip-351">HIP-351</a>.<br>Network: <code>previewnet</code></td></tr><tr><td><strong>Pending Airdrop</strong></td><td>The ID of the pending airdrops as a result of the transaction. </td></tr><tr><td><strong>Include Children</strong></td><td>Whether or not to include the record for children transactions triggered by a parent transaction.</td></tr><tr><td><strong>Include Duplicates</strong></td><td>Whether or not to include the receipts for duplicate transactions.</td></tr><tr><td><strong>Reject Airdrop</strong></td><td>Transfer one or more tokens or token balances held by the requesting account to the treasury for each token type.</td></tr></tbody></table>
 
 **Transaction Signing Requirements**
 
@@ -46,13 +46,21 @@ hedera.NewTransactionRecordQuery().
 
 <table data-header-hidden><thead><tr><th width="396"></th><th width="220.33333333333331"></th><th></th></tr></thead><tbody><tr><td><strong>Method</strong></td><td><strong>Type</strong></td><td><strong>Requirement</strong></td></tr><tr><td><code>&#x3C;TransactionResponse>.getRecord(&#x3C;client>)</code></td><td>TransactionRecord</td><td>Required</td></tr><tr><td><code>&#x3C;TransactionRecord>.transactionId</code></td><td>TransactionId</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.consensusTimestamp</code></td><td>Instant</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.contractFunctionResult</code></td><td>ContractFunctionResult</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.receipt</code></td><td>TransactionReceipt</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.transactionFee</code></td><td>Hbar</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.transactionHash</code></td><td>ByteString</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.transactionMemo</code></td><td>String</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.transfers</code></td><td>List&#x3C;Transfer></td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.tokentransfers</code></td><td>Map&#x3C;TokenId, Map&#x3C;AccountId, List&#x3C;Long>>></td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.scheduleRef</code></td><td>ScheduleId</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.assessedCustomFees</code></td><td>List&#x3C;AssessedCustomFees></td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.automaticTokenAssociations</code></td><td>List&#x3C;TokenAssociation></td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.ethereumHash</code></td><td>ByteString</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.parentConsensusTimestamp</code></td><td>Instant</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.paidStakingRewards</code></td><td>List&#x3C;Transfer></td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.prngBytes</code></td><td>ByteString</td><td>Optional</td></tr><tr><td><code>&#x3C;TransactionRecord>.prngNumber</code></td><td>Integer</td><td>Optional</td></tr></tbody></table>
 
+{% hint style="warning" %}
+#### Account Alias
+
+If an alias is set during account creation, it becomes [immutable](../../../support-and-community/glossary.md#immutability), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
+{% endhint %}
+
 {% tabs %}
 {% tab title="Java" %}
 ```java
 //Create a transaction
 AccountCreateTransaction transaction = new AccountCreateTransaction()
-        .setKey(newKey.getPublicKey())
-        .setInitialBalance(new Hbar(1));
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1));
 
 //Sign with the client operator account key and submit to a Hedera network
 TransactionResponse txResponse = transaction.execute(client);
@@ -70,8 +78,10 @@ System.out.println("The transaction record is " +record);
 ```javascript
 //Create a transaction
 const transaction = new AccountCreateTransaction()
-        .setKey(newKey.getPublicKey())
-        .setInitialBalance(new Hbar(1));
+    .setKey(ecdsaPublicKey)
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    .setAlias(ecdsaPublicKey.toEvmAddress())
+    .setInitialBalance(new Hbar(1));
 
 //Sign with the client operator account key and submit to a Hedera network
 const txResponse = await transaction.execute(client);
@@ -86,11 +96,13 @@ console.log("The transaction record is " +record);
 {% endtab %}
 
 {% tab title="Go" %}
-```java
+```go
 //Create a transaction
 transaction := hedera.NewAccountCreateTransaction().
-		SetKey(privateKey.PublicKey()).
-		SetInitialBalance(hedera.NewHbar(1000))
+    SetKey(ecdsaPublicKey).
+    //Do NOT set an alias if you need to update/rotate keys in the future
+    SetAlias(ecdsaPublicKey.ToEvmAddress()).
+    SetInitialBalance(hedera.NewHbar(1))
 
 //Sign with the client operator account key and submit to a Hedera network
 txResponse, err := transaction.Execute(client)

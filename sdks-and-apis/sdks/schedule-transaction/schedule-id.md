@@ -10,9 +10,7 @@ A `ScheduleId` is composed of a \<shardNum>.\<realmNum>.\<scheduleNum> (eg. 0.0.
 
 Together these values make up your `ScheduleId`. When a `ScheduleId` is requested in a field, be sure enter all three values.
 
-| **Constructor**                                       |     **Type**     | **Description**                                                                            |
-| ----------------------------------------------------- | :--------------: | ------------------------------------------------------------------------------------------ |
-| `new ScheduleId(<shardNum>,<realmNum>,<scheduleNum>)` | long, long, long | Constructs a `ScheduleId` with 0 for `shardNum` and `realmNum` (e.g., `0.0.<scheduleNum>`) |
+<table><thead><tr><th width="316.3333333333333">Constructor</th><th align="center">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>new ScheduleId(&#x3C;shardNum>,&#x3C;realmNum>,&#x3C;scheduleNum>)</code></td><td align="center">long, long, long</td><td>Constructs a <code>ScheduleId</code> with 0 for <code>shardNum</code> and <code>realmNum</code> (e.g., <code>0.0.&#x3C;scheduleNum></code>)</td></tr></tbody></table>
 
 ### Example
 
@@ -29,5 +27,9 @@ System.out.println(scheduleID)
 const scheduleID = new ScheduleId(0,0,10); 
 console.log(scheduleID)
 ```
+{% endtab %}
+
+{% tab title="Go" %}
+
 {% endtab %}
 {% endtabs %}

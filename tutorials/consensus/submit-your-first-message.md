@@ -12,19 +12,10 @@ In short, HCS offers the validity of the order of events and transparency into t
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](https://portal.hedera.com/register).
-* Set up your environment [here](../../getting-started/environment-set-up.md).
+1. Get a [Hedera testnet account](../more-tutorials/create-and-fund-your-hedera-testnet-account.md).
+2. Set up your environment [here](../../getting-started/environment-setup.md).
 
 ✅ _You can find a full_ [_code check_](submit-your-first-message.md#code-check) _for this tutorial at the bottom of this page._
-
-***
-
-## Table of Contents
-
-1. [Create Topic](submit-your-first-message.md#id-1.-create-your-first-topic)
-2. [Subscribe to Topic](submit-your-first-message.md#id-2.-subscribe-to-a-topic)
-3. [Submit Message](submit-your-first-message.md#id-3.-submit-a-message)
-4. [Code Check](submit-your-first-message.md#code-check)
 
 ***
 
@@ -449,3 +440,12 @@ Have a question? [Ask it on StackOverflow](https://stackoverflow.com/questions/t
 {% endhint %}
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><p>Writer: Simi, Sr. Software Manager </p><p><a href="https://github.com/ed-marquez">GitHub</a> | <a href="https://www.linkedin.com/in/shunjan">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/shunjan">https://www.linkedin.com/in/shunjan </a></td></tr><tr><td align="center"><p>Editor: Michiel, Developer Advocate</p><p><a href="https://github.com/michielmulders">GitHub</a> | <a href="https://www.linkedin.com/in/michielmulders/">LinkedIn</a></p></td><td></td><td></td><td><a href="https://www.linkedin.com/in/michielmulders/">https://www.linkedin.com/in/michielmulders/</a></td></tr></tbody></table>
+
+***
+
+## Table of Contents
+
+1. [Create Topic](submit-your-first-message.md#id-1.-create-your-first-topic)
+2. [Subscribe to Topic](submit-your-first-message.md#id-2.-subscribe-to-a-topic)
+3. [Submit Message](submit-your-first-message.md#id-3.-submit-a-message)
+4. [Code Check](submit-your-first-message.md#code-check)

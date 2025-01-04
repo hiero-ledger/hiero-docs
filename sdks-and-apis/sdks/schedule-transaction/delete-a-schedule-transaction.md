@@ -1,20 +1,20 @@
-# Delete a scheduled transaction
+# Delete a schedule transaction
 
-A transaction that deletes a scheduled transaction from the network. You can delete a scheduled transaction if only the admin key was set during the creation of the scheduled transaction. If an admin key was not set, the attempted deletion will result in "`SCHEDULE_IS_IMMUTABLE`" response from the network. Once the scheduled transaction is deleted, the scheduled transaction will be marked as deleted with the consensus timestamp the scheduled transaction was deleted at.
+A `ScheduleDeleteTransaction` is a consensus node transaction that removes a scheduled transaction from the network. A scheduled transaction can only be deleted if an admin key was set during its creation. If no admin key was set, any attempt to delete it will result in a `SCHEDULE_IS_IMMUTABLE` response from the network. Once successfully deleted, the scheduled transaction will be marked as deleted, and the consensus timestamp of the deletion will be recorded.
 
 **Transaction Signing Requirements**
 
-* The admin key of the scheduled transaction
+* The signature of the admin key
 
 **Transaction Properties**
 
-| Field           | Description                         |
-| --------------- | ----------------------------------- |
-| **Schedule ID** | The ID of the scheduled transaction |
+| Field           | Description                        |
+| --------------- | ---------------------------------- |
+| **Schedule ID** | The ID of the schedule transaction |
 
 ## Methods
 
-<table><thead><tr><th width="331.3333333333333">Method</th><th width="145">Type</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setScheduleId(&#x3C;scheduleId>)</code></td><td>ScheduleId</td><td>Required</td></tr><tr><td><code>getScheduleId()</code></td><td>ScheduleId</td><td>Optional</td></tr></tbody></table>
+<table><thead><tr><th width="331.3333333333333">Method</th><th width="145">Type</th><th>Requirement</th></tr></thead><tbody><tr><td><code>setScheduleId(&#x3C;scheduleId>)</code></td><td>ScheduleId</td><td>Required</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}

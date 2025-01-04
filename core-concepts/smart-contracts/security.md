@@ -9,7 +9,7 @@ The [Hedera Smart Contract Service (HSCS)](../../support-and-community/glossary.
 We strive to ensure that developers can conveniently point to a Hedera-supported RPC endpoint and perform smart contract executions and queries using the same code and similar tools to achieve EVM equivalence. All smart contract transactions are executed using the [Besu EVM](../../support-and-community/glossary.md#hyperledger-besu-evm) to realize this objective, and the resulting changes are stored in the Hedera-optimized [Virtual Merkle Tree](../../support-and-community/glossary.md#virtual-merkle-tree) state. Users are thus guaranteed deterministic finality (as opposed to probabilistic finality) of smart contract executions within 2-3 seconds while ensuring that state changes are entirely encompassed within smart contract functionality.&#x20;
 
 {% hint style="info" %}
-🔔 A Comprehensive breakdown of Hedera's EVM equivalence goals and exceptions can be found [**here**](hederas-evm-equivalence-goals-and-exceptions.md).&#x20;
+🔔 A Comprehensive breakdown of Hedera's EVM equivalence goals and exceptions can be found [**here**](understanding-hederas-evm-differences-and-compatibility/).&#x20;
 {% endhint %}
 
 ***

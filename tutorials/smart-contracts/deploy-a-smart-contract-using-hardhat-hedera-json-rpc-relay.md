@@ -291,11 +291,16 @@ The Hardhat configuration file. This file includes information about the Hedera 
 
 ## Step 2: Configure Project
 
-In this step, you will update and configure your environment variables and Hardhat configuration files that define tasks, store account private keys, and RPC endpoint URLs. First, rename the `.env.exmaple` file to `.env`.
+In this step, you will update and configure your environment variables and Hardhat configuration files. These files play a crucial role in defining tasks, securely storing account private keys, and specifying RPC endpoint URLs required for network interactions.
 
-### Environment Variables
+### Environment Variables&#x20;
 
 The `.env` file securely stores environment variables, such as your Hedera network endpoints and private keys, which are then imported into the `hardhat.config.js` file. This helps protect sensitive information like your private keys and API secrets, but it's still best practice to add `.env` to `.gitignore` file to prevent you from committing and pushing your credentials to GitHub. Go to the tab corresponding to your deployment path and follow the steps to set up your environment variables.
+
+1. **Rename the `.env.example` File**\
+   Start by renaming the provided `.env.example` file to `.env`.&#x20;
+2. **Review the `.env` File**\
+   Open the `.env` file to modify with your private keys and understand its contents.&#x20;
 
 {% tabs %}
 {% tab title="local node" %}
@@ -332,7 +337,7 @@ LOCAL_NODE_ENDPOINT='http://localhost:7546/'
 
 {% code title=".env" %}
 ```bash
-# Your testnet account ECDSA hex-encoded private key
+# Your testnet account ECDSA hex-encoded private key from the portal
 TESTNET_OPERATOR_PRIVATE_KEY=0xb46751179bc8aa9e129d34463e46cd924055112eb30b31637b5081b56ad96129
 # Your testnet JSON-RPC Relay endpoint URL
 TESTNET_ENDPOINT='https://testnet.hashio.io/api'
