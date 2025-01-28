@@ -377,7 +377,7 @@ A standard for proposing changes and new features to the Ethereum protocol. Some
 
 ***
 
-The [ERC-1363](https://erc1363.org/) payable token standard is an extension interface for ERC-20 tokens that supports executing code on a recipient contract after transfers or code on a spender contract after approvals in a single transaction. The following standard allows for the implementation of a standard API for token interaction with smart contracts.&#x20;
+The [ERC-1363](https://erc1363.org/) payable token standard extends ERC-20 by enabling smart contracts to execute actions automatically after a token transfer or approval, all within a single transaction. This standard provides a streamlined API for seamless token interactions with smart contracts.&#x20;
 
 ### ERC-20
 
@@ -389,7 +389,7 @@ A technical standard for fungible tokens created using the Ethereum blockchain. 
 
 ***
 
-The ERC-3643 protocol is an open-source suite of smart contracts that enables the issuance, management, and transfer of permissioned tokens. Its built-in decentralized identity framework ensures that only users meeting pre-defined conditions can become token holders, even on permissionless blockchains. This standard was formalized in the Ethereum Improvement Proposal (EIP) [ERC-3643](https://eips.ethereum.org/EIPS/eip-3643).
+The ERC-3643 protocol is an open-source suite of smart contracts designed for the issuance, management, and transfer of permissioned tokens. It incorporates a decentralized identity framework to ensure that only users meeting pre-defined conditions can hold tokens, even on permissionless blockchains. This standard was formalized in the Ethereum Improvement Proposal (EIP) [ERC-3643](https://eips.ethereum.org/EIPS/eip-3643).
 
 ### ERC-721
 

@@ -43,3 +43,46 @@ function approveAndCall(address spender, uint256 value, bytes calldata data) ext
 * [ERC-1363](https://erc1363.org/)&#x20;
 * [ERC-165](https://eips.ethereum.org/EIPS/eip-165)
 * [ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
+* The original EIP can be found [here](https://eips.ethereum.org/EIPS/eip-1363)
+
+For a more in-depth understanding, please see the below links:
+
+
+#### 1. Function Implementations and Interactions
+
+- **ERC-1363 Interface Specification**:  
+  *Description*: This section defines the `ERC1363` interface, detailing functions like `transferAndCall` and `approveAndCall`, and explains how they interact with recipient contracts.  
+  *Link*: [ERC-1363 Interface Specification](https://erc1363.org/#specification)
+
+
+#### 2. Supporting Contracts
+
+- **IERC1363Receiver Interface**:  
+  *Description*: Defines the interface for contracts that want to handle incoming token transfers, specifying the `onTransferReceived` function.  
+  *Link*: [IERC1363Receiver Interface](https://github.com/vittominacori/erc1363-payable-token/blob/master/contracts/token/ERC1363/IERC1363Receiver.sol)
+
+- **IERC1363Spender Interface**:  
+  *Description*: Specifies the interface for contracts that intend to handle token approvals, detailing the `onApprovalReceived` function.  
+  *Link*: [IERC1363Spender Interface](https://github.com/vittominacori/erc1363-payable-token/blob/master/contracts/token/ERC1363/IERC1363Spender.sol)
+
+
+#### 3. Token Logic Examples
+
+- **ERC-1363 Reference Implementation**:  
+  *Description*: Provides a comprehensive implementation of the ERC-1363 standard, including how token transfers and approvals are handled with immediate contract interactions.  
+  *Link*: [ERC-1363 Reference Implementation](https://github.com/vittominacori/erc1363-payable-token/blob/master/contracts/token/ERC1363/ERC1363.sol)
+
+
+#### 4. ERC-165 Compliance
+
+- **ERC-165 Standard Overview**:  
+  *Description*: Offers an understanding of the ERC-165 standard, which ERC-1363 utilizes to ensure recipient contracts implement the necessary interfaces. ERC-165 compliance is essential because it allows contracts to query whether a recipient implements required functions like `onTransferReceived` or `onApprovalReceived`, ensuring seamless interaction and preventing errors.  
+  *Link*: [ERC-165 Standard Overview](https://eips.ethereum.org/EIPS/eip-165)
+
+
+#### 5. Practical Examples
+
+- **ERC1363Payable Contract Example**:  
+  *Description*: An example contract demonstrating how to accept ERC-1363 token transfers and approvals, including handling the `onTransferReceived` and `onApprovalReceived` functions.  
+  *Link*: [ERC1363Payable Contract Example](https://github.com/vittominacori/erc1363-payable-token/blob/master/contracts/examples/ERC1363Payable.sol)
+
