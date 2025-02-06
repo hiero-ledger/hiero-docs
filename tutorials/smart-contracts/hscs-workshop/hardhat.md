@@ -169,7 +169,7 @@ You'll now return to your regular shell.
 * This verifies that the account exists
 * Check that the account has a balance of HBAR
 * If it does not exist, or does not have balance, you'll need to create or fund it before proceeding
-  * To do so, you'll need to repeat [_Step B4: Fund several Hedera EVM accounts_](../setup/#step-b4-fund-several-hedera-evm-accounts) from the Setup section of this tutorial.
+  * To do so, you'll need to repeat [_Step B4: Fund several Hedera EVM accounts_](https://github.com/hashgraph/hedera-docs/blob/master/tutorials/smart-contracts/setup/README.md#step-b4-fund-several-hedera-evm-accounts) from the Setup section of this tutorial.
 
 ## Compiling smart contracts
 
@@ -462,7 +462,7 @@ Therefore, to be able to handle `uint256` and other large number types, the `Big
 
 Now this is redundant, because JavaScript has since added a `bigint` primitive type, which is able to comfortably handle `uint256` values. Future versions of EthersJs and Web3Js are likely to deprecate the use of `BigNumber`.
 
-* [Ref: MDN - BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/BigInt)
+* [Ref: MDN - BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
 
 </details>
 

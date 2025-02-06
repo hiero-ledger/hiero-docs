@@ -19,8 +19,8 @@ We will configure an NFT art collection for autumn images. With HTS, you can als
 
 We recommend you complete the following introduction to get a basic understanding of Hedera transactions. This example does not build upon the previous examples.
 
-* Get a [Hedera testnet account](broken-reference).
-* Set up your environment [here](broken-reference).
+* Get a [Hedera testnet account](../more-tutorials/create-and-fund-your-hedera-testnet-account.md).
+* Set up your environment [here](../../getting-started/environment-setup.md).
 
 ✅ _If you want the entire code used for this tutorial, skip to the_ [_Code Check_](hedera-token-service-part-1-how-to-mint-nfts.md#code-check) _section below._
 

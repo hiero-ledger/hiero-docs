@@ -130,6 +130,12 @@ Revisit [**Step 1**](how-to-verify-a-smart-contract-on-hashscan.md#step-1-find-t
 
 ***
 
+## Video Tutorial
+
+{% embed url="https://youtu.be/qXTFL695Lag?si=qxafSyMXZGxOFJGU" %}
+
+***
+
 ## Additional Resources
 
 **➡** [**HashScan Network Explorer**](https://hashscan.io/)

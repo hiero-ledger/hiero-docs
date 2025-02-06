@@ -160,7 +160,7 @@ Interface Bonding (optional)
 
 ## Network Topology /(Typical Corporate Datacenter Configuration/)
 
-![](<../../../../.gitbook/assets/network-topology (2).png>)
+![](<../../../../.gitbook/assets/network-topology (1).jpg>)
 
 ## Deployment Steps
 

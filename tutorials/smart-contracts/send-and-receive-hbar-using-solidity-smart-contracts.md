@@ -55,7 +55,7 @@ async function main() {
   // Create other necessary accounts
   console.log(`\n- Creating accounts...`);
   const initBalance = 100;
-  const treasuryKey = PrivateKey.generateED25519();
+  const treasuryKey = PrivateKey.generateECDSA();
   const [treasuryAccSt, treasuryId] = await accountCreatorFcn(
     treasuryKey,
     initBalance
@@ -64,7 +64,7 @@ async function main() {
     `- Created Treasury account ${treasuryId} that has a balance of ${initBalance} ℏ`
   );
 
-  const aliceKey = PrivateKey.generateED25519();
+  const aliceKey = PrivateKey.generateECDSA();
   const [aliceAccSt, aliceId] = await accountCreatorFcn(aliceKey, initBalance);
   console.log(
     `- Created Alice's account ${aliceId} that has a balance of ${initBalance} ℏ`

@@ -162,25 +162,25 @@ func main() {
 	client.SetDefaultMaxQueryPayment(hedera.HbarFrom(50, hedera.HbarUnits.Hbar))
 
 	// Step 1: Create 4 accounts
-	alicePrivateKey, err := hedera.PrivateKeyGenerateEd25519()
+	alicePrivateKey, err := hedera.PrivateKeyGenerateEcdsa()
 	if err != nil {
 		log.Fatalf("Error generating private key for Alice: %v", err)
 	}
 	aliceId := createAccount(client, alicePrivateKey, 10, -1) // Unlimited associations
 
-	bobPrivateKey, err := hedera.PrivateKeyGenerateEd25519()
+	bobPrivateKey, err := hedera.PrivateKeyGenerateEcdsa()
 	if err != nil {
 		log.Fatalf("Error generating private key for Bob: %v", err)
 	}
 	bobId := createAccount(client, bobPrivateKey, 10, 1) // 1 association
 
-	charliePrivateKey, err := hedera.PrivateKeyGenerateEd25519()
+	charliePrivateKey, err := hedera.PrivateKeyGenerateEcdsa()
 	if err != nil {
 		log.Fatalf("Error generating private key for Charlie: %v", err)
 	}
 	charlieId := createAccount(client, charliePrivateKey, 10, 0) // No associations
 
-	treasuryPrivateKey, err := hedera.PrivateKeyGenerateEd25519()
+	treasuryPrivateKey, err := hedera.PrivateKeyGenerateEcdsa()
 	if err != nil {
 		log.Fatalf("Error generating private key for Treasury: %v", err)
 	}

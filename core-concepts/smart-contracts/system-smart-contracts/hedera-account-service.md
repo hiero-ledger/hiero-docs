@@ -50,7 +50,3 @@ Gas fee schedule and calculation
 {% endembed %}
 
 **Reference**: [HIP-632](https://hips.hedera.com/hip/hip-632)
-
-***
-
-##

@@ -4,7 +4,7 @@
 
 Chainlink Oracles are decentralized services that securely connect smart contracts to real-world data, events, and computations. By bridging the gap between blockchain applications and off-chain environments, Chainlink Oracles empowers developers to build advanced, feature-rich decentralized applications (dApps) across various industries.
 
-<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>➡</strong> <a href="https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera&#x26;amp%3Bpage=1&#x26;page=1"><mark style="color:blue;"><strong>PRICE  FEED</strong></mark></a></td><td><a href="https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera&#x26;amp%3Bpage=1&#x26;page=1">https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera&#x26;amp%3Bpage=1&#x26;page=1</a></td></tr><tr><td align="center"><strong>➡</strong> <a href="https://github.com/hedera-dev/hedera-example-chainlink-price-feeds"><mark style="color:blue;"><strong>DEMO GITHUB REPO</strong></mark></a></td><td><a href="https://github.com/hedera-dev/hedera-example-chainlink-price-feeds">https://github.com/hedera-dev/hedera-example-chainlink-price-feeds</a></td></tr><tr><td align="center"><strong>➡</strong> <a href="https://docs.chain.link/"><mark style="color:blue;"><strong>DOCUMENTATION</strong></mark></a></td><td><a href="https://docs.chain.link/data-feeds/price-feeds/addresses?network=hedera&#x26;page=1">https://docs.chain.link/data-feeds/price-feeds/addresses?network=hedera&#x26;page=1</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td align="center"><strong>➡</strong> <a href="https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera&#x26;amp%3Bpage=1&#x26;page=1"><mark style="color:blue;"><strong>PRICE FEED</strong></mark></a></td><td><a href="https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera&#x26;amp%3Bpage=1&#x26;page=1">https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera&#x26;amp%3Bpage=1&#x26;page=1</a></td></tr><tr><td align="center"><strong>➡</strong> <a href="https://github.com/hedera-dev/hedera-example-chainlink-price-feeds"><mark style="color:blue;"><strong>DEMO GITHUB REPO</strong></mark></a></td><td><a href="https://github.com/hedera-dev/hedera-example-chainlink-price-feeds">https://github.com/hedera-dev/hedera-example-chainlink-price-feeds</a></td></tr><tr><td align="center"><strong>➡</strong> <a href="https://docs.chain.link/data-feeds"><mark style="color:blue;"><strong>CHAINLINK DOCS</strong></mark></a></td><td><a href="https://docs.chain.link/data-feeds/price-feeds/addresses?network=hedera&#x26;page=1">https://docs.chain.link/data-feeds/price-feeds/addresses?network=hedera&#x26;page=1</a></td></tr></tbody></table>
 
 ***
 
@@ -29,9 +29,9 @@ To integrate Chainlink Oracles into your Hedera-based dApp, you can start with a
 
 ## References
 
-* [**Hedera Testnet LINK Token Contract**](https://docs.chain.link/resources/link-token-contracts#hedera)
+* [**Chainlink Price Feeds**](https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera\&amp%3Bpage=1\&page=1)
+* [**Testnet LINK Token Contract**](https://docs.chain.link/resources/link-token-contracts#hedera)
 * #### [**Using Data Feeds on EVM Chains**](https://docs.chain.link/data-feeds/using-data-feeds#overview)
-* #### [**Chainlink Price Feeds Addresses**](https://docs.chain.link/data-feeds/price-feeds/addresses/?network=hedera\&amp%3Bpage=1\&page=1#ethereum-mainnet)
 
 {% hint style="info" %}
 **Have questions?** Join the [Hedera Discord](https://hedera.com/discord) and post them in the [`developer-general`](https://discord.com/channels/373889138199494658/373889138199494660) channel or ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph).

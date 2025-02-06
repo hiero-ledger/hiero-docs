@@ -12,9 +12,78 @@ Visit the [Hedera status page](https://status.hedera.com/) for the latest versio
 **MAINNET UPDATE SCHEDULED: FEBRUARY 12, 2025**
 {% endhint %}
 
-{% hint style="info" %}
-**TESTNET UPDATE SCHEDULED: JANUARY 22, 2025**
+{% hint style="success" %}
+**TESTNET UPDATE SCHEDULED: JANUARY 30, 2025**
 {% endhint %}
+
+### [**Build 0.58.8**](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.8)
+
+<details>
+
+<summary><strong>What's Changed</strong></summary>
+
+Re-tag of `v0.58.7` to trigger workflow.
+
+* chore: (0.58) Remove unwanted post-upgrade work by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17637](https://github.com/hashgraph/hedera-services/pull/17637)
+* chore: 0.58-specific state migrations by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17690](https://github.com/hashgraph/hedera-services/pull/17690)
+
+**Full Changelog**: [v0.58.6...v0.58.7](https://github.com/hashgraph/hedera-services/compare/v0.58.6...v0.58.7)
+
+</details>
+
+### [Build 0.58.7](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.7)
+
+<details>
+
+<summary><strong>What's Changed</strong></summary>
+
+* chore: (0.58) Remove unwanted post-upgrade work by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17637](https://github.com/hashgraph/hedera-services/pull/17637)
+* chore: 0.58-specific state migrations by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17690](https://github.com/hashgraph/hedera-services/pull/17690)
+
+**Full Changelog**: [v0.58.6...v0.58.7](https://github.com/hashgraph/hedera-services/compare/v0.58.6...v0.58.7)
+
+</details>
+
+### [Build 0.58.6](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.6)
+
+<details>
+
+<summary><strong>What's Changed</strong></summary>
+
+* chore: Reapply "FileService address book and node details" by [@mhess-swl](https://github.com/mhess-swl) in [#17543](https://github.com/hashgraph/hedera-services/pull/17543)
+
+**Full Changelog**: [v0.58.5...v0.58.6](https://github.com/hashgraph/hedera-services/compare/v0.58.5...v0.58.6)
+
+</details>
+
+### [Build 0.58.5](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.5)
+
+<details>
+
+<summary><strong>What's Changed</strong></summary>
+
+* fix: 17283: Backport the fix for [#17218](https://github.com/hashgraph/hedera-services/issues/17218) to release 0.58 by [@artemananiev](https://github.com/artemananiev) in [#17296](https://github.com/hashgraph/hedera-services/pull/17296)
+* chore: (0.58) Support custom `Operation`s in standalone executor by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17354](https://github.com/hashgraph/hedera-services/pull/17354)
+* fix: retain override values on `ConfigProviderImpl.update()` ([#17424](https://github.com/hashgraph/hedera-services/pull/17424)) by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17430](https://github.com/hashgraph/hedera-services/pull/17430)
+* fix: cherry-pick: FileService address book and node details should be updated at genesis by [@iwsimon](https://github.com/iwsimon) in [#17368](https://github.com/hashgraph/hedera-services/pull/17368)
+* fix: 17467: Back out changes for 15448 from release 0.58 by [@artemananiev](https://github.com/artemananiev) in [#17473](https://github.com/hashgraph/hedera-services/pull/17473)
+* fix: Revert "cherry-pick: FileService address book and node details" by [@mhess-swl](https://github.com/mhess-swl) in [#17539](https://github.com/hashgraph/hedera-services/pull/17539)
+
+**Full Changelog**: [v0.58.3...v0.58.5](https://github.com/hashgraph/hedera-services/compare/v0.58.3...v0.58.5)
+
+</details>
+
+### [Build 0.58.3](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.3)
+
+<details>
+
+<summary><strong>What's Changed</strong></summary>
+
+* feat: cherry-pick: Generated Files 101 & 102 Sequentially Ordered by Node ID by [@iwsimon](https://github.com/iwsimon) in [#17289](https://github.com/hashgraph/hedera-services/pull/17289)
+
+**Full Changelog**: [v0.58.2...v0.58.3](https://github.com/hashgraph/hedera-services/compare/v0.58.2...v0.58.3)
+
+</details>
 
 ### [Build 0.58.0](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.0)
 
@@ -46,13 +115,55 @@ Visit the [Hedera status page](https://status.hedera.com/) for the latest versio
 
 ## Release v0.57
 
-{% hint style="info" %}
-**MAINNET UPDATE SCHEDULED: JANUARY 15, 2025**
+{% hint style="success" %}
+**MAINNET UPDATE SCHEDULED: JANUARY 28, 2025**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE SCHEDULED: DECEMBER 19, 2024**
+**TESTNET UPDATE SCHEDULED: JANUARY 8, 2025**
 {% endhint %}
+
+### Release Highlights
+
+This release introduces several new features, improvements, and bug fixes, including:
+
+#### HIPs
+
+* **HIP-423: Long-Term Scheduled Transactions:** This release completes the implementation of [HIP-423](https://hips.hedera.com/hip/hip-423), enabling schedules to execute transactions at a future date and time. This provides developers with a powerful tool for automating on-chain actions and building time-based applications. Benefits include:
+  * **Automated Transactions:** Schedule transactions to execute automatically at a specific time.
+  * **Time-Based Applications:** Build applications that rely on time-based events, such as recurring payments or token distributions.
+  * **Enhanced Security:** Schedule transactions can be signed by multiple parties, ensuring that they are executed only when all required approvals are obtained.
+
+#### New Features
+
+* **Node Operator Queries:** This release introduces a dedicated gRPC port for node operators to perform free queries. This enables node operators to monitor the network and their nodes more efficiently without incurring transaction fees.
+* **Proxy Redirect Contract for Schedule Entities:** This release adds support for a proxy redirect contract for calls to schedule transactions. This allows EOAs to make function calls in schedule entity addresses, enabling more flexible and dynamic interactions with scheduled transactions.
+* **HSS System Contract:** This release introduces the Hedera Schedule Service (HSS) system contract, providing a set of functions for managing scheduled transactions, including signing and authorizing schedules.
+* **Support for Extra Dispatch Authorizations:** The `ScheduleSignHandler` now supports authorizing `Key{contractID=0.0.X}` and `Key{delegatable_contract_id=0.0.X}` keys in a schedule's signatories list, enabling more granular control over schedule execution.
+
+### [Build 0.57.5](https://github.com/hashgraph/hedera-services/releases/tag/v0.57.5)
+
+<details>
+
+<summary><strong>What's Changed</strong></summary>
+
+* chore: Cherry pick fixes for update of default branch to main ([#17200](https://github.com/hashgraph/hedera-services/pull/17200)) by [@rbarkerSL](https://github.com/rbarkerSL) in [#17235](https://github.com/hashgraph/hedera-services/pull/17235)
+
+**Full Changelog**: [v0.57.4...v0.57.5](https://github.com/hashgraph/hedera-services/compare/v0.57.4...v0.57.5)
+
+</details>
+
+### [Build 0.57.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.57.4)
+
+<details>
+
+<summary><strong>What's Changed</strong></summary>
+
+* chore: (0.57) Keep default schedule lifetime 30min no matter max lifetime by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17196](https://github.com/hashgraph/hedera-services/pull/17196)
+
+**Full Changelog**: [v0.57.3...v0.57.4](https://github.com/hashgraph/hedera-services/compare/v0.57.3...v0.57.4)
+
+</details>
 
 ### [Build 0.57.3](https://github.com/hashgraph/hedera-services/releases/tag/v0.57.3)
 
@@ -98,6 +209,10 @@ Visit the [Hedera status page](https://status.hedera.com/) for the latest versio
 **Full Changelog**: [v0.56.7...v0.57.1](https://github.com/hashgraph/hedera-services/compare/v0.56.7...v0.57.1)
 
 </details>
+
+### Performance Results
+
+<figure><img src="../../.gitbook/assets/‎0.57_Performance Measurement Results_Extract.‎001.png" alt=""><figcaption></figcaption></figure>
 
 ## Release v0.56
 
@@ -1883,7 +1998,7 @@ Please also note the following deprecations in the Hedera API protobufs:
 * The [<mark style="color:purple;">`ContractUpdateTransactionBody.fileID`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract_update.proto#L82), which is redundant given the existence of the [<mark style="color:purple;">`ContractGetBytecode`</mark> <mark style="color:purple;">quer</mark>y](https://github.com/hashgraph/hedera-protobufs/blob/main/services/smart_contract_service.proto#L63).
 * The [<mark style="color:purple;">`ContractCallLocalQuery.maxResultSize`</mark> <mark style="color:purple;">field</mark>](https://github.com/hashgraph/hedera-protobufs/blob/main/services/contract_call_local.proto#L136), as this limit is now simply a side-effect of the given gas limit.
 
-![](../../.gitbook/assets/Performance%20Measurement%20Results_Extract.001%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\).jpeg)
+![](https://github.com/hashgraph/hedera-docs/blob/master/.gitbook/assets/Performance%20Measurement%20Results_Extract.001%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\)%20\(1\).jpeg)
 
 ## [v0.19.4](https://github.com/hashgraph/hedera-services/releases/tag/v0.19.4)
 

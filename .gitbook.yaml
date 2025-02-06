@@ -1,97 +1,101 @@
 redirects:
-    tutorials/hello-world: getting-started.md
+    tutorials/hello-world: getting-started/README.md
+    tutorials/hello-world/hfs-files: getting-started/README.md
+    tutorials/hello-world/create-fund-account: getting-started/web2-developers/transfer-hbar.md
+    tutorials/hello-world/hts-fungible-token: getting-started/web2-developers/create-a-token.md
+    tutorials/hello-world/hcs-topic: getting-started/web2-developers/create-a-topic.md
+    tutorials/hello-world/hscs-smart-contract: getting-started/evm-developers/deploy-a-contract.md
     core-concepts/smart-contracts/hederas-evm-equivalence-goals-and-exceptions: core-concepts/smart-contracts/understanding-hederas-evm-differences-and-compatibility/README.md
     docs/hashgraph-overview: core-concepts/hashgraph-consensus-algorithms/README.md
-    getting-started/hcs-submit-your-first-message: tutorials/hcs-submit-your-first-message.md
-    getting-started/query-data: getting-started.md
-    getting-started/create-an-account: getting-started/create-and-fund-your-hedera-testnet-account.md
-    docs/hedera-api: sdks-and-apis/hedera-api.md
+    getting-started/hcs-submit-your-first-message: tutorials/consensus/submit-your-first-message.md
+    getting-started/query-data: getting-started/README.md
+    getting-started/create-an-account: getting-started/environment-setup.md
+    docs/hedera-api: sdks-and-apis/sdks/README.md
     docs/hedera-api/basic-types/feedata: sdks-and-apis/hedera-api/basic-types/feedata.md
     docs/hedera-api/basic-types/tokensupplytype: sdks-and-apis/hedera-api/basic-types/tokensupplytype.md
-    docs/hedera-api/file-service: sdks-and-apis/hedera-api/file-service.md
-    docs/hedera-api/schedule-service: sdks-and-apis/hedera-api/schedule-service.md
-    docs/hedera-api/schedule-service/schedulecreate: sdks-and-apis/hedera-api/schedule-service/schedulecreate.md
-    docs/hedera-api/smart-contracts: sdks-and-apis/hedera-api/smart-contracts.md
-    docs/hedera-api/token-service: sdks-and-apis/hedera-api/token-service.md
-    docs/hedera-api/token-service/customfees/fixedfee: sdks-and-apis/hedera-api/token-service/customfees/fixedfee.md
-    docs/hedera-api/token-service/customfees/royaltyfee: sdks-and-apis/hedera-api/token-service/customfees/royaltyfee.md
-    docs/hedera-api/token-service/tokenfeescheduleupdate: sdks-and-apis/hedera-api/token-service/tokenfeescheduleupdate.md
-    docs/hedera-api/token-service/tokenfreezeaccount: sdks-and-apis/hedera-api/token-service/tokenfreezeaccount.md
-    docs/hedera-api/token-service/tokenpause: sdks-and-apis/hedera-api/token-service/tokenpause.md
-    docs/hedera-api/token-service/tokenservice: sdks-and-apis/hedera-api/token-service/tokenservice.md
-    docs/hedera-api/token-service/tokenwipeaccount: sdks-and-apis/hedera-api/token-service/tokenwipeaccount.md
-    docs/join-hedera-testnet: networks.md
-    docs/mirror-node-api: sdks-and-apis/mirror-node-api.md
+    docs/hedera-api/file-service: sdks-and-apis/sdks/file-service/README.md
+    docs/hedera-api/schedule-service: sdks-and-apis/sdks/schedule-transaction/README.md
+    docs/hedera-api/schedule-service/schedulecreate: sdks-and-apis/sdks/schedule-transaction/create-a-schedule-transaction.md
+    docs/hedera-api/smart-contracts: sdks-and-apis/sdks/smart-contracts/README.md
+    docs/hedera-api/token-service: sdks-and-apis/sdks/token-service/README.md
+    docs/hedera-api/token-service/customfees/fixedfee: sdks-and-apis/sdks/readme-1/custom-token-fees.md
+    docs/hedera-api/token-service/customfees/royaltyfee: sdks-and-apis/sdks/readme-1/custom-token-fees.md
+    docs/hedera-api/token-service/tokenfeescheduleupdate: sdks-and-apis/sdks/token-service/update-a-fee-schedule.md
+    docs/hedera-api/token-service/tokenfreezeaccount: sdks-and-apis/sdks/token-service/freeze-an-account.md
+    docs/hedera-api/token-service/tokenpause: sdks-and-apis/sdks/token-service/pause-a-token.md
+    docs/hedera-api/token-service/tokenservice: sdks-and-apis/sdks/token-service/README.md
+    docs/hedera-api/token-service/tokenwipeaccount: sdks-and-apis/sdks/token-service/wipe-a-token.md
+    docs/join-hedera-testnet: networks/README.md
+    docs/mirror-node-api: sdks-and-apis/rest-api.md
     docs/mirror-node-api/cryptocurrency-api: sdks-and-apis/rest-api.md
-    docs/mirror-node-api/hedera-consensus-service-api-1: sdks-and-apis/mirror-node-api/hedera-consensus-service-api.md
+    docs/mirror-node-api/hedera-consensus-service-api-1: sdks-and-apis/sdks/consensus-service/README.md
     docs/mirror-node-api/rest-api: sdks-and-apis/rest-api.md
-    docs/release-notes: sdks-and-apis/release-notes.md
+    docs/release-notes: networks/release-notes/README.md
     docs/release-notes/services: networks/release-notes/services.md
-    docs/sdks: sdks-and-apis/sdks.md
+    docs/sdks: sdks-and-apis/sdks/README.md
     docs/sdks/address-book: sdks-and-apis/sdks/address-book.md
-    docs/sdks/consensus/create-a-topic: sdks-and-apis/sdks/consensus/create-a-topic.md
-    docs/sdks/cryptocurrency/adjust-an-allowance: sdks-and-apis/sdks/cryptocurrency/adjust-an-allowance.md
-    docs/sdks/cryptocurrency/approve-an-allowance: sdks-and-apis/sdks/cryptocurrency/approve-an-allowance.md
-    docs/sdks/cryptocurrency/create-an-account: sdks-and-apis/sdks/cryptocurrency/create-an-account.md
-    docs/sdks/cryptocurrency/get-account-balance: sdks-and-apis/sdks/cryptocurrency/get-account-balance.md
-    docs/sdks/cryptocurrency/get-account-info: sdks-and-apis/sdks/cryptocurrency/get-account-info.md
-    docs/sdks/cryptocurrency/transfer-cryptocurrency: sdks-and-apis/sdks/cryptocurrency/transfer-cryptocurrency.md
-    docs/sdks/cryptocurrency/update-an-account: sdks-and-apis/sdks/cryptocurrency/update-an-account.md
+    docs/sdks/consensus/create-a-topic: sdks-and-apis/sdks/consensus-service/create-a-topic.md
+    docs/sdks/cryptocurrency/adjust-an-allowance: sdks-and-apis/sdks/accounts-and-hbar/adjust-an-allowance.md
+    docs/sdks/cryptocurrency/approve-an-allowance: sdks-and-apis/sdks/accounts-and-hbar/approve-an-allowance
+    docs/sdks/cryptocurrency/create-an-account: sdks-and-apis/sdks/accounts-and-hbar/create-an-account.md
+    docs/sdks/cryptocurrency/get-account-balance: sdks-and-apis/sdks/accounts-and-hbar/get-account-balance.md
+    docs/sdks/cryptocurrency/get-account-info: sdks-and-apis/sdks/accounts-and-hbar/get-account-info.md
+    docs/sdks/cryptocurrency/transfer-cryptocurrency: sdks-and-apis/sdks/accounts-and-hbar/transfer-cryptocurrency.md
+    docs/sdks/cryptocurrency/update-an-account: sdks-and-apis/sdks/accounts-and-hbar/update-an-account.md
     docs/sdks/file-storage/append-to-a-file: sdks-and-apis/sdks/file-storage/append-to-a-file.md
     docs/sdks/file-storage/create-a-file: sdks-and-apis/sdks/file-storage/create-a-file.md
     docs/sdks/keys/create-a-threshold-key: sdks-and-apis/sdks/keys/create-a-threshold-key.md
     docs/sdks/keys/generate-a-new-key-pair: sdks-and-apis/sdks/keys/generate-a-new-key-pair.md
     docs/sdks/pseudorandom-number-generator: sdks-and-apis/sdks/pseudorandom-number-generator.md
-    docs/sdks/schedule-transaction: sdks-and-apis/sdks/schedule-transaction.md
+    docs/sdks/schedule-transaction: sdks-and-apis/sdks/schedule-transaction/README.md
     docs/sdks/schedule-transaction/create-a-schedule-transaction: sdks-and-apis/sdks/schedule-transaction/create-a-schedule-transaction.md
     docs/sdks/schedule-transaction/get-schedule-info: sdks-and-apis/sdks/schedule-transaction/get-schedule-info.md
     docs/sdks/schedule-transaction/sign-a-schedule-transaction: sdks-and-apis/sdks/schedule-transaction/sign-a-schedule-transaction.md
     docs/sdks/set-up-your-local-network: sdks-and-apis/sdks/set-up-your-local-network.md
-    docs/sdks/smart-contracts: sdks-and-apis/sdks/smart-contracts.md
+    docs/sdks/smart-contracts: sdks-and-apis/sdks/smart-contracts/README.md
     docs/sdks/smart-contracts/call-a-smart-contract-function: sdks-and-apis/sdks/smart-contracts/call-a-smart-contract-function.md
     docs/sdks/smart-contracts/call-a-smart-contract-function-1: sdks-and-apis/sdks/smart-contracts/call-a-smart-contract-function.md
     docs/sdks/smart-contracts/create-a-smart-contract: sdks-and-apis/sdks/smart-contracts/create-a-smart-contract.md
     docs/sdks/smart-contracts/get-smart-contract-info: sdks-and-apis/sdks/smart-contracts/get-smart-contract-info.md
     docs/sdks/smart-contracts/hedera-service-solidity-libraries: sdks-and-apis/sdks/smart-contracts/hedera-service-solidity-libraries.md
     docs/sdks/smart-contracts/update-a-smart-contract: sdks-and-apis/sdks/smart-contracts/update-a-smart-contract.md
-    docs/sdks/tokens: sdks-and-apis/sdks/tokens.md
-    docs/sdks/tokens/associate-tokens-to-an-account: sdks-and-apis/sdks/tokens/associate-tokens-to-an-account.md
-    docs/sdks/tokens/atomic-swaps: sdks-and-apis/sdks/tokens/atomic-swaps.md
-    docs/sdks/tokens/burn-a-token: sdks-and-apis/sdks/tokens/burn-a-token.md
-    docs/sdks/tokens/custom-token-fees: sdks-and-apis/sdks/tokens/custom-token-fees.md
-    docs/sdks/tokens/define-a-token: sdks-and-apis/sdks/tokens/define-a-token.md
-    docs/sdks/tokens/enable-kyc-account-flag-1: sdks-and-apis/sdks/tokens/enable-kyc-account-flag.md
-    docs/sdks/tokens/freeze-an-account: sdks-and-apis/sdks/tokens/freeze-an-account.md
-    docs/sdks/tokens/get-account-token-balance: sdks-and-apis/sdks/tokens/get-account-token-balance.md
-    docs/sdks/tokens/mint-a-token: sdks-and-apis/sdks/tokens/mint-a-token.md
-    docs/sdks/tokens/nft-id: sdks-and-apis/sdks/tokens/nft-id.md
-    docs/sdks/tokens/pause-a-token: sdks-and-apis/sdks/tokens/pause-a-token.md
-    docs/sdks/tokens/transfer-tokens: sdks-and-apis/sdks/tokens/transfer-tokens.md
-    docs/sdks/tokens/unfreeze-an-account: sdks-and-apis/sdks/tokens/unfreeze-an-account.md
-    docs/sdks/tokens/unpause-a-token: sdks-and-apis/sdks/tokens/unpause-a-token.md
-    docs/sdks/tokens/wipe-a-token: sdks-and-apis/sdks/tokens/wipe-a-token.md
-    docs/sdks/transactions: sdks-and-apis/sdks/transactions.md
+    docs/sdks/tokens: sdks-and-apis/sdks/token-service/README.md
+    docs/sdks/tokens/associate-tokens-to-an-account: sdks-and-apis/sdks/token-service/associate-tokens-to-an-account.md
+    docs/sdks/tokens/atomic-swaps: sdks-and-apis/sdks/token-service/atomic-swaps.md
+    docs/sdks/tokens/burn-a-token: sdks-and-apis/sdks/token-service/burn-a-token.md
+    docs/sdks/tokens/custom-token-fees: sdks-and-apis/sdks/token-service/custom-token-fees.md
+    docs/sdks/tokens/define-a-token: sdks-and-apis/sdks/token-service/define-a-token.md
+    docs/sdks/tokens/enable-kyc-account-flag-1: sdks-and-apis/sdks/token-service/enable-kyc-account-flag.md
+    docs/sdks/tokens/freeze-an-account: sdks-and-apis/sdks/token-service/freeze-an-account.md
+    docs/sdks/tokens/get-account-token-balance: sdks-and-apis/sdks/token-service/get-account-token-balance.md
+    docs/sdks/tokens/mint-a-token: sdks-and-apis/sdks/token-service/mint-a-token.md
+    docs/sdks/tokens/nft-id: sdks-and-apis/sdks/token-service/nft-id.md
+    docs/sdks/tokens/pause-a-token: sdks-and-apis/sdks/token-service/pause-a-token.md
+    docs/sdks/tokens/transfer-tokens: sdks-and-apis/sdks/token-service/transfer-tokens.md
+    docs/sdks/tokens/unfreeze-an-account: sdks-and-apis/sdks/token-service/unfreeze-an-account.md
+    docs/sdks/tokens/unpause-a-token: sdks-and-apis/sdks/token-service/unpause-a-token.md
+    docs/sdks/tokens/wipe-a-token: sdks-and-apis/sdks/token-service/wipe-a-token.md
+    docs/sdks/transactions: sdks-and-apis/sdks/transactions/README.md
     docs/sdks/transactions/get-a-transaction-record: sdks-and-apis/sdks/transactions/get-a-transaction-record.md
     docs/sdks/transactions/sign-a-multisignature-transaction: sdks-and-apis/sdks/transactions/sign-a-multisignature-transaction.md
     getting-started/java/hcs-submit-your-first-message: tutorials/topics/submit-your-first-message.md
-    getting-started/try-examples: tutorials.md
+    getting-started/try-examples: tutorials/README.md
     getting-started/try-examples/create-and-transfer-your-first-nft: tutorials/tokens/create-and-transfer-your-first-nft.md
     getting-started/try-examples/deploy-a-contract-using-the-hedera-token-service: tutorials/smart-contracts/deploy-a-contract-using-the-hedera-token-service.md
     getting-started/try-examples/deploy-your-first-smart-contract: tutorials/smart-contracts/deploy-your-first-smart-contract.md
     getting-started/try-examples/schedule-your-first-transaction: tutorials/scheduled-transaction/schedule-your-first-transaction.md
     getting-started/try-examples/submit-your-first-message: tutorials/submit-your-first-message.md
-    mainnet/mainnet-nodes: networks/mainnet/mainnet-nodes.md
+    mainnet/mainnet-nodes: networks/mainnet/mainnet-nodes/README.md
     mainnet/mainnet-nodes/node-requirements: networks/mainnet/mainnet-nodes/node-requirements.md
-    mirrornet: core-concepts/mirror-nodes.md
+    mirrornet: core-concepts/mirror-nodes/README.md
     resources/demo-applications: tutorials/demo-applications.md
     resources/json-rpc-relay: core-concepts/smart-contracts/json-rpc-relay.md
     resources/starter-projects: tutorials/starter-projects.md
-    resources/tutorials: tutorials.md
-    resources/tutorials/deploy-smart-contracts-on-hedera: tutorials/deploy-smart-contracts-on-hedera.md
+    resources/tutorials: tutorials/README.md
+    resources/tutorials/deploy-smart-contracts-on-hedera: tutorials/smart-contracts/README.md
     resources/tutorials/get-event-information-from-hedera-smart-contracts: tutorials/get-event-information-from-hedera-smart-contracts.md
-    resources/tutorials/getting-started-with-the-hedera-consensus-service-fabric-plugin: tutorials/getting-started-with-the-hedera-consensus-service-fabric-plugin.md
-    resources/tutorials/schedule-a-transaction: tutorials/schedule-a-transaction.md
-    testnet: networks/testnet.md
+    resources/tutorials/getting-started-with-the-hedera-consensus-service-fabric-plugin: tutorials/more-tutorials/get-started-with-the-hedera-consensus-service-fabric-plugin/README.md
+    resources/tutorials/schedule-a-transaction: tutorials/more-tutorials/schedule-your-first-transaction.md
+    testnet: networks/testnet/README.md
     testnet/testnet-access: networks/testnet/testnet-access.md
     testnet/testnet-nodes: networks/testnet/testnet-nodes.md
-    tutorials/hello-world/hfs-files: tutorials/hello-world/README.md

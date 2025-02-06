@@ -2,7 +2,7 @@
 
 ## How Can I Access the Source Code for Asset Tokenization Studio?
 
-Currently, you can try out the interactive sandbox (demo) to explore the Asset Tokenization Studio (ATS) features. The source code will be publicly available soon. In the meantime, if you'd like to access the source code to customize ATS for your specific use case, you can request access. This will allow you to review the core implementations, smart contracts, and integrations used in ATS. Please contact [Greg](mailto:greg@hashgraph.com) or [Sabrina](mailto:sabrina@hbar.fund) to obtain the necessary permissions and start building with ATS today.
+Check out the public [GitHub repo](https://github.com/hashgraph/asset-tokenization-studio) for the full source code. Alternatively, you can try out the[ interactive sandbox (demo)](https://tokenization-studio.hedera.com/) to explore the Asset Tokenization Studio (ATS) features.&#x20;
 
 ## **What is Asset Tokenization?**
 

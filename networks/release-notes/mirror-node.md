@@ -8,6 +8,30 @@ Visit the [Hedera status page](https://status.hedera.com/) for the latest versio
 
 ## Latest Releases
 
+## [v0.122.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.122.0)
+
+This release focuses on two major works projects: integrating the modularized EVM library from consensus nodes and integration block streams. The modularized EVM library work saw 17 pull requests closed in service towards this effort.
+
+[HIP-1056](https://hips.hedera.com/hip/hip-1056) Block stream saw the bulk of the work completed with supporting this new stream format. The common domain classes associated with blocks were added along with the base logic to transform block items into record items. The importer now supports reading block files including verification of the merkle hash chain.
+
+## [v0.121.2](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.121.2)
+
+This release combined with v0.121.2 contains important fixes to work with consensus nodes v0.57 and its dynamic address book support. It's recommended to upgrade as soon as possible before consensus nodes upgrade to ingest node data accurately.
+
+## [v0.121.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.121.0)
+
+Support for [HIP-423 ](https://hips.hedera.com/hip/hip-423)long term scheduled transactions was added to the mirror node awhile ago, but with its recent resurrection on consensus nodes we needed to certify our support. This release adds new acceptance tests for validating long term scheduled transactions.
+
+[HIP-1056](https://github.com/hashgraph/hedera-improvement-proposal/pull/1081) block stream design was completed for integrating block streams into the mirror node. Next release will see the initial support for block file reading, transformation, and verification.
+
+A new command line [tool](https://github.com/hashgraph/hedera-mirror-node/tree/main/tools/mirror-report) was written to generate a CSV report of a given account's transfers and resulting balance. While mainly for internal use, it's available on [NPM](https://www.npmjs.com/package/@hashgraph/mirror-report) for use by anyone. Let us know of any feedback.
+
+A community member updated the `/api/v1/transactions/{hash}` REST API to add support for the`nonce` and `scheduled` query parameters. This makes this endpoint consistent with `/api/v1/transactions/{transactionId}` which previously supported those parameters.
+
+A new `hedera.mirror.web3.throttle.gasUnit` property was added to the web3 module. This property allows operators to set a multiplier to opt-in to throttles higher than one billion gas per second. Another change adjusts the minimum request per second throttle for contract call to allow values as low as 1 request per second, down from the previous minimum of 100 rps. Finally, the error message for gas and request rate limits were changed to make them distinct from each other.
+
+A new `hedera.mirror.web3.evm.modularizedServices=false` property was added to the web3 module. This property controls whether the `/api/v1/contracts/call` should use the old EVM library or the newly rewritten modularized library. This marks the first time that the modularized code has been integrated enough to execute end to end. The new code flow is still under heavy development and most calls will not work.
+
 ## [v0.120.0](https://github.com/hashgraph/hedera-mirror-node/releases/tag/v0.120.0)
 
 Smaller release focusing on paying down some technical debt. Spotless code formatting tool was ran against the whole codebase and a CI check added to enforce it stays formatted. A large number of Sonar issues were addressed reducing the number of overall code smells. Finally, a runbook was added that documents the steps to restore a database backup for Stackgres.

@@ -1,6 +1,6 @@
 # Update a topic
 
-A transaction that updates the properties of an existing topic. This includes the topic memo, admin key, submit key, auto-renew account, and auto rauto-renewenew period.
+A transaction that updates the properties of an existing topic. This includes the topic memo, admin key, submit key, auto-renew account, and auto-renew period.
 
 #### Topic Properties
 
@@ -16,13 +16,13 @@ A transaction that updates the properties of an existing topic. This includes th
 **Transaction Signing Requirements**
 
 * If an admin key is updated, the transaction must be signed by the pre-update admin key and post-update admin key.
-* If the admin key was set during the creation of the topic, the admin key must sign the transaction to update any of the topic's properties
-* If no adminKey was defined during the creation of the topic, you can only extend the expirationTime.
+* If the admin key was set during the creation of the topic, the admin key must sign the transaction to update any of the topic's properties.
+* If no `adminKey` was defined during the creation of the topic, you can only extend the expirationTime.
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
-* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
+* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost.
 
 #### Methods
 

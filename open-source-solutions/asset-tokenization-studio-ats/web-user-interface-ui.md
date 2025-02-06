@@ -7,7 +7,7 @@ The Asset Tokenization Studio (ATS) web user interface offers an easy-to-use pla
 ## Prerequisites
 
 * [Hedera Testnet Account](https://portal.hedera.com/)
-* [HashPack](broken-reference) or [MetaMask Wallet](../../tutorials/more-tutorials/how-to-connect-metamask-to-hedera.md)
+* [HashPack](../../tutorials/more-tutorials/create-and-fund-your-hedera-testnet-account.md#option-3-hashpack-wallet) or [MetaMask Wallet](../../tutorials/more-tutorials/how-to-connect-metamask-to-hedera.md)
 
 ***
 
