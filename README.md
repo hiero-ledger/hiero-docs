@@ -57,9 +57,19 @@ Explore various developer tools and resources on Hedera that help make building 
 
 <table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><a href="networks/community-mirror-nodes.md"><strong>Network Explorers</strong></a></td><td>Visualizations &#x26; APIs for historical network data, including account &#x26; token details, transactions, tokens, contracts, topics, and schedules.</td><td><a href="networks/community-mirror-nodes.md">community-mirror-nodes.md</a></td><td><a href=".gitbook/assets/landing-icon-network-explorers.png">landing-icon-network-explorers.png</a></td></tr><tr><td><a href="sdks-and-apis/sdks/#ecosystem-wallet-support"><strong>Wallet Integrations</strong></a></td><td>Onboard users into your application with ease. Wallets on Hedera offer transaction signing, management of HBAR, NFTs, and fungible tokens.</td><td><a href="sdks-and-apis/sdks/#ecosystem-wallet-support">#ecosystem-wallet-support</a></td><td><a href=".gitbook/assets/wallet integrations.png">wallet integrations.png</a></td></tr><tr><td><a href="https://www.hashport.network/"><strong>Network Bridge</strong></a></td><td>HashPort is a public utility that facilitates the bi-directional movement of digital assets between public networks in a quick, secure, and cost-effective way.</td><td><a href="https://www.hashport.network/">https://www.hashport.network/</a></td><td><a href=".gitbook/assets/network bridge (1).png">network bridge (1).png</a></td></tr><tr><td><a href="https://www.openzeppelin.com/defender"><strong>Monitoring &#x26; Security</strong></a></td><td>Use Open Zeppelin’s Defender Admin, Relay, and Sentinels for administrative, security, and monitoring functionality for Smart Contracts on Hedera.</td><td><a href="https://www.openzeppelin.com/defender">https://www.openzeppelin.com/defender</a></td><td><a href=".gitbook/assets/monitor &#x26; security.png">monitor &#x26; security.png</a></td></tr><tr><td><a href="https://hedera.com/blog/how-to-set-up-your-own-hedera-local-network-using-docker"><strong>Local Node</strong></a></td><td>Learn how to set up your own Hedera local network, including consensus &#x26; mirror nodes, using Docker.</td><td><a href="https://hedera.com/blog/how-to-set-up-your-own-hedera-local-network-using-docker">https://hedera.com/blog/how-to-set-up-your-own-hedera-local-network-using-docker</a></td><td><a href=".gitbook/assets/local node (1).png">local node (1).png</a></td></tr></tbody></table>
 
-{% hint style="info" %}
-**Have questions?** Join the [Hedera Discord](https://hedera.com/discord) and post them in the [`developer-general`](https://discord.com/channels/373889138199494658/373889138199494660) channel or ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/hedera-hashgraph).
-{% endhint %}
+## Contributing
+
+Whether you’re fixing bugs, enhancing features, or improving documentation, your contributions are important — let’s build something great together!
+
+Please read our [contributing guide](https://github.com/hiero-ledger/.github/blob/main/CONTRIBUTING.md) to see how you can get involved.
+
+## Code of Conduct
+
+Hiero uses the Linux Foundation Decentralised Trust [Code of Conduct](https://www.lfdecentralizedtrust.org/code-of-conduct).
+
+## License
+
+[Apache License 2.0](LICENSE)
 
 [^1]: This is the developer learning path for beginners and web2 developers new to web3 and Hedera.
 
