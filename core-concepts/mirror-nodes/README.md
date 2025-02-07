@@ -107,7 +107,7 @@ You can configure your own Hedera Mirror Node by following the step-by-step inst
 
 <summary>How can I provide feedback or create an issue to log errors?</summary>
 
-To provide feedback or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide/) and submit an issue in the Hedera Docs [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
+To provide feedback or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide.md) and submit an issue in the Hedera Docs [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
 
 </details>
 

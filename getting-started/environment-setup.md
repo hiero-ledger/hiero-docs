@@ -135,7 +135,7 @@ In your project root directory, run:
 
     Current: "https://7546-hederadev-hellofuturewo-l2r7cpgqrcv.ws-us117.gitpod.io" (enter a blank value to use the default value)
 
-    * List of public endpoints [here](../core-concepts/smart-contracts/json-rpc-relay.md).
+    * List of public endpoints [here](../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md).
     * Note that the default value will be different if you are using Gitpod.
 4.  **Enter your operator account (ECDSA) private key**
 

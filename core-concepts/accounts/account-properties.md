@@ -86,11 +86,20 @@ An EVM address account alias is the rightmost 20 bytes of the 32-byte `Keccak-25
 
 The EVM address account and the [account number alias](account-properties.md#account-number-alias) are 20-byte values. They can be differentiated because the account number alias is always prefixed with 12 bytes. The EVM address account alias is commonly used in wallets and tools to represent account addresses.&#x20;
 
+#### Value Transfer Behavior with Account Identifiers
+
+* `CryptoTransfer` Transactions: When transferring value via the SDK, any of the four account identifiers can be used:
+  * Standard Hedera account ID (`shard.realm.num`)&#x20;
+  * Public key alias
+  * Account number alias (a hex-encoded form of the account number prefixed with 20 bytes of zeros)
+  * EVM address alias (the rightmost 20 bytes of the 32-byte Keccak-256 hash of the ECDSA public key)
+* EVM Transactions: The address used for a value transfer recipient in EVM transactions (`ContractCreate`, `ContractCall`, and `EthereumTransaction`) must be the main one for the account. This will be the ECDSA-derived EVM address alias if set on the account. If not, the long zero address (account number alias) will be used. This ensures compatibility with the EVM's expected behavior for account addresses.&#x20;
+
 <details>
 
 <summary>EVM Address Account Alias Account ID Example</summary>
 
-The shard number and realm number are set to 0 followed by the EVM address.&#x20;
+The shard number and realm number are set to `0` followed by the EVM address.&#x20;
 
 \
 **Example**\

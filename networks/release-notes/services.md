@@ -9,25 +9,25 @@ Visit the [Hedera status page](https://status.hedera.com/) for the latest versio
 ## Release v0.58
 
 {% hint style="info" %}
-**MAINNET UPDATE SCHEDULED: FEBRUARY 12, 2025**
+**MAINNET UPDATE SCHEDULED: FEBRUARY 13, 2025**
 {% endhint %}
 
 {% hint style="success" %}
-**TESTNET UPDATE SCHEDULED: JANUARY 30, 2025**
+**TESTNET UPDATE SCHEDULED: FEBRUARY 6, 2025**
 {% endhint %}
 
-### [**Build 0.58.8**](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.8)
+### [Build 0.58.8](https://github.com/hashgraph/hedera-services/releases/tag/v0.58.8)
 
 <details>
 
 <summary><strong>What's Changed</strong></summary>
 
-Re-tag of `v0.58.7` to trigger workflow.
+Re-tag of `v0.58.7` to trigger workflow
 
 * chore: (0.58) Remove unwanted post-upgrade work by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17637](https://github.com/hashgraph/hedera-services/pull/17637)
 * chore: 0.58-specific state migrations by [@tinker-michaelj](https://github.com/tinker-michaelj) in [#17690](https://github.com/hashgraph/hedera-services/pull/17690)
 
-**Full Changelog**: [v0.58.6...v0.58.7](https://github.com/hashgraph/hedera-services/compare/v0.58.6...v0.58.7)
+**ull Changelog**: [v0.58.6...v0.58.7](https://github.com/hashgraph/hedera-services/compare/v0.58.6...v0.58.7)
 
 </details>
 

@@ -2,7 +2,7 @@
 
 ## Deploying a Contract Using the Hedera Smart Contract Service
 
-This tutorial will walk you through writing and compiling a Solidity smart contract. You'll then deploy and interact with it on the Hedera network using the [Hedera Smart Contract Service (HSCS)](../../support-and-community/glossary.md#hedera-smart-contract-service-hscs) and familiar EVM tools like Ethers.js, connecting via the [JSON-RPC relay](../../core-concepts/smart-contracts/json-rpc-relay.md).&#x20;
+This tutorial will walk you through writing and compiling a Solidity smart contract. You'll then deploy and interact with it on the Hedera network using the [Hedera Smart Contract Service (HSCS)](../../support-and-community/glossary.md#hedera-smart-contract-service-hscs) and familiar EVM tools like Ethers.js, connecting via the [JSON-RPC relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md).&#x20;
 
 #### What you will accomplish
 

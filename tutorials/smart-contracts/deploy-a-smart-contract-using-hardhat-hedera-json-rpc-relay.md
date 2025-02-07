@@ -354,7 +354,7 @@ TESTNET_ENDPOINT='https://testnet.hashio.io/api'
 
 * **`TESTNET_ENDPOINT`**: This is the URL endpoint for the Hedera Testnet's JSON-RPC Relay. Replace the example URL with the one you're using.&#x20;
 
-For this tutorial, we'll use Hashio, an instance of the [Hedera JSON-RPC relay](../../core-concepts/smart-contracts/json-rpc-relay.md) hosted by [Swirlds Labs](https://swirldslabs.com/). You can use any JSON-RPC instance the community supports.
+For this tutorial, we'll use Hashio, an instance of the [Hedera JSON-RPC relay](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md) hosted by [Swirlds Labs](https://swirldslabs.com/). You can use any JSON-RPC instance the community supports.
 
 {% content-ref url="../more-tutorials/json-rpc-connections/hashio.md" %}
 [hashio.md](../more-tutorials/json-rpc-connections/hashio.md)

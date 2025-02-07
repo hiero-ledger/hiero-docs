@@ -106,11 +106,7 @@ npm start
 
 The project folder structure should look something like the following.
 
-<div align="left">
-
-<figure><img src="../../.gitbook/assets/mm-snap-tutorial-project-structure.png" alt="" width="357"><figcaption></figcaption></figure>
-
-</div>
+<div align="left"><figure><img src="../../.gitbook/assets/mm-snap-tutorial-project-structure.png" alt="" width="357"><figcaption></figcaption></figure></div>
 
 ### Overall dApp Structure
 

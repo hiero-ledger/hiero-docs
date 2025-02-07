@@ -24,13 +24,13 @@ Additionally, these functions allow developers to verify account authorization d
 
 By addressing these use cases, HIP-632 provides a seamless way for developers to handle authorization and signature validation across both Hedera and EVM-compatible environments.
 
-#### **isAuthorizedRaw (address, messageHash, signatureBlob)**
+#### **isAuthorizedRaw(address, messageHash, signatureBlob)**
 
 * Validates whether a given ED25519 or ECDSA signature is valid for a message against the public key associated with the specified account alias.
 * Operates similarly to Ethereum's `ECRECOVER` for single key structure but supports both secp256k1 (Ethereum) and ED25519 (Hedera) cryptography.
 * Returns `true` if the signature is valid and linked to the account, otherwise `false`.
 
-#### **isAuthorized (address, message, signatureBlob)**
+#### **isAuthorized(address, message, signatureBlob)**
 
 * Extends **isAuthorizedRaw** by validating that the specific Hedera account (referenced by either an account number alias or EVM address alias) is authorized to execute the transaction.
 * Supports Hedera’s complex account key structures, including multi-sig and threshold key requirements.
