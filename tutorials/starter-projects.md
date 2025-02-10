@@ -29,7 +29,7 @@ coverY: -69
 
 <summary>Do you have a starter project to add to this list? Or want to request others to get built?</summary>
 
-Please refer to the [contributing guide](../support-and-community/contributing-guide.md) and open an issue in the `hedera-docs` [repository](https://github.com/hashgraph/hedera-docs) and include the following information within the issue:
+Please refer to the [contributing guide](../support-and-community/contributing-guide/) and open an issue in the `hedera-docs` [repository](https://github.com/hashgraph/hedera-docs) and include the following information within the issue:
 
 * Starter project framework name
 * Developer/maintainer name

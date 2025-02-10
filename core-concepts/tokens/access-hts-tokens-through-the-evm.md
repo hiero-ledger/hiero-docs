@@ -2,7 +2,7 @@
 
 Hedera provides a native API called the **Hedera API (HAPI)**, which offers comprehensive access to its services, including account management, token transactions, consensus, and more. For further information, refer to the [HAPI documentation](../../sdks-and-apis/hedera-api/). The [Hedera SDKs](../../sdks-and-apis/sdks/) provide easy access to these APIs to perform actions like token transfers, contract calls, and consensus messaging.
 
-To make it easier for Ethereum developers to bring their contracts to Hedera, we have implemented a [JSON-RPC relay](../smart-contracts/deploying-smart-contracts/json-rpc-relay.md) that provides a familiar JSON-RPC interface. These developers can use standard Ethereum libraries and tools like [Hardhat](../../support-and-community/glossary.md#hardhat) and [Web3.js](https://web3js.readthedocs.io/en/v1.10.0/) to interact with Smart Contracts on Hedera.
+To make it easier for Ethereum developers to bring their contracts to Hedera, we have implemented a [JSON-RPC relay](../smart-contracts/json-rpc-relay.md) that provides a familiar JSON-RPC interface. These developers can use standard Ethereum libraries and tools like [Hardhat](../../support-and-community/glossary.md#hardhat) and [Web3.js](https://web3js.readthedocs.io/en/v1.10.0/) to interact with Smart Contracts on Hedera.
 
 The diagram below shows how users interact with various Hedera services.
 

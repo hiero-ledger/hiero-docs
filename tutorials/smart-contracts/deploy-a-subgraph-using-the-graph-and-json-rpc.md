@@ -191,7 +191,7 @@ export function handleGreetingSet(event: GreetingSet): void {
 
 #### Graph Node Configuration
 
-To connect a local graph node to a remote network, such as testnet, mainnet, or previewnet, use a [docker-compose](https://github.com/graphprotocol/graph-node/tree/master/docker#docker-compose) setup. The API endpoint that connects the graph node to the network is specified within the `environment` object of the `docker-compose.yaml` file [here](https://github.com/hashgraph/hedera-subgraph-example/blob/main/graph-node/docker-compose.yaml). Add the API endpoint URL in the `ethereum` field in the `environment` object. For this tutorial, we will use the [Hashio Testnet ](https://www.hashgraph.com/hashio/)instance of the Hedera JSON-RPC relay, but _any_ [JSON-RPC provider](../../core-concepts/smart-contracts/deploying-smart-contracts/json-rpc-relay.md) supported by the community can be used.
+To connect a local graph node to a remote network, such as testnet, mainnet, or previewnet, use a [docker-compose](https://github.com/graphprotocol/graph-node/tree/master/docker#docker-compose) setup. The API endpoint that connects the graph node to the network is specified within the `environment` object of the `docker-compose.yaml` file [here](https://github.com/hashgraph/hedera-subgraph-example/blob/main/graph-node/docker-compose.yaml). Add the API endpoint URL in the `ethereum` field in the `environment` object. For this tutorial, we will use the [Hashio Testnet ](https://www.hashgraph.com/hashio/)instance of the Hedera JSON-RPC relay, but _any_ [JSON-RPC provider](../../core-concepts/smart-contracts/json-rpc-relay.md) supported by the community can be used.
 
 This is what the `ethereum` field should look like after you enter your API endpoint URL:
 

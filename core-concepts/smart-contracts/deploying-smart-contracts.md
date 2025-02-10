@@ -94,7 +94,7 @@ You can use a [Hedera SDK](../../sdks-and-apis/sdks/) to deploy your smart contr
 
 **Hardhat**
 
-Hardhat can be used to deploy your smart contract by pointing to a community-hosted [JSON-RPC Relay](deploying-smart-contracts/json-rpc-relay.md). However, EVM tools do not support features that are native to Hedera smart contracts like:
+Hardhat can be used to deploy your smart contract by pointing to a community-hosted [JSON-RPC Relay](json-rpc-relay.md). However, EVM tools do not support features that are native to Hedera smart contracts like:
 
 * Admin Key
 * Contract Memo
