@@ -1,0 +1,30 @@
+name: Auto Sign-Off for GitBook Commits
+
+on:
+  push:
+    branches:
+      - master  # Change if your default branch is different
+
+jobs:
+  signoff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Auto Sign-Off GitBook Commits
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+
+          if echo "$LAST_COMMIT_MESSAGE" | grep -q "GitBook"; then
+            if ! echo "$LAST_COMMIT_MESSAGE" | grep -q "Signed-off-by:"; then
+              echo "Auto-signing commit..."
+              git commit --amend -m "$LAST_COMMIT_MESSAGE\n\nSigned-off-by: $(git config user.name) <$(git config user.email)>"
+              git push --force
+            fi
+          fi
