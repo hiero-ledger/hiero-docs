@@ -48,7 +48,7 @@ Hedera provides three different network environments for interacting with the Mi
 
 Each of these base URLs serves as the foundation for all API calls.&#x20;
 
-You may also check out [Validation Cloud](https://validationcloud.io/), [DragonGlass](https://app.dragonglass.me/hedera/pricing), [Arkhia](https://www.arkhia.io/features/#api-services), or [Ledger Works](https://lworks.io/) as alternatives.‌
+You may also check out [Validation Cloud](https://validationcloud.io/), [DragonGlass](https://app.dragonglass.me/hedera/pricing), or [Arkhia](https://www.arkhia.io/features/#api-services) as alternatives.‌
 
 {% hint style="warning" %}
 Public mainnet mirror node requests per second (RPS) are currently throttled at **50 per IP address**. These configurations may change in the future depending on performance or security considerations. At this time, no authentication is required.

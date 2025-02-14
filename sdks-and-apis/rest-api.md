@@ -33,7 +33,7 @@ To make a request, use the network endpoint and the REST API of choice. For exam
 **PREVIEWNET BASEURL**\
 `https://previewnet.mirrornode.hedera.com/`
 
-You may also check out [Validation Cloud](https://validationcloud.io), [DragonGlass](https://app.dragonglass.me/hedera/pricing), [Arkhia](https://www.arkhia.io/features/#api-services) or [Ledger Works](https://lworks.io) as alternatives.‌
+You may also check out [Validation Cloud](https://validationcloud.io), [DragonGlass](https://app.dragonglass.me/hedera/pricing), or [Arkhia](https://www.arkhia.io/features/#api-services) as alternatives.‌
 {% endhint %}
 
 {% hint style="warning" %}
