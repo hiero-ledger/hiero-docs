@@ -21,7 +21,7 @@ Wipes the provided amount of fungible or non-fungible tokens from the specified 
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 ## Methods

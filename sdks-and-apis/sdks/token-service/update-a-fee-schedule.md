@@ -9,7 +9,7 @@ Update the custom fees for a given token. If the token does not have a fee sched
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please see the transaction and query [fees](broken-reference) table for base transaction fee
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 | Property         | Description                        |

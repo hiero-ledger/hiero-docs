@@ -8,7 +8,7 @@ A query to get the contents of a file. Queries do not change the state of the fi
 
 **Query Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your query fee cost
 
 | Constructor               | Description                            |

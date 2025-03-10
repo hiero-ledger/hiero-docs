@@ -512,12 +512,12 @@ Airdrop one or more tokens to one or more accounts.
 
 ## Gas Cost
 
-{% content-ref url="../../../networks/mainnet/fees/" %}
-[fees](../../../networks/mainnet/fees/)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ## Examples
 
-{% content-ref url="../../../tutorials/smart-contracts/deploy-a-contract-using-the-hedera-token-service.md" %}
-[deploy-a-contract-using-the-hedera-token-service.md](../../../tutorials/smart-contracts/deploy-a-contract-using-the-hedera-token-service.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}

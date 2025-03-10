@@ -11,7 +11,7 @@ A transaction that updates the properties of an existing account. The network wi
 **Transaction Fees**
 
 * The sender pays for the token association fee and the rent for the first auto-renewal period.
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee.
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate the cost of your transaction fee.
 
 **Transaction Signing Requirements**

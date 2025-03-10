@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* An [Amazon Web Services](https://aws.amazon.com/free/?trk=ps\_a131L0000085DvcQAE\&trkCampaign=acq\_paid\_search\_brand\&sc\_channel=ps\&sc\_campaign=acquisition\_US\&sc\_publisher=google\&sc\_category=core\&sc\_country=US\&sc\_geo=NAMER\&sc\_outcome=acq\&sc\_detail=aws%20account\&sc\_content=Account\_e\&sc\_segment=432339156165\&sc\_medium=ACQ-P|PS-GO|Brand|Desktop|SU|AWS|Core|US|EN|Text\&s\_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\&ef\_id=Cj0KCQjw8IaGBhCHARIsAGIRRYrLfWc3ykRf\_hAUeVvf4nNEYvacHwk\_w1jAuSj6hQZ8\_muh0T5p3acaAkZDEALw\_wcB:G:s\&s\_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\&all-free-tier.sort-by=item.additionalFields.SortRank\&all-free-tier.sort-order=asc\&awsf.Free%20Tier%20Types=\*all\&awsf.Free%20Tier%20Categories=\*all) account.
+* An [Amazon Web Services](https://aws.amazon.com/free/?trk=ps_a131L0000085DvcQAE\&trkCampaign=acq_paid_search_brand\&sc_channel=ps\&sc_campaign=acquisition_US\&sc_publisher=google\&sc_category=core\&sc_country=US\&sc_geo=NAMER\&sc_outcome=acq\&sc_detail=aws%20account\&sc_content=Account_e\&sc_segment=432339156165\&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|AWS|Core|US|EN|Text\&s_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\&ef_id=Cj0KCQjw8IaGBhCHARIsAGIRRYrLfWc3ykRf_hAUeVvf4nNEYvacHwk_w1jAuSj6hQZ8_muh0T5p3acaAkZDEALw_wcB:G:s\&s_kwcid=AL!4422!3!432339156165!e!!g!!aws%20account\&all-free-tier.sort-by=item.additionalFields.SortRank\&all-free-tier.sort-order=asc\&awsf.Free%20Tier%20Types=*all\&awsf.Free%20Tier%20Categories=*all) account.
 * Basic understanding of Hedera Mirror Nodes.
 * [Docker](https://www.docker.com/) (`>= v20.10.x)` installed and opened on your machine. Run `docker -v` in your terminal to check the version you have installed.
 * [Java](https://www.java.com/en/) (openjdk@17: Java version 17), [Gradle](https://gradle.org/install/) (the latest version), and [PostgreSQL](https://www.postgresql.org/) (the latest version) are installed on your machine.
@@ -15,19 +15,19 @@ This step will teach you how to create a new IAM (_Identity and Access Managemen
 
 {% tabs %}
 {% tab title="Administrator Policy" %}
-* Refer to AWS documentation to create an IAM user with an administrator policy [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started\_create-admin-group.html)
+- Refer to AWS documentation to create an IAM user with an administrator policy [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html)
   * This sets up an IAM user with Administrator Access Policy
   * This user has full access and can delegate permissions to every service and resource in AWS.
-* Once that is complete, select **Users** from the left IAM navigation bar
-* Select the **Administrator** from the **User name** column
-* Select the **Security credentials** tab
-* Select **Create access key**
-* Copy or download your **Access key ID** and **Secret access key**
+- Once that is complete, select **Users** from the left IAM navigation bar
+- Select the **Administrator** from the **User name** column
+- Select the **Security credentials** tab
+- Select **Create access key**
+- Copy or download your **Access key ID** and **Secret access key**
 {% endtab %}
 
 {% tab title="Custom Policy" %}
 * Enable access to billing data
-  * Follow step 2 [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started\_create-admin-group.html)
+  * Follow step 2 [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html)
 * From the IAM left navigation bar select **Polices**
 * Click on **Create policy**
   * Service
@@ -153,4 +153,4 @@ psql "dbname=mirror_node host=localhost user=mirror_node password=mirror_node_pa
 docker compose down
 ```
 
-#### Congratulations! You have successfully run and deployed a Hedera Mirror Node with Amazon Web Services S3 (AWS)  🚀
+#### Congratulations! You have successfully run and deployed a Hedera Mirror Node with Amazon Web Services S3 (AWS) 🚀

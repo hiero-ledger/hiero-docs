@@ -14,7 +14,7 @@ The `TokenClaimAirdropTransaction` allows an intended airdrop recipient to claim
 
 #### Transaction Fees
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee.
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate the cost of your transaction fee.
 
 <table><thead><tr><th width="259">Method</th><th width="206">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>addPendingAirdropId(&#x3C;pendingAirdropId)</code></td><td>List&#x3C;PendingAirdropId> </td><td>Adds the ID of a pending airdrop to the transaction, indicating which specific airdrop the receiver wants to claim. This method is used to reference and claim one or more pending airdrops by their unique identifiers. The transaction can have up to 10 entries and must no have any duplicates. </td></tr></tbody></table>

@@ -6,9 +6,9 @@ The synchronization of information between two members through the gossip protoc
 
 ## Gossip About Gossip
 
-The history of how these events are related to each other through their parent hashes is called **gossip about gossip**. This history expresses itself as a type of directed acyclic graph \(DAG\), a graph of hashes, or a hashgraph. The hashgraph records the history of how members communicated. It grows directionally over time as more gossip syncs take place and events are created. All members keep a local copy of the hashgraph which continues to update as members sync with one another.
+The history of how these events are related to each other through their parent hashes is called **gossip about gossip**. This history expresses itself as a type of directed acyclic graph (DAG), a graph of hashes, or a hashgraph. The hashgraph records the history of how members communicated. It grows directionally over time as more gossip syncs take place and events are created. All members keep a local copy of the hashgraph which continues to update as members sync with one another.
 
-These hashgraphs may be slightly different at any given moment, but they will always be consistent. Consistent means that if \[Alice\] and \[Bob\] both contain event x, then they will both contain exactly the same set of ancestors for x, and will both contain exactly the same set of edges between those ancestors.
+These hashgraphs may be slightly different at any given moment, but they will always be consistent. Consistent means that if \[Alice] and \[Bob] both contain event x, then they will both contain exactly the same set of ancestors for x, and will both contain exactly the same set of edges between those ancestors.
 
 Each event contains the following:
 
@@ -19,11 +19,10 @@ Each event contains the following:
 * Transactions
 * Digital signature
 
-| Item | Description |
-| :--- | :--- |
-| **Timestamp:** | The timestamp of when the member created the event commemorating the gossip sync |
-| **Transactions:** | The event can hold zero or more transactions |
-| **Hash 1:** | Self-parent hash  |
-| **Hash 2:** | Other-parent hash |
-| **Digital Signature:** | Cryptographically signed by the creator of the event |
-
+| Item                   | Description                                                                      |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| **Timestamp:**         | The timestamp of when the member created the event commemorating the gossip sync |
+| **Transactions:**      | The event can hold zero or more transactions                                     |
+| **Hash 1:**            | Self-parent hash                                                                 |
+| **Hash 2:**            | Other-parent hash                                                                |
+| **Digital Signature:** | Cryptographically signed by the creator of the event                             |

@@ -146,7 +146,7 @@ Reference Hedera Improvement Proposal: [HIP-23](https://hips.hedera.com/hip/hip-
 
 When a new account is created, you can specify an initial HBAR balance for the account. The initial HBAR balance for the token is deducted from the account that is paying to create the new account. Creating an account with an initial balance is optional.&#x20;
 
-A Hedera account can hold a balance of HBAR and custom fungible and non-fungible tokens (NFTs). Account balances can be viewed on a [Network Explorer](../../networks/community-mirror-nodes.md) and queried from mirror node REST APIs or consensus nodes.
+A Hedera account can hold a balance of HBAR and custom fungible and non-fungible tokens (NFTs). Account balances can be viewed on a [Network Explorer](broken-reference) and queried from mirror node REST APIs or consensus nodes.
 
 | Token Type                    | Description                                                                               | Token ID Example                                                                                          |
 | ----------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |

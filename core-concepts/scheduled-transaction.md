@@ -125,8 +125,8 @@ A schedule transaction can be deleted if an admin key was set during its creatio
 
 ## Tutorial/Examples
 
-{% content-ref url="../tutorials/more-tutorials/schedule-your-first-transaction.md" %}
-[schedule-your-first-transaction.md](../tutorials/more-tutorials/schedule-your-first-transaction.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ***

@@ -1,6 +1,6 @@
 # ERC-721 (Non-Fungible Token)
 
-The [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) standard introduces a [non-fungible token (NFT)](../../../support-and-community/glossary.md#non-fungible-token-nft) in which each issued token is unique and distinct from others. This standard defines functions and events that enable the creation, ownership, and transfer of non-fungible assets.&#x20;
+The [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) standard introduces a [non-fungible token (NFT)](broken-reference) in which each issued token is unique and distinct from others. This standard defines functions and events that enable the creation, ownership, and transfer of non-fungible assets.&#x20;
 
 {% hint style="info" %}
 **Note**:`ERC-721` Token addresses refer to full Hedera Token Service (HTS) fungible token entities. These tokens can be fully managed by HTS API calls. Additionally, by utilizing [`IERC721`](https://docs.openzeppelin.com/contracts/2.x/api/token/erc721#IERC721) interfaces or system contract functions, these tokens can also be managed by smart contracts on Hedera.

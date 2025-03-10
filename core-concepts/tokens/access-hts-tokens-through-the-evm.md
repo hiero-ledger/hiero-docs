@@ -2,7 +2,7 @@
 
 Hedera provides a native API called the **Hedera API (HAPI)**, which offers comprehensive access to its services, including account management, token transactions, consensus, and more. For further information, refer to the [HAPI documentation](../../sdks-and-apis/hedera-api/). The [Hedera SDKs](../../sdks-and-apis/sdks/) provide easy access to these APIs to perform actions like token transfers, contract calls, and consensus messaging.
 
-To make it easier for Ethereum developers to bring their contracts to Hedera, we have implemented a [JSON-RPC relay](../smart-contracts/json-rpc-relay.md) that provides a familiar JSON-RPC interface. These developers can use standard Ethereum libraries and tools like [Hardhat](../../support-and-community/glossary.md#hardhat) and [Web3.js](https://web3js.readthedocs.io/en/v1.10.0/) to interact with Smart Contracts on Hedera.
+To make it easier for Ethereum developers to bring their contracts to Hedera, we have implemented a [JSON-RPC relay](../smart-contracts/json-rpc-relay.md) that provides a familiar JSON-RPC interface. These developers can use standard Ethereum libraries and tools like [Hardhat](broken-reference) and [Web3.js](https://web3js.readthedocs.io/en/v1.10.0/) to interact with Smart Contracts on Hedera.
 
 The diagram below shows how users interact with various Hedera services.
 
@@ -10,7 +10,7 @@ The diagram below shows how users interact with various Hedera services.
 
 Hedera’s EVM is compatible with the Ethereum EVM, which, therefore, allows the creation of any smart contract—including contracts like DeFi contracts and popular tokenization contracts such as [ERC-20 ](../smart-contracts/tokens-managed-by-smart-contracts/erc-20-fungible-tokens.md)and [ERC-721](../smart-contracts/tokens-managed-by-smart-contracts/erc-721-non-fungible-tokens-nfts.md) tokens. Typically, users access these tokens using the JSON-RPC interface provided by the relay using standard Ethereum tooling.
 
-In addition, Hedera also provides the [Hedera Token Service (HTS)](../../support-and-community/glossary.md#hedera-token-service-hts) that provides native support for [fungible](../../support-and-community/glossary.md#fungible-token) and [non-fungible tokens](../../support-and-community/glossary.md#non-fungible-token-nft). This service natively implements tokenization that allows developers to create and manage tokens without deploying smart contracts, simplifying the tokenization process and reducing development overhead. HTS is designed for high-speed transactions, supporting up to 10,000 [transactions per second (TPS)](../../support-and-community/glossary.md#transactions-per-second-tps) for token transfers. This makes it ideal for applications that require rapid, secure token operations. HTS also provides additional features such as atomic transfers with other tokens and/or HBAR, as well as the built-in ability to specify and collect custom fees and control through KYC, Pause, and Freeze keys.
+In addition, Hedera also provides the [Hedera Token Service (HTS)](broken-reference) that provides native support for [fungible](broken-reference) and [non-fungible tokens](broken-reference). This service natively implements tokenization that allows developers to create and manage tokens without deploying smart contracts, simplifying the tokenization process and reducing development overhead. HTS is designed for high-speed transactions, supporting up to 10,000 [transactions per second (TPS)](broken-reference) for token transfers. This makes it ideal for applications that require rapid, secure token operations. HTS also provides additional features such as atomic transfers with other tokens and/or HBAR, as well as the built-in ability to specify and collect custom fees and control through KYC, Pause, and Freeze keys.
 
 The overlap between HTS tokens and tokenization in Smart Contracts allows a few interesting possibilities that we explore below:
 
@@ -19,5 +19,5 @@ The overlap between HTS tokens and tokenization in Smart Contracts allows a few 
 
 #### Performance
 
-* **Native Services**: Hedera’s native services, including crypto transfers, token transfers, and [Hedera Consensus Service (HCS)](../../support-and-community/glossary.md#hedera-consensus-service-hcs) submit messages, and operate at high throughput, with speeds of up to 10,000 transactions per second (TPS).
+* **Native Services**: Hedera’s native services, including crypto transfers, token transfers, and [Hedera Consensus Service (HCS)](broken-reference) submit messages, and operate at high throughput, with speeds of up to 10,000 transactions per second (TPS).
 * **Smart Contract Layer**: The Hedera smart contract layer can handle up to 15 million gas per second, translating to roughly 350 Ethereum token transfers per second. The actual transaction throughput may vary depending on the gas requirements of each contract call.

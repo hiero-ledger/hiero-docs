@@ -222,7 +222,7 @@ The empty result indicates that the simulation ran successfully without errors:
 
 ## Decoding the Results with Ethers.js
 
-To decode the data returned by the Mirror Node, you need the [ABI](../../support-and-community/glossary.md#application-binary-interface-abi) of the smart contract you are interacting with. The ABI defines the structure of inputs and outputs for the contract's functions.
+To decode the data returned by the Mirror Node, you need the [ABI](broken-reference) of the smart contract you are interacting with. The ABI defines the structure of inputs and outputs for the contract's functions.
 
 ### Step 1: Install Ethers.js
 

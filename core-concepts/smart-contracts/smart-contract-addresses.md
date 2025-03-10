@@ -10,7 +10,7 @@ After a smart contract is deployed on Hedera, it is associated with a unique sma
 
 ### EVM Address
 
-The standard smart contract EVM address is the address that is compatible with EVM. The EVM contract address is returned by the system once the contract is deployed. This is the address format that is commonly used in the Ethereum ecosystem. You can use the smart contract EVM address to reference smart contracts in Ethereum Ecosystem tools like [Hardhat](../../support-and-community/glossary.md#hardhat) and [MetaMask](../../support-and-community/glossary.md#metamask).
+The standard smart contract EVM address is the address that is compatible with EVM. The EVM contract address is returned by the system once the contract is deployed. This is the address format that is commonly used in the Ethereum ecosystem. You can use the smart contract EVM address to reference smart contracts in Ethereum Ecosystem tools like [Hardhat](broken-reference) and [MetaMask](broken-reference).
 
 Example Contract EVM Address hex encoded contract ID: `0x00000000000000000000000000000000002cd37f`
 
@@ -40,6 +40,6 @@ When viewing the contract information, you may see both types of addresses noted
 
 ### Smart Contract Accounts
 
-Similar to [Ethereum](../../support-and-community/glossary.md#ethereum), Smart Contract entities are also a type of account. A smart contract deployed on Hedera can hold [HBAR](../../support-and-community/glossary.md#hbar), [fungible](../../support-and-community/glossary.md#fungible-token), and [non-fungible tokens](../../support-and-community/glossary.md#non-fungible-token-nft).
+Similar to [Ethereum](broken-reference), Smart Contract entities are also a type of account. A smart contract deployed on Hedera can hold [HBAR](broken-reference), [fungible](broken-reference), and [non-fungible tokens](broken-reference).
 
 <table><thead><tr><th width="289">Smart Contract Property</th><th>Example</th></tr></thead><tbody><tr><td><strong>Smart Contract ID</strong></td><td><a href="https://hashscan.io/mainnet/contract/0.0.2940467?p1=1">0.0.2940467</a></td></tr><tr><td><strong>Smart Contract EVM Address</strong></td><td><a href="https://hashscan.io/mainnet/contract/0.0.2940467?p1=1">0xde2b7414e2918a393b59fc130bceb75c3ee52493</a></td></tr><tr><td><strong>Smart Contract Hex Encoded Contract ID</strong></td><td>0x00000000000000000000000000000000002cff73<br>*<em>This is only present if the contract was NOT deployed via an EVM tool and instead the Hedera SDKs.</em></td></tr><tr><td><strong>Smart Contract Account ID</strong></td><td><a href="https://hashscan.io/mainnet/account/0.0.2940467?app=false&#x26;ph=1&#x26;pt=1&#x26;p2=1&#x26;p1=1">0.0.2940467</a></td></tr></tbody></table>

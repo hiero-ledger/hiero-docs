@@ -1,6 +1,6 @@
 # Deploying Smart Contracts
 
-After compiling your smart contract, you can deploy it to the Hedera network. The constructor's "_init code_" includes the contract's entire bytecode. When deploying, the EVM is expected to be supplied with both the smart contract [bytecode](../../support-and-community/glossary.md#bytecode) and the gas required to execute and deploy the contract. Post-deployment, the constructor is removed, leaving only the `runtime_bytecode` for future contract interactions.
+After compiling your smart contract, you can deploy it to the Hedera network. The constructor's "_init code_" includes the contract's entire bytecode. When deploying, the EVM is expected to be supplied with both the smart contract [bytecode](broken-reference) and the gas required to execute and deploy the contract. Post-deployment, the constructor is removed, leaving only the `runtime_bytecode` for future contract interactions.
 
 **➡** [**Hyperledger Besu EVM**](deploying-smart-contracts.md#hyperledger-besu-evm-on-hedera)
 
@@ -12,11 +12,11 @@ After compiling your smart contract, you can deploy it to the Hedera network. Th
 
 ## Ethereum Virtual Machine (EVM)
 
-The [Ethereum Virtual Machine (EVM)](../../support-and-community/glossary.md#ethereum-virtual-machine-evm) is a run-time environment for executing smart contracts written in EVM native programming languages, like Solidity. The source code must be compiled into bytecode for the EVM to execute a given smart contract.
+The [Ethereum Virtual Machine (EVM)](broken-reference) is a run-time environment for executing smart contracts written in EVM native programming languages, like Solidity. The source code must be compiled into bytecode for the EVM to execute a given smart contract.
 
 On Hedera, users can interact with the EVM-compatible environment in several ways. They can submit `ContractCreate`, `EthereumTransaction`, or make `eth_sendRawTransaction` RPC calls with the contract bytecode directly. These various paths allow developers to deploy and manage smart contracts efficiently.
 
-When the EVM receives the bytecode, it will be further broken down into operation codes ([opcodes](../../support-and-community/glossary.md#opcodes)). The EVM opcodes represent the specific instructions it can perform. Each opcode is one byte and has its own gas cost associated with it. The cost per opcode for the Ethereum Cancun hard fork can be found [here](https://www.evm.codes/?fork=cancun).
+When the EVM receives the bytecode, it will be further broken down into operation codes ([opcodes](broken-reference)). The EVM opcodes represent the specific instructions it can perform. Each opcode is one byte and has its own gas cost associated with it. The cost per opcode for the Ethereum Cancun hard fork can be found [here](https://www.evm.codes/?fork=cancun).
 
 #### Smart Contract Opcode Example
 
@@ -30,15 +30,15 @@ Reference: [https://ethervm.io/](https://ethervm.io/)
 
 ## Hyperledger Besu EVM on Hedera
 
-The Hedera network nodes utilize the [HyperLedger Besu EVM ](../../support-and-community/glossary.md#hyperledger-besu-evm)Client written in Java as an execution layer for Ethereum-type transactions. The codebase is up to date with the current Ethereum Mainnet hard forks. The Besu EVM client library is used without hooks for Ethereum's consensus, networking, and storage features. Instead, Hedera hooks into its own Hashgraph consensus, Gossip communication, and [Virtual Merkle Trees](../../support-and-community/glossary.md#virtual-merkle-tree) components for greater fault tolerance, finality, and scalability.&#x20;
+The Hedera network nodes utilize the [HyperLedger Besu EVM ](broken-reference)Client written in Java as an execution layer for Ethereum-type transactions. The codebase is up to date with the current Ethereum Mainnet hard forks. The Besu EVM client library is used without hooks for Ethereum's consensus, networking, and storage features. Instead, Hedera hooks into its own Hashgraph consensus, Gossip communication, and [Virtual Merkle Trees](broken-reference) components for greater fault tolerance, finality, and scalability.&#x20;
 
-As of the Hedera Mainnet release [`0.50.0`](../../networks/release-notes/services.md#v0.50), the Besu EVM client is configured to support the Cancun hard fork of the Ethereum Mainnet, with some modifications.
+As of the Hedera Mainnet release [`0.50.0`](broken-reference), the Besu EVM client is configured to support the Cancun hard fork of the Ethereum Mainnet, with some modifications.
 
 ### **Cancun Hard Fork**
 
 The smart contract platform has been upgraded to support the visible EVM changes introduced in the [Cancun](https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/cancun.md) hard fork. This includes adding new opcodes for transient storage and memory copy, semantic updates for opcodes introduced certain operations introduced in the [Shanghai](https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/shanghai.md), [London](https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/london.md), [Istanbul](https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/istanbul.md), and [Berlin](https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/berlin.md) hard forks, except those with changes in block production, data serialization, and the double fee market.&#x20;
 
-As of the Hedera Services [0.22](../../networks/release-notes/services.md#v0.22) release, gas and input data costs are charged. The amount of intrinsic gas consumed is a constant charge that occurs before any code executes. The intrinsic gas cost is 21,000. The associated cost of input data is 16 gas for each byte of data that is not zero and 4 gas for each byte of data that is zero. The amount of intrinsic gas consumed is charged in relation to the data supplied when making a contract call to the function parameters of external contracts. The gas schedule and the fees table can be found in the gas section of this documentation page.
+As of the Hedera Services [0.22](broken-reference) release, gas and input data costs are charged. The amount of intrinsic gas consumed is a constant charge that occurs before any code executes. The intrinsic gas cost is 21,000. The associated cost of input data is 16 gas for each byte of data that is not zero and 4 gas for each byte of data that is zero. The amount of intrinsic gas consumed is charged in relation to the data supplied when making a contract call to the function parameters of external contracts. The gas schedule and the fees table can be found in the gas section of this documentation page.
 
 <figure><img src="../../.gitbook/assets/cancun-blob-graphic-onchaintimes.jpeg" alt=""><figcaption><p><strong>EIP-4844 Unveiled: Paving the Way for Proto-Danksharding in Ethereum</strong></p></figcaption></figure>
 
@@ -88,8 +88,8 @@ Understanding these differences is crucial for anyone developing smart contracts
 
 You can use a [Hedera SDK](../../sdks-and-apis/sdks/) to deploy your smart contract bytecode to the network. This approach does not require using any EVM tools like Hardhat or an instance of the Hedera JSON-RPC Relay.
 
-{% content-ref url="../../tutorials/smart-contracts/deploy-your-first-smart-contract.md" %}
-[deploy-your-first-smart-contract.md](../../tutorials/smart-contracts/deploy-your-first-smart-contract.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 **Hardhat**
@@ -105,8 +105,8 @@ Hardhat can be used to deploy your smart contract by pointing to a community-hos
 
 If you need to set any of the above properties for your contract, you will have to call the `ContractCreateTransaction` API using one of the [Hedera SDKs.](../../sdks-and-apis/sdks/)
 
-{% content-ref url="../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md" %}
-[deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md](../../tutorials/smart-contracts/deploy-a-smart-contract-using-hardhat-hedera-json-rpc-relay.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ***

@@ -2,7 +2,7 @@
 
 ## **Overview**
 
-Transitioning to Hedera’s EVM implementation offers exciting opportunities but also introduces unique challenges. As an [EVM (Ethereum Virtual Machine)](../../../../support-and-community/glossary.md#ethereum-virtual-machine-evm) developer, you’ll find familiar Solidity smart contracts and EVM logic, but Hedera’s architecture, key management using [ED25519](../../../../support-and-community/glossary.md#ed25519), and enhanced capabilities such as system contracts introduced in [HIP-632](https://hips.hedera.com/hip/hip-632) necessitate adjustments to your workflows. This guide provides the insights and tools you need to migrate successfully.
+Transitioning to Hedera’s EVM implementation offers exciting opportunities but also introduces unique challenges. As an [EVM (Ethereum Virtual Machine)](broken-reference) developer, you’ll find familiar Solidity smart contracts and EVM logic, but Hedera’s architecture, key management using [ED25519](broken-reference), and enhanced capabilities such as system contracts introduced in [HIP-632](https://hips.hedera.com/hip/hip-632) necessitate adjustments to your workflows. This guide provides the insights and tools you need to migrate successfully.
 
 ### **What You’ll Learn**
 

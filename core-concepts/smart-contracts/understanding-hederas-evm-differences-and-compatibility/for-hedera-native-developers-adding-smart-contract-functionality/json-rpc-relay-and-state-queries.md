@@ -19,7 +19,7 @@ Hedera’s JSON-RPC relay acts as a compatibility layer, enabling EVM-based tool
 * Use methods like `eth_call` and `eth_sendTransaction` to interact with deployed contracts via the JSON-RPC relay.
 * Fetch historical states or balances using mirror node REST APIs, as Hedera does not use a Merkle Patricia Trie.
 
-### **Example**
+### **Example**&#x20;
 
 #### `eth_call` Request
 
@@ -55,5 +55,5 @@ curl -X GET \
 
 ## Additional Resources
 
-* [**Mirror Node REST API Documentation**](../../../../sdks-and-apis/rest-api/)
+* [**Mirror Node REST API Documentation**](broken-reference)
 * [**JSON-RPC Methods on Hedera**](https://github.com/hashgraph/hedera-json-rpc-relay/blob/main/docs/rpc-api.md)

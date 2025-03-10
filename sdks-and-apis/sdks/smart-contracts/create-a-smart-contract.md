@@ -32,7 +32,7 @@ With [HIP-904](https://hips.hedera.com/hip/hip-904), contracts now support Admin
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee.
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate the cost of your transaction fee.
 
 **Smart Contract Properties**

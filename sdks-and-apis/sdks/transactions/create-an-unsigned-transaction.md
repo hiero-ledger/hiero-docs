@@ -7,7 +7,7 @@ These methods allow you to build a transaction that requires further processing 
 {% hint style="warning" %}
 #### Account Alias
 
-If an alias is set during account creation, it becomes [immutable](../../../support-and-community/glossary.md#immutability), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
+If an alias is set during account creation, it becomes [immutable](broken-reference), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
 {% endhint %}
 
 {% tabs %}

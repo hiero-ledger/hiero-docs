@@ -19,7 +19,7 @@ With the introduction of [HIP-850](https://hips.hedera.com/hip/hip-850), the **S
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee.
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost.
 
 ## Methods
@@ -122,7 +122,7 @@ fmt.Printf("Token metadata update status: ", receipt.Status)
 
 <summary>What is the transaction fee to update a token's metadata?</summary>
 
-The transaction fee to update the metadata of 1 NFT is `$0.001` To update metadata for multiple NFTs in a single call is N x `$0.001` (N being the number of NFTs to update). See the full list of token transaction fees [here](../../../networks/mainnet/fees/#token-service).
+The transaction fee to update the metadata of 1 NFT is `$0.001` To update metadata for multiple NFTs in a single call is N x `$0.001` (N being the number of NFTs to update). See the full list of token transaction fees [here](broken-reference).
 
 </details>
 

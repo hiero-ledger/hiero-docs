@@ -15,7 +15,7 @@ Burns fungible and non-fungible tokens owned by the Treasury Account. If no Supp
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please see the transaction and query [fees](broken-reference) table for base transaction fee
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 ### Methods

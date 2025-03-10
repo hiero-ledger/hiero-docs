@@ -4,7 +4,7 @@ The [Hedera JSON-RPC Relay](https://github.com/hashgraph/hedera-json-rpc-relay) 
 
 ## HBAR decimal places&#x20;
 
-The Hedera JSON RPC Relay **`msg.value`** uses 18 decimals when it returns HBAR. As a result, the **`gasPrice`** value returns 18 decimal places since it is only utilized from the JSON RPC Relay. Refer to the [HBAR page](../../sdks-and-apis/sdks/hbars.md) for a list of Hedera APIs and the decimal places they return.&#x20;
+The Hedera JSON RPC Relay **`msg.value`** uses 18 decimals when it returns HBAR. As a result, the **`gasPrice`** value returns 18 decimal places since it is only utilized from the JSON RPC Relay. Refer to the [HBAR page](broken-reference) for a list of Hedera APIs and the decimal places they return.&#x20;
 
 ## Community Hosted JSON-RPC Relays
 
@@ -22,8 +22,8 @@ Anyone in the community can set up their own JSON RPC relay that applications ca
 **Note:** If you want to add your hosted JSON-RPC relay to this list, please open an issue in the [Hedera docs GitHub repository](https://github.com/hashgraph/hedera-docs). Please visit the community-hosted websites to review any limitations specific to their instance.&#x20;
 {% endhint %}
 
-{% content-ref url="../../tutorials/more-tutorials/json-rpc-connections/" %}
-[json-rpc-connections](../../tutorials/more-tutorials/json-rpc-connections/)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ## FAQ
@@ -43,7 +43,7 @@ Anyone in the community can set up their own JSON RPC relay that applications ca
 
 <summary><strong>How do I connect to the Hedera Network over RPC?</strong></summary>
 
-The configuration guide to connect to the Hedera Network over RPC can be found [here](../../tutorials/more-tutorials/json-rpc-connections/).
+The configuration guide to connect to the Hedera Network over RPC can be found [here](broken-reference).
 
 </details>
 
@@ -59,7 +59,7 @@ The endpoints for previewnet, testnet, and mainnet can be found on [Hashio](http
 
 <summary><strong>How does Hedera handle decimals in HBAR and gas prices?</strong></summary>
 
-The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPrice` value also returns 18 decimal places. _Check out the_ [_HBAR page_](../../sdks-and-apis/sdks/hbars.md) _for the full list of Hedera APIs and their decimal representation._&#x20;
+The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPrice` value also returns 18 decimal places. _Check out the_ [_HBAR page_](broken-reference) _for the full list of Hedera APIs and their decimal representation._&#x20;
 
 </details>
 
@@ -67,6 +67,6 @@ The JSON-RPC Relay `msg.value` uses 18 decimals when it returns HBAR. The `gasPr
 
 <summary><strong>How can I contribute or log errors?</strong></summary>
 
-To contribute or log errors, please refer to the [Contributing Guide](../../support-and-community/contributing-guide/) and submit them as issues in the [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
+To contribute or log errors, please refer to the [Contributing Guide](broken-reference) and submit them as issues in the [GitHub repository](https://github.com/hashgraph/hedera-json-rpc-relay/issues).
 
 </details>

@@ -1,2 +1,0 @@
-# Network Response Messages
-

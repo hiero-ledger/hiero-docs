@@ -12,8 +12,8 @@ Given your HTS token address, you can invoke these functions:
 
 #### Example
 
-{% content-ref url="../../../tutorials/smart-contracts/deploy-a-contract-using-the-hedera-token-service.md" %}
-[deploy-a-contract-using-the-hedera-token-service.md](../../../tutorials/smart-contracts/deploy-a-contract-using-the-hedera-token-service.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 #### Additional References

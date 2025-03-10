@@ -2,12 +2,12 @@
 
 The Hedera Consensus Service (HCS) is a gRPC API endpoint on the mirror node to stream HCS messages. It offers the ability to subscribe to HCS topics and receive messages for the topic subscribed to. API docs for the mirror nodes can be found here:
 
-{% content-ref url="../../sdks-and-apis/rest-api/" %}
-[rest-api](../../sdks-and-apis/rest-api/)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
-{% content-ref url="../../sdks-and-apis/hedera-consensus-service-api.md" %}
-[hedera-consensus-service-api.md](../../sdks-and-apis/hedera-consensus-service-api.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ## Mainnet

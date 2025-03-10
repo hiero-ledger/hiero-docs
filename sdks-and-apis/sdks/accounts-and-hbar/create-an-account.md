@@ -2,7 +2,7 @@
 
 ### **Create an account using the account create API**
 
-A transaction that creates a Hedera account. A Hedera account is required to interact with any of the Hedera network services as you need an account to pay for all associated transaction/query fees. You can visit the [Hedera Developer Portal](https://portal.hedera.com/register) to create a previewnet or testnet account. You can also use third-party wallets to generate free [mainnet accounts](../../../networks/mainnet/mainnet-access.md). To process an account create transaction, you will need an existing account to pay for the transaction fee. To obtain the new account ID, request the [receipt](../transactions/get-a-transaction-receipt.md) of the transaction.
+A transaction that creates a Hedera account. A Hedera account is required to interact with any of the Hedera network services as you need an account to pay for all associated transaction/query fees. You can visit the [Hedera Developer Portal](https://portal.hedera.com/register) to create a previewnet or testnet account. You can also use third-party wallets to generate free [mainnet accounts](broken-reference). To process an account create transaction, you will need an existing account to pay for the transaction fee. To obtain the new account ID, request the [receipt](../transactions/get-a-transaction-receipt.md) of the transaction.
 
 {% hint style="info" %}
 When creating a **new account** using the<mark style="color:purple;">`AccountCreateTransaction()`</mark>API you will need an existing account to pay for the associated transaction fee.
@@ -17,7 +17,7 @@ When creating a **new account** using the<mark style="color:purple;">`AccountCre
 **Transaction Fees**
 
 * The sender pays for the token association fee and the rent for the first auto-renewal period.
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee.
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost.
 
 **Transaction Signing Requirements**
@@ -43,7 +43,7 @@ The sender pays the `maxAutoAssociations` fee and the rent for the first auto-re
 {% hint style="warning" %}
 #### Account Alias
 
-If an alias is set during account creation, it becomes [immutable](../../../support-and-community/glossary.md#immutability), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
+If an alias is set during account creation, it becomes [immutable](broken-reference), meaning it cannot be changed. If you plan to update or rotate keys in the future, do not set the alias at the time of initial account creation. The alias can be set after finalizing all key updates.&#x20;
 {% endhint %}
 
 {% tabs %}

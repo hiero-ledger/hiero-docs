@@ -13,7 +13,7 @@ The EVM returns gas information in Weibar (introduced in [HIP-410](https://hips.
 Gas is used to charge fees to pay for work performed by the network when a smart contract transaction is submitted. Specifically, transactions of type, `ContractCall`, `ContractCreate` and `EthereumTransactions` have fees charged denominated in gas. Other smart contracts-related transactions `ContractDelete`, `ContractGetInfo` etc., are only accessed by the normal Hedera-related network, node, and service fees denominated in HBAR. Gas fees paid for EVM transactions on Hedera can be composed of three different kinds of gas costs:
 
 * **Intrinsic Gas**: The minimum amount of gas required to execute a transaction.
-* **EVM opcode Gas**: The gas required to execute the defined [opcodes](../../support-and-community/glossary.md#opcodes) for the smart contract call.
+* **EVM opcode Gas**: The gas required to execute the defined [opcodes](broken-reference) for the smart contract call.
 * **Hedera System Contract Gas**: The required gas that is associated with a Hedera-defined transaction, like using the Hedera Token Service system contract that allows you to burn (`TokenBurnTransaction`) or mint (`TokenMintTransaction`) a token.
 
 ### Intrinsic Gas
@@ -124,7 +124,7 @@ Most EVM-compatible networks use a per-block gas limit to control resource alloc
 
 For smart contract transactions, gas is a more effective measure of transaction complexity than transaction count. To balance flexibility and resource management, Hedera mirrors Ethereum's approach by setting transaction limits based on gas consumption (for `ContractCreate`, `ContractCall`, and `ContractCallLocalQuery`), alongside per-transaction limits. This dual method enables precise regulation of smart contract executions.
 
-The Hedera network has implemented a system gas throttle of **15 million gas per second** in the Hedera Service release [0.22](../../networks/release-notes/services.md#v0.22).&#x20;
+The Hedera network has implemented a system gas throttle of **15 million gas per second** in the Hedera Service release [0.22](broken-reference).&#x20;
 
 ### Gas Reservation and Unused Gas Refund
 
@@ -134,7 +134,7 @@ To address this, throttling will be based on a two-tiered gas measuring system: 
 
 Contract query requests are unique and bypass the consensus stage altogether. These requests are executed solely on the local node that receives them and only influence that specific node's precheck throttle. On the other hand, standard contract transactions go through both the precheck and consensus stages and are subject to both sets of throttle limits. The throttle limits for precheck and consensus may be set to different values.
 
-In order to ensure that the transactions can execute properly, setting a higher gas reservation than will be consumed by execution is common. On Ethereum Mainnet, the entire reservation is charged to the account before execution, and the unused portion of the reservation is credited back. However, Ethereum utilizes a memory pool ([mempool](../../support-and-community/glossary.md#mempool)) and does transaction ordering at block production time, allowing the block limit to be based only on used and not reserved gas.
+In order to ensure that the transactions can execute properly, setting a higher gas reservation than will be consumed by execution is common. On Ethereum Mainnet, the entire reservation is charged to the account before execution, and the unused portion of the reservation is credited back. However, Ethereum utilizes a memory pool ([mempool](broken-reference)) and does transaction ordering at block production time, allowing the block limit to be based only on used and not reserved gas.
 
 To help prevent over-reservation, Hedera restricts the amount of unused gas that can be refunded to a maximum of 20% of the original gas reservation. This effectively means users will be charged for at least 80% of their initial reservation, regardless of actual usage. This rule is designed to incentivize users to make more accurate gas estimates.
 

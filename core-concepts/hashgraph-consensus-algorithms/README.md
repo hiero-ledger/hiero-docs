@@ -74,7 +74,7 @@ Transactions are put into order according to their timestamps. Because the times
 
 <summary>What is the hashgraph consensus algorithm? How does it work?</summary>
 
-The hashgraph consensus algorithm is a distributed consensus mechanism used by Hedera. It uses a data structure called a [hashgraph](../../support-and-community/glossary.md#hashgraph), and a consensus mechanism called the Gossip protocol. This combination allows for fast, fair, and secure consensus. The algorithm works by each node in the network sharing information (or “gossiping”) about the transactions it knows about with other nodes in random order.
+The hashgraph consensus algorithm is a distributed consensus mechanism used by Hedera. It uses a data structure called a [hashgraph](broken-reference), and a consensus mechanism called the Gossip protocol. This combination allows for fast, fair, and secure consensus. The algorithm works by each node in the network sharing information (or “gossiping”) about the transactions it knows about with other nodes in random order.
 
 </details>
 
@@ -82,7 +82,7 @@ The hashgraph consensus algorithm is a distributed consensus mechanism used by H
 
 <summary>How secure is the hashgraph consensus algorithm?</summary>
 
-Hashgraph is secure because it is asynchronous Byzantine Fault Tolerant (aBFT). This means that no single member or small group of members can prevent the community from reaching a consensus or changing the consensus once it has been reached. It is also ACID compliant when used as a distributed database, and it is resilient to [Distributed Denial of Service (DDoS)](../../support-and-community/glossary.md#distributed-denial-of-service-ddos) attacks.
+Hashgraph is secure because it is asynchronous Byzantine Fault Tolerant (aBFT). This means that no single member or small group of members can prevent the community from reaching a consensus or changing the consensus once it has been reached. It is also ACID compliant when used as a distributed database, and it is resilient to [Distributed Denial of Service (DDoS)](broken-reference) attacks.
 
 </details>
 

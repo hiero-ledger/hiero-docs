@@ -16,7 +16,7 @@ Contract **call trace** information captures the input, output, and gas details 
 
 This information can be queried using the transaction ID or Ethereum transaction hash.
 
-ℹ️ Detailed information for call trace can be found in the Hedera [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract\_action.proto) and includes:
+ℹ️ Detailed information for call trace can be found in the Hedera [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract_action.proto) and includes:
 
 <table><thead><tr><th width="178">Call Trace Data</th><th>Description</th></tr></thead><tbody><tr><td><strong>Call Operation Type</strong></td><td><p>Specific type of operation performed during the execution of a smart contract or a transaction in the EVM. Example: “CALL” is an operation type use when a transaction invokes a function within a smart contract. It executes the function and can potentially modify the state of the contract.</p><pre><code>OP_UNKNOWN = 0;
 OP_CALL = 1;
@@ -39,7 +39,7 @@ Smart Contract state changes will now be tracked whenever a smart contract trans
 
 The value read reflects the storage value prior to the execution of the smart contract transaction. The value written, if present, represents the final updated value of the storage slot after the completion of the smart contract call. Transient states between the start and finish of the contract are not stored in the transaction record.
 
-ℹ️ Detailed information on state trace can be found in the [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract\_state\_change.proto) and includes:&#x20;
+ℹ️ Detailed information on state trace can be found in the [protobuf](https://github.com/hashgraph/hedera-protobufs/blob/main/streams/contract_state_change.proto) and includes:&#x20;
 
 <table><thead><tr><th width="205">State Trace Data</th><th>Description</th></tr></thead><tbody><tr><td>Address</td><td><p>The smart contract EVM address.</p><p>Ex: <code>0000000000000000000000000000000000001f41</code></p></td></tr><tr><td>Contract ID</td><td><p>The smart contract ID.</p><p>Ex: <code>0.0.1234</code></p></td></tr><tr><td>Slot</td><td>Refers to a storage location where data is stored within the contract's state. It can also be thought of as a variable or a storage unit that holds a specific value.</td></tr><tr><td>Value Read</td><td>The current values of variables or data structures before making modifications. These values can be used to validate conditions, perform calculations, or trigger specific actions within the contract's code.</td></tr><tr><td>Value Written</td><td>The written or changed variables or data structures after the modification.</td></tr></tbody></table>
 
@@ -49,7 +49,7 @@ Consensus nodes store sidecar records called `ContractStateChanges`. Each time a
 
 ### Mirror Node
 
-The Hedera [mirror node](../../support-and-community/glossary.md#mirror-nodes) supports two rest APIs that return information about the smart contract’s state changes. This includes:
+The Hedera [mirror node](broken-reference) supports two rest APIs that return information about the smart contract’s state changes. This includes:
 
 * `/api/v1/contracts/{id}/results/{timestamp}`
 * `/api/v1/contracts/results/{transactionIdOrHash}`

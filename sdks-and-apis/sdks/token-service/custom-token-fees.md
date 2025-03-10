@@ -1,6 +1,6 @@
 # Custom token fees
 
-When creating a token, you can configure up to 10 custom fees, automatically disbursed to specified [fee collector accounts](../../../support-and-community/glossary.md#fee-collector-account) each time the token is transferred programmatically. These fees can be _fixed_, _fractional_, or _royalty_-based, offering revenue generation, profit-sharing, and behavior incentivization for creators. This guide is your comprehensive resource for understanding types, implementation, and best practices for custom fees on Hedera.
+When creating a token, you can configure up to 10 custom fees, automatically disbursed to specified [fee collector accounts](broken-reference) each time the token is transferred programmatically. These fees can be _fixed_, _fractional_, or _royalty_-based, offering revenue generation, profit-sharing, and behavior incentivization for creators. This guide is your comprehensive resource for understanding types, implementation, and best practices for custom fees on Hedera.
 
 ***
 
@@ -10,7 +10,7 @@ When creating a token, you can configure up to 10 custom fees, automatically dis
 
 **Fractional Fee:** Take a specific portion of the transferred fungible tokens, with optional minimum and maximum limits. The token _receiver_ (fee collector account) pays these fees by default. However, if [`net_of_transfers`](../../hedera-api/token-service/customfees/fractionalfee.md) is set to true, the sender pays the fees and the receiver collects the full token transfer amount. If this field is set to false, the receiver pays for the token custom fees and gets the remaining token balance.&#x20;
 
-**Royalty Fee:** Paid by the _receiver_ account that is exchanging the fungible value for the NFT. When the NFT sender does not receive any fungible value, the [fallback fee](../../../support-and-community/glossary.md#fallback-fee) is charged to the NFT receiver.&#x20;
+**Royalty Fee:** Paid by the _receiver_ account that is exchanging the fungible value for the NFT. When the NFT sender does not receive any fungible value, the [fallback fee](broken-reference) is charged to the NFT receiver.&#x20;
 
 {% hint style="info" %}
 **Note:** In addition to the custom token fee payment, the sender account must pay for the token transfer transaction fee in HBAR. The "[_Payment of Custom Fees & Transaction Fees in HBAR_](custom-token-fees.md#payment-of-custom-fees-vs.-transaction-fees-in-hbar)_"_ section below covers the distinction between custom fees and transaction fees.
@@ -30,7 +30,7 @@ A [fixed fee](../../hedera-api/token-service/customfees/fixedfee.md) entails tra
 new CustomFixedFee()
 ```
 
-<table data-full-width="false"><thead><tr><th width="306.3333333333333">Methods</th><th width="213">Description</th><th width="118" align="center">Type</th><th align="center">Requirement</th></tr></thead><tbody><tr><td><code>setFeeCollectorAccountId</code></td><td>Sets the fee collector account ID that collects the fee.</td><td align="center"><a href="../specialized-types.md#accountid">AccountId</a></td><td align="center">Required</td></tr><tr><td><code>setHbarAmount</code></td><td>Set the amount of HBAR to be collected.</td><td align="center"><a href="../hbars.md">HBAR</a></td><td align="center">Optional</td></tr><tr><td><code>setAmount</code></td><td>Sets the amount of tokens to be collected as the fee.</td><td align="center">int64</td><td align="center">Optional</td></tr><tr><td><code>setDenominatingTokenId</code></td><td>The ID of the token used to charge the fee. The denomination of the fee is taken as HBAR if left unset.</td><td align="center"><a href="token-id.md">TokenID</a></td><td align="center">Optional</td></tr><tr><td><code>setAllCollectorsAreExempt</code></td><td>If true, exempts all the token's fee collector accounts from this fee.</td><td align="center">boolean</td><td align="center">Optional</td></tr></tbody></table>
+<table data-full-width="false"><thead><tr><th width="306.3333333333333">Methods</th><th width="213">Description</th><th width="118" align="center">Type</th><th align="center">Requirement</th></tr></thead><tbody><tr><td><code>setFeeCollectorAccountId</code></td><td>Sets the fee collector account ID that collects the fee.</td><td align="center"><a href="../specialized-types.md#accountid">AccountId</a></td><td align="center">Required</td></tr><tr><td><code>setHbarAmount</code></td><td>Set the amount of HBAR to be collected.</td><td align="center"><a href="broken-reference">HBAR</a></td><td align="center">Optional</td></tr><tr><td><code>setAmount</code></td><td>Sets the amount of tokens to be collected as the fee.</td><td align="center">int64</td><td align="center">Optional</td></tr><tr><td><code>setDenominatingTokenId</code></td><td>The ID of the token used to charge the fee. The denomination of the fee is taken as HBAR if left unset.</td><td align="center"><a href="token-id.md">TokenID</a></td><td align="center">Optional</td></tr><tr><td><code>setAllCollectorsAreExempt</code></td><td>If true, exempts all the token's fee collector accounts from this fee.</td><td align="center">boolean</td><td align="center">Optional</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Java" %}
@@ -120,7 +120,7 @@ new CustomFractionalFee()
 
 ### **Royalty Fee**
 
-The [royalty fee](../../hedera-api/token-service/customfees/royaltyfee.md) is assessed and applied each time the ownership of an NFT is transferred and is a fraction of the value exchanged for the NFT. If no value is exchanged for the NFT, a [fallback fee](../../../support-and-community/glossary.md#fallback-fee) can be imposed on the receiving account. This fee type only applies to non-fungible tokens.
+The [royalty fee](../../hedera-api/token-service/customfees/royaltyfee.md) is assessed and applied each time the ownership of an NFT is transferred and is a fraction of the value exchanged for the NFT. If no value is exchanged for the NFT, a [fallback fee](broken-reference) can be imposed on the receiving account. This fee type only applies to non-fungible tokens.
 
 {% hint style="info" %}
 🔔 **NOTE:** Royalty fees are _strictly_ a convenience feature. The network can't enforce royalties if counterparties decide to split their NFT exchange into separate transactions. The NFT sender and receiver must both sign a single `CryptoTransfer` to ensure the proper application of royalties. There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578) about broadening the class of transactions for which the network automatically collects royalties. If this topic interests or concerns you, your participation in the discussion is welcome.

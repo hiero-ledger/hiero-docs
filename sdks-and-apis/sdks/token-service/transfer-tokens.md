@@ -22,7 +22,7 @@ Custom fee tokens are tokens that have a unique custom fee schedule associated t
 
 **Transaction Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for base transaction fee
+* Please see the transaction and query [fees](broken-reference) table for base transaction fee
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate your transaction fee cost
 
 ## Methods

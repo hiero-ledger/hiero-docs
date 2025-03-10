@@ -2,9 +2,9 @@
 
 ### Understanding State Machines
 
-A "[state machine](../support-and-community/glossary.md#state-machine)" represents a conceptual approach to how a program operates: it maintains a "state" and modifies this state in response to specific "transactions." In a "replicated state machine," the duty and accountability for managing this evolving state are distributed across several computers, offering fault tolerance.
+A "[state machine](broken-reference)" represents a conceptual approach to how a program operates: it maintains a "state" and modifies this state in response to specific "transactions." In a "replicated state machine," the duty and accountability for managing this evolving state are distributed across several computers, offering fault tolerance.
 
-Hedera enables a replicated state machine. Numerous nodes, even potentially opposing ones, can consistently maintain the state of a dataset. For example, the HBAR quantity across a group of accounts. As detailed earlier, transactions are submitted to the network, and subsequently, the [hashgraph](../support-and-community/glossary.md#hashgraph) algorithm assigns them a consensus timestamp and a position in the consensus sequence. Once all nodes reach an agreement on the transaction sequence, they sequentially apply them to the state. This procedure ensures each node's state copy remains consistent. Every node applies (for example, adjusts the payer & recipient balances for an HBAR payment) the transactions to the state following the mutually agreed sequence, thus preserving a uniform state with other nodes at any specific moment.
+Hedera enables a replicated state machine. Numerous nodes, even potentially opposing ones, can consistently maintain the state of a dataset. For example, the HBAR quantity across a group of accounts. As detailed earlier, transactions are submitted to the network, and subsequently, the [hashgraph](broken-reference) algorithm assigns them a consensus timestamp and a position in the consensus sequence. Once all nodes reach an agreement on the transaction sequence, they sequentially apply them to the state. This procedure ensures each node's state copy remains consistent. Every node applies (for example, adjusts the payer & recipient balances for an HBAR payment) the transactions to the state following the mutually agreed sequence, thus preserving a uniform state with other nodes at any specific moment.
 
 <figure><img src="../.gitbook/assets/hh-consensus-service-whitepaper-icons.png" alt=""><figcaption></figcaption></figure>
 
@@ -14,9 +14,9 @@ The latest state (e.g., the HBAR balances of each account) and the history of th
 
 ### Roles of Distributed Technology (DLT) Node
 
-There are three mostly independent functions that a [distributed ledger technology (DLT)](../support-and-community/glossary.md#distributed-ledger-technology-dlt) node can perform:
+There are three mostly independent functions that a [distributed ledger technology (DLT)](broken-reference) node can perform:
 
-* Contribute to [consensus](../support-and-community/glossary.md#consensus)
+* Contribute to [consensus](broken-reference)
 * Persist history of transactions
 * Persist state
 
@@ -30,7 +30,7 @@ But there is value in the history being persisted, even if not by mainnet nodes.
 
 ### Roles of Mirror Nodes
 
-[Mirror nodes](mirror-nodes/) in the Hedera architecture, in addition to maintaining state, can also store transaction history. A particular mirror can choose whether to store all history, no history, or possibly only a fraction of the history, perhaps only for particular transaction types, particular accounts, etc. In addition to the history, mirror nodes store information that allows them to prove that their history is correct, even for some kinds of partial histories. This prevents a malicious mirror node from lying about what it is storing. A [client](../support-and-community/glossary.md#client) seeking a transaction from the past would query an appropriate mirror for the record of that transaction. As the burden of storing history is borne by mirrors and not mainnet nodes, the latter can be optimized for the more fundamental role of consensus and state storage.
+[Mirror nodes](mirror-nodes/) in the Hedera architecture, in addition to maintaining state, can also store transaction history. A particular mirror can choose whether to store all history, no history, or possibly only a fraction of the history, perhaps only for particular transaction types, particular accounts, etc. In addition to the history, mirror nodes store information that allows them to prove that their history is correct, even for some kinds of partial histories. This prevents a malicious mirror node from lying about what it is storing. A [client](broken-reference) seeking a transaction from the past would query an appropriate mirror for the record of that transaction. As the burden of storing history is borne by mirrors and not mainnet nodes, the latter can be optimized for the more fundamental role of consensus and state storage.
 
 ## FAQ
 

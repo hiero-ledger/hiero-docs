@@ -4,7 +4,7 @@ Subscribe to a topic ID's messages from a mirror node. You will receive all mess
 
 **Query Fees**
 
-* The SDK uses the [Hedera Consensus Service gRPC APIs](../../hedera-consensus-service-api.md) provided by the mirror node to perform this function for free.
+* The SDK uses the [Hedera Consensus Service gRPC APIs](broken-reference) provided by the mirror node to perform this function for free.
 
 ### Methods
 

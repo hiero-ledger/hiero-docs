@@ -4,7 +4,7 @@ Gets information about a fungible or non-fungible token instance.&#x20;
 
 **Query Fees**
 
-* Please see the transaction and query [fees](../../../networks/mainnet/fees/#transaction-and-query-fees) table for the base transaction fee.
+* Please see the transaction and query [fees](broken-reference) table for the base transaction fee.
 * Please use the [Hedera fee estimator](https://hedera.com/fees) to estimate the cost of your query fee.
 
 The token info query returns the following information:
