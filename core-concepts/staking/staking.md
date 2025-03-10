@@ -26,7 +26,7 @@ In this phase, 24-hour updates will be released for visibility into the stake pe
 The Hedera Governing Council voted to change the min stake value from half of the max node stake value to 1/4 of the max node stake value.
 {% endhint %}
 
-All consensus nodes run by the Hedera Governing Council distribute rewards to the accounts staked to them. You can find information about each node in the network by visiting one of the Hedera network explorers or getting the network [address book](../../sdks-and-apis/rest-api.md#api-v1-network-nodes). In the future, network participation will open up to community nodes and eventually to the public as part of Hedera’s decentralization efforts.
+All consensus nodes run by the Hedera Governing Council distribute rewards to the accounts staked to them. You can find information about each node in the network by visiting one of the Hedera network explorers or getting the network [address book](../../sdks-and-apis/rest-api/#api-v1-network-nodes). In the future, network participation will open up to community nodes and eventually to the public as part of Hedera’s decentralization efforts.
 
 Nodes have a **minimum stake** and **maximum stake**. The node's minimum stake must be met for the accounts staked to that node to be eligible to earn staking rewards. Staked tokens that go over the maximum stake will no longer impact the proportion of rewards returned. The maximum stake threshold for each node will be the total number of HBAR divided by the total number of nodes in the network. The minimum node stake threshold value will be 1/4 of the maximum node stake value. These values will change as more nodes are added to the network or can change by vote of the Hedera Governing Council.
 
@@ -46,7 +46,7 @@ The staking reward account distributes rewards to eligible staked accounts. The 
 
 The staking reward account needs to meet a minimum balance before rewards can begin to distribute rewards earned to the eligible staked accounts. The minimum HBAR balance threshold for the reward account is 250 million HBAR voted on by the Hedera Governing Council. If this balance is not met staking rewards will not be distributed. You can view the balance of this account by visiting any of the Hedera network explorers.
 
-Once the minimum threshold is met, rewards will continue to be distributed to staked accounts as long as there is a balance in the rewards account even if it falls below the initial minimum threshold. The reward rate will initially be set to zero. The Hedera Governing Council will vote and update the reward rate when the Hedera Staking Reward Program goes live. The latest reward rate can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).&#x20;
+Once the minimum threshold is met, rewards will continue to be distributed to staked accounts as long as there is a balance in the rewards account even if it falls below the initial minimum threshold. The reward rate will initially be set to zero. The Hedera Governing Council will vote and update the reward rate when the Hedera Staking Reward Program goes live. The latest reward rate can be found [here](https://hedera.com/blog/hedera-governing-council-votes-to-approve-changes-to-staking-algorithm).
 
 ## **Staking Rewards**
 

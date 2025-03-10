@@ -709,7 +709,7 @@ fmt.Printf("The account token balance %v\n", transferAccountBalance.Tokens)
 {% endtabs %}
 
 {% hint style="info" %}
-_**Note:** Check out our_ [_smart contract mirror node rest APIs_](../../sdks-and-apis/rest-api.md#smart-contracts) _that return information about a contract like contract results and logs!_
+_**Note:** Check out our_ [_smart contract mirror node rest APIs_](../../sdks-and-apis/rest-api/#smart-contracts) _that return information about a contract like contract results and logs!_
 {% endhint %}
 
 #### Congratulations :tada:! You have learned how to deploy a contract using the Hedera Token Service and completed the following:

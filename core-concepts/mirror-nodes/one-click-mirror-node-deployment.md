@@ -2,7 +2,7 @@
 
 ## Google Cloud Platform Marketplace
 
-Deploy your own mirror node with just a few clicks! The Hedera Mirror Node is open-source software and does not carry an associated license or deployment fee. However, users are responsible for paying for the compute resource used, the data retrieved from Google Cloud Storage buckets, and any other Google Cloud Platform services used during this deployment.&#x20;
+Deploy your own mirror node with just a few clicks! The Hedera Mirror Node is open-source software and does not carry an associated license or deployment fee. However, users are responsible for paying for the compute resource used, the data retrieved from Google Cloud Storage buckets, and any other Google Cloud Platform services used during this deployment.
 
 ► Before you proceed to the next step, obtain the GCP requester pay information:
 
@@ -31,7 +31,7 @@ Click [here](https://console.cloud.google.com/marketplace/details/mirror-node-pu
 * Importer GCP billing project ID
 * Importer GCP secret key
 
-Once you deploy your mirror node, you can access the mirror node via the [gRPC API](../../sdks-and-apis/hedera-consensus-service-api.md) or the [REST API](../../sdks-and-apis/rest-api.md).
+Once you deploy your mirror node, you can access the mirror node via the [gRPC API](../../sdks-and-apis/hedera-consensus-service-api.md) or the [REST API](../../sdks-and-apis/rest-api/).
 
 #### **gRPC API**
 
@@ -65,6 +65,6 @@ Example `GET` request:
 http://<yourEndpoint>/api/v1/transactions
 ```
 
-{% content-ref url="../../sdks-and-apis/rest-api.md" %}
-[rest-api.md](../../sdks-and-apis/rest-api.md)
+{% content-ref url="../../sdks-and-apis/rest-api/" %}
+[rest-api](../../sdks-and-apis/rest-api/)
 {% endcontent-ref %}

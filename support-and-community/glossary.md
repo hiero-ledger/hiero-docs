@@ -976,7 +976,7 @@ When a tokenized RWA represents ownership, investment, or entitlement to profits
 
 ***
 
-A record file is a file that contains the details of a transaction that occurred on the Hedera Network. It provides greater detail about the transaction than a receipt, such as a consensus timestamp it received or the results of a smart contract function call. Hedera Mirror Nodes store the record file and can be accessed through the [mirror node REST API](../sdks-and-apis/rest-api.md).
+A record file is a file that contains the details of a transaction that occurred on the Hedera Network. It provides greater detail about the transaction than a receipt, such as a consensus timestamp it received or the results of a smart contract function call. Hedera Mirror Nodes store the record file and can be accessed through the [mirror node REST API](../sdks-and-apis/rest-api/).
 
 ### Remix IDE
 
@@ -1246,4 +1246,4 @@ zk-SNARK is an acronym for Zero-Knowledge _&#x53;_&#x75;ccinct Non-Interactive A
 
 ***
 
-**Contributor**: [**@sumanair** ](https://github.com/sumanair)
+**Contributor**: [**@sumanair**](https://github.com/sumanair)

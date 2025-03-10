@@ -288,7 +288,7 @@
       * [Signer](sdks-and-apis/sdks/signature-provider/signer.md)
       * [Wallet](sdks-and-apis/sdks/signature-provider/wallet.md)
       * [Local Provider](sdks-and-apis/sdks/signature-provider/local-provider.md)
-  * [Mirror Node REST API](sdks-and-apis/rest-api.md)
+  * [Mirror Node REST API](sdks-and-apis/rest-api/README.md)
     * [Accounts](sdks-and-apis/rest-api/accounts.md)
     * [Balances](sdks-and-apis/rest-api/balances.md)
     * [Blocks](sdks-and-apis/rest-api/blocks.md)

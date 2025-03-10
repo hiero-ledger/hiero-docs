@@ -69,7 +69,7 @@ Hiero uses the Linux Foundation Decentralised Trust [Code of Conduct](https://ww
 
 ## License
 
-[Apache License 2.0](LICENSE/)
+[Apache License 2.0](https://github.com/hiero-ledger/hiero-docs/blob/master/LICENSE/README.md)
 
 [^1]: This is the developer learning path for beginners and web2 developers new to web3 and Hedera.
 

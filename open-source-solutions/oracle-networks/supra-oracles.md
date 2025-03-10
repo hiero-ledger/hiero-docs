@@ -20,7 +20,7 @@ Contract calls, such as `eth_call` and `eth_estmateGas`, go to the mirror node, 
 
 <summary><strong>Data Feeds - Pull Model</strong></summary>
 
-### Pull Model
+#### Pull Model
 
 This example shows how to use Supra Oracles real-world data feeds (Pull model). It fetches and verifies price data from Supra's gRPC server and use it within a smart contract on the Hedera network. These are key files:
 
@@ -34,7 +34,7 @@ The script enables switching between the Hedera mainnet and testnet environments
 
 This Solidity smart contract acts as a mock client for consuming Oracle pull data. It defines a structure for the price data and a function to receive and process the verified Oracle proof bytes.
 
-### Try this Example on Your Browser with GitPod
+#### Try this Example on Your Browser with GitPod
 
 1. Go to [this link](https://gitpod.io/#https://github.com/hedera-dev/hedera-example-supra-oracle-contract)
 2.  Run the following commands on the terminal:
@@ -49,7 +49,7 @@ This Solidity smart contract acts as a mock client for consuming Oracle pull dat
 
 You should see a console output similar to:
 
-&#x20;[![Console Output](https://github.com/hedera-dev/hedera-example-supra-oracle-contract-pull/raw/main/images/console_output.png)](https://github.com/hedera-dev/hedera-example-supra-oracle-contract-pull/blob/main/images/console_output.png)
+[![Console Output](https://github.com/hedera-dev/hedera-example-supra-oracle-contract-pull/raw/main/images/console_output.png)](https://github.com/hedera-dev/hedera-example-supra-oracle-contract-pull/blob/main/images/console_output.png)
 
 </details>
 
@@ -57,7 +57,7 @@ You should see a console output similar to:
 
 <summary><strong>Data Feeds - Push Model</strong></summary>
 
-### Push Model
+#### Push Model
 
 This example shows how to use Supra Oracles real-world data feeds (Push model).
 
@@ -67,7 +67,7 @@ With this script, you start by deploying the [`ConsumerContract.sol`](https://gi
 
 Then call the `getPrice` and/or `getPriceForMultiplePair` functions using the desired price pair indices. Get the right price pair indices from: [https://supra.com/docs/data-feeds/data-feeds-index/](https://supra.com/docs/data-feeds/data-feeds-index/)
 
-### Try this Example on Your Browser with GitPod
+#### Try this Example on Your Browser with GitPod
 
 1. Go to [this link](https://gitpod.io/#https://github.com/hedera-dev/hedera-example-supra-oracle-contract-push)
 2.  Run the following commands on the terminal:
