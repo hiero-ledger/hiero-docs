@@ -18,9 +18,9 @@ The local network comprises the consensus node, mirror node, [JSON-RPC relay](ht
 
 Enable `public_repo` permission for GitHub provider on [Gitpod’s Git integrations page](https://gitpod.io/user/integrations).
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/gitpod-git-providers-table.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/gitpod-git-providers-edit-permissions-dialog.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ***
 
@@ -28,7 +28,7 @@ Enable `public_repo` permission for GitHub provider on [Gitpod’s Git integrati
 
 The `hedera-local-node` project repository already has a Gitpod configuration file ([`.gitpod.yml`](https://github.com/hashgraph/hedera-local-node/blob/main/.gitpod.yml)), which makes it easy to run it within a workspace on Gitpod. Open the [Hiero Local Node repo](https://github.com/hashgraph/hedera-local-node). Click on the Gitpod `Open` button.
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/gitpod-button-github-repo.png" alt=""><figcaption></figcaption></figure>
 
 The Gitpod browser extension modifies the Github UI to add this button. This will spin up a new Gitpod workspace with your choice of CDE which will run the Hiero Local Node in your cloud environment.
 
@@ -64,7 +64,7 @@ See the [endpoint table](https://github.com/hashgraph/hedera-json-rpc-relay/blob
 
 Visit the local mirror node explorer endpoint ([http://localhost:8080/devnet/dashboard](http://localhost:8080/devnet/dashboard)) in your web browser. Ensure that `LOCALNET` is selected, as this will show you the Hedera network running within your Gitpod, and not one of the public nodes.
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/mirror-node-explorer-localnet.png" alt=""><figcaption></figcaption></figure>
 
 ### Shut Down the Gitpod Workspace
 
@@ -72,7 +72,7 @@ Visit the local mirror node explorer endpoint ([http://localhost:8080/devnet/das
 **Note**: Gitpod usage is billed by the hour on paid plans, and hours are limited on the free plans. Therefore, once completed, remember to stop the Gitpod workspace.
 {% endhint %}
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/gitpod-stop-workspace.png" alt=""><figcaption></figcaption></figure>
 
 ***
 

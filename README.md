@@ -1,5 +1,5 @@
 ---
-cover: broken-reference
+cover: .gitbook/assets/hiero-docs-landing-hero-cover.png
 coverY: 0
 layout:
   cover:
