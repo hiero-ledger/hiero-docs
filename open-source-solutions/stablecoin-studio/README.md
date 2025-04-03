@@ -1,2 +1,0 @@
-# Stablecoin Studio
-
