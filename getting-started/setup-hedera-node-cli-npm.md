@@ -1,12 +1,12 @@
-# Set Up Hiero Node CLI NPM
+# Set Up Hiero Node Using NPM CLI Tool
 
-**Hiero** is an open-source framework for building decentralized, trustless systems. Networks deployed using Hiero SDKs support high throughput, low and predictable fees, and instant finality—making them ideal for real-time applications and distributed consensus.
+In this tutorial, we will adopt, set up, and run a Hiero node locally using the [@hashgraph/hedera-local](https://www.npmjs.com/package/@hashgraph/hedera-local) NPM Command Line Interface (CLI) tool with `docker compose`.
 
-In this tutorial, we will adopt, set up, and run a Hedera node locally using the [@hashgraph/hedera-local](https://www.npmjs.com/package/@hashgraph/hedera-local) NPM Command Line Interface (CLI) tool with `docker compose`.
+{% hint style="info" %}
+This tutorial is based on the [Hiero Local Node README documentation](https://github.com/hashgraph/hedera-local-node).
+{% endhint %}
 
-> This tutorial is based on the [Hiero Local Node README documentation](https://github.com/hashgraph/hedera-local-node).
-
-> Already familiar with using a cloud service? Check out the other options for setting up and running the Hedera node locally. See the [Useful resources section](https://docs.google.com/document/d/1gWKWF-fzc0VlKhRhjZhecatHnTXkHy9RQeKfD6Klnak/edit#heading=h.5zlu1j5vb4rk) for more information.
+***
 
 ## Prerequisites
 
@@ -21,11 +21,11 @@ To get started with this tutorial, ensure that you have the following software i
 ### Installation
 
 * Node.js and NPM: Refer to the [official installation guide](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs).
-* Docker: See [Docker Setup Guide](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#note) to get docker up and running (note: specific instructions may vary based on the OS).
+* Docker: See [Docker Setup Guide](https://github.com/hashgraph/hedera-local-node?tab=readme-ov-file#note) to get Docker up and running (note: specific instructions may vary based on the OS).
 
 ## Getting Started
 
-Clone the GitHub repo, navigate to the project folder using the commands below;
+Clone the GitHub repo and navigate to the project folder using the commands below;
 
 ```bash
 git clone https://github.com/hiero-ledger/hiero-local-node.git
@@ -36,11 +36,15 @@ cd hiero-local-node
 
 The command below can be used to install the official release from the [NPM](https://www.npmjs.com/package/@hashgraph/hedera-local) repository.
 
-```js
+```bash
 npm install @hashgraph/hedera-local -g
 ```
 
-> **Note: This version may not reflect the most recent changes to the main branch of this repository. It also uses a baked in version of the Docker Compose definitions and will not reflect any local changes made to the repository.**
+{% hint style="warning" %}
+#### **Note**
+
+This version may not reflect the most recent changes to the main branch of this repository. It also uses a baked-in version of the Docker Compose definitions and will not reflect any local changes made to the repository.
+{% endhint %}
 
 #### Local development Installation
 
@@ -73,7 +77,7 @@ npm run start
 
 **You should see the following response in the terminal:**
 
-{% code overflow="wrap" fullWidth="true" %}
+{% code overflow="wrap" fullWidth="false" %}
 ```bash
 hiero-local-node % npm run start
 
@@ -114,7 +118,7 @@ npm run start -- -d
 
 **You should see the following response in the terminal:**
 
-{% code overflow="wrap" fullWidth="true" %}
+{% code overflow="wrap" fullWidth="false" %}
 ```bash
 hiero-local-node % npm run start -- -d
 
@@ -167,7 +171,7 @@ hiero-local-node % npm run start -- -d
 There are different ways to verify that a node is running;
 
 * Check Block Number using Hashscan Block Explorer
-* Send cURL request to `getBlockNumber`
+* Send `cURL` request to `getBlockNumber`
 
 ### Check Block Number using Hashscan Block Explorer
 
@@ -185,15 +189,18 @@ Let's verify that we are able to interact with Hedera Testnet using JSON-RPC by 
 
 **Enter the curl command below:**
 
+{% code overflow="wrap" %}
 ```bash
   curl http://localhost:7546/ \
   -X POST \
   -H "Content-Type: application/json" \
   --data '{"method":"eth_getBlockByNumber","params":["latest",false],"id":1,"jsonrpc":"2.0"}'
 ```
+{% endcode %}
 
 **You should get the following response:**
 
+{% code overflow="wrap" %}
 ```bash
 curl http://localhost:7546/ \
   -X POST \
@@ -201,6 +208,7 @@ curl http://localhost:7546/ \
   --data '{"method":"eth_getBlockByNumber","params":["latest",false],"id":1,"jsonrpc":"2.0"}'
 {"result":{"timestamp":"0x667c000e","difficulty":"0x0","extraData":"0x","gasLimit":"0xe4e1c0","baseFeePerGas":"0xa54f4c3c00","gasUsed":"0x0","logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","miner":"0x0000000000000000000000000000000000000000","mixHash":"0x0000000000000000000000000000000000000000000000000000000000000000","nonce":"0x0000000000000000","receiptsRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","sha3Uncles":"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347","size":"0x93d","stateRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","totalDifficulty":"0x0","transactions":[],"transactionsRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","uncles":[],"withdrawals":[],"withdrawalsRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","number":"0x1604","hash":"0xfef0932ffb429840fe765d6d87c77425e2991326ddae6747dcce5c929c69ef38","parentHash":"0xef1ef331626f4f50ba2541d440b45cac51c5d8d6b4c46407a00c15d593c31e96"},"jsonrpc":"2.0","id":1}%    
 ```
+{% endcode %}
 
 ### Troubleshooting
 
@@ -208,7 +216,7 @@ Find below some common errors and how to troubleshoot them:
 
 **Error: Node cannot start properly because necessary ports are in use!**
 
-{% code overflow="wrap" fullWidth="true" %}
+{% code overflow="wrap" fullWidth="false" %}
 ```bash
 hiero-local-node % npm run start -- -d
 
@@ -236,14 +244,16 @@ hiero-local-node % npm run start -- -d
 ```
 {% endcode %}
 
-**Fix**
+{% hint style="success" %}
+#### **Fix**
 
 * **Option 1:** Instead of starting another instance of the network, use the `npm run generate-accounts` to generate new accounts for an already started network.
-* **Option 2:** If you get the above error, ensure that you terminate any existing Docker processes for the local node, and also any other processes that are bound to these port numbers, before running the npm start command. You can run `docker compose down -v`, `git clean -xfd`, `git reset --hard` to fix this.
+* **Option 2:** If you get the above error, ensure that you terminate any existing Docker processes for the local node, as well as any other processes that are bound to these port numbers, before running the npm start command. You can run `docker compose down -v`, `git clean -xfd`, `git reset --hard` to fix this.
+{% endhint %}
 
 ## Useful Terms
 
-For an in depth explanation of the different terms below, see the [glossary documentation](https://docs.hedera.com/hedera/support-and-community/glossary).
+For an in-depth explanation of the different terms below, see the [glossary documentation](https://docs.hedera.com/hedera/support-and-community/glossary).
 
 * Accounts list (ED25519 keys)
 * Private keys
@@ -255,7 +265,7 @@ Want to learn how to deploy smart contracts on Hedera? Visit the guide on how to
 
 ## Summary
 
-In this tutorial, we successfully set up and ran the Hedera local node using the [NPM CLI](https://www.npmjs.com/package/@hashgraph/hedera-local) tool, generated default accounts and solved common errors encountered when running the local node.
+In this tutorial, we successfully set up and ran the Hedera local node using the [NPM CLI](https://www.npmjs.com/package/@hashgraph/hedera-local) tool, generated default accounts, and solved common errors encountered when running the local node.
 
 ## Useful Resources
 
