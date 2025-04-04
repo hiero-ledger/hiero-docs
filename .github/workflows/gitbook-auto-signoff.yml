@@ -3,7 +3,8 @@ name: Auto Sign-Off for GitBook Commits
 on:
   push:
     branches:
-      - master  # Change if your default branch is different
+      - master  # change if your default branch is different
+      - test
 
 jobs:
   signoff:
@@ -14,15 +15,30 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Checkout master branch explicitly
+        run: git checkout master
+
       - name: Auto Sign-Off GitBook Commits
         run: |
+          # set up git config
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
+          
+          # get the last commit message
           LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          if echo "$LAST_COMMIT_MESSAGE" | grep -q "GitBook"; then
+          echo "Last commit message:"
+          echo "$LAST_COMMIT_MESSAGE"
+          
+          # check if commit message contains "GitBook" (case-insensitive) and lacks a sign-off
+          if echo "$LAST_COMMIT_MESSAGE" | grep -iq "gitbook"; then
             if ! echo "$LAST_COMMIT_MESSAGE" | grep -q "Signed-off-by:"; then
               echo "Auto-signing commit..."
-              git commit --amend -m "$LAST_COMMIT_MESSAGE\n\nSigned-off-by: $(git config user.name) <$(git config user.email)>"
-              git push --force
+              git commit --amend --no-edit -s -S
+              git rebase --continue
+              git push --force-with-lease
+            else
+              echo "Commit already contains a Signed-off-by line."
             fi
+          else
+            echo "Commit message does not contain 'GitBook'. No action taken."
           fi
