@@ -1,4 +1,4 @@
-# Codespaces
+# Run in Codespaces
 
 Codespaces is a cloud development environment (CDE) that's hosted in the cloud. You can customize your project for GitHub Codespaces by committing configuration files to your repository (often known as Configuration-as-Code), which creates a repeatable codespaces configuration for all users of your project. [GitHub Codespaces overview](https://docs.github.com/en/codespaces/overview)
 
@@ -6,15 +6,15 @@ Codespaces is a cloud development environment (CDE) that's hosted in the cloud. 
 
 ## Prerequisites
 
-* Review first the [Quickstart for GitHub Codespaces](https://docs.github.com/en/codespaces/getting-started/quickstart) guide.
-* Install VS Code Desktop application.
+* Review the [Quickstart for GitHub Codespaces](https://docs.github.com/en/codespaces/getting-started/quickstart) guide.
+* Install the VSCode Desktop application.
 * In [Editor preference](https://github.com/settings/codespaces) change your client to `Visual Studio Code` (Should not be `Visual Studio Code for the Web`)
 
 ***
 
 ## Configure Dev Container
 
-To configure t he dev container, open the [Hedela Local Node repo](https://github.com/hashgraph/hedera-local-node) and click on the `Code`->`Codespaces`->`...`-> `Configure dev container`.
+To configure the dev container, open the [Hiero Local Node repo](https://github.com/hashgraph/hedera-local-node) and click on `Code`->`Codespaces`->`...`-> `Configure dev container`.
 
 <figure><img src="../../.gitbook/assets/codespace-config-dev-container.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -28,11 +28,11 @@ This will open the dev container configuration file where you can customize your
 
 ## Creating and Running Your Codespace
 
-Open the [Hedela Local Node repo](https://github.com/hashgraph/hedera-local-node) and click on the `Code`->`Codespaces`->`...`-> `New with options...` button and choose the appropriate settings:
+Open the [Hiero Local Node repo](https://github.com/hashgraph/hedera-local-node) and click on the `Code`->`Codespaces`->`...`-> `New with options...` button and choose the appropriate settings:
 
 <figure><img src="../../.gitbook/assets/local-node-codespaces.jpeg" alt="" width="563"><figcaption></figcaption></figure>
 
-Once your codespace is created, the template repository will be automatically cloned into it. Your codespace is all set up and have the local node running!
+Once your codespace is created, the template repository will be automatically cloned into it. Your codespace is all set up, and the local node is running!
 
 <figure><img src="../../.gitbook/assets/local-node-codespace-config.png" alt=""><figcaption></figcaption></figure>
 

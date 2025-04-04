@@ -1,8 +1,6 @@
-# Set Up A Hiero Local Node
+# Set Up Hiero Local Node Using Docker
 
-The [**Hiero Local Node**](https://github.com/hashgraph/hedera-local-node) project enables developers to establish their own local network for development and testing. The local network comprises the consensus node, mirror node, [JSON-RPC relay](https://github.com/hashgraph/hedera-json-rpc-relay#readme), and other Hiero Consensus Node services, and can be set up using the CLI tool and Docker. This setup allows you to seamlessly build and deploy smart contracts from your local environment.
-
-By the end of this tutorial, you'll be equipped to run a Hiero local node and generate keys, allowing you to test your projects and deploy projects in your local environment.
+In this tutorial, we will adopt, set up, and run a Hiero node locally using Docker. By the end of this tutorial, you'll be equipped to run a Hiero local node and generate keys, allowing you to test your projects and deploy projects in your local environment.
 
 ***
 
@@ -40,7 +38,11 @@ Ensure the **`Allow the default Docker sockets to be used (requires password)`**
 
 </details>
 
-_**\*\***&#x4C;ocal node can be run using Docker or NPM but we will use Docker for this tutorial._ [_Here_](https://github.com/hashgraph/hedera-local-node#official-npm-release) _are the installation steps for NPM._
+{% hint style="info" %}
+#### _**Note**_
+
+_**\*\***&#x4C;ocal node can be run using Docker, NPM, or on CDEs but we will use Docker for this tutorial._ [_Here_](https://github.com/hashgraph/hedera-local-node#official-npm-release) _are the installation steps for NPM._
+{% endhint %}
 
 ***
 
