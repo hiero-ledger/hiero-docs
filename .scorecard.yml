@@ -1,0 +1,8 @@
+annotations:
+  - checks:
+      - sast
+      - packaging
+      - signed-releases
+      - fuzzing
+    reasons:
+      - reason: not-applicable # The code hosted in this repo is purely documentation managed by gitbook with no additional artifacts.
