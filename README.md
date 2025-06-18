@@ -1,3 +1,6 @@
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/hiero-ledger/hiero-docs/badge)](https://api.scorecard.dev/projects/github.com/hiero-ledger/hiero-docs)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/10697/badge)](https://bestpractices.coreinfrastructure.org/projects/10697)
+
 ---
 cover: .gitbook/assets/hiero-docs-landing-hero-cover.png
 coverY: 0
@@ -23,15 +26,17 @@ Hiero, a [Linux Foundation Decentralized Trust](http://www.lfdecentralizedtrust.
 
 <table data-card-size="large" data-view="cards"><thead><tr><th align="center"></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td align="center"><a href="https://hiero.org/"><strong>LEARN THE BASICS</strong></a></td><td><a href="https://hiero.org/">https://hiero.org/</a></td><td></td></tr><tr><td align="center"><a href="getting-started/"><strong>GET STARTED</strong></a></td><td><a href="./#set-up-your-environment">#set-up-your-environment</a></td><td></td></tr><tr><td align="center"><a href="https://hiero.org/#roadmap"><strong>ROADMAP</strong></a></td><td><a href="https://hiero.org/#roadmap">https://hiero.org/#roadmap</a></td><td></td></tr><tr><td align="center"><a href="https://hiero.org/#contribute"><strong>CONTRIBUTE</strong></a></td><td><a href="https://hiero.org/#contribute">https://hiero.org/#contribute</a></td><td></td></tr></tbody></table>
 
-## Contributing
+## Contribute
 
-Whether you’re fixing bugs, enhancing features, or improving documentation, your contributions are important — let’s build something great together!
-
-Please read our [contributing guide](https://github.com/hashgraph/.github/blob/main/CONTRIBUTING.md) to see how you can get involved.
+- To contribute, please refer to the **[Hiero-Ledger's contribution guidelines](https://github.com/hiero-ledger/.github/blob/main/CONTRIBUTING.md)**
 
 ## Code of Conduct
 
-This project is governed by the [Contributor Covenant Code of Conduct](https://github.com/hashgraph/.github/blob/main/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code of conduct.
+This project is governed by the **[Contributor Covenant Code of Conduct](https://github.com/hashgraph/.github/blob/main/CODE_OF_CONDUCT.md)**. By participating, you are expected to uphold this code of conduct.
+
+## About Users and Maintainers
+
+- Users and Maintainers guidelies are located in **[Hiero-Ledger's roles and groups guidelines](https://github.com/hiero-ledger/governance/blob/main/roles-and-groups.md#maintainers).**
 
 ## License
 
