@@ -1,5 +1,6 @@
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/hiero-ledger/hiero-docs/badge)](https://api.scorecard.dev/projects/github.com/hiero-ledger/hiero-docs)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/hiero-ledger/hiero-docs/badge)](https://scorecard.dev/viewer/?uri=github.com/hiero-ledger/hiero-docs)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/10697/badge)](https://bestpractices.coreinfrastructure.org/projects/10697)
+[![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE)
 
 ---
 cover: .gitbook/assets/hiero-docs-landing-hero-cover.png
