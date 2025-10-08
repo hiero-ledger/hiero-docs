@@ -1,6 +1,24 @@
 # Getting Started with Hiero
 
-Welcome to the Hiero Getting Started section where you'll find a collection of step-by-step guides designed to help you set up and explore a fully functional Hiero local node (network). The [**Hiero Local Node**](https://github.com/hashgraph/hedera-local-node) project empowers developers to deploy their own local network for development and testing. This network includes essential services such as the consensus node, mirror node, JSON-RPC relay, and more that can be deployed using multiple methods.
+Welcome to the Hiero Getting Started section where you'll find information on how to get involved in Hiero and a collection of step-by-step guides designed to help you set up and explore a fully functional Hiero local node (network).
+
+## Get Involved in Hiero
+
+**➡** [**Start Here**](https://hiero.org/) - Learn about what is Hiero, who are the main participants and where to find collaboration oportunities.
+
+**➡** [**Get Caught Up With The Latest News**](https://hiero.org/blog/) - Read our latest blog project news and events happening in our community.
+
+**➡** [**Learn More About LFDT and Hiero**](https://www.lfdecentralizedtrust.org/projects/hiero) - Learn more about Hiero from Linux Foundation Decentralized Trust blog site. 
+
+**➡** [**Clone The Code**](https://github.com/hiero-ledger/) - Learn more about the code base in GitHub.
+
+**➡** [**Attend our Technical Steering Commitee Meeting**](https://zoom-lfx.platform.linuxfoundation.org/meetings/hiero?view=week&occurrence=1760450400) - Our Technical Commitee Meetings are open and welcomes anyone who is interested in learning about the latest project status and direction. 
+
+**➡** [**Attend any of our public meetings**](https://zoom-lfx.platform.linuxfoundation.org/meetings/hiero?view=month) - Explore any of our public project meetings. These meetings are designed to welcome eveyone interested in learning more and contributing to any of Hiero's components.
+
+## Hiero Setup Guides
+
+The [**Hiero Local Node**](https://github.com/hashgraph/hedera-local-node) project empowers developers to deploy their own local network for development and testing. This network includes essential services such as the consensus node, mirror node, JSON-RPC relay, and more that can be deployed using multiple methods.
 
 **➡** [**Deploy Your Hiero Local Node**](./#deploy-your-hiero-local-node)
 
@@ -8,7 +26,7 @@ Welcome to the Hiero Getting Started section where you'll find a collection of s
 
 ***
 
-## Deploy Your Hiero Local Node
+### Deploy Your Hiero Local Node
 
 Choose to deploy between Docker with the Hiero CLI, managing your node via the official NPM package, or leveraging Cloud Development Environments (CDEs) like Gitpod or GitHub Codespaces. These guides are designed to help you quickly and efficiently establish a testing environment. This flexibility enables you to work from any device without being tied down by a static local setup.
 
@@ -16,7 +34,7 @@ Choose to deploy between Docker with the Hiero CLI, managing your node via the o
 
 ***
 
-## **Available Services and Dashboards**
+### **Available Services and Dashboards**
 
 The Hiero local node comes with various services, each serving different functions, and accessible locally. You can use these services on `localhost`.&#x20;
 
