@@ -6,6 +6,12 @@ description: Hiero supported and community-maintained SDKs
 
 There are several options for friendly, language-specific access to the Hiero API and its network services.
 
+## Hiero SDK Collaboration Hub
+
+The **[Hiero SDK Collaboration Hub](https://github.com/hiero-ledger/sdk-collaboration-hub)** repo serves as a collaborative space for design proposals, contribution guidelines, templates, and other helpful documentation to support Hiero SDK contributors.
+
+To follow the latest news and collaborate with other maintainers in Hiero's SDKs, join our **[bi-weekly meeting](https://zoom-lfx.platform.linuxfoundation.org/meetings/hiero?view=week&occurrence=1760968800)**.
+
 ## Hiero Consensus Node SDKs
 
 Hiero and the developer community contribute to and maintain Hiero Consensus Node SDKs across various languages.
