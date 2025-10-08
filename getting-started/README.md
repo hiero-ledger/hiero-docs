@@ -4,7 +4,7 @@ Welcome to the Hiero Getting Started section where you'll find information on ho
 
 ## Get Involved in Hiero
 
-**➡** [**Start Here**](https://hiero.org/) - Learn about what is Hiero, who are the main participants and where to find collaboration oportunities.
+**➡** [**Start Here**](https://hiero.org/) - Learn about what is Hiero, who are the main participants and where to find collaboration opportunities.
 
 **➡** [**Get Caught Up With The Latest News**](https://hiero.org/blog/) - Read our latest blog project news and events happening in our community.
 
@@ -12,9 +12,9 @@ Welcome to the Hiero Getting Started section where you'll find information on ho
 
 **➡** [**Clone The Code**](https://github.com/hiero-ledger/) - Learn more about the code base in GitHub.
 
-**➡** [**Attend our Technical Steering Commitee Meeting**](https://zoom-lfx.platform.linuxfoundation.org/meetings/hiero?view=week&occurrence=1760450400) - Our Technical Commitee Meetings are open and welcomes anyone who is interested in learning about the latest project status and direction. 
+**➡** [**Attend our Technical Steering Committee Meeting**](https://zoom-lfx.platform.linuxfoundation.org/meetings/hiero?view=week&occurrence=1760450400) - Our Technical Committee Meetings are open and welcomes anyone who is interested in learning about the latest project status and direction. 
 
-**➡** [**Attend any of our public meetings**](https://zoom-lfx.platform.linuxfoundation.org/meetings/hiero?view=month) - Explore any of our public project meetings. These meetings are designed to welcome eveyone interested in learning more and contributing to any of Hiero's components.
+**➡** [**Attend any of our public meetings**](https://zoom-lfx.platform.linuxfoundation.org/meetings/hiero?view=month) - Explore any of our public project meetings. These meetings are designed to welcome everyone interested in learning more and contributing to any of Hiero's components.
 
 ## Hiero Setup Guides
 
