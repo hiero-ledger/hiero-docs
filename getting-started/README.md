@@ -8,7 +8,7 @@ Welcome to the Hiero Getting Started section where you'll find information on ho
 
 **➡** [**Get Caught Up With The Latest News**](https://hiero.org/blog/) - Read our latest blog project news and events happening in our community.
 
-**➡** [**Learn More About LFDT and Hiero**](https://www.lfdecentralizedtrust.org/projects/hiero) - Learn more about Hiero from Linux Foundation Decentralized Trust blog site. 
+**➡** [**Learn More About LFDT and Hiero**](https://www.lfdecentralizedtrust.org/projects/hiero) - Learn more about Hiero from Linux Foundation Decentralized Trust blog site.
 
 **➡** [**Clone The Code**](https://github.com/hiero-ledger/) - Learn more about the code base in GitHub.
 
