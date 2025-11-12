@@ -22,3 +22,4 @@
 * [Hiero Local Node](https://github.com/hiero-ledger/hiero-local-node)
 * [Hiero Mirror Node](https://github.com/hiero-ledger/hiero-mirror-node)
 * [Hiero Mirror Node Explorer](https://github.com/hiero-ledger/hiero-mirror-node-explorer)
+* [Solo](https://github.com/hiero-ledger/solo)
