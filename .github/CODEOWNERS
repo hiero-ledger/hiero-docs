@@ -1,0 +1,26 @@
+###################################
+##### Global Protection Rule ######
+###################################
+# NOTE: This rule is overriden by the more specific rules below. This is the catch-all rule for all files not covered by the more specific rules below
+*                                               @hiero-ledger/hiero-docs-maintainers @hiero-ledger/hiero-docs-committers
+
+#########################
+#####  Core Files  ######
+#########################
+
+# NOTE: Must be placed last to ensure enforcement over all other rules
+
+# Protection Rules for Github Configuration Files and Actions Workflows
+/.github/                                       @hiero-ledger/github-maintainers @hiero-ledger/hiero-docs-maintainers @hiero-ledger/hiero-docs-committers
+/.github/workflows/                             @hiero-ledger/github-maintainers 
+
+# Self-protection for root CODEOWNERS files (this file should not exist and should definitely require approval)
+/CODEOWNERS                                     @hiero-ledger/github-maintainers
+
+# Protect the repository root files
+/README.md                                      @hiero-ledger/github-maintainers @hiero-ledger/hiero-docs-maintainers @hiero-ledger/hiero-docs-committers
+**/LICENSE                                      @hiero-ledger/github-maintainers
+
+# Git Ignore definitions
+**/.gitignore                                   @hiero-ledger/github-maintainers @hiero-ledger/hiero-docs-maintainers @hiero-ledger/hiero-docs-committers
+**/.gitignore.*                                 @hiero-ledger/github-maintainers @hiero-ledger/hiero-docs-maintainers @hiero-ledger/hiero-docs-committers
