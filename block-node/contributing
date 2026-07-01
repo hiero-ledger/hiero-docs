@@ -1,0 +1,77 @@
+# Contributing
+
+We welcome contributions to the project.
+
+Hiero strives for decentralization and that includes in its development process.
+In addition to the [Hiero Contributing Guidelines](https://github.com/hiero-ledger/.github/blob/main/CONTRIBUTING.md) we have a few guidelines specific to the development of the block node project.
+
+## Issues
+
+Issues should be created using one of the issue templates. GitHub allows these templates to be bypassed in some areas of its user interface, but users should refrain from doing so and ensure all fields of the template are filled.
+Any issues that have been addressed on `main` or a `release` branches are required to have a milestone associated with them.
+Additionally, `type` must be selected, and issues should have a parent issue if that is known.
+Project maintainers will assign an appropriate parent if none is set initially.
+
+## Labels
+
+Labels are used to group related issues together. Only maintainers have permission to add or remove labels to issues.
+For other contributors, project maintainers will adjust the labels as necessary to meet the project's requirements.
+Every issue should have one of these mandatory Type labels:
+
+- "Breaking Change"
+- "Bug"
+- "dependencies"
+- "Design"
+- "Documentation"
+- "Feature Enhancement"
+- "Improvement"
+- "New Feature"
+- "Tests"
+- "Security"
+
+Additionally, issues are also recommended to have an Area label to indicate which component is impacted and to route it
+to the appropriate team member where possible. Any other label can be added on an as-needed basis.
+
+## Branches
+Branches should be created using the following naming convention: <issue#>-<description>.
+For example, if the issue number is 123 and the issue is to add a new feature, the branch name should be `123-add-new-feature`.
+
+## Pull Requests
+
+Pull requests should be created using the pull request template.
+Particularly, the PR should have a reference to the issue it addresses, and the PR should have a clear description of the changes it proposes to assist reviewers.
+
+The description should contain a short description of the change, followed by a bulleted list of changes in imperative 
+present tense (i.e. use terms like `add`, `remove`, `change`, etc.) - inspired by [git kernel imperative mood](https://web.git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?h=v2.36.1#n181).
+This description should be copied to the commit message once the PR is approved and squash-merged to the target branch.
+Below is a good example of a PR description:
+
+```
+Increase the overall performance of local block verification by 1-2x due to the combined switch from E2 to N2 machine
+class and the switch to virtual threads.
+
+* Enable virtual threads
+* Change from netty reactive API to project Nima
+* Fix crashing under heavy load due to lack of non-heap memory
+* Increase max replicas from 2 to 4
+```
+
+Contributors are also encouraged to include logs, screenshots and steps to test the changes in the PR where applicable.
+
+Every PR should have a corresponding issue associated with it. The pull request should indicate it fixes its
+corresponding issue(s) by using the keyword `Fixes #1234` in the `Related issue(s)` section of the PR template. The
+labels from the issue should be copied over from the issue so that it appears properly in the release notes. All pull
+requests targeting `main` or `release` branches should have a milestone set. Project fields should be left empty since
+only an issue should have a project assigned to ensure work is not tracked twice on the board.
+
+Before pressing the "Create pull request" button, the PR submitter should ensure the following:
+- `Assignees` is set to themselves
+- At least one label on the PR is set
+- The milestone on the PR is set
+- The PR title follows [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/#summary) syntax.
+
+Before opening a PR, the submitter should ensure all tests pass locally and any manual testing has been conducted to
+verify the new functionality. The PR should stay as draft and without requesting reviewers until all requirements of the
+ticket are complete, all checks pass, and a self-review of the changes has been conducted. Once that criteria has been
+met, the PR can be marked as ready for review and the `@hiero-ledger/hiero-block-node-committers` team requested for a
+review. PRs require at least two approvals to merge.
