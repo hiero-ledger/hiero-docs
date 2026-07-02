@@ -40,8 +40,6 @@
     * [Load Testing with Solo and NLG](block-node/block-node/operations/load-testing-a-deployed-block-node-using-solo-and-nlg.md)
     * [Reset and Upgrade](block-node/block-node/operations/resetting-and-upgrading-the-block-node.md)
   * [Troubleshooting](block-node/block-node/troubleshooting.md)
-  * [Reference](block-node/block-node/glossary.md)
-    * [Glossary](block-node/block-node/glossary.md)
   * [Advanced](block-node/block-node/record-stream-to-block-stream-migration.md)
     * [Record Stream to Block Stream Migration](block-node/block-node/record-stream-to-block-stream-migration.md)
     * [Cutover Process and Timeline](block-node/block-node/Cutover-Process.md)
