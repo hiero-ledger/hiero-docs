@@ -37,20 +37,6 @@ archive.
 | Network           | 2 × 10 Gbps NICs                                                                                                            |
 | OS                | Linux host OS (Ubuntu 24.04 LTS or Debian 13.x LTS recommended)                                                             |
 
-### Remote Full History (RFH)
-
-Block history is stored remotely (e.g. cloud object store). The NVMe holds
-recent/live blocks and live state only; historical data is offloaded to object
-storage.
-
-|   Component    |                                                    Minimum Specification                                                    |
-|----------------|-----------------------------------------------------------------------------------------------------------------------------|
-| CPU            | 24 cores / 48 threads, single socket, ≥ 2.0 GHz base clock, Geekbench 6 single-core ≥ 1500, Passmark single-threaded ≥ 2800 |
-| RAM            | 256 GB                                                                                                                      |
-| Fast NVMe Disk | 7.5 TB NVMe SSD (recent blocks + live state; 7.5TB usable, see note on enterprise sizing and OS disk)                       |
-| Network        | 2 × 10 Gbps NICs                                                                                                            |
-| OS             | Linux host OS (Ubuntu 24.04 LTS or Debian 13.x LTS recommended)                                                             |
-
 #### Recommendations
 
 - NICs: 25 Gbps or higher are recommended for better throughput and
@@ -92,6 +78,25 @@ nodes, retaining only a configurable window of recent blocks. Tier 2 nodes are
 still required to verify the block stream they receive, but are not required to
 store the full history of the network.
 
+### Full History Tier 2
+
+Tier 2 nodes that choose to store the complete block history and manage live state should use the
+[Tier 1 LFH specification](#local-full-history-lfh).
+
+### Remote Full History (RFH)
+
+Block history is stored remotely (e.g. cloud object store).
+Historical data is offloaded to object storage n real time after processing.
+No state services are offered and most if not all services are expected to be private.
+
+|     Component     |                                                    Minimum Specification                                                    |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| CPU               | 16 cores / 32 threads, single socket, ≥ 2.0 GHz base clock, Geekbench 6 single-core ≥ 1500, Passmark single-threaded ≥ 2800 |
+| RAM               | 128 GB                                                                                                                      |
+| Bulk Storage Disk | 100 GB HDD or equivalent                                                                                                    |
+| Network           | 2 × 10 Gbps NICs                                                                                                            |
+| OS                | Linux host OS (Ubuntu 24.04 LTS or Debian 13.x LTS recommended)                                                             |
+
 ### Rolling-History (Partial History) Tier 2
 
 A Rolling-History Tier 2 node does not store full blockchain history. CPU and
@@ -129,11 +134,6 @@ Estimates use the same block-size model as the mainnet tables below:
 mainnet). The 7.5 TB NVMe tier supports approximately 19 days of blocks at 10K
 TPS with 20% headroom. Operators retaining longer windows should provision
 additional HDD bulk storage.
-
-### Full History Tier 2
-
-Tier 2 nodes that choose to store the complete block history and manage live state should use the
-[Tier 1 LFH specification](#local-full-history-lfh).
 
 ---
 

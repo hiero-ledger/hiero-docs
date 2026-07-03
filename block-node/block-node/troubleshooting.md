@@ -26,11 +26,13 @@ and resolve problems quickly.
 
 #### 1.1 Logs & diagnostics
 
-- **Structured logs**: JSON-formatted logs are written to stdout / stderr
-  (easily ingested by Loki, ELK, Splunk, etc.).
+- **Logs**: Single-line text logs are written to stdout / stderr
+  (easily ingested by Loki, ELK, Splunk, etc.). In Docker / Kubernetes the
+  format is `java.util.logging.SimpleFormatter`; local dev uses a coloured
+  single-line variant (`CleanColorfulFormatter`).
 - **Log levels**: Controlled via
-  [values.yaml](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values.yaml#L255):
-  `logs.level` (`ALL FINEST FINER FINE CONFIG INFO WARNING SEVERE OFF`).
+  [values.yaml](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values.yaml)
+  (`blockNode.logs.level`): `ALL FINEST FINER FINE CONFIG INFO WARNING SEVERE OFF`.
 - **Key log tags to grep**:
   - `StreamPublisherPlugin` : incoming blocks from consensus nodes
   - `VerificationServicePlugin` : signature / proof failures
@@ -63,7 +65,7 @@ See the full list in the
 | Messaging / Backpressure  | `messaging_item_queue_percent_used`, `messaging_notification_queue_percent_used`                                          | Queue saturation / backpressure                        |
 | Subscribers               | `subscriber_open_connections`, `subscriber_errors`                                                                        | Dropped clients or streaming errors                    |
 | Backfill                  | `backfill_blocks_backfilled`, `backfill_fetch_errors`, `backfill_pending_blocks`, `backfill_status`                       | Rising errors or stuck backfill status                 |
-| Archive (S3)              | `s3_archive_tasks_failed_total`, `s3_archive_latest_block`                                                                | Archival failures or stale archive height              |
+| Cloud Archive             | `cloud_storage_archive_failed_tasks`, `cloud_storage_archive_blocks_written`                                              | Archival failures or stalled block write count         |
 
 ---
 
@@ -87,7 +89,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
      - Verify process is running and not crashlooping.
      - Confirm CPU / memory are not obviously saturated.
    - From a trusted host, test connectivity to the Block Node:
-     - `nc <IP_OF_BLOCK_NODE> 40840 -vz`
+     - `nc -vz <IP_OF_BLOCK_NODE> 40840`
        - Success: TCP reachability is OK.
        - Failure: suspect firewall, security group, or local iptables.
    - If `nc` fails:
@@ -97,7 +99,6 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 2. **Logs**
    - Search for:
      - Connection-related errors to consensus nodes.
-     - TLS handshake failures.
      - Repeated reconnect attempts or backoff warnings.
 3. **Metrics**
    - Confirm:
@@ -106,8 +107,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
    - Correlate with time of any infrastructure changes (deploys, config updates, firewall changes).
 4. **Resolution**
    - Fix firewall / security group rules on gossip / ingest port (default `40840`, or configured port).
-   - Correct TLS or mutual-auth configuration between CN and Block Node.
-   - Restart the Block Node if needed once connectivity and TLS are corrected.
+   - Restart the Block Node if needed once connectivity is restored.
 5. **Verification**
    - Confirm `publisher_block_items_received` increases steadily.
    - `publisher_open_connections` is stable and non-zero.
@@ -145,18 +145,18 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
            '{"start_block_number": <BLOCK>, "end_block_number": <BLOCK>}'
        ```
    - Verify the correct advertised hostname / IP and port in Block Node config, and that DNS or load balancer points to the active node.
-3. **TLS and auth (if TLS is enabled)**
+3. **TLS (if TLS is enabled at your ingress or proxy)**
    - Check client logs for:
      - `x509: certificate has expired or is not yet valid`.
      - Hostname mismatch between certificate and endpoint.
      - Unknown CA / trust failures.
-   - On the Block Node, confirm TLS cert and key paths are correct, readable, and that certificates are not expired and the chain is complete.
+   - TLS termination is at the ingress or reverse proxy in front of the Block Node, not on the Block Node itself. Confirm TLS cert and key paths are correct, readable, and not expired at that layer.
 4. **Service configuration**
    - Ensure `stream-subscriber` is present in the Block Node plugin configuration.
    - Check any rate limits or `max-connections` settings that might be rejecting clients.
 5. **Resolution**
    - Fix endpoint configuration (advertise address / port), update DNS or load balancer if needed.
-   - Renew or reinstall TLS certificates and restart Block Node and / or clients.
+   - If using a TLS-terminating proxy or ingress, renew or reinstall certificates there and restart the proxy as needed.
    - Update firewall / security groups to allow gRPC traffic from subscribers.
 6. **Verification**
    - Confirm clients successfully establish long-lived gRPC streams without continuous reconnects.
@@ -317,8 +317,8 @@ The table below is a **summary-only quick reference**. Use the runbooks above fo
 
 |                    **Issue**                     |                               **Symptoms**                                |                                              **Diagnosis**                                               |                                                                  **Resolution**                                                                   |
 |--------------------------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| Node not receiving new blocks                    | Ingest appears stalled, logs show no publish activity                     | Check firewall / TLS on ingest port (default `40840`), Consensus Node logs                               | Open inbound port, verify mutual TLS certs, ensure node is authorized / whitelisted by upstream CN                                                |
-| Block Node operator: subscribers cannot connect  | gRPC connection failures; clients repeatedly reconnecting                 | TLS cert check (if TLS is enabled); endpoint config; `stream-subscriber` plugin present                  | Fix endpoint or firewall; renew TLS certs (if TLS is enabled); add `stream-subscriber` to plugin configuration                                    |
+| Node not receiving new blocks                    | Ingest appears stalled, logs show no publish activity                     | Check firewall on ingest port (default `40840`), Consensus Node logs                                     | Open inbound port, ensure node is authorized / whitelisted by upstream CN; check ingress cert if using TLS termination                            |
+| Block Node operator: subscribers cannot connect  | gRPC connection failures; clients repeatedly reconnecting                 | Endpoint config; `stream-subscriber` plugin present; TLS cert check at ingress (if TLS is enabled)       | Fix endpoint or firewall; renew ingress TLS certs (if TLS is enabled); add `stream-subscriber` to plugin configuration                            |
 | Mirror Node operator: Mirror Node cannot connect | MN block height not advancing; repeated subscribe errors in importer logs | `nc` reachability; `serverStatus` output; subscribe smoke test; MN `block.*` config                      | Fix endpoint or firewall; correct `requiresTls`; see [connecting guide](./operations/connecting-a-mirror-node-to-a-block-node.md#troubleshooting) |
 | Disk full / out of space                         | Node crashes or refuses new blocks                                        | `df -h`, `files_recent_total_bytes_stored` nearing limit                                                 | Prune old blocks (partial-history), expand volume, or migrate to archive node                                                                     |
 | Metrics endpoint not accessible                  | Grafana dashboards empty, Prometheus target `DOWN`                        | Port `16007` blocked or metrics disabled via config                                                      | Open port, enable metrics, fix Prometheus scrape job                                                                                              |

@@ -217,12 +217,13 @@ Activity and utilization of the historic on‑disk tier.
 **Plugin:** `cloud-storage-archive`
 Tracks long‑term archival jobs that push complete blocks to S3-compatible cloud storage.
 
-|  Type   |                   Name                   |                  Description                   |
-|---------|------------------------------------------|------------------------------------------------|
-| Counter | `cloud_storage_archive_blocks_written`   | Blocks written to S3 cloud archive storage     |
-| Counter | `cloud_storage_archive_failed_tasks`     | Failed cloud archive upload tasks              |
-| Counter | `cloud_storage_archive_successful_tasks` | Successful cloud archive upload tasks          |
-| Counter | `cloud_storage_archive_stored_bytes`     | Total bytes stored in S3 cloud archive storage |
+|  Type   |                        Name                        |                       Description                       |
+|---------|----------------------------------------------------|---------------------------------------------------------|
+| Counter | `cloud_storage_archive_blocks_written`             | Blocks written to S3 cloud archive storage              |
+| Counter | `cloud_storage_archive_failed_tasks`               | Failed cloud archive upload tasks                       |
+| Counter | `cloud_storage_archive_successful_tasks`           | Successful cloud archive upload tasks                   |
+| Counter | `cloud_storage_archive_stored_bytes`               | Total bytes stored in S3 cloud archive storage          |
+| Counter | `cloud_storage_archive_duplicate_blocks_discarded` | Duplicate blocks discarded during cloud archive routing |
 
 ---
 
