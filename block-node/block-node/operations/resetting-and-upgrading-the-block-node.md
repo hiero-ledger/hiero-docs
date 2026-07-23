@@ -9,9 +9,9 @@ It assumes the Block Node was installed using the standard Helm chart, either vi
 Reset and upgrade are two distinct day-two operations that are often confused:
 
 - **Upgrade** changes the running Block Node version (image tag and Helm chart version) without discarding the local block storage or state. Pre-existing live and historic blocks remain on disk; the new version resumes from where the previous one left off.
-- **Reset** wipes the Block Node's local block data (both live blocks and historic blocks), clears the node application state details (e.g. rosters), and starts the node fresh. A reset is destructive: Consensus Nodes only keep a minimal recent buffer and cannot serve the wiped history, so the lost data must be backfilled from another Block Node that holds the relevant range (typically a Tier 1 archive node). For a mature network — Hedera mainnet, for example — that backfill can take a very long time (potentially weeks), proportional to the total block history.
+- **Reset** wipes the Block Node's local block data (both live blocks and historic blocks), clears the node application state details (e.g. rosters), and starts the node fresh. A reset is destructive: Consensus Nodes only keep a minimal recent buffer and cannot serve the wiped history, so the lost data must be backfilled from another Block Node that holds the relevant range (typically a Tier 1 archive node). For a mature network — Hedera mainnet, for example — that [backfill](../glossary.md#backfill) can take a very long time (potentially weeks), proportional to the total block history.
 
-The two operations can be chained. **Solo Provisioner is the recommended path**: `sudo solo-provisioner block node upgrade --with-reset` performs the reset and the upgrade in a single managed transaction (the `--with-reset` flag wipes the block node data directories; PVs and PVCs are preserved). For manual Taskfile-managed deployments, `task reset-upgrade` is the equivalent. Use the chained operation when you need to discard data and move forward; use a plain upgrade (`sudo solo-provisioner block node upgrade` or `task helm-upgrade`) for a clean version bump.
+The two operations can be chained. **[Solo Provisioner](../glossary.md#solo-provisioner) is the recommended path**: `sudo solo-provisioner block node upgrade --with-reset` performs the reset and the upgrade in a single managed transaction (the `--with-reset` flag wipes the block node data directories; PVs and PVCs are preserved). For manual Taskfile-managed deployments, `task reset-upgrade` is the equivalent. Use the chained operation when you need to discard data and move forward; use a plain upgrade (`sudo solo-provisioner block node upgrade` or `task helm-upgrade`) for a clean version bump.
 
 > **Production Block Nodes should rarely, if ever, be reset under normal circumstances.** Treat reset as a recovery procedure for corruption, version-incompatibility, or network changes — not as routine maintenance. For high-value Block Nodes, maintain an offline backup of the live and archive PVC contents (updated daily where possible) so a corrupted node can be restored from snapshot instead of resyncing from another Block Node.
 
@@ -37,7 +37,7 @@ Upgrade the Block Node when any of the following is true:
 
 - A new Block Node release contains fixes or features you need - security, correctness, plugin behaviour, or operational improvements. Track releases at [hiero-block-node releases](https://github.com/hiero-ledger/hiero-block-node/releases).
 - The Helm chart shape has changed - for example, new required values, renamed configuration keys, or added persistent volume mounts. The chart and the Block Node image versions are released together and share an `appVersion`.
-- Compatibility with the rest of the Hiero network requires it. A single Block Node release is intended to span all stages of the records-to-block-streams cutover, but if a future release introduces a hard compatibility break with the publishing Consensus Nodes or the surrounding ecosystem, the upgrade becomes mandatory. Refer to [Cutover-Process](../Cutover-Process.md) for the network milestone view.
+- Compatibility with the rest of the Hiero network requires it. A single Block Node release is intended to span all stages of the records-to-block-streams [cutover](../glossary.md#cutover-release), but if a future release introduces a hard compatibility break with the publishing Consensus Nodes or the surrounding ecosystem, the upgrade becomes mandatory. Refer to [Cutover-Process](../Cutover-Process.md) for the network milestone view.
 
 **Why it matters:** An upgrade preserves local block data and state, so the Block Node continues to serve historical block-range requests immediately after the new pod becomes ready. There is no backfill window unless the upgrade itself fails.
 
@@ -164,7 +164,7 @@ sudo solo-provisioner block node uninstall
 sudo solo-provisioner block node install -p <profile>
 ```
 
-`solo-provisioner block node uninstall` deletes the StatefulSet but leaves the PVs and PVCs intact. A Local Full History (LFH) Block Node retains its data on disk, so the subsequent reinstall does not trigger a full backfill. Ensure the Provisioner is configured to install the previous chart version (consult the Solo Provisioner documentation for the version-selection flag or state-file format used by your release).
+`solo-provisioner block node uninstall` deletes the StatefulSet but leaves the PVs and PVCs intact. A [Local Full History](../glossary.md#local-full-history-lfh) (LFH) Block Node retains its data on disk, so the subsequent reinstall does not trigger a full backfill. Ensure the Provisioner is configured to install the previous chart version (consult the Solo Provisioner documentation for the version-selection flag or state-file format used by your release).
 
 #### Path B: Manual Taskfile-managed deployments
 

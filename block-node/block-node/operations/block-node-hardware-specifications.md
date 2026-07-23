@@ -2,7 +2,7 @@
 
 This document defines the minimum hardware requirements and storage/network
 benchmark targets for running a Block Node (BN) in a production environment.
-It covers Tier 1 mainnet, Tier 2 rolling-history, and testnet/previewnet
+It covers [Tier 1](../glossary.md#tier-1-block-node) mainnet, [Tier 2](../glossary.md#tier-2-block-node) rolling-history, and testnet/previewnet
 deployments.
 
 ---
@@ -41,7 +41,7 @@ archive.
 
 - NICs: 25 Gbps or higher are recommended for better throughput and
   future-proofing, although 10 Gbps is the stated minimum.
-- Bulk storage: 500 TB is recommended for LFH to accommodate long-term block
+- Bulk storage: 500 TB is recommended for [LFH](../glossary.md#local-full-history-lfh) to accommodate long-term block
   history and state growth. A lower 300 TB is considered adequate, potentially
   with a shorter upgrade timeline, and 100 TB is the minimum requirement for
   Tier 1.
@@ -152,7 +152,7 @@ RAM) is the minimum. See the
 [Virtual Machine Single Node Kubernetes Deployment Guide](./solo-weaver-single-node-k8s-deployment.md)
 for the full step-by-step walkthrough.
 
-> **Note:** Solo Provisioner (`sudo solo-provisioner block node install -p testnet`
+> **Note:** [Solo Provisioner](../glossary.md#solo-provisioner) (`sudo solo-provisioner block node install -p testnet`
 > or `-p previewnet`) handles storage provisioning automatically based on the
 > selected profile. Manual sizing from this section is needed only when
 > deploying outside the Solo Provisioner flow.

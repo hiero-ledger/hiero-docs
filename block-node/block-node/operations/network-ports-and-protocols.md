@@ -74,7 +74,7 @@ The primary listener also serves HTTP GET on `/healthz/livez` and `/healthz/read
 
 #### Notes
 
-- The Block Node forwards block items to subscribers as they arrive from the publisher, without first verifying the block. Verification is self-contained at the consumer via the Block Proof carried with each block; see [HIP-1056](https://hips.hedera.com/hip/hip-1056).
+- The Block Node forwards block items to subscribers as they arrive from the publisher, without first verifying the block. Verification is self-contained at the consumer via the [Block Proof](../glossary.md#block-proof) carried with each block; see [HIP-1056](https://hips.hedera.com/hip/hip-1056).
 - The connection is closed by the server when the requested block range is fully served, or on internal error. A stream-maximum-duration close condition is defined but is not currently enforced; firewalls should accommodate long-lived streams.
 - For the operator-facing companion view of who connects from the Mirror Node side, see [Connecting a Mirror Node to a Block Node](./connecting-a-mirror-node-to-a-block-node.md).
 
@@ -160,7 +160,7 @@ Kubernetes probes query the Block Node's HTTP/2 listener with HTTP/1.1 GET reque
 
 ## Traffic flows by node tier
 
-The `tier` of a Block Node describes where its block stream originates. Tier 1 nodes receive data via the "Publish API" port (default `40840`) and Tier 2 nodes request data via the "Subscribe API" port (default `40840`). The operator-visible difference is which API is used. For full tier and type taxonomy, see [Block Node Types](../Block-Node-Types.md).
+The `tier` of a Block Node describes where its block stream originates. [Tier 1](../glossary.md#tier-1-block-node) nodes receive data via the "Publish API" port (default `40840`) and [Tier 2](../glossary.md#tier-2-block-node) nodes request data via the "Subscribe API" port (default `40840`). The operator-visible difference is which API is used. For full tier and type taxonomy, see [Block Node Types](../Block-Node-Types.md).
 
 Block Node tiers and types are visualised in the network architecture diagram at [block-node-network-architecture.svg](../../assets/block-node-network-architecture.svg).
 
@@ -217,7 +217,7 @@ The Block Node process does not terminate TLS for any inbound port. TLS is termi
 
 Two cautions worth surfacing:
 
-- **TLS at the transport is not the same as block verification.** The Block Node forwards block items as they arrive from the Consensus Node; the consumer verifies each block self-contained from its Block Proof. A TLS-encrypted stream does not turn into a verified stream by virtue of being encrypted. See [HIP-1056](https://hips.hedera.com/hip/hip-1056) for the Block Proof structure and [HIP-1200](https://hips.hedera.com/hip/hip-1200) for the TSS threshold signature scheme that signs each block.
+- **TLS at the transport is not the same as block verification.** The Block Node forwards block items as they arrive from the Consensus Node; the consumer verifies each block self-contained from its Block Proof. A TLS-encrypted stream does not turn into a verified stream by virtue of being encrypted. See [HIP-1056](https://hips.hedera.com/hip/hip-1056) for the Block Proof structure and [HIP-1200](https://hips.hedera.com/hip/hip-1200) for the [TSS](../glossary.md#tss-hintsts) threshold signature scheme that signs each block.
 - **Self-signed certificates are acceptable for testing but not for production.** A Block Node operator registering an endpoint on-chain via [HIP-1137](https://hips.hedera.com/hip/hip-1137) signals TLS expectations to clients via the `requires_tls` field on each `RegisteredServiceEndpoint`. See [Block Node On-Chain Registration](../block-node-on-chain-registration.md).
 
 ---

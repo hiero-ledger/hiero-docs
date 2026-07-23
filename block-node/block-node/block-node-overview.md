@@ -22,23 +22,6 @@ They stream blocks to Mirror Nodes and other Block Nodes, answer questions from 
 | Data APIs                      | gRPC for transactions/queries; no history.                                                        | Streaming gRPC APIs for live and historical blocks, random-access retrieval, state, and proofs.                    | Public REST and custom APIs for queries and observability.                                                                         |
 | Who runs it                    | Governing Council and approved operators.                                                         | Tier 1: Council / trusted; Tier 2: permissionless operators, service providers, app teams, and infra providers.    | Permissionless operators, service providers, and app teams.                                                                        |
 
-## Key Terms
-
-Before diving deeper, familiarize yourself with these core concepts:
-
-- **Block Stream ([HIP-1056](https://hips.hedera.com/hip/hip-1056))** - A continuous, ordered feed of finalized block data produced by Consensus Nodes. Each block consists of a stream of individual items containing transactions, state changes, events, EVM trace data, and cryptographic proofs.
-  Block streams are delivered via gRPC in Protocol Buffer format at a rate determined by network configuration and network usage. A typical public network might complete 1 block per second, up to several blocks per second.
-
-- **State Snapshot** - A point-in-time capture of the complete network state (accounts, balances, smart contract storage, etc.) at a specific block height. State snapshots enable fast synchronization and recovery without replaying every transaction from genesis.
-
-- **Aggregated Signatures** - Cryptographic signatures from multiple Consensus Nodes combined into a single compact signature. Verification uses the network's Ledger ID — the hash of the genesis TSS Roster — to confirm a block was finalized by network consensus. For post-genesis blocks, **WRAPS (Weighted Roster Attestation Proof System)** proofs attest that the active roster is a valid descendant of the genesis roster, ensuring verification remains trustworthy as the roster evolves over time. Defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200); the trusted-setup ceremony that produced the WRAPS public parameters is specified in [HIP-1398](https://github.com/hiero-ledger/hiero-improvement-proposals/pull/1398).
-
-- **Reconnect Services** - APIs and data streams that will help Consensus Nodes catch up to the current network state after downtime or network partitions by providing recent blocks and state snapshots. Service interfaces are defined; this capability is planned for a future release and is not currently in active development.
-
-- **Tier 1 Block Node** – A Block Node that receives block streams directly from Consensus Nodes and typically provides reconnect/state snapshot services back to the network.
-
-- **Tier 2 Block Node** – A Block Node that receives block streams from one or more upstream Block Nodes (Tier 1 or another Tier 2) and is permissionless to operate.
-
 ## Role in the Hiero Network
 
 Block Nodes act as the trusted historians and data providers for a Hiero network. They receive block streams from Consensus Nodes, verify that each block and its data are correct, apply the included `State Changes` to maintain a local copy of network state, and durably store both the blocks and the state snapshots they produce.
@@ -54,7 +37,7 @@ When a Consensus Node needs to catch up with its peers or recover from downtime,
 
 Block Nodes provide several core services that turn block streams into reliable, consumable data for the network:
 
-- Block Stream ingestion, verification, and distribution.
+- [Block Stream](./glossary.md#block-stream) ingestion, verification, and distribution.
 - Cryptographic proofs for transactions and network state.
 - Durable storage of blocks, and consensus state.
 - Real-time and historical data streaming to downstream clients.

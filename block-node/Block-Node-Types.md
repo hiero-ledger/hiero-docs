@@ -2,10 +2,10 @@
 
 ## Overview
 
-Block Nodes can offer many services and features. The core system encompasses a
+[Block Nodes](./block-node/glossary.md#block-node) can offer many services and features. The core system encompasses a
 wide array of flexible options made possible by composing relatively small and
 focused "plug-ins" within a framework designed to support very low latency
-processing of high volume block stream data. There are many "types" of block
+processing of high volume [block stream](./block-node/glossary.md#block-stream) data. There are many "types" of block
 nodes discussed in various places, each of which is actually the same core block
 node, with different combinations of "plug-ins" deployed. This demonstrates the
 flexibility of the block node system to meet a specific set of needs, but the
@@ -25,28 +25,6 @@ offered and operating intent.
 ## Definitions
 
 <dl>
-<dt>Block Stream</dt>
-<dd>A continuous stream of consensus network data organized into blocks. Blocks
-are independent, self-contained, chained, and cryptographically verifiable
-units of data.</dd>
-<dt>Block Node</dt>
-<dd>A software system that enables processing of block stream data for a wide
-variety of purposes and in myriad ways. A Block Node may be deployed with any,
-or many, set or subset of service plugins built to provide specific capabilities
-within the context of processing the block stream.</dd>
-<dt>Mirror Node</dt>
-<dd>A service available in Hiero networks that provides extensive history and
-query capabilities for that network. A Mirror Node is a client of one or more
-Block Nodes, which deliver the block stream to the Mirror Node for indexing,
-storage, and related purposes.</dd>
-<dt>Consensus Node</dt>
-<dd>One node in the consensus network of an Hiero network. Consensus Nodes
-perform the critical work of executing the network consensus algorithm,
-executing transactions in consensus order, maintaining a current network state,
-and producing the Block Stream.</dd>
-<dt>Private Sphere</dt>
-<dd>An Hiero network operated on behalf of a private entity.<br/>
-Also a commercial service offered by Hashgraph Foundry Inc.</dd>
 <dt>Block Node Services</dt>
 <dd>
     <dl>
@@ -65,22 +43,11 @@ Also a commercial service offered by Hashgraph Foundry Inc.</dd>
     than the network as a whole. Examples include cloud buckets, long-term
     tape, or replicated local disks. Private archives are often intended for
     disaster recovery or offline analysis.</dd>
-    <dt>Custom Analysis</dt>
-    <dd>A theoretical service provided by a block node specialized to perform
-    some form of data analysis in, or near, real time.</dd>
-    <dt>General Interledger Bridge</dt>
-    <dd>A theoretical service provided by a block node specialized to bridge an
-    Hiero network to another general-purpose network, such as Cardano, Base,
-    Ethereum, etc...</dd>
-    <dt>Dapp Support</dt>
-    <dd>A theoretical service provided by a block node specialized to support
-    only the requirements of a specific distributed application.</dd>
-    <dt>Defined Filter</dt>
-    <dd>A theoretical service provided by a block node specialized to
-    filter the block stream according to well-defined criteria, producing a
-    modified block stream with un-desired or private data removed.
-    Critically, the filtered stream is _still verifiable_ using the Block
-    Proof for each block.</dd>
+    <dt>Future extensions <em>(planned)</em></dt>
+    <dd>The plugin system is designed to support additional services in future
+    releases, such as custom analytics, interledger bridges, dApp-specific
+    stream processing, and filtered block streams. None of these are provided
+    by a standard Block Node deployment today.</dd>
     </dl>
 </dd>
 <dt>Block Node Types</dt>
@@ -94,10 +61,9 @@ Also a commercial service offered by Hashgraph Foundry Inc.</dd>
     by this type of node. Rolling-History provides a particular type of
     "Partial History" service.</dd>
     <dt>Full Node</dt>
-    <dd>A type of node that chooses to manage all history and state.<br/>
-    Also offers state management, state proof, content proof, query,
-    hiero-inter-ledger bridge, and other core services. This type of node may
-    also offer almost any array of custom block node services.</dd>
+    <dd>A type of node that retains the complete block history of the network
+    on local storage, from genesis. State management and state proof services
+    are planned for a future release and are not yet available.</dd>
     <dt>Light Node</dt>
     <dd>Another type of "Rolling-History" or other "Partial History"
     node. A Light Node is a good option for developing and testing new
@@ -126,8 +92,7 @@ Also a commercial service offered by Hashgraph Foundry Inc.</dd>
     a "Full Node" configuration.</dd>
     <dt>Tier 2</dt>
     <dd>A Block Node that receives its Block Stream data from another Block
-    Node (often a Tier 1 Block Node). The data may be received via direct
-    stream, network gossip, file transfer, or any other mechanism desired.
+    Node (typically a Tier 1 Block Node) via the block stream subscribe API.
     Tier 2 Block Nodes are still required to <i>verify the Block Stream</i>
     received, but are not required to store the full history of the network
     or provide a Full Node configuration. Some Tier 2 nodes may, nonetheless,

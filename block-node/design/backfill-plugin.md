@@ -327,13 +327,14 @@ All metrics use the `backfill` category prefix.
 
 ### Counters
 
-|            Metric            |             Description             |
-|------------------------------|-------------------------------------|
-| `backfill_gaps_detected`     | Total number of gaps detected       |
-| `backfill_blocks_fetched`    | Total blocks fetched from peers     |
-| `backfill_blocks_backfilled` | Total blocks successfully persisted |
-| `backfill_fetch_errors`      | Total fetch failures                |
-| `backfill_retries`           | Total retry attempts                |
+|            Metric            |                                     Description                                      |
+|------------------------------|--------------------------------------------------------------------------------------|
+| `backfill_gaps_detected`     | Total number of gaps detected (includes gaps re-detected while throttled by backoff) |
+| `backfill_gaps_submitted`    | Total number of detected gaps actually submitted for backfill                        |
+| `backfill_blocks_fetched`    | Total blocks fetched from peers                                                      |
+| `backfill_blocks_backfilled` | Total blocks successfully persisted                                                  |
+| `backfill_fetch_errors`      | Total fetch failures                                                                 |
+| `backfill_retries`           | Total retry attempts                                                                 |
 
 ### Gauges
 
