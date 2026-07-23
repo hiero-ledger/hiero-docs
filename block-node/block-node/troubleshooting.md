@@ -9,7 +9,7 @@ the appropriate Prometheus / Grafana UI.
 
 **Use it when:**
 
-- Block ingest or backfill stalls
+- Block ingest or [backfill](./glossary.md#backfill) stalls
 - Subscriber or Mirror Node cannot connect
 - Disk or storage is under pressure
 - Metrics or dashboards look wrong

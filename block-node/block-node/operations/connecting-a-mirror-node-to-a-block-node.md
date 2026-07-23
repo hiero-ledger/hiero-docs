@@ -14,10 +14,10 @@ This guide shows how to:
 
 1. Confirm each target Block Node is reachable and serving the desired block range.
 2. Configure the Mirror Node to subscribe to one or more Block Nodes.
-3. Verify the connection through logs, metrics, and the Block Node's `serverStatus` endpoint.
+3. Verify the connection through logs, metrics, and the Block Node's [`serverStatus`](../glossary.md#serverstatus) endpoint.
 4. Diagnose the most common failure modes.
 
-> **Most Mirror Node operators consume the block stream from a public Block Node and do not run their own.** The exception is an operator running many Mirror Nodes, who may run a Tier 2 Block Node as a local buffer that pre-validates and redistributes the stream to multiple Mirror Nodes from a single connection upstream. This guide covers both cases; sections specific to running your own Block Node are marked accordingly.
+> **Most Mirror Node operators consume the block stream from a public Block Node and do not run their own.** The exception is an operator running many Mirror Nodes, who may run a [Tier 2](../glossary.md#tier-2-block-node) Block Node as a local buffer that pre-validates and redistributes the stream to multiple Mirror Nodes from a single connection upstream. This guide covers both cases; sections specific to running your own Block Node are marked accordingly.
 
 ## Prerequisites
 
@@ -213,7 +213,7 @@ The Block Node closes the stream when the finite range is fully served, when the
 
 Two operator-visible patterns are worth knowing:
 
-- **Gap in `end_of_block.block_number`**: the flow of data from Consensus Node to Block Node arrived out-of-order or required a resend due to verification or persistence failure on the upstream stream. The Mirror Node may reconnect to backfill the missing range from history. The Mirror Node detects this and re-subscribes with `start_block_number = (last_committed_block + 1)`. If the gap is not available on the current Block Node (terminal `NOT_AVAILABLE`), failover to a higher-priority Tier-1 archive node is required - configure such a node as a low-priority entry under `nodes[]` so the Mirror Node can fall over automatically.
+- **Gap in `end_of_block.block_number`**: the flow of data from Consensus Node to Block Node arrived out-of-order or required a resend due to verification or persistence failure on the upstream stream. The Mirror Node may reconnect to [backfill](../glossary.md#backfill) the missing range from history. The Mirror Node detects this and re-subscribes with `start_block_number = (last_committed_block + 1)`. If the gap is not available on the current Block Node (terminal `NOT_AVAILABLE`), failover to a higher-priority [Tier-1](../glossary.md#tier-1-block-node) archive node is required - configure such a node as a low-priority entry under `nodes[]` so the Mirror Node can fall over automatically.
 - **Repeated `ERROR (3)` from one Block Node**: the Block Node is failing internally. The Mirror Node will mark it inactive after `maxSubscribeAttempts` and try the next configured node.
 
 See [Gaps and out-of-order blocks come from the unverified stream](../mirror-node-integration.md#gaps-and-out-of-order-blocks-come-from-the-unverified-stream) in the concept doc for the rationale.

@@ -6,12 +6,12 @@ For step-by-step configuration and verification commands, see the companion guid
 
 ## Why Mirror Nodes subscribe to Block Nodes
 
-After the Hiero record-stream-to-block-stream cutover ([HIP-1193](https://github.com/hiero-ledger/hiero-improvement-proposals/blob/main/HIP/hip-1193.md)), Mirror Nodes consume finalized block data from Block Nodes over a long-lived gRPC stream instead of polling record files from cloud storage. Subscribing to a Block Node gives a Mirror Node:
+After the Hiero record-stream-to-block-stream [cutover](./glossary.md#cutover-release) ([HIP-1193](https://github.com/hiero-ledger/hiero-improvement-proposals/blob/main/HIP/hip-1193.md)), Mirror Nodes consume finalized block data from Block Nodes over a long-lived gRPC stream instead of polling record files from cloud storage. Subscribing to a Block Node gives a Mirror Node:
 
 - **Low-latency live data** - blocks are pushed as they are produced, rather than waiting for batch file uploads to a cloud bucket.
-- **Self-contained cryptographic verification** - Block Streams incorporate a Block Proof for each block that cryptographically verifies that block with no additional data.
+- **Self-contained cryptographic verification** - Block Streams incorporate a [Block Proof](./glossary.md#block-proof) for each block that cryptographically verifies that block with no additional data.
 - **Random-access historical replay** - a single gRPC call can replay an arbitrary block range to a freshly provisioned Mirror Node.
-- **A decentralized data plane** - Mirror Nodes can subscribe to one or more Block Nodes (Tier 1 or Tier 2) for redundancy.
+- **A decentralized data plane** - Mirror Nodes can subscribe to one or more Block Nodes ([Tier 1](./glossary.md#tier-1-block-node) or [Tier 2](./glossary.md#tier-2-block-node)) for redundancy.
 - **Local storage and consolidation** - Mirror Node operators may choose to operate a local Block Node to independently store block data and redistribute the Block Stream to multiple Mirror Nodes from a single connection.
 
 The network-level placement of Block Nodes between Consensus Nodes and Mirror Nodes is illustrated in the Block Node overview diagram:
@@ -64,7 +64,7 @@ The selection rules at a glance:
 - At any moment, the Mirror Node maintains an active subscription to one Block Node - the highest-priority reachable node, with measured latency as a tiebreaker.
 - A Block Node is marked **inactive** after `block.stream.maxSubscribeAttempts` consecutive failed subscribe attempts and is excluded from selection for `block.stream.readmitDelay`. After that window, it is eligible again.
 - When the active Block Node closes the stream with an error or becomes unreachable, the Mirror Node selects the next eligible node automatically. The operator does not need to intervene for the common failure modes.
-- For historical gaps that the current Block Node cannot serve (returns `NOT_AVAILABLE` on backfill), configure a Tier-1 archive Block Node as a low-priority fallback so the Mirror Node can fall over to it without operator action.
+- For historical gaps that the current Block Node cannot serve (returns `NOT_AVAILABLE` on [backfill](./glossary.md#backfill)), configure a Tier-1 archive Block Node as a low-priority fallback so the Mirror Node can fall over to it without operator action.
 
 The exact property names and the `nodes[]` YAML shape are documented in [Connecting a Mirror Node to a Block Node - Block Node endpoints](./operations/connecting-a-mirror-node-to-a-block-node.md#block-node-endpoints).
 
@@ -82,14 +82,14 @@ If a Mirror Node falls behind the live stream, the Block Node silently switches 
 
 ### Reconnection is the client's responsibility
 
-The Block Node closes the gRPC stream when (a) a finite requested range is fully served, (b) the connection reaches the connection lifetime limit configured for that Block Node, (c) an internal error or runtime exception is raised, or (d) the client disconnects. In every case other than (d), the Mirror Node must implement reconnection logic, typically with exponential backoff and a fresh `serverStatus` check before each retry. The Mirror Node's importer ships with this logic built in and tunes it through the `block.stream.*` properties. See the [Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md#step-4-handle-disconnects-and-gaps) guide for the operator-facing details.
+The Block Node closes the gRPC stream when (a) a finite requested range is fully served, (b) the connection reaches the connection lifetime limit configured for that Block Node, (c) an internal error or runtime exception is raised, or (d) the client disconnects. In every case other than (d), the Mirror Node must implement reconnection logic, typically with exponential backoff and a fresh [`serverStatus`](./glossary.md#serverstatus) check before each retry. The Mirror Node's importer ships with this logic built in and tunes it through the `block.stream.*` properties. See the [Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md#step-4-handle-disconnects-and-gaps) guide for the operator-facing details.
 
 ## Further reading
 
 - [HIP-1056](https://hips.hedera.com/hip/hip-1056) - Block Streams specification.
 - [HIP-1081](https://hips.hedera.com/hip/hip-1081) - Block Node specification.
 - [HIP-1193](https://github.com/hiero-ledger/hiero-improvement-proposals/blob/main/HIP/hip-1193.md) - Records-to-block-streams cutover.
-- [HIP-1200](https://hips.hedera.com/hip/hip-1200) - Threshold signature scheme (hinTS) and WRAPS proofs.
+- [HIP-1200](https://hips.hedera.com/hip/hip-1200) - Threshold signature scheme (hinTS) and [WRAPS](./glossary.md#wraps) proofs.
 - [`block_stream_subscribe_service.proto`](https://github.com/hiero-ledger/hiero-block-node/blob/main/protobuf-sources/src/main/proto/block-node/api/block_stream_subscribe_service.proto) - `SubscribeStreamRequest`, `SubscribeStreamResponse`, `Code`, `subscribeBlockStream` RPC.
 - [`node_service.proto`](https://github.com/hiero-ledger/hiero-block-node/blob/main/protobuf-sources/src/main/proto/block-node/api/node_service.proto) - `BlockNodeService.serverStatus`.
 - [Mirror Node Configuration Reference](https://github.com/hiero-ledger/hiero-mirror-node/blob/main/docs/configuration.md) - full `hiero.mirror.importer.block.*` property reference.

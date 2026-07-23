@@ -2,7 +2,7 @@
 
 ## Overview
 
-This runbook documents the setup and operational workflows for the Wrapped Record Block (WRB) CLI tools. These tools are used to download, wrap, validate, and maintain block streams for Hiero networks (mainnet and testnet).
+This runbook documents the setup and operational workflows for the [Wrapped Record Block](../glossary.md#wrb-wrapped-record-block) (WRB) CLI tools. These tools are used to download, wrap, validate, and maintain block streams for Hiero networks (mainnet and testnet).
 
 **Audience**: Operators running Block Stream validation, migration, or archival processes.
 
@@ -113,7 +113,7 @@ All commands accept `--network <mainnet|testnet>`:
 
 ### 1. Generate Address Book History
 
-**Purpose**: Fetch address book changes from the Mirror Node API to enable block proof verification.
+**Purpose**: Fetch address book changes from the Mirror Node API to enable [block proof](../glossary.md#block-proof) verification.
 
 **Command**:
 
@@ -476,7 +476,7 @@ java -jar tools.jar blocks wrap -i compressedDays -o wrappedBlocks \
 
 ##### tss-enablement.bin
 
-**Purpose**: Binary TSS (Threshold Signature Scheme) parameters file for Block Node verification plugins.
+**Purpose**: Binary [TSS](../glossary.md#tss-hintsts) (Threshold Signature Scheme) parameters file for Block Node verification plugins.
 
 **Contents**:
 - Raw protobuf binary of the most recent `LedgerIdPublication` transaction

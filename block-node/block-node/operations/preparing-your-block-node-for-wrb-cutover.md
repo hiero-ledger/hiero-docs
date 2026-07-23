@@ -1,8 +1,8 @@
 # Preparing Your Block Node for WRB Cutover
 
-This guide walks a Tier 1 Block Node operator through the steps required to prepare a deployed Block Node for the WRB (Wrapped Record Block) streaming cutover, including pre-upgrade checks that apply to every upgrade and the additional steps specific to the WRB cutover release.
+This guide walks a Tier 1 Block Node operator through the steps required to prepare a deployed Block Node for the [WRB](../glossary.md#wrb-wrapped-record-block) (Wrapped Record Block) streaming [cutover](../glossary.md#cutover-release), including pre-upgrade checks that apply to every upgrade and the additional steps specific to the WRB cutover release.
 
-It assumes the Block Node is installed using the Solo Provisioner, either on a bare-metal server (see [Bare Metal Single Node Kubernetes Deployment](./single-node-k8s-deployment.md)) or a GCP VM (see [Virtual Machine Single Node Kubernetes Deployment](./solo-weaver-single-node-k8s-deployment.md)).
+It assumes the Block Node is installed using the [Solo Provisioner](../glossary.md#solo-provisioner), either on a bare-metal server (see [Bare Metal Single Node Kubernetes Deployment](./single-node-k8s-deployment.md)) or a GCP VM (see [Virtual Machine Single Node Kubernetes Deployment](./solo-weaver-single-node-k8s-deployment.md)).
 
 The steps are organized in two sections. The **common pre-upgrade checks** apply before every upgrade, regardless of release. The **release-specific checks** contain the additional steps the WRB cutover requires; future network releases will appear as additional subsections without changing the common section.
 
@@ -141,7 +141,7 @@ Complete the subsection below that matches the upgrade you are preparing for. Fu
 
 **Applies to:** the Consensus Node release that activates Wrapped Record Block (WRB) streaming — currently scheduled for CN release 0.75.0. The exact release may change if release testing surfaces a blocker; your Hashgraph PoC will confirm the target release before the maintenance window.
 
-For the full network cutover timeline — phases, CN-side WRB catch-up, TSS ceremony, and Jumpstart Data — see [Cutover Process and Timeline](../Cutover-Process.md).
+For the full network cutover timeline — phases, CN-side WRB catch-up, [TSS](../glossary.md#tss-hintsts) ceremony, and [Jumpstart Data](../glossary.md#jumpstart-data) — see [Cutover Process and Timeline](../Cutover-Process.md).
 
 **What is changing:** from the cutover release onwards, Consensus Nodes begin producing Wrapped Recordfile Blocks with aggregated RSA signature Block Proofs. The production of Record files uploaded to S3 storage will continue until the cutover to TSS and Block Streams in a later release. Any preview blocks stored by the Block Node before the cutover are invalid and must be discarded before the BN can receive and store authoritative WRB history. Do not skip the reset step even if the BN appears to be functioning normally.
 
@@ -207,7 +207,7 @@ The `roster-bootstrap-rsa` plugin must be included in your Block Node's plugin l
 
 **Enable the plugin**
 
-Add `roster-bootstrap-rsa` to your plugin list in `block-node-values.yaml`. Append it to your existing `plugins.names` value — the example below shows the full plugin list used for LFH nodes on previewnet, provided for reference:
+Add `roster-bootstrap-rsa` to your plugin list in `block-node-values.yaml`. Append it to your existing `plugins.names` value — the example below shows the full plugin list used for [LFH](../glossary.md#local-full-history-lfh) nodes on previewnet, provided for reference:
 
 ```yaml
 plugins:
@@ -289,7 +289,7 @@ After the block store reset, the BN backfills WRB history automatically as long 
 
 **Enable greedy backfill**
 
-Hashgraph recommends enabling greedy backfill on all Tier 1 Block Nodes for the WRB cutover. With greedy backfill enabled, the BN proactively retrieves blocks beyond the latest acknowledged block, preventing the node from falling too far behind during the initial catch-up period.
+Hashgraph recommends enabling greedy backfill on all Tier 1 Block Nodes for the WRB cutover. With greedy [backfill](../glossary.md#backfill) enabled, the BN proactively retrieves blocks beyond the latest acknowledged block, preventing the node from falling too far behind during the initial catch-up period.
 
 In your Helm values overlay, set `BACKFILL_GREEDY` to `"true"`, apply the change, and confirm:
 

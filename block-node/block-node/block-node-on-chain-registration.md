@@ -12,7 +12,7 @@ Registration is supplementary to existing operational practice - your Block Node
 - **Your operator identity is on-chain:** the administrative key that controls your registered node is a verifiable identity clients can use to know who runs the service.
 - **Updates are self-sovereign:** when you change endpoints, rotate keys, or move a service behind TLS, you publish the change yourself via a signed transaction - no central list has to be updated for you.
 
-For a **Tier 1** Block Node, registration is how Mirror Node operators who consume your stream learn that your node exists. For a **Tier 2** Block Node operated as a local buffer for many Mirror Nodes (see [Mirror Node Integration](./mirror-node-integration.md)), registration is optional but recommended if you want others to subscribe to your buffer.
+For a [**Tier 1**](./glossary.md#tier-1-block-node) Block Node, registration is how Mirror Node operators who consume your stream learn that your node exists. For a [**Tier 2**](./glossary.md#tier-2-block-node) Block Node operated as a local buffer for many Mirror Nodes (see [Mirror Node Integration](./mirror-node-integration.md)), registration is optional but recommended if you want others to subscribe to your buffer.
 
 ## Availability across networks
 

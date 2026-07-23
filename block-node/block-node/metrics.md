@@ -167,16 +167,16 @@ Observes outbound streams served to subscribers.
 **Plugin:** `verification [block-node-verification]`
 Measures block‑verification throughput and success rate.
 
-|  Type   |              Name              |                                            Description                                            |
-|---------|--------------------------------|---------------------------------------------------------------------------------------------------|
-| Counter | `verification_blocks_received` | Blocks received for verification                                                                  |
-| Counter | `verification_blocks_verified` | Blocks that passed verification                                                                   |
-| Counter | `verification_blocks_failed`   | Blocks that failed verification                                                                   |
-| Counter | `verification_blocks_error`    | Internal errors during verification                                                               |
-| Counter | `verification_block_time`      | Verification time per block (ns=nanoseconds)                                                      |
-| Counter | `hashing_block_time`           | Hashing time per block (ns=nanoseconds)                                                           |
-| Counter | `verification_proof_total`     | Block proof verifications, labels: `proof_type={rsa,state_proof,tss}`, `result={success,failure}` |
-| Counter | `rsa_roster_mismatch_total`    | RSA signatures from node IDs absent from the loaded address book                                  |
+|  Type   |              Name              |                                                          Description                                                           |
+|---------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Counter | `verification_blocks_received` | Blocks received for verification                                                                                               |
+| Counter | `verification_blocks_verified` | Blocks that passed verification                                                                                                |
+| Counter | `verification_blocks_failed`   | Blocks that failed verification                                                                                                |
+| Counter | `verification_blocks_error`    | Internal errors during verification                                                                                            |
+| Counter | `verification_block_time`      | Verification time per block (ns=nanoseconds)                                                                                   |
+| Counter | `hashing_block_time`           | Hashing time per block (ns=nanoseconds)                                                                                        |
+| Counter | `verification_proof_total`     | [Block proof](./glossary.md#block-proof) verifications, labels: `proof_type={rsa,state_proof,tss}`, `result={success,failure}` |
+| Counter | `rsa_roster_mismatch_total`    | RSA signatures from node IDs absent from the loaded address book                                                               |
 
 ---
 
@@ -240,18 +240,19 @@ Observes the server status API that provides information about the node.
 ### Backfill
 
 **Plugin:** `backfill [block-node-backfill]`
-Provides metrics related to the backfill process, including On-Demand and Historical backfills.
+Provides metrics related to the [backfill](./glossary.md#backfill) process, including On-Demand and Historical backfills.
 
-|  Type   |             Name             |                              Description                              |
-|---------|------------------------------|-----------------------------------------------------------------------|
-| Counter | `backfill_gaps_detected`     | Total number of gaps detected at start-up                             |
-| Counter | `backfill_blocks_fetched`    | Total number of blocks fetched during backfill                        |
-| Counter | `backfill_blocks_backfilled` | Total number of blocks successfully backfilled                        |
-| Counter | `backfill_fetch_errors`      | Total number of errors encountered while fetching blocks              |
-| Counter | `backfill_retries`           | Total number of retries attempted during backfill                     |
-| Gauge   | `backfill_status`            | Current status of the backfill process (0=Idle, 1=Running)            |
-| Gauge   | `backfill_pending_blocks`    | Number of blocks pending to be backfilled                             |
-| Gauge   | `backfill_inflight_blocks`   | In-flight backfill blocks currently awaiting verification/persistence |
+|  Type   |             Name             |                                                       Description                                                       |
+|---------|------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Counter | `backfill_gaps_detected`     | Total number of gaps detected during a scan (includes gaps re-detected while throttled by backoff)                      |
+| Counter | `backfill_gaps_submitted`    | Total number of detected gaps actually submitted for backfill (excludes gaps throttled by backoff or already in-flight) |
+| Counter | `backfill_blocks_fetched`    | Total number of blocks fetched during backfill                                                                          |
+| Counter | `backfill_blocks_backfilled` | Total number of blocks successfully backfilled                                                                          |
+| Counter | `backfill_fetch_errors`      | Total number of errors encountered while fetching blocks                                                                |
+| Counter | `backfill_retries`           | Total number of retries attempted during backfill                                                                       |
+| Gauge   | `backfill_status`            | Current status of the backfill process (0=Idle, 1=Running)                                                              |
+| Gauge   | `backfill_pending_blocks`    | Number of blocks pending to be backfilled                                                                               |
+| Gauge   | `backfill_inflight_blocks`   | In-flight backfill blocks currently awaiting verification/persistence                                                   |
 
 #### Cloud Expanded
 
@@ -286,7 +287,7 @@ Tracks RSA address book loading and peer requests used to bootstrap the consensu
 ### roster-bootstrap-tss
 
 **Plugin:** `roster-bootstrap-tss`
-Tracks TSS data requests used to bootstrap the consensus node roster.
+Tracks [TSS](./glossary.md#tss-hintsts) data requests used to bootstrap the consensus node roster.
 
 |  Type   |        Name         |            Description             |
 |---------|---------------------|------------------------------------|

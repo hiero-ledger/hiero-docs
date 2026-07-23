@@ -1,31 +1,6 @@
 # Record Stream to Block Stream Migration
 
-This document describes what changes between record streams and block streams from a Mirror Node operator's perspective, so an operator can assess migration impact and plan their upgrade. The companion document for the consensus-side cutover narrative - phase sequence, Wrapped Record Block (WRB) construction, Jumpstart Data, error handling - is [Cutover-Process.md](./Cutover-Process.md). For the configuration steps to subscribe a Mirror Node to a Block Node, see [Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md).
-
-## Key terms
-
-<dl>
-<dt>Record Stream</dt>
-<dd>The legacy output format of a Hiero consensus node. A record stream is published as a sequence of files - record files (<code>.rcd</code>), signature files (<code>.rcd.sig</code>), sidecar files, and event stream files - to publicly accessible cloud storage. Mirror Nodes download these files from cloud buckets to ingest network data.</dd>
-
-<dt>Block Stream</dt>
-<dd>The replacement output format defined in <a href="https://hips.hedera.com/hip/hip-1056">HIP-1056</a>. A block stream is a single ordered feed of <code>BlockItem</code> messages - block header, signed transactions, transaction results, transaction outputs, trace data, state changes, and a block proof - delivered over gRPC by Block Nodes.</dd>
-
-<dt>Cutover Boundary</dt>
-<dd>The point in the network's release timeline at which the consensus network stops producing record streams and starts producing block streams. Defined in <a href="https://hips.hedera.com/hip/hip-1193">HIP-1193</a>; tied to Consensus Node release <code>0.77.0</code>.</dd>
-
-<dt>Wrapped Record Block (WRB)</dt>
-<dd>A block-stream-format wrapper around a historical record file. Each WRB embeds the original record stream contents in a <code>BlockItem</code>, adds a block header and footer, and produces a block proof derived from the original per-node RSA signatures. WRBs make pre-cutover history accessible through the post-cutover block-stream API without losing cryptographic provenance. The mechanism is specified in HIP-1427 (draft).</dd>
-
-<dt>Jumpstart Data</dt>
-<dd>A small set of root hashes and a block number that a consensus node uses, during the release that activates record file hashing and wrapping to enable WRB production and prepare for future block-stream production. Defined in <a href="./Cutover-Process.md">Cutover-Process.md</a>.</dd>
-
-<dt>TSS signature</dt>
-<dd>A constant-size BLS threshold signature, defined in <a href="https://hips.hedera.com/hip/hip-1200">HIP-1200</a>, that signs each block in the block stream. Replaces the per-node RSA signatures the record stream used.</dd>
-
-<dt>HAPI version</dt>
-<dd>The Hedera API protocol version reported by the consensus network. The Mirror Node uses the network's HAPI version to detect when cutover has occurred and automatically switches its source from cloud storage to block-stream subscription.</dd>
-</dl>
+This document describes what changes between [record streams](./glossary.md#record-stream) and [block streams](./glossary.md#block-stream) from a Mirror Node operator's perspective, so an operator can assess migration impact and plan their upgrade. The companion document for the consensus-side cutover narrative - phase sequence, [Wrapped Record Block (WRB)](./glossary.md#wrb-wrapped-record-block) construction, [Jumpstart Data](./glossary.md#jumpstart-data), error handling - is [Cutover-Process.md](./Cutover-Process.md). For the configuration steps to subscribe a Mirror Node to a Block Node, see [Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md).
 
 ---
 
@@ -33,7 +8,7 @@ This document describes what changes between record streams and block streams fr
 
 The record stream was the consensus network's original output format. It split the network's per-block output across four separate file types - record files for transactions, sidecar files for trace data, signature files for per-node RSA signatures, and event stream files for hashgraph events. Verifying a record file required collecting and verifying RSA signatures from a majority of consensus nodes, an operation whose cost scales linearly with the node count. State changes were not part of the stream at all.
 
-The block stream, specified in [HIP-1056](https://hips.hedera.com/hip/hip-1056), unifies the four record-stream artifacts into a single ordered feed of `BlockItem` messages and adds two capabilities that did not exist in the record stream: each block carries its own self-contained cryptographic proof (the Block Proof) signed with a constant-size TSS aggregated signature ([HIP-1200](https://hips.hedera.com/hip/hip-1200)), and each block includes its state-change deltas so a consumer can rebuild state in lockstep with the network without replaying transactions from genesis. [HIP-1193](https://hips.hedera.com/hip/hip-1193) defines the network-level transition from record streams to block streams.
+The block stream, specified in [HIP-1056](https://hips.hedera.com/hip/hip-1056), unifies the four record-stream artifacts into a single ordered feed of `BlockItem` messages and adds two capabilities that did not exist in the record stream: each block carries its own self-contained cryptographic proof (the Block Proof) signed with a constant-size [TSS](./glossary.md#tss-hintsts) aggregated signature ([HIP-1200](https://hips.hedera.com/hip/hip-1200)), and each block includes its state-change deltas so a consumer can rebuild state in lockstep with the network without replaying transactions from genesis. [HIP-1193](https://hips.hedera.com/hip/hip-1193) defines the network-level transition from record streams to block streams.
 
 ---
 
@@ -47,7 +22,7 @@ The shift is in the source. A Mirror Node ingests the same logical content - tra
 | Encoding           | Record file (`.rcd`) + sidecar + signature files | `BlockItem` messages in a single stream                                                                                                                                    |
 | Verification       | Per-node RSA signatures, majority verification   | Single TSS aggregated signature per block, verified against the network's Ledger ID and the WRAPS verification key (the same key is used across nearly all Hiero networks) |
 | Source discovery   | Operator-configured cloud-bucket source          | On-chain registry per [HIP-1137](https://hips.hedera.com/hip/hip-1137) or operator-supplied list                                                                           |
-| Trigger for switch | Manual reconfiguration                           | Automatic per HAPI version (Mirror Node v0.155+)                                                                                                                           |
+| Trigger for switch | Manual reconfiguration                           | Automatic per [HAPI version](./glossary.md#hapi-version) (Mirror Node v0.155+)                                                                                             |
 
 For configuration steps and the property table, see [Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md). For the operator-visible behaviour of a Block Node subscription, see [Mirror Node Integration](./mirror-node-integration.md).
 
