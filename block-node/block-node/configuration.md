@@ -99,7 +99,7 @@ A base Block Node deployment ships with no plugins; the Helm chart downloads the
 
 ```yaml
 plugins:
-  names: "facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,verification,blocks-file-historic,blocks-file-recent,backfill"
+  names: "facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,block-verification,blocks-file-historic,blocks-file-recent,backfill"
 ```
 
 > **Note:** All [Tier 2](./glossary.md#tier-2-block-node) Block Nodes should drop `stream-publisher` from `plugins.names`. The presence of `stream-publisher` is the main difference between a Tier 1 and a Tier 2 deployment.
@@ -113,11 +113,11 @@ The chart supports two sources for downloading plugins; both are configurable:
 - **`plugins.repositories`** (recommended for production): Maven repositories the init container queries to resolve plugin artifacts. Defaults to Maven Central and Sonatype Snapshots. Operators running at scale should add a local mirror to `plugins.repositories` to reduce dependency on public infrastructure.
 - **`plugins.mavenImage`** (intended for local and Solo testing): a container image with plugin JARs pre-built into it. Used as a fallback when network-based resolution from `plugins.repositories` isn't appropriate.
 
-|      Chart value       |                       Purpose                       |                                                                             Default                                                                             |
-|------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `plugins.names`        | Comma-separated list of plugin identifiers to load  | `facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,verification,blocks-file-historic,blocks-file-recent,backfill` |
-| `plugins.repositories` | Maven repositories used to resolve plugin artifacts | `central` (`https://repo1.maven.org/maven2`), `sonatype-snapshots` (`https://central.sonatype.com/repository/maven-snapshots`)                                  |
-| `plugins.mavenImage`   | Container image used as a fallback plugin source    | `maven:3-eclipse-temurin-25-alpine`                                                                                                                             |
+|      Chart value       |                       Purpose                       |                                                                                Default                                                                                |
+|------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `plugins.names`        | Comma-separated list of plugin identifiers to load  | `facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,block-verification,blocks-file-historic,blocks-file-recent,backfill` |
+| `plugins.repositories` | Maven repositories used to resolve plugin artifacts | `central` (`https://repo1.maven.org/maven2`), `sonatype-snapshots` (`https://central.sonatype.com/repository/maven-snapshots`)                                        |
+| `plugins.mavenImage`   | Container image used as a fallback plugin source    | `maven:3-eclipse-temurin-25-alpine`                                                                                                                                   |
 
 ### Third-party plugins (Maven-resolvable)
 
