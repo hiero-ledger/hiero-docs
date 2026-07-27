@@ -77,7 +77,7 @@ classpath, then filter out any jars already present in the core runtime to avoid
 
 ### How Other Projects Consume Plugins
 
-The E2E suites module ([`tools-and-tests/suites/build.gradle.kts`](../../../tools-and-tests/suites/build.gradle.kts))
+The E2E suites module ([`tools-and-tests/suites/build.gradle.kts`](https://github.com/hiero-ledger/hiero-block-node/blob/main/tools-and-tests/suites/build.gradle.kts))
 declares two local configurations:
 - **`appCoreRuntime`** — resolves the app's core jars for exclusion filtering.
 - **`testPlugins`** — resolves plugin jars from the app's `blockNodePlugins` configuration.
@@ -91,5 +91,5 @@ The Block Node OCI image is published without plugins. Plugins are downloaded du
 based on Helm chart configuration. This allows operators to select exactly which plugins to load.
 
 For deployment configuration, including pre-defined profiles and custom plugin selection, see:
-- [Helm Chart Plugin Configuration](../../../charts/block-node-server/README.md#plugin-configuration)
+- [Helm Chart Plugin Configuration](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/README.md#plugin-configuration)
 - [Deployment with Selected Plugins Design](../../design/deployment-with-selected-plugins.md)

@@ -54,7 +54,7 @@ The Block Node exposes a rich set of Prometheus metrics on `/metrics`
 All metrics are prefixed with `blocknode`
 (for example, `blocknode_publisher_block_items_received`).
 See the full list in the
-[metrics reference](https://github.com/hiero-ledger/hiero-block-node/blob/main/docs/block-node/metrics.md#metrics-by-plugin).
+[metrics reference](./metrics.md#metrics-by-plugin).
 
 |       **Category**        |                                                   **Important Metrics**                                                   |                 **What to Watch For**                  |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
@@ -228,7 +228,6 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 2. **Identify what is consuming space**
    - Determine which volume(s) hold block data, snapshots, and logs.
    - Inspect directories for unexpected growth (logs, temp, or backup folders).
-   - *TODO: document the canonical data directory layout for Block Nodes (paths for blocks, snapshots, logs).*  ← GAP
 3. **Short-term mitigation**
    - If safe, rotate / compress / prune logs.
    - If using partial-history nodes, enable or adjust pruning according to policy.

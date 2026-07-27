@@ -5,7 +5,7 @@
 1. [Purpose](#purpose)
 2. [Level Definitions](#level-definitions)
 3. [Recommended Usage](#recommended-usage)
-4. [Thigs to Avoid](#things-to-avoid)
+4. [Things to Avoid](#things-to-avoid)
 
 ## Purpose
 

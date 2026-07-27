@@ -71,7 +71,7 @@ archive.
 
 ## Tier 2 Server Specifications
 
-[Tier 2 Block Nodes](https://github.com/hiero-ledger/hiero-block-node/blob/main/docs/Block-Node-Types.md)
+[Tier 2 Block Nodes](../../Block-Node-Types.md)
 receive their block stream from another Block Node rather than directly from
 Consensus Nodes. Most Tier 2 nodes are expected to operate as Rolling-History
 nodes, retaining only a configurable window of recent blocks. Tier 2 nodes are

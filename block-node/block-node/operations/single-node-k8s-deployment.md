@@ -91,9 +91,9 @@ Note 2: Some steps are marked as intermediate, indicating they will change due t
    POD=${RELEASE}-block-node-server-0
    ```
 
-   A sample `.env` file is provided at [.env.sample](./../../../tools-and-tests/scripts/node-operations/sample.env).
+   A sample `.env` file is provided at [.env.sample](https://github.com/hiero-ledger/hiero-block-node/blob/main/tools-and-tests/scripts/node-operations/sample.env).
 
-2. (Intermediate) **Automate with Task**: Use the provided [Taskfile.yml](../../../tools-and-tests/scripts/node-operations/Taskfile.yml) to
+2. (Intermediate) **Automate with Task**: Use the provided [Taskfile.yml](https://github.com/hiero-ledger/hiero-block-node/blob/main/tools-and-tests/scripts/node-operations/Taskfile.yml) to
    streamline the deployment process. The Taskfile includes tasks for installing Helm charts, configuring the Block Node
    Server, and managing the Kubernetes cluster.
 
@@ -105,14 +105,14 @@ Note 2: Some steps are marked as intermediate, indicating they will change due t
 4. **Configure Persistent Volume Creation Script**: Create Persistent Volume (PV)s and Persistent Volume Claim (PVC)s
    for Block Node Server data storage.
 
-   Update [./values-overrides/host-paths.yaml](../../../charts/block-node-server/values-overrides/host-paths.yaml) with the appropriate namespace.
+   Update [./values-overrides/host-paths.yaml](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values-overrides/host-paths.yaml) with the appropriate namespace.
 
    ```bash
    kubectl apply -f ./k8s/single-node/pv-pvc.yaml -n ${NAMESPACE}
    ```
 5. **Configure Helm Chart Values**: Customize the Helm chart values for your deployment.
 
-   Update [./lfh-values.yaml](../../../charts/block-node-server/values-overrides/lfh-values.yaml) or [./values-overrides/rfh-values.yaml](../../../charts/block-node-server/values-overrides/rfh-values.yaml) with your specific configuration settings.
+   Update [./lfh-values.yaml](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values-overrides/lfh-values.yaml) or [./rfh-values.yaml](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values-overrides/rfh-values.yaml) with your specific configuration settings.
 
 6. **Install Block Node Server Helm Chart**: Deploy the Block Node Server using Helm.
 
