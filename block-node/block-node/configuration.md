@@ -194,17 +194,22 @@ for the JSON schema.
 
 ### Files Historic Plugin Configuration
 
-| ENV Variable                                       | Description                                                                 |                             Default |
-|:---------------------------------------------------|:----------------------------------------------------------------------------|------------------------------------:|
-| FILES_HISTORIC_ROOT_PATH                           | Root path for saving historic blocks.                                       | /opt/hiero/block-node/data/historic |
-| FILES_HISTORIC_COMPRESSION                         | Compression type (e.g., ZSTD).                                              |                                ZSTD |
-| FILES_HISTORIC_POWERS_OF_TEN_PER_ZIP_FILE_CONTENTS | Files per zip in powers of ten (1=10, 2=100, …, 6=1,000,000).               |                                   4 |
-| FILES_HISTORIC_BLOCK_RETENTION_THRESHOLD           | Number of zips to retain. 0 means keep indefinitely.                        |                                   0 |
-| FILES_HISTORIC_MAX_FILES_PER_DIR                   | Max files per directory, as a number of digits, to avoid filesystem issues. |                                   3 |
+| ENV Variable                                       | Description                                                                                                     |                             Default |
+|:---------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|------------------------------------:|
+| FILES_HISTORIC_ROOT_PATH                           | Root path for saving historic blocks.                                                                           | /opt/hiero/block-node/data/historic |
+| FILES_HISTORIC_COMPRESSION                         | Compression type (e.g., ZSTD).                                                                                  |                                ZSTD |
+| FILES_HISTORIC_POWERS_OF_TEN_PER_ZIP_FILE_CONTENTS | Files per zip in powers of ten (1=10, 2=100, …, 6=1,000,000).                                                   |                                   4 |
+| FILES_HISTORIC_BLOCK_RETENTION_THRESHOLD           | Number of zips to retain. 0 means keep indefinitely.                                                            |                                   0 |
+| FILES_HISTORIC_MAX_FILES_PER_DIR                   | Max files per directory, as a number of digits, to avoid filesystem issues.                                     |                                   3 |
+| FILES_HISTORIC_STAGED_BLOCK_NOTIFICATIONS_ENABLED  | Send a Persisted Notification for every block as soon as it is staged, instead of once per completed zip batch. |                               false |
 
 > **Retention arithmetic:** Effective blocks retained = `FILES_HISTORIC_BLOCK_RETENTION_THRESHOLD` × 10^`FILES_HISTORIC_POWERS_OF_TEN_PER_ZIP_FILE_CONTENTS`.
 > Example: `FILES_HISTORIC_BLOCK_RETENTION_THRESHOLD=5` with `FILES_HISTORIC_POWERS_OF_TEN_PER_ZIP_FILE_CONTENTS=4` retains 50,000 blocks.
 > A value of `0` for `FILES_HISTORIC_BLOCK_RETENTION_THRESHOLD` keeps blocks indefinitely.
+>
+> **Staged notifications caveat:** with `FILES_HISTORIC_STAGED_BLOCK_NOTIFICATIONS_ENABLED=true`, a block is not
+> retrievable from this plugin until its batch is zipped, so the Persisted Notification can arrive before the
+> block is actually accessible.
 
 ### Files Recent Plugin Configuration
 
