@@ -1,23 +1,10 @@
 # Configuration
 
-The Hiero Block Node repo is composed of multiple components that can be configured using the following options:
+Configure your Block Node for your network, storage strategy, and integration requirements.
 
-## Default Configuration
-
-The default configuration allows users to quickly get up and running without having to configure anything. This provides
-ease of use at the trade-off of some insecure default configuration. Most configuration settings have appropriate
-defaults and can be left unchanged. It is recommended to browse the properties below and adjust to your needs.
-
-The configuration facility of the Hiero Block Node supports overriding configuration values via environment variables,
-with a well-defined transform from property name to environment variable name.
-
-> **Note:** The default configuration should be considered a "production" recommendation, and we may provide separate
-> recommended "overrides" for development, test, etc...
-
-## Server
-
-Server configuration options are described at [Server Configuration](block-node/configuration.md).
-
-## Simulator
-
-Simulator configuration options are described at [Simulator Configuration](simulator/configuration.md).
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody>
+<tr><td><strong>Configuration Reference</strong></td><td>Complete reference for all Block Node configuration properties, environment variables, and Helm chart values.</td><td><a href="block-node/block-node/configuration.md">configuration.md</a></td></tr>
+<tr><td><strong>Network Ports and Protocols</strong></td><td>Port assignments, traffic directions, TLS posture, and production exposure for all Block Node services.</td><td><a href="block-node/block-node/operations/network-ports-and-protocols.md">network-ports-and-protocols.md</a></td></tr>
+<tr><td><strong>Streaming from Consensus Nodes</strong></td><td>Configure Consensus Nodes to stream block data to your Block Node via the publish gRPC API.</td><td><a href="block-node/block-node/operations/consensus-node-to-block-node-configuration.md">consensus-node-to-block-node-configuration.md</a></td></tr>
+<tr><td><strong>On-Chain Registration</strong></td><td>Register your Block Node on-chain to make it discoverable by Consensus Nodes and other network participants.</td><td><a href="block-node/block-node/block-node-on-chain-registration.md">block-node-on-chain-registration.md</a></td></tr>
+</tbody></table>
