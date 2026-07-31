@@ -136,5 +136,5 @@ on-call contact provided at handoff.
 
 - [Resetting and Upgrading the Block Node](../resetting-and-upgrading-the-block-node.md)
 - [Troubleshooting](../../troubleshooting.md)
-- [Operator FAQ](../../operator-faq.md)
+- [Operator FAQ](../../faq/operator-faq.md)
 - [Metrics Reference](../../metrics.md)

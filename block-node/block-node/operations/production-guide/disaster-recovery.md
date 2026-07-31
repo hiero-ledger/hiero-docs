@@ -108,4 +108,4 @@ Do not use `--with-reset` unless explicitly instructed. This is rare.
 
 - [Troubleshooting](../../troubleshooting.md)
 - [Resetting and Upgrading the Block Node](../resetting-and-upgrading-the-block-node.md)
-- [Operator FAQ](../../operator-faq.md)
+- [Operator FAQ](../../faq/operator-faq.md)
