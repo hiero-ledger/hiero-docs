@@ -32,3 +32,8 @@ Additional details are captured in [Architecture Overview](architecture/architec
 ## Configuration
 
 Refer to the [Configuration](configuration.md) for configuration options.
+
+## Operator FAQ
+
+For frequently asked questions about deployment, configuration, and operations, see the
+[Operator FAQ](faq/operator-faq.md).

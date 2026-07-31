@@ -84,5 +84,5 @@ Common placeholders used in this guide:
 - [Block Node Hardware Specifications](../block-node-hardware-specifications.md)
 - [Network Ports and Protocols](../network-ports-and-protocols.md)
 - [Block Node On-Chain Registration](../../block-node-on-chain-registration.md)
-- [Operator FAQ](../../operator-faq.md)
+- [Operator FAQ](../../faq/operator-faq.md)
 - [Solo Provisioner Quickstart](https://github.com/hashgraph/solo-weaver/blob/main/docs/quickstart.md)

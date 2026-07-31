@@ -131,7 +131,7 @@ Set this to approximately 80% of your provisioned bulk HDD capacity. For example
 - 500 TiB of HDD → `--archive-size=400Ti`
 
 The 20% headroom allows storage growth to be caught before the volume fills completely. See
-[How do I size the archive PVC?](../../operator-faq.md#how-do-i-size-the-archive-pvc-relative-to-my-bulk-storage-disk)
+[How do I size the archive PVC?](../../faq/operator-faq.md#how-do-i-size-the-archive-pvc-relative-to-my-bulk-storage-disk)
 for the full reasoning.
 
 **`<HASHGRAPH_PROVIDED_VALUES_FILE>`** is the cohort-pinned values overlay Hashgraph delivers

@@ -155,7 +155,7 @@ coordinated with Hashgraph DevOps before installation.
 > is not supported - the CN PBJ client disables TLS globally, and enabling TLS upstream on this
 > port breaks CN streaming. TLS on the **subscriber port** (MN → BN) is permitted. TLS support
 > on the publish port is targeted for a future CN release (~0.78/0.79). See
-> [Operator FAQ - TLS](../../operator-faq.md#does-the-block-node-support-tls-or-authentication-on-its-endpoints)
+> [Operator FAQ - TLS](../../faq/operator-faq.md#does-the-block-node-support-tls-or-authentication-on-its-endpoints)
 > for the full per-port status.
 
 **If enabling TLS on the subscriber port:**

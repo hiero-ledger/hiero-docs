@@ -40,7 +40,7 @@ Exhibit B §7c.
 - [Block Node On-Chain Registration (HIP-1137)](../../block-node-on-chain-registration.md)
 - [Configuration Reference](../../configuration.md)
 - [Metrics Reference](../../metrics.md)
-- [Operator FAQ](../../operator-faq.md)
+- [Operator FAQ](../../faq/operator-faq.md)
 - [Troubleshooting](../../troubleshooting.md)
 - [Resetting and Upgrading the Block Node](../resetting-and-upgrading-the-block-node.md)
 
