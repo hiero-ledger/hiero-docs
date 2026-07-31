@@ -4,7 +4,7 @@ Common operational questions for Block Node operators, with answers sourced dire
 from the codebase, configuration files, and protocol documentation. Each answer links
 to the canonical reference for full detail.
 
-For term definitions, see the [Glossary](./glossary.md).
+For term definitions, see the [Glossary](../glossary.md).
 
 ---
 
@@ -22,7 +22,7 @@ Requirements depend on your deployment tier and network:
 
 Network: minimum 2 × 10 Gbps NICs for Tier 1 mainnet.
 
-> See [Block Node Hardware Specifications](./operations/block-node-hardware-specifications.md) for full details.
+> See [Block Node Hardware Specifications](../operations/block-node-hardware-specifications.md) for full details.
 
 ### What are the minimum NVMe IOPS requirements?
 
@@ -33,7 +33,7 @@ Fast NVMe storage must sustain (aggregate across all drives, random-access):
 - **1,000,000** random read AIO IOPS
 - P99 write latency < 300 µs; P99 read latency < 200 µs
 
-> See [Block Node Hardware Specifications](./operations/block-node-hardware-specifications.md) for full details.
+> See [Block Node Hardware Specifications](../operations/block-node-hardware-specifications.md) for full details.
 
 ### Can I run a Block Node on a VM?
 
@@ -42,7 +42,7 @@ testnet/previewnet, a GCP `e2-standard-16` (16 vCPU, 32 GB RAM) or equivalent is
 sufficient. For mainnet Tier 1, bare-metal deployment is strongly recommended due to
 NVMe IOPS requirements and the risk of noisy-neighbour effects on VMs.
 
-> See [Deploy with Solo Provisioner](./operations/solo-weaver-single-node-k8s-deployment.md) for full details.
+> See [Deploy with Solo Provisioner](../operations/solo-weaver-single-node-k8s-deployment.md) for full details.
 
 ### How do I size the archive PVC relative to my bulk storage disk?
 
@@ -75,7 +75,7 @@ different value based on their own retention and capacity policies.
 The Block Node does not terminate TLS in-process; TLS is handled upstream by a Kubernetes
 Ingress or load balancer.
 
-> See [Network Ports and Protocols](./operations/network-ports-and-protocols.md) for full details.
+> See [Network Ports and Protocols](../operations/network-ports-and-protocols.md) for full details.
 
 ### What are the expected inbound and outbound traffic flows?
 
@@ -92,7 +92,7 @@ Ingress or load balancer.
 - Backfill plugin dials peer Block Nodes to fetch missing historical blocks
 - RSA Bootstrap Plugin dials a Mirror Node to fetch RSA address book data for WRB block proof verification
 
-> See [Network Ports and Protocols](./operations/network-ports-and-protocols.md) for full details.
+> See [Network Ports and Protocols](../operations/network-ports-and-protocols.md) for full details.
 
 ### What bandwidth should I plan for?
 
@@ -110,7 +110,7 @@ block node team as current targets. The 33-subscriber figure may change as the n
 topology evolves — verify the expected subscriber count with your Hashgraph PoC before
 finalising hardware procurement.
 
-> See [Block Node Hardware Specifications](./operations/block-node-hardware-specifications.md) for full details.
+> See [Block Node Hardware Specifications](../operations/block-node-hardware-specifications.md) for full details.
 
 ### Does the Block Node support TLS or authentication on its endpoints?
 
@@ -128,13 +128,13 @@ by port:
 **Authentication:** There is no built-in authentication mechanism, and there are no
 plans to add any. Security is enforced at the network and transport layer.
 
-> See [Network Ports and Protocols](./operations/network-ports-and-protocols.md) and [Block Node On-Chain Registration](./block-node-on-chain-registration.md) for full details.
+> See [Network Ports and Protocols](../operations/network-ports-and-protocols.md) and [Block Node On-Chain Registration](../block-node-on-chain-registration.md) for full details.
 
 ### How should I secure the Block Node if there is no built-in authentication?
 
 The Block Node has no authentication and there are no plans to add any. This is by
 design: **trust is in the data, not in the node.** Every block carries a
-[Block Proof](./glossary.md#block-proof) that cryptographically verifies the block's
+[Block Proof](../glossary.md#block-proof) that cryptographically verifies the block's
 authenticity — subscribers verify the data themselves rather than trusting the node
 delivering it.
 
@@ -162,7 +162,7 @@ deployment environment requires it.
 | `stream-publisher` plugin | **Required**                         | **Must be removed** from `plugins.names`               |
 | Hardware                  | Mainnet bare-metal specs             | Lower — sized to retention window                      |
 
-> See [Block Node Types and Tiers](../Block-Node-Types.md) and [Configuration Reference](./configuration.md) for full details.
+> See [Block Node Types and Tiers](../../Block-Node-Types.md) and [Configuration Reference](../configuration.md) for full details.
 
 ### What is the difference between node types (Full Node, Rolling-History, Light Node, Archive Server)?
 
@@ -182,11 +182,11 @@ Three paths are available:
 1. **Solo Provisioner (recommended for mainnet Tier 1 and testnet/evaluation):** Single
    command handles Kubernetes setup and Helm installation. Solo Provisioner also automates
    networking and traffic shaping tasks based on dynamic values from the managed Block Node.
-   See [Deploy with Solo Provisioner](./operations/solo-weaver-single-node-k8s-deployment.md).
+   See [Deploy with Solo Provisioner](../operations/solo-weaver-single-node-k8s-deployment.md).
 
 2. **Direct Single Node Kubernetes (an option for operators with an existing cluster):** Manual
    Helm install on a pre-existing single-node cluster using the `task helm-release` Taskfile target.
-   See [Direct Single Node Kubernetes Deployment](./operations/single-node-k8s-deployment.md).
+   See [Direct Single Node Kubernetes Deployment](../operations/single-node-k8s-deployment.md).
 
 3. **Existing Kubernetes cluster:** Apply the Block Node Helm chart directly with
    `-f charts/block-node-server/values-overrides/plugin-profile-lfh.yaml` (or your
@@ -208,7 +208,7 @@ For **Tier 2**, start from `plugin-profile-lfh` and remove `stream-publisher` fr
 `plugins.names`. The presence of `stream-publisher` is the key difference between
 Tier 1 and Tier 2.
 
-> See [Configuration Reference](./configuration.md) for full details.
+> See [Configuration Reference](../configuration.md) for full details.
 
 ### How do I configure the API ports?
 
@@ -230,7 +230,7 @@ blockNode:
 When set in Helm, do not also set these in `blockNode.config` — they are injected
 automatically as environment variables.
 
-> See [Configuration Reference](./configuration.md) for full details.
+> See [Configuration Reference](../configuration.md) for full details.
 
 ### How do I configure traffic control and message size limits?
 
@@ -244,7 +244,7 @@ Key environment variables:
 | `SERVER_MAX_TCP_CONNECTIONS`              | 1,000                | Max simultaneous connections |
 | `BACKFILL_MAX_INCOMING_BUFFER_SIZE`       | 104,857,600 (100 MB) | Backfill gRPC receive buffer |
 
-> See [Configuration Reference](./configuration.md) for full details.
+> See [Configuration Reference](../configuration.md) for full details.
 
 ---
 
@@ -268,7 +268,7 @@ the `blocknode_` prefix. Metric categories include:
 | Cloud storage archive  | `blocknode_cloud_storage_archive_*` | Upload success/failure, bytes stored              |
 | Cloud storage expanded | `blocknode_cloud_expanded_*`        | Per-block upload metrics                          |
 
-> See [Metrics and Monitoring](./metrics.md) for the complete metric catalogue with
+> See [Metrics and Monitoring](../metrics.md) for the complete metric catalogue with
 > descriptions and types.
 
 ### How do I check if my Block Node is healthy?
@@ -298,7 +298,7 @@ Three methods:
 
    Value 1 = Running; 0 = Starting; 2 = Shutting Down.
 
-> See [Network Ports and Protocols](./operations/network-ports-and-protocols.md) and [Metrics and Monitoring](./metrics.md) for full details.
+> See [Network Ports and Protocols](../operations/network-ports-and-protocols.md) and [Metrics and Monitoring](../metrics.md) for full details.
 
 ### What are the liveness and readiness probe URLs?
 
@@ -310,7 +310,7 @@ Three methods:
 Both paths are configurable via `blockNode.health.liveness.endpoint` and
 `blockNode.health.readiness.endpoint` in Helm values.
 
-> See [Configuration Reference](./configuration.md) for full details.
+> See [Configuration Reference](../configuration.md) for full details.
 
 ### What metrics should I alert on?
 
@@ -333,7 +333,7 @@ Both paths are configurable via `blockNode.health.liveness.endpoint` and
 | `blocknode_messaging_item_queue_percent_used` | > 60%       |
 | `blocknode_backfill_fetch_errors`             | > 3 in 60 s |
 
-> See [Metrics and Monitoring](./metrics.md) for full details.
+> See [Metrics and Monitoring](../metrics.md) for full details.
 
 ### What log level should I run in production?
 
@@ -347,7 +347,7 @@ debugging — it generates significant volume.
 Also: **do not schedule maintenance tasks (log rotation, cron jobs, tmpwatch) at UTC
 midnight.** Block Node I/O load peaks at midnight when network processing is highest.
 
-> See [Configuration Reference](./configuration.md) for full details.
+> See [Configuration Reference](../configuration.md) for full details.
 
 ---
 
@@ -373,7 +373,7 @@ Then restart the Mirror Node importer. Verify by checking that `lastAvailableBlo
 advances in the Block Node `serverStatus` response and that the Mirror Node logs show
 subscribe activity.
 
-> See [Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md) for full details.
+> See [Connecting a Mirror Node to a Block Node](../operations/connecting-a-mirror-node-to-a-block-node.md) for full details.
 
 ### Does the Block Node reconnect to the Consensus Node automatically?
 
@@ -394,7 +394,7 @@ properties in `application.properties`:
 | `blockNode.highLatencyEventsBeforeSwitching` | 5       | Events before switching to next BN            |
 | `blockNode.globalCoolDownSeconds`            | 10 s    | Minimum time between BN switches              |
 
-> See [Configure Consensus Node Streaming](./operations/consensus-node-to-block-node-configuration.md) for full details.
+> See [Configure Consensus Node Streaming](../operations/consensus-node-to-block-node-configuration.md) for full details.
 
 ---
 
@@ -420,7 +420,7 @@ Both methods preserve local block storage (PVCs are not deleted). If the upgrade
 requires a block store reset (e.g. format change), add `--with-reset` for Solo
 Provisioner or run `task reset-upgrade`.
 
-> See [Resetting and Upgrading the Block Node](./operations/resetting-and-upgrading-the-block-node.md) for full details.
+> See [Resetting and Upgrading the Block Node](../operations/resetting-and-upgrading-the-block-node.md) for full details.
 
 ### How do I reset the Block Node state?
 
@@ -443,7 +443,7 @@ task reset-upgrade
 After a reset, `serverStatus` returns `firstAvailableBlock = lastAvailableBlock = uint64_max`
 (empty node). Configure backfill sources and enable greedy backfill to recover history.
 
-> See [Resetting and Upgrading the Block Node](./operations/resetting-and-upgrading-the-block-node.md) for full details.
+> See [Resetting and Upgrading the Block Node](../operations/resetting-and-upgrading-the-block-node.md) for full details.
 
 ### How do I enable or disable plugins after deployment?
 
@@ -461,7 +461,7 @@ blockNode:
 delete the JAR from the plugins volume. Adding a name causes the init container to
 download and load it on the next start.
 
-> See [Configuration Reference](./configuration.md) for full details.
+> See [Configuration Reference](../configuration.md) for full details.
 
 ---
 
@@ -469,7 +469,7 @@ download and load it on the next start.
 
 ### What is backfill and when does it run?
 
-[Backfill](./glossary.md#backfill) is the automatic process of fetching missing
+[Backfill](../glossary.md#backfill) is the automatic process of fetching missing
 historical blocks from peer Block Nodes. The backfill plugin runs continuously,
 scanning every `BACKFILL_SCAN_INTERVAL` (default 60 s) for gaps in local block storage
 and fetching from configured peer sources.
@@ -489,7 +489,7 @@ network interruption).
 | `BACKFILL_DELAY_BETWEEN_BATCHES` | 1,000 ms        | Delay between successive batch requests                                              |
 | `BACKFILL_GREEDY`                | false           | Set `true` to continuously fetch without delay (recommended during initial backfill) |
 
-> See [Configuration Reference](./configuration.md) for full details.
+> See [Configuration Reference](../configuration.md) for full details.
 
 ### How do I configure or change what Block Nodes are used as backfill sources?
 
@@ -513,7 +513,7 @@ All Tier 1 Block Nodes should have at least one source configured. More than one
 recommended for redundancy — the backfill plugin selects by earliest available block,
 then priority, then health score.
 
-> See [Preparing for WRB Cutover](./operations/preparing-your-block-node-for-wrb-cutover.md) for full details.
+> See [Preparing for WRB Cutover](../operations/preparing-your-block-node-for-wrb-cutover.md) for full details.
 
 ---
 
@@ -596,7 +596,7 @@ The `tools-and-tests/` directory contains:
 | **`Taskfile.yml`** (operations)        | `tools-and-tests/scripts/node-operations/` | Taskfile targets: `helm-upgrade`, `reset-file-store`, `reset-upgrade`, `helm-release`. Used for lifecycle management of deployed nodes.                                                                       |
 | **`generate-rsa-roster-bootstrap.sh`** | `tools-and-tests/scripts/node-operations/` | Generates an RSA roster bootstrap JSON file for WRB cutover preparation.                                                                                                                                      |
 | **`run-k6-tests.sh`**                  | `tools-and-tests/k6/`                      | Runs k6 load tests against a deployed Block Node.                                                                                                                                                             |
-| **Block Stream Simulator**             | `tools-and-tests/simulator/`               | Publishes synthetic block streams to a Block Node without a real Consensus Node. Used for local testing. See [Testing with the Simulator](./operations/testing-a-deployed-block-node-using-the-simulator.md). |
+| **Block Stream Simulator**             | `tools-and-tests/simulator/`               | Publishes synthetic block streams to a Block Node without a real Consensus Node. Used for local testing. See [Testing with the Simulator](../operations/testing-a-deployed-block-node-using-the-simulator.md). |
 
 ### Which plugins provide which features?
 
@@ -619,7 +619,7 @@ Each plugin is identified by its `plugins.names` key (used in Helm configuration
 | `roster-bootstrap-tss`   | Loads TSS roster data for post-cutover block proof verification                              | Required post-cutover                 |
 | `facility-messaging`     | Internal LMAX Disruptor event bus — distributes block items to all plugins                   | All deployments (core infrastructure) |
 
-> See [Configuration Reference](./configuration.md) for `plugins.names` syntax and profile examples.
+> See [Configuration Reference](../configuration.md) for `plugins.names` syntax and profile examples.
 
 ### Is a fully-qualified domain name (FQDN) required?
 
@@ -638,7 +638,7 @@ Each `service_endpoint` requires either:
 The two are mutually exclusive per endpoint. For production deployments a stable hostname
 is recommended so that IP address changes do not require a registration update.
 
-> See [Configure Consensus Node Streaming](./operations/consensus-node-to-block-node-configuration.md)
-> and [Block Node On-Chain Registration](./block-node-on-chain-registration.md) for full details.
+> See [Configure Consensus Node Streaming](../operations/consensus-node-to-block-node-configuration.md)
+> and [Block Node On-Chain Registration](../block-node-on-chain-registration.md) for full details.
 
 ---

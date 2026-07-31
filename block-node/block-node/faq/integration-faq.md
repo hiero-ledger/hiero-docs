@@ -3,7 +3,7 @@
 Common integration and protocol questions for Consensus Node, Block Node, and Mirror
 Node developers.
 
-For term definitions, see the [Glossary](./glossary.md).
+For term definitions, see the [Glossary](../glossary.md).
 For operator questions, see the [Operator FAQ](./operator-faq.md).
 
 ---
@@ -30,7 +30,7 @@ responds:
 
 The CN is always the client (initiator). The BN never dials a CN.
 
-> See [Publish Block Stream](../design/communication-protocol/publish-block-stream.md) for more details.
+> See [Publish Block Stream](../../design/communication-protocol/publish-block-stream.md) for more details.
 
 ### What does the Block Node send back during streaming?
 
@@ -99,7 +99,7 @@ The BN responds with a stream of `SubscribeStreamResponse` messages containing
 `block_items`, `end_of_block`, and finally a terminal `status` code when the stream
 closes.
 
-> See [Mirror Node Integration](./mirror-node-integration.md) for more details.
+> See [Mirror Node Integration](../mirror-node-integration.md) for more details.
 
 ### What is the difference between `INVALID_START_BLOCK_NUMBER` and `NOT_AVAILABLE`?
 
@@ -123,7 +123,7 @@ The Subscribe API stream at the live edge, because it is live and unverified, _m
 deliver blocks out of order, but _should_ deliver the out-of-order block within a
 reasonable time.
 
-> See [Mirror Node Integration](./mirror-node-integration.md) for more details.
+> See [Mirror Node Integration](../mirror-node-integration.md) for more details.
 
 ### How does the Block Node handle slow subscribers?
 
@@ -136,7 +136,7 @@ Blocks delivered from the live queue are unverified and may contain errors, be
 repeated, or be incomplete. Subscribers are responsible for verifying each block using
 its `BlockProof`.
 
-> See [Mirror Node Integration](./mirror-node-integration.md) for more details.
+> See [Mirror Node Integration](../mirror-node-integration.md) for more details.
 
 ---
 
@@ -176,7 +176,7 @@ which Block Node(s) to stream to. Location:
   directory.
 - File name **must** be exactly `block-nodes.json`.
 
-> See [Configure Consensus Node Streaming](./operations/consensus-node-to-block-node-configuration.md) for more details.
+> See [Configure Consensus Node Streaming](../operations/consensus-node-to-block-node-configuration.md) for more details.
 
 ### What values go in `block-nodes.json`?
 
@@ -204,7 +204,7 @@ which Block Node(s) to stream to. Location:
 | `messageSizeSoftLimitBytes` | ❌        | Soft limit on per-request payload size; default 2,097,152 bytes (2 MB)            |
 | `messageSizeHardLimitBytes` | ❌        | Hard limit on per-item payload size; default 131,072,000 bytes (125 MB)           |
 
-> See [Configure Consensus Node Streaming](./operations/consensus-node-to-block-node-configuration.md) for more details.
+> See [Configure Consensus Node Streaming](../operations/consensus-node-to-block-node-configuration.md) for more details.
 
 ### What is `writerMode` and when do I need `FILE_AND_GRPC` vs `GRPC`?
 
@@ -220,7 +220,7 @@ block data:
 Use `GRPC` when the CN must stream to Block Nodes only and all history is owned by Block Nodes.
 Use `FILE_AND_GRPC` before "cutover" to send blocks while still directly uploading data to legacy cloud buckets.
 
-> See [Configure Consensus Node Streaming](./operations/consensus-node-to-block-node-configuration.md) for more details.
+> See [Configure Consensus Node Streaming](../operations/consensus-node-to-block-node-configuration.md) for more details.
 
 ### Does `block-nodes.json` require a CN restart to take effect?
 
@@ -230,7 +230,7 @@ cleanly and new connections are established with the updated configuration. If t
 is missing or fails to parse, the CN logs a warning and stops establishing new
 connections until a valid file is present.
 
-> See [Configure Consensus Node Streaming](./operations/consensus-node-to-block-node-configuration.md) for more details.
+> See [Configure Consensus Node Streaming](../operations/consensus-node-to-block-node-configuration.md) for more details.
 
 ### How do I use `solo block node add-external` instead of editing `block-nodes.json`?
 
@@ -246,7 +246,7 @@ solo block node add-external \
 Run this command after the network is initialised but **before** starting the Consensus
 Nodes — this ensures the BN receives every block from block 0 onwards.
 
-> See [Load Testing with Solo and NLG](./operations/load-testing-a-deployed-block-node-using-solo-and-nlg.md) for more details.
+> See [Load Testing with Solo and NLG](../operations/load-testing-a-deployed-block-node-using-solo-and-nlg.md) for more details.
 
 ---
 
@@ -270,7 +270,7 @@ const adminKey = PrivateKey.generateED25519();
 // Store the private key securely — loss is unrecoverable
 ```
 
-> See [Block Node On-Chain Registration](./block-node-on-chain-registration.md) for the
+> See [Block Node On-Chain Registration](../block-node-on-chain-registration.md) for the
 > full registration workflow, key rotation procedure, and production custody recommendations.
 
 ---
@@ -290,7 +290,7 @@ to a long-lived gRPC stream from a Block Node**:
 | Source discovery | Operator-configured bucket URL                 | On-chain registry ([HIP-1137](https://hips.hedera.com/hip/hip-1137)) or operator-supplied list |
 | Switch trigger   | Manual reconfiguration                         | Automatic on HAPI version ≥ 0.76.0 (Mirror Node v0.155+)                                       |
 
-> See [Record Stream to Block Stream Migration](./record-stream-to-block-stream-migration.md) for more details.
+> See [Record Stream to Block Stream Migration](../record-stream-to-block-stream-migration.md) for more details.
 
 ### What preparation steps does a Block Node need before WRB cutover?
 
@@ -306,7 +306,7 @@ to a long-lived gRPC stream from a Block Node**:
    cutover.
 7. Verify all readiness checks pass and `lastAvailableBlock` is advancing.
 
-> See [Preparing for WRB Cutover](./operations/preparing-your-block-node-for-wrb-cutover.md) for more details.
+> See [Preparing for WRB Cutover](../operations/preparing-your-block-node-for-wrb-cutover.md) for more details.
 
 ---
 
