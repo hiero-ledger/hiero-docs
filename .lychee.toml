@@ -1,0 +1,27 @@
+# Lychee link checker configuration
+# https://lychee.cli.rs/usage/config/
+
+# Patterns excluded from all link checks (matched against the target URL/path)
+exclude = [
+  "^#",             # Anchor-only links — heading targets can't be verified without HTML rendering
+  "^mailto:",       # Email addresses
+  "localhost",      # Local development URLs
+  "127\\.0\\.0\\.1",
+  "broken-reference", # GitBook placeholder inserted for unresolved cross-references
+]
+
+# Source files to skip entirely — these are design/test/architecture docs that contain
+# relative links to source-code files (e.g. .kts, .proto, .svg) that do not exist in
+# hiero-docs (they live in the hiero-block-node source repo).
+exclude_path = [
+  "block-node/block-node/architecture/plugins.md",
+  "block-node/design",
+  "block-node/test-plan",
+]
+
+# HTTP status codes accepted as valid (handles rate-limiting gracefully)
+accept = ["200", "206", "429", "999"]
+
+# Retry settings for external link checks
+max_retries = 3
+retry_wait_time = 5

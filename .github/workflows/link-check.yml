@@ -1,0 +1,65 @@
+name: Link Check
+
+on:
+  pull_request:
+    paths:
+      - "**/*.md"
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  internal-links:
+    name: Internal links
+    runs-on: hl-docs-lin-md
+    steps:
+      - name: Harden the runner
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Install lychee (if not present)
+        run: |
+          if ! command -v lychee &>/dev/null; then
+            curl -sLO https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.2/lychee-x86_64-unknown-linux-musl.tar.gz
+            tar -xzf lychee-x86_64-unknown-linux-musl.tar.gz --strip-components=1 lychee-x86_64-unknown-linux-musl/lychee
+            chmod +x lychee
+          fi
+
+      - name: Check internal links
+        run: ./lychee --config .lychee.toml --offline --no-progress '**/*.md'
+
+  external-links:
+    name: External links (advisory)
+    runs-on: hl-docs-lin-md
+    continue-on-error: true
+    steps:
+      - name: Harden the runner
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Install lychee (if not present)
+        run: |
+          if ! command -v lychee &>/dev/null; then
+            curl -sLO https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.2/lychee-x86_64-unknown-linux-musl.tar.gz
+            tar -xzf lychee-x86_64-unknown-linux-musl.tar.gz --strip-components=1 lychee-x86_64-unknown-linux-musl/lychee
+            chmod +x lychee
+          fi
+
+      - name: Check external links
+        run: ./lychee --config .lychee.toml --no-progress '**/*.md'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

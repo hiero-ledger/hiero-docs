@@ -25,7 +25,7 @@ See also: [TSS (hinTS)](#tss-hintsts), [WRAPS](#wraps).
 
 A Block Node type that provides cold storage of historical block data without exposing live
 streaming or consumer APIs.
-Defined in [Block Node Types and Tiers](./../../Block-Node-Types.md).
+Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 
 ---
 
@@ -127,7 +127,7 @@ over gRPC in Protocol Buffer format. Replaces the legacy
 
 A Block Node type operated by community members or ecosystem participants to provide
 general-purpose block stream access to the broader network.
-Defined in [Block Node Types and Tiers](./../../Block-Node-Types.md).
+Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 
 ### Consensus Node
 
@@ -167,7 +167,7 @@ See [Cutover-Process.md](./Cutover-Process.md) for the full phase sequence.
 
 A Block Node type that retains all history and state, offering the broadest range of
 services including state management, state proofs, content proofs, and query APIs.
-Defined in [Block Node Types and Tiers](./../../Block-Node-Types.md).
+Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 
 ---
 
@@ -227,7 +227,7 @@ Defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200).
 
 A Block Node type suitable for development, testing, or services that do not require full
 history. A variant of [Rolling-History](#rolling-history) with a focus on lightweight
-deployments. Defined in [Block Node Types and Tiers](./../../Block-Node-Types.md).
+deployments. Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 
 ### Local Full History (LFH)
 
@@ -299,7 +299,7 @@ cloud buckets, long-term tape, or replicated local disks.
 
 A Block Node type deployed within a private network or cloud environment, typically
 serving a single organisation's internal needs rather than the broader public network.
-Defined in [Block Node Types and Tiers](./../../Block-Node-Types.md).
+Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 
 ### Private Sphere
 
@@ -352,7 +352,7 @@ currently in active development.
 A Block Node type that retains only recent history — for example, the last 24 hours or
 30 days — rather than full history from genesis. Most Tier 2 nodes are expected to be
 this type. Provides a [Partial History](#partial-history) service.
-Defined in [Block Node Types and Tiers](./../../Block-Node-Types.md).
+Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 
 ### Roster / TSS Roster
 

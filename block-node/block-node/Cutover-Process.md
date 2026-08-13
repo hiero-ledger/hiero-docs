@@ -105,7 +105,7 @@ timeline
   - Block Nodes run in Preview mode.
   - Preview Block Streams produced with incomplete hash data.
 - Release N
-  - Consensus Node generates [WRB](../glossary.md#wrb-wrapped-record-block) subtree hashes.
+  - Consensus Node generates [WRB](./glossary.md#wrb-wrapped-record-block) subtree hashes.
   - Consensus Node stores WRB subtree hash data on disk.
   - "Offline" process downloading record files from S3.
     - Generate WRB blocks from record files.
@@ -118,7 +118,7 @@ timeline
   - Jumpstart Data is included in the Consensus Node release package, and is
     from approximately 8-10 days before the release date.
   - Consensus Node reads Jumpstart Data.
-    - WRB data is combined with the [Jumpstart Data](../glossary.md#jumpstart-data) to complete "[WRB Catch Up](../glossary.md#wrb-catch-up)".
+    - WRB data is combined with the [Jumpstart Data](./glossary.md#jumpstart-data) to complete "[WRB Catch Up](./glossary.md#wrb-catch-up)".
     - Consensus Node begins creating WRB block root hash with all
       necessary correct inputs.
     - Consensus Node stores the correct WRB hash in BlockInfo in state at the
@@ -133,7 +133,7 @@ timeline
     - TSS creates the Ledger ID and publishes LedgerID, Initial Roster, and
       WRAPS verification key in record stream via TSS adoption transaction.
     - Consensus Node creates WRAPS proofs for each new Roster.
-  - Offline process continues to generate WRB files for backfill via [RBH Block Node](../glossary.md#record-block-history-rbh-block-node).
+  - Offline process continues to generate WRB files for backfill via [RBH Block Node](./glossary.md#record-block-history-rbh-block-node).
   - Block Nodes are prepared for cutover.
     - All "production" Tier 1 block nodes are reset to clear preview blocks.
     - All "production" Tier 1 block nodes begin rapid backfill from RBH to
@@ -142,7 +142,7 @@ timeline
     to "preview" buckets for testing and qualification.
     - Preview block hashes continue to be entirely incomplete (to reduce
       complexity).
-- Release N+2 ([Cutover Release](../glossary.md#cutover-release))
+- Release N+2 ([Cutover Release](./glossary.md#cutover-release))
   - Consensus Node performs cutover tasks during post upgrade processing.
     - Consensus Node signs each block with TSS and WRAPS.
     - Consensus Node ceases producing Record Streams.
