@@ -40,7 +40,7 @@ Before upgrading, confirm the Block Node is healthy. Do not upgrade an unhealthy
      -import-path ~/bn-proto \
      -proto block-node/api/node_service.proto \
      -d '{}' \
-     "$BLOCK_NODE_HOST:40840" \
+     "$BLOCK_NODE_HOST:40982" \
      org.hiero.block.api.BlockNodeService/serverStatus
    ```
 
@@ -177,7 +177,7 @@ grpcurl -plaintext -emit-defaults \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
   -d '{}' \
-  "$BLOCK_NODE_HOST:40840" \
+  "$BLOCK_NODE_HOST:40982" \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
@@ -251,8 +251,8 @@ The file format is a JSON object with a `nodes` array:
 ```json
 {
   "nodes": [
-    { "address": "peer1.example.com", "port": 40840, "priority": 1, "name": "peer-bn-1" },
-    { "address": "peer2.example.com", "port": 40840, "priority": 2, "name": "peer-bn-2" }
+    { "address": "peer1.example.com", "port": 40980, "priority": 1, "name": "peer-bn-1" },
+    { "address": "peer2.example.com", "port": 40980, "priority": 2, "name": "peer-bn-2" }
   ]
 }
 ```
@@ -277,7 +277,7 @@ grpcurl -plaintext -emit-defaults \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
   -d '{}' \
-  "$BLOCK_NODE_HOST:40840" \
+  "$BLOCK_NODE_HOST:40982" \
   org.hiero.block.api.BlockNodeService/serverStatusDetail
 ```
 
@@ -327,7 +327,7 @@ If you are directed by your Hashgraph PoC to configure a specific backfill sourc
      "nodes": [
        {
          "address": "<host-provided-by-hashgraph-poc>",
-         "port": 40840,
+         "port": 40980,
          "priority": 1
        }
      ]
@@ -343,7 +343,7 @@ If you are directed by your Hashgraph PoC to configure a specific backfill sourc
      -import-path ~/bn-proto \
      -proto block-node/api/node_service.proto \
      -d '{}' \
-     "$BLOCK_NODE_HOST:40840" \
+     "$BLOCK_NODE_HOST:40982" \
      org.hiero.block.api.BlockNodeService/serverStatus
    ```
 
@@ -371,16 +371,16 @@ If any check fails, resolve the issue and confirm readiness with your Hashgraph 
 
 ## Troubleshooting
 
-|                                     Symptom                                     |                             Likely cause                             |                                                                                                                     Resolution                                                                                                                     |
-|---------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `solo-provisioner block node check` fails with "CPU does not meet requirements" | VM has fewer physical cores than the profile minimum                 | See [Block Node Hardware Specifications](./block-node-hardware-specifications.md). The check counts physical cores, not vCPUs.                                                                                                                     |
-| `solo-provisioner block node check` fails with "profile flag is required"       | `--profile` flag missing                                             | Always pass `--profile=mainnet`.                                                                                                                                                                                                                   |
-| `block node reset` exits with "permission denied"                               | Command run without `sudo`                                           | Prefix with `sudo`.                                                                                                                                                                                                                                |
-| Pod stuck in `0/1` or init containers running after reset                       | Init containers setting up storage and resolving plugins             | Allow 2-5 minutes. Run `kubectl -n block-node describe pod $BN_POD` to see init-container status.                                                                                                                                                  |
-| RSA roster missing or not loaded after reset                                    | Mirror Node unreachable, or file missing (file-based delivery)       | If using Mirror Node auto-fetch, confirm `ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_BASE_URL` is set and the Mirror Node is reachable — the roster is re-fetched automatically on pod start. If using file-based delivery, re-deliver from off-host backup. |
-| Backfill not starting                                                           | `backfill.blockNodeSourcesPath` is blank or points to a missing file | Confirm `BACKFILL_BLOCK_NODE_SOURCES_PATH` is set and the referenced JSON file exists in the pod.                                                                                                                                                  |
-| `firstAvailableBlock` still shows old block numbers after reset                 | Reset did not complete successfully                                  | Check `sudo head /opt/solo/weaver/logs/solo-provisioner.log` for the step that failed.                                                                                                                                                             |
-| `grpcurl` returns `connection refused` on port 40840                            | Block Node is not yet listening                                      | Wait for the pod to reach `1/1 Running`; confirm `server.port` in the Block Node configuration.                                                                                                                                                    |
+|                                        Symptom                                         |                             Likely cause                             |                                                                                                                     Resolution                                                                                                                     |
+|----------------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `solo-provisioner block node check` fails with "CPU does not meet requirements"        | VM has fewer physical cores than the profile minimum                 | See [Block Node Hardware Specifications](./block-node-hardware-specifications.md). The check counts physical cores, not vCPUs.                                                                                                                     |
+| `solo-provisioner block node check` fails with "profile flag is required"              | `--profile` flag missing                                             | Always pass `--profile=mainnet`.                                                                                                                                                                                                                   |
+| `block node reset` exits with "permission denied"                                      | Command run without `sudo`                                           | Prefix with `sudo`.                                                                                                                                                                                                                                |
+| Pod stuck in `0/1` or init containers running after reset                              | Init containers setting up storage and resolving plugins             | Allow 2-5 minutes. Run `kubectl -n block-node describe pod $BN_POD` to see init-container status.                                                                                                                                                  |
+| RSA roster missing or not loaded after reset                                           | Mirror Node unreachable, or file missing (file-based delivery)       | If using Mirror Node auto-fetch, confirm `ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_BASE_URL` is set and the Mirror Node is reachable — the roster is re-fetched automatically on pod start. If using file-based delivery, re-deliver from off-host backup. |
+| Backfill not starting                                                                  | `backfill.blockNodeSourcesPath` is blank or points to a missing file | Confirm `BACKFILL_BLOCK_NODE_SOURCES_PATH` is set and the referenced JSON file exists in the pod.                                                                                                                                                  |
+| `firstAvailableBlock` still shows old block numbers after reset                        | Reset did not complete successfully                                  | Check `sudo head /opt/solo/weaver/logs/solo-provisioner.log` for the step that failed.                                                                                                                                                             |
+| `grpcurl` returns `connection refused` on port 40982 (or configured serverStatus port) | Block Node is not yet listening                                      | Wait for the pod to reach `1/1 Running`; confirm `SERVER_STATUS_PORT` in the Block Node configuration.                                                                                                                                             |
 
 For issues not covered here, see [Block Node Troubleshooting](../troubleshooting.md). When opening a support ticket, attach:
 

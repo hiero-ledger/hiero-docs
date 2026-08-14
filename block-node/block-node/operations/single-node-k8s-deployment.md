@@ -148,7 +148,7 @@ Note 2: Some steps are marked as intermediate, indicating they will change due t
    Use `grpcurl` to interact with the Block Node Server:
 
    ```bash
-   grpcurl -plaintext -emit-defaults -import-path block-node-protobuf-<VERSION> -proto block-node/api/node_service.proto -d '{}' <host>:40840 org.hiero.block.api.BlockNodeService/serverStatus
+   grpcurl -plaintext -emit-defaults -import-path block-node-protobuf-<VERSION> -proto block-node/api/node_service.proto -d '{}' <host>:40982 org.hiero.block.api.BlockNodeService/serverStatus
    ```
 
    Expected output should show the server status:

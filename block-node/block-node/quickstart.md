@@ -1,17 +1,8 @@
 # Quickstart of the Server
 
-## Table of Contents
-
-1. [Configuration](#configuration)
-2. [Running locally](#running-locally)
-   1. [Build the Server](#build-the-server)
-   2. [Run the Server](#run-the-server)
-   3. [Run the Server with Debug](#run-the-server-with-debug)
-   4. [Stop the Server](#stop-the-server)
-
 ## Configuration
 
-Refer to the [Configuration](../configuration.md) for configuration options.
+Refer to the [Configuration](../configuration-overview.md) for configuration options.
 
 ## Running locally
 
