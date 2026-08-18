@@ -132,6 +132,26 @@ on-call contact provided at handoff.
 
 ---
 
+## Disk space alerting **[OPERATOR]**
+
+Both the `live` and `historic` volumes' retention policies are fixed block-count caps
+(`files.recent.blockRetentionThreshold` and `files.historic.blockRetentionThreshold` respectively),
+not disk-size caps. `historic` retention defaults to `0` (disabled - blocks are kept forever), so
+its volume grows unbounded unless a threshold is configured. If block sizes grow or a configured
+count is set too high for the provisioned volume, disk usage can reach 100% before the
+block-count cap is ever hit.
+
+There is no in-app metric for free disk space; it is host/volume-level, not something the
+Block Node process reports. Monitor it independently (e.g. `node_filesystem_avail_bytes`
+from node-exporter, or your platform's volume-usage metric for each mount) and alert
+operators before a volume fills, for example when free space drops below 15%. Filling the
+`live` volume causes block writes to fail, which stalls ingestion until space is freed or
+the volume is expanded; filling the `historic` volume causes historic archival writes to
+fail similarly. See [Host / Volume](../../metrics.md#host--volume-external) and the
+disk-space alert recommendation in the [Metrics Reference](../../metrics.md#alerting-recommendations).
+
+---
+
 ## Related documentation
 
 - [Resetting and Upgrading the Block Node](../resetting-and-upgrading-the-block-node.md)

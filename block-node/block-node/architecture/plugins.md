@@ -31,7 +31,7 @@ To add a new plugin:
    `BlockMessagingFacility`) if your plugin replaces or extends block management and messaging capabilities.
 3. Optionally, implement additional interfaces (e.g., a protobuf `ServiceInterface`) for additional capabilities.
 
-![block-node-plugin-class-diagram](./../../assets/block-node-plugin-class-diagram.svg)
+<img src="./../../assets/block-node-plugin-class-diagram.svg" alt="block-node-plugin-class-diagram" width="100%" />
 
 ## Example Plugin Structure
 

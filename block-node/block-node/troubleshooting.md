@@ -89,7 +89,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
      - Verify process is running and not crashlooping.
      - Confirm CPU / memory are not obviously saturated.
    - From a trusted host, test connectivity to the Block Node:
-     - `nc -vz <IP_OF_BLOCK_NODE> 40840`
+     - `nc -vz <IP_OF_BLOCK_NODE> 40984` (publish port; `40840` in base-chart default)
        - Success: TCP reachability is OK.
        - Failure: suspect firewall, security group, or local iptables.
    - If `nc` fails:
@@ -106,7 +106,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
      - `publisher_stream_errors` is non-zero.
    - Correlate with time of any infrastructure changes (deploys, config updates, firewall changes).
 4. **Resolution**
-   - Fix firewall / security group rules on gossip / ingest port (default `40840`, or configured port).
+   - Fix firewall / security group rules on the publish/ingest port (default `40984` in LFH profile; `40840` in base-chart default).
    - Restart the Block Node if needed once connectivity is restored.
 5. **Verification**
    - Confirm `publisher_block_items_received` increases steadily.
@@ -177,10 +177,10 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
    - From the Mirror Node host, confirm TCP connectivity to each configured Block Node:
 
      ```bash
-     nc -vz <BLOCK_NODE_HOST> 40840
+     nc -vz <BLOCK_NODE_HOST> 40980
      ```
 
-     - **Success**: `Connection to <BLOCK_NODE_HOST> port 40840 succeeded!` — proceed to the next step.
+     - **Success**: `Connection to <BLOCK_NODE_HOST> port 40980 succeeded!` — proceed to the next step.
      - **Failure**: TCP reachability is broken. Check firewall rules, security groups, and that the Block Node process is running. Confirm the port matches `hiero.mirror.importer.block.nodes[].port` in the Mirror Node configuration.
 3. **Block Node status**
    - Query `serverStatus` to confirm blocks are available and the gRPC endpoint is responding.
@@ -316,7 +316,7 @@ The table below is a **summary-only quick reference**. Use the runbooks above fo
 
 |                    **Issue**                     |                               **Symptoms**                                |                                              **Diagnosis**                                               |                                                                  **Resolution**                                                                   |
 |--------------------------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| Node not receiving new blocks                    | Ingest appears stalled, logs show no publish activity                     | Check firewall on ingest port (default `40840`), Consensus Node logs                                     | Open inbound port, ensure node is authorized / whitelisted by upstream CN; check ingress cert if using TLS termination                            |
+| Node not receiving new blocks                    | Ingest appears stalled, logs show no publish activity                     | Check firewall on publish/ingest port (`40984` in LFH; `40840` base-chart default), Consensus Node logs  | Open inbound port, ensure node is authorized / whitelisted by upstream CN; check ingress cert if using TLS termination                            |
 | Block Node operator: subscribers cannot connect  | gRPC connection failures; clients repeatedly reconnecting                 | Endpoint config; `stream-subscriber` plugin present; TLS cert check at ingress (if TLS is enabled)       | Fix endpoint or firewall; renew ingress TLS certs (if TLS is enabled); add `stream-subscriber` to plugin configuration                            |
 | Mirror Node operator: Mirror Node cannot connect | MN block height not advancing; repeated subscribe errors in importer logs | `nc` reachability; `serverStatus` output; subscribe smoke test; MN `block.*` config                      | Fix endpoint or firewall; correct `requiresTls`; see [connecting guide](./operations/connecting-a-mirror-node-to-a-block-node.md#troubleshooting) |
 | Disk full / out of space                         | Node crashes or refuses new blocks                                        | `df -h`, `files_recent_total_bytes_stored` nearing limit                                                 | Prune old blocks (partial-history), expand volume, or migrate to archive node                                                                     |

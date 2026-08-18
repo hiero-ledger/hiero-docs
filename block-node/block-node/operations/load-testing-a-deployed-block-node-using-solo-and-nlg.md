@@ -18,8 +18,9 @@ Before you begin, ensure you have:
 - A running, reachable Block Node deployed via one of:
   - [Bare Metal Single Node Kubernetes Deployment](./single-node-k8s-deployment.md)
   - [Virtual Machine Single Node Kubernetes Deployment](./solo-weaver-single-node-k8s-deployment.md)
-- The Block Node's external IP address or hostname and gRPC port. The default gRPC port is
-  `40840` (see `server.port` in [configuration.md](../configuration.md)).
+- The Block Node's external IP address or hostname and publish port. In the LFH production
+  profile the publish port is `40984` (`PRODUCER_PORT`); in a base-chart deployment it is `40840`
+  (see `server.port` in [configuration.md](../configuration.md)).
   Retrieve the external IP from your cluster:
 
   ```bash
@@ -139,7 +140,7 @@ export CONSENSUS_NODE_VERSION="v0.73.0"
 8. **Point the Consensus Nodes at your Block Node** (before starting them):
 
    Replace `<BN_IP>` with the external IP or hostname of your Block Node and `<PORT>` with the
-   gRPC port (default `40840`):
+   publish port (`40984` in LFH profile; `40840` in base-chart default):
 
    ```bash
    solo block node add-external \
@@ -159,7 +160,7 @@ blocks:
 grpcurl -plaintext -emit-defaults \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
-  -d '{}' <BN_IP>:40840 \
+  -d '{}' <BN_IP>:40982 \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
@@ -254,7 +255,7 @@ For the full metrics reference, see [configuration.md](../configuration.md#metri
 grpcurl -plaintext -emit-defaults \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
-  -d '{}' <BN_IP>:40840 \
+  -d '{}' <BN_IP>:40982 \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
@@ -325,14 +326,14 @@ resources, reduce to a single CN by changing `--num-consensus-nodes 1` in Step 2
 Verify that `<BN_IP>:<PORT>` is reachable from the machine running Solo:
 
 ```bash
-nc -zv <BN_IP> 40840
+nc -zv <BN_IP> <PORT>
 ```
 
 If the connection is refused, check that:
 
 - The Block Node pod is running (`kubectl get pods -n block-node`).
-- The Block Node service is exposing the gRPC port (`kubectl get svc -n block-node`).
-- Your cloud firewall allows inbound TCP on port `40840`. See
+- The Block Node service is exposing the publish port (`kubectl get svc -n block-node`).
+- Your cloud firewall allows inbound TCP on the publish port (`40984` in LFH; `40840` in base-chart default). See
   [Network Ports and Protocols](./network-ports-and-protocols.md).
 
 **NLG reports `zero-tps`**

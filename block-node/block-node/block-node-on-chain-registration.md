@@ -58,7 +58,7 @@ The `BlockNodeApi` values:
 | `STATE_PROOF`      | The Block Node State Proof API.                                                                                                               |
 | `OTHER`            | Any other Block Node API; the consumer must consult node-specific documentation and is recommended to query the detail status endpoint first. |
 
-A single endpoint may declare multiple values from this enum if it serves more than one API on the same host/port. Most production deployments split APIs across endpoints - for example, one endpoint for `PUBLISH` and a separate endpoint for `SUBSCRIBE_STREAM` - because the bandwidth and security profiles differ. Even when endpoints are spread across different hosts, they all belong to one logical node — any client connecting to any of them must see the same block data. The default gRPC port for the Block Node is `40840`; see [Block Node Configuration](./configuration.md) for the operator-side configuration of the underlying service.
+A single endpoint may declare multiple values from this enum if it serves more than one API on the same host/port. Most production deployments split APIs across endpoints - for example, one endpoint for `PUBLISH` and a separate endpoint for `SUBSCRIBE_STREAM` - because the bandwidth and security profiles differ. Even when endpoints are spread across different hosts, they all belong to one logical node — any client connecting to any of them must see the same block data. Starting with Block Node 0.39, each gRPC service exposes a dedicated port — `40984` for `PUBLISH`, `40980` for `SUBSCRIBE_STREAM`, and `40982` for `STATUS`. Register the externally reachable port your LoadBalancer or ingress exposes for each API; see [Network Ports and Protocols](./operations/network-ports-and-protocols.md) for the complete port reference.
 
 ### Which APIs to declare for your deployment
 
@@ -105,18 +105,23 @@ RegisteredNodeCreateTransactionBody
   node_account: 0.0.1234567   # operator's billing account
   service_endpoint:
     - domain_name:  "bn.example.com"
-      port:         40840
+      port:         40984
       requires_tls: true
       block_node:
-        endpoint_api: [PUBLISH, SUBSCRIBE_STREAM, STATUS]
-    - domain_name:  "bn-proof.example.com"
-      port:         40840
+        endpoint_api: [PUBLISH]
+    - domain_name:  "bn.example.com"
+      port:         40980
       requires_tls: true
       block_node:
-        endpoint_api: [STATE_PROOF]
+        endpoint_api: [SUBSCRIBE_STREAM]
+    - domain_name:  "bn.example.com"
+      port:         40982
+      requires_tls: true
+      block_node:
+        endpoint_api: [STATUS]
 ```
 
-The two endpoints let the live ingest/stream and state-proof paths scale and be load-balanced independently. Single-endpoint registrations are also valid.
+Splitting publish, subscribe, and status across separate endpoints lets each path scale and be secured independently. Single-endpoint registrations (all APIs on one host/port) are also valid for simpler deployments. Add a `STATE_PROOF` endpoint when the proof service is available on your deployment.
 
 #### Submit the transaction
 
@@ -147,10 +152,26 @@ Expected response shape (trimmed):
       "registered_node_id": 12345,
       "service_endpoints": [
         {
-          "block_node": { "endpoint_apis": ["PUBLISH", "SUBSCRIBE_STREAM", "STATUS"] },
+          "block_node": { "endpoint_apis": ["PUBLISH"] },
           "domain_name": "bn.example.com",
           "ip_address": null,
-          "port": 40840,
+          "port": 40984,
+          "requires_tls": true,
+          "type": "BLOCK_NODE"
+        },
+        {
+          "block_node": { "endpoint_apis": ["SUBSCRIBE_STREAM"] },
+          "domain_name": "bn.example.com",
+          "ip_address": null,
+          "port": 40980,
+          "requires_tls": true,
+          "type": "BLOCK_NODE"
+        },
+        {
+          "block_node": { "endpoint_apis": ["STATUS"] },
+          "domain_name": "bn.example.com",
+          "ip_address": null,
+          "port": 40982,
           "requires_tls": true,
           "type": "BLOCK_NODE"
         }

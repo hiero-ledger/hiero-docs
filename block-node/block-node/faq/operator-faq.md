@@ -212,19 +212,20 @@ Tier 1 and Tier 2.
 
 ### How do I configure the API ports?
 
-**Single port (default):** All APIs share port 40840. Override with the `SERVER_PORT`
-environment variable.
+**Single port (default):** All gRPC APIs share port `40840`. Override with the `SERVER_PORT`
+environment variable. The Health plugin always uses its own dedicated port (`40983`) regardless
+of deployment profile.
 
 **Per-service ports:** Set individual ports via the `blockNode.ports` Helm values section:
 
 ```yaml
 blockNode:
   ports:
-    publisher: 40840     # PRODUCER_PORT
-    subscriber: 40841    # SUBSCRIBER_PORT
-    blockAccess: 40842   # BLOCK_ACCESS_PORT
-    health: 40843        # HEALTH_PORT
-    serverStatus: 40844  # SERVER_STATUS_PORT
+    publisher: 40984     # PRODUCER_PORT
+    subscriber: 40980    # SUBSCRIBER_PORT
+    blockAccess: 40981   # BLOCK_ACCESS_PORT
+    health: 40983        # HEALTH_PORT
+    serverStatus: 40982  # SERVER_STATUS_PORT
 ```
 
 When set in Helm, do not also set these in `blockNode.config` — they are injected
@@ -590,12 +591,12 @@ The Block Node also publishes a release artifact for every release containing th
 
 The `tools-and-tests/` directory contains:
 
-|                  Tool                  |                  Location                  |                                                                                                    Purpose                                                                                                    |
-|----------------------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`bn-endpoint-checker.sh`**           | `tools-and-tests/scripts/node-operations/` | Health checker: verifies TCP reachability, calls `serverStatus` and `serverStatusDetail`, and optionally fetches the latest block proof type. Primary operator health-check script.                           |
-| **`Taskfile.yml`** (operations)        | `tools-and-tests/scripts/node-operations/` | Taskfile targets: `helm-upgrade`, `reset-file-store`, `reset-upgrade`, `helm-release`. Used for lifecycle management of deployed nodes.                                                                       |
-| **`generate-rsa-roster-bootstrap.sh`** | `tools-and-tests/scripts/node-operations/` | Generates an RSA roster bootstrap JSON file for WRB cutover preparation.                                                                                                                                      |
-| **`run-k6-tests.sh`**                  | `tools-and-tests/k6/`                      | Runs k6 load tests against a deployed Block Node.                                                                                                                                                             |
+|                  Tool                  |                  Location                  |                                                                                                    Purpose                                                                                                     |
+|----------------------------------------|--------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`bn-endpoint-checker.sh`**           | `tools-and-tests/scripts/node-operations/` | Health checker: verifies TCP reachability, calls `serverStatus` and `serverStatusDetail`, and optionally fetches the latest block proof type. Primary operator health-check script.                            |
+| **`Taskfile.yml`** (operations)        | `tools-and-tests/scripts/node-operations/` | Taskfile targets: `helm-upgrade`, `reset-file-store`, `reset-upgrade`, `helm-release`. Used for lifecycle management of deployed nodes.                                                                        |
+| **`generate-rsa-roster-bootstrap.sh`** | `tools-and-tests/scripts/node-operations/` | Generates an RSA roster bootstrap JSON file for WRB cutover preparation.                                                                                                                                       |
+| **`run-k6-tests.sh`**                  | `tools-and-tests/k6/`                      | Runs k6 load tests against a deployed Block Node.                                                                                                                                                              |
 | **Block Stream Simulator**             | `tools-and-tests/simulator/`               | Publishes synthetic block streams to a Block Node without a real Consensus Node. Used for local testing. See [Testing with the Simulator](../operations/testing-a-deployed-block-node-using-the-simulator.md). |
 
 ### Which plugins provide which features?
