@@ -17,6 +17,7 @@
   * [Hiero Rust SDK](https://github.com/hiero-ledger/hiero-sdk-rust)
   * [Hiero Swift SDKs](https://github.com/hiero-ledger/hiero-sdk-swift)
 * [Hiero Block Node](block-node/block-node-home.md)
+  * [Block Node Introduction](block-node/block-node/block-node-introduction.md)
   * [Block Node Overview](block-node/block-node/block-node-overview.md)
   * [Block Node Types and Tiers](block-node/Block-Node-Types.md)
   * [Architecture Overview](block-node/block-node/architecture/architecture-overview.md)
