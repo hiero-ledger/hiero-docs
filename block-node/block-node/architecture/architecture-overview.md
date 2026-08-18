@@ -29,7 +29,7 @@ for additional service processing.
 ## System Architecture Diagram
 
 The overall architecture of the Block Node is illustrated below:
-![block-node-app-logic](./../../assets/block-node-app-logic.svg)
+<img src="./../../assets/block-node-app-logic.svg" alt="block-node-app-logic" width="100%" />
 
 Additional details regarding Service interactions are illustrated in [Block-Node-Nano-Services](./../../assets/Block-Node-Nano-Services.svg) diagram.
 

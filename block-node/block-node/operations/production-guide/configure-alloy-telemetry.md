@@ -69,6 +69,7 @@ path for an initial deployment only.
 sudo solo-provisioner alloy cluster install \
   --cluster-name=<BLOCK_NODE_CLUSTER_NAME> \
   --monitor-block-node \
+  --profile mainnet \
   --add-prometheus-remote="name=hashgraph,url=<PROMETHEUS_REMOTE_WRITE_URL>,username=<PROMETHEUS_REMOTE_WRITE_USERNAME>,labelProfile=ops" \
   --add-loki-remote="name=hashgraph,url=<LOKI_REMOTE_WRITE_URL>,username=<LOKI_REMOTE_WRITE_USERNAME>,labelProfile=ops"
 ```

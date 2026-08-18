@@ -1,26 +1,5 @@
 # Hiero Block Node Metrics
 
-## Table of Contents
-
-1. [Summary](#summary)
-2. [Purpose](#purpose)
-3. [Configuration](#configuration)
-4. [How to Access Metrics](#how-to-access-metrics)
-5. [Metrics](#metrics-by-plugin)
-   1. [app](#app)
-   2. [Block Access](#block-access)
-   3. [Block Messaging](#block-messaging)
-   4. [Publisher](#publisher)
-   5. [Subscriber](#subscriber)
-   6. [Verification](#verification)
-   7. [files.recent](#filesrecent)
-   8. [files.historic](#fileshistoric)
-   9. [cloud-storage-archive](#cloud-storage-archive)
-   10. [Server Status API](#server-status-api)
-   11. [Backfill](#backfill)
-   12. [roster-bootstrap-rsa](#roster-bootstrap-rsa)
-   13. [roster-bootstrap-tss](#roster-bootstrap-tss)
-
 ## Summary
 
 This document describes the metrics that are available in the system, its purpose, and how to use them.
@@ -212,6 +191,17 @@ Activity and utilization of the historic on‑disk tier.
 
 ---
 
+### Host / Volume (external)
+
+**Source:** host or platform-level exporter, not emitted by the Block Node process.
+Free disk space for the `live` and `historic` volumes is not tracked by any BN metric, since
+retention on each is governed by a block-count cap rather than a disk-size cap (see the
+[Disk space alerting](./operations/production-guide/steady-state-operations.md#disk-space-alerting-operator)
+operator guide). Track it via a host-level exporter, for example `node_filesystem_avail_bytes`
+from node-exporter, or your platform's equivalent volume-usage metric for each mount.
+
+---
+
 ### cloud-storage-archive
 
 **Plugin:** `cloud-storage-archive`
@@ -310,6 +300,13 @@ As the product matures through beta and rc phases, high severity alerts will be 
 | Severity |       Metric       |      Alert Condition      |
 |----------|--------------------|---------------------------|
 | M        | `app_state_status` | If not equal to `RUNNING` |
+
+**Disk Space**: Host-level alert for the `live` and `historic` volumes, since retention on each
+is a block-count cap, not a disk-size cap (see [Host / Volume](#host--volume-external))
+
+| Severity |            Metric             |                         Alert Condition                         |
+|----------|-------------------------------|-----------------------------------------------------------------|
+| M        | `node_filesystem_avail_bytes` | If free space on the `live` or `historic` mount drops below 15% |
 
 **Publisher**: Alerts related to publisher connections and performance
 

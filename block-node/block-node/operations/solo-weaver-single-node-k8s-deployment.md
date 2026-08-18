@@ -249,8 +249,8 @@ If the pods are running and healthy, your Block Node is successfully installed a
 
    - `<BLOCK_NODE_IP>` depends on where you are running `grpcurl`:
      - **From inside the VM** (most common, since `gcloud compute ssh` puts you on the VM): use the VM's internal IP (`hostname -I` returns it) or the Kubernetes service IP from `kubectl get svc -n block-node`. `localhost` does not work because the Block Node is published on the cluster service network, not the host loopback.
-     - **From outside the VM**: use the VM's external IP from the GCP VM details page. By default, GCP firewall rules block all inbound traffic except SSH (port 22). To reach the Block Node from outside, add a firewall rule allowing TCP on the gRPC port (default `40840`) to the VM's network tag.
-   - `<GRPC_PORT>` is the gRPC service port exposed by your Block Node. The default is `40840` (see `server.port` in [configuration.md](../configuration.md)).
+     - **From outside the VM**: use the VM's external IP from the GCP VM details page. By default, GCP firewall rules block all inbound traffic except SSH (port 22). To reach the Block Node's server-status API from outside, add a firewall rule allowing TCP on the server-status port (`40982` in LFH profile; `40840` in base-chart default) to the VM's network tag.
+   - `<GRPC_PORT>` is the server-status port exposed by your Block Node. In the LFH profile this is `40982` (`SERVER_STATUS_PORT`); in a base-chart deployment it is `40840` (see `server.port` in [configuration.md](../configuration.md)).
 5. **Review the output** for status information confirming the node is running and serving requests.
 
    Expected output:

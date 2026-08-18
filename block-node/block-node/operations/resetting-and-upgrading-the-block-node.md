@@ -81,7 +81,7 @@ grpcurl -plaintext -emit-defaults \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
   -d '{}' \
-  "$BLOCK_NODE_HOST:40840" \
+  "$BLOCK_NODE_HOST:40982" \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
@@ -121,7 +121,7 @@ grpcurl -plaintext -emit-defaults \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
   -d '{}' \
-  "$BLOCK_NODE_HOST:40840" \
+  "$BLOCK_NODE_HOST:40982" \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
@@ -216,7 +216,7 @@ grpcurl -plaintext -emit-defaults \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
   -d '{}' \
-  "$BLOCK_NODE_HOST:40840" \
+  "$BLOCK_NODE_HOST:40982" \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 

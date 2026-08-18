@@ -6,7 +6,7 @@ This document describes multiple data flows between system components using its 
 
 ** Overview should cover block items flow, merkle tree building, verification, persistence, and notification. **
 
-![block-item-publish-flow](./../../assets/block-item-publish-flow.svg)
+<img src="./../../assets/block-item-publish-flow.svg" alt="block-item-publish-flow" width="100%" />
 
 Detailed Steps:
 
