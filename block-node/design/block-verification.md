@@ -149,7 +149,8 @@ sources today:
   guarantees that once a block starts, its items arrive in order. It cannot
   guarantee that a block will finish. If a new block starts before the previous
   one ended, the previous session is cancelled, since the stream has clearly
-  moved on.
+  moved on; because the superseded session never received its full block, it
+  reports a `CANCELLED_INCOMPLETE` failure.
 - **Backfill**: blocks arrive whole, one complete block per notification. Each
   is wrapped as a single batch that is both the start and the end of the block,
   and a session is started for it.
@@ -195,10 +196,11 @@ The session handler keeps all running sessions in a bounded buffer, sized by
 `activeSessionsBufferSize`. Every new session is added to the buffer. If the
 buffer would exceed its size, room is made by **cancelling the session that is
 verifying the lowest block number**, unless that session is the one that was
-just started. A cancelled session reports a `CANCELLED` failure through the
-normal result handling path. This bounds resource usage while preferring to
-keep the most recent work: the oldest, likely stalled or superseded session is
-the one to go.
+just started. An evicted session reports a failure through the normal result
+handling path: `CANCELLED` when it had already received its complete block,
+`CANCELLED_INCOMPLETE` when the block was never fully received. This bounds resource
+usage while preferring to keep the most recent work: the oldest, likely
+stalled or superseded session is the one to go.
 
 ### The Recently Verified Blocks Buffer and Informational Failures
 
@@ -251,17 +253,18 @@ Every failed session reports a failure type in its notification. The
 as informational when the block is in the recently verified buffer, and as
 standard otherwise.
 
-|        Failure type         |                                             Meaning                                             | Can be informational |
-|-----------------------------|-------------------------------------------------------------------------------------------------|----------------------|
-| `BAD_BLOCK_PROOF`           | A proof did not verify against the computed root hash                                           | yes                  |
-| `UNABLE_TO_PARSE`           | The block or one of its items could not be parsed                                               | yes                  |
-| `MISSING_MANDATORY_ITEM`    | A mandatory item (header, footer, at least one usable proof) is missing                         | yes                  |
-| `MISSING_MANDATORY_FIELD`   | A mandatory item is present but a required field has no value                                   | yes                  |
-| `MISSING_VERIFICATION_DATA` | Required verification data is unavailable (TSS data, RSA keys, or a required algorithm)         | yes                  |
-| `UNRECOGNIZED_PROOF_TYPE`   | The proof(s) provided for the block are not of a recognized type                                | yes                  |
-| `UNSUPPORTED_HAPI_VERSION`  | The block declares a HAPI version the node does not support                                     | yes                  |
-| `CANCELLED`                 | The session was cancelled before completing (superseded, evicted from the buffer, or shut down) | yes                  |
-| `UNKNOWN_ERROR`             | An unexpected error occurred during verification                                                | yes                  |
+|        Failure type         |                                                    Meaning                                                     | Can be informational |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------|----------------------|
+| `BAD_BLOCK_PROOF`           | A proof did not verify against the computed root hash                                                          | yes                  |
+| `UNABLE_TO_PARSE`           | The block or one of its items could not be parsed                                                              | yes                  |
+| `MISSING_MANDATORY_ITEM`    | A mandatory item (header, footer, at least one usable proof) is missing                                        | yes                  |
+| `MISSING_MANDATORY_FIELD`   | A mandatory item is present but a required field has no value                                                  | yes                  |
+| `MISSING_VERIFICATION_DATA` | Required verification data is unavailable (TSS data, RSA keys, or a required algorithm)                        | yes                  |
+| `UNRECOGNIZED_PROOF_TYPE`   | The proof(s) provided for the block are not of a recognized type                                               | yes                  |
+| `UNSUPPORTED_HAPI_VERSION`  | The block declares a HAPI version the node does not support                                                    | yes                  |
+| `CANCELLED`                 | The session was cancelled after the complete block was received (evicted from the buffer, or shut down)        | yes                  |
+| `CANCELLED_INCOMPLETE`      | The session ended before the full block was received (superseded, or evicted/shut down while still incomplete) | yes                  |
+| `UNKNOWN_ERROR`             | An unexpected error occurred during verification                                                               | yes                  |
 
 ## Diagram
 
@@ -326,7 +329,7 @@ flowchart TD
     ADD --> FULL{Buffer over its limit?}
     FULL -- no --> RUN[All sessions keep running]
     FULL -- yes --> LOW{"Is the lowest-block session the new one?"}
-    LOW -- no --> CANCEL["Cancel the lowest-block session (reports CANCELLED)"]
+    LOW -- no --> CANCEL["Cancel the lowest-block session (reports CANCELLED or CANCELLED_INCOMPLETE)"]
     LOW -- yes --> RUN
 ```
 
@@ -455,15 +458,16 @@ The plugin never lets an error escape to its callers. Every error condition
 ends in a verification notification, and the plugin keeps running.
 
 - **Invalid start of block.** The first item of a new block is not a header, or
-  the header's number does not match. A failure notification is sent and no
-  session is started.
+  the header's number does not match. A `MISSING_MANDATORY_ITEM` failure
+  notification is sent and no session is started.
 - **Stage failure.** A stage that cannot continue (parse failure, missing item
   or field, bad proof, missing verification data) raises a session failure
   carrying the block number, source, and failure type. The result handling
   stage turns it into a failure notification.
 - **Cancellation.** A session cancelled for any reason (superseded by a new
   publisher block, evicted from the active sessions buffer, or plugin shutdown)
-  reports a `CANCELLED` failure.
+  reports a `CANCELLED` failure when it had already received its complete
+  block, and a `CANCELLED_INCOMPLETE` failure when the block was never fully received.
 - **Unexpected errors.** Any unexpected error, in a stage or in the plugin's
   own handling, is reported as `UNKNOWN_ERROR` and counted in the error metric.
   The plugin logs the details and continues.
@@ -492,7 +496,8 @@ ends in a verification notification, and the plugin keeps running.
    success immediately; with `true`, it waits.
 6. **Active sessions buffer.** When more sessions are started than the buffer
    allows, the session verifying the lowest block is cancelled and reports
-   `CANCELLED`; the newest session is never the one evicted.
+   `CANCELLED` when its complete block was received, or `CANCELLED_INCOMPLETE` when it
+   was not; the newest session is never the one evicted.
 7. **Informational failures.** A failure for a block present in the recently
    verified buffer is reported as informational; the same failure for a block
    not in the buffer is standard.
@@ -500,7 +505,7 @@ ends in a verification notification, and the plugin keeps running.
    recently verified block, a subsequent verification failure for that block is
    reported as standard, not informational.
 9. **Publisher supersession.** When a new block starts before the previous one
-   ended, the previous session is cancelled and reports `CANCELLED`, and the
+   ended, the previous session is cancelled and reports `CANCELLED_INCOMPLETE`, and the
    new block verifies normally.
 10. **Failure types.** Each failure type in the table above is produced by the
     condition it describes, and the informational flag is controlled solely by

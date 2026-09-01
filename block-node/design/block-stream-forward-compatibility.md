@@ -211,11 +211,38 @@ stays as it is.
 **None of this changes.** The point of the design is only what happens for item
 types that do not exist yet.
 
+### The Single Field Invariant
+
+A `BlockItem` is a protobuf `oneof`, so a valid item carries **exactly one
+field**. The wire format cannot enforce this: any combination of fields parses
+successfully, with fields unknown to the compiled schema preserved as unknown
+fields. The hashing step therefore checks the invariant itself, before any
+category placement:
+
+- An item with a known type and **no** unknown fields is processed normally.
+- An item with **no type set and exactly one unknown field** is a future item,
+  and the numbering rule below applies to it.
+- An item with a known type **and** one or more unknown fields is a valid
+  encoding but not a processable stream, and the block is refused as an
+  unsupported stream format.
+- An item with no type set and **more than one** unknown field is likewise
+  refused as an unsupported stream format.
+- An item with **no field at all** carries nothing valid to process and is
+  refused as an unknown error.
+
+None of these refusals are parse failures: the bytes are well formed protobuf
+and parsing succeeds. They are structural violations detected after parsing.
+
 ### The Numbering Rule for Future Item Types
 
 To maximize forward compatibility, and to minimize the need to coordinate
 deployments of different systems creating and processing block streams in the
 future, the block stream format requires the following rule for field numbering.
+
+An unknown field numbered **below 20** is a first release field, reserved for
+item types that require specific handling. A version that does not know such a
+field cannot process it and refuses the block as an unsupported item type.
+
 Fields numbered **20 and above** MUST be numbered so that:
 
 ```text
@@ -391,15 +418,15 @@ existing verification configuration is unchanged.
 
 ## Metrics
 
-No new metrics are required, but a few would make forward compatibility events
-visible to operators and give early warning of a needed upgrade:
+Three counters make forward compatibility events visible to operators and give
+early warning of a needed upgrade:
 
 - a count of future item types placed into a subtree by the rule, including the
   extension subtrees,
 - a count of future items safely ignored as `not hashed`,
-- a count of blocks refused because an item fell into a reserved category
-  (16 to 18), or needed specific handling (1 or 2) that this version does not
-  know.
+- a count of future items refused because they fell into a reserved category
+  (16 to 18), needed specific handling (1 or 2) that this version does not
+  know, or carried an unknown first release field (below 20).
 
 ## Exceptions
 
@@ -413,7 +440,14 @@ failure** for the block instead.
   specific handling" category (1 or 2) whose processing this version does not
   know, causes the block to be refused, with a clear failure showing that an
   upgrade is required. It is never silently dropped or placed elsewhere.
-- A malformed or unexpected item that does not fit the rule at all is treated as a
+- A future item carrying an unknown first release field (below 20) is refused
+  the same way, as an unsupported item type.
+- An item that violates the single field invariant (a known type together with
+  unknown fields, or several unknown fields at once) parses successfully but is
+  refused as an **unsupported stream format**; an item with no field at all is
+  refused as an **unknown error**. These are structural violations, not parse
+  failures.
+- A malformed item whose bytes cannot be decoded at all is treated as a
   **parse failure**, as it is today.
 
 ## Acceptance Tests
