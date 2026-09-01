@@ -5,6 +5,9 @@ Terms marked *(planned)* describe capabilities that are not yet implemented.
 Terms marked *(theoretical)* describe services that are architecturally possible
 but not currently provided by any known deployment.
 
+For general Hiero and Hedera network terminology (accounts, consensus, tokens, and more), see the
+[Hedera Glossary](https://docs.hedera.com/support/glossary).
+
 ---
 
 ## A
@@ -39,6 +42,17 @@ The process by which a Block Node retrieves missing historical blocks from one o
 Block Nodes. Consensus Nodes retain only a minimal recent buffer and cannot supply history;
 backfill always targets another Block Node. On a mature network, full backfill can take days
 or weeks. Configured via `BACKFILL_BLOCK_NODE_SOURCES_PATH`.
+
+### Block Access Service
+
+***
+
+A [Plugin](#plugin) that provides the `BlockAccessService` gRPC API, allowing consumers to query
+specific blocks by number from a Block Node's stored history. Unlike
+[`subscribeBlockStream`](#subscriber), which delivers blocks in a live stream from a requested
+start block, `BlockAccessService` fulfils on-demand, point-in-time requests for individual
+blocks. One of the default Hiero plugins included in the Block Node distribution.
+See [Architecture Overview](./architecture/architecture-overview.md).
 
 ### Block Footer
 
@@ -171,6 +185,20 @@ Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 
 ---
 
+## G
+
+### gRPC
+
+***
+
+An open-source remote procedure call (RPC) framework used by all Block Node APIs. Block Node
+endpoints — `publishBlockStream`, `subscribeBlockStream`, `serverStatus`, and `getBlock` — are
+gRPC calls defined in Protocol Buffer (`.proto`) files and transported over HTTP/2. Clients use
+generated stubs (available for Java, JavaScript, Go, and other languages) to call these endpoints.
+See [Network Ports and Protocols](./operations/network-ports-and-protocols.md).
+
+---
+
 ## H
 
 ### HAPI Version
@@ -193,6 +221,15 @@ Block Streams ([HIP-1056](https://hips.hedera.com/hip/hip-1056)), Block Nodes
 ([HIP-1200](https://hips.hedera.com/hip/hip-1200)), and the record-to-block-stream cutover
 ([HIP-1193](https://hips.hedera.com/hip/hip-1193)). Browse all HIPs at
 [hips.hedera.com](https://hips.hedera.com).
+
+### Hiero Local Node
+
+***
+
+A local development and testing tool that runs a minimal Hiero network on a developer's machine
+using Docker Compose. **Deprecated** — the deprecation period ends September 2026.
+[Solo](https://github.com/hiero-ledger/solo) is the recommended replacement.
+See [Local Development Quickstart](./quickstart.md).
 
 ---
 
@@ -261,6 +298,21 @@ A Hiero test tool that generates high-volume transaction load against a network 
 Consensus Nodes. Used in conjunction with [Solo](#solo-provisioner) to drive
 realistic production-scale traffic against a Block Node before connecting it to the
 live network. See [Load Testing with Solo and NLG](./operations/load-testing-a-deployed-block-node-using-solo-and-nlg.md).
+
+---
+
+## O
+
+### On-Chain Registration
+
+***
+
+The process by which a Block Node operator registers their node's service endpoints on the Hiero
+network, making the node discoverable to Consensus Nodes and other participants. Registration
+creates an on-chain record of the node's publish, subscribe, and status endpoints via the
+`RegisteredNodeCreateTransaction` HAPI transaction. An `admin_key` is required: it must sign the
+registration transaction and every subsequent update or deletion. Defined in [HIP-1137](https://hips.hedera.com/hip/hip-1137).
+See [On-Chain Registration](./block-node-on-chain-registration.md).
 
 ---
 
@@ -345,6 +397,25 @@ state after downtime by requesting recent blocks and state snapshots from Block 
 Service interfaces are defined; this capability is planned for a future release and is not
 currently in active development.
 
+### Result Codes
+
+***
+
+The terminal status codes returned in the final `SubscribeStreamResponse` from the
+`subscribeBlockStream` gRPC API. Defined in the `SubscribeStreamResponse.Code` proto enum:
+
+|             Code             |                                               Meaning                                                |
+|------------------------------|------------------------------------------------------------------------------------------------------|
+| `SUCCESS`                    | Stream completed normally.                                                                           |
+| `NOT_AVAILABLE`              | The requested stream is not available.                                                               |
+| `INVALID_START_BLOCK_NUMBER` | Start block number is invalid (greater than end block number, less than zero, or otherwise invalid). |
+| `INVALID_END_BLOCK_NUMBER`   | End block number is invalid.                                                                         |
+| `INVALID_REQUEST`            | Request was malformed or structurally incorrect.                                                     |
+| `ERROR`                      | An internal Block Node error occurred.                                                               |
+
+`SUCCESS` is a normal terminal result, not an error. These codes are called "result codes," not "error codes."
+See also: [Subscriber](#subscriber), [serverStatus](#serverstatus).
+
 ### Rolling-History
 
 ***
@@ -362,6 +433,30 @@ The current set of Consensus Nodes and their consensus weights used by the TSS s
 The genesis roster's hash is the [Ledger ID](#ledger-id). Use "Roster" in documentation
 — "Address Book" is an older, largely obsolete term.
 
+### RSA Bootstrap Roster
+
+***
+
+A history of RSA address books spanning from genesis (or as far back as WRB history requires)
+through the current active roster, used to verify
+[Wrapped Record Block](#wrb-wrapped-record-block) proofs during WRB streaming before TSS
+signatures are available. Each entry covers a block range, allowing the Block Node to select
+the correct RSA key set for any given WRB. The history must include the current active roster.
+
+Three sources are evaluated in priority order:
+
+- **File-based:** `app.state.rsaBootstrapFilePath` (default:
+  `/opt/hiero/block-node/application-state/rsa-bootstrap-roster.json`) - a local JSON file
+  containing the full RSA address book history. Loaded by the Block Node before plugins start.
+- **Peer-query:** `roster.bootstrap.rsa.blockNodeSourcesPath` - a JSON file listing peer Block
+  Nodes to query via gRPC for the RSA address book history.
+- **Mirror Node fallback:** `roster.bootstrap.rsa.mirrorNodeBaseUrl` - queries the Mirror Node
+  REST API when no local file or peer Block Node is available.
+
+Required for Tier 1 nodes performing WRB verification.
+See also: [TSS Bootstrap Roster](#tss-bootstrap-roster), [WRB (Wrapped Record Block)](#wrb-wrapped-record-block).
+See [Preparing for WRB Cutover](./operations/preparing-your-block-node-for-wrb-cutover.md).
+
 ---
 
 ## S
@@ -378,15 +473,16 @@ The extended `ServerStatusDetailResponse` provides extended detail, including
 and `ranged_address_book_history`. Note: the extended response does not carry the fields
 returned in the base response.
 
-### `StateChanges`
+### Simulator
 
 ***
 
-A [Block Item](#block-item) type that carries explicit CRUD operations applied to the
-network's named states (maps, queues, singletons) as part of a block. Block Nodes apply
-`StateChanges` to maintain their local copy of network state. For batch transactions,
-`StateChanges` appear at the batch boundary rather than per individual transaction.
-Defined in [HIP-1056](https://hips.hedera.com/hip/hip-1056).
+A Docker-based synthetic block publisher used to verify a deployed Block Node's gRPC connectivity
+and block-processing pipeline without requiring a live Consensus Node. The simulator streams a
+configurable range of generated blocks to the Block Node via `publishBlockStream`. The simulator
+image tag must match the deployed Block Node version.
+See also: [NLG (Network Load Generator)](#nlg-network-load-generator).
+See [Testing a Deployed Block Node Using the Simulator](./operations/testing-a-deployed-block-node-using-the-simulator.md).
 
 ### Solo Provisioner
 
@@ -396,6 +492,16 @@ The recommended tool for provisioning Block Nodes on cloud VMs or bare-metal Kub
 clusters. Formerly known as Solo Weaver, and only referred to as `Solo Provisioner` in
 descriptions. The repository URL and filenames may still contain references to `solo-weaver`.
 See [Deploy with Solo Provisioner](./operations/solo-weaver-single-node-k8s-deployment.md).
+
+### `StateChanges`
+
+***
+
+A [Block Item](#block-item) type that carries explicit CRUD operations applied to the
+network's named states (maps, queues, singletons) as part of a block. Block Nodes apply
+`StateChanges` to maintain their local copy of network state. For batch transactions,
+`StateChanges` appear at the batch boundary rather than per individual transaction.
+Defined in [HIP-1056](https://hips.hedera.com/hip/hip-1056).
 
 ### State Snapshot *(planned)*
 
@@ -445,6 +551,25 @@ a constant-size, constant-time BLS aggregate signature from partial signatures b
 holding more than half the network's consensus weight. Replaces per-node RSA signatures.
 Defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200).
 See also: [Aggregated Signatures](#aggregated-signatures), [WRAPS](#wraps).
+
+### TSS Bootstrap Roster
+
+***
+
+Configuration that supplies initial TSS verification data to a Block Node at startup, enabling
+it to verify TSS block proofs when no persisted TSS data exists.
+Two options:
+
+- **File-based:** `app.state.tssBootstrapFilePath` (default:
+  `/opt/hiero/block-node/application-state/tss-bootstrap-roster.json`) — a local JSON file
+  containing the TSS bootstrap data.
+- **Peer-query:** `roster.bootstrap.tss.blockNodeSourcesPath` — a JSON file listing peer Block
+  Nodes to query for TSS bootstrap data at startup.
+
+Successful loading is confirmed by a non-empty `tss_data` field in the `serverStatusDetail`
+response.
+See also: [RSA Bootstrap Roster](#rsa-bootstrap-roster), [TSS (hinTS)](#tss-hintsts).
+See [Preparing for WRB Cutover](./operations/preparing-your-block-node-for-wrb-cutover.md).
 
 ### TSS Ceremony
 

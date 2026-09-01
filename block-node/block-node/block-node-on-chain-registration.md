@@ -87,6 +87,12 @@ Three operator-visible steps. All three transactions also support deferred execu
 
 Submit a `RegisteredNodeCreateTransactionBody`, signed by the new `admin_key`. On success, the transaction receipt carries the assigned `registered_node_id` - **record this value safely**; it is your handle for every subsequent update or delete. If lost, recover it by listing all Block Node registrations on the network and filtering by your `admin_key`, endpoint host, or description:
 
+**Before you begin, gather:**
+
+- **Externally reachable endpoint** - the hostname or public IP your Block Node is reachable at from outside your network, such as the address your load balancer or ingress exposes. Do not register internal cluster addresses such as `ClusterIP` services or pod IPs.
+- **Admin key pair** - a fresh ED25519 key pair used to authorize all future updates and deletions. The SDK examples in [Submit the transaction](#submit-the-transaction) show how to generate one; for production, use an HSM or KMS and store the private key immediately after generating it.
+- **Funded payer account** - a Hiero account with enough HBAR to cover the transaction fee (approximately $0.09 at the pegged schedule rate; see [Fees and throttles](#fees-and-throttles)).
+
 > **Mainnet only:** On Hedera mainnet, `RegisteredNodeCreate` is a privileged transaction. It can only be submitted by a payer account in the range `0.0.2`–`0.0.55`.
 
 ```bash
@@ -125,12 +131,104 @@ Splitting publish, subscribe, and status across separate endpoints lets each pat
 
 #### Submit the transaction
 
-Two paths:
+Two paths to submit the create transaction:
 
 - **`yahcli`** - the DevOps CLI bundled with consensus-node. The `registerednodes create / update / delete` subcommands wrap the three transactions directly. Source at [`hedera-node/yahcli/.../commands/registerednodes/`](https://github.com/hiero-ledger/hiero-consensus-node/tree/main/hedera-node/yahcli/src/main/java/com/hedera/services/yahcli/commands/registerednodes); usage in [`hedera-node/yahcli/README.md`](https://github.com/hiero-ledger/hiero-consensus-node/blob/main/hedera-node/yahcli/README.md).
-- **Any official Hiero SDK** - all seven expose `RegisteredNodeCreateTransaction` (and Update / Delete equivalents): [Java](https://github.com/hiero-ledger/hiero-sdk-java), [JavaScript](https://github.com/hiero-ledger/hiero-sdk-js), [Go](https://github.com/hiero-ledger/hiero-sdk-go), [Rust](https://github.com/hiero-ledger/hiero-sdk-rust), [Swift](https://github.com/hiero-ledger/hiero-sdk-swift), [C++](https://github.com/hiero-ledger/hiero-sdk-cpp), [Python](https://github.com/hiero-ledger/hiero-sdk-python). All SDKs also expose `PrivateKey.generateED25519()` (or the language-equivalent) for `admin_key` generation; an external keygen tool is only needed if your operational policy requires one (HSM, KMS, etc.). The [Hiero SDKs index](https://docs.hiero.org/sdks) is the entry point for SDK-specific guides.
+- **Any official Hiero SDK** - all seven expose `RegisteredNodeCreateTransaction` (and the Update / Delete equivalents): [Java](https://github.com/hiero-ledger/hiero-sdk-java), [JavaScript](https://github.com/hiero-ledger/hiero-sdk-js), [Go](https://github.com/hiero-ledger/hiero-sdk-go), [Rust](https://github.com/hiero-ledger/hiero-sdk-rust), [Swift](https://github.com/hiero-ledger/hiero-sdk-swift), [C++](https://github.com/hiero-ledger/hiero-sdk-cpp), [Python](https://github.com/hiero-ledger/hiero-sdk-python).
 
-The flow is the same regardless of path: build the transaction body using the fields from the [Worked example](#worked-example), sign with the `admin_key`, execute against the target network's gRPC endpoint, and read the `TransactionReceipt` to capture the assigned `registered_node_id`.
+The Java and JavaScript examples below implement the endpoint set from the [worked example](#worked-example) above. Initialize your `client` with your operator account ID and key before running either example; see the [Hiero SDKs index](https://docs.hiero.org/sdks) for per-language setup guides.
+
+**Java** (`com.hedera.hashgraph:sdk`):
+
+```java
+import com.hedera.hashgraph.sdk.*;
+import java.util.List;
+
+// Generate the admin key. Store the private key in secure storage before proceeding.
+PrivateKey adminKey = PrivateKey.generateED25519();
+
+BlockNodeServiceEndpoint publishEndpoint = new BlockNodeServiceEndpoint()
+    .setDomainName("bn.example.com")
+    .setPort(40984)
+    .setRequiresTls(true)
+    .setEndpointApis(List.of(BlockNodeApi.PUBLISH));
+
+BlockNodeServiceEndpoint subscribeEndpoint = new BlockNodeServiceEndpoint()
+    .setDomainName("bn.example.com")
+    .setPort(40980)
+    .setRequiresTls(true)
+    .setEndpointApis(List.of(BlockNodeApi.SUBSCRIBE_STREAM));
+
+BlockNodeServiceEndpoint statusEndpoint = new BlockNodeServiceEndpoint()
+    .setDomainName("bn.example.com")
+    .setPort(40982)
+    .setRequiresTls(true)
+    .setEndpointApis(List.of(BlockNodeApi.STATUS));
+
+TransactionReceipt receipt = new RegisteredNodeCreateTransaction()
+    .setAdminKey(adminKey)
+    .setDescription("acme-mainnet-1")
+    .addServiceEndpoint(publishEndpoint)
+    .addServiceEndpoint(subscribeEndpoint)
+    .addServiceEndpoint(statusEndpoint)
+    .freezeWith(client)
+    .sign(adminKey)
+    .execute(client)
+    .getReceipt(client);
+
+// Record this value. It is required for every subsequent update or deletion.
+long registeredNodeId = receipt.registeredNodeId;
+System.out.println("registered_node_id: " + registeredNodeId);
+```
+
+**JavaScript** (`@hiero-ledger/sdk`):
+
+```javascript
+import {
+  BlockNodeApi,
+  BlockNodeServiceEndpoint,
+  PrivateKey,
+  RegisteredNodeCreateTransaction,
+} from "@hiero-ledger/sdk";
+
+// Generate the admin key. Store the private key in secure storage before proceeding.
+const adminKey = PrivateKey.generateED25519();
+
+const publishEndpoint = new BlockNodeServiceEndpoint()
+  .setDomainName("bn.example.com")
+  .setPort(40984)
+  .setRequiresTls(true)
+  .setEndpointApis([BlockNodeApi.Publish]);
+
+const subscribeEndpoint = new BlockNodeServiceEndpoint()
+  .setDomainName("bn.example.com")
+  .setPort(40980)
+  .setRequiresTls(true)
+  .setEndpointApis([BlockNodeApi.SubscribeStream]);
+
+const statusEndpoint = new BlockNodeServiceEndpoint()
+  .setDomainName("bn.example.com")
+  .setPort(40982)
+  .setRequiresTls(true)
+  .setEndpointApis([BlockNodeApi.Status]);
+
+const createTx = await new RegisteredNodeCreateTransaction()
+  .setAdminKey(adminKey.publicKey)
+  .setDescription("acme-mainnet-1")
+  .addServiceEndpoint(publishEndpoint)
+  .addServiceEndpoint(subscribeEndpoint)
+  .addServiceEndpoint(statusEndpoint)
+  .freezeWith(client)
+  .sign(adminKey);
+
+const receipt = await (await createTx.execute(client)).getReceipt(client);
+
+// Record this value. It is required for every subsequent update or deletion.
+const registeredNodeId = receipt.registeredNodeId;
+console.log("registered_node_id:", registeredNodeId.toString());
+```
+
+For other SDKs (Go, Rust, Swift, C++, Python), the pattern is the same: build the transaction, sign with the `admin_key`, execute against the target network, and read `registered_node_id` from the receipt. The full lifecycle example for each SDK is linked from the [Hiero SDKs index](https://docs.hiero.org/sdks).
 
 #### Verify the registration
 
@@ -245,6 +343,45 @@ Three surfaces are exposed by the existing Hiero infrastructure once you are reg
 - **Mirror Node REST API.** `GET /api/v1/network/registered-nodes` returns the full registry with the protobuf-encoded `admin_key`, the service endpoints, the timestamps, and the `registered_node_id` for each entry. Clients filter with `type=BLOCK_NODE`, paginate via `limit` and `registerednode.id`, and sort via `order`. See the [Mirror node update](https://hips.hedera.com/hip/hip-1137#mirror-node-update) section of the HIP for the exact response shape.
 - **Automatic Mirror Node pickup.** Mirror Nodes running with `hiero.mirror.importer.block.autoDiscoveryEnabled = true` pick up your registration from the registry without any per-Mirror-Node configuration change - see [hiero-mirror-node#13013](https://github.com/hiero-ledger/hiero-mirror-node/issues/13013) and the [Mirror Node Integration](./mirror-node-integration.md) guide for the consumer side.
 - **Consensus node address book.** The existing `/api/v1/network/nodes` endpoint now includes an `associated_registered_nodes` field on each consensus-node entry, listing the registered nodes operated by the same entity.
+
+## Troubleshooting
+
+### Transaction returns `INVALID_ADMIN_KEY`
+
+The transaction was not signed by the `admin_key` declared in the transaction body, or the key does not satisfy the `KeyList` / `ThresholdKey` threshold. Verify that:
+
+1. The key passed to `.setAdminKey(...)` and the key used to `.sign(...)` are the same key pair.
+2. For a multi-sig `admin_key`, enough members have signed to meet the threshold before you call `execute`.
+3. You have not confused the operator key (the account paying the fee) with the `admin_key` (the key that controls the registration). Both sign the transaction, but they serve different roles.
+
+### gRPC returns UNIMPLEMENTED (code 12)
+
+The target network is running a Consensus Node version that pre-dates HIP-1137. The gRPC methods `AddressBookService/createRegisteredNode`, `updateRegisteredNode`, and `deleteRegisteredNode` are available from Consensus Node `v0.75` onward. Check the [Consensus Node release page](https://github.com/hiero-ledger/hiero-consensus-node/releases) and the [Availability across networks](#availability-across-networks) table above.
+
+### Transaction is throttled (`BUSY` or `THROTTLED_AT_CONSENSUS`)
+
+`RegisteredNodeCreate` shares a throttle bucket with `CryptoCreate` and `NodeCreate`, capped at approximately 2 ops/sec network-wide. If you are onboarding multiple Block Nodes, space create submissions by at least 1 second and implement exponential back-off on throttle rejections. `RegisteredNodeUpdate` and `RegisteredNodeDelete` are not separately rate-limited.
+
+### `RegisteredNodeCreate` rejected on mainnet
+
+On Hedera mainnet, `RegisteredNodeCreate` is a privileged transaction - only accounts in the range `0.0.2`–`0.0.55` may be the transaction payer. Confirm the account you set as the operator (the fee-payer) is in that range. On previewnet and testnet, any funded account may be the payer.
+
+### Registration is not visible in the Mirror Node REST API
+
+Mirror Nodes index the registry from block-stream data. Allow up to 30 seconds after a `SUCCESS` receipt before treating a missing entry as a failure. If the entry does not appear after a minute, confirm the Mirror Node version is `v0.156` or later (the release that adds `/api/v1/network/registered-nodes`).
+
+### `RegisteredNodeDelete` returns `REGISTERED_NODE_STILL_ASSOCIATED`
+
+If the `registered_node_id` you are deleting is still listed in a consensus node's `associated_registered_nodes`, the delete returns `REGISTERED_NODE_STILL_ASSOCIATED`. Remove the association first: submit `NodeUpdate` with the `registered_node_id` removed from the list (or with an empty list to clear all associations), wait for `SUCCESS`, then resubmit the delete.
+
+### `registered_node_id` is unknown
+
+If you lost the assigned ID, recover it by querying the Mirror Node for your endpoint hostname or admin key:
+
+```bash
+curl -s "https://{MIRROR_NODE_HOST}/api/v1/network/registered-nodes?type=BLOCK_NODE" \
+  | jq '.registered_nodes[] | select(.service_endpoints[]?.domain_name == "{YOUR_ENDPOINT_HOST}")'
+```
 
 ## Backwards compatibility
 

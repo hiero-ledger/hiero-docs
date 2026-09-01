@@ -43,7 +43,9 @@ Detect missing gaps in the stored block sequence and autonomously fetch missing 
 
   <dt>Chunk</dt>
   <dd>A contiguous range of blocks fetched in a single operation, bounded by the peer's available range,
-    the configured fetchBatchSize, and the gap end.</dd>
+    the configured fetchBatchSize, and the gap end. Block 0 is the exception: it is always fetched in a
+    chunk of its own, so the TSS verification data it bootstraps is persisted before any later block
+    that needs it is fetched.</dd>
 
   <dt>Dual Schedulers</dt>
   <dd>Two independent schedulers (Historical and Live-Tail) that process gaps concurrently,
@@ -253,7 +255,7 @@ Properties are set via the Block Node configuration system (prefix: `backfill.`)
 | `endBlock`                  | long    | -1      | Last block (-1 = unlimited)                 |
 | `blockNodeSourcesPath`      | String  | ""      | Path to peer nodes JSON file                |
 | `scanInterval`              | int     | 60000   | Gap detection interval in ms                |
-| `maxRetries`                | int     | 3       | Max retry attempts per fetch                |
+| `maxRetries`                | int     | 3       | Max attempts per fetch (min 1)              |
 | `initialRetryDelay`         | int     | 5000    | Initial retry delay in ms                   |
 | `fetchBatchSize`            | int     | 10      | Blocks per gRPC request                     |
 | `delayBetweenBatches`       | int     | 1000    | Delay between batches in ms                 |

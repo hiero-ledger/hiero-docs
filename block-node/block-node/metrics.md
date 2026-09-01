@@ -126,6 +126,7 @@ Observes inbound streams from publishers.
 | Counter | `publisher_flow_control_individual_pauses`   | Publisher handler pauses due to per-handler message budget exhaustion                                       |
 | Counter | `publisher_flow_control_aggregate_pauses`    | Intervals where aggregate message budget was exceeded and all handler budgets were withheld                 |
 | Counter | `publisher_flow_control_penalties_applied`   | Penalty pauses applied to handlers that repeatedly exhaust their budget                                     |
+| Counter | `publisher_disconnected_oversize`            | Publishers disconnected because a block exceeded the cumulative per-block byte ceiling                      |
 
 ---
 

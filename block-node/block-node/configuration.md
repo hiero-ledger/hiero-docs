@@ -16,7 +16,7 @@ Each plugin has its own properties, but this focuses on core options and core pl
 
 | ENV Variable                            | Description                                                                                                            | Default     |
 |:----------------------------------------|:-----------------------------------------------------------------------------------------------------------------------|:------------|
-| SERVER_MAX_MESSAGE_SIZE_BYTES           | Max message size (bytes) for HTTP/2.                                                                                   | 131,072,000 |
+| SERVER_MAX_MESSAGE_SIZE_BYTES           | Max message size (bytes) for HTTP/2. Also the cumulative byte ceiling for a single block on the publish stream.        | 131,072,000 |
 | SERVER_SOCKET_SEND_BUFFER_SIZE_BYTES    | Send buffer size (bytes).                                                                                              | 131,072     |
 | SERVER_SOCKET_RECEIVE_BUFFER_SIZE_BYTES | Receive buffer size (bytes). Override to 131072 for memory-constrained deployments (see `values-overrides/nano.yaml`). | 8,388,608   |
 | SERVER_PORT                             | Default port for all services. Individual plugins may bind to a different port via their own config.                   | 40840       |
@@ -163,7 +163,7 @@ A more robust pattern for fully operator-managed plugins is to mount a pre-popul
 | BACKFILL_END_BLOCK                       | Max block number, -1 means no limit.                                                                                   |        -1 |
 | BACKFILL_BLOCK_NODE_SOURCES_PATH         | File path for BN sources (PBJ JSON `block-nodes.json`).                                                                |        "" |
 | BACKFILL_SCAN_INTERVAL                   | Scan interval for gap detection (ms).                                                                                  |     60000 |
-| BACKFILL_MAX_RETRIES                     | Max retries to fetch a block.                                                                                          |         3 |
+| BACKFILL_MAX_RETRIES                     | Max attempts to fetch a block, minimum 1.                                                                              |         3 |
 | BACKFILL_INITIAL_RETRY_DELAY             | Initial retry delay (ms), grows linearly.                                                                              |      5000 |
 | BACKFILL_FETCH_BATCH_SIZE                | Number of blocks per gRPC call.                                                                                        |        10 |
 | BACKFILL_DELAY_BETWEEN_BATCHES           | Delay (ms) between block batches.                                                                                      |      1000 |
