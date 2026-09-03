@@ -129,6 +129,69 @@ use them judiciously.
     most frequently overused and often contains far more detail than is
     appropriate.
 
+## Logs vs. Metrics
+
+Logs and metrics answer different questions; choosing the right one keeps `INFO` useful in
+production.
+
+* Use **metrics** for anything you would count, rate, or trend over time — blocks received /
+  verified / persisted, latencies, queue depth, connection counts. **Per-item success and
+  throughput belong in metrics, never in per-item `INFO` logs.** Logging success is not an
+  `INFO`-level concern.
+* Use **logs** for discrete, notable events and problems — a verification rejection, an I/O
+  failure, a plugin failing to start, a lifecycle transition.
+* Operators who need continuous block-progression visibility from `INFO` alone use the periodic
+  status **heartbeat** (a single low-frequency aggregate line emitted from the server-status
+  layer), not per-block logs. For block-by-block detail, `DEBUG` is enabled on demand for the
+  relevant package. See the [Logging Reference](block-node/logging.md).
+
+## Block Node examples
+
+Concrete forms of the guidance above, using `System.Logger` as this project does.
+
+Correct — parameterized, deferred, exception passed as the trailing argument:
+
+```java
+LOGGER.log(INFO, "Started BlockNode Server : State={0} HistoricBlockRange={1}", state, range);
+LOGGER.log(WARNING, "State-proof verification rejected block {0}", blockNumber);
+LOGGER.log(ERROR, "Could not initialize historic plugin due to I/O exception", e);
+```
+
+Avoid — these defeat deferred evaluation or lose the stack trace:
+
+```java
+// Eager string building even when the level is disabled
+LOGGER.log(DEBUG, "Wrote block " + blockNumber + " to " + path);
+LOGGER.log(INFO, "Deleted %s".formatted(path));           // .formatted() with no exception
+
+// Stack trace lost: message only, or exception used as a format argument
+LOGGER.log(WARNING, "Failed to fetch from {0}: {1}", url, e.getMessage());  // no throwable
+LOGGER.log(WARNING, "Unable to close client: {0}", e);    // e fills {0}, no stack trace
+```
+
+Also avoid emitting a *failure* at `INFO` (it becomes indistinguishable from routine chatter in
+production) — a caught exception is almost always `WARNING` or `ERROR`, not `INFO`.
+
+### One-time lifecycle events stay at INFO
+
+The other side of keeping `INFO` low-volume: **infrequent, one-time lifecycle events belong at
+`INFO`**, because they are exactly the operationally-significant, low-frequency signals an
+operator needs in production. These include:
+
+* Application **startup** and **shutdown** (the startup banner, "Started BlockNode Server …",
+  "Shutting down, reason=…", "System Exiting").
+* The effective-**configuration dump** at startup (with sensitive values masked).
+* The **plugin load list** and **port binding** ("BlockNode Primary Server configured on
+  port(s): …").
+* Other genuinely one-time events (e.g. loading block ranges from a file on start).
+
+These fire once per lifecycle, not per block or per request, so they do not create noise. Do
+**not** demote them to `DEBUG`. Note the distinction from a *failure* during startup/shutdown
+(for example, failing to close a scheduler): the failure is `WARNING`/`ERROR`, while the normal
+"shutting down" / "started" milestone stays `INFO`. Recurring per-item work and per-plugin
+internal init detail remain `DEBUG`; the app already lists each loaded plugin at `INFO`, so
+operators see which plugins started without each plugin logging its own start at `INFO`.
+
 ## Things to Avoid
 
 There are a number of common anti-patterns that should be avoided when writing

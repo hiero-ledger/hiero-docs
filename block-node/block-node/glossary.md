@@ -229,7 +229,7 @@ Block Streams ([HIP-1056](https://hips.hedera.com/hip/hip-1056)), Block Nodes
 A local development and testing tool that runs a minimal Hiero network on a developer's machine
 using Docker Compose. **Deprecated** — the deprecation period ends September 2026.
 [Solo](https://github.com/hiero-ledger/solo) is the recommended replacement.
-See [Local Development Quickstart](./quickstart.md).
+See [Local Development Quickstart](./docker-compose-quickstart.md).
 
 ---
 
