@@ -30,20 +30,71 @@ and resolve problems quickly.
   (easily ingested by Loki, ELK, Splunk, etc.). In Docker / Kubernetes the
   format is `java.util.logging.SimpleFormatter`; local dev uses a coloured
   single-line variant (`CleanColorfulFormatter`).
-- **Log levels**: Controlled via
-  [values.yaml](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values.yaml)
-  (`blockNode.logs.level`): `ALL FINEST FINER FINE CONFIG INFO WARNING SEVERE OFF`.
-- **Key log tags to grep**:
-  - `StreamPublisherPlugin` : incoming blocks from consensus nodes
-  - `VerificationServicePlugin` : signature / proof failures
+- **Log levels**: Production runs at `INFO` and above. Change the level
+  (globally, per package, or per single class) via `blockNode.logs.level` and
+  `blockNode.logs.loggingProperties` in
+  [values.yaml](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values.yaml).
+  Full how-to with examples: [Logging Reference](./logging.md#changing-the-log-level).
 
-##### Example log lines
+Because production is `INFO`-only, INFO is kept deliberately low-volume: a healthy node emits
+a small, recognisable set of INFO lines, so any `WARNING`/`SEVERE` stands out. Use the three
+tables below to (a) confirm a node is healthy from its INFO output, (b) recognise problem
+lines, and (c) get more detail when you need it.
+
+##### A healthy node's INFO signature
+
+On a healthy node you should see the startup sequence once, then only the periodic status
+heartbeat at INFO (block-by-block progress is intentionally **not** at INFO — watch it via
+[metrics](#12-prometheus-metrics--monitoring) instead):
+
+|     When     |                                                                   Log tag / message                                                                    |                             Meaning                             |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| Startup      | `BlockNodeApp` — `Loaded Hiero Java modules:` then a `====` banner + config dump                                                                       | Process booted; effective configuration logged (secrets masked) |
+| Startup      | `BlockNodeApp` — `BlockNode Primary Server configured on port(s): …`                                                                                   | Server bound its listen port(s)                                 |
+| Startup      | `BlockNodeApp` — `Started BlockNode Server : State=RUNNING HistoricBlockRange=[…]`                                                                     | Node is up and serving; note the state and block range          |
+| Steady state | `ServerStatusServicePlugin` — `Status heartbeat: oldestBlock=… newestBlock=… nextExpected=…` (periodic)                                                | Node is alive and its block range is advancing                  |
+| Shutdown     | `Main` — `Shutdown requested by JVM shutting down` … `Shutdown finished` (SIGTERM); internal stops also log `BlockNodeApp` — `Shutting down, reason=…` | Orderly shutdown; the `reason` explains why                     |
+
+If the heartbeat's `newestBlock` stops advancing while consensus nodes are producing blocks,
+ingest is stalled — go to [Block Node not receiving new blocks](#block-node-not-receiving-new-blocks).
+
+Example — INFO from a healthy run, then a stall (captured from a real run; per-block
+verify/persist/ack are DEBUG-only and not shown here):
 
 ```text
-block-node-server 2026-02-03 21:53:01.831+0000 INFO [org.hiero.block.node.backfill.BackfillFetcher getNewAvailableRange] Unable to reach node [BackfillSourceConfig[address=rfh01.previewnet...]], skipping
-block-node-server 2026-02-03 21:53:01.831+0000 FINER [org.hiero.block.node.backfill.BackfillPlugin detectAndScheduleGaps] Nothing to backfill: startBound=[500] endCap=[1]
-block-node-server 2026-02-03 21:53:03.748+0000 FINER [org.hiero.block.node.health.HealthServicePlugin handleLivez] Responded code 200 (OK) to liveness check
+INFO BlockNodeApp#start                       Started BlockNode Server : State=RUNNING HistoricBlockRange=
+INFO ServerStatusServicePlugin  Status heartbeat: oldestBlock=0 newestBlock=143 nextExpected=144
+INFO ServerStatusServicePlugin  Status heartbeat: oldestBlock=0 newestBlock=202 nextExpected=203   # healthy: advancing
+INFO ServerStatusServicePlugin  Status heartbeat: oldestBlock=0 newestBlock=896 nextExpected=897
+INFO ServerStatusServicePlugin  Status heartbeat: oldestBlock=0 newestBlock=896 nextExpected=897   # STALLED: not advancing
 ```
+
+##### Problem lines to grep (WARNING / SEVERE)
+
+|                               Grep tag                                |                    Typically means                     |                                                     First action                                                      |
+|-----------------------------------------------------------------------|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| `VerificationServicePlugin` (WARNING)                                 | A block failed signature / proof verification          | Check `blocknode_verification_blocks_failed`; a spike may signal upstream or key issues                               |
+| `BackfillPlugin` (WARNING)                                            | Backfill could not persist / verify / re-queue a block | Check storage & verification health; watch `blocknode_backfill*` metrics (transient "cannot reach upstream" is DEBUG) |
+| `BlockFileRecentPlugin` / `BlockFileHistoricPlugin` (WARNING/SEVERE)  | Storage read/write or archive failure                  | Check disk space and I/O — see [Disk full](#disk-full--out-of-space)                                                  |
+| `Failed to upload` (BlockUploadTask / TempArchiveUploadTask, WARNING) | Cloud archive upload failed                            | Check bucket credentials/connectivity; watch `cloud_storage_archive_failed_tasks`                                     |
+| Any `SEVERE`                                                          | System entering a failure state                        | Investigate immediately — see the matching runbook below                                                              |
+
+##### Reading and tailing logs (Kubernetes)
+
+```bash
+kubectl -n block-node logs <pod> -f                 # live tail
+kubectl -n block-node logs <pod> --since=15m        # recent window
+kubectl -n block-node logs <pod> --previous         # logs from the pod before a crash
+kubectl -n block-node logs <pod> | grep -E "SEVERE|WARNING"   # problems only
+```
+
+##### Getting more detail on demand
+
+When INFO is not enough, raise **only the relevant package** to `FINE` (DEBUG), reproduce, then
+revert — do not run DEBUG globally in production. Example: for a verification problem set
+`org.hiero.block.node.block.verification.level = FINE`; for backfill set
+`org.hiero.block.node.backfill.level = FINE`. See
+[Enabling DEBUG on demand](./logging.md#enabling-debug-on-demand-log-only-troubleshooting).
 
 #### 1.2 Prometheus metrics & monitoring
 
@@ -78,13 +129,13 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 
 ### Block Node not receiving new blocks
 
-> **Tip:** Use this runbook when ingest appears stalled and logs show little or no publish activity for new blocks.
+> **Tip:** Use this runbook when ingest appears stalled — publisher metrics are flat and the status heartbeat's `newestBlock` is not advancing.
 
 1. **Triage**
    - Confirm symptoms:
      - `publisher_block_items_received` flat or near-zero.
      - `publisher_open_connections` dropping toward zero.
-     - Logs show no recent block publish events.
+     - The status heartbeat's `newestBlock` is not advancing (per-block ingest is tracked by metrics and the heartbeat, not INFO logs).
    - Check node health:
      - Verify process is running and not crashlooping.
      - Confirm CPU / memory are not obviously saturated.
@@ -111,7 +162,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 5. **Verification**
    - Confirm `publisher_block_items_received` increases steadily.
    - `publisher_open_connections` is stable and non-zero.
-   - Logs show continuous block publish / ingest activity.
+   - The status heartbeat's `newestBlock` advances steadily (for per-block detail, temporarily raise `org.hiero.block.node.stream.publisher` to `FINE`).
 
 ---
 
@@ -342,7 +393,7 @@ The table below is a **summary-only quick reference**. Use the runbooks above fo
 
 |                         **Issue**                         |                                      **Symptoms**                                       |                                                       **Diagnosis**                                                       |                                                                                                                                 **Resolution**                                                                                                                                 |
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Node not receiving new blocks                             | Ingest appears stalled, logs show no publish activity                                   | Check firewall on publish/ingest port (`40984` in LFH; `40840` base-chart default), Consensus Node logs                   | Open inbound port, ensure node is authorized / whitelisted by upstream CN; check ingress cert if using TLS termination                                                                                                                                                         |
+| Node not receiving new blocks                             | Ingest stalled; publisher metrics flat, heartbeat `newestBlock` not advancing           | Check firewall on publish/ingest port (`40984` in LFH; `40840` base-chart default), Consensus Node logs                   | Open inbound port, ensure node is authorized / whitelisted by upstream CN; check ingress cert if using TLS termination                                                                                                                                                         |
 | Block Node operator: subscribers cannot connect           | gRPC connection failures; clients repeatedly reconnecting                               | Endpoint config; `stream-subscriber` plugin present; TLS cert check at ingress (if TLS is enabled)                        | Fix endpoint or firewall; renew ingress TLS certs (if TLS is enabled); add `stream-subscriber` to plugin configuration                                                                                                                                                         |
 | Mirror Node operator: Mirror Node cannot connect          | MN block height not advancing; repeated subscribe errors in importer logs               | `nc` reachability; `serverStatus` output; subscribe smoke test; MN `block.*` config                                       | Fix endpoint or firewall; correct `requiresTls`; see [connecting guide](./operations/connecting-a-mirror-node-to-a-block-node.md#troubleshooting)                                                                                                                              |
 | Disk full / out of space                                  | Node crashes or refuses new blocks                                                      | `df -h`, `files_recent_total_bytes_stored` nearing limit                                                                  | Prune old blocks (partial-history), expand volume, or migrate to archive node                                                                                                                                                                                                  |
