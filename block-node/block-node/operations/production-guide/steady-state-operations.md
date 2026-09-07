@@ -56,12 +56,19 @@ kubectl -n block-node logs $BN --previous      # post-crash container logs
 kubectl -n block-node exec -it $BN -- bash     # shell into pod
 ```
 
-Key log tags to grep for:
+Production runs at `INFO`, which is deliberately low-volume. Block ingest and verification
+progress is tracked by [metrics](../../metrics.md) and the periodic status heartbeat — **not**
+by per-block INFO logs. Use logs to confirm startup/config and to find problems:
 
-|             Tag             |               Indicates                |
-|-----------------------------|----------------------------------------|
-| `StreamPublisherPlugin`     | Incoming blocks from Consensus Nodes   |
-| `VerificationServicePlugin` | Signature or proof validation failures |
+|               Grep tag                |                       Indicates                       |
+|---------------------------------------|-------------------------------------------------------|
+| `Status heartbeat`                    | Liveness and block progression (`newestBlock` rising) |
+| `Started BlockNode Server`            | Startup completed                                     |
+| `VerificationServicePlugin` (WARNING) | Verification session failures                         |
+| `SEVERE` / `WARNING`                  | Any failure needing attention                         |
+
+For per-block ingest detail, temporarily raise `org.hiero.block.node.stream.publisher` to
+`FINE` (see the [logging reference](../../logging.md)).
 
 ---
 

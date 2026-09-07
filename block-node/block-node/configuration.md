@@ -6,6 +6,18 @@ This document outlines configuration options for the Hiero Block Node. Most sett
 
 Each plugin has its own properties, but this focuses on core options and core plugins.
 
+## Logging configuration
+
+Application logging is **not** controlled by environment variables. It is configured through a
+`java.util.logging` `logging.properties` file (global, per-package, and per-class levels),
+selected at startup via `-Djava.util.logging.config.file`. In Kubernetes the level and any
+per-package/class overrides are set through `blockNode.logs.level` and
+`blockNode.logs.loggingProperties` in the chart values.
+
+See the [Logging Reference](./logging.md) for the format and step-by-step examples of changing
+the level, and the [Logging Architecture](../design/architecture/Logging-Architecture.md) for
+the design.
+
 ## Core Configuration Options
 
 | ENV Variable                      | Description                                                                                 | Default |

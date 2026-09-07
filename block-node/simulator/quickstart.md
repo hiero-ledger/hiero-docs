@@ -43,7 +43,7 @@ Refer to the [Configuration](configuration.md) for configuration options.
 ### Run the Server first
 
 Usually, you would want to run the [Server](../block-node/README.md) first, refer to the
-[Quickstart of the Server](../block-node/quickstart.md) for a quick guide on how to
+[Quickstart of the Server](../block-node/docker-compose-quickstart.md) for a quick guide on how to
 get started with the application.
 
 ### Run the Simulator

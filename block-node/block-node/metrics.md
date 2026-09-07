@@ -55,11 +55,12 @@ Example `scrape_configs` snippet:
 **Plugin:** `app`
 Node‑level state and current block numbers.
 
-| Type  |             Name              |              Description               |
-|-------|-------------------------------|----------------------------------------|
-| Gauge | `app_historical_oldest_block` | Oldest block the BN currently stores   |
-| Gauge | `app_historical_newest_block` | Newest block the BN currently stores   |
-| Gauge | `app_state_status`            | 0=Starting, 1=Running, 2=Shutting Down |
+| Type  |             Name              |                                          Description                                           |
+|-------|-------------------------------|------------------------------------------------------------------------------------------------|
+| Gauge | `app_historical_oldest_block` | Oldest block the BN currently stores                                                           |
+| Gauge | `app_historical_newest_block` | Newest block the BN currently stores                                                           |
+| Gauge | `app_state_status`            | 0=Starting, 1=Running, 2=Shutting Down                                                         |
+| Gauge | `app_current_version`         | Current Block Node version; value is always 0 — version string is in the `VersionString` label |
 
 ---
 
@@ -147,16 +148,20 @@ Observes outbound streams served to subscribers.
 **Plugin:** `verification [block-node-verification]`
 Measures block‑verification throughput and success rate.
 
-|  Type   |              Name              |                                                          Description                                                           |
-|---------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Counter | `verification_blocks_received` | Blocks received for verification                                                                                               |
-| Counter | `verification_blocks_verified` | Blocks that passed verification                                                                                                |
-| Counter | `verification_blocks_failed`   | Blocks that failed verification                                                                                                |
-| Counter | `verification_blocks_error`    | Internal errors during verification                                                                                            |
-| Counter | `verification_block_time`      | Verification time per block (ns=nanoseconds)                                                                                   |
-| Counter | `hashing_block_time`           | Hashing time per block (ns=nanoseconds)                                                                                        |
-| Counter | `verification_proof_total`     | [Block proof](./glossary.md#block-proof) verifications, labels: `proof_type={rsa,state_proof,tss}`, `result={success,failure}` |
-| Counter | `rsa_roster_mismatch_total`    | RSA signatures from node IDs absent from the loaded address book                                                               |
+|  Type   |               Name                |                                                          Description                                                           |
+|---------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Counter | `verification_blocks_received`    | Blocks received for verification                                                                                               |
+| Gauge   | `verification_active_sessions`    | Currently active verification sessions (live size of the active sessions buffer)                                               |
+| Counter | `verification_blocks_verified`    | Blocks that passed verification                                                                                                |
+| Counter | `verification_blocks_failed`      | Blocks that failed verification                                                                                                |
+| Counter | `verification_blocks_error`       | Internal errors during verification                                                                                            |
+| Counter | `verification_block_time`         | Verification time per block (ns=nanoseconds)                                                                                   |
+| Counter | `hashing_block_time`              | Hashing time per block (ns=nanoseconds)                                                                                        |
+| Counter | `hashing_future_items_hashed`     | Future block item types hashed via the forward-compatibility numbering rule.                                                   |
+| Counter | `hashing_future_items_not_hashed` | Future block item types present in a block but not hashed (ignored).                                                           |
+| Counter | `hashing_future_items_refused`    | Future block item types that caused a block to be refused.                                                                     |
+| Counter | `verification_proof_total`        | [Block proof](./glossary.md#block-proof) verifications, labels: `proof_type={rsa,state_proof,tss}`, `result={success,failure}` |
+| Counter | `rsa_roster_mismatch_total`       | RSA signatures from node IDs absent from the loaded address book                                                               |
 
 ---
 
@@ -233,29 +238,33 @@ Observes the server status API that provides information about the node.
 **Plugin:** `backfill [block-node-backfill]`
 Provides metrics related to the [backfill](./glossary.md#backfill) process, including On-Demand and Historical backfills.
 
-|  Type   |             Name             |                                                       Description                                                       |
-|---------|------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Counter | `backfill_gaps_detected`     | Total number of gaps detected during a scan (includes gaps re-detected while throttled by backoff)                      |
-| Counter | `backfill_gaps_submitted`    | Total number of detected gaps actually submitted for backfill (excludes gaps throttled by backoff or already in-flight) |
-| Counter | `backfill_blocks_fetched`    | Total number of blocks fetched during backfill                                                                          |
-| Counter | `backfill_blocks_backfilled` | Total number of blocks successfully backfilled                                                                          |
-| Counter | `backfill_fetch_errors`      | Total number of errors encountered while fetching blocks                                                                |
-| Counter | `backfill_retries`           | Total number of retries attempted during backfill                                                                       |
-| Gauge   | `backfill_status`            | Current status of the backfill process (0=Idle, 1=Running)                                                              |
-| Gauge   | `backfill_pending_blocks`    | Number of blocks pending to be backfilled                                                                               |
-| Gauge   | `backfill_inflight_blocks`   | In-flight backfill blocks currently awaiting verification/persistence                                                   |
+|  Type   |              Name               |                                                       Description                                                       |
+|---------|---------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Counter | `backfill_gaps_detected`        | Total number of gaps detected during a scan (includes gaps re-detected while throttled by backoff)                      |
+| Counter | `backfill_gaps_submitted`       | Total number of detected gaps actually submitted for backfill (excludes gaps throttled by backoff or already in-flight) |
+| Counter | `backfill_blocks_fetched`       | Total number of blocks fetched during backfill                                                                          |
+| Counter | `backfill_blocks_backfilled`    | Total number of blocks successfully backfilled                                                                          |
+| Counter | `backfill_fetch_errors`         | Total number of errors encountered while fetching blocks                                                                |
+| Counter | `backfill_retries`              | Total number of retries attempted during backfill                                                                       |
+| Counter | `backfill_persistence_failures` | Total number of failures when persisting a fetched block during backfill                                                |
+| Gauge   | `backfill_status`               | Current status of the backfill process (0=Idle, 1=Running)                                                              |
+| Gauge   | `backfill_pending_blocks`       | Number of blocks pending to be backfilled                                                                               |
+| Gauge   | `backfill_inflight_blocks`      | In-flight backfill blocks currently awaiting verification/persistence                                                   |
 
 #### Cloud Expanded
 
 **Plugin:** `cloud-storage-expanded`
 Tracks the count and byte data size regarding single block uploads
 
-|  Type   | Metric                                 | Description                                                              |
-|---------|:---------------------------------------|:-------------------------------------------------------------------------|
-| Counter | `cloud_expanded_total_uploads`         | Number of blocks successfully uploaded.                                  |
-| Counter | `cloud_expanded_total_upload_failures` | Number of uploads that failed (S3 error, timeout, or compression error). |
-| Counter | `cloud_expanded_total_upload_bytes`    | Total compressed bytes successfully uploaded.                            |
-| Counter | `cloud_expanded_upload_latency_ns`     | Total time in nanoseconds for upload.                                    |
+|  Type   | Metric                                 | Description                                                                                                                                                       |
+|---------|:---------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Counter | `cloud_expanded_total_uploads`         | Number of blocks successfully uploaded.                                                                                                                           |
+| Counter | `cloud_expanded_total_upload_failures` | Number of uploads that failed (S3 error, timeout, or compression error).                                                                                          |
+| Counter | `cloud_expanded_total_upload_bytes`    | Total compressed bytes successfully uploaded.                                                                                                                     |
+| Counter | `cloud_expanded_upload_latency_ns`     | Total time in nanoseconds for upload.                                                                                                                             |
+| Gauge   | `cloud_expanded_pending_retry_blocks`  | Current count of blocks buffered in memory and awaiting a background retry upload.                                                                                |
+| Counter | `cloud_expanded_retry_success_total`   | Blocks recovered by a later background retry after an initial upload failure.                                                                                     |
+| Counter | `cloud_expanded_retry_exhausted_total` | Blocks dropped after exhausting all retry attempts, evicted from the retry buffer to make room for a newer failure, or still buffered when the plugin shuts down. |
 
 ---
 
@@ -288,6 +297,17 @@ Tracks [TSS](./glossary.md#tss-hintsts) data requests used to bootstrap the cons
 
 ---
 
+### Health
+
+**Plugin:** `health`
+Observes the HTTP health-check endpoint used by Kubernetes liveness and readiness probes.
+
+|  Type   |       Name        |                                                                                                        Description                                                                                                         |
+|---------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Counter | `health_requests` | Health-check HTTP requests, labeled by endpoint and result. If this counter flatlines while the pod stays up, the health server has stopped accepting connections — an early signal before liveness/readiness probes fail. |
+
+---
+
 ## Alerting Recommendations
 
 Alerting rules can be created based on these metrics to notify the operations team of potential issues.
@@ -311,10 +331,9 @@ is a block-count cap, not a disk-size cap (see [Host / Volume](#host--volume-ext
 
 **Publisher**: Alerts related to publisher connections and performance
 
-| Severity |             Metric             |                   Alert Condition                   |
-|----------|--------------------------------|-----------------------------------------------------|
-| L        | `publisher_open_connections`   | If value exceeds 40, otherwise, configure as needed |
-| M        | `publisher_receive_latency_ns` | If value exceeds 5s                                 |
+| Severity |            Metric            |                   Alert Condition                   |
+|----------|------------------------------|-----------------------------------------------------|
+| L        | `publisher_open_connections` | If value exceeds 40, otherwise, configure as needed |
 
 **Failures**: Alerts for various failure metrics
 
