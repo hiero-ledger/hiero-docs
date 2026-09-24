@@ -20,7 +20,7 @@ A constant-size BLS threshold signature produced by the hinTS Threshold Signatur
 (TSS). Requires partial signatures from nodes holding more than half the network's consensus
 weight (staked HBAR). Replaces the per-node RSA multi-signatures used in the legacy record
 stream. Defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200).
-See also: [TSS (hinTS)](#tss-hintsts), [WRAPS](#wraps).
+See also: [TSS (hinTS)](#tss-hints), [WRAPS](#wraps).
 
 ### Archive Server
 
@@ -568,7 +568,7 @@ Two options:
 
 Successful loading is confirmed by a non-empty `tss_data` field in the `serverStatusDetail`
 response.
-See also: [RSA Bootstrap Roster](#rsa-bootstrap-roster), [TSS (hinTS)](#tss-hintsts).
+See also: [RSA Bootstrap Roster](#rsa-bootstrap-roster), [TSS (hinTS)](#tss-hints).
 See [Preparing for WRB Cutover](./operations/preparing-your-block-node-for-wrb-cutover.md).
 
 ### TSS Ceremony
