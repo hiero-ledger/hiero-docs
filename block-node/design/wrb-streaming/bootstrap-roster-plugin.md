@@ -61,8 +61,8 @@ The BN automatically determines which proof type to verify based on the proof pr
 - Expose the loaded roster to all BN plugins via `ApplicationStateFacility.updateAddressBook()`, which updates
   `BlockNodeContext` and notifies all plugins via `onContextUpdate`.
 - Periodically refresh the address book from both the peer BN and Mirror Node while running.
-- Define the RSA signature verification algorithm precisely enough to be implemented from this document. Initially only
-  v6 record files will be supported.
+- Define the RSA signature verification algorithm precisely enough to be implemented from this document. All record
+  file format versions that ever existed (v2, v5 and v6) are supported; v2/v5 support was added by #3640.
 - Support verification of `SignedRecordFileProof`, `StateProof`, and `TssSignedBlockProof` — the BN determines which
   verification path to invoke based on the proof type present in the block.
 
@@ -73,7 +73,6 @@ The BN automatically determines which proof type to verify based on the proof pr
 - Cloud upload of individual WRBs — handled separately.
 - Block simulator support for generating valid `SignedRecordFileProof` blocks — flagged as a testing gap; delayed and
   hopefully not needed.
-- Verification of v2 and v5 record files.
 
 ---
 
@@ -444,6 +443,9 @@ for (NodeAddress addr : context.nodeAddressBook().nodeAddress()) {
 | **v6**  | `SHA-384( int32(6) \|\| rawRecordStreamFileBytes )`                                                 |
 | **v5**  | Reconstruct the v5 binary record file from parsed items, then `SHA-384(v5Bytes)`                    |
 | **v2**  | Reconstruct v2 binary record, compute `SHA-384` of reconstructed bytes, then `SHA-384` of that hash |
+
+All three constructions are implemented by `RecordFileSignedPayload`, internal to the `block-verification` module,
+invoked by `RSAProofVerifier` which computes the signed payload from the block's `RECORD_FILE` item.
 
 #### 4.6.4 RSA Signature Verification Steps
 
