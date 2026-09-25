@@ -57,6 +57,7 @@
     * [Cutover Process and Timeline](block-node/block-node/Cutover-Process.md)
     * [Preparing for WRB Cutover](block-node/block-node/operations/preparing-your-block-node-for-wrb-cutover.md)
     * [WRB CLI Runbook](block-node/block-node/operations/wrb-cli-runbook.md)
+    * [SP-WRB Block Node Runbook](block-node/block-node/operations/sp-wrb-bn-operator-runbook.md)
   * [Reference](block-node/reference.md)
     * [Operator FAQ](block-node/block-node/faq/operator-faq.md)
     * [Integration FAQ](block-node/block-node/faq/integration-faq.md)
