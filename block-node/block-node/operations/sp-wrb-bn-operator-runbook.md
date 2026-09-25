@@ -92,7 +92,7 @@ as a fallback for local `kind` and clusters where Solo Provisioner is not availa
 - A **provisioner config** YAML (profile, chart reference, storage paths, sizes) — one per
   network. Example: `~/testnet-lfh-provisioner-config.yaml`.
 - A **chart values overlay** YAML (LFH preset, LoadBalancer, plugin ports). Start from
-  [`charts/block-node-server/values-overrides/lfh-values.yaml`](../../../charts/block-node-server/values-overrides/lfh-values.yaml)
+  [`charts/block-node-server/values-overrides/lfh-values.yaml`](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values-overrides/lfh-values.yaml)
   and adapt for your network.
 
 The LoadBalancer block in the values overlay **must** set `includePluginPorts: true` so the
