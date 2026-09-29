@@ -192,10 +192,11 @@ Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 ***
 
 An open-source remote procedure call (RPC) framework used by all Block Node APIs. Block Node
-endpoints — `publishBlockStream`, `subscribeBlockStream`, `serverStatus`, and `getBlock` — are
+endpoints - `publishBlockStream`, `subscribeBlockStream`, `serverStatus`, and `getBlock` - are
 gRPC calls defined in Protocol Buffer (`.proto`) files and transported over HTTP/2. Clients use
 generated stubs (available for Java, JavaScript, Go, and other languages) to call these endpoints.
 See [Network Ports and Protocols](./operations/network-ports-and-protocols.md).
+For further reading: [gRPC](https://grpc.io) | [Protocol Buffers](https://protobuf.dev).
 
 ---
 

@@ -200,7 +200,7 @@ curl -s http://<BN_HOST>:16007/metrics | grep blocknode_publisher_block_items_re
 A steadily increasing value confirms the Block Node is receiving blocks from the CN.
 A value of `0` or no metric present means the CN has not yet established a streaming connection.
 
-See [Block Node Metrics](../metrics.md) for the full metrics reference and [Block Node Troubleshooting](../troubleshooting.md) if the connection does not establish.
+See [Block Node Metrics](../metrics.md) for the full metrics reference and [Block Node not receiving new blocks](../troubleshooting.md#block-node-not-receiving-new-blocks) if the connection does not establish.
 
 ## Optional - Tune connection behaviour
 

@@ -44,21 +44,21 @@ lines, and (c) get more detail when you need it.
 ##### A healthy node's INFO signature
 
 On a healthy node you should see the startup sequence once, then only the periodic status
-heartbeat at INFO (block-by-block progress is intentionally **not** at INFO — watch it via
+heartbeat at INFO (block-by-block progress is intentionally **not** at INFO - watch it via
 [metrics](#12-prometheus-metrics--monitoring) instead):
 
 |     When     |                                                                   Log tag / message                                                                    |                             Meaning                             |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| Startup      | `BlockNodeApp` — `Loaded Hiero Java modules:` then a `====` banner + config dump                                                                       | Process booted; effective configuration logged (secrets masked) |
-| Startup      | `BlockNodeApp` — `BlockNode Primary Server configured on port(s): …`                                                                                   | Server bound its listen port(s)                                 |
-| Startup      | `BlockNodeApp` — `Started BlockNode Server : State=RUNNING HistoricBlockRange=[…]`                                                                     | Node is up and serving; note the state and block range          |
-| Steady state | `ServerStatusServicePlugin` — `Status heartbeat: oldestBlock=… newestBlock=… nextExpected=…` (periodic)                                                | Node is alive and its block range is advancing                  |
-| Shutdown     | `Main` — `Shutdown requested by JVM shutting down` … `Shutdown finished` (SIGTERM); internal stops also log `BlockNodeApp` — `Shutting down, reason=…` | Orderly shutdown; the `reason` explains why                     |
+| Startup      | `BlockNodeApp` - `Loaded Hiero Java modules:` then a `====` banner + config dump                                                                       | Process booted; effective configuration logged (secrets masked) |
+| Startup      | `BlockNodeApp` - `BlockNode Primary Server configured on port(s): …`                                                                                   | Server bound its listen port(s)                                 |
+| Startup      | `BlockNodeApp` - `Started BlockNode Server : State=RUNNING HistoricBlockRange=[…]`                                                                     | Node is up and serving; note the state and block range          |
+| Steady state | `ServerStatusServicePlugin` - `Status heartbeat: oldestBlock=… newestBlock=… nextExpected=…` (periodic)                                                | Node is alive and its block range is advancing                  |
+| Shutdown     | `Main` - `Shutdown requested by JVM shutting down` … `Shutdown finished` (SIGTERM); internal stops also log `BlockNodeApp` - `Shutting down, reason=…` | Orderly shutdown; the `reason` explains why                     |
 
 If the heartbeat's `newestBlock` stops advancing while consensus nodes are producing blocks,
-ingest is stalled — go to [Block Node not receiving new blocks](#block-node-not-receiving-new-blocks).
+ingest is stalled - go to [Block Node not receiving new blocks](#block-node-not-receiving-new-blocks).
 
-Example — INFO from a healthy run, then a stall (captured from a real run; per-block
+Example - INFO from a healthy run, then a stall (captured from a real run; per-block
 verify/persist/ack are DEBUG-only and not shown here):
 
 ```text
@@ -73,11 +73,11 @@ INFO ServerStatusServicePlugin  Status heartbeat: oldestBlock=0 newestBlock=896 
 
 |                               Grep tag                                |                    Typically means                     |                                                     First action                                                      |
 |-----------------------------------------------------------------------|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| `VerificationServicePlugin` (WARNING)                                 | A block failed signature / proof verification          | Check `blocknode_verification_blocks_failed`; a spike may signal upstream or key issues                               |
+| `VerificationServicePlugin` (WARNING)                                 | A block failed signature / proof verification          | Check `blocknode_verification_blocks_failed_total`; a spike may signal upstream or key issues                         |
 | `BackfillPlugin` (WARNING)                                            | Backfill could not persist / verify / re-queue a block | Check storage & verification health; watch `blocknode_backfill*` metrics (transient "cannot reach upstream" is DEBUG) |
-| `BlockFileRecentPlugin` / `BlockFileHistoricPlugin` (WARNING/SEVERE)  | Storage read/write or archive failure                  | Check disk space and I/O — see [Disk full](#disk-full--out-of-space)                                                  |
+| `BlockFileRecentPlugin` / `BlockFileHistoricPlugin` (WARNING/SEVERE)  | Storage read/write or archive failure                  | Check disk space and I/O - see [Disk full](#disk-full--out-of-space)                                                  |
 | `Failed to upload` (BlockUploadTask / TempArchiveUploadTask, WARNING) | Cloud archive upload failed                            | Check bucket credentials/connectivity; watch `cloud_storage_archive_failed_tasks`                                     |
-| Any `SEVERE`                                                          | System entering a failure state                        | Investigate immediately — see the matching runbook below                                                              |
+| Any `SEVERE`                                                          | System entering a failure state                        | Investigate immediately - see the matching runbook below                                                              |
 
 ##### Reading and tailing logs (Kubernetes)
 
@@ -91,7 +91,7 @@ kubectl -n block-node logs <pod> | grep -E "SEVERE|WARNING"   # problems only
 ##### Getting more detail on demand
 
 When INFO is not enough, raise **only the relevant package** to `FINE` (DEBUG), reproduce, then
-revert — do not run DEBUG globally in production. Example: for a verification problem set
+revert - do not run DEBUG globally in production. Example: for a verification problem set
 `org.hiero.block.node.block.verification.level = FINE`; for backfill set
 `org.hiero.block.node.backfill.level = FINE`. See
 [Enabling DEBUG on demand](./logging.md#enabling-debug-on-demand-log-only-troubleshooting).
@@ -103,7 +103,7 @@ The Block Node exposes a rich set of Prometheus metrics on `/metrics`
 [Hiero Block Node `dashboards/` folder.](https://github.com/hiero-ledger/hiero-block-node/tree/main/charts/block-node-server/dashboards)
 
 All metrics are prefixed with `blocknode`
-(for example, `blocknode_publisher_block_items_received`).
+(for example, `blocknode_publisher_block_items_received_total`).
 See the full list in the
 [metrics reference](./metrics.md#metrics-by-plugin).
 
@@ -129,13 +129,17 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 
 ### Block Node not receiving new blocks
 
-> **Tip:** Use this runbook when ingest appears stalled — publisher metrics are flat and the status heartbeat's `newestBlock` is not advancing.
+> **Tip:** Use this runbook when ingest appears stalled - publisher metrics are flat and the status heartbeat's `newestBlock` is not advancing.
 
 1. **Triage**
    - Confirm symptoms:
      - `publisher_block_items_received` flat or near-zero.
      - `publisher_open_connections` dropping toward zero.
      - The status heartbeat's `newestBlock` is not advancing (per-block ingest is tracked by metrics and the heartbeat, not INFO logs).
+   - **Check CN block stream configuration before assuming a network or node issue.** Either property below can prevent blocks from reaching the Block Node regardless of network connectivity:
+     - `blockStream.streamMode` must be `BOTH` or `BLOCKS`. If set to `RECORDS`, the CN streams records only and sends no blocks - even if a gRPC connection to the Block Node is established.
+     - `blockStream.writerMode` must be `FILE_AND_GRPC` or `GRPC`. If set to `FILE`, the CN writes blocks to the local filesystem only and the gRPC connection manager never starts.
+     - See [Consensus Node to Block Node Configuration](./operations/consensus-node-to-block-node-configuration.md) for how to check and update these properties.
    - Check node health:
      - Verify process is running and not crashlooping.
      - Confirm CPU / memory are not obviously saturated.
@@ -148,9 +152,12 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
      - Check any intermediate firewalls / load balancers for drops.
      - Confirm the correct IP and port for the CN endpoint.
 2. **Logs**
-   - Search for:
-     - Connection-related errors to consensus nodes.
+   - Search for on the **Consensus Node** (not the Block Node):
+     - `Streaming is not enabled; block node connection manager will not be started` - this WARNING in `BlockNodeConnectionManager` means `blockStream.writerMode` is `FILE`. The CN never attempts to connect.
+     - Connection-related errors to Block Nodes.
      - Repeated reconnect attempts or backoff warnings.
+   - Search for on the **Block Node**:
+     - Any SEVERE or WARNING from `StreamPublisherPlugin`.
 3. **Metrics**
    - Confirm:
      - `publisher_block_items_received` has stalled.
@@ -196,6 +203,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
            '{"start_block_number": <BLOCK>, "end_block_number": <BLOCK>}'
        ```
    - Verify the correct advertised hostname / IP and port in Block Node config, and that DNS or load balancer points to the active node.
+   - For the full list of BN ports, traffic directions, and expected firewall rules, see [Network Ports and Protocols](./operations/network-ports-and-protocols.md).
 3. **TLS (if TLS is enabled at your ingress or proxy)**
    - Check client logs for:
      - `x509: certificate has expired or is not yet valid`.
@@ -211,7 +219,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
    - Update firewall / security groups to allow gRPC traffic from subscribers.
 6. **Verification**
    - Confirm clients successfully establish long-lived gRPC streams without continuous reconnects.
-   - `blocknode_subscriber_open_connections` is stable and non-zero; `blocknode_subscriber_errors` is not climbing.
+   - `blocknode_subscriber_open_connections` is stable and non-zero; `blocknode_subscriber_errors_total` is not climbing.
 
 ---
 
@@ -231,12 +239,12 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
      nc -vz <BLOCK_NODE_HOST> 40980
      ```
 
-     - **Success**: `Connection to <BLOCK_NODE_HOST> port 40980 succeeded!` — proceed to the next step.
+     - **Success**: `Connection to <BLOCK_NODE_HOST> port 40980 succeeded!` - proceed to the next step.
      - **Failure**: TCP reachability is broken. Check firewall rules, security groups, and that the Block Node process is running. Confirm the port matches `hiero.mirror.importer.block.nodes[].port` in the Mirror Node configuration.
 3. **Block Node status**
    - Query `serverStatus` to confirm blocks are available and the gRPC endpoint is responding.
      See [Step 1 in Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md#step-1-confirm-each-block-node-is-reachable-and-serving-blocks) for the exact command.
-     - If both `firstAvailableBlock` and `lastAvailableBlock` equal `18446744073709551615`, the Block Node has not yet ingested any blocks — wait before subscribing.
+     - If both `firstAvailableBlock` and `lastAvailableBlock` equal `18446744073709551615`, the Block Node has not yet ingested any blocks - wait before subscribing.
      - If `serverStatus` itself fails to connect, the Block Node may be unreachable, the port may be wrong, or TLS is required but not configured on the client side.
 4. **Subscribe smoke test**
    - Attempt a manual `subscribeBlockStream` call from the Mirror Node host to confirm the Block Node will accept a subscription and identify the exact terminal status code.
@@ -254,7 +262,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 7. **Verification**
    - Confirm the Mirror Node's last committed block advances monotonically.
    - Importer logs show active subscribe sessions without repeated reconnects.
-   - If you operate the Block Node, `blocknode_subscriber_open_connections` is non-zero and `blocknode_subscriber_errors` is not climbing.
+   - If you operate the Block Node, `blocknode_subscriber_open_connections` is non-zero and `blocknode_subscriber_errors_total` is not climbing.
 8. **Escalation**
    - If the steps above do not resolve the issue, collect the following before opening a ticket:
      - Output of `nc -vz <BLOCK_NODE_HOST> <PORT>`.
@@ -287,6 +295,7 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
    - For archival needs, migrate to a node with larger storage or externalize cold data.
    - Tune retention settings for blocks, snapshots, and logs.
    - Ensure monitoring alerts fire well before 100% usage (for example, at 75%, 85%, 95%).
+   - For storage capacity planning and expected daily growth rates, see [Block Node Hardware Specifications](./operations/block-node-hardware-specifications.md).
 5. **Verification**
    - Confirm `files_recent_total_bytes_stored` (and/or `files_historic_total_bytes_stored`) and host `df -h` fall below alert thresholds.
    - Block ingest resumes normally and no further I/O errors appear in logs.
@@ -366,8 +375,8 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 > **Applies to:** Block Nodes running with WRB streaming (Consensus Node `v0.75`) or TSS-enabled builds.
 
 1. **Triage**
-   - `BAD_BLOCK_PROOF` in the verification logs: the block proof failed validation — most often the block root hash does not match. This error has several possible explanations and is distinct from missing verification data.
-   - `MISSING_VERIFICATION_DATA` in the verification logs (`VerificationSessionFailedException`): the Block Node lacks the data needed to verify a block proof. Both missing RSA address book data (WRB/RSA proofs) and missing TSS data (TSS proofs) produce this error — which applies depends on the type of Block Proof being verified.
+   - `BAD_BLOCK_PROOF` in the verification logs: the block proof failed validation - most often the block root hash does not match. This error has several possible explanations and is distinct from missing verification data.
+   - `MISSING_VERIFICATION_DATA` in the verification logs (`VerificationSessionFailedException`): the Block Node lacks the data needed to verify a block proof. Both missing RSA address book data (WRB/RSA proofs) and missing TSS data (TSS proofs) produce this error - which applies depends on the type of Block Proof being verified.
 2. **Logs**
    - Search for the error keyword using the `VerificationServicePlugin` tag:
 
@@ -391,16 +400,17 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 
 The table below is a **summary-only quick reference**. Use the runbooks above for full diagnosis and remediation steps.
 
-|                         **Issue**                         |                                      **Symptoms**                                       |                                                       **Diagnosis**                                                       |                                                                                                                                 **Resolution**                                                                                                                                 |
-|-----------------------------------------------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Node not receiving new blocks                             | Ingest stalled; publisher metrics flat, heartbeat `newestBlock` not advancing           | Check firewall on publish/ingest port (`40984` in LFH; `40840` base-chart default), Consensus Node logs                   | Open inbound port, ensure node is authorized / whitelisted by upstream CN; check ingress cert if using TLS termination                                                                                                                                                         |
-| Block Node operator: subscribers cannot connect           | gRPC connection failures; clients repeatedly reconnecting                               | Endpoint config; `stream-subscriber` plugin present; TLS cert check at ingress (if TLS is enabled)                        | Fix endpoint or firewall; renew ingress TLS certs (if TLS is enabled); add `stream-subscriber` to plugin configuration                                                                                                                                                         |
-| Mirror Node operator: Mirror Node cannot connect          | MN block height not advancing; repeated subscribe errors in importer logs               | `nc` reachability; `serverStatus` output; subscribe smoke test; MN `block.*` config                                       | Fix endpoint or firewall; correct `requiresTls`; see [connecting guide](./operations/connecting-a-mirror-node-to-a-block-node.md#troubleshooting)                                                                                                                              |
-| Disk full / out of space                                  | Node crashes or refuses new blocks                                                      | `df -h`, `files_recent_total_bytes_stored` nearing limit                                                                  | Prune old blocks (partial-history), expand volume, or migrate to archive node                                                                                                                                                                                                  |
-| Metrics endpoint not accessible                           | Grafana dashboards empty, Prometheus target `DOWN`                                      | Port `16007` blocked or metrics disabled via config                                                                       | Open port, enable metrics, fix Prometheus scrape job                                                                                                                                                                                                                           |
-| Blocks not being backfilled                               | Log entries show backfill warnings, missing historical ranges                           | Check `blocknode_backfill*` metrics, `BLOCK_NODE_EARLIEST_MANAGED_BLOCK` / `BACKFILL_START_BLOCK` config                  | Fix earliest-block config, restart node if required, ensure healthy upstream archival source                                                                                                                                                                                   |
-| Block verification fails with `BAD_BLOCK_PROOF`           | `BAD_BLOCK_PROOF` in verification logs                                                  | Block proof validation failure; block root hash does not match or proof is otherwise invalid                              | Examine log context around the error to identify the block and proof type; verify the upstream source is sending correct, uncorrupted block data                                                                                                                               |
-| Block verification fails with `MISSING_VERIFICATION_DATA` | `MISSING_VERIFICATION_DATA` / `VerificationSessionFailedException` in verification logs | RSA address book data missing (WRB/RSA proofs) or TSS data missing (TSS proofs); file not accessible inside the container | For RSA proofs: set `app.state.rsaBootstrapFilePath` and mount the file inside the container. For TSS proofs: set `app.state.tssBootstrapFilePath`; see [WRB cutover doc](./operations/preparing-your-block-node-for-wrb-cutover.md#configure-tss-bootstrap-if-tss-is-enabled) |
+|                         **Issue**                         |                                                                **Symptoms**                                                                |                                                                       **Diagnosis**                                                                        |                                                                                                                                 **Resolution**                                                                                                                                 |
+|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CN not sending blocks (misconfigured stream mode)         | `publisher_block_items_received` stays at 0; no ingest despite BN running (`writerMode=FILE` also keeps `publisher_open_connections` at 0) | Check CN `blockStream.streamMode` (must be `BOTH` or `BLOCKS`, not `RECORDS`) and `blockStream.writerMode` (must be `FILE_AND_GRPC` or `GRPC`, not `FILE`) | Set the correct values in CN configuration and restart; see [CN to BN Configuration](./operations/consensus-node-to-block-node-configuration.md)                                                                                                                               |
+| Node not receiving new blocks                             | Ingest stalled; publisher metrics flat, heartbeat `newestBlock` not advancing                                                              | Check firewall on publish/ingest port (`40984` in LFH; `40840` base-chart default), Consensus Node logs                                                    | Open inbound port, ensure node is authorized / whitelisted by upstream CN; check ingress cert if using TLS termination                                                                                                                                                         |
+| Block Node operator: subscribers cannot connect           | gRPC connection failures; clients repeatedly reconnecting                                                                                  | Endpoint config; `stream-subscriber` plugin present; TLS cert check at ingress (if TLS is enabled)                                                         | Fix endpoint or firewall; renew ingress TLS certs (if TLS is enabled); add `stream-subscriber` to plugin configuration                                                                                                                                                         |
+| Mirror Node operator: Mirror Node cannot connect          | MN block height not advancing; repeated subscribe errors in importer logs                                                                  | `nc` reachability; `serverStatus` output; subscribe smoke test; MN `block.*` config                                                                        | Fix endpoint or firewall; correct `requiresTls`; see [connecting guide](./operations/connecting-a-mirror-node-to-a-block-node.md#troubleshooting)                                                                                                                              |
+| Disk full / out of space                                  | Node crashes or refuses new blocks                                                                                                         | `df -h`, `files_recent_total_bytes_stored` nearing limit                                                                                                   | Prune old blocks (partial-history), expand volume, or migrate to archive node                                                                                                                                                                                                  |
+| Metrics endpoint not accessible                           | Grafana dashboards empty, Prometheus target `DOWN`                                                                                         | Port `16007` blocked or metrics disabled via config                                                                                                        | Open port, enable metrics, fix Prometheus scrape job                                                                                                                                                                                                                           |
+| Blocks not being backfilled                               | Log entries show backfill warnings, missing historical ranges                                                                              | Check `blocknode_backfill*` metrics, `BLOCK_NODE_EARLIEST_MANAGED_BLOCK` / `BACKFILL_START_BLOCK` config                                                   | Fix earliest-block config, restart node if required, ensure healthy upstream archival source                                                                                                                                                                                   |
+| Block verification fails with `BAD_BLOCK_PROOF`           | `BAD_BLOCK_PROOF` in verification logs                                                                                                     | Block proof validation failure; block root hash does not match or proof is otherwise invalid                                                               | Examine log context around the error to identify the block and proof type; verify the upstream source is sending correct, uncorrupted block data                                                                                                                               |
+| Block verification fails with `MISSING_VERIFICATION_DATA` | `MISSING_VERIFICATION_DATA` / `VerificationSessionFailedException` in verification logs                                                    | RSA address book data missing (WRB/RSA proofs) or TSS data missing (TSS proofs); file not accessible inside the container                                  | For RSA proofs: set `app.state.rsaBootstrapFilePath` and mount the file inside the container. For TSS proofs: set `app.state.tssBootstrapFilePath`; see [WRB cutover doc](./operations/preparing-your-block-node-for-wrb-cutover.md#configure-tss-bootstrap-if-tss-is-enabled) |
 
 ---
 
