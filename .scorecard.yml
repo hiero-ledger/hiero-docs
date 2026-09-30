@@ -1,6 +1,5 @@
 annotations:
   - checks:
-      - sast
       - packaging
       - signed-releases
       - fuzzing
