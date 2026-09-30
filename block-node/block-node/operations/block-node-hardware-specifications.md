@@ -11,8 +11,8 @@ deployments.
 
 |                       Node type                        |        Network        |                                  See section                                  |
 |--------------------------------------------------------|-----------------------|-------------------------------------------------------------------------------|
-| Tier 1 — receives stream directly from Consensus Nodes | Mainnet               | [Tier 1 Mainnet Server Specifications](#tier-1-mainnet-server-specifications) |
-| Tier 2 — receives stream from another Block Node       | Mainnet               | [Tier 2 Server Specifications](#tier-2-server-specifications)                 |
+| Tier 1 - receives stream directly from Consensus Nodes | Mainnet               | [Tier 1 Mainnet Server Specifications](#tier-1-mainnet-server-specifications) |
+| Tier 2 - receives stream from another Block Node       | Mainnet               | [Tier 2 Server Specifications](#tier-2-server-specifications)                 |
 | Any tier                                               | Testnet or Previewnet | [Testnet and Previewnet Sizing](#testnet-and-previewnet-sizing)               |
 
 ---
@@ -100,7 +100,7 @@ No state services are offered and most if not all services are expected to be pr
 ### Rolling-History (Partial History) Tier 2
 
 A Rolling-History Tier 2 node does not store full blockchain history. CPU and
-RAM requirements match Tier 1 — the primary driver is the State Management task
+RAM requirements match Tier 1 - the primary driver is the State Management task
 (which handles live state and serves downstream subscribers), not verification
 or persistence alone. Exact minimums for nodes that do not manage live state
 have not yet been formally benchmarked. The `stream-publisher` plugin is not
@@ -111,7 +111,7 @@ is sized to the retention window rather than the full block history.
 |-------------------|-----------------------------------------------------------------------------------|
 | CPU               | 24 cores / 48 threads, single socket, ≥ 2.0 GHz base clock                        |
 | RAM               | 256 GB                                                                            |
-| Fast NVMe Disk    | 7.5 TB NVMe SSD (recent blocks + live state; partially optional — see note below) |
+| Fast NVMe Disk    | 7.5 TB NVMe SSD (recent blocks + live state; partially optional - see note below) |
 | Bulk Storage Disk | Size to retention window (see table below)                                        |
 | Network           | 10 Gbps NIC minimum (see [Network Requirements](#network-requirements))           |
 | OS                | Linux host OS (Ubuntu 24.04 LTS or Debian 13.x LTS recommended)                   |
@@ -169,6 +169,45 @@ Applying the block size model at lower TPS:
 Actual testnet block sizes vary with transaction mix; these figures serve as
 planning estimates. Storage requirements are significantly smaller than mainnet.
 
+### Kubernetes resource sizing
+
+When deploying the Block Node in Kubernetes, container resource requests and limits must be set
+consistently and must account for JVM heap overhead inside the container.
+
+The [Helm chart](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/values.yaml)
+ships with the following defaults:
+
+|                Helm value                 |                   Default                   |
+|-------------------------------------------|---------------------------------------------|
+| `resources.requests.cpu`                  | `4`                                         |
+| `resources.requests.memory`               | `12Gi`                                      |
+| `resources.limits.cpu`                    | `4`                                         |
+| `resources.limits.memory`                 | `15Gi`                                      |
+| `blockNode.config.JAVA_OPTS` (heap flags) | `-Xms10G -Xmx10G -XX:MaxMetaspaceSize=512m` |
+
+Set the JVM heap (`-Xmx`) to between 75-90% of the container memory limit, leaving the
+remainder for JVM non-heap overhead (metaspace, code cache, native threads). For testnet
+workloads, a memory limit matching the [recommended VM sizing](#recommended-vm-sizing) above
+(32 GB) is a reasonable starting point:
+
+```yaml
+resources:
+  requests:
+    memory: "32Gi"
+  limits:
+    memory: "32Gi"
+blockNode:
+  config:
+    JAVA_OPTS: '-Xms24G -Xmx24G -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="/tmp/dump.hprof"'
+```
+
+To diagnose OOM-killed pods:
+
+```bash
+kubectl -n block-node describe pod <pod-name> | grep -A 3 "Last State"
+kubectl -n block-node logs <pod-name> --previous
+```
+
 ---
 
 ## Storage Benchmark Targets
@@ -183,7 +222,7 @@ across all drives in the configuration, not per-drive requirements.
 | Disk Type | Sustained Write | Sustained Read |  Write IOPS   |   Read IOPS   | Random Read AIO IOPS | P99 Write Latency | P99 Read Latency |
 |-----------|-----------------|----------------|---------------|---------------|----------------------|-------------------|------------------|
 | Fast NVMe | 4 GBps          | 6 GBps         | 350k (random) | 900k (random) | 1M                   | < 300 µs          | < 200 µs         |
-| Bulk Disk | 300 MBps        | 1 GBps         | 1200          | 4000          | n/a                  | —                 | —                |
+| Bulk Disk | 300 MBps        | 1 GBps         | 1200          | 4000          | n/a                  | -                 | -                |
 
 #### Notes
 
@@ -242,7 +281,7 @@ T = transactions per block = TPS × block_interval
 
 #### Assumptions used in the tables below
 
-- Block interval: 1 second (1 block/sec — conservative; mainnet in early 2026
+- Block interval: 1 second (1 block/sec - conservative; mainnet in early 2026
   runs at 0.5 blocks/sec)
 - Compression ratio: 2.39× (zstd, from v3 mixed-workload model)
 - Worst-case egress subscribers: 33 (13 Block Nodes backfilling +
@@ -307,7 +346,7 @@ uncompressed stream. All figures use the raw (uncompressed) wire size.
 |  2,000 |               156 GB |                 4.6 TB |               5.1 TB |                 154 TB |
 | 20,000 |               1.5 TB |                  45 TB |                50 TB |                 1.5 PB |
 
-**Worst-case peak bandwidth (burst — 4 in-flight blocks per subscriber):**
+**Worst-case peak bandwidth (burst - 4 in-flight blocks per subscriber):**
 
 |    TPS | Steady-state egress (33 sub) | Burst egress (33 sub, 4× in-flight) |
 |-------:|-----------------------------:|------------------------------------:|
@@ -350,3 +389,4 @@ uncompressed stream. All figures use the raw (uncompressed) wire size.
   shares the Fast NVMe disk, ensure sufficient capacity remains reserved for the
   application, reclaim ephemeral data aggressively, and avoid scheduling
   maintenance tasks at UTC midnight. Allow at least 10 GB for OCI image storage.
+- **Disk space exhaustion**: If a running Block Node reports disk-full errors or stops writing blocks, see [Disk full / out of space](../troubleshooting.md#disk-full--out-of-space) for immediate triage steps and longer-term remediation.

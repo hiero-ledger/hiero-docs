@@ -58,11 +58,11 @@ Operators familiar with the Hedera consensus network may reach for the wrong por
 
 ### gRPC Block Stream APIs
 
-The Block Node exposes gRPC APIs that form its primary network surface. In the LFH production profile each API runs on its own dedicated port; the API name is the stable identifier — port numbers are configurable defaults.
+The Block Node exposes gRPC APIs that form its primary network surface. In the LFH production profile each API runs on its own dedicated port; the API name is the stable identifier - port numbers are configurable defaults.
 
-- **Publish API** — Consensus Nodes stream finalized blocks into the Block Node via `BlockStreamPublishService`. Initiator: Consensus Node.
-- **Subscribe API** — Mirror Nodes and downstream Block Nodes consume the block stream via `BlockStreamSubscribeService.subscribeBlockStream`. Initiator: subscriber.
-- **Status API** — clients query block-range availability, available services, and response latency via `BlockNodeService.serverStatus`. Initiator: any Block Node client.
+- **Publish API** - Consensus Nodes stream finalized blocks into the Block Node via `BlockStreamPublishService`. Initiator: Consensus Node.
+- **Subscribe API** - Mirror Nodes and downstream Block Nodes consume the block stream via `BlockStreamSubscribeService.subscribeBlockStream`. Initiator: subscriber.
+- **Status API** - clients query block-range availability, available services, and response latency via `BlockNodeService.serverStatus`. Initiator: any Block Node client.
 
 Health probes run on their own dedicated HTTP port (see [Health and readiness probes](#health-and-readiness-probes)).
 
@@ -100,7 +100,8 @@ The Block Node exposes OpenMetrics-format counters and gauges via Helidon's metr
 
 - The metrics endpoint is typically reachable only from within the cluster. Most deployments scrape it via a sidecar or a `ServiceMonitor`; exposing it externally is rarely needed and increases attack surface.
 - The Prometheus convention of suffixing counter names with `_total` is applied at scrape time; the underlying metric name in the Block Node is registered without the suffix.
-- Port `16007` is dedicated exclusively to metrics and is independent of all Block Node gRPC services and web servers. It does not share a port with any other service in any deployment profile — including base-chart deployments where all gRPC services share `service.port`.
+- Port `16007` is dedicated exclusively to metrics and is independent of all Block Node gRPC services and web servers. It does not share a port with any other service in any deployment profile - including base-chart deployments where all gRPC services share `service.port`.
+- If the metrics endpoint is unreachable despite the port being open, see [Metrics endpoint not accessible](../troubleshooting.md#metrics-endpoint-not-accessible) for step-by-step triage.
 
 ### 5005 - JVM remote debug (dev/test only)
 
@@ -141,6 +142,7 @@ When the `backfill` plugin is enabled, the Block Node acts as a gRPC client to a
 
 - A Block Node with no `BACKFILL_BLOCK_NODE_SOURCES_PATH` file mounted makes no outbound gRPC connections of this kind. The plugin, if present, loads but stays idle.
 - The list of peer Block Nodes is operator-supplied via a JSON file mounted into the pod. Firewalls and security groups must permit egress to every listed peer's Subscribe API port (`40980` in LFH; `40840` in base-chart default).
+- If backfill is configured but blocks are not being pulled, see [Blocks are not being backfilled](../troubleshooting.md#blocks-are-not-being-backfilled) for step-by-step triage.
 
 ### Health and readiness probes
 
@@ -238,7 +240,7 @@ The Block Node Helm chart does not ship a `NetworkPolicy` template or any other 
 
 ### Must allow (LFH production profile)
 
-- **Inbound TCP `40984`** from Consensus Node source IPs only — restrict this port to known publisher IPs; deny all other inbound.
+- **Inbound TCP `40984`** from Consensus Node source IPs only - restrict this port to known publisher IPs; deny all other inbound.
 - **Inbound TCP `40980`** from Mirror Nodes and peer Block Nodes that subscribe to this Block Node.
 - **Inbound TCP `40981`** from authorized block-access clients.
 - **Inbound TCP `40982`** from monitoring and operator tooling (server-status API).
@@ -248,7 +250,7 @@ The Block Node Helm chart does not ship a `NetworkPolicy` template or any other 
 
 > **Additional outbound connections.** The backfill egress rule above covers the most common explicitly-configured outbound flow. Depending on profile and enabled plugins, a Block Node may also make outbound connections for Mirror Node integration, RSA and TSS bootstrap, and (for the Remote Full History profile) S3-compatible object storage. Solo Provisioner will manage inbound and outbound firewall rules automatically in a future release when traffic shaping support is enabled.
 >
-> **Base-chart default (non-LFH deployments).** When per-service ports are not set, replace the per-port rules above with a single **Inbound TCP `40840`** rule covering all services, and **Outbound TCP `40840`** for backfill egress. The kubelet health probe still uses **Inbound TCP `40983`** and Prometheus metrics still uses **Inbound TCP `16007`** — both ports are set explicitly in the base `values.yaml` regardless of whether the LFH profile is active.
+> **Base-chart default (non-LFH deployments).** When per-service ports are not set, replace the per-port rules above with a single **Inbound TCP `40840`** rule covering all services, and **Outbound TCP `40840`** for backfill egress. The kubelet health probe still uses **Inbound TCP `40983`** and Prometheus metrics still uses **Inbound TCP `16007`** - both ports are set explicitly in the base `values.yaml` regardless of whether the LFH profile is active.
 
 ### Must deny
 
@@ -259,3 +261,5 @@ The Block Node Helm chart does not ship a `NetworkPolicy` template or any other 
 - On Kubernetes, a `NetworkPolicy` scoped to the Block Node pod (typically by `app.kubernetes.io/name: block-node-server` label) expresses the above. Restrict `from:` and `to:` to specific namespace or pod selectors rather than `{}` open-to-all.
 - On bare-metal or cloud-VM deployments, a host firewall or cloud security group enforces the same rules. Cloud security groups vary in stateful vs stateless semantics; consult the provider's documentation.
 - DNS egress to a resolver is required if `BACKFILL_BLOCK_NODE_SOURCES_PATH` lists peer Block Nodes by hostname (the JSON file accepts either hostnames or IPs).
+
+If subscribers fail to connect despite correct firewall rules, see [Block Node operator: subscribers cannot connect](../troubleshooting.md#block-node-operator-subscribers-cannot-connect) for step-by-step triage.

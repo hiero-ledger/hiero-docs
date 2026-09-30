@@ -43,7 +43,7 @@ The table below summarises the Mirror-Node-side technical requirements. For Bloc
 |    Requirement    |                                                                                                                                                                                                                                                              Details                                                                                                                                                                                                                                                              |
 |-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Network access    | TCP connectivity from the Mirror Node host to each Block Node host on its Subscribe API port (`40980` in LFH profile; `40840` in base-chart default).                                                                                                                                                                                                                                                                                                                                                                             |
-| Proto definitions | `block_stream_subscribe_service.proto`, `node_service.proto`, and `shared_message_types.proto` from [`protobuf-sources/src/main/proto/block-node/api/`](https://github.com/hiero-ledger/hiero-block-node/tree/main/protobuf-sources/src/main/proto/block-node/api). For ad-hoc `grpcurl` use, the matching versioned bundle from the [Block Node releases](https://github.com/hiero-ledger/hiero-block-node/releases) page is the easiest source — see [Step 1](#step-1-confirm-each-block-node-is-reachable-and-serving-blocks). |
+| Proto definitions | `block_stream_subscribe_service.proto`, `node_service.proto`, and `shared_message_types.proto` from [`protobuf-sources/src/main/proto/block-node/api/`](https://github.com/hiero-ledger/hiero-block-node/tree/main/protobuf-sources/src/main/proto/block-node/api). For ad-hoc `grpcurl` use, the matching versioned bundle from the [Block Node releases](https://github.com/hiero-ledger/hiero-block-node/releases) page is the easiest source - see [Step 1](#step-1-confirm-each-block-node-is-reachable-and-serving-blocks). |
 | gRPC reflection   | The Block Node does **not** enable gRPC server reflection on the public port. Clients must supply protobuf descriptors explicitly.                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ## Configuration
@@ -58,7 +58,7 @@ Configure the Mirror Node via `application.yml` (or equivalent Spring property s
 
 |                 Property                 | Default |                                                             Set to                                                              |
 |------------------------------------------|---------|---------------------------------------------------------------------------------------------------------------------------------|
-| `hiero.mirror.importer.block.enabled`    | `false` | `true` — master switch for the block-stream source.                                                                             |
+| `hiero.mirror.importer.block.enabled`    | `false` | `true` - master switch for the block-stream source.                                                                             |
 | `hiero.mirror.importer.block.sourceType` | `AUTO`  | `BLOCK_NODE` to subscribe exclusively, or `AUTO` to try Block Node first and fall back to record-file ingestion if unavailable. |
 
 #### Block Node endpoints
@@ -67,7 +67,7 @@ Declare one entry under `hiero.mirror.importer.block.nodes[]` per target Block N
 
 |                     Property                      | Default |                                                Effect                                                 |
 |---------------------------------------------------|---------|-------------------------------------------------------------------------------------------------------|
-| `hiero.mirror.importer.block.nodes[].host`        | —       | Host or IP of the Block Node gRPC service. **Required.**                                              |
+| `hiero.mirror.importer.block.nodes[].host`        | -       | Host or IP of the Block Node gRPC service. **Required.**                                              |
 | `hiero.mirror.importer.block.nodes[].port`        | `40980` | Subscribe API port of the Block Node. LFH profile default: `40980`; base-chart default: `40840`.      |
 | `hiero.mirror.importer.block.nodes[].priority`    | `0`     | Selection priority. **Lower value is higher priority.** Highest-priority reachable node is preferred. |
 | `hiero.mirror.importer.block.nodes[].requiresTls` | `false` | Set to `true` if the Block Node endpoint is fronted by TLS termination.                               |
@@ -153,7 +153,7 @@ grpcurl -plaintext -emit-defaults \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
-> **Note:** The download uses `curl -LO` rather than `wget` because `wget` is not installed on macOS by default. On Linux either tool works. The extracted tarball lays out `block/`, `block-node/`, `platform/`, `services/`, and `streams/` directly in the current directory — there is no version-prefixed top-level folder.
+> **Note:** The download uses `curl -LO` rather than `wget` because `wget` is not installed on macOS by default. On Linux either tool works. The extracted tarball lays out `block/`, `block-node/`, `platform/`, `services/`, and `streams/` directly in the current directory - there is no version-prefixed top-level folder.
 
 - **Expected output** (active node with blocks ingested):
 
@@ -302,4 +302,4 @@ grpcurl -plaintext -d '{}' \
 - [Block Node Overview](../block-node-overview.md)
 - [Block Node Configuration](../configuration.md)
 - [Block Node Metrics](../metrics.md)
-- [Block Node Troubleshooting](../troubleshooting.md)
+- [Mirror Node cannot connect to Block Node](../troubleshooting.md#mirror-node-operator-mirror-node-cannot-connect-to-block-node)

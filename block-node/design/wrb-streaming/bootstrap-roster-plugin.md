@@ -62,7 +62,9 @@ The BN automatically determines which proof type to verify based on the proof pr
   `BlockNodeContext` and notifies all plugins via `onContextUpdate`.
 - Periodically refresh the address book from both the peer BN and Mirror Node while running.
 - Define the RSA signature verification algorithm precisely enough to be implemented from this document. All record
-  file format versions that ever existed (v2, v5 and v6) are supported; v2/v5 support was added by #3640.
+  file format versions ever used by a production network's record stream (v2, v5 and v6) are supported; v2/v5 support
+  was added by #3640. Earlier format versions (v1 and v3) existed but were never used on a current production network
+  and are not supported.
 - Support verification of `SignedRecordFileProof`, `StateProof`, and `TssSignedBlockProof` — the BN determines which
   verification path to invoke based on the proof type present in the block.
 
