@@ -251,11 +251,15 @@ The file format is a JSON object with a `nodes` array:
 ```json
 {
   "nodes": [
-    { "address": "peer1.example.com", "port": 40980, "priority": 1, "name": "peer-bn-1" },
-    { "address": "peer2.example.com", "port": 40980, "priority": 2, "name": "peer-bn-2" }
+    { "address": "peer1.example.com", "port": 40840, "status_port": 40982, "subscribe_port": 40980, "priority": 1, "name": "peer-bn-1" },
+    { "address": "peer2.example.com", "port": 40840, "status_port": 40982, "subscribe_port": 40980, "priority": 2, "name": "peer-bn-2" }
   ]
 }
 ```
+
+> Port values above match the LFH per-service port layout (40840 main, 40982 serverStatus,
+> 40980 subscribe). Adjust to match your peer BN's actual configuration. When `status_port`
+> or `subscribe_port` is omitted, the plugin falls back to `port` for those calls.
 
 Configure this file via your Helm chart's ConfigMap or values override mechanism. Use the endpoints provided by your Hashgraph PoC.
 
@@ -385,10 +389,12 @@ Set `roster.bootstrap.tss.blockNodeSourcesPath` (default: `""`) to the path of a
 ```json
 {
   "nodes": [
-    { "address": "peer1.example.com", "port": 40902, "priority": 1, "node_id": 1, "name": "peer-bn-1" },
+    { "address": "peer1.example.com", "port": 40840, "status_port": 40982, "subscribe_port": 40980, "priority": 1, "node_id": 1, "name": "peer-bn-1" },
     {
       "address": "peer2.example.com",
-      "port": 40902,
+      "port": 40840,
+      "status_port": 40982,
+      "subscribe_port": 40980,
       "priority": 2,
       "node_id": 2,
       "name": "peer-bn-2",
@@ -409,6 +415,10 @@ Set `roster.bootstrap.tss.blockNodeSourcesPath` (default: `""`) to the path of a
   ]
 }
 ```
+
+> Port values above match the LFH per-service port layout (40840 main, 40982 serverStatus,
+> 40980 subscribe). Adjust to match your peer BN's actual configuration. When `status_port`
+> or `subscribe_port` is omitted, the plugin falls back to `port` for those calls.
 
 After the Block Node starts, confirm TSS data loaded by querying `serverStatusDetail` - the response should include a non-empty `tssData` field:
 
