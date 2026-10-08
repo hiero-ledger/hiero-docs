@@ -20,7 +20,7 @@ This document describes the design of that architecture — the `BlockNodePlugin
 
 - Allow functional components to be added, replaced, or removed without modifying the application bootstrap code.
 - Provide each plugin with uniform, injected access to shared facilities (config, metrics, health, messaging, block storage, threading).
-- Enforce a clear lifecycle (`configDataTypes → init → start → onContextUpdate → stop`) so plugins initialize and shut down cleanly.
+- Enforce a clear lifecycle (`configDataTypes → init → start → stop`) so plugins initialize and shut down cleanly.
 - Enable high-throughput inter-plugin communication with back-pressure via a ring-buffer messaging bus.
 - Support typed, immutable configuration for each plugin using Java records and the Swirlds Config API.
 - Remain entirely within the Java Platform Module System so that module boundaries are enforced by the JVM.
@@ -38,7 +38,7 @@ This document describes the design of that architecture — the `BlockNodePlugin
   <dd>Service Provider Interface — a Java interface declared in the <code>spi-plugins</code> module and consumed via <code>java.util.ServiceLoader</code>. Plugins provide implementations of SPI interfaces in their own modules.</dd>
 
   <dt>BlockNodeContext</dt>
-  <dd>An immutable Java record passed to every plugin during <code>init()</code>. It is the sole mechanism through which plugins access shared facilities. A new context instance is constructed whenever mutable shared state (TssData, NodeAddressBook) changes, and all plugins are notified via <code>onContextUpdate()</code>.</dd>
+  <dd>An immutable Java record passed to every plugin during <code>init()</code>. It is the sole mechanism through which plugins access shared facilities. A single context instance is constructed at startup and never replaced. Changes to mutable shared state (TSS data, address book history, stored and available blocks) are delivered as application state notifications through <code>BlockMessagingFacility</code>.</dd>
 
   <dt>ServiceBuilder</dt>
   <dd>An interface passed alongside <code>BlockNodeContext</code> during <code>init()</code> that allows plugins to register HTTP and gRPC service routes on the Helidon web server.</dd>
@@ -56,15 +56,14 @@ This document describes the design of that architecture — the `BlockNodePlugin
 
 The root SPI interface. Every plugin implements this interface, and the application discovers all implementations via `ServiceLoader<BlockNodePlugin>`. All methods have default no-op implementations so plugins only override what they need.
 
-|             Method              |               When called               |                                                                  Purpose                                                                   |
-|---------------------------------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| `name()`                        | Anytime                                 | Human-readable identifier; defaults to the simple class name.                                                                              |
-| `version()`                     | After load                              | Returns the plugin's version from its JAR manifest.                                                                                        |
-| `configDataTypes()`             | Before config load                      | Declares `@ConfigData`-annotated record classes the plugin needs. All types are collected from every plugin before configuration is built. |
-| `init(context, serviceBuilder)` | During startup                          | Plugin receives its context and registers HTTP/gRPC routes. Facilities are available; background threads must not start yet.               |
-| `start()`                       | After all `init()` calls                | Plugin starts background threads and begins processing. All facilities are guaranteed to be fully initialized.                             |
-| `onContextUpdate(context)`      | When TssData or NodeAddressBook changes | Plugin receives an updated context and should re-read the changed state.                                                                   |
-| `stop()`                        | During graceful shutdown                | Plugin stops threads and releases resources.                                                                                               |
+|             Method              |       When called        |                                                                  Purpose                                                                   |
+|---------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| `name()`                        | Anytime                  | Human-readable identifier; defaults to the simple class name.                                                                              |
+| `version()`                     | After load               | Returns the plugin's version from its JAR manifest.                                                                                        |
+| `configDataTypes()`             | Before config load       | Declares `@ConfigData`-annotated record classes the plugin needs. All types are collected from every plugin before configuration is built. |
+| `init(context, serviceBuilder)` | During startup           | Plugin receives its context and registers HTTP/gRPC routes. Facilities are available; background threads must not start yet.               |
+| `start()`                       | After all `init()` calls | Plugin starts background threads and begins processing. All facilities are guaranteed to be fully initialized.                             |
+| `stop()`                        | During graceful shutdown | Plugin stops threads and releases resources.                                                                                               |
 
 ### `BlockNodeContext` (record)
 
@@ -114,6 +113,17 @@ The inter-plugin event bus. Itself a plugin (and a required facility — startup
 
 Any plugin may subscribe to notifications via `registerBlockNotificationHandler(BlockNotificationHandler, ...)`.
 
+**Application State Notifications** — four typed notification events sent by the `ApplicationStateFacility` when node-level state changes. They travel on the block notification ring buffer:
+
+|           Notification           |                           Meaning                           |
+|----------------------------------|-------------------------------------------------------------|
+| `TssDataNotification`            | TSS data (ledger ID, roster, WRAPS VK) changed.             |
+| `AddressBookHistoryNotification` | The block-number-keyed RSA address book history changed.    |
+| `StoredBlocksNotification`       | The stored block ranges changed.                            |
+| `AvailableBlocksNotification`    | The union of the providers' available block ranges changed. |
+
+Any plugin may subscribe via `registerApplicationStateNotificationHandler(ApplicationStateNotificationHandler, ...)`, and should call `unregisterApplicationStateNotificationHandler(...)` in `stop()`.
+
 ### `HistoricalBlockFacility` (interface + plugin)
 
 Aggregates all registered `BlockProviderPlugin` implementations and presents a unified read interface:
@@ -135,10 +145,12 @@ The `HealthServicePlugin` registers `/healthz/livez` and `/healthz/readyz` HTTP 
 
 ```java
 void updateTssData(TssData tssData);
-boolean updateAddressBook(NodeAddressBook nodeAddressBook);
+boolean updateAddressBookHistory(RangedAddressBookHistory history);
+void addStoredBlockRange(LongRange blockRange);
+void updateAvailableBlocks();
 ```
 
-Updates are persisted to disk as JSON and trigger `onContextUpdate()` on every loaded plugin with a newly constructed `BlockNodeContext`.
+TSS data and address book history updates are persisted to disk as JSON; stored block ranges are persisted periodically and at shutdown. Each change is dispatched to registered `ApplicationStateNotificationHandler` instances as an application state notification. Plugins that need the state already loaded at startup read it from the facility in `start()` (for example `storedBlocks()` or `rangedAddressBookHistory()`).
 
 ### `BlockProviderPlugin` (interface)
 
@@ -166,14 +178,16 @@ Specialization of `BlockNodePlugin` for block storage backends. Each provider de
 
 6. Start Helidon WebServer using routes accumulated in ServiceBuilder.
 
-7. Load and apply ApplicationState from disk (TssData, NodeAddressBook).
-   Call onContextUpdate(context) on all plugins with updated context.
+7. Start BlockMessagingFacility, then load ApplicationState from disk (TssData,
+   address book history, stored block ranges) and dispatch the loaded state
+   as application state notifications.
 
 8. Call plugin.start() for every plugin (in parallel via virtual threads).
    Plugins launch background workers, open network connections, etc.
 
-9. Node is RUNNING. State scanner thread watches for asynchronous
-   TssData/NodeAddressBook updates, persists them, and calls onContextUpdate().
+9. Node is RUNNING. Plugins report state changes to ApplicationStateFacility,
+   which persists them and sends application state notifications. The
+   state dispatcher thread periodically persists stored block ranges.
 
 10. On shutdown signal:
     a. Transition to SHUTTING_DOWN.
@@ -263,7 +277,7 @@ Configuration sources are applied in ascending priority order:
 
 ### Mutable State Propagation
 
-`TssData` and `NodeAddressBook` can change while the node is running (e.g., when a bootstrap plugin fetches peer data). Updates flow as follows:
+`TssData`, the RSA address book history, and the stored and available block ranges can change while the node is running (e.g., when a bootstrap plugin fetches peer data). Updates flow as follows:
 
 ```
 Bootstrap Plugin
@@ -271,16 +285,19 @@ Bootstrap Plugin
     ▼ applicationStateFacility.updateTssData(newData)
 BlockNodeApp (ApplicationStateFacility impl)
     │
-    ├── Persist to disk (JSON)
-    ├── Enqueue new BlockNodeContext
+    ├── Install the new value (compare-and-set; older data is ignored)
     │
     ▼
-State scanner thread
+State dispatcher thread
     │
-    ▼ plugin.onContextUpdate(newContext) for every loaded plugin
+    ├── Persist to disk (JSON)
+    ▼ blockMessaging.sendTssDataUpdate(TssDataNotification)
+BlockMessagingFacility
+    │
+    ▼ handler.handleTssDataUpdate(notification) for every registered handler
 ```
 
-This ensures all plugins see a consistent snapshot of shared state without race conditions — each plugin receives the same immutable `BlockNodeContext` record.
+The `BlockNodeContext` is never replaced. Each handler runs on its own messaging thread and receives notifications in the order they were sent, so a handler never sees older TSS data after newer data.
 
 ## Diagram
 
@@ -292,7 +309,6 @@ stateDiagram-v2
     Discovered --> Configured : configDataTypes() collected
     Configured --> Initialized : init(context, serviceBuilder)
     Initialized --> Running : start()
-    Running --> Running : onContextUpdate(context)
     Running --> Stopped : stop()
     Stopped --> [*]
 ```
@@ -321,10 +337,9 @@ sequenceDiagram
         P->>WS: registerHttpService / registerGrpcService
     end
     App->>WS: start()
+    App->>App: start BlockMessagingFacility
     App->>App: load ApplicationState from disk
-    loop each plugin
-        App->>P: onContextUpdate(updatedContext)
-    end
+    App-->>P: application state notifications (registered handlers)
     loop each plugin (parallel)
         App->>P: start()
     end

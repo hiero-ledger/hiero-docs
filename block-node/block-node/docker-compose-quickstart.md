@@ -6,20 +6,20 @@ for developers, SDK integrators, and contributors to get a Block Node running on
 > **Note:** This setup uses the Block Node developer image and is intended for local testing only.
 > It is not suitable for production or testnet/mainnet operation. For production deployment, see the
 > [operations guides](operations/). The `hiero-local-node` tool that previously bundled a Block
-> Node is being deprecated in September 2026 - use this quickstart instead.
+> Node was deprecated in September 2026 - use this quickstart instead.
 
 ## What this sets up
 
 One `./gradlew` command starts the following Docker Compose stack:
 
-|  Service   |            Port             |                                    Purpose                                    |
-|------------|-----------------------------|-------------------------------------------------------------------------------|
-| Block Node | `40840` / `16007` / `40983` | gRPC APIs on `40840`; Prometheus metrics on `16007`; health (HTTP) on `40983` |
-| Prometheus | ephemeral                   | Scrapes Block Node metrics; no fixed host port - use Grafana at `3000`        |
-| Grafana    | `3000`                      | Pre-provisioned dashboards                                                    |
-| Loki       | `3100`                      | Log aggregation                                                               |
-| Promtail   | -                           | Log shipping from Docker to Loki                                              |
-| cAdvisor   | `8081`                      | Container resource metrics                                                    |
+|  Service   |       Port        |                                Purpose                                 |
+|------------|-------------------|------------------------------------------------------------------------|
+| Block Node | `40840` / `16007` | gRPC APIs on `40840`; Prometheus metrics on `16007`                    |
+| Prometheus | ephemeral         | Scrapes Block Node metrics; no fixed host port - use Grafana at `3000` |
+| Grafana    | `3000`            | Pre-provisioned dashboards                                             |
+| Loki       | `3100`            | Log aggregation                                                        |
+| Promtail   | -                 | Log shipping from Docker to Loki                                       |
+| cAdvisor   | `8081`            | Container resource metrics                                             |
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ One `./gradlew` command starts the following Docker Compose stack:
 - **Java 25 or later** to run Gradle - verify with `java --version`. Gradle provisions JDK 25
   for compilation automatically via toolchains.
 - **Git**
-- Ports `40840`, `40983`, `16007`, `3000`, and `3100` must be free on your machine
+- Ports `40840`, `16007`, `3000`, `3100`, `8081`, and `5005` must be free on your machine
 
 Optional, for the verification steps in Step 3:
 
