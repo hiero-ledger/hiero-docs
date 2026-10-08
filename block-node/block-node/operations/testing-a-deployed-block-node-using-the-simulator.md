@@ -22,7 +22,7 @@ Before you begin, ensure you have:
 - **[Docker](https://docs.docker.com/get-started/get-docker/) and Docker Compose** installed and available on your machine where you will run the simulator.
 - The **gRPC** service address and port for your Block Node:
   - For Local deployment: `localhost:40840`
-  - For cloud deployment server address:
+  - For a cloud deployment, get the external IP or hostname by running:
 
     ```bash
     kubectl get svc -n block-node

@@ -7,6 +7,10 @@
 3. [Design](#design)
 4. [Acceptance Tests](#acceptance-tests)
 
+> **Note:** This is a design document. Some implementation details may differ from the current
+> release. For the current plugin list and Helm configuration, see the
+> [Configuration Reference](../block-node/configuration.md).
+
 ## Purpose
 
 We need the ability to deliver image with minimum required plugins. We also need to easily support
@@ -65,8 +69,7 @@ in their values file:
 
 ```yaml
 plugins:
-  enabled: true
-  names: "facility-messaging,health,server-status,block-access-service,verification"
+  names: "facility-messaging,health,server-status,block-access-service,block-verification"
 ```
 
 See the [Helm chart README](../../charts/block-node-server/README.md#plugin-configuration) for

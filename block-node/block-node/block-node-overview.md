@@ -14,13 +14,13 @@ They stream blocks to [Mirror Nodes](./glossary.md#mirror-node) and other Block 
 
 ## How Block Nodes differ from other nodes
 
-|           **Aspect**           |                                        **Consensus Node**                                         |                                                  **Block Node**                                                   |                                                          **Mirror Node**                                                           |
-|--------------------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Primary role                   | Reach consensus and update canonical state.                                                       | Ingest, verify, store, and serve blocks, and state.                                                               | Provide value‑added access to historical data and analytics.                                                                       |
-| Produces blocks                | Yes – produces finalized block streams per **([HIP-1056](https://hips.hedera.com/hip/hip-1056))** | No – consumes and verifies blocks from Consensus Nodes or upstream Block Nodes.                                   | No – will consume data from Block Nodes once the cutover lands; today Mirror Nodes still download record files from cloud storage. |
-| Maintains full consensus state | Yes – authoritative state, optimized for consensus.                                               | (planned) Manages an active copy of network state locally, updated with `StateChanges`; supports reconnect flows. | No – maintains data in an indexed form as needed for queries and analytics.                                                        |
-| Data APIs                      | gRPC for transactions/queries; no history.                                                        | Streaming gRPC APIs for live and historical blocks, random-access retrieval, state, and proofs.                   | Public REST and custom APIs for queries and observability.                                                                         |
-| Who runs it                    | Governing Council and approved operators.                                                         | Tier 1: Council / trusted; Tier 2: permissionless operators, service providers, app teams, and infra providers.   | Permissionless operators, service providers, and app teams.                                                                        |
+|           **Aspect**           |                                        **Consensus Node**                                         |                                                                     **Block Node**                                                                      |                                                          **Mirror Node**                                                           |
+|--------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Primary role                   | Reach consensus and update canonical state.                                                       | Ingest, verify, store, and serve blocks, and state.                                                                                                     | Provide value‑added access to historical data and analytics.                                                                       |
+| Produces blocks                | Yes – produces finalized block streams per **([HIP-1056](https://hips.hedera.com/hip/hip-1056))** | No – consumes and verifies blocks from Consensus Nodes or upstream Block Nodes.                                                                         | No – will consume data from Block Nodes once the cutover lands; today Mirror Nodes still download record files from cloud storage. |
+| Maintains full consensus state | Yes – authoritative state, optimized for consensus.                                               | (planned - not currently in active development) Manages an active copy of network state locally, updated with `StateChanges`; supports reconnect flows. | No – maintains data in an indexed form as needed for queries and analytics.                                                        |
+| Data APIs                      | gRPC for transactions/queries; no history.                                                        | Streaming gRPC APIs for live and historical blocks, random-access retrieval, state, and proofs.                                                         | Public REST and custom APIs for queries and observability.                                                                         |
+| Who runs it                    | Governing Council and approved operators.                                                         | Tier 1: Council / trusted; Tier 2: permissionless operators, service providers, app teams, and infra providers.                                         | Permissionless operators, service providers, and app teams.                                                                        |
 
 ## Role in the Hiero Network
 
@@ -35,7 +35,7 @@ Block Nodes provide these core services:
 - Durable storage of blocks on local disk or S3-compatible archival storage.
 - Real-time and historical data streaming to downstream clients.
 - Random-access retrieval of blocks at specific block heights.
-- State snapshot creation and reconnect services *(planned — not currently in active development)*.
+- State snapshot creation and reconnect services *(planned - not currently in active development)*.
 
 ![block-node-network-architecture](../assets/block-node-network-architecture.svg)
 
@@ -49,7 +49,7 @@ The diagram above illustrates the complete data flow:
    - **Mirror Nodes** - for public REST APIs and explorer services
    - **Tier 2 Block Nodes** - for geographic redundancy and permissionless participation
    - **Applications** - via gRPC/REST APIs for custom integrations
-4. **Block Nodes support Consensus Node recovery** *(planned)* - When a Consensus Node falls behind, it will be able to request reconnect data from Block Nodes to quickly resynchronize. This capability is not currently in active development.
+4. **Block Nodes support Consensus Node recovery** *(planned - not currently in active development)* - When a Consensus Node falls behind, it will be able to request reconnect data from Block Nodes to quickly resynchronize.
 
 ## Example Use Cases
 

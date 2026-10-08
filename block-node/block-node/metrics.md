@@ -95,6 +95,10 @@ Observes the messaging system that connects the publisher with subscribers and t
 | Counter | `messaging_block_backfilled_notifications`              | Notifications issued after backfilling blocks          |
 | Counter | `messaging_newest_block_known_to_network_notifications` | Notifications issued for newest block known to network |
 | Counter | `messaging_publisher_status_update_notifications`       | Notifications issued for publisher status updates      |
+| Counter | `messaging_tss_data_update_notifications`               | TSS data update notifications sent                     |
+| Counter | `messaging_address_book_history_update_notifications`   | Address book history update notifications sent         |
+| Counter | `messaging_stored_blocks_update_notifications`          | Stored blocks update notifications sent                |
+| Counter | `messaging_available_blocks_update_notifications`       | Available blocks update notifications sent             |
 
 ---
 
@@ -361,6 +365,10 @@ is a block-count cap, not a disk-size cap (see [Host / Volume](#host--volume-ext
 | M        | `files_recent_persistence_time_latency_ns` | If value exceeds 20s, otherwise, configure as needed |
 
 **Cloud Expanded**: Alerts for metrics regarding expanded cloud storage (single-block S3 uploads)
+
+> **Note:** The three counters in this alerting table (`cloud_expanded_total_upload_failures`,
+> `cloud_expanded_total_uploads`, `cloud_expanded_total_upload_bytes`) are registered without a
+> `_total` suffix; Prometheus appends `_total` at scrape time, producing the PromQL names shown here.
 
 | Severity | Alert                         | Metric                                       |                         Condition                          |
 |:---------|:------------------------------|:---------------------------------------------|------------------------------------------------------------|
