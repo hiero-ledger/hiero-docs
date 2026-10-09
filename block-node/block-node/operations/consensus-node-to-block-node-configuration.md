@@ -173,7 +173,7 @@ After creating `block-nodes.json`, watch the CN application log for these messag
 
 |                             Log message                              |                                                               Meaning                                                               |
 |----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `Starting block node connection manager...`                          | CN has seen the config file and is initialising.                                                                                    |
+| `Starting block node connection manager...`                          | CN has seen the config file and is initializing.                                                                                    |
 | `Block node configuration loaded (version: N)`                       | `block-nodes.json` parsed successfully. `N` is a monotonically increasing counter that starts at `1` and increments on each reload. |
 | `Block node configuration watcher started`                           | CN is now watching the file for future changes.                                                                                     |
 | `Block node connection manager started`                              | Connection manager is active.                                                                                                       |
