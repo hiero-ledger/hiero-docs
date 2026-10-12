@@ -128,7 +128,7 @@ Detailed Steps:
    `SubscribeBlockStreamHandler`, which assigns a monotonically increasing `clientId` to the connection, constructs a
    `SessionContext`, and submits a `BlockStreamSubscriberSession` (`Callable`) to a virtual-thread
    `ExecutorCompletionService`.
-3. The handler waits on `sessionReadyLatch` until the session initialises. The session validates the request and
+3. The handler waits on `sessionReadyLatch` until the session initializes. The session validates the request and
    determines one of four streaming modes:
    - **Live-only** — both `start` and `end` are `uint64_max`: attach immediately to the live block queue and stream
      from the newest block published.

@@ -243,7 +243,7 @@ solo block node add-external \
   --address <BN_IP>:<PORT>
 ```
 
-Run this command after the network is initialised but **before** starting the Consensus
+Run this command after the network is initialized but **before** starting the Consensus
 Nodes — this ensures the BN receives every block from block 0 onwards.
 
 > See [Load Testing with Solo and NLG](../operations/load-testing-a-deployed-block-node-using-solo-and-nlg.md) for more details.

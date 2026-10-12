@@ -81,7 +81,7 @@ cloud.
   <dt>UploadException</dt>
   <dd>Package-private checked exception thrown by <code>S3UploadClient.uploadFile</code>
       and by the <code>BuckyS3UploadClient</code> constructor to signal an S3 service
-      error (auth failure, 4xx/5xx response, or initialisation failure). Distinguished
+      error (auth failure, 4xx/5xx response, or initialization failure). Distinguished
       from <code>IOException</code>, which signals a transport-level failure. Callers use
       this distinction to set <code>UploadStatus.S3_ERROR</code> vs
       <code>UploadStatus.IO_ERROR</code>.</dd>
@@ -118,7 +118,7 @@ name in stack traces and heap dumps.
 
 ### `UploadException`
 
-Package-private checked exception. Wraps any bucky S3 error (initialisation failure,
+Package-private checked exception. Wraps any bucky S3 error (initialization failure,
 service error, HTTP error response) so that the rest of the package is decoupled from
 bucky's exception hierarchy. Always wraps the original cause for diagnostics.
 
@@ -217,7 +217,7 @@ file storage.
 ### Upload flow (`handleVerification`)
 
 1. **Guard**: log TRACE and return if `s3Client == null` (plugin inactive — S3 client failed to
-   initialise).
+   initialize).
 2. **Guard**: `notification.success() == false` → skip (log TRACE).
 3. **Guard**: `notification.blockNumber() < 0` → skip (log INFO).
 4. **Guard**: `notification.block() == null` → skip (log INFO).
@@ -335,7 +335,7 @@ long seg5 = blockNumber                      % 1_000L;
 
 ### Misconfiguration handling
 
-If `cloud.storage.expanded.endpointUrl` is blank or the S3 client fails to initialise at
+If `cloud.storage.expanded.endpointUrl` is blank or the S3 client fails to initialize at
 startup (e.g. invalid credentials, unreachable endpoint), `BuckyS3UploadClient`'s
 constructor throws `UploadException`. The plugin catches this in `start()`, logs a WARNING,
 and `s3Client` remains `null` — all `handleVerification` calls are no-ops for the duration

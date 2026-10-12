@@ -333,7 +333,7 @@ Look for these messages in the CN container logs (`docker logs network-node`):
 
 |                             Log message                             |                               Meaning                                |
 |---------------------------------------------------------------------|----------------------------------------------------------------------|
-| `Starting block node connection manager...`                         | `writerMode` is set to a streaming value and the CN is initialising. |
+| `Starting block node connection manager...`                         | `writerMode` is set to a streaming value and the CN is initializing. |
 | `Block node configuration loaded (version: N)`                      | `block-nodes.json` was parsed successfully.                          |
 | `Block node configuration watcher started`                          | CN is now watching the file for changes.                             |
 | `Selected new block node for streaming: HOST:PORT (wantedBlock: N)` | Active streaming connection established.                             |
