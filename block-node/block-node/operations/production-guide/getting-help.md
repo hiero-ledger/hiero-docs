@@ -23,8 +23,7 @@ Exhibit B §7c.
 
 ## Community
 
-- **Hiero Block Streams Community Group** - `<BLOCK_STREAMS_COMMUNITY_URL>` (obtain from
-  Hashgraph DevOps at handoff)
+- **Hiero Block Streams Community Group** - private coordination channel; link provided by Hashgraph DevOps at handoff
 - **Hiero Discord** - [discord.gg/hiero](https://discord.gg/hiero)
 - **GitHub Discussions** - [hiero-ledger/hiero-block-node](https://github.com/hiero-ledger/hiero-block-node/discussions)
 

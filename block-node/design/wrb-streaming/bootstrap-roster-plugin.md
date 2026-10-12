@@ -58,8 +58,8 @@ The BN automatically determines which proof type to verify based on the proof pr
   usable peer response is available.
 - Persist the loaded roster to a local bootstrap file via `ApplicationStateFacility` so subsequent restarts do not
   require network calls.
-- Expose the loaded roster to all BN plugins via `ApplicationStateFacility.updateAddressBook()`, which updates
-  `BlockNodeContext` and notifies all plugins via `onContextUpdate`.
+- Expose the loaded roster to all BN plugins via `ApplicationStateFacility.updateAddressBookHistory()`, which sends an
+  `AddressBookHistoryNotification` to all registered `ApplicationStateNotificationHandler` instances.
 - Periodically refresh the address book from both the peer BN and Mirror Node while running.
 - Define the RSA signature verification algorithm precisely enough to be implemented from this document. All record
   file format versions ever used by a production network's record stream (v2, v5 and v6) are supported; v2/v5 support
@@ -116,8 +116,9 @@ The BN automatically determines which proof type to verify based on the proof pr
 
   <dt>ApplicationStateFacility</dt>
   <dd>An interface (implemented by <code>BlockNodeApp</code>) through which plugins notify the application of state
-    changes. For the RSA roster plugin, it exposes <code>updateAddressBook(NodeAddressBook)</code>, which writes the
-    bootstrap file and broadcasts <code>onContextUpdate</code> to all loaded plugins.
+    changes. For the RSA roster plugin, it exposes <code>updateAddressBookHistory(RangedAddressBookHistory)</code>, which writes the
+    bootstrap file and sends an <code>AddressBookHistoryNotification</code> to all registered
+    <code>ApplicationStateNotificationHandler</code> instances.
   </dd>
 
   <dt>AddressBookFetcher</dt>
@@ -147,8 +148,8 @@ The `RsaRosterBootstrapPlugin` follows the same structure as `TssBootstrapPlugin
 - Performs roster loading in `start()` via scheduled background executors (one for peer BN, one for Mirror Node).
 - Stores the `ApplicationStateFacility` reference during `init()` for use in `start()`.
 - Optionally creates an `AddressBookFetcher` during `init()` when `blockNodeSourcesPath` is configured.
-- Makes the loaded address book available to the rest of the BN by calling
-  `applicationStateFacility.updateAddressBook(book)`.
+- Makes the loaded address book history available to the rest of the BN by calling
+  `applicationStateFacility.updateAddressBookHistory(history)`.
 
 **Module declaration:**
 
@@ -199,12 +200,11 @@ public class RsaRosterBootstrapPlugin implements BlockNodePlugin {
 
     @Override
     public void start() {
-        NodeAddressBook book = context.nodeAddressBook();
-        if (book != null) {
-            // File pre-loaded by BlockNodeApp — record metrics then schedule periodic refreshes
-            recordSuccessMetrics(book, startTimeMillis, "File");
-            schedulePeriodicBlockNodeRefresh();
-            schedulePeriodicMirrorNodeRefresh();
+        long startTimeMillis = System.currentTimeMillis();
+        RangedAddressBookHistory history = applicationStateFacility.rangedAddressBookHistory();
+        if (history != null) {
+            // File pre-loaded by BlockNodeApp — record metrics; no periodic refresh
+            recordHistoryMetrics(history, startTimeMillis);
             return;
         }
         // No file — start both sources concurrently
@@ -214,30 +214,37 @@ public class RsaRosterBootstrapPlugin implements BlockNodePlugin {
 }
 ```
 
-**`NodeAddressBook` in `serverStatusDetail`:** Once the `NodeAddressBook` is loaded it is included in the
-`ServerStatusDetailResponse` returned by `BlockNodeService.serverStatusDetail()` (field 4), allowing peer BNs to
-bootstrap from it:
+**Address book in `serverStatusDetail`:** Once the history is loaded it is included in the
+`ServerStatusDetailResponse` returned by `BlockNodeService.serverStatusDetail()` (field 6), together with the latest
+era's `NodeAddressBook` (field 4), allowing peer BNs to bootstrap from it:
 
 ```protobuf
 message ServerStatusDetailResponse {
     // ... existing fields ...
     NodeAddressBook node_address_book = 4;
+    RangedAddressBookHistory ranged_address_book_history = 6;
 }
 ```
 
-**`ApplicationStateFacility` extension:** The `updateAddressBook(NodeAddressBook)` method:
-- Updates the `nodeAddressBook` field in `BlockNodeContext`.
+**`ApplicationStateFacility` extension:** The `updateAddressBookHistory(RangedAddressBookHistory)` method:
+- Ignores a history equal to the one already stored (returns `false`).
 - Writes the bootstrap file atomically (`.tmp`-then-rename).
-- Calls `plugin.onContextUpdate(updatedContext)` for each loaded plugin.
+- Sends an `AddressBookHistoryNotification` through `BlockMessagingFacility` to each registered
+`ApplicationStateNotificationHandler`.
 
 ---
 
 ### 4.2 Bootstrap File Format
 
-The bootstrap file is a **JSON serialization** of the `NodeAddressBook` protobuf message from `basic_types.proto`,
-written and read via PBJ's `NodeAddressBook.JSON` codec.
+The bootstrap file is a **JSON serialization** of the `RangedAddressBookHistory` protobuf message, written and read
+via PBJ's `RangedAddressBookHistory.JSON` codec. Each `RangedNodeAddressBook` entry holds a `NodeAddressBook` (from
+`basic_types.proto`) and the `[start_block, end_block]` range it applies to; the last entry is open-ended
+(`end_block = -1`).
 
-**Fields used by this plugin:**
+For backward compatibility, a file containing a single `NodeAddressBook` (the earlier format) is still accepted and
+wrapped into one open-ended era starting at block 0.
+
+**`NodeAddress` fields used by this plugin:**
 
 | `NodeAddress` field | Field # |   Type   |                                                           Purpose                                                            |
 |---------------------|---------|----------|------------------------------------------------------------------------------------------------------------------------------|
@@ -247,13 +254,13 @@ written and read via PBJ's `NodeAddressBook.JSON` codec.
 **Serialization and deserialization (PBJ):**
 
 ```java
-// Write (via BlockNodeApp.persistNodeAddressBook)
-final Bytes encoded = NodeAddressBook.JSON.toBytes(nodeAddressBook);
+// Write (via BlockNodeApp.persistNodeAddressBookHistory)
+final Bytes encoded = RangedAddressBookHistory.JSON.toBytes(history);
 Files.write(filePath, encoded.toByteArray());
 
 // Read (via BlockNodeApp.loadApplicationState)
-final NodeAddressBook nodeAddressBook =
-        NodeAddressBook.JSON.parse(Bytes.wrap(Files.readAllBytes(filePath)));
+final RangedAddressBookHistory history =
+        RangedAddressBookHistory.JSON.parse(Bytes.wrap(Files.readAllBytes(filePath)));
 ```
 
 **Default file path:** `/opt/hiero/block-node/application-state/rsa-bootstrap-roster.json`
@@ -283,11 +290,12 @@ The `AddressBookFetcher` class manages the peer query lifecycle:
      ]
    }
    ```
-2. At each scheduled tick `AddressBookFetcher.getNodeAddressBook()` iterates the peer list in order, issuing a
-   gRPC `serverStatusDetail(ServerStatusRequest)` call and extracting the `NodeAddressBook` from field 4 of
-   the response.
-3. Validation: a book is accepted if it contains **at least one `NodeAddress` entry with a non-blank RSA public key**.
-4. The first peer returning a valid book wins; remaining peers are not queried for that tick.
+2. At each scheduled tick `AddressBookFetcher.getRangedNodeAddressBookHistory()` iterates the peer list in order,
+   issuing a gRPC `serverStatusDetail(ServerStatusRequest)` call and extracting the `RangedAddressBookHistory` from
+   field 6 of the response.
+3. Validation: a history is accepted if it contains **at least one era, and every `NodeAddress` entry in every era has
+   a non-blank RSA public key**.
+4. The first peer returning a valid history wins; remaining peers are not queried for that tick.
 5. On exception, the error metric is incremented and the `BlockNodeClient` for that peer is evicted from the pool so
    a fresh connection is attempted on the next tick.
 
@@ -312,13 +320,14 @@ Unreachable clients are removed so they are recreated on the next attempt.
 When no local bootstrap file is present, the plugin concurrently queries the Mirror Node REST API endpoint:
 
 ```
-GET {mirrorNodeBaseUrl}/api/v1/network/nodes
+GET {mirrorNodeBaseUrl}/api/v1/network/nodes?limit={mirrorNodePageSize}&order=desc
 ```
 
-and maps the response into a `NodeAddressBook` by populating only `nodeId` and `RSA_PubKey` in each `NodeAddress` entry.
+and builds a `RangedAddressBookHistory` from the response: one `RangedNodeAddressBook` era per distinct
+`timestamp.from`/`timestamp.to` pair, each holding a `NodeAddressBook` of the nodes valid in that time window.
 
-**Pagination:** The API returns up to 100 nodes per page (default 25). The implementation follows `links.next` until
-it is `null` to collect all nodes.
+**Pagination:** The implementation follows `links.next` until it is `null` (or until the early stop described under
+*Incremental update* below). A relative `links.next` is resolved against `mirrorNodeBaseUrl`.
 
 **Field mapping:**
 
@@ -327,12 +336,33 @@ it is `null` to collect all nodes.
 | `node_id`              | `nodeId` (field 5)           | Direct mapping (int64)            |
 | `public_key`           | `RSA_PubKey` (field 4)       | Strip leading `0x` before storing |
 
-**Filtering:** Only include nodes where `public_key` is non-null and non-empty. Nodes without a public key are not
-eligible for RSA verification and must be excluded from the `NodeAddressBook`.
+**Filtering:** Only include nodes where `public_key` is non-blank. Nodes without a public key are not eligible for
+RSA verification; they are excluded and a WARNING is logged.
 
-**Active-entry filtering:** The API is queried with `order=desc` so the most-recently-active entries
-(`timestamp.to == null`) arrive first. Pagination stops on the first entry with a non-null `timestamp.to`, since
-all remaining entries in descending order are also historical.
+**Era to block range:** Each era's timestamp window is converted to a `[startBlock, endBlock]` range with the Mirror
+Node blocks API. This is done once per era, the first time it is seen:
+
+|               Era `timestamp`                |                                                Resolution                                                 |
+|----------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `from` blank or below 1 s (genesis sentinel) | `startBlock = 0`, `endBlock = -1`; no blocks API call                                                     |
+| `to` blank (current era)                     | `GET /api/v1/blocks?timestamp=gte:{from}&order=asc&limit=1`; first block is `startBlock`, `endBlock = -1` |
+| `from` and `to` set (closed era)             | `GET /api/v1/blocks?timestamp=gte:{from}&timestamp=lte:{to}&order=asc`; first and last block numbers      |
+
+The genesis shortcut is needed on networks (e.g. Solo) where the Mirror Node has no blocks until the Block Node, which
+needs this roster to verify them, starts storing them. An era whose block range cannot be resolved (HTTP error or no
+blocks returned) is skipped. The resulting eras are sorted by `startBlock`.
+
+**Full build vs. incremental update:**
+
+- *Full build* — when the `ApplicationStateFacility` holds no history, all pages are fetched and every era is resolved.
+- *Incremental update* — on a periodic refresh after a history exists, pagination stops at the first era whose
+  `startBlock` is not after the current last era's `startBlock`. If no new eras were found nothing is sent.
+  Otherwise the previously open-ended last era is closed (`endBlock = newStartBlock - 1`) and the new eras are appended.
+
+**HTTP clients:** Two separate `HttpClient` instances are used, one for `/network/nodes` and one for `/blocks`. Some
+Mirror Node deployments (e.g. Solo's) route the two endpoint families to different backends behind one ingress, and a
+reused keep-alive connection stays pinned to the first backend it reached, making the second family's calls fail
+with 404.
 
 ---
 
@@ -340,39 +370,38 @@ all remaining entries in descending order are also historical.
 
 The plugin implements a **three-source strategy**. Sources are tried in priority order, but the peer BN and Mirror
 Node queries run **concurrently** (each on its own scheduled executor) when no bootstrap file is found. Whichever
-source returns a valid book first calls `updateAddressBook`; the other continues its periodic refresh in the
+source returns a valid history first calls `updateAddressBookHistory`; the other continues its periodic refresh in the
 background.
 
 ```
-BlockNodeApp.loadApplicationState() [before any plugin is started]
+BlockNodeApp.loadApplicationState() [after every plugin's init(), before any plugin is started]
    │
    ├─ rsa-bootstrap-roster.json exists at app.state.rsaBootstrapFilePath?
    │       │
-   │       YES ──► NodeAddressBook.JSON.parse() → validate (≥1 entry)
+   │       YES ──► RangedAddressBookHistory.JSON.parse()
+   │       │        │  (empty history → re-parse as legacy NodeAddressBook, wrap into one open-ended era)
    │       │        │
-   │       │        ├─ On parse error or empty book: FAIL FAST (throw IllegalStateException)
+   │       │        ├─ On parse error or invalid book: FAIL FAST (throw IllegalStateException)
    │       │        │
-   │       │        └─ pendingAddressBook.set(book) [flushed to context before plugins start]
+   │       │        └─ updateAddressBookHistory(history)
    │       │
-   │       NO ──► (no-op; context.nodeAddressBook() will be null when plugins start)
+   │       NO ──► (no-op; rangedAddressBookHistory() will be null when plugins start)
    │
 RsaRosterBootstrapPlugin.start() called
    │
-   ├─ context.nodeAddressBook() != null?  [file was pre-loaded]
+   ├─ applicationStateFacility.rangedAddressBookHistory() != null?  [file was pre-loaded]
    │       │
    │       YES ──► record metrics
-   │               schedule periodic BN refresh (bnSubsequentQueryIntervalMillis, if configured)
-   │               schedule periodic MN refresh (mnSubsequentQueryIntervalMillis, if configured)
-   │               return
+   │               return (no periodic refresh)
    │
    └─ No bootstrap file — start concurrent queries:
            │
            ├─ [BN query — if blockNodeSourcesPath configured]
            │       Executor: queryBnExecutor (virtual thread)
            │       Initial interval: bnInitialQueryIntervalMillis (default 5 s)
-           │       AddressBookFetcher.getNodeAddressBook()
+           │       AddressBookFetcher.getRangedNodeAddressBookHistory()
            │         │
-           │         ├─ SUCCESS: applicationStateFacility.updateAddressBook(book)
+           │         ├─ SUCCESS: applicationStateFacility.updateAddressBookHistory(history)
            │         │           cancel initial-rate future
            │         │           reschedule at bnSubsequentQueryIntervalMillis (default 60 s)
            │         │
@@ -383,7 +412,7 @@ RsaRosterBootstrapPlugin.start() called
                    Initial interval: mnInitialQueryIntervalMillis (default 5 s)
                    GET /api/v1/network/nodes (paginated, order=desc)
                      │
-                     ├─ SUCCESS: applicationStateFacility.updateAddressBook(book)
+                     ├─ SUCCESS: applicationStateFacility.updateAddressBookHistory(history)
                      │           cancel initial-rate future
                      │           reschedule at mnSubsequentQueryIntervalMillis (default 60 s)
                      │
@@ -391,21 +420,21 @@ RsaRosterBootstrapPlugin.start() called
 ```
 
 **Concurrent-source note:** Both `queryBnExecutor` and `queryMnExecutor` run in parallel when no file is present.
-The first to call `updateAddressBook` wins; `BlockNodeApp` persists the file and broadcasts `onContextUpdate`.
-Both executors continue their periodic refresh even after the initial book is obtained, keeping the address book
-current over the life of the instance.
+Each `updateAddressBookHistory` call that changes the history is persisted and sent as an
+`AddressBookHistoryNotification`; a history equal to the stored one is ignored. Both executors continue their periodic
+refresh even after the initial history is obtained, keeping the address book current over the life of the instance.
 
-**Mirror Node unreachable — retry rationale:** When the MN API is unreachable but a local file exists, the BN can
-proceed with the cached address book and retry in the background. When no file exists, the BN retries indefinitely
+**Mirror Node unreachable — retry rationale:** When a local file exists, the BN proceeds with the cached history and
+does not query the MN. When no file exists, the BN retries indefinitely
 rather than shutting down, since a transient network outage should not force a full restart. Once plugin health
 reporting is available, the plugin should surface its unhealthy state through that mechanism instead of failing fast.
 See §12 #1.
 
-**Peer BN unreachable — retry rationale:** When the peer BN is unreachable but a local file exists, the BN can
-proceed with the cached address book and retry in the background. When no file exists, the BN retries indefinitely.
+**Peer BN unreachable — retry rationale:** When a local file exists, the BN proceeds with the cached history and
+does not query the peer BN. When no file exists, the BN retries indefinitely.
 
-**Nodes with no public key:** Nodes returned by either source with a null or blank `public_key` are excluded
-from the `NodeAddressBook` and a WARNING is logged.
+**Nodes with no public key:** Mirror Node entries with a blank `public_key` are excluded from the history and a
+WARNING is logged. A peer BN history containing such an entry is rejected as a whole (see §4.3).
 
 ---
 
@@ -430,9 +459,13 @@ A block is a WRB if its `BlockProof` contains a `SignedRecordFileProof`.
 
 #### 4.6.2 Building the Verification Key Map
 
+The address book is resolved per block from the history: the era whose block range covers the block being verified.
+If no era covers it, the key map is empty and the block fails with `MISSING_VERIFICATION_DATA`.
+
 ```java
+NodeAddressBook book = context.applicationStateFacility().getAddressBookForBlock(blockNumber);
 Map<Long, PublicKey> keyByNodeId = new HashMap<>();
-for (NodeAddress addr : context.nodeAddressBook().nodeAddress()) {
+for (NodeAddress addr : book.nodeAddress()) {
     if (addr.rsaPubKey().isBlank()) continue;
     keyByNodeId.put(addr.nodeId(), SigFileUtils.decodePublicKey(addr.rsaPubKey()));
 }
@@ -484,8 +517,8 @@ When the network transitions from Phase 2a to Phase 2b:
 
 1. Consensus nodes stop emitting WRBs and emit full Block Stream blocks with `TssSignedBlockProof`.
 2. The BN automatically routes `TssSignedBlockProof` blocks to the TSS verification path — no configuration change is
-   required. The `RsaRosterBootstrapPlugin` remains loaded and the `NodeAddressBook` remains in context but the
-   verification layer stops using it for new blocks.
+   required. The `RsaRosterBootstrapPlugin` remains loaded and the address book history remains in the
+   `ApplicationStateFacility` but the verification layer stops using it for new blocks.
 3. WRBs stored during Phase 2a remain fully queryable — they are stored as regular `.blk` files.
 
 ---
@@ -503,36 +536,34 @@ sequenceDiagram
     participant Facility as ApplicationStateFacility
     participant File as rsa-bootstrap-roster.json
     participant MN as Mirror Node API
-    participant Plugins as All Loaded Plugins
+    participant Plugins as Registered Handlers
 
-    App->>File: loadApplicationState() — exists?
-    alt file found
-        File-->>App: raw bytes
-        App->>App: NodeAddressBook.JSON.parse(bytes), validate ≥1 entry
-        App->>App: pendingAddressBook.set(book)
-    end
     App->>Plugin: init(context, serviceBuilder)
     Plugin->>Plugin: store applicationStateFacility, config
     opt blockNodeSourcesPath configured
         Plugin->>Fetcher: new AddressBookFetcher(peers, config, metrics)
     end
+    App->>File: loadApplicationState() — exists?
+    alt file found
+        File-->>App: raw bytes
+        App->>App: RangedAddressBookHistory.JSON.parse(bytes) (legacy NodeAddressBook fallback)
+        App->>Facility: updateAddressBookHistory(history)
+    end
     App->>Plugin: start()
 
-    alt context.nodeAddressBook() != null (file pre-loaded)
-        Plugin->>Plugin: recordSuccessMetrics("File")
-        Plugin->>Plugin: schedulePeriodicBlockNodeRefresh (bnSubsequentQueryIntervalMillis)
-        Plugin->>Plugin: schedulePeriodicMirrorNodeRefresh (mnSubsequentQueryIntervalMillis)
+    alt applicationStateFacility.rangedAddressBookHistory() != null (file pre-loaded)
+        Plugin->>Plugin: recordHistoryMetrics() (no periodic refresh)
     else no file — start concurrent queries
         par BN query (if blockNodeSourcesPath configured)
             loop every bnInitialQueryIntervalMillis until success
-                Plugin->>Fetcher: getNodeAddressBook()
+                Plugin->>Fetcher: getRangedNodeAddressBookHistory()
                 Fetcher->>PeerBN: serverStatusDetail(ServerStatusRequest)
-                PeerBN-->>Fetcher: ServerStatusDetailResponse.nodeAddressBook
-                alt valid book (≥1 non-blank RSA key)
-                    Fetcher-->>Plugin: NodeAddressBook
-                    Plugin->>Facility: updateAddressBook(book)
+                PeerBN-->>Fetcher: ServerStatusDetailResponse.rangedAddressBookHistory
+                alt valid history (every NodeAddress has a non-blank RSA key)
+                    Fetcher-->>Plugin: RangedAddressBookHistory
+                    Plugin->>Facility: updateAddressBookHistory(history)
                     Facility->>File: JSON.toBytes() → atomic write
-                    Facility->>Plugins: onContextUpdate(updatedContext)
+                    Facility-->>Plugins: AddressBookHistoryNotification (registered handlers)
                     Plugin->>Plugin: reschedule at bnSubsequentQueryIntervalMillis
                 else no valid book
                     Fetcher-->>Plugin: null
@@ -544,10 +575,10 @@ sequenceDiagram
                 Plugin->>MN: GET /api/v1/network/nodes (paginated, order=desc)
                 alt MN reachable
                     MN-->>Plugin: node list (node_id, public_key, timestamp)
-                    Plugin->>Plugin: build NodeAddressBook (active entries only)
-                    Plugin->>Facility: updateAddressBook(book)
+                    Plugin->>Plugin: build RangedAddressBookHistory
+                    Plugin->>Facility: updateAddressBookHistory(history)
                     Facility->>File: JSON.toBytes() → atomic write
-                    Facility->>Plugins: onContextUpdate(updatedContext)
+                    Facility-->>Plugins: AddressBookHistoryNotification (registered handlers)
                     Plugin->>Plugin: reschedule at mnSubsequentQueryIntervalMillis
                 else MN unreachable
                     Plugin->>Plugin: log ERROR, retry next tick
@@ -565,7 +596,7 @@ sequenceDiagram
     participant Pub as Publisher (CN)
     participant Handler as PublishStreamHandler
     participant Verifier as BlockVerificationService
-    participant Ctx as BlockNodeContext
+    participant Facility as ApplicationStateFacility
     participant Store as Block Storage
 
     Pub->>Handler: publishBlockStream(WRB items)
@@ -573,8 +604,8 @@ sequenceDiagram
     Handler->>Verifier: verifyBlock(block)
     Verifier->>Verifier: inspect block proof type
     alt SignedRecordFileProof
-        Verifier->>Ctx: nodeAddressBook()
-        Ctx-->>Verifier: NodeAddressBook (nodeId → RSA_PubKey per NodeAddress)
+        Verifier->>Facility: getAddressBookForBlock(blockNumber)
+        Facility-->>Verifier: NodeAddressBook of the era covering the block
         Verifier->>Verifier: build node_id → PublicKey map (cached)
         Verifier->>Verifier: computeSignedPayload(recordFormatVersion)
         loop per signature in proof
@@ -716,8 +747,8 @@ loaded at startup.
 ## 10. Acceptance Tests
 
 - [x] Plugin parses a valid `rsa-bootstrap-roster.json`; `blocknode_roster_entries_loaded` gauge equals expected entry
-  count; all loaded plugins receive `onContextUpdate` with a populated `nodeAddressBook`.
-- [x] Plugin fetches from Mirror Node when no bootstrap file is present; `applicationStateFacility.updateAddressBook()`
+  count; all registered `ApplicationStateNotificationHandler` instances receive an `AddressBookHistoryNotification`.
+- [x] Plugin fetches from Mirror Node when no bootstrap file is present; `applicationStateFacility.updateAddressBookHistory()`
   is called; `rsa-bootstrap-roster.json` is written; gauge reflects the loaded count.
 - [x] Plugin queries Mirror Node even when a bootstrap file already exists (periodic refresh).
 - [x] `AddressBookFetcher` returns the first valid `NodeAddressBook` from a configured peer BN.
@@ -738,12 +769,12 @@ loaded at startup.
 
 ## 11. Follow-on Ticket Mapping
 
-|                                Ticket                                 |                                                                                                                                        Scope                                                                                                                                         |
-|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [#2561](https://github.com/hiero-ledger/hiero-block-node/issues/2561) | Implement `RsaRosterBootstrapPlugin` per this design. Includes extending `ApplicationStateFacility` with `updateAddressBook`, extending `BlockNodeContext` with `NodeAddressBook nodeAddressBook`, PBJ read/write of `rsa-bootstrap-roster.pb`, and unit + integration tests.        |
-| [#2562](https://github.com/hiero-ledger/hiero-block-node/issues/2562) | Implement RSA `SignedRecordFileProof` verification in `BlockVerificationService`. Reads `NodeAddressBook` from context via `onContextUpdate`, builds `node_id → PublicKey` map, applies the algorithm in §4.6. Includes proof-type routing logic and per-block verification metrics. |
-| [#2660](https://github.com/hiero-ledger/hiero-block-node/issues/2660) | Implement `generate-roster-bootstrap.sh` operator script and document the Phase 2a cutover runbook.                                                                                                                                                                                  |
-| [#2682](https://github.com/hiero-ledger/hiero-block-node/issues/2682) | Add peer BN gRPC query step to `RsaRosterBootstrapPlugin` (`AddressBookFetcher`, new config fields, `rsa_roster_peer_requests`/`rsa_roster_peer_errors` metrics).                                                                                                                    |
+|                                Ticket                                 |                                                                                                                                      Scope                                                                                                                                       |
+|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [#2561](https://github.com/hiero-ledger/hiero-block-node/issues/2561) | Implement `RsaRosterBootstrapPlugin` per this design. Includes extending `ApplicationStateFacility` with `updateAddressBook`, extending `BlockNodeContext` with `NodeAddressBook nodeAddressBook`, PBJ read/write of `rsa-bootstrap-roster.pb`, and unit + integration tests.    |
+| [#2562](https://github.com/hiero-ledger/hiero-block-node/issues/2562) | Implement RSA `SignedRecordFileProof` verification in `BlockVerificationService`. Reads `NodeAddressBook` via `getAddressBookForBlock()`, builds `node_id → PublicKey` map, applies the algorithm in §4.6. Includes proof-type routing logic and per-block verification metrics. |
+| [#2660](https://github.com/hiero-ledger/hiero-block-node/issues/2660) | Implement `generate-roster-bootstrap.sh` operator script and document the Phase 2a cutover runbook.                                                                                                                                                                              |
+| [#2682](https://github.com/hiero-ledger/hiero-block-node/issues/2682) | Add peer BN gRPC query step to `RsaRosterBootstrapPlugin` (`AddressBookFetcher`, new config fields, `rsa_roster_peer_requests`/`rsa_roster_peer_errors` metrics).                                                                                                                |
 
 ---
 

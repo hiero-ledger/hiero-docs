@@ -341,9 +341,8 @@ Both paths are configurable via `blockNode.health.liveness.endpoint` and
 Set `org.hiero.block.level = INFO` in production. Use `FINE` only when actively
 debugging — it generates significant volume.
 
-> **Note:** The current chart default in `values.yaml` is `FINE` with a comment
-> "temporarily while testing is ongoing." Override this to `INFO` in your production
-> Helm values.
+> **Note:** The chart default in `values.yaml` is `INFO`. If your deployment still shows
+> `FINE`, override it to `INFO` in your production Helm values.
 
 Also: **do not schedule maintenance tasks (log rotation, cron jobs, tmpwatch) at UTC
 midnight.** Block Node I/O load peaks at midnight when network processing is highest.
@@ -452,10 +451,9 @@ Edit `plugins.names` in your Helm values (comma-separated plugin identifiers), t
 `helm upgrade` or `task helm-upgrade`:
 
 ```yaml
-blockNode:
-  config:
-    # Example: Tier 2 — stream-publisher removed
-    PLUGINS_NAMES: "backfill,block-access-service,blocks-file-recent,blocks-file-historic,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-subscriber,block-verification"
+plugins:
+  # Example: Tier 2 — stream-publisher removed
+  names: "backfill,block-access-service,blocks-file-recent,blocks-file-historic,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-subscriber,block-verification"
 ```
 
 **Note:** Removing a plugin name skips loading on the next pod start but does not
@@ -620,6 +618,10 @@ Each plugin is identified by its `plugins.names` key (used in Helm configuration
 | `roster-bootstrap-tss`   | Loads TSS roster data for post-cutover block proof verification                              | Required post-cutover                 |
 | `facility-messaging`     | Internal LMAX Disruptor event bus — distributes block items to all plugins                   | All deployments (core infrastructure) |
 
+> Both `roster-bootstrap-rsa` and `roster-bootstrap-tss` are included in the default plugin list. If
+> no bootstrap file or source URL is configured, each plugin logs a message and exits without
+> failing startup — safe to leave enabled before WRB cutover.
+>
 > See [Configuration Reference](../configuration.md) for `plugins.names` syntax and profile examples.
 
 ### Is a fully-qualified domain name (FQDN) required?
