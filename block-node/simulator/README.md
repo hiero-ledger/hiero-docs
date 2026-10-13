@@ -1,39 +1,53 @@
 # Block Stream Simulator
 
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Project Design Structure](#project-design-structure)
-3. [Configuration](#configuration)
-4. [Quickstart](#quickstart)
-
 ## Overview
 
-The Block Stream Simulator is designed to simulate block streaming for Hiero Hashgraph.
-It uses various configuration sources and dependency injection to manage its components.
+The Block Stream Simulator lets you inject or consume a block stream from a Block Node without a
+live Consensus Node. Use it to:
 
-## Project Design Structure
+- Test a Block Node locally during development
+- Validate a deployed Block Node by publishing blocks to it
+- Subscribe to a Block Node and verify it is producing blocks
 
-Uses Dagger2 for dependency injection, the project has a modular structure and divides the Dagger dependencies into modules, but all modules used can be found at the root Injection Module:
+## Modes
 
-```plaintext
-src/java/com/hedera/block/simulator/BlockStreamSimulatorInjectionModule.java
-```
-
-Entry point for the project is `BlockStreamSimulator.java`, in wich the main method is located and has 2 functions:
-1. Create/Load the Application Configuration, it does this using Hiero Platform Configuration API.
-1. Create a DaggerComponent and instantiate the BlockStreamSimulatorApp class using the DaggerComponent and it registered dependencies.
-1. Start the BlockStreamSimulatorApp, contains the orchestration of the different parts of the simulation using generic interfaces and handles the rate of streaming and the exit conditions.
-
-The BlockStreamSimulatorApp consumes other services that are injected using DaggerComponent, these are:
-1. **generator:** responsible for generating blocks, exposes a single interface `BlockStreamManager` and several implementations
-1. BlockAsFileLargeDataSets: designed to work with GB folders with thousands of big blocks (since it has a high size block and volume of blocks, is useful for performace, load and stress testing)
-1. **grpc:** responsible for the communication with the Block-Node, currently only has 1 interface `PublishStreamGrpcClient` and 1 Implementation, however also exposes a `PublishStreamObserver'
-
-## Configuration
-
-Refer to the [Configuration](configuration.md) for configuration options.
+|             Mode             |                                 Description                                  |
+|------------------------------|------------------------------------------------------------------------------|
+| `PUBLISHER_CLIENT` (default) | Connects to a Block Node as a gRPC client and publishes blocks to it         |
+| `PUBLISHER_SERVER`           | Acts as a gRPC server that accepts incoming block stream publish connections |
+| `CONSUMER`                   | Subscribes to a Block Node and consumes the block stream                     |
 
 ## Quickstart
 
-Refer to the [Quickstart](quickstart.md) for a quick guide on how to get started with the application.
+The simulator connects to a running Block Node. If you don't have one yet, start one locally with
+the [Docker Compose Quickstart](../block-node/docker-compose-quickstart.md) before proceeding.
+
+Refer to the [Quickstart](quickstart.md) to run the simulator locally in minutes.
+
+## Configuration
+
+Refer to the [Configuration](configuration.md) for all configuration options including mode,
+streaming rate, block generation, and gRPC settings.
+
+## Internals
+
+The simulator uses Dagger2 for dependency injection. The project has a modular structure with all
+modules wired from the root injection component:
+
+```plaintext
+tools-and-tests/simulator/src/main/java/org/hiero/block/simulator/BlockStreamSimulatorInjectionComponent.java
+```
+
+The entry point is `org.hiero.block.simulator.BlockStreamSimulator`, which:
+
+1. Creates and loads the application configuration using the Hiero Platform Configuration API.
+2. Creates a Dagger component and instantiates `BlockStreamSimulatorApp` with its registered
+   dependencies.
+3. Starts `BlockStreamSimulatorApp`, which orchestrates the simulation - handling streaming rate
+   and exit conditions via generic interfaces.
+
+`BlockStreamSimulatorApp` consumes services injected by the Dagger component:
+
+- **generator** - responsible for generating blocks; exposes the `BlockStreamManager` interface
+- **grpc** - responsible for communication with the Block Node; exposes `PublishStreamGrpcClient`
+  and `ConsumerStreamGrpcClient`
