@@ -28,6 +28,7 @@
     * [Deploy with Solo Provisioner (Recommended)](block-node/block-node/deploy/solo-weaver-single-node-k8s-deployment.md)
     * [Manual Kubernetes Deployment](block-node/block-node/deploy/single-node-k8s-deployment.md)
     * [Version Compatibility](block-node/block-node/deploy/version-compatibility.md)
+    * [Zero-Downtime Upgrade](block-node/block-node/deploy/zero-downtime-upgrade.md)
     * [Local Development Quickstart](block-node/block-node/overview/docker-compose-quickstart.md)
   * [Configuration](block-node/configuration.md)
     * [Configuration Reference](block-node/block-node/configure/configuration.md)
