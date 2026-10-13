@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Block Nodes](./block-node/glossary.md#block-node) are built from the same core software
+[Block Nodes](./block-node/reference/glossary.md#block-node) are built from the same core software
 with different combinations of plugins enabled. This flexibility supports many deployment
 shapes - each suited to a different set of operational needs - but the many names used
 for these configurations have led to significant confusion.
@@ -16,13 +16,13 @@ the linked documents.
 This document is the canonical reference for two independent dimensions that describe any
 Block Node:
 
-- **Tier** - where a Block Node gets its [block stream](./block-node/glossary.md#block-stream)
+- **Tier** - where a Block Node gets its [block stream](./block-node/reference/glossary.md#block-stream)
   from (Tier 1 directly from Consensus Nodes; Tier 2 from another Block Node).
 - **Type** - what the node stores and which services it exposes (Full Node,
   Rolling-History, and so on).
 
 For step-by-step deployment guidance, Helm plugin profiles, and hardware sizing, see
-[Block Node Overview](./block-node/block-node-overview.md).
+[Block Node Overview](./block-node/overview/block-node-overview.md).
 
 ## Block Node Types and Tiers Visualized
 
@@ -31,7 +31,7 @@ For step-by-step deployment guidance, Helm plugin profiles, and hardware sizing,
 ## Choosing Your Deployment
 
 Use these questions to identify which type fits your situation, then see
-[Block Node Overview - Choose Your Deployment Profile](./block-node/block-node-overview.md#choose-your-deployment-profile)
+[Block Node Overview - Choose Your Deployment Profile](./block-node/overview/block-node-overview.md#choose-your-deployment-profile)
 for the corresponding Helm plugin profile and hardware sizing.
 
 1. **Do you receive blocks directly from Consensus Nodes?** Yes → Tier 1. No → Tier 2.
@@ -46,7 +46,7 @@ for the corresponding Helm plugin profile and hardware sizing.
 > **Note:** If you are a new community operator, Rolling-History is the most common
 > starting point for a Tier 2 node. It covers the typical use case of serving recent
 > blocks without committing to full genesis-to-present storage. See
-> [Block Node Overview - Choose Your Deployment Profile](./block-node/block-node-overview.md#choose-your-deployment-profile)
+> [Block Node Overview - Choose Your Deployment Profile](./block-node/overview/block-node-overview.md#choose-your-deployment-profile)
 > for the corresponding Helm profiles.
 
 ## Block Node Services
@@ -78,11 +78,11 @@ serves.
   - **Common use:** Most Tier 2 nodes are expected to be this type.
   - **Services:** Partial History for the retained window; optionally Private Archive.
 - **Full Node** - A type of node that retains the complete block history of the network on local storage, from genesis.
-  - **Storage:** Local NVMe for recent blocks; local bulk disk (HDD) for the long-term compressed block archive. See [Block Node Hardware Specifications](./block-node/operations/block-node-hardware-specifications.md) for sizing requirements.
+  - **Storage:** Local NVMe for recent blocks; local bulk disk (HDD) for the long-term compressed block archive. See [Block Node Hardware Specifications](./block-node/deploy/block-node-hardware-specifications.md) for sizing requirements.
   - **Planned:** State management and state proof services are planned for a future release and are not yet available.
 - **Light Node** - A minimal Rolling-History deployment for developing and testing new block stream based services, or for providing lightweight services that do not require extended history.
   - **Plugins:** Runs health, status, and block-access plugins without production-scale block storage or block verification.
-  - **Environments:** A practical option for testnet, previewnet, or local development. See [Block Node Hardware Specifications](./block-node/operations/block-node-hardware-specifications.md) for sizing guidance.
+  - **Environments:** A practical option for testnet, previewnet, or local development. See [Block Node Hardware Specifications](./block-node/deploy/block-node-hardware-specifications.md) for sizing guidance.
 - **Private-Cloud** - A Block Node that ingests and stores the block stream within a private organizational boundary, serving an entity's internal needs rather than the public network.
   - **Tier:** Can be Tier 1 (receiving blocks directly from Consensus Nodes) or Tier 2 (subscribing to an upstream Block Node).
   - **Services:** Can provide almost any service, or only a few, depending on the organization's requirements.
@@ -123,13 +123,13 @@ Type, and vice versa. Any combination is valid, with the following notes:
 
 ## Related documentation
 
-- [Block Node Overview](./block-node/block-node-overview.md) - tier selection, Helm
+- [Block Node Overview](./block-node/overview/block-node-overview.md) - tier selection, Helm
   deployment profiles, and hardware sizing.
-- [Block Node Hardware Specifications](./block-node/operations/block-node-hardware-specifications.md) -
+- [Block Node Hardware Specifications](./block-node/deploy/block-node-hardware-specifications.md) -
   storage, CPU, and NIC requirements per deployment profile.
-- [Configuration Reference](./block-node/configuration.md) - full `plugins.names`
+- [Configuration Reference](./block-node/configure/configuration.md) - full `plugins.names`
   reference and all configuration options.
-- [Deploy with Solo Provisioner](./block-node/operations/solo-weaver-single-node-k8s-deployment.md) -
+- [Deploy with Solo Provisioner](./block-node/deploy/solo-weaver-single-node-k8s-deployment.md) -
   step-by-step deployment on a cloud VM.
-- [Deploy on Bare Metal (Kubernetes)](./block-node/operations/single-node-k8s-deployment.md) -
+- [Deploy on Bare Metal (Kubernetes)](./block-node/deploy/single-node-k8s-deployment.md) -
   manual Helm chart deployment.
