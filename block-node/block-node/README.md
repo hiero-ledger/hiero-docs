@@ -22,6 +22,9 @@ downstream applications to access block and state information.
 
 Refer to the [Quickstart](docker-compose-quickstart.md) for a quick guide on how to get started with the application.
 
+To test a running Block Node without a live Consensus Node, use the
+[Block Stream Simulator](../simulator/README.md).
+
 ## High-Level Architecture
 
 BlockNode is a modular, event-driven network-server built on the [Helidon](https://helidon.io/) framework.

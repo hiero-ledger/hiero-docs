@@ -9,11 +9,11 @@ It assumes the Block Node was installed using the standard Helm chart, either vi
 Reset and upgrade are two distinct day-two operations that are often confused:
 
 - **Upgrade** changes the running Block Node version (image tag and Helm chart version) without discarding the local block storage or state. Pre-existing live and historic blocks remain on disk; the new version resumes from where the previous one left off.
-- **Reset** wipes the Block Node's local block data (both live blocks and historic blocks), clears the node application state details (e.g. rosters), and starts the node fresh. A reset is destructive: Consensus Nodes only keep a minimal recent buffer and cannot serve the wiped history, so the lost data must be backfilled from another Block Node that holds the relevant range (typically a Tier 1 archive node). For a mature network — Hedera mainnet, for example — that [backfill](../glossary.md#backfill) can take a very long time (potentially weeks), proportional to the total block history.
+- **Reset** wipes the Block Node's local block data (both live blocks and historic blocks), clears the node application state details (e.g. rosters), and starts the node fresh. A reset is destructive: Consensus Nodes only keep a minimal recent buffer and cannot serve the wiped history, so the lost data must be backfilled from another Block Node that holds the relevant range (typically a Tier 1 archive node). For a mature network - Hedera mainnet, for example - that [backfill](../glossary.md#backfill) can take a very long time (potentially weeks), proportional to the total block history.
 
 The two operations can be chained. **[Solo Provisioner](../glossary.md#solo-provisioner) is the recommended path**: `sudo solo-provisioner block node upgrade --with-reset` performs the reset and the upgrade in a single managed transaction (the `--with-reset` flag wipes the block node data directories; PVs and PVCs are preserved). For manual Taskfile-managed deployments, `task reset-upgrade` is the equivalent. Use the chained operation when you need to discard data and move forward; use a plain upgrade (`sudo solo-provisioner block node upgrade` or `task helm-upgrade`) for a clean version bump.
 
-> **Production Block Nodes should rarely, if ever, be reset under normal circumstances.** Treat reset as a recovery procedure for corruption, version-incompatibility, or network changes — not as routine maintenance. For high-value Block Nodes, maintain an offline backup of the live and archive PVC contents (updated daily where possible) so a corrupted node can be restored from snapshot instead of resyncing from another Block Node.
+> **Production Block Nodes should rarely, if ever, be reset under normal circumstances.** Treat reset as a recovery procedure for corruption, version-incompatibility, or network changes - not as routine maintenance. For high-value Block Nodes, maintain an offline backup of the live and archive PVC contents (updated daily where possible) so a corrupted node can be restored from snapshot instead of resyncing from another Block Node.
 
 ## Prerequisites
 
@@ -50,9 +50,21 @@ Reset the Block Node only when there is a concrete reason to discard local data.
 - **Recovery from a bad version in dev or test environments** - rolling back from a development build that wrote incompatible data to disk. In `testnet` or `mainnet`, encountering this would represent a major process failure upstream and should not occur under normal release management.
 - **Cleaning a dev or test deployment** before reusing the cluster for a fresh integration run.
 
-**Why it matters:** Reset is destructive. The Block Node wipes its live and historic block stores on disk and restarts; the pod will report an empty range (`firstAvailableBlock = lastAvailableBlock = uint64_max`) and must be backfilled from another Block Node that holds the relevant history (Consensus Nodes cannot supply it — they only retain a minimal recent buffer). Mirror Nodes pointed at the reset Block Node will see `NOT_AVAILABLE` until enough blocks have been backfilled to satisfy their `start_block_number`. On a mature network, full backfill can take days or weeks.
+**Why it matters:** Reset is destructive. The Block Node wipes its live and historic block stores on disk and restarts; the pod will report an empty range (`firstAvailableBlock = lastAvailableBlock = uint64_max`) and must be backfilled from another Block Node that holds the relevant history (Consensus Nodes cannot supply it - they only retain a minimal recent buffer). Mirror Nodes pointed at the reset Block Node will see `NOT_AVAILABLE` until enough blocks have been backfilled to satisfy their `start_block_number`. On a mature network, full backfill can take days or weeks.
 
 > **Caution:** Reset cannot be undone from inside the Block Node. If you need a recoverable snapshot of the data before resetting, copy the contents of the live and archive PVCs to off-cluster storage first.
+
+## Zero-downtime upgrade
+
+If a secondary Block Node is available and the CN's `block-nodes.json` lists it as a lower-priority
+fallback, the CN fails over to it automatically during the pod restart - no blocks are lost and no
+manual re-pointing is needed. See [Zero-Downtime Block Node Upgrade](./zero-downtime-upgrade.md)
+for the full procedure.
+
+Without a secondary, the standard upgrade below causes a brief ingestion gap (typically 1-2 minutes).
+Schedule it during a low-traffic period.
+
+---
 
 ## Upgrading the Block Node
 
@@ -144,7 +156,7 @@ curl -s "http://$BLOCK_NODE_HOST:16007/metrics" | grep blocknode_subscriber
 
 The auto-recovery behaviour for a failed mid-upgrade transaction depends on how the upgrade was invoked:
 
-- **Solo Provisioner-managed upgrades** are invoked with Helm's `--atomic` flag, so Helm itself reverts a failed transaction in place. The Provisioner additionally exposes `--rollback-on-error`, which unwinds any completed workflow steps in reverse — including downgrading the chart back to the previously installed version and removing PV/PVCs that the failed migration just created. No manual intervention is required.
+- **Solo Provisioner-managed upgrades** are invoked with Helm's `--atomic` flag, so Helm itself reverts a failed transaction in place. The Provisioner additionally exposes `--rollback-on-error`, which unwinds any completed workflow steps in reverse - including downgrading the chart back to the previously installed version and removing PV/PVCs that the failed migration just created. No manual intervention is required.
 - **`task helm-upgrade` does not pass `--atomic`.** If `helm upgrade` fails partway, the release can be left in a partially applied state. Investigate with `helm status "$RELEASE" -n "$NAMESPACE"`, then either run `helm rollback` to the previous revision (subject to the Path B caveats below) or re-run `task helm-upgrade` after correcting the underlying issue.
 
 If the upgrade returned cleanly but the new version turned out to be unhealthy in steady state, follow the path below that matches your deployment.
@@ -177,7 +189,7 @@ helm rollback "$RELEASE" <previous-revision> -n "$NAMESPACE"
 
 The Helm release manifest reverts to the named revision. The PVCs are untouched, so existing block data remains available to the rolled-back pod.
 
-> **Caveat - migrations are forward-only.** `helm rollback` reverts the Helm release manifest only. Side effects that the higher version introduced — new PVCs, modified StatefulSet shape, ConfigMap changes — are not reversed. If the upgrade between the two revisions crossed a migration boundary, the rolled-back deployment may end up inconsistent (chart says version N, the disk and resource layout say version N+1). In that case, treat the situation as a full reset: `task clear-release` followed by `task helm-release` with `VERSION` set to the previous chart version. This drops block data, so confirm that's acceptable before proceeding.
+> **Caveat - migrations are forward-only.** `helm rollback` reverts the Helm release manifest only. Side effects that the higher version introduced - new PVCs, modified StatefulSet shape, ConfigMap changes - are not reversed. If the upgrade between the two revisions crossed a migration boundary, the rolled-back deployment may end up inconsistent (chart says version N, the disk and resource layout say version N+1). In that case, treat the situation as a full reset: `task clear-release` followed by `task helm-release` with `VERSION` set to the previous chart version. This drops block data, so confirm that's acceptable before proceeding.
 
 ## Resetting the Block Node
 
@@ -238,7 +250,7 @@ grpcurl -plaintext -emit-defaults \
 
 ### Path A: Solo Provisioner-managed deployments
 
-`sudo solo-provisioner block node uninstall` removes the StatefulSet but leaves PVs and PVCs intact — block data is preserved on disk. Note that `reconfigure --with-reset` is an exception to this rule: it wipes data inside volumes and also deletes the PVs and PVCs. If you need to remove PVs and PVCs without a reconfigure, the only supported path is a full cluster teardown:
+`sudo solo-provisioner block node uninstall` removes the StatefulSet but leaves PVs and PVCs intact - block data is preserved on disk. Note that `reconfigure --with-reset` is an exception to this rule: it wipes data inside volumes and also deletes the PVs and PVCs. If you need to remove PVs and PVCs without a reconfigure, the only supported path is a full cluster teardown:
 
 ```bash
 sudo solo-provisioner kube cluster uninstall
@@ -248,7 +260,7 @@ sudo solo-provisioner kube cluster uninstall
 
 ### Path B: Manual Taskfile-managed deployments
 
-If you need to remove the Block Node entirely — PVCs, PVs, namespace, the lot - use:
+If you need to remove the Block Node entirely - PVCs, PVs, namespace, the lot - use:
 
 ```bash
 task clear-release
@@ -268,8 +280,8 @@ This runs `helm uninstall $RELEASE -n $NAMESPACE`, deletes the live, logging, an
 | `kubectl exec` inside `reset-file-store` fails with `error: unable to upgrade connection`                                                                                                          | The pod is restarting or not ready when the task runs.                                            | Wait until the pod is `Running` and ready, then re-run `task reset-file-store`.                                                                                                                                               |
 | `task reset-upgrade` succeeded but Mirror Nodes still see `NOT_AVAILABLE`                                                                                                                          | Expected - the reset Block Node has no blocks yet.                                                | Wait for ingestion or backfill to populate the block range. Mirror Nodes will reconnect automatically once `start_block_number` is within the available range.                                                                |
 | `helm rollback` fails with `release: not found`                                                                                                                                                    | Helm history was pruned, or the rollback target revision does not exist.                          | List available revisions with `helm history "$RELEASE" -n "$NAMESPACE"`. If no eligible target remains, redeploy by setting `VERSION` to the previous chart version and running `task helm-upgrade`.                          |
-| `solo-provisioner block node upgrade --chart-version <lower>` returns `block node chart version cannot be downgraded from X to Y`                                                                  | Expected — the Provisioner rejects in-place downgrades.                                           | Use the supported uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).                                                                                                              |
-| After a direct `helm rollback` on a Solo Provisioner-managed release, the next `solo-provisioner` command refuses a legitimate upgrade, skips a migration, or renders values for the wrong version | Provisioner state file is out of sync with the cluster — direct `helm` calls do not update it.    | Reconcile manually: re-align the Provisioner's recorded chart version with the actual cluster state, or follow the uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).             |
+| `solo-provisioner block node upgrade --chart-version <lower>` returns `block node chart version cannot be downgraded from X to Y`                                                                  | Expected - the Provisioner rejects in-place downgrades.                                           | Use the supported uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).                                                                                                              |
+| After a direct `helm rollback` on a Solo Provisioner-managed release, the next `solo-provisioner` command refuses a legitimate upgrade, skips a migration, or renders values for the wrong version | Provisioner state file is out of sync with the cluster - direct `helm` calls do not update it.    | Reconcile manually: re-align the Provisioner's recorded chart version with the actual cluster state, or follow the uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).             |
 | After `helm rollback` on a manual deployment, the pod fails to start or the StatefulSet appears to have extra/missing PVCs compared to the rolled-back chart                                       | Forward-only migrations were applied during the upgrade and were not reversed by `helm rollback`. | Treat as a full reset: `task clear-release` then `task helm-release` with the previous `VERSION`. Confirm block data loss is acceptable first.                                                                                |
 | Pod is `Running` but `serverStatus` returns `connection refused` from outside the cluster                                                                                                          | Service or LoadBalancer was recreated with a different external address.                          | `kubectl get svc -n "$NAMESPACE"` - confirm the external IP / port mapping; update downstream consumers if it changed.                                                                                                        |
 | After a cross-network reset, the Block Node refuses publisher connections from the new network's Consensus Nodes                                                                                   | Stale address-book or network configuration in the new chart values.                              | Confirm the Helm values for the new network are applied (`--values values-override/<new-network>.yaml`). Run a `task helm-upgrade` after correcting the values.                                                               |
