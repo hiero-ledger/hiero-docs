@@ -229,7 +229,7 @@ The Block Node process does not terminate TLS for any inbound port. TLS is termi
 
 Two cautions worth surfacing:
 
-- **TLS at the transport is not the same as block verification.** The Block Node forwards block items as they arrive from the Consensus Node; the consumer verifies each block self-contained from its Block Proof. A TLS-encrypted stream does not turn into a verified stream by virtue of being encrypted. See [HIP-1056](https://hips.hedera.com/hip/hip-1056) for the Block Proof structure and [HIP-1200](https://hips.hedera.com/hip/hip-1200) for the [TSS](../glossary.md#tss-hintsts) threshold signature scheme that signs each block.
+- **TLS at the transport is not the same as block verification.** The Block Node forwards block items as they arrive from the Consensus Node; the consumer verifies each block self-contained from its Block Proof. A TLS-encrypted stream does not turn into a verified stream by virtue of being encrypted. See [HIP-1056](https://hips.hedera.com/hip/hip-1056) for the Block Proof structure and [HIP-1200](https://hips.hedera.com/hip/hip-1200) for the [TSS](../glossary.md#tss-hints) threshold signature scheme that signs each block.
 - **Self-signed certificates are acceptable for testing but not for production.** A Block Node operator registering an endpoint on-chain via [HIP-1137](https://hips.hedera.com/hip/hip-1137) signals TLS expectations to clients via the `requires_tls` field on each `RegisteredServiceEndpoint`. See [Block Node On-Chain Registration](../block-node-on-chain-registration.md).
 
 ---

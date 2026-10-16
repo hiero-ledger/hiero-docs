@@ -141,7 +141,7 @@ Complete the subsection below that matches the upgrade you are preparing for. Fu
 
 **Applies to:** the Consensus Node release that activates Wrapped Record Block (WRB) streaming - currently scheduled for CN release 0.75.0. The exact release may change if release testing surfaces a blocker; your Hashgraph PoC will confirm the target release before the maintenance window.
 
-For the full network cutover timeline - phases, CN-side WRB catch-up, [TSS](../glossary.md#tss-hintsts) ceremony, and [Jumpstart Data](../glossary.md#jumpstart-data) - see [Cutover Process and Timeline](../Cutover-Process.md).
+For the full network cutover timeline - phases, CN-side WRB catch-up, [TSS](../glossary.md#tss-hints) ceremony, and [Jumpstart Data](../glossary.md#jumpstart-data) - see [Cutover Process and Timeline](../Cutover-Process.md).
 
 **What is changing:** from the cutover release onwards, Consensus Nodes begin producing Wrapped Recordfile Blocks with aggregated RSA signature Block Proofs. The production of Record files uploaded to S3 storage will continue until the cutover to TSS and Block Streams in a later release. Any preview blocks stored by the Block Node before the cutover are invalid and must be discarded before the BN can receive and store authoritative WRB history. Do not skip the reset step even if the BN appears to be functioning normally.
 
@@ -211,7 +211,7 @@ Add `roster-bootstrap-rsa` to your plugin list in `block-node-values.yaml`. Appe
 
 ```yaml
 plugins:
-  names: facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,block-verification,blocks-file-historic,blocks-file-recent,backfill,roster-bootstrap-rsa,roster-bootstrap-tss
+  names: facility-app-state,facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,block-verification,blocks-file-historic,blocks-file-recent,backfill,roster-bootstrap-rsa,roster-bootstrap-tss
 ```
 
 **Mirror Node auto-fetch (mainnet cohort default)**

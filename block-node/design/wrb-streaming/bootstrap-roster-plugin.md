@@ -115,7 +115,7 @@ The BN automatically determines which proof type to verify based on the proof pr
   </dd>
 
   <dt>ApplicationStateFacility</dt>
-  <dd>An interface (implemented by <code>BlockNodeApp</code>) through which plugins notify the application of state
+  <dd>An interface (implemented by <code>ApplicationStateFacilityPlugin</code>) through which plugins notify the application of state
     changes. For the RSA roster plugin, it exposes <code>updateAddressBookHistory(RangedAddressBookHistory)</code>, which writes the
     bootstrap file and sends an <code>AddressBookHistoryNotification</code> to all registered
     <code>ApplicationStateNotificationHandler</code> instances.
@@ -203,7 +203,7 @@ public class RsaRosterBootstrapPlugin implements BlockNodePlugin {
         long startTimeMillis = System.currentTimeMillis();
         RangedAddressBookHistory history = applicationStateFacility.rangedAddressBookHistory();
         if (history != null) {
-            // File pre-loaded by BlockNodeApp — record metrics; no periodic refresh
+            // File pre-loaded by ApplicationStateFacilityPlugin — record metrics; no periodic refresh
             recordHistoryMetrics(history, startTimeMillis);
             return;
         }
@@ -254,11 +254,11 @@ wrapped into one open-ended era starting at block 0.
 **Serialization and deserialization (PBJ):**
 
 ```java
-// Write (via BlockNodeApp.persistNodeAddressBookHistory)
+// Write (via ApplicationStateFacilityPlugin.persistNodeAddressBookHistory)
 final Bytes encoded = RangedAddressBookHistory.JSON.toBytes(history);
 Files.write(filePath, encoded.toByteArray());
 
-// Read (via BlockNodeApp.loadApplicationState)
+// Read (via ApplicationStateFacilityPlugin.loadApplicationState)
 final RangedAddressBookHistory history =
         RangedAddressBookHistory.JSON.parse(Bytes.wrap(Files.readAllBytes(filePath)));
 ```
@@ -374,7 +374,7 @@ source returns a valid history first calls `updateAddressBookHistory`; the other
 background.
 
 ```
-BlockNodeApp.loadApplicationState() [after every plugin's init(), before any plugin is started]
+ApplicationStateFacilityPlugin.start() [after every plugin's init(), before the other plugins are started]
    │
    ├─ rsa-bootstrap-roster.json exists at app.state.rsaBootstrapFilePath?
    │       │

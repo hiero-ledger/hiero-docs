@@ -26,19 +26,27 @@ the design.
 
 ### Server Configuration
 
-| ENV Variable                            | Description                                                                                                            | Default     |
-|:----------------------------------------|:-----------------------------------------------------------------------------------------------------------------------|:------------|
-| SERVER_MAX_MESSAGE_SIZE_BYTES           | Max message size (bytes) for HTTP/2. Also the cumulative byte ceiling for a single block on the publish stream.        | 131,072,000 |
-| SERVER_SOCKET_SEND_BUFFER_SIZE_BYTES    | Send buffer size (bytes).                                                                                              | 131,072     |
-| SERVER_SOCKET_RECEIVE_BUFFER_SIZE_BYTES | Receive buffer size (bytes). Override to 131072 for memory-constrained deployments (see `values-overrides/nano.yaml`). | 8,388,608   |
-| SERVER_PORT                             | Default port for all services. Individual plugins may bind to a different port via their own config.                   | 40840       |
-| SERVER_SHUTDOWN_DELAY_MILLIS            | Delay before shutdown (ms).                                                                                            | 500         |
-| SERVER_MAX_TCP_CONNECTIONS              | Max TCP connections allowed.                                                                                           | 1000        |
-| SERVER_IDLE_CONNECTION_PERIOD_MINUTES   | Period for idle connections check (minutes).                                                                           | 5           |
-| SERVER_IDLE_CONNECTION_TIMEOUT_MINUTES  | Timeout for idle connections (minutes).                                                                                | 30          |
-| SERVER_TCP_NO_DELAY                     | Disable Nagle's algorithm (TCP_NODELAY). Reduces latency for small, frequent writes.                                   | true        |
-| SERVER_BACKLOG_SIZE                     | Maximum length of the queue of incoming connections on the server socket.                                              | 8,192       |
-| SERVER_WRITE_QUEUE_LENGTH               | Number of write buffers queued for write operations.                                                                   | 8,192       |
+| ENV Variable                            | Description                                                                                                                                                         | Default     |
+|:----------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|
+| SERVER_MAX_MESSAGE_SIZE_BYTES           | Max message size (bytes) for HTTP/2. Also the cumulative byte ceiling for a single block on the publish stream.                                                     | 131,072,000 |
+| SERVER_SOCKET_SEND_BUFFER_SIZE_BYTES    | Send buffer size (bytes). `0` lets the kernel autotune it (recommended). Explicit sizes must be at least 32768. Nano sets 131072 (`values-overrides/nano.yaml`).    | 0           |
+| SERVER_SOCKET_RECEIVE_BUFFER_SIZE_BYTES | Receive buffer size (bytes). `0` lets the kernel autotune it (recommended). Explicit sizes must be at least 32768. Nano sets 131072 (`values-overrides/nano.yaml`). | 0           |
+| SERVER_PORT                             | Default port for all services. Individual plugins may bind to a different port via their own config.                                                                | 40840       |
+| SERVER_SHUTDOWN_DELAY_MILLIS            | Delay before shutdown (ms).                                                                                                                                         | 500         |
+| SERVER_MAX_TCP_CONNECTIONS              | Max TCP connections allowed.                                                                                                                                        | 1000        |
+| SERVER_IDLE_CONNECTION_PERIOD_MINUTES   | Period for idle connections check (minutes).                                                                                                                        | 5           |
+| SERVER_IDLE_CONNECTION_TIMEOUT_MINUTES  | Timeout for idle connections (minutes).                                                                                                                             | 30          |
+| SERVER_TCP_NO_DELAY                     | Disable Nagle's algorithm (TCP_NODELAY). Reduces latency for small, frequent writes.                                                                                | true        |
+| SERVER_BACKLOG_SIZE                     | Maximum length of the queue of incoming connections on the server socket.                                                                                           | 8,192       |
+| SERVER_WRITE_QUEUE_LENGTH               | Number of write buffers queued for write operations. HTTP/1.1 only; HTTP/2 (gRPC) frames bypass this queue.                                                         | 8,192       |
+
+With the default `0`, the Block Node does not set the socket buffers, and the kernel autotunes each connection's
+buffers up to the maximum in `net.ipv4.tcp_rmem` / `net.ipv4.tcp_wmem` (typically 6 MB / 4 MB on Linux). A positive size
+turns off autotuning for that buffer, and the kernel silently caps it at `net.core.rmem_max` / `net.core.wmem_max`
+(Linux default 212,992 bytes), which limits every stream to about that much data per round trip. If you set explicit
+sizes, raise both sysctls on the host to at least those sizes. The Block Node logs a WARNING at startup when the kernel
+grants less than configured. On high-latency links, raise the `tcp_rmem` / `tcp_wmem` maxima too, see
+[Host kernel network settings](operations/block-node-hardware-specifications.md#host-kernel-network-settings).
 
 ### WebServerHttp2 Configuration
 
@@ -57,7 +65,7 @@ the design.
 
 | ENV Variable                                 | Description                                                                                                                                                                                                                                                                                                                            |                                Default                                |
 |:---------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| APP_STATE_TSS_BOOTSTRAP_FILE_PATH            | Path where [TSS](./glossary.md#tss-hintsts) data (ledger ID, current roster, [WRAPS](./glossary.md#wraps) VK) is persisted across restarts.                                                                                                                                                                                            | /opt/hiero/block-node/application-state/tss-bootstrap-roster.json     |
+| APP_STATE_TSS_BOOTSTRAP_FILE_PATH            | Path where [TSS](./glossary.md#tss-hints) data (ledger ID, current roster, [WRAPS](./glossary.md#wraps) VK) is persisted across restarts.                                                                                                                                                                                              | /opt/hiero/block-node/application-state/tss-bootstrap-roster.json     |
 | APP_STATE_RSA_BOOTSTRAP_FILE_PATH            | Path where the single current RSA node address book is persisted across restarts. Used by single-book deployments that have not yet migrated to the address book history file.                                                                                                                                                         | /opt/hiero/block-node/application-state/rsa-bootstrap-roster.json     |
 | APP_STATE_RSA_ADDRESS_BOOK_HISTORY_FILE_PATH | Path to the block-number-keyed RSA address book history file (JSON-encoded `RangedAddressBookHistory`). When present, this file takes precedence over `APP_STATE_RSA_BOOTSTRAP_FILE_PATH` and enables verification of historical [WRBs](./glossary.md#wrb-wrapped-record-block) against the address book that was in effect per block. | /opt/hiero/block-node/application-state/rsa-address-book-history.json |
 | APP_STATE_BLOCK_RANGES_FILE_PATH             | Path where the set of available and stored block ranges is persisted. Written every 1,000 blocks received.                                                                                                                                                                                                                             | /opt/hiero/block-node/application-state/block-ranges.json             |
@@ -111,10 +119,12 @@ A base Block Node deployment ships with no plugins; the Helm chart downloads the
 
 ```yaml
 plugins:
-  names: "facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,block-verification,blocks-file-historic,blocks-file-recent,backfill"
+  names: "facility-app-state,facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,block-verification,blocks-file-historic,blocks-file-recent,backfill"
 ```
 
 > **Note:** All [Tier 2](./glossary.md#tier-2-block-node) Block Nodes should drop `stream-publisher` from `plugins.names`. The presence of `stream-publisher` is the main difference between a Tier 1 and a Tier 2 deployment.
+>
+> **Upgrading to 0.46.0:** `facility-app-state` is now required. If you set your own `plugins.names`, add `facility-app-state` before upgrading, or the node fails at startup with `No ApplicationStateFacility provided`. If you roll back to an earlier version, remove it again, since earlier versions do not publish that plugin.
 
 To change which plugins load, edit the list. Adding a name causes that plugin to be downloaded and loaded on the next pod start. Removing a name skips it on the next start, but the previously-installed JAR remains in the plugins folder unless the folder is cleared between runs (for example, by recreating the PVC or the volume backing the plugins directory). Operators do not need to rebuild the Block Node image — the chart resolves plugins from configured sources at pod start.
 
@@ -125,11 +135,11 @@ The chart supports two sources for downloading plugins; both are configurable:
 - **`plugins.repositories`** (recommended for production): Maven repositories the init container queries to resolve plugin artifacts. Defaults to Maven Central and Sonatype Snapshots. Operators running at scale should add a local mirror to `plugins.repositories` to reduce dependency on public infrastructure.
 - **`plugins.mavenImage`** (intended for local and Solo testing): a container image with plugin JARs pre-built into it. Used as a fallback when network-based resolution from `plugins.repositories` isn't appropriate.
 
-|      Chart value       |                       Purpose                       |                                                                                                     Default                                                                                                     |
-|------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `plugins.names`        | Comma-separated list of plugin identifiers to load  | `backfill,block-access-service,block-verification,blocks-file-historic,blocks-file-recent,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-publisher,stream-subscriber` |
-| `plugins.repositories` | Maven repositories used to resolve plugin artifacts | `central` (`https://repo1.maven.org/maven2`), `sonatype-snapshots` (`https://central.sonatype.com/repository/maven-snapshots`)                                                                                  |
-| `plugins.mavenImage`   | Container image used as a fallback plugin source    | `maven:3-eclipse-temurin-25-alpine`                                                                                                                                                                             |
+|      Chart value       |                       Purpose                       |                                                                                                              Default                                                                                                               |
+|------------------------|-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `plugins.names`        | Comma-separated list of plugin identifiers to load  | `backfill,block-access-service,block-verification,blocks-file-historic,blocks-file-recent,facility-app-state,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-publisher,stream-subscriber` |
+| `plugins.repositories` | Maven repositories used to resolve plugin artifacts | `central` (`https://repo1.maven.org/maven2`), `sonatype-snapshots` (`https://central.sonatype.com/repository/maven-snapshots`)                                                                                                     |
+| `plugins.mavenImage`   | Container image used as a fallback plugin source    | `maven:3-eclipse-temurin-25-alpine`                                                                                                                                                                                                |
 
 ### Third-party plugins (Maven-resolvable)
 
@@ -195,7 +205,7 @@ A more robust pattern for fully operator-managed plugins is to mount a pre-popul
 - Per-node gRPC timeout overrides: `grpc_connect_timeout`, `grpc_read_timeout`, `grpc_poll_wait_time`
 - Advanced HTTP/2 tuning: `grpc_webclient_tuning`
 
-See [Backfill Plugin Design](../design/backfill-plugin.md#blocknode-sources-configuration-file-structure)
+See [Backfill Plugin Design](../design/backfill-plugin.md#peer-nodes-configuration-json)
 for the JSON schema.
 
 ### Block Access Plugin Configuration

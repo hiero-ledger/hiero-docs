@@ -143,6 +143,8 @@ The `HealthServicePlugin` registers `/healthz/livez` and `/healthz/readyz` HTTP 
 
 ### `ApplicationStateFacility` (interface)
 
+A `BlockNodePlugin` provided by the `facility-app-state` module (`ApplicationStateFacilityPlugin`), registered in its `module-info.java` as a `provides ApplicationStateFacility` service. `BlockNodeApp` loads it through `ServiceLoader`, exposes it to every plugin as `BlockNodeContext.applicationStateFacility()`, and manages its lifecycle: it is initialized right after the messaging facility, started once the messaging facility is running, and stopped before it. The module also owns `ApplicationStateConfig` (the `app.state` configuration), the persisted state files, and the `app_historical_oldest_block` / `app_historical_newest_block` gauges.
+
 ```java
 void updateTssData(TssData tssData);
 boolean updateAddressBookHistory(RangedAddressBookHistory history);
@@ -162,9 +164,10 @@ Specialization of `BlockNodePlugin` for block storage backends. Each provider de
 
 ```
 1. BlockNodeApp instantiates ServiceLoader for:
-   a. BlockMessagingFacility  (required; throws if missing)
-   b. HistoricalBlockFacility (constructed internally; discovers BlockProviderPlugins)
-   c. BlockNodePlugin          (all other plugins)
+   a. BlockMessagingFacility   (required; throws if missing)
+   b. ApplicationStateFacility (required; throws if missing; provided by facility-app-state)
+   c. HistoricalBlockFacility  (constructed internally; discovers BlockProviderPlugins)
+   d. BlockNodePlugin          (all other plugins)
 
 2. Collect configDataTypes() from every plugin + built-in config types.
 
@@ -178,11 +181,11 @@ Specialization of `BlockNodePlugin` for block storage backends. Each provider de
 
 6. Start Helidon WebServer using routes accumulated in ServiceBuilder.
 
-7. Start BlockMessagingFacility, then load ApplicationState from disk (TssData,
-   address book history, stored block ranges) and dispatch the loaded state
-   as application state notifications.
+7. Start BlockMessagingFacility, then start ApplicationStateFacility, which loads
+   its state from disk (TssData, address book history, stored block ranges) and
+   dispatches the loaded state as application state notifications.
 
-8. Call plugin.start() for every plugin (in parallel via virtual threads).
+8. Call plugin.start() for every remaining plugin (in parallel via virtual threads).
    Plugins launch background workers, open network connections, etc.
 
 9. Node is RUNNING. Plugins report state changes to ApplicationStateFacility,
@@ -193,7 +196,9 @@ Specialization of `BlockNodePlugin` for block storage backends. Each provider de
     a. Transition to SHUTTING_DOWN.
     b. Wait for configurable shutdown delay.
     c. Stop WebServer.
-    d. Call plugin.stop() for every plugin.
+    d. Call plugin.stop() for every plugin other than the two facilities, then
+       stop ApplicationStateFacility (flushes queued updates, persists block
+       ranges), then BlockMessagingFacility.
     e. Close MetricRegistry.
     f. Exit JVM.
 ```
@@ -283,7 +288,7 @@ Configuration sources are applied in ascending priority order:
 Bootstrap Plugin
     │
     ▼ applicationStateFacility.updateTssData(newData)
-BlockNodeApp (ApplicationStateFacility impl)
+ApplicationStateFacilityPlugin
     │
     ├── Install the new value (compare-and-set; older data is ignored)
     │

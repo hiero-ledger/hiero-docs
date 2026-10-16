@@ -24,7 +24,7 @@ We intend to create a new Block Node plugin (TSSBootstrapPlugin) that queries an
 - BN loads persisted TssData at startup
 - BN periodically contacts peer BNs to get their TssData
 - BN makes TssData available via the ServerStatusDetail API
-- BlockNodeApp provides an interface for BN Plugins to update TssData
+- The ApplicationStateFacility plugin provides an interface for BN Plugins to update TssData
 - BN uses TssData.validFromBlock to determine which TssData is the latest
 - BN updates plugins, on a separate thread, via a `TssDataNotification` when the TssData changes
 
@@ -69,7 +69,7 @@ We intend to create a new Block Node plugin (TSSBootstrapPlugin) that queries an
 - Processes requests to change `TssData`
 - Persists `TssData`
 - Loads persisted `TssData` prior to plugin initialization
-- Implemented by the `BlockNodeApp`
+- Implemented by the `ApplicationStateFacilityPlugin` (`facility-app-state`)
 
 ### BlockNodeContext
 
@@ -195,7 +195,7 @@ message RosterEntry {
       - Uses the greatest `TssData.validFromBlock` to determine which `TssData` to use.
       - Persists the latest `TssData`
       - Notifies plugins with a `TssDataNotification`, sent on a separate thread, when the `TssData` changes.
-      - Implemented by the `BlockNodeApp`
+      - Implemented by the `ApplicationStateFacilityPlugin` (`facility-app-state`)
     - The plugin checks it's config at startup to see if `TSSData` is present in the config
     - `TssBootstrapPluginConfig` can be used for both testing and temporary initialization for a Block Node
     - The plugin will periodically query its peers for TSS data updates.
