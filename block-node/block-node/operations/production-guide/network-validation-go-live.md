@@ -37,7 +37,7 @@ This command:
 > the production Block Node. Do not skip this step.
 
 Confirm the RSA bootstrap roster is in place at the expected path before the Block Node
-restarts. See [Install the Block Node - Step 4](./install-block-node.md#step-4--prepare-the-rsa-bootstrap-roster-coordinated).
+restarts. See [Install the Block Node - Step 4](./install-block-node.md#step-4---prepare-the-rsa-bootstrap-roster-coordinated).
 
 ---
 

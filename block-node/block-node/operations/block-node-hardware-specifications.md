@@ -263,6 +263,26 @@ across all drives in the configuration, not per-drive requirements.
 - Excessive (over 30ms) inter-node latency risks stream backpressure and
   increased buffering requirements.
 
+### Host kernel network settings
+
+The Block Node leaves socket buffers to kernel autotuning by default, so the
+host's TCP limits bound per-connection throughput as latency grows.
+Recommended values (these are what solo-weaver provisions):
+
+|                  sysctl                   |      Recommended      |     Linux default     |
+|-------------------------------------------|-----------------------|-----------------------|
+| `net.ipv4.tcp_rmem`                       | `8192 65536 33554432` | `4096 131072 6291456` |
+| `net.ipv4.tcp_wmem`                       | `8192 65536 33554432` | `4096 16384 4194304`  |
+| `net.core.rmem_max` / `net.core.wmem_max` | `33554432`            | `212992`              |
+
+- `rmem_max` / `wmem_max` only matter if you set
+  `SERVER_SOCKET_*_BUFFER_SIZE_BYTES` explicitly.
+- If you raised `rmem_max` for an earlier release but left `tcp_rmem` /
+  `tcp_wmem` at their defaults, raise those too. Otherwise the receive buffer
+  drops from the old fixed size to the 6 MB autotune ceiling after upgrading.
+- Kernel socket memory is charged to the pod's memory limit under cgroup v2,
+  so leave headroom above the JVM heap for it.
+
 ---
 
 ## Network Throughput and Storage Growth Estimates

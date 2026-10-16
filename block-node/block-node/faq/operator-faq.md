@@ -240,10 +240,14 @@ Key environment variables:
 |                 Variable                  |       Default        |           Purpose            |
 |-------------------------------------------|----------------------|------------------------------|
 | `SERVER_MAX_MESSAGE_SIZE_BYTES`           | 131,072,000 (125 MB) | Max HTTP/2 message size      |
-| `SERVER_SOCKET_SEND_BUFFER_SIZE_BYTES`    | 131,072              | TCP send buffer              |
-| `SERVER_SOCKET_RECEIVE_BUFFER_SIZE_BYTES` | 8,388,608            | TCP receive buffer           |
+| `SERVER_SOCKET_SEND_BUFFER_SIZE_BYTES`    | 0 (kernel autotune)  | TCP send buffer              |
+| `SERVER_SOCKET_RECEIVE_BUFFER_SIZE_BYTES` | 0 (kernel autotune)  | TCP receive buffer           |
 | `SERVER_MAX_TCP_CONNECTIONS`              | 1,000                | Max simultaneous connections |
 | `BACKFILL_MAX_INCOMING_BUFFER_SIZE`       | 104,857,600 (100 MB) | Backfill gRPC receive buffer |
+
+With `0`, the kernel autotunes the socket buffers up to the maximum in `net.ipv4.tcp_rmem` / `net.ipv4.tcp_wmem`. A
+positive size turns off autotuning and is capped at `net.core.rmem_max` / `net.core.wmem_max`, so raise those to at
+least the configured size. Otherwise the kernel silently caps them and the Block Node logs a WARNING at startup.
 
 > See [Configuration Reference](../configuration.md) for full details.
 
@@ -453,7 +457,7 @@ Edit `plugins.names` in your Helm values (comma-separated plugin identifiers), t
 ```yaml
 plugins:
   # Example: Tier 2 — stream-publisher removed
-  names: "backfill,block-access-service,blocks-file-recent,blocks-file-historic,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-subscriber,block-verification"
+  names: "backfill,block-access-service,blocks-file-recent,blocks-file-historic,facility-app-state,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-subscriber,block-verification"
 ```
 
 **Note:** Removing a plugin name skips loading on the next pod start but does not
@@ -601,22 +605,23 @@ The `tools-and-tests/` directory contains:
 
 Each plugin is identified by its `plugins.names` key (used in Helm configuration):
 
-|       Plugin name        |                                       Feature provided                                       |             Tier required             |
-|--------------------------|----------------------------------------------------------------------------------------------|---------------------------------------|
-| `stream-publisher`       | Accepts block streams from Consensus Nodes (`publishBlockStream` RPC)                        | Tier 1 only — **remove for Tier 2**   |
-| `stream-subscriber`      | Serves block streams to Mirror Nodes and downstream Block Nodes (`subscribeBlockStream` RPC) | Tier 1 and Tier 2                     |
-| `block-access-service`   | Single-block random-access retrieval (`getBlock` RPC)                                        | Tier 1 and Tier 2                     |
-| `server-status`          | `serverStatus` and `serverStatusDetail` RPCs — block range, version, plugin list             | All deployments                       |
-| `health`                 | Kubernetes liveness (`/healthz/livez`) and readiness (`/healthz/readyz`) probes              | All deployments                       |
-| `block-verification`     | Verifies block proofs before persistence (TSS and RSA/WRB)                                   | All deployments                       |
-| `blocks-file-recent`     | Short-term block persistence on local NVMe with configurable retention policy                | LFH and RFH profiles                  |
-| `blocks-file-historic`   | Long-term block persistence on local HDD (archive tier)                                      | LFH profile                           |
-| `cloud-storage-archive`  | Archives blocks to S3-compatible cloud storage (group files)                                 | RFH and cloud-backup profiles         |
-| `cloud-storage-expanded` | Uploads each verified block individually to S3-compatible storage                            | Optional                              |
-| `backfill`               | Fetches missing historical blocks from peer Block Nodes                                      | All production deployments            |
-| `roster-bootstrap-rsa`   | Loads the RSA node address book at startup for WRB block proof verification                  | Required for WRB cutover              |
-| `roster-bootstrap-tss`   | Loads TSS roster data for post-cutover block proof verification                              | Required post-cutover                 |
-| `facility-messaging`     | Internal LMAX Disruptor event bus — distributes block items to all plugins                   | All deployments (core infrastructure) |
+|       Plugin name        |                                        Feature provided                                        |             Tier required             |
+|--------------------------|------------------------------------------------------------------------------------------------|---------------------------------------|
+| `stream-publisher`       | Accepts block streams from Consensus Nodes (`publishBlockStream` RPC)                          | Tier 1 only — **remove for Tier 2**   |
+| `stream-subscriber`      | Serves block streams to Mirror Nodes and downstream Block Nodes (`subscribeBlockStream` RPC)   | Tier 1 and Tier 2                     |
+| `block-access-service`   | Single-block random-access retrieval (`getBlock` RPC)                                          | Tier 1 and Tier 2                     |
+| `server-status`          | `serverStatus` and `serverStatusDetail` RPCs — block range, version, plugin list               | All deployments                       |
+| `health`                 | Kubernetes liveness (`/healthz/livez`) and readiness (`/healthz/readyz`) probes                | All deployments                       |
+| `block-verification`     | Verifies block proofs before persistence (TSS and RSA/WRB)                                     | All deployments                       |
+| `blocks-file-recent`     | Short-term block persistence on local NVMe with configurable retention policy                  | LFH and RFH profiles                  |
+| `blocks-file-historic`   | Long-term block persistence on local HDD (archive tier)                                        | LFH profile                           |
+| `cloud-storage-archive`  | Archives blocks to S3-compatible cloud storage (group files)                                   | RFH and cloud-backup profiles         |
+| `cloud-storage-expanded` | Uploads each verified block individually to S3-compatible storage                              | Optional                              |
+| `backfill`               | Fetches missing historical blocks from peer Block Nodes                                        | All production deployments            |
+| `roster-bootstrap-rsa`   | Loads the RSA node address book at startup for WRB block proof verification                    | Required for WRB cutover              |
+| `roster-bootstrap-tss`   | Loads TSS roster data for post-cutover block proof verification                                | Required post-cutover                 |
+| `facility-app-state`     | Owns and persists TSS data, address book history and block ranges; notifies plugins of changes | All deployments (core infrastructure) |
+| `facility-messaging`     | Internal LMAX Disruptor event bus — distributes block items to all plugins                     | All deployments (core infrastructure) |
 
 > Both `roster-bootstrap-rsa` and `roster-bootstrap-tss` are included in the default plugin list. If
 > no bootstrap file or source URL is configured, each plugin logs a message and exits without

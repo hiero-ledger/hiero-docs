@@ -69,6 +69,8 @@ Schedule it during a low-traffic period.
 ## Upgrading the Block Node
 
 > If your upgrade involves enabling or disabling plugins, see [Plugin Management](../configuration.md#plugin-management) in the configuration reference.
+>
+> **Upgrading to 0.46.0:** `facility-app-state` is now a required plugin. If your deployment sets its own `plugins.names` (including per-version presets and values pinned in provisioning tooling), add `facility-app-state` before upgrading, or the node fails at startup with `No ApplicationStateFacility provided`. If you roll back to a version earlier than 0.46.0, remove it again: earlier versions do not publish that plugin, so the plugin resolution step fails if it is still listed. See [Plugin Management](../configuration.md#plugin-management).
 
 ### Step 1: Confirm the current state is healthy
 
@@ -150,6 +152,8 @@ curl -s "http://$BLOCK_NODE_HOST:16007/metrics" | grep blocknode_subscriber
 
 ### Step 5 (if rollback is required): revert to the previous version
 
+> Rolling back from 0.46.0 or later to an earlier version: remove `facility-app-state` from any custom `plugins.names` first, because earlier versions do not publish that plugin.
+>
 > **Note:** The procedure to revert to a previous chart version depends on how the Block Node was installed. Follow the path below that matches your install method.
 
 #### Mid-upgrade failures

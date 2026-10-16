@@ -476,7 +476,7 @@ java -jar tools.jar blocks wrap -i compressedDays -o wrappedBlocks \
 
 ##### tss-enablement.bin
 
-**Purpose**: Binary [TSS](../glossary.md#tss-hintsts) (Threshold Signature Scheme) parameters file for Block Node verification plugins.
+**Purpose**: Binary [TSS](../glossary.md#tss-hints) (Threshold Signature Scheme) parameters file for Block Node verification plugins.
 
 **Contents**:
 - Raw protobuf binary of the most recent `LedgerIdPublication` transaction
