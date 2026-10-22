@@ -45,8 +45,9 @@ Every consumer of existing WRBs must clear that history and obtain the revised b
   This is also referred to as the "Merkle Mountain Top".</dd>
 
   <dt>Hash registry</dt>
-  <dd><code>blockStreamBlockHashes.bin</code>: headerless array of fixed-width block root hashes, one slot per block,
-  in the wrap output directory</dd>
+  <dd><code>blockStreamBlockHashes.bin</code>: a 4-byte <code>S256</code> header followed by an array of 32-byte
+  block root hashes, one slot per block, in the wrap output directory. A legacy headerless SHA2-384 file is
+  rejected</dd>
 
   <dt>Jumpstart data</dt>
   <dd><code>jumpstart.bin</code>: last wrapped block number, block hash, consensus-timestamp hash, output-items root
@@ -92,8 +93,9 @@ Every consumer of existing WRBs must clear that history and obtain the revised b
 - Block-hashing classes in `blocks/model/hashing` stop calling `utils/Sha384.java`
 - A new `Sha256` helper class is introduced next to `Sha384`. All block-hashing classes
   in `blocks/model/hashing` call that
-- Blocks declare `BlockHeader.hash_algorithm = SHA2_256` once the CN proto with the updated
-  `BlockHashAlgorithm` enum (`SHA2_256 = 0`, `SHA2_384 = 1`) is released. The CLI moves to that `cnVersion`
+- Blocks declare `BlockHeader.hash_algorithm = SHA2_256`, using the CN proto's `BlockHashAlgorithm` enum
+  (`SHA2_256 = 0`, `SHA2_384 = 1`). As the enum's zero value, `SHA2_256` is not serialized, so the header
+  bytes match those of blocks written under the earlier enum, where `SHA2_384` was 0
 - Consumers (`blocks validate`, `blocks push`, `blocks bulk-load`) require SHA2-256. A block hash of any length
   other than 32 bytes is an error
 
@@ -165,9 +167,12 @@ No new exception types. The existing hash-length checks move from 48 to 32 bytes
 1. **Hashing core is SHA2-256.** `HashingUtils`, `StreamingHasher`, `InMemoryTreeHasher`,
    `BlockStreamBlockHasher` and `BlockStreamBlockHashRegistry`, including save and load, produce 32-byte
    hashes, and no class in `blocks/model/hashing` calls `Sha384`.
-2. **Golden vectors.** SHA2-256 block root hashes, previous block root hashes, all-blocks tree roots and the
-   empty-tree hash for the CN reference record files (v2, v5, v6, genesis, a block after an address-book
-   change) match the values from the CN implementation.
+2. **Golden vectors.** For CN-produced SHA2-256 blocks 0 to 5 of a wrapped record block chain and of a TSS
+   block stream chain, the CLI's block root hashes, previous block root hashes and all-blocks tree roots match
+   the CN's, including the genesis conventions. The empty-tree hash matches the Block Node's. The CN cannot wrap
+   v2 or v5 record files, so the block root hashes of the v2 (genesis), v5 and v6 WRBs are pinned to the CLI's
+   own output. The address book is not part of the block Merkle tree, so a block after an address-book change
+   needs no vector of its own.
 3. **Wrap producers emit SHA2-256.** `blocks wrap` and `days live-sequential` emit WRBs whose block Merkle
    tree is computed with SHA2-256, and `blockStreamBlockHashes.bin` and `streamingMerkleTree.bin` hold 32-byte
    hashes.

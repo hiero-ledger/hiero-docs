@@ -17,8 +17,8 @@ Requirements depend on your deployment tier and network:
 |             Deployment              |                      CPU                      |  RAM   | Fast NVMe |          Bulk storage           |
 |-------------------------------------|-----------------------------------------------|--------|-----------|---------------------------------|
 | Tier 1 mainnet (Local Full History) | 24 cores / 48 threads, single-socket ≥2.0 GHz | 256 GB | 7.5 TB    | 100 TB HDD (500 TB recommended) |
-| Tier 2 Remote Full History          | 16 cores / 32 threads                         | 128 GB | —         | 100 GB+                         |
-| Testnet / previewnet                | 16 vCPU                                       | 32 GB  | —         | Sized to retention window       |
+| Tier 2 Remote Full History          | 16 cores / 32 threads                         | 128 GB | -         | 100 GB+                         |
+| Testnet / previewnet                | 16 vCPU                                       | 32 GB  | -         | Sized to retention window       |
 
 Network: minimum 2 × 10 Gbps NICs for Tier 1 mainnet.
 
@@ -55,7 +55,7 @@ immediately available to relieve pressure while more storage is provisioned or d
 is migrated.
 - Drive performance generally degrades slightly above 80% utilisation.
 
-The 80% figure is a recommendation, not a hard requirement — operators may choose a
+The 80% figure is a recommendation, not a hard requirement - operators may choose a
 different value based on their own retention and capacity policies.
 
 ---
@@ -66,9 +66,9 @@ different value based on their own retention and capacity policies.
 
 |        Port         |                                   Purpose                                    |                    Direction                    |                                 Production exposure                                 |
 |---------------------|------------------------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------------|
-| **40840** (default) | gRPC — Publish, Subscribe, Status, Block Access APIs                         | Inbound from CNs, MNs, peer BNs; kubelet probes | Public (Tier 1: CNs + authorised subscribers; Tier 2: upstream BNs + subscribers)   |
+| **40840** (default) | gRPC - Publish, Subscribe, Status, Block Access APIs                         | Inbound from CNs, MNs, peer BNs; kubelet probes | Public (Tier 1: CNs + authorised subscribers; Tier 2: upstream BNs + subscribers)   |
 | **16007**           | Prometheus / OpenMetrics scrape                                              | Inbound from monitoring                         | Internal cluster only                                                               |
-| **5005**            | JVM remote debug (JDWP)                                                      | Inbound from debugger                           | **Must be denied in production** — enabling JDWP significantly degrades performance |
+| **5005**            | JVM remote debug (JDWP)                                                      | Inbound from debugger                           | **Must be denied in production** - enabling JDWP significantly degrades performance |
 | Outbound (dynamic)  | Backfill plugin dials peer Block Node subscribe API (destination port 40840) | Outbound to peer BNs                            | Required if backfill plugin is enabled                                              |
 | Outbound (dynamic)  | RSA Bootstrap Plugin fetches RSA address book from Mirror Node               | Outbound to Mirror Node                         | Required if roster-bootstrap-rsa plugin is enabled                                  |
 
@@ -80,7 +80,7 @@ Ingress or load balancer.
 ### What are the expected inbound and outbound traffic flows?
 
 **Inbound (port 40840):**
-- Consensus Nodes push block streams (Tier 1 only — requires `stream-publisher` plugin)
+- Consensus Nodes push block streams (Tier 1 only - requires `stream-publisher` plugin)
 - Mirror Nodes and downstream Block Nodes subscribe to block streams
 - All clients call `serverStatus` to discover available block ranges
 - Kubernetes kubelet issues HTTP GET liveness and readiness probes
@@ -107,8 +107,9 @@ Estimates from the hardware specifications at 2,000 TPS sustained load:
 At 20,000 TPS the egress estimate reaches ~580 MB/s steady-state, requiring 10+ Gbps
 NICs. These are well-informed estimates based on block-size modelling, confirmed by the
 block node team as current targets. The 33-subscriber figure may change as the network
-topology evolves — verify the expected subscriber count with your Hashgraph PoC before
-finalising hardware procurement.
+topology evolves - verify the expected subscriber count in the release notes or by opening
+an issue in the [hiero-block-node repository](https://github.com/hiero-ledger/hiero-block-node)
+before finalising hardware procurement.
 
 > See [Block Node Hardware Specifications](../operations/block-node-hardware-specifications.md) for full details.
 
@@ -123,7 +124,7 @@ by port:
 | **Publisher (CN → BN, 40840)**  | **Not currently supported.** The Consensus Node PBJ client disables TLS globally; enabling TLS upstream on this port will break CN streaming. Expected to become configurable in a future CN release (~0.78/0.79). |
 | **Subscriber (MN → BN, 40840)** | Permitted if the operator desires it for privacy or compliance.                                                                                                                                                    |
 | **Status (40840)**              | Not supported until a qualified CN release is available.                                                                                                                                                           |
-| **Metrics (16007)**             | Internal only — do not expose publicly. TLS is not relevant.                                                                                                                                                       |
+| **Metrics (16007)**             | Internal only - do not expose publicly. TLS is not relevant.                                                                                                                                                       |
 
 **Authentication:** There is no built-in authentication mechanism, and there are no
 plans to add any. Security is enforced at the network and transport layer.
@@ -135,16 +136,16 @@ plans to add any. Security is enforced at the network and transport layer.
 The Block Node has no authentication and there are no plans to add any. This is by
 design: **trust is in the data, not in the node.** Every block carries a
 [Block Proof](../glossary.md#block-proof) that cryptographically verifies the block's
-authenticity — subscribers verify the data themselves rather than trusting the node
+authenticity - subscribers verify the data themselves rather than trusting the node
 delivering it.
 
 **TLS** is advisory for subscriber-facing ports only. Do **not** enable TLS on the
-Publisher port (CN → BN) until CN support is qualified (targeted ~0.78/0.79) — doing
+Publisher port (CN → BN) until CN support is qualified (targeted ~0.78/0.79) - doing
 so will break all Consensus Node ingest.
 
 **Practical network controls:**
-- Restrict port 16007 (metrics) to internal cluster access only — never expose it publicly.
-- Deny port 5005 (JDWP) in all production firewall rules — enabling JDWP significantly
+- Restrict port 16007 (metrics) to internal cluster access only - never expose it publicly.
+- Deny port 5005 (JDWP) in all production firewall rules - enabling JDWP significantly
 degrades performance.
 - Use Kubernetes `NetworkPolicy` to limit which pods can reach port 40840 if your
 deployment environment requires it.
@@ -158,9 +159,9 @@ deployment environment requires it.
 |                           |                Tier 1                |                         Tier 2                         |
 |---------------------------|--------------------------------------|--------------------------------------------------------|
 | Block stream source       | Directly from Consensus Nodes        | From an upstream Block Node (Tier 1 or another Tier 2) |
-| Who runs it               | Governing Council / trusted entities | Community operators, enterprises — permissionless      |
+| Who runs it               | Governing Council / trusted entities | Community operators, enterprises - permissionless      |
 | `stream-publisher` plugin | **Required**                         | **Must be removed** from `plugins.names`               |
-| Hardware                  | Mainnet bare-metal specs             | Lower — sized to retention window                      |
+| Hardware                  | Mainnet bare-metal specs             | Lower - sized to retention window                      |
 
 > See [Block Node Types and Tiers](../../Block-Node-Types.md) and [Configuration Reference](../configuration.md) for full details.
 
@@ -168,10 +169,10 @@ deployment environment requires it.
 
 |        Type         |                     History retained                      |                          Typical use                          |
 |---------------------|-----------------------------------------------------------|---------------------------------------------------------------|
-| **Full Node**       | All history from genesis on local storage                 | Tier 1 mainnet — `plugin-profile-lfh` or `plugin-profile-all` |
-| **Rolling-History** | Recent history only (configurable window, e.g. 7–90 days) | Tier 2 — low-cost redistribution                              |
-| **Light Node**      | Minimal — health and status only                          | Development, testing, testnet                                 |
-| **Archive Server**  | Cold storage — no live streaming                          | Offline archival                                              |
+| **Full Node**       | All history from genesis on local storage                 | Tier 1 mainnet - `plugin-profile-lfh` or `plugin-profile-all` |
+| **Rolling-History** | Recent history only (configurable window, e.g. 7–90 days) | Tier 2 - low-cost redistribution                              |
+| **Light Node**      | Minimal - health and status only                          | Development, testing, testnet                                 |
+| **Archive Server**  | Cold storage - no live streaming                          | Offline archival                                              |
 
 > See [Block Node Types and Tiers](../../Block-Node-Types.md) for full details.
 
@@ -199,10 +200,10 @@ Select a pre-built Helm values override from
 
 |         Profile          |                                                   Use                                                    |
 |--------------------------|----------------------------------------------------------------------------------------------------------|
-| `plugin-profile-lfh`     | Tier 1 — full history on local NVMe + HDD                                                                |
-| `plugin-profile-rfh`     | Remote archival — cloud storage backend                                                                  |
-| `plugin-profile-all`     | Full history local + cloud backup *(testing only — plugins may conflict and produce unexpected results)* |
-| `plugin-profile-minimal` | Development / testnet — health and status only                                                           |
+| `plugin-profile-lfh`     | Tier 1 - full history on local NVMe + HDD                                                                |
+| `plugin-profile-rfh`     | Remote archival - cloud storage backend                                                                  |
+| `plugin-profile-all`     | Full history local + cloud backup *(testing only - plugins may conflict and produce unexpected results)* |
+| `plugin-profile-minimal` | Development / testnet - health and status only                                                           |
 
 For **Tier 2**, start from `plugin-profile-lfh` and remove `stream-publisher` from
 `plugins.names`. The presence of `stream-publisher` is the key difference between
@@ -228,7 +229,7 @@ blockNode:
     serverStatus: 40982  # SERVER_STATUS_PORT
 ```
 
-When set in Helm, do not also set these in `blockNode.config` — they are injected
+When set in Helm, do not also set these in `blockNode.config` - they are injected
 automatically as environment variables.
 
 > See [Configuration Reference](../configuration.md) for full details.
@@ -240,10 +241,14 @@ Key environment variables:
 |                 Variable                  |       Default        |           Purpose            |
 |-------------------------------------------|----------------------|------------------------------|
 | `SERVER_MAX_MESSAGE_SIZE_BYTES`           | 131,072,000 (125 MB) | Max HTTP/2 message size      |
-| `SERVER_SOCKET_SEND_BUFFER_SIZE_BYTES`    | 131,072              | TCP send buffer              |
-| `SERVER_SOCKET_RECEIVE_BUFFER_SIZE_BYTES` | 8,388,608            | TCP receive buffer           |
+| `SERVER_SOCKET_SEND_BUFFER_SIZE_BYTES`    | 0 (kernel autotune)  | TCP send buffer              |
+| `SERVER_SOCKET_RECEIVE_BUFFER_SIZE_BYTES` | 0 (kernel autotune)  | TCP receive buffer           |
 | `SERVER_MAX_TCP_CONNECTIONS`              | 1,000                | Max simultaneous connections |
 | `BACKFILL_MAX_INCOMING_BUFFER_SIZE`       | 104,857,600 (100 MB) | Backfill gRPC receive buffer |
+
+With `0`, the kernel autotunes the socket buffers up to the maximum in `net.ipv4.tcp_rmem` / `net.ipv4.tcp_wmem`. A
+positive size turns off autotuning and is capped at `net.core.rmem_max` / `net.core.wmem_max`, so raise those to at
+least the configured size. Otherwise the kernel silently caps them and the Block Node logs a WARNING at startup.
 
 > See [Configuration Reference](../configuration.md) for full details.
 
@@ -315,7 +320,7 @@ Both paths are configurable via `blockNode.health.liveness.endpoint` and
 
 ### What metrics should I alert on?
 
-**Medium severity — page on call:**
+**Medium severity - page on call:**
 
 |                        Metric                        |     Threshold     |
 |------------------------------------------------------|-------------------|
@@ -326,7 +331,7 @@ Both paths are configurable via `blockNode.health.liveness.endpoint` and
 | `blocknode_publisher_stream_errors`                  | > 5 in 60 s       |
 | `blocknode_files_recent_persistence_time_latency_ns` | > 20 milliseconds |
 
-**Low severity — investigate next business day:**
+**Low severity - investigate next business day:**
 
 |                    Metric                     |  Threshold  |
 |-----------------------------------------------|-------------|
@@ -339,7 +344,7 @@ Both paths are configurable via `blockNode.health.liveness.endpoint` and
 ### What log level should I run in production?
 
 Set `org.hiero.block.level = INFO` in production. Use `FINE` only when actively
-debugging — it generates significant volume.
+debugging - it generates significant volume.
 
 > **Note:** The chart default in `values.yaml` is `INFO`. If your deployment still shows
 > `FINE`, override it to `INFO` in your production Helm values.
@@ -377,7 +382,7 @@ subscribe activity.
 
 ### Does the Block Node reconnect to the Consensus Node automatically?
 
-**No.** The Block Node is the server — it does not initiate connections. The Consensus
+**No.** The Block Node is the server - it does not initiate connections. The Consensus
 Node is the client and opens the publish stream to the Block Node. If the stream closes
 (for any reason), the Block Node sends an `EndOfStream` response and waits passively.
 The Consensus Node is responsible for reconnecting.
@@ -425,7 +430,7 @@ Provisioner or run `task reset-upgrade`.
 ### How do I reset the Block Node state?
 
 > ⚠️ **Destructive operation.** A reset permanently deletes all locally stored block data.
-> After a reset, the node must backfill from a peer Block Node — on mainnet this can
+> After a reset, the node must backfill from a peer Block Node - on mainnet this can
 > take days or weeks. Back up PVC contents before proceeding.
 
 **Reset only (same version):**
@@ -452,8 +457,8 @@ Edit `plugins.names` in your Helm values (comma-separated plugin identifiers), t
 
 ```yaml
 plugins:
-  # Example: Tier 2 — stream-publisher removed
-  names: "backfill,block-access-service,blocks-file-recent,blocks-file-historic,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-subscriber,block-verification"
+  # Example: Tier 2 - stream-publisher removed
+  names: "backfill,block-access-service,blocks-file-recent,blocks-file-historic,facility-app-state,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-subscriber,block-verification"
 ```
 
 **Note:** Removing a plugin name skips loading on the next pod start but does not
@@ -474,8 +479,8 @@ scanning every `BACKFILL_SCAN_INTERVAL` (default 60 s) for gaps in local block s
 and fetching from configured peer sources.
 
 Backfill triggers in two scenarios:
-1. **Startup gaps** — blocks missing from storage when the pod starts.
-2. **Live-tail gaps** — gaps detected during normal operation (e.g. after a reset or
+1. **Startup gaps** - blocks missing from storage when the pod starts.
+2. **Live-tail gaps** - gaps detected during normal operation (e.g. after a reset or
 network interruption).
 
 ### How do I tune backfill retry behavior?
@@ -509,7 +514,7 @@ Nodes:
 ```
 
 All Tier 1 Block Nodes should have at least one source configured. More than one is
-recommended for redundancy — the backfill plugin selects by earliest available block,
+recommended for redundancy - the backfill plugin selects by earliest available block,
 then priority, then health score.
 
 > See [Preparing for WRB Cutover](../operations/preparing-your-block-node-for-wrb-cutover.md) for full details.
@@ -520,7 +525,7 @@ then priority, then health score.
 
 ### Who pays for ingress and egress costs?
 
-**Operators pay infrastructure costs directly** — their cloud provider credit card is on
+**Operators pay infrastructure costs directly** - their cloud provider credit card is on
 file and billed for all ingress, egress, and compute.
 
 **Hedera provides daily rewards** intended to offset operational expenses including
@@ -567,13 +572,13 @@ The Block Node public API protos live in `protobuf-sources/src/main/proto/block-
 
 |               Proto file               |                                           Services / messages defined                                           |
 |----------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `block_stream_publish_service.proto`   | `BlockStreamPublishService.publishBlockStream` — CN → BN ingestion                                              |
-| `block_stream_subscribe_service.proto` | `BlockStreamSubscribeService.subscribeBlockStream` — MN / Tier 2 consumption                                    |
-| `block_access_service.proto`           | `BlockAccessService.getBlock` — random-access single-block retrieval                                            |
-| `node_service.proto`                   | `BlockNodeService.serverStatus` / `serverStatusDetail` — metadata and health                                    |
-| `state_service.proto`                  | `StateService.stateSnapshot` — *(defined; not yet implemented)*                                                 |
-| `proof_service.proto`                  | `ProofService` — block content and state proofs *(not yet implemented)*                                         |
-| `reconnect_service.proto`              | `ReconnectService.reconnect()` — provides state + block data to lagging Consensus Nodes *(not yet implemented)* |
+| `block_stream_publish_service.proto`   | `BlockStreamPublishService.publishBlockStream` - CN → BN ingestion                                              |
+| `block_stream_subscribe_service.proto` | `BlockStreamSubscribeService.subscribeBlockStream` - MN / Tier 2 consumption                                    |
+| `block_access_service.proto`           | `BlockAccessService.getBlock` - random-access single-block retrieval                                            |
+| `node_service.proto`                   | `BlockNodeService.serverStatus` / `serverStatusDetail` - metadata and health                                    |
+| `state_service.proto`                  | `StateService.stateSnapshot` - *(defined; not yet implemented)*                                                 |
+| `proof_service.proto`                  | `ProofService` - block content and state proofs *(not yet implemented)*                                         |
+| `reconnect_service.proto`              | `ReconnectService.reconnect()` - provides state + block data to lagging Consensus Nodes *(not yet implemented)* |
 | `network-data.proto`                   | Shared network endpoint message types: `NetworkData`, `NetworkConnection`                                       |
 | `shared_message_types.proto`           | Shared message types: `BlockItemSet`, `BlockProof`, `EndOfStream`, etc.                                         |
 
@@ -601,22 +606,23 @@ The `tools-and-tests/` directory contains:
 
 Each plugin is identified by its `plugins.names` key (used in Helm configuration):
 
-|       Plugin name        |                                       Feature provided                                       |             Tier required             |
-|--------------------------|----------------------------------------------------------------------------------------------|---------------------------------------|
-| `stream-publisher`       | Accepts block streams from Consensus Nodes (`publishBlockStream` RPC)                        | Tier 1 only — **remove for Tier 2**   |
-| `stream-subscriber`      | Serves block streams to Mirror Nodes and downstream Block Nodes (`subscribeBlockStream` RPC) | Tier 1 and Tier 2                     |
-| `block-access-service`   | Single-block random-access retrieval (`getBlock` RPC)                                        | Tier 1 and Tier 2                     |
-| `server-status`          | `serverStatus` and `serverStatusDetail` RPCs — block range, version, plugin list             | All deployments                       |
-| `health`                 | Kubernetes liveness (`/healthz/livez`) and readiness (`/healthz/readyz`) probes              | All deployments                       |
-| `block-verification`     | Verifies block proofs before persistence (TSS and RSA/WRB)                                   | All deployments                       |
-| `blocks-file-recent`     | Short-term block persistence on local NVMe with configurable retention policy                | LFH and RFH profiles                  |
-| `blocks-file-historic`   | Long-term block persistence on local HDD (archive tier)                                      | LFH profile                           |
-| `cloud-storage-archive`  | Archives blocks to S3-compatible cloud storage (group files)                                 | RFH and cloud-backup profiles         |
-| `cloud-storage-expanded` | Uploads each verified block individually to S3-compatible storage                            | Optional                              |
-| `backfill`               | Fetches missing historical blocks from peer Block Nodes                                      | All production deployments            |
-| `roster-bootstrap-rsa`   | Loads the RSA node address book at startup for WRB block proof verification                  | Required for WRB cutover              |
-| `roster-bootstrap-tss`   | Loads TSS roster data for post-cutover block proof verification                              | Required post-cutover                 |
-| `facility-messaging`     | Internal LMAX Disruptor event bus — distributes block items to all plugins                   | All deployments (core infrastructure) |
+|       Plugin name        |                                        Feature provided                                        |             Tier required             |
+|--------------------------|------------------------------------------------------------------------------------------------|---------------------------------------|
+| `stream-publisher`       | Accepts block streams from Consensus Nodes (`publishBlockStream` RPC)                          | Tier 1 only - **remove for Tier 2**   |
+| `stream-subscriber`      | Serves block streams to Mirror Nodes and downstream Block Nodes (`subscribeBlockStream` RPC)   | Tier 1 and Tier 2                     |
+| `block-access-service`   | Single-block random-access retrieval (`getBlock` RPC)                                          | Tier 1 and Tier 2                     |
+| `server-status`          | `serverStatus` and `serverStatusDetail` RPCs - block range, version, plugin list               | All deployments                       |
+| `health`                 | Kubernetes liveness (`/healthz/livez`) and readiness (`/healthz/readyz`) probes                | All deployments                       |
+| `block-verification`     | Verifies block proofs before persistence (TSS and RSA/WRB)                                     | All deployments                       |
+| `blocks-file-recent`     | Short-term block persistence on local NVMe with configurable retention policy                  | LFH and RFH profiles                  |
+| `blocks-file-historic`   | Long-term block persistence on local HDD (archive tier)                                        | LFH profile                           |
+| `cloud-storage-archive`  | Archives blocks to S3-compatible cloud storage (group files)                                   | RFH and cloud-backup profiles         |
+| `cloud-storage-expanded` | Uploads each verified block individually to S3-compatible storage                              | Optional                              |
+| `backfill`               | Fetches missing historical blocks from peer Block Nodes                                        | All production deployments            |
+| `roster-bootstrap-rsa`   | Loads the RSA node address book at startup for WRB block proof verification                    | Required for WRB cutover              |
+| `roster-bootstrap-tss`   | Loads TSS roster data for post-cutover block proof verification                                | Required post-cutover                 |
+| `facility-app-state`     | Owns and persists TSS data, address book history and block ranges; notifies plugins of changes | All deployments (core infrastructure) |
+| `facility-messaging`     | Internal LMAX Disruptor event bus - distributes block items to all plugins                     | All deployments (core infrastructure) |
 
 > Both `roster-bootstrap-rsa` and `roster-bootstrap-tss` are included in the default plugin list. If
 > no bootstrap file or source URL is configured, each plugin logs a message and exits without
@@ -635,8 +641,8 @@ directly.
 
 **For on-chain registration (HIP-1137):**
 Each `service_endpoint` requires either:
-- `domain_name` — an FQDN of up to 250 ASCII characters, OR
-- `ip_address` — an IPv4 or IPv6 address in big-endian byte order.
+- `domain_name` - an FQDN of up to 250 ASCII characters, OR
+- `ip_address` - an IPv4 or IPv6 address in big-endian byte order.
 
 The two are mutually exclusive per endpoint. For production deployments a stable hostname
 is recommended so that IP address changes do not require a registration update.

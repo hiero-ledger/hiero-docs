@@ -117,8 +117,10 @@ is sized to the retention window rather than the full block history.
 | OS                | Linux host OS (Ubuntu 24.04 LTS or Debian 13.x LTS recommended)                   |
 
 > **Note:** The Fast NVMe Disk is at least partially optional for Rolling-History Tier 2 nodes. Its
-> necessity depends on whether the node manages live state and serves downstream subscribers. Consult
-> your Hashgraph PoC for the current recommended configuration if you are not managing live state.
+> necessity depends on whether the node manages live state and serves downstream subscribers. If you
+> are not managing live state, open an issue in the
+> [hiero-block-node repository](https://github.com/hiero-ledger/hiero-block-node) for guidance on
+> the current recommended configuration.
 
 **Bulk storage by retention window (at 10K TPS mainnet, 20% headroom):**
 
@@ -186,7 +188,13 @@ ships with the following defaults:
 | `blockNode.config.JAVA_OPTS` (heap flags) | `-Xms10G -Xmx10G -XX:MaxMetaspaceSize=512m` |
 
 Set the JVM heap (`-Xmx`) to between 75-90% of the container memory limit, leaving the
-remainder for JVM non-heap overhead (metaspace, code cache, native threads). For testnet
+remainder for JVM non-heap overhead (metaspace, code cache, native threads). The TSS library
+that verifies TSS block proofs adds little to that: the Block Node uses its verifier build,
+which leaves out the parameters needed only to construct proofs (the full library loads about
+200 MB of them off heap). Measured on a laptop, a JVM that only verifies TSS block proofs peaks
+around 140 MB resident memory with a 256 MB heap limit. At start the library extracts its native
+libraries (a few MB) into the directory named by the `java.io.tmpdir` system property (`/tmp` by
+default), which must be writable and allow executing mapped files. For testnet
 workloads, a memory limit matching the [recommended VM sizing](#recommended-vm-sizing) above
 (32 GB) is a reasonable starting point:
 
@@ -262,6 +270,26 @@ across all drives in the configuration, not per-drive requirements.
   network connections without excessive latency.
 - Excessive (over 30ms) inter-node latency risks stream backpressure and
   increased buffering requirements.
+
+### Host kernel network settings
+
+The Block Node leaves socket buffers to kernel autotuning by default, so the
+host's TCP limits bound per-connection throughput as latency grows.
+Recommended values (these are what solo-weaver provisions):
+
+|                  sysctl                   |      Recommended      |     Linux default     |
+|-------------------------------------------|-----------------------|-----------------------|
+| `net.ipv4.tcp_rmem`                       | `8192 65536 33554432` | `4096 131072 6291456` |
+| `net.ipv4.tcp_wmem`                       | `8192 65536 33554432` | `4096 16384 4194304`  |
+| `net.core.rmem_max` / `net.core.wmem_max` | `33554432`            | `212992`              |
+
+- `rmem_max` / `wmem_max` only matter if you set
+  `SERVER_SOCKET_*_BUFFER_SIZE_BYTES` explicitly.
+- If you raised `rmem_max` for an earlier release but left `tcp_rmem` /
+  `tcp_wmem` at their defaults, raise those too. Otherwise the receive buffer
+  drops from the old fixed size to the 6 MB autotune ceiling after upgrading.
+- Kernel socket memory is charged to the pod's memory limit under cgroup v2,
+  so leave headroom above the JVM heap for it.
 
 ---
 

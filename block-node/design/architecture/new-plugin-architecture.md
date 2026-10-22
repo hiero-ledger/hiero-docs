@@ -143,23 +143,23 @@ The Health Facility has responsibility for the following:
 
 #### `ApplicationStateFacility`
 
-Owns and persists the mutable node state (`TssData`, `NodeAddressBook`). These fields have been removed from `BlockNodeContext`. Plugins that need this state discover `ApplicationStateFacility` via `ServiceLoader` and register change listeners directly.
+Owns and persists the mutable node state (`TssData`, the RSA address book history, stored and available block ranges). It is itself a plugin: the `facility-app-state` module provides `ApplicationStateFacilityPlugin` as an `ApplicationStateFacility` service. These fields are not carried on `BlockNodeContext`; plugins read the current value from the facility and receive changes as application state notifications.
 
 ```java
 // State access
 TssData tssData();
-NodeAddressBook nodeAddressBook();
+RangedAddressBookHistory rangedAddressBookHistory();
+NodeAddressBook getAddressBookForBlock(long blockNum);
+List<BlockRange> storedBlocks();
 
-// State mutation (persists to disk and notifies listeners)
+// State mutation (persists to disk and notifies handlers)
 void updateTssData(TssData tssData);
-boolean updateAddressBook(NodeAddressBook nodeAddressBook);
-
-// Change listener registration
-void registerTssDataListener(Consumer<TssData> listener);
-void registerAddressBookListener(Consumer<NodeAddressBook> listener);
+boolean updateAddressBookHistory(RangedAddressBookHistory history);
+void addStoredBlockRange(LongRange blockRange);
+void updateAvailableBlocks();
 ```
 
-Plugins register listeners in `init()` so they receive updates as soon as the plugin is discovered. The plugin delivers the current value immediately upon listener registration if state is ready, and delivers each subsequent update as it occurs.
+Plugins that need to react to a change implement `ApplicationStateNotificationHandler` and register it with `BlockMessagingFacility.registerApplicationStateNotificationHandler(...)`, typically in `init()`. Plugins that need the state loaded at startup read it from the facility in `start()`, which runs after the facility has started and loaded its state from disk.
 
 ### `BlockProviderPlugin` (interface)
 
@@ -222,7 +222,7 @@ public void start() {
    - Each plugin uses context.serviceLoader() to discover any plugins it needs.
    - Missing required plugins are logged and the plugin marks itself unhealthy.
    - Plugins register HTTP/gRPC routes via ServiceBuilder.
-   - Plugins register state-change listeners with ApplicationStateFacility.
+   - Plugins register application state notification handlers with BlockMessagingFacility.
 
 6. Start Helidon WebServer using routes accumulated in ServiceBuilder.
 
@@ -233,8 +233,9 @@ public void start() {
 
 8. Node is RUNNING once all plugins have started (or been marked unhealthy).
 
-9. State changes (TssData, NodeAddressBook) are pushed directly to registered
-   listeners by ApplicationStateFacility. No onContextUpdate() broadcast occurs.
+9. State changes (TssData, address book history, block ranges) are persisted by
+   ApplicationStateFacility and dispatched to registered application state
+   notification handlers. No onContextUpdate() broadcast occurs.
 
 10. On shutdown signal:
     a. Transition to SHUTTING_DOWN.
@@ -256,7 +257,11 @@ uses org.hiero.block.node.spi.blockmessaging.BlockMessagingFacility;
 uses org.hiero.block.node.spi.historicalblocks.HistoricalBlockFacility;
 uses org.hiero.block.node.spi.historicalblocks.BlockProviderPlugin;
 uses org.hiero.block.node.spi.health.HealthFacility;
-uses org.hiero.block.node.spi.state.ApplicationStateFacility;
+uses org.hiero.block.node.spi.ApplicationStateFacility;
+
+// facility-app-state module-info.java
+provides org.hiero.block.node.spi.ApplicationStateFacility
+    with ApplicationStateFacilityPlugin;
 
 // facility-messaging module-info.java
 provides org.hiero.block.node.spi.BlockNodePlugin
@@ -290,7 +295,7 @@ Because `init()` may run in any order or in parallel, it must be entirely self-c
 - It must not call methods on other plugins directly.
 - It must not assume that any plugin's `awaitReady()` returns `true`.
 - It **may** call `context.serviceLoader().loadServices(FacilityInterface.class)` to obtain a reference to a plugin it depends on (the plugin object exists even if not yet ready).
-- It **may** call `registerTssDataListener(...)` on `ApplicationStateFacility` — listener registration is safe before the plugin is ready; the first delivery occurs once ready.
+- It **may** register an `ApplicationStateNotificationHandler` with the `BlockMessagingFacility` — registration is safe before the messaging facility starts; the startup state is delivered once the application state facility starts.
 - It **must** log an error and mark itself unhealthy if a required plugin is not found.
 
 ### `start()` Readiness Coordination
@@ -316,25 +321,27 @@ The `awaitReady()` contract for plugins:
 
 ### Mutable State Propagation via `ApplicationStateFacility`
 
-`TssData` and `NodeAddressBook` are owned by the `ApplicationStateFacility` plugin. Interested plugins register listeners in `init()`. State updates flow as follows:
+`TssData`, the RSA address book history, and the stored and available block ranges are owned by the `ApplicationStateFacility` plugin. Interested plugins register an `ApplicationStateNotificationHandler` in `init()`. State updates flow as follows:
 
 ```
 Bootstrap Plugin
     │
-    ▼ applicationState.updateTssData(newData)
-ApplicationStateFacilityImpl
+    ▼ applicationStateFacility.updateTssData(newData)
+ApplicationStateFacilityPlugin
+    │
+    ├── Install the new value (compare-and-set; older data is ignored)
+    │
+    ▼
+State dispatcher thread
     │
     ├── Persist to disk (JSON)
-    ├── Store in memory (volatile reference)
+    ▼ blockMessaging.sendTssDataUpdate(TssDataNotification)
+BlockMessagingFacility
     │
-    ▼ notify registered listeners
-    │
-    ├── TssBootstrapPlugin.onTssDataChanged(newData)
-    ├── VerificationPlugin.onTssDataChanged(newData)
-    └── ... any other registered listener
+    ▼ handler.handleTssDataUpdate(notification) for every registered handler
 ```
 
-This replaces the previous `onContextUpdate()` broadcast and the reconstruction of `BlockNodeContext`. Each listener is called directly and handles only the state it cares about.
+This replaces the previous `onContextUpdate()` broadcast and the reconstruction of `BlockNodeContext`. Each handler is called by the messaging facility and handles only the state it cares about.
 
 ### Inter-Plugin Messaging
 
@@ -470,23 +477,25 @@ flowchart TD
     TSS -->|uses| SPI
 ```
 
-### State Change Listener Flow
+### State Change Notification Flow
 
 ```mermaid
 sequenceDiagram
     participant B as Bootstrap Plugin
     participant ASF as ApplicationStateFacility
+    participant MSG as BlockMessagingFacility
     participant V as Verification Plugin
     participant T as TSS Plugin
 
-    Note over V,T: Listeners registered during init()
-    V->>ASF: registerTssDataListener(this::onTssDataChanged)
-    T->>ASF: registerTssDataListener(this::onTssDataChanged)
+    Note over V,T: Handlers registered during init()
+    V->>MSG: registerApplicationStateNotificationHandler(this)
+    T->>MSG: registerApplicationStateNotificationHandler(this)
 
     B->>ASF: updateTssData(newTssData)
-    ASF->>ASF: persist to disk
-    ASF->>V: onTssDataChanged(newTssData)
-    ASF->>T: onTssDataChanged(newTssData)
+    ASF->>ASF: install new value, persist to disk
+    ASF->>MSG: sendTssDataUpdate(TssDataNotification)
+    MSG->>V: handleTssDataUpdate(notification)
+    MSG->>T: handleTssDataUpdate(notification)
 ```
 
 ## Configuration
@@ -509,9 +518,9 @@ No metrics are defined by the plugin framework itself. Each plugin is expected t
 String METRICS_CATEGORY = "blocknode";
 ```
 
-The `ApplicationStateFacility` plugin manages stored and available blocks. It registers two observable gauges:
-- `blocknode.oldestBlockNumber` — oldest block available across all providers.
-- `blocknode.newestBlockNumber` — newest block available across all providers.
+The `ApplicationStateFacility` plugin manages stored and available blocks. It registers two observable gauges in `init()`, under the `blocknode` category:
+- `app_historical_oldest_block` — oldest block available across all providers.
+- `app_historical_newest_block` — newest block available across all providers.
 
 ## Exceptions
 
@@ -533,9 +542,9 @@ The `ApplicationStateFacility` plugin manages stored and available blocks. It re
 - **init() order independence**: Calling `init()` on all plugins in reverse alphabetical order produces the same end state as calling them in forward alphabetical order. No plugin fails due to ordering.
 - **Missing dependency handling**: Removing a required plugin's JAR from the module path causes the dependent plugin to log an error and mark itself unhealthy, while all other plugins start normally.
 - **awaitReady() gate**: A dependent plugin's `start()` does not proceed past the readiness check until the plugin's `awaitReady()` returns `true`. Verified by injecting an artificial delay in a plugin's `start()` and observing the dependent plugin waits.
-- **ApplicationStateFacility listener — initial delivery**: A plugin that registers a `TssDataListener` after the `ApplicationStateFacility` is ready receives the current `TssData` immediately upon registration.
-- **ApplicationStateFacility listener — update delivery**: Calling `applicationStateFacility.updateTssData(newData)` results in every registered listener being called with `newData`. No `onContextUpdate()` broadcast occurs; `BlockNodeContext` is not reconstructed.
-- **ApplicationStateFacility listener — NodeAddressBook**: Calling `applicationStateFacility.updateAddressBook(newBook)` delivers `newBook` to all registered `AddressBookListener` instances.
+- **ApplicationStateFacility — initial delivery**: A handler registered before the `ApplicationStateFacility` starts receives the state loaded from disk (`TssData`, address book history, stored and available blocks) as notifications once the facility starts. A plugin that starts afterwards reads the current value from the facility in `start()`.
+- **ApplicationStateFacility — update delivery**: Calling `applicationStateFacility.updateTssData(newData)` results in every registered handler being called with `newData`. No `onContextUpdate()` broadcast occurs; `BlockNodeContext` is not reconstructed.
+- **ApplicationStateFacility — address book history**: Calling `applicationStateFacility.updateAddressBookHistory(newHistory)` delivers `newHistory` to all registered handlers when it is newer than the current history.
 - **Plugin isolation**: Removing a plugin's JAR from the module path causes the node to start without that plugin's functionality, without failures in unrelated plugins.
 - **Back-pressure**: A block-item handler that sleeps for 100 ms per batch reduces the observed throughput of `sendBlockItems()` to match, without deadlock or data loss.
 - **No-back-pressure skip**: A `NoBackPressureBlockItemHandler` that processes slowly receives `onTooFarBehindError()` calls under sustained load without causing the publisher to block.

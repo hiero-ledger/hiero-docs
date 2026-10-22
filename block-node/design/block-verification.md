@@ -158,7 +158,22 @@ sources today:
 Before any session is started, the plugin validates the start of the block: the
 first item must be a block header and the header's number must match the block
 number announced with the items. If this validation fails, a failure
-notification is sent immediately and no session is created.
+notification is sent immediately and no session is created. The plugin then
+checks the hash algorithm the header declares: only `SHA2_256`, the one algorithm
+the node hashes with, is admitted. A block declaring any other value, including
+one the node does not recognize, is refused with an `UNSUPPORTED_STREAM_FORMAT`
+failure notification and no session is created. The `BlockHasher` always hashes
+with SHA-256 and the algorithm is never resolved from the header.
+
+The header check alone never sees a block from before the move to SHA-256:
+`SHA2_384` was the default value of the enumeration then, so the header of such a
+block carries no hash algorithm and decodes as `SHA2_256`. The hashing stage
+therefore also checks the block footer. The previous block root hash, the root
+of all previous block hashes and the start of block state root are leaves of the
+block root tree, so each must be one SHA-256 digest (32 bytes). A footer hash of
+any other size refuses the block with the same `UNSUPPORTED_STREAM_FORMAT`
+failure, before a root hash is computed. Together, the header check and the
+footer size check decide which blocks the node hashes.
 
 ### The Session Stages
 
@@ -168,10 +183,17 @@ stage skips the remaining work and goes straight to result handling.
 
 1. **Hashing.** The `BlockHasher` consumes the block's item batches as they
    arrive and incrementally hashes them into the block's subtrees, producing the
-   block root hash together with the collected block data and proofs. The block
-   root tree has a fixed 16-leaf shape — every position always contributes,
-   using `EMPTY_TREE_HASH` when a subtree, state root, or extension slot is
-   absent — so Merkle proof paths are stable across presence patterns. How
+   block root hash together with the collected block data and proofs. The
+   `BlockHasher` always hashes with SHA-256, the one algorithm the plugin admits:
+   every hash of the block root tree is a SHA-256 digest, a block whose footer
+   carries a hash of another size is refused with `UNSUPPORTED_STREAM_FORMAT`
+   (see [Receiving Blocks](#receiving-blocks)), and the state proof verifier
+   reconstructs its paths with the same algorithm. The record file
+   signatures of a wrapped record block are verified over SHA-384 payloads by
+   the RSA proof verifier, independently of the block hashing algorithm. The
+   block root tree has a fixed 16-leaf shape: every position always contributes,
+   using the empty tree hash when a subtree, state root, or extension slot is
+   absent, so Merkle proof paths are stable across presence patterns. How
    items map to subtrees, and how this stage remains forward compatible with
    future item types, is described in
    [Block Stream Forward Compatibility](./block-stream-forward-compatibility.md).
@@ -262,6 +284,8 @@ standard otherwise.
 | `MISSING_VERIFICATION_DATA` | Required verification data is unavailable (TSS data, RSA keys, or a required algorithm)                        | yes                  |
 | `UNRECOGNIZED_PROOF_TYPE`   | The proof(s) provided for the block are not of a recognized type                                               | yes                  |
 | `UNSUPPORTED_HAPI_VERSION`  | The block declares a HAPI version the node does not support                                                    | yes                  |
+| `UNSUPPORTED_ITEM_TYPE`     | The block contains an item type this version cannot process; an upgrade is required                            | yes                  |
+| `UNSUPPORTED_STREAM_FORMAT` | The block parses but is not a processable stream, including a block not hashed with SHA-256                    | yes                  |
 | `CANCELLED`                 | The session was cancelled after the complete block was received (evicted from the buffer, or shut down)        | yes                  |
 | `CANCELLED_INCOMPLETE`      | The session ended before the full block was received (superseded, or evicted/shut down while still incomplete) | yes                  |
 | `UNKNOWN_ERROR`             | An unexpected error occurred during verification                                                               | yes                  |
@@ -460,6 +484,13 @@ ends in a verification notification, and the plugin keeps running.
 - **Invalid start of block.** The first item of a new block is not a header, or
   the header's number does not match. A `MISSING_MANDATORY_ITEM` failure
   notification is sent and no session is started.
+- **Unsupported hash algorithm.** The header of a new block declares a hash
+  algorithm other than `SHA2_256`, the one the node hashes with. An
+  `UNSUPPORTED_STREAM_FORMAT` failure notification is sent and no session is
+  started. A block whose footer carries a hash that is not one SHA-256 digest,
+  such as a block from before the move to SHA-256 whose header carries no hash
+  algorithm, fails the hashing stage with the same `UNSUPPORTED_STREAM_FORMAT`
+  failure.
 - **Stage failure.** A stage that cannot continue (parse failure, missing item
   or field, bad proof, missing verification data) raises a session failure
   carrying the block number, source, and failure type. The result handling
@@ -513,3 +544,8 @@ ends in a verification notification, and the plugin keeps running.
 11. **Metrics.** Each metric in the table above changes exactly when its
     description says it should, including the labeled proof counter for each
     proof type and result.
+12. **Blocks not hashed with SHA-256.** A block whose header declares a hash
+    algorithm other than `SHA2_256` is refused before a session starts, and a
+    block whose footer carries a hash that is not one SHA-256 digest fails the
+    hashing stage. Both report `UNSUPPORTED_STREAM_FORMAT`, never
+    `UNKNOWN_ERROR`, for publisher and backfill blocks alike.

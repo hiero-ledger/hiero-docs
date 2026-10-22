@@ -167,7 +167,7 @@ grpcurl -plaintext -emit-defaults \
 The `firstAvailableBlock` and `lastAvailableBlock` fields should start advancing from their
 initial sentinel value (`18446744073709551615`) once blocks arrive. For instructions on
 downloading the protobuf bundle into `~/bn-proto`, see
-[Testing a Deployed Block Node Using the Simulator](./testing-a-deployed-block-node-using-the-simulator.md#step-5-test-block-node-accessibility-with-grpcurl)
+[Testing a Deployed Block Node Using the Simulator](./testing-a-deployed-block-node-using-the-simulator.md#prerequisites)
 in the prerequisite grpcurl setup section.
 
 ## Step 3: Run Load Tests with NLG
@@ -247,7 +247,7 @@ stream.
 Because the Block Node only persists blocks that pass verification, an advancing
 `lastAvailableBlock` confirms both ingestion and verification are working correctly.
 
-For the full metrics reference, see [configuration.md](../configuration.md#metrics).
+For the full metrics reference, see [configuration.md](../configuration.md#metrics-endpoint-configuration).
 
 **Check ingestion via `serverStatus`** (quick spot-check from outside the cluster):
 
@@ -309,7 +309,7 @@ clean.
 Follow the reset procedure in
 [Resetting and Upgrading the Block Node](./resetting-and-upgrading-the-block-node.md). For a
 Solo Provisioner-managed deployment, the standard path is
-[`block node reset`](./resetting-and-upgrading-the-block-node.md#reset-the-block-node-data).
+[`block node reset`](./resetting-and-upgrading-the-block-node.md#resetting-the-block-node).
 For a Taskfile-managed deployment, use
 [`task reset`](./resetting-and-upgrading-the-block-node.md#path-b-manual-taskfile-managed-deployments).
 

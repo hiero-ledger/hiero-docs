@@ -254,9 +254,11 @@ See [WRB CLI Runbook](./operations/wrb-cli-runbook.md).
 
 ***
 
-The hash of the genesis TSS Roster. Used alongside the [WRAPS](#wraps) verification key
-to verify [Aggregated Signatures](#aggregated-signatures) on block streams.
-Network-specific — each Hiero network has its own Ledger ID.
+The identity of a network's chain of trust, published by the network in block 0
+(`LedgerIdPublication`). It is the only input, besides the block itself, needed to verify
+[Aggregated Signatures](#aggregated-signatures) on block streams; the TSS library checks
+[WRAPS](#wraps) and the signature against it. Block Nodes treat it as opaque bytes.
+Network-specific: each Hiero network has its own Ledger ID.
 Defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200).
 
 ### Light Node
@@ -431,8 +433,8 @@ Defined in [Block Node Types and Tiers](../Block-Node-Types.md).
 ***
 
 The current set of Consensus Nodes and their consensus weights used by the TSS scheme.
-The genesis roster's hash is the [Ledger ID](#ledger-id). Use "Roster" in documentation
-— "Address Book" is an older, largely obsolete term.
+Every Roster of a network chains back to its genesis Roster, which the [Ledger ID](#ledger-id)
+identifies. Use "Roster" in documentation; "Address Book" is an older, largely obsolete term.
 
 ### RSA Bootstrap Roster
 
@@ -577,8 +579,9 @@ See [Preparing for WRB Cutover](./operations/preparing-your-block-node-for-wrb-c
 ***
 
 A secure multi-party computation (Powers-of-Tau) that produced the Universal Structured
-Reference String (SRS) for the WRAPS proving system. The ceremony is complete; artifacts
-ship with TSS library releases.
+Reference String (SRS) for the WRAPS proving system. The ceremony is complete; what
+verification needs is embedded in the TSS library, so a Block Node downloads or configures
+nothing for it.
 Specified in [HIP-1398](https://github.com/hiero-ledger/hiero-improvement-proposals/pull/1398).
 
 ---
@@ -590,9 +593,10 @@ Specified in [HIP-1398](https://github.com/hiero-ledger/hiero-improvement-propos
 ***
 
 A block for which a [Block Proof](#block-proof) has been received and the
-[Aggregated Signature](#aggregated-signatures) against the network's [Ledger ID](#ledger-id)
-and [WRAPS](#wraps) verification key is valid. Block Nodes persist only verified blocks;
-blocks delivered from the live stream (before verification completes) are unverified and may
+[Aggregated Signature](#aggregated-signatures) is valid against the network's
+[Ledger ID](#ledger-id) (the TSS library checks [WRAPS](#wraps) as part of that). Block Nodes
+persist only verified blocks; blocks delivered from the live stream (before verification
+completes) are unverified and may
 contain errors, be repeated, or be incomplete — the receiver is responsible for verification.
 See also: [Block Proof](#block-proof).
 
@@ -627,5 +631,6 @@ transaction processing. See [Cutover-Process.md](./Cutover-Process.md).
 Weighted Roster Attestation Proof System. A recursive SNARK proof mechanism that attests
 the active [Roster](#roster--tss-roster) is a valid descendant of the genesis roster,
 ensuring [Aggregated Signatures](#aggregated-signatures) remain verifiable as the roster
-evolves. The WRAPS verification key is constant across nearly all Hiero networks.
+evolves. The TSS library checks WRAPS whenever it verifies a TSS block signature and embeds
+what it checks WRAPS against, so nothing is configured per network.
 Defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200).

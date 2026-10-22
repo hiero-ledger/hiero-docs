@@ -58,6 +58,7 @@ that is mounted to the application container's plugin directory.
 
 ### Plugin Dependencies
 
+- **Required:** `facility-app-state` - Application state (TSS data, address books, block ranges); application will not start without it
 - **Required:** `facility-messaging` - Core messaging; application will not start without it
 - **Recommended:** `health` - Required for Kubernetes probes
 - **Recommended:** `server-status` - Metrics and status endpoints
@@ -69,7 +70,7 @@ in their values file:
 
 ```yaml
 plugins:
-  names: "facility-messaging,health,server-status,block-access-service,block-verification"
+  names: "facility-app-state,facility-messaging,health,server-status,block-access-service,block-verification"
 ```
 
 See the [Helm chart README](../../charts/block-node-server/README.md#plugin-configuration) for

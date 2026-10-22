@@ -121,14 +121,15 @@ is why the truly reserved categories (16 to 18) cannot be folded into the hash
 without an upgrade that defines the correct subtree.
 
 The 16 leaves of the block root tree (positions 0 to 15) are **always** fed
-into a single streaming Merkle hasher — the same primitive used for each
-category subtree — and any position without content contributes
-`EMPTY_TREE_HASH` (`SHA-384(0x00)`). This includes empty category subtrees,
-an absent state root, and every extension slot that is not populated yet. The
-16-leaf tree shape is therefore fully stable across all presence patterns, so
+into a single streaming Merkle hasher, the same primitive used for each
+category subtree, and any position without content contributes the empty
+tree hash (`SHA-256(0x00)`, `HashAlgorithm.emptyTreeHash()`). This includes
+empty category subtrees, an absent state root, and every extension slot that
+is not populated yet. The 16-leaf tree shape is therefore fully stable across
+all presence patterns, so
 Merkle proof paths for any fixed position are independent of which other
 positions are populated. An extension slot going from empty to populated
-replaces its `EMPTY_TREE_HASH` leaf with the real subtree root; the tree
+replaces its empty tree hash leaf with the real subtree root; the tree
 structure itself does not change.
 
 ## Design
@@ -287,7 +288,7 @@ Reading the table by kind:
 - **Categories 8 to 15** are `extension categories`. Their subtrees are already
   defined in the block's hash tree, with the names given here. A future item in
   one of them is hashed into the matching extension subtree, replacing that
-  slot's `EMPTY_TREE_HASH` leaf with the real subtree root — the tree shape
+  slot's empty tree hash leaf with the real subtree root; the tree shape
   does not change. *Fully forward compatible*.
 - **Categories 16 to 18** are reserved and carry no meaning yet. See
   [Where Forward Compatibility Ends](#where-forward-compatibility-ends).
@@ -359,7 +360,7 @@ flowchart LR
         OUTT[Outputs subtree]
         SCT[State changes subtree]
         TDT[Trace data subtree]
-        EXT["Extension subtrees 0 to 7 (defined, reserved for future items; each contributes EMPTY_TREE_HASH when empty)"]
+        EXT["Extension subtrees 0 to 7 (defined, reserved for future items; each contributes the empty tree hash when empty)"]
     end
     EH --> CHT
     RH --> CHT

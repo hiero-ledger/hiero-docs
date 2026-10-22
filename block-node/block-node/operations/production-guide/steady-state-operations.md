@@ -30,7 +30,7 @@ export BN=$(kubectl -n block-node get pod \
 
 ## Key metrics
 
-Dashboard links are provided by Hashgraph DevOps at handoff. The most important metrics to
+Dashboard links are configured as part of the Grafana Alloy setup included with the Block Node deployment. The most important metrics to
 watch:
 
 |         Category         |                                                          Metrics                                                          |               What to watch for                |
@@ -88,10 +88,11 @@ Replace `<RELEASE_NAME>` with the name shown in the `NAME` column of `helm -n bl
 
 ## Upgrades **[OPERATOR]**
 
-Upgrade obligations and timing are governed by the Operating Agreement. Hashgraph publishes
-chart versions and release notes; operators schedule upgrades against their own
-change-management process. Coordinate cohort-wide staggering on the shared channel to avoid
-simultaneous restarts. Security-critical upgrades are flagged by Hashgraph DevOps.
+Chart versions and release notes are published on the
+[hiero-block-node releases page](https://github.com/hiero-ledger/hiero-block-node/releases).
+Operators schedule upgrades against their own change-management process. Coordinate
+staggered restarts across your operator group to avoid simultaneous downtime.
+Security-critical upgrades are flagged in release notes.
 
 ```bash
 sudo solo-provisioner block node upgrade \
@@ -102,10 +103,10 @@ sudo solo-provisioner block node upgrade \
 ```
 
 Notes:
-- `<UPDATED_VALUES_FILE>` is the values overlay Hashgraph provides for the new release
+- `<UPDATED_VALUES_FILE>` is the values overlay for the new release
 - `--no-reuse-values` discards any previously applied values and uses only the specified
 file - always pass this flag to avoid inheriting stale chart defaults from a previous install
-- Use `--with-reset` only when explicitly instructed by Hashgraph DevOps - this clears all
+- Use `--with-reset` only when explicitly required by the upgrade release notes - this clears all
 block data and triggers a full re-backfill
 
 ---
@@ -122,17 +123,19 @@ kubectl -n block-node logs $BN --tail=2000
 uname -a && uptime && free -h && df -h
 ```
 
-Escalate through the agreed shared channel with Hashgraph DevOps. For P0 incidents, use the
-on-call contact provided at handoff.
+For escalation, open an issue in the
+[hiero-block-node repository](https://github.com/hiero-ledger/hiero-block-node) or use your
+network's operator communication channel.
 
 ---
 
 ## Backups and pre-incident hygiene
 
-- Hashgraph does **not** back up `live`, `archive`, or `application-state` volumes - block
-  data is reproducible from upstream by design
-- Hashgraph retains telemetry shipped via Alloy, subject to platform retention windows
-- Keep operator-side copies of `<HASHGRAPH_PROVIDED_VALUES_FILE>`, the RSA bootstrap roster
+- The `live`, `archive`, and `application-state` volumes are operator-managed and not backed
+  up centrally - block data is reproducible from upstream by design
+- Telemetry shipped via Alloy is retained by the monitoring platform, subject to its
+  retention windows
+- Keep operator-side copies of your values overlay file, the RSA bootstrap roster
   file (if using the pre-generated delivery path), and the TLS bundle
 - Document the `admin_key` recovery path - losing the key means the registration cannot be
   updated

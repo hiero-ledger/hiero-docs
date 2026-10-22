@@ -49,6 +49,8 @@ Reset the Block Node only when there is a concrete reason to discard local data.
 - **Switching networks** - moving an existing Block Node deployment from one network (for example `previewnet`) to another (for example `testnet`). The block numbering and address book differ across networks; the existing data will not be valid for the new network. Reset is required, not optional.
 - **Recovery from a bad version in dev or test environments** - rolling back from a development build that wrote incompatible data to disk. In `testnet` or `mainnet`, encountering this would represent a major process failure upstream and should not occur under normal release management.
 - **Cleaning a dev or test deployment** before reusing the cluster for a fresh integration run.
+- **Crossing a TSS library change** in an environment that runs with TSS enabled, such as the upgrade to BN 0.45.0 - the Block Node's TSS data must be reset, and its block store
+  too if it holds TSS signed blocks from before the change. See [Resetting TSS data across a TSS library change](#resetting-tss-data-across-a-tss-library-change).
 
 **Why it matters:** Reset is destructive. The Block Node wipes its live and historic block stores on disk and restarts; the pod will report an empty range (`firstAvailableBlock = lastAvailableBlock = uint64_max`) and must be backfilled from another Block Node that holds the relevant history (Consensus Nodes cannot supply it - they only retain a minimal recent buffer). Mirror Nodes pointed at the reset Block Node will see `NOT_AVAILABLE` until enough blocks have been backfilled to satisfy their `start_block_number`. On a mature network, full backfill can take days or weeks.
 
@@ -69,6 +71,8 @@ Schedule it during a low-traffic period.
 ## Upgrading the Block Node
 
 > If your upgrade involves enabling or disabling plugins, see [Plugin Management](../configuration.md#plugin-management) in the configuration reference.
+>
+> **Upgrading to 0.46.0:** `facility-app-state` is now a required plugin. If your deployment sets its own `plugins.names` (including per-version presets and values pinned in provisioning tooling), add `facility-app-state` before upgrading, or the node fails at startup with `No ApplicationStateFacility provided`. If you roll back to a version earlier than 0.46.0, remove it again: earlier versions do not publish that plugin, so the plugin resolution step fails if it is still listed. See [Plugin Management](../configuration.md#plugin-management).
 
 ### Step 1: Confirm the current state is healthy
 
@@ -150,6 +154,8 @@ curl -s "http://$BLOCK_NODE_HOST:16007/metrics" | grep blocknode_subscriber
 
 ### Step 5 (if rollback is required): revert to the previous version
 
+> Rolling back from 0.46.0 or later to an earlier version: remove `facility-app-state` from any custom `plugins.names` first, because earlier versions do not publish that plugin.
+>
 > **Note:** The procedure to revert to a previous chart version depends on how the Block Node was installed. Follow the path below that matches your install method.
 
 #### Mid-upgrade failures
@@ -246,6 +252,59 @@ grpcurl -plaintext -emit-defaults \
 
 - **Expected after ingestion resumes:** `firstAvailableBlock` populates with the first block the reset Block Node ingests (or backfills) and `lastAvailableBlock` advances as Consensus Nodes publish.
 
+## Resetting TSS data across a TSS library change
+
+A change of the TSS library can change the ledger ID of every TSS network and the TSS block signatures it accepts. BN 0.45.0 is such a change (see the
+[compatibility fence at BN 0.45.0](./version-compatibility.md#compatibility-fence-at-bn-0450--cn-0790--mn-01660)). The Block Node keeps its TSS data (the ledger ID and an
+informational Roster) in `/opt/hiero/block-node/application-state/tss-bootstrap-roster.json` (`app.state.tssBootstrapFilePath`) on the application state volume, so an upgrade
+carries the old ledger ID over. Every new TSS block then fails verification with `BAD_BLOCK_PROOF`; the first one logs a WARNING
+`The TSS library <version> rejected the block signature or the ledger id of the TSS data valid from block <N>` (the following ones log the library's reason at DEBUG).
+
+This only concerns environments that run with TSS enabled (Solo, CI and other test environments; no public network produces TSS signed blocks yet). Reset them together with their Consensus Nodes.
+
+- **The Block Node stored TSS signed blocks from before the change:** reset the block store as well, with
+  [Path B: Reset and upgrade in one step](#path-b-reset-and-upgrade-in-one-step). `task reset-upgrade` also clears the application state directory, which removes the TSS bootstrap
+  file. Those blocks do not verify on the new version.
+- **The Block Node holds no TSS signed blocks** (for example only Wrapped Record Blocks): keep the block store and reset only the TSS data, as below.
+
+1. Stop the Block Node, so it does not rewrite the file while you change it:
+
+   ```bash
+   task shutdown-bn
+   ```
+2. Delete `tss-bootstrap-roster.json` from the application state volume with a short-lived pod that mounts it, the same pattern `task reset-file-store-offline` uses. Replace the claim name with your deployment's application state PVC (`kubectl get pvc -n "$NAMESPACE"`):
+
+   ```bash
+   kubectl run bn-tss-reset -n "$NAMESPACE" --image=busybox --restart=Never --rm -i \
+     --overrides='{
+       "spec": {
+         "volumes": [
+           {"name":"appstate","persistentVolumeClaim":{"claimName":"application-state-storage-pvc"}}
+         ],
+         "containers": [{
+           "name":"bn-tss-reset","image":"busybox",
+           "command":["rm","-f","/appstate/tss-bootstrap-roster.json"],
+           "volumeMounts": [{"name":"appstate","mountPath":"/appstate"}]
+         }]
+       }
+     }'
+   ```
+
+   Instead of deleting the file, you can replace it with the TSS data of the new network, for example the `tss-bootstrap-roster.json` that the `blocks validate` command of the
+   Block Stream tool writes from a stream that contains the new `LedgerIdPublication`. Without a file, the Block Node takes the TSS data from block 0 of the new stream, which it
+   only does while it holds no TSS data.
+
+3. Upgrade to the new version and bring the Block Node back:
+
+   ```bash
+   task helm-upgrade
+   task start-bn
+   ```
+
+If the Block Node queries peers for TSS data (`roster.bootstrap.tss.blockNodeSourcesPath`), reset those peers first: a peer that still holds the old TSS data hands it straight back.
+
+After the reset, `serverStatusDetail` returns an empty `tssData` until the new TSS data arrives, then the new ledger ID; the verification plugin logs `Updated TSS data, valid from block <N>, roster entries <M>` at INFO when it installs it.
+
 ## Full uninstall (when reset is not enough)
 
 ### Path A: Solo Provisioner-managed deployments
@@ -272,18 +331,19 @@ This runs `helm uninstall $RELEASE -n $NAMESPACE`, deletes the live, logging, an
 
 ## Troubleshooting
 
-|                                                                                              Symptom                                                                                               |                                           Likely cause                                            |                                                                                                          Resolution                                                                                                           |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| New pod stuck in `ContainerCreating` after `task helm-upgrade`                                                                                                                                     | Image pull failure for the new `VERSION`.                                                         | `kubectl describe pod -n "$NAMESPACE"` - look for `ImagePullBackOff`. Verify the version tag exists at `ghcr.io/hiero-ledger/hiero-block-node` and any pull secrets are valid.                                                |
-| `helm upgrade` fails with `UPGRADE FAILED: ... has no deployed releases`                                                                                                                           | The release name is wrong, or the release was previously fully uninstalled.                       | Confirm `$RELEASE` and `$NAMESPACE` in `.env` match an installed release: `helm list -n "$NAMESPACE"`. If the previous release was cleared, use `task helm-release` to do a fresh install.                                    |
-| `firstAvailableBlock` regressed to `uint64_max` after an upgrade you did not run as a reset                                                                                                        | The new pod is reading from a different PVC, or the PVC was inadvertently recreated.              | `kubectl describe statefulset -n "$NAMESPACE"` - check that `volumeClaimTemplates` and bound PVCs match the names from the install. If PVCs were destroyed, the data is gone; treat as a reset and proceed with re-ingestion. |
-| `kubectl exec` inside `reset-file-store` fails with `error: unable to upgrade connection`                                                                                                          | The pod is restarting or not ready when the task runs.                                            | Wait until the pod is `Running` and ready, then re-run `task reset-file-store`.                                                                                                                                               |
-| `task reset-upgrade` succeeded but Mirror Nodes still see `NOT_AVAILABLE`                                                                                                                          | Expected - the reset Block Node has no blocks yet.                                                | Wait for ingestion or backfill to populate the block range. Mirror Nodes will reconnect automatically once `start_block_number` is within the available range.                                                                |
-| `helm rollback` fails with `release: not found`                                                                                                                                                    | Helm history was pruned, or the rollback target revision does not exist.                          | List available revisions with `helm history "$RELEASE" -n "$NAMESPACE"`. If no eligible target remains, redeploy by setting `VERSION` to the previous chart version and running `task helm-upgrade`.                          |
-| `solo-provisioner block node upgrade --chart-version <lower>` returns `block node chart version cannot be downgraded from X to Y`                                                                  | Expected - the Provisioner rejects in-place downgrades.                                           | Use the supported uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).                                                                                                              |
-| After a direct `helm rollback` on a Solo Provisioner-managed release, the next `solo-provisioner` command refuses a legitimate upgrade, skips a migration, or renders values for the wrong version | Provisioner state file is out of sync with the cluster - direct `helm` calls do not update it.    | Reconcile manually: re-align the Provisioner's recorded chart version with the actual cluster state, or follow the uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).             |
-| After `helm rollback` on a manual deployment, the pod fails to start or the StatefulSet appears to have extra/missing PVCs compared to the rolled-back chart                                       | Forward-only migrations were applied during the upgrade and were not reversed by `helm rollback`. | Treat as a full reset: `task clear-release` then `task helm-release` with the previous `VERSION`. Confirm block data loss is acceptable first.                                                                                |
-| Pod is `Running` but `serverStatus` returns `connection refused` from outside the cluster                                                                                                          | Service or LoadBalancer was recreated with a different external address.                          | `kubectl get svc -n "$NAMESPACE"` - confirm the external IP / port mapping; update downstream consumers if it changed.                                                                                                        |
-| After a cross-network reset, the Block Node refuses publisher connections from the new network's Consensus Nodes                                                                                   | Stale address-book or network configuration in the new chart values.                              | Confirm the Helm values for the new network are applied (`--values values-override/<new-network>.yaml`). Run a `task helm-upgrade` after correcting the values.                                                               |
+|                                                                                                Symptom                                                                                                |                                           Likely cause                                            |                                                                                                          Resolution                                                                                                           |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| New pod stuck in `ContainerCreating` after `task helm-upgrade`                                                                                                                                        | Image pull failure for the new `VERSION`.                                                         | `kubectl describe pod -n "$NAMESPACE"` - look for `ImagePullBackOff`. Verify the version tag exists at `ghcr.io/hiero-ledger/hiero-block-node` and any pull secrets are valid.                                                |
+| `helm upgrade` fails with `UPGRADE FAILED: ... has no deployed releases`                                                                                                                              | The release name is wrong, or the release was previously fully uninstalled.                       | Confirm `$RELEASE` and `$NAMESPACE` in `.env` match an installed release: `helm list -n "$NAMESPACE"`. If the previous release was cleared, use `task helm-release` to do a fresh install.                                    |
+| `firstAvailableBlock` regressed to `uint64_max` after an upgrade you did not run as a reset                                                                                                           | The new pod is reading from a different PVC, or the PVC was inadvertently recreated.              | `kubectl describe statefulset -n "$NAMESPACE"` - check that `volumeClaimTemplates` and bound PVCs match the names from the install. If PVCs were destroyed, the data is gone; treat as a reset and proceed with re-ingestion. |
+| `kubectl exec` inside `reset-file-store` fails with `error: unable to upgrade connection`                                                                                                             | The pod is restarting or not ready when the task runs.                                            | Wait until the pod is `Running` and ready, then re-run `task reset-file-store`.                                                                                                                                               |
+| `task reset-upgrade` succeeded but Mirror Nodes still see `NOT_AVAILABLE`                                                                                                                             | Expected - the reset Block Node has no blocks yet.                                                | Wait for ingestion or backfill to populate the block range. Mirror Nodes will reconnect automatically once `start_block_number` is within the available range.                                                                |
+| `helm rollback` fails with `release: not found`                                                                                                                                                       | Helm history was pruned, or the rollback target revision does not exist.                          | List available revisions with `helm history "$RELEASE" -n "$NAMESPACE"`. If no eligible target remains, redeploy by setting `VERSION` to the previous chart version and running `task helm-upgrade`.                          |
+| `solo-provisioner block node upgrade --chart-version <lower>` returns `block node chart version cannot be downgraded from X to Y`                                                                     | Expected - the Provisioner rejects in-place downgrades.                                           | Use the supported uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).                                                                                                              |
+| After a direct `helm rollback` on a Solo Provisioner-managed release, the next `solo-provisioner` command refuses a legitimate upgrade, skips a migration, or renders values for the wrong version    | Provisioner state file is out of sync with the cluster - direct `helm` calls do not update it.    | Reconcile manually: re-align the Provisioner's recorded chart version with the actual cluster state, or follow the uninstall + reinstall path from [Step 5 Path A](#path-a-solo-provisioner-managed-deployments).             |
+| After `helm rollback` on a manual deployment, the pod fails to start or the StatefulSet appears to have extra/missing PVCs compared to the rolled-back chart                                          | Forward-only migrations were applied during the upgrade and were not reversed by `helm rollback`. | Treat as a full reset: `task clear-release` then `task helm-release` with the previous `VERSION`. Confirm block data loss is acceptable first.                                                                                |
+| Pod is `Running` but `serverStatus` returns `connection refused` from outside the cluster                                                                                                             | Service or LoadBalancer was recreated with a different external address.                          | `kubectl get svc -n "$NAMESPACE"` - confirm the external IP / port mapping; update downstream consumers if it changed.                                                                                                        |
+| After an upgrade across a TSS library change (such as BN 0.45.0), every TSS block fails with `BAD_BLOCK_PROOF`, the first with a WARNING `The TSS library <version> rejected the block signature ...` | The TSS bootstrap file still carries the ledger ID of the earlier TSS library.                    | Reset the TSS data, see [Resetting TSS data across a TSS library change](#resetting-tss-data-across-a-tss-library-change).                                                                                                    |
+| After a cross-network reset, the Block Node refuses publisher connections from the new network's Consensus Nodes                                                                                      | Stale address-book or network configuration in the new chart values.                              | Confirm the Helm values for the new network are applied (`--values values-override/<new-network>.yaml`). Run a `task helm-upgrade` after correcting the values.                                                               |
 
 ---

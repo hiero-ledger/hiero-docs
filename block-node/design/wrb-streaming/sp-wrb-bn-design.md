@@ -44,7 +44,7 @@ throwaway migration code.
   <dd>A legacy Hedera record file wrapped into the Block Stream block format, carrying a
       <code>SignedRecordFileProof</code> verified against node RSA keys.</dd>
   <dt>TSS data</dt>
-  <dd>Threshold-signature-scheme material (ledger id, roster, WRAPS verification key) the BN needs;
+  <dd>Threshold-signature-scheme material (ledger id and an informational roster) the BN needs;
       produced by the CLI as <code>tss-bootstrap-roster.json</code>.</dd>
   <dt>Special-purpose BN ("Tier 0")</dt>
   <dd>A Block Node co-located with the CLI that serves as the initial WRB source and TSS peer
