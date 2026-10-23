@@ -41,20 +41,20 @@ The BN can send five response types during an active stream:
 | `BlockAcknowledgement` | After block proof received and verified           | Mark block secured and continue streaming the next block |
 | `SkipBlock`            | Another publisher is currently sending this block | Skip the current block and continue with the next        |
 | `ResendBlock`          | BN needs the CN to resend from a specific block   | Resend from the block number specified                   |
-| `BehindPublisher`      | BN is behind — CN is too far ahead                | Start a new stream from the block number specified       |
-| `EndOfStream`          | Terminal — stream is closed                       | See the status code and take the appropriate action      |
+| `BehindPublisher`      | BN is behind - CN is too far ahead                | Start a new stream from the block number specified       |
+| `EndOfStream`          | Terminal - stream is closed                       | See the status code and take the appropriate action      |
 
 ### What does `DUPLICATE_BLOCK` mean and what should the CN do?
 
 `DUPLICATE_BLOCK` means the block header the CN sent
 corresponds to a block that is already stored and verified by the BN. The CN closes the
-stream and resumes streaming — to this BN or a different available Block Node — beginning
+stream and resumes streaming - to this BN or a different available Block Node - beginning
 with the block after the last persisted and verified block.
 
 ### What does `PERSISTENCE_FAILED` mean and is the block lost?
 
 `PERSISTENCE_FAILED` (code 7 in `EndOfStream`) means the BN failed to durably store
-the block. **The block is not necessarily lost** — the CN still has it. The CN must:
+the block. **The block is not necessarily lost** - the CN still has it. The CN must:
 
 1. Start a new stream and resend the block to this BN or a different reliable BN.
 2. **Not discard the block** until it has been acknowledged as persisted and verified by
@@ -63,15 +63,15 @@ the block. **The block is not necessarily lost** — the CN still has it. The CN
 ### What does `BAD_BLOCK_PROOF` mean?
 
 `BAD_BLOCK_PROOF` (code 6 in `EndOfStream`) means a `BlockProof` item could not be
-validated. The CN closes the stream and resumes streaming — to this BN or a different
-available Block Node — from before the failed block.
+validated. The CN closes the stream and resumes streaming - to this BN or a different
+available Block Node - from before the failed block.
 
 ### When does the Block Node send `TIMEOUT` to the Consensus Node?
 
 `TIMEOUT` (code 4 in `EndOfStream`) is sent when the delay between stream items
-exceeds the BN's configured timeout — the CN did not deliver the next item within the
-allowed window. The CN closes the stream and resumes streaming — to this BN or a
-different available Block Node — from the timed-out block.
+exceeds the BN's configured timeout - the CN did not deliver the next item within the
+allowed window. The CN closes the stream and resumes streaming - to this BN or a
+different available Block Node - from the timed-out block.
 
 ### Does the Block Node reconnect to the Consensus Node if the stream drops?
 
@@ -105,7 +105,7 @@ closes.
 
 |               Code               |                                                      Meaning                                                      |                              What to do                               |
 |----------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| `INVALID_START_BLOCK_NUMBER` (4) | `start_block_number` is structurally invalid — below `first_available_block`, or beyond the future-request window | Fix the request parameters; do not retry with the same value          |
+| `INVALID_START_BLOCK_NUMBER` (4) | `start_block_number` is structurally invalid - below `first_available_block`, or beyond the future-request window | Fix the request parameters; do not retry with the same value          |
 | `NOT_AVAILABLE` (6)              | The block is not available on this BN at this time (e.g. pruned, or node is still backfilling)                    | Retry later with exponential backoff, or query a different Block Node |
 
 ### What should a subscriber do on `NOT_AVAILABLE`?
@@ -129,7 +129,7 @@ reasonable time.
 
 The BN **silently switches a slow subscriber session back to history** and streams from
 the historical block store until the subscriber catches up to the live stream. Gaps are
-never introduced by the BN — they can only come from the upstream unverified CN→BN
+never introduced by the BN - they can only come from the upstream unverified CN→BN
 stream.
 
 Blocks delivered from the live queue are unverified and may contain errors, be
@@ -146,8 +146,8 @@ its `BlockProof`.
 
 |        Code         |                                                           Meaning                                                            |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| `NOT_FOUND` (4)     | The block **should** be available on this BN (within its managed range) but was not found — may be a transient storage issue |
-| `NOT_AVAILABLE` (5) | The block is **outside** this BN's managed range — the BN has never held it or it has been pruned                            |
+| `NOT_FOUND` (4)     | The block **should** be available on this BN (within its managed range) but was not found - may be a transient storage issue |
+| `NOT_AVAILABLE` (5) | The block is **outside** this BN's managed range - the BN has never held it or it has been pruned                            |
 
 For `NOT_AVAILABLE`, call `serverStatusDetail` to determine the BN's `available_ranges`,
 then query a BN that covers the needed range.
@@ -225,7 +225,7 @@ Use `FILE_AND_GRPC` before "cutover" to send blocks while still directly uploadi
 ### Does `block-nodes.json` require a CN restart to take effect?
 
 **No.** The CN watches `block-nodes.json` for create, modify, and delete events and
-reloads it live. Changes take effect immediately — existing connections are shut down
+reloads it live. Changes take effect immediately - existing connections are shut down
 cleanly and new connections are established with the updated configuration. If the file
 is missing or fails to parse, the CN logs a warning and stops establishing new
 connections until a valid file is present.
@@ -244,7 +244,7 @@ solo block node add-external \
 ```
 
 Run this command after the network is initialised but **before** starting the Consensus
-Nodes — this ensures the BN receives every block from block 0 onwards.
+Nodes - this ensures the BN receives every block from block 0 onwards.
 
 > See [Load Testing with Solo and NLG](../operations/load-testing-a-deployed-block-node-using-solo-and-nlg.md) for more details.
 
@@ -254,7 +254,7 @@ Nodes — this ensures the BN receives every block from block 0 onwards.
 
 ### How do I generate an `admin_key` for Block Node registration?
 
-The `admin_key` is a **Hiero network key — not a generic EVM key or Hedera wallet key**.
+The `admin_key` is a **Hiero network key - not a generic EVM key or Hedera wallet key**.
 
 **Key type:** Ed25519 (standard recommendation). Generated via `PrivateKey.generateED25519()` in any of the seven official Hiero SDKs (Java, JavaScript, Go, Rust, Swift, C++, Python). Use an HSM or KMS if your operational policy requires hardware-backed key custody.
 
@@ -267,7 +267,7 @@ The `admin_key` is a **Hiero network key — not a generic EVM key or Hedera wal
 
 ```javascript
 const adminKey = PrivateKey.generateED25519();
-// Store the private key securely — loss is unrecoverable
+// Store the private key securely - loss is unrecoverable
 ```
 
 > See [Block Node On-Chain Registration](../block-node-on-chain-registration.md) for the
@@ -296,7 +296,7 @@ to a long-lived gRPC stream from a Block Node**:
 
 1. Run all common pre-upgrade checks (health, storage, provisioner version, artifact
    backup).
-2. **Clear the block store** — reset removes preview blocks incompatible with the WRB
+2. **Clear the block store** - reset removes preview blocks incompatible with the WRB
    format.
 3. Enable the `roster-bootstrap-rsa` plugin.
 4. Configure the RSA bootstrap roster (via Mirror Node auto-fetch, peer BN query, or
@@ -314,13 +314,13 @@ to a long-lived gRPC stream from a Block Node**:
 
 ### Which Block Node version supports which Consensus Node version?
 
-The Block Node is designed with long-term forward compatibility as a core goal — a given BN version is intended to remain
+The Block Node is designed with long-term forward compatibility as a core goal - a given BN version is intended to remain
 compatible with future CN versions for as long as practical. In practice this means the
 minimum compatible BN version for a given CN release is expected to change very slowly
 (for example, BN 1.0.0 might remain the minimum compatible version across many CN
 releases).
 
-That said, **always run the latest available Block Node release** — the minimum
+That said, **always run the latest available Block Node release** - the minimum
 compatible version is a floor, not a recommendation to stay pinned.
 
 The current BN release is built and tested against the CN version pinned in
@@ -334,6 +334,7 @@ grep "hederaVersion" hiero-dependency-versions/build.gradle.kts
 
 The E2E test suite (`solo-e2e-test.yml`) runs against the latest available version of
 each component dynamically rather than pinned pairs. For production compatibility
-guidance, consult your Hashgraph PoC.
+guidance, consult the release notes or open an issue in the
+[hiero-block-node repository](https://github.com/hiero-ledger/hiero-block-node).
 
 ---

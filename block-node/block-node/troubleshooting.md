@@ -74,6 +74,7 @@ INFO ServerStatusServicePlugin  Status heartbeat: oldestBlock=0 newestBlock=896 
 |                               Grep tag                                |                    Typically means                     |                                                     First action                                                      |
 |-----------------------------------------------------------------------|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | `VerificationServicePlugin` (WARNING)                                 | A block failed signature / proof verification          | Check `blocknode_verification_blocks_failed_total`; a spike may signal upstream or key issues                         |
+| `The TSS library` (WARNING / SEVERE)                                  | The TSS library cannot load, or rejected a TSS block   | See [TSS library cannot verify](#block-node-shuts-down-at-start-tss-library-cannot-verify) or `BAD_BLOCK_PROOF` below |
 | `BackfillPlugin` (WARNING)                                            | Backfill could not persist / verify / re-queue a block | Check storage & verification health; watch `blocknode_backfill*` metrics (transient "cannot reach upstream" is DEBUG) |
 | `BlockFileRecentPlugin` / `BlockFileHistoricPlugin` (WARNING/SEVERE)  | Storage read/write or archive failure                  | Check disk space and I/O - see [Disk full](#disk-full--out-of-space)                                                  |
 | `Failed to upload` (BlockUploadTask / TempArchiveUploadTask, WARNING) | Cloud archive upload failed                            | Check bucket credentials/connectivity; watch `cloud_storage_archive_failed_tasks`                                     |
@@ -386,6 +387,11 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
      ```
 3. **Resolution**
    - For `BAD_BLOCK_PROOF`: this is a proof validation failure. Examine the surrounding log context to identify the block and proof type that failed. If the error recurs consistently, verify the upstream source is sending correct, uncorrupted block data. Restarting the Block Node alone will not resolve this if the upstream is still sending bad proofs.
+   - For `BAD_BLOCK_PROOF` on every TSS block after an upgrade, the first with a WARNING
+     `The TSS library <version> rejected the block signature or the ledger id of the TSS data valid from block <N>`: the Block Node's TSS data (its ledger ID) comes from a network
+     that used an earlier TSS library, typically a TSS bootstrap file kept across the upgrade to BN 0.45.0. Reset the TSS data as described in
+     [Resetting TSS data across a TSS library change](./operations/resetting-and-upgrading-the-block-node.md#resetting-tss-data-across-a-tss-library-change). If the TSS data is
+     current, the publisher signs with another TSS library; check the Consensus Node version against [Version Compatibility](./operations/version-compatibility.md).
    - For `MISSING_VERIFICATION_DATA` with RSA block proofs (WRBs): the RSA bootstrap roster is not configured or not accessible inside the container.
      - Confirm the bootstrap file path is set in your Block Node configuration and that the directory is volume-mounted into the container.
      - Default RSA roster path: `/opt/hiero/block-node/application-state/rsa-bootstrap-roster.json` (`app.state.rsaBootstrapFilePath`). See [Provision the RSA bootstrap roster](./operations/preparing-your-block-node-for-wrb-cutover.md#provision-the-rsa-bootstrap-roster) for how to generate and deliver the file.
@@ -393,6 +399,32 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
      - Default TSS bootstrap path: `/opt/hiero/block-node/application-state/tss-bootstrap-roster.json` (`app.state.tssBootstrapFilePath`). See [Configure TSS bootstrap](./operations/preparing-your-block-node-for-wrb-cutover.md#configure-tss-bootstrap-if-tss-is-enabled) for both delivery options.
 4. **Verification**
    - After providing the missing bootstrap data and restarting the Block Node, query `serverStatusDetail`. A non-empty `nodeAddressBook` field confirms the RSA roster loaded; a non-empty `tssData` field confirms TSS data loaded.
+
+---
+
+### Block Node shuts down at start (TSS library cannot verify)
+
+> **Applies to:** Block Nodes from BN 0.45.0 (after 0.45.0-rc2) with the `block-verification` plugin.
+
+1. **Triage**
+   - The pod restarts repeatedly shortly after start, and the log of the previous container ends with `The TSS library <version> cannot verify block proofs in this process, shutting down` (SEVERE), followed by `Shutting down, reason=...`.
+   - The verification plugin loads the TSS library before it starts. A library that cannot load stays unusable for the whole process, so the Block Node shuts down instead of failing every valid TSS block proof. Kubernetes restarts the pod, which fails the same way until the cause is fixed.
+2. **Logs**
+
+   ```bash
+   kubectl -n block-node logs <pod> --previous | grep -E -A 20 "TSS library"
+   ```
+
+   - A WARNING `The TSS library <version> could not be loaded (temp directory <dir>)` with a stack trace: the library threw while loading, and the stack trace names the cause.
+   - No such WARNING: the library loaded but reported that it cannot verify; its own message precedes the SEVERE line.
+3. **Resolution**
+   - The TSS library extracts its native libraries (a few MB) into the directory named by the `java.io.tmpdir` system property (`/tmp` by default) and maps them for execution. Make
+     sure that directory exists, is writable by the Block Node user, has free space and is not mounted `noexec`. With `readOnlyRootFilesystem: true` in the container
+     `securityContext`, mount a writable `emptyDir` at `/tmp`, or point `-Djava.io.tmpdir=<dir>` in `JAVA_OPTS` at a writable directory that allows execution.
+   - An `UnsatisfiedLinkError` that names the operating system or CPU architecture: the TSS library ships native libraries for Linux and macOS on amd64 and arm64, and for Windows on amd64. Run the Block Node on one of those platforms.
+   - A `NoSuchMethodError` or `NoClassDefFoundError` from `com.hedera.cryptography` classes: the plugins directory holds TSS library jars of another version than the `block-verification` plugin was built with. Reinstall the plugins of a single Block Node release.
+4. **Verification**
+   - The startup log shows `TSS library <version> ready to verify block proofs, loaded in <N> ms` at INFO, and the pod stays ready.
 
 ---
 
@@ -411,6 +443,8 @@ The table below is a **summary-only quick reference**. Use the runbooks above fo
 | Blocks not being backfilled                               | Log entries show backfill warnings, missing historical ranges                                                                                    | Check `blocknode_backfill*` metrics, `BLOCK_NODE_EARLIEST_MANAGED_BLOCK` / `BACKFILL_START_BLOCK` config                                                   | Fix earliest-block config, restart node if required, ensure healthy upstream archival source                                                                                                                                                                                   |
 | Block verification fails with `BAD_BLOCK_PROOF`           | `BAD_BLOCK_PROOF` in verification logs                                                                                                           | Block proof validation failure; block root hash does not match or proof is otherwise invalid                                                               | Examine log context around the error to identify the block and proof type; verify the upstream source is sending correct, uncorrupted block data                                                                                                                               |
 | Block verification fails with `MISSING_VERIFICATION_DATA` | `MISSING_VERIFICATION_DATA` / `VerificationSessionFailedException` in verification logs                                                          | RSA address book data missing (WRB/RSA proofs) or TSS data missing (TSS proofs); file not accessible inside the container                                  | For RSA proofs: set `app.state.rsaBootstrapFilePath` and mount the file inside the container. For TSS proofs: set `app.state.tssBootstrapFilePath`; see [WRB cutover doc](./operations/preparing-your-block-node-for-wrb-cutover.md#configure-tss-bootstrap-if-tss-is-enabled) |
+| TSS blocks fail with `BAD_BLOCK_PROOF` after upgrade      | WARNING `The TSS library <version> rejected the block signature or the ledger id ...` for the first TSS block, DEBUG after                       | TSS data (ledger ID) kept from before a TSS library change, for example across the upgrade to BN 0.45.0                                                    | Reset the TSS data; see [Resetting TSS data](./operations/resetting-and-upgrading-the-block-node.md#resetting-tss-data-across-a-tss-library-change)                                                                                                                            |
+| Node shuts down at start (TSS library cannot verify)      | Pod restarts; log ends with `The TSS library <version> cannot verify block proofs in this process, shutting down`                                | WARNING `The TSS library <version> could not be loaded (temp directory <dir>)`: temp directory not writable or `noexec`, or unsupported platform           | Make `java.io.tmpdir` writable and executable (writable `emptyDir` at `/tmp`); see [the runbook](#block-node-shuts-down-at-start-tss-library-cannot-verify)                                                                                                                    |
 
 ---
 

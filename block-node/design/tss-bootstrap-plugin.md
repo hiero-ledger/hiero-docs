@@ -24,7 +24,7 @@ We intend to create a new Block Node plugin (TSSBootstrapPlugin) that queries an
 - BN loads persisted TssData at startup
 - BN periodically contacts peer BNs to get their TssData
 - BN makes TssData available via the ServerStatusDetail API
-- BlockNodeApp provides an interface for BN Plugins to update TssData
+- The ApplicationStateFacility plugin provides an interface for BN Plugins to update TssData
 - BN uses TssData.validFromBlock to determine which TssData is the latest
 - BN updates plugins, on a separate thread, via a `TssDataNotification` when the TssData changes
 
@@ -44,17 +44,19 @@ We intend to create a new Block Node plugin (TSSBootstrapPlugin) that queries an
       This hinTS signature is verified using a daily hinTS verification key.</dd>
 </dl>
 <dl>
-  <dt>Verification Key</dt>
-  <dd>The WRAPS verification key used to verify the WRAPS proof, with respect to a given ledger ID. This key is about 1.7KB.</dd>
+  <dt>WRAPS verification parameters</dt>
+  <dd>What the TSS library verifies WRAPS against. They are embedded in the TSS library, so no WRAPS verification key is
+      configured, stored in TssData or exchanged between Block Nodes.</dd>
 </dl>
 <dl>
   <dt>Ledger ID</dt>
-  <dd>SHA-256 hash of the genesis TSS Address Book. This is 32 bytes.</dd>
+  <dd>The identity of the network's chain of trust, published by the network in block 0 (LedgerIdPublication). The
+      Block Node treats it as opaque and passes it to the TSS library with every verification.</dd>
 </dl>
 <dl>
   <dt>Schnorr public / private key</dt>
-  <dd>A key produced privately by each node and used during the address book update process to adopt a new TSS roster.
-      This key may also directly sign a block proof if the WRAPS process is not enabled.</dd>
+  <dd>A key produced privately by each node and used during the Roster update process to adopt a new TSS Roster.
+      The Block Node does not use it to verify block proofs; the public keys appear only in the informational Roster.</dd>
 </dl>
 
 ## Entities
@@ -69,7 +71,7 @@ We intend to create a new Block Node plugin (TSSBootstrapPlugin) that queries an
 - Processes requests to change `TssData`
 - Persists `TssData`
 - Loads persisted `TssData` prior to plugin initialization
-- Implemented by the `BlockNodeApp`
+- Implemented by the `ApplicationStateFacilityPlugin` (`facility-app-state`)
 
 ### BlockNodeContext
 
@@ -112,24 +114,30 @@ We intend to create a new Block Node plugin (TSSBootstrapPlugin) that queries an
 ```markdown
 /**
  * TSS information<br/>
- * `TssData` contains the Ledger Id, wraps validation key, and TssRoster information
- *  It is returned by the serverStatusDetail service
+ * `TssData` contains the Ledger Id, the block it is valid from, and informational
+ * TssRoster information.
+ * It is returned by the serverStatusDetail service.
  *
- * All fields in this message SHALL be filled in, or none.
+ * The `ledger_id` and `valid_from_block` fields SHALL be filled in, or none.
  */
 message TssData {
     /**
-     * The ledger id
+     * The ledger id.<br/>
+     * The only input, besides a block signature, needed to verify a TSS block proof.
      */
     bytes ledger_id = 1;
 
     /**
-     * The wraps verification key
+     * The wraps verification key.<br/>
+     * No longer used: the TSS library embeds what it verifies against.
+     * Producers SHOULD leave this field empty and consumers SHALL ignore it.
      */
     bytes wraps_verification_key = 2;
 
     /**
-     * The current TSS roster
+     * The current TSS roster.<br/>
+     * Informational only, it is not needed to verify a TSS block proof.
+     * This field MAY be unset.
      */
     TssRoster current_roster = 3;
 
@@ -149,11 +157,6 @@ message TssRoster {
      * The list of `RosterEntry`
      */
     repeated RosterEntry roster_entries = 1;
-
-    /**
-     * The starting block number this TssData is valid from
-     */
-    uint64 valid_from_block = 2;
 }
 
 /**
@@ -186,7 +189,7 @@ message RosterEntry {
 ## Design
 
 - Delivers TSS booststrap information to a Block Node that does not have access to the network Block 0 transactions.
-  - A new Block Node needs to learn the current TSS state (roster, verification key, ledger ID)
+  - A new Block Node needs to learn the current TSS state (ledger ID and, for information, the Roster)
     - Plugin implements the existing `BlockNodePlugin` interfaces
     - The plugin queries a peer BN's serverStatusDetail gRPC endpoint to retrieve TSS information
       - gRPC peer communication follows the same WebClient pattern used elsewhere in the codebase
@@ -195,7 +198,7 @@ message RosterEntry {
       - Uses the greatest `TssData.validFromBlock` to determine which `TssData` to use.
       - Persists the latest `TssData`
       - Notifies plugins with a `TssDataNotification`, sent on a separate thread, when the `TssData` changes.
-      - Implemented by the `BlockNodeApp`
+      - Implemented by the `ApplicationStateFacilityPlugin` (`facility-app-state`)
     - The plugin checks it's config at startup to see if `TSSData` is present in the config
     - `TssBootstrapPluginConfig` can be used for both testing and temporary initialization for a Block Node
     - The plugin will periodically query its peers for TSS data updates.
@@ -229,7 +232,6 @@ Consider using mermaid to generate one or more of the following:
 ### TssBootstrapPlugin (TssBootstrapConfig)
 
 - `ledgerId`. Base64 encoded `ledgerId`
-- `wrapsVerificationKey`. Base64 encoded `wrapsVerificationKey`
 - `nodeId`. The node id
 - `weight`. The weight
 - `schnorrPublicKey`, Base64 encoded 'schnorrPublicKey'

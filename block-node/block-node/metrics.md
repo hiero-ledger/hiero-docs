@@ -113,6 +113,8 @@ Observes inbound streams from publishers.
 | Gauge   | `publisher_lowest_block_number_inbound`      | Lowest incoming block number                                                                                |
 | Gauge   | `publisher_highest_block_number_inbound`     | Highest incoming block number                                                                               |
 | Gauge   | `publisher_open_connections`                 | Connected publishers                                                                                        |
+| Gauge   | `publisher_active_handlers`                  | Connected publishers not in passive mode: newly connected, or most recent request was not `AcknowledgeOnly` |
+| Gauge   | `publisher_passive_handlers`                 | Connected publishers whose most recent request was `AcknowledgeOnly`                                        |
 | Counter | `publisher_blocks_ack_sent`                  | Block‑ack messages sent                                                                                     |
 | Gauge   | `publisher_latest_block_number_acknowledged` | Latest block number acknowledged by the Block Node                                                          |
 | Counter | `publisher_stream_errors`                    | Publisher connection streams that end in an error                                                           |
@@ -267,8 +269,8 @@ Tracks the count and byte data size regarding single block uploads
 | Counter | `cloud_expanded_total_upload_bytes`    | Total compressed bytes successfully uploaded.                                                                                                                     |
 | Counter | `cloud_expanded_upload_latency_ns`     | Total time in nanoseconds for upload.                                                                                                                             |
 | Gauge   | `cloud_expanded_pending_retry_blocks`  | Current count of blocks buffered in memory and awaiting a background retry upload.                                                                                |
-| Counter | `cloud_expanded_retry_success_total`   | Blocks recovered by a later background retry after an initial upload failure.                                                                                     |
-| Counter | `cloud_expanded_retry_exhausted_total` | Blocks dropped after exhausting all retry attempts, evicted from the retry buffer to make room for a newer failure, or still buffered when the plugin shuts down. |
+| Counter | `cloud_expanded_retry_success`         | Blocks recovered by a later background retry after an initial upload failure.                                                                                     |
+| Counter | `cloud_expanded_retry_exhausted`       | Blocks dropped after exhausting all retry attempts, evicted from the retry buffer to make room for a newer failure, or still buffered when the plugin shuts down. |
 
 ---
 
@@ -291,7 +293,7 @@ Tracks RSA address book loading and peer requests used to bootstrap the consensu
 ### roster-bootstrap-tss
 
 **Plugin:** `roster-bootstrap-tss`
-Tracks [TSS](./glossary.md#tss-hintsts) data requests used to bootstrap the consensus node roster.
+Tracks [TSS](./glossary.md#tss-hints) data requests used to bootstrap the consensus node roster.
 
 |  Type   |        Name         |            Description             |
 |---------|---------------------|------------------------------------|

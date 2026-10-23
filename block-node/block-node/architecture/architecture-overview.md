@@ -37,13 +37,13 @@ Additional details regarding Service interactions are illustrated in [Block-Node
 
 Multiple API data flows occur within the Block Node, primarily centered around block item processing and distribution.
 Key flows include:
-- **Block Stream Publish API Flow:** Incoming block items from gRPC streams are handled via the `StreamPublisherPlugin`
-and distributed to plugins via the `BlockMessagingFacility`.
+- **Block Stream Publish API Flow:** Incoming block items from gRPC streams are handled via the `stream-publisher`
+plugin and distributed to plugins via the `BlockMessagingFacility`.
 - **Block Access API Flow:** Block access requests from gRPC clients are routed to the appropriate block provider
 plugins for retrieval.
 - **Block Stream Subscription API Flow:** The unverified block stream is served to subscribers via the
-`SubscriberServicePlugin`.
-- **Backfilling Flow:** Missing historical blocks are retrieved by the `BackfillPlugin`.
+`stream-subscriber` plugin.
+- **Backfilling Flow:** Missing historical blocks are retrieved by the `backfill` plugin.
 
 These flows are illustrated in detail in the [Data Flow](data-flow.md) document.
 
@@ -58,26 +58,26 @@ These flows are illustrated in detail in the [Data Flow](data-flow.md) document.
 - **Block Management:** Block storage and access is managed by implementations of `BlockProviderPlugin` in cooperation
   with one implementation of the `HistoricalBlockFacility`. Together these aggregate multiple block providers and expose
   a unified view of available blocks.
-- **Block Verification:** Blocks are verified for integrity using the `BlockVerificationServicePlugin` which builds the
+- **Block Verification:** Blocks are verified for integrity using the `block-verification` plugin which builds the
   virtual merkle tree and validates the block proof prior to persistence.
 
 ## Plugins
 
 The Block Node's functionality is extended through a variety of plugins, each implementing the `BlockNodePlugin` interface.
 Key plugins include:
-- **BackfillPlugin:** Helps to ensure the stored block stream is complete by retrieving missing blocks from other Block Nodes.
-- **BlockAccessServicePlugin:** Provides a block retrieval API.
-- **BlocksFilesHistoricPlugin:** Provides long term block persistence and retrieval.
-- **BlocksFilesRecentPlugin:** Provides short term block persistence and retrieval, with a retention policy to limit storage use and duration.
-- **CloudStorageArchivePlugin:** Archives blocks to cloud storage (replaces the deprecated S3-Archive plugin).
-- **CloudStorageExpandedPlugin:** Provides expanded cloud storage with additional access controls.
-- **HealthServicePlugin:** Provides kubernetes health check endpoints, additional status endpoints to integrate with Kubernetes features, and overall system health decision support.
-- **RosterBootstrapRsaPlugin:** Bootstraps the RSA roster used for WRB verification at first startup.
-- **RosterBootstrapTssPlugin:** Bootstraps the TSS roster for post-cutover block verification.
-- **ServerStatusServicePlugin:** Provides block node status API endpoints.
-- **StreamPublisherPlugin:** Provides a block stream publishing API as documented in the [communication protocol](./../../design/communication-protocol/README.md).
-- **SubscriberServicePlugin:** Provides an _unverified_ Block Subscription API.
-- **BlockVerificationServicePlugin:** Verifies incoming blocks for integrity prior to persistence.
+- **`backfill`:** Helps to ensure the stored block stream is complete by retrieving missing blocks from other Block Nodes.
+- **`block-access-service`:** Provides a block retrieval API.
+- **`blocks-file-historic`:** Provides long term block persistence and retrieval.
+- **`blocks-file-recent`:** Provides short term block persistence and retrieval, with a retention policy to limit storage use and duration.
+- **`cloud-storage-archive`:** Archives blocks to cloud storage (replaces the deprecated S3-Archive plugin).
+- **`cloud-storage-expanded`:** Provides expanded cloud storage with additional access controls.
+- **`health`:** Provides Kubernetes health check endpoints, additional status endpoints to integrate with Kubernetes features, and overall system health decision support.
+- **`roster-bootstrap-rsa`:** Bootstraps the RSA roster used for WRB verification at first startup.
+- **`roster-bootstrap-tss`:** Bootstraps the TSS roster for post-cutover block verification.
+- **`server-status`:** Provides block node status API endpoints.
+- **`stream-publisher`:** Provides a block stream publishing API as documented in the [communication protocol](./../../design/communication-protocol/README.md).
+- **`stream-subscriber`:** Provides an _unverified_ Block Subscription API.
+- **`block-verification`:** Verifies incoming blocks for integrity prior to persistence.
 
 For additional details on plugins, refer to the [Plugins](./plugins.md).
 

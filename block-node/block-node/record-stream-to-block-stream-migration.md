@@ -8,7 +8,7 @@ This document describes what changes between [record streams](./glossary.md#reco
 
 The record stream was the consensus network's original output format. It split the network's per-block output across four separate file types - record files for transactions, sidecar files for trace data, signature files for per-node RSA signatures, and event stream files for hashgraph events. Verifying a record file required collecting and verifying RSA signatures from a majority of consensus nodes, an operation whose cost scales linearly with the node count. State changes were not part of the stream at all.
 
-The block stream, specified in [HIP-1056](https://hips.hedera.com/hip/hip-1056), unifies the four record-stream artifacts into a single ordered feed of `BlockItem` messages and adds two capabilities that did not exist in the record stream: each block carries its own self-contained cryptographic proof (the Block Proof) signed with a constant-size [TSS](./glossary.md#tss-hintsts) aggregated signature ([HIP-1200](https://hips.hedera.com/hip/hip-1200)), and each block includes its state-change deltas so a consumer can rebuild state in lockstep with the network without replaying transactions from genesis. [HIP-1193](https://hips.hedera.com/hip/hip-1193) defines the network-level transition from record streams to block streams.
+The block stream, specified in [HIP-1056](https://hips.hedera.com/hip/hip-1056), unifies the four record-stream artifacts into a single ordered feed of `BlockItem` messages and adds two capabilities that did not exist in the record stream: each block carries its own self-contained cryptographic proof (the Block Proof) signed with a constant-size [TSS](./glossary.md#tss-hints) aggregated signature ([HIP-1200](https://hips.hedera.com/hip/hip-1200)), and each block includes its state-change deltas so a consumer can rebuild state in lockstep with the network without replaying transactions from genesis. [HIP-1193](https://hips.hedera.com/hip/hip-1193) defines the network-level transition from record streams to block streams.
 
 ---
 
@@ -20,7 +20,7 @@ The shift is in the source. A Mirror Node ingests the same logical content - tra
 |--------------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Transport          | Poll cloud-storage buckets (GCS / S3)            | Subscribe to one or more Block Nodes over gRPC                                                                                                                             |
 | Encoding           | Record file (`.rcd`) + sidecar + signature files | `BlockItem` messages in a single stream                                                                                                                                    |
-| Verification       | Per-node RSA signatures, majority verification   | Single TSS aggregated signature per block, verified against the network's Ledger ID and the WRAPS verification key (the same key is used across nearly all Hiero networks) |
+| Verification       | Per-node RSA signatures, majority verification   | Single TSS aggregated signature per block, verified against the network's Ledger ID (the TSS library checks WRAPS against what it embeds, the same for all Hiero networks) |
 | Source discovery   | Operator-configured cloud-bucket source          | On-chain registry per [HIP-1137](https://hips.hedera.com/hip/hip-1137) or operator-supplied list                                                                           |
 | Trigger for switch | Manual reconfiguration                           | Automatic per [HAPI version](./glossary.md#hapi-version) (Mirror Node v0.155+)                                                                                             |
 
@@ -66,7 +66,9 @@ Items present in the block stream that had no record-stream counterpart:
 
 This is the release on the consensus network before the cutover boundary. Two things happen.
 
-- **Ledger ID generation.** Consensus nodes perform the TSS ceremony specified in [HIP-1398](https://hips.hedera.com/hip/hip-1398) and externalize the Ledger ID via a synthetic `LedgerIdPublicationTransaction` (defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200)). The Ledger ID is the hash of the genesis TSS Roster and is what consumers use to verify the network's TSS signature on every subsequent block.
+- **Ledger ID generation.** Consensus nodes perform the TSS ceremony specified in [HIP-1398](https://hips.hedera.com/hip/hip-1398) and externalize the Ledger ID via a synthetic
+  `LedgerIdPublicationTransaction` (defined in [HIP-1200](https://hips.hedera.com/hip/hip-1200)). The Ledger ID identifies the network's chain of trust and is what consumers use to
+  verify the network's TSS signature on every subsequent block.
 - **Mirror Node v0.155+ ships the auto-detect logic.** Operators on earlier versions must upgrade in order for automatic switching to occur.
 
 The block stream is not yet produced during this phase; the Mirror Node continues ingesting from cloud storage.
