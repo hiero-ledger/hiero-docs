@@ -105,6 +105,11 @@ Every consumer of existing WRBs must clear that history and obtain the revised b
 - It is written by `blocks wrap` and `days live-sequential` and read by various internal and external
   tools (Solo E2E, consensus node)
 - All the readers of `jumpstart.bin` switch to 32 bytes together
+- A legacy SHA2-384 `jumpstart.bin` or hasher state file has no marker. It is told apart from a corrupt file by
+  its header (the hash count must equal the number of set bits in the leaf count) and its size under each hash width.
+  A hasher state file is a rolling checkpoint, so a size between the 32-byte and 48-byte layouts counts as legacy
+  (possibly truncated). `jumpstart.bin` is written once, so it counts as legacy only at exactly the 48-byte layout
+  size, and any other mismatch is reported as corrupt. Only `blockStreamBlockHashes.bin` carries a header
 
 ### Operational flow
 
