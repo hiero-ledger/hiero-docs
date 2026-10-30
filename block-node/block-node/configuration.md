@@ -216,7 +216,7 @@ interrupted group. Bucket lifecycle rules over the prefix must not delete object
 | BACKFILL_MAX_INCOMING_BUFFER_SIZE        | Max gRPC incoming buffer size in bytes (min 10 MB, max 300 MB).                                                        | 104857600 |
 | BACKFILL_ENABLE_TLS                      | Enable TLS if supported by block-node client.                                                                          |     false |
 | BACKFILL_MAX_PROTOBUF_MESSAGE_SIZE_BYTES | Max protobuf message size (bytes) accepted when parsing a block fetched over the wire during backfill.                 | 131072000 |
-| BACKFILL_GREEDY                          | When true, searches and retrieves blocks beyond latestAcknowledged to prevent the BN from falling too far behind live. |     false |
+| BACKFILL_GREEDY                          | When true, searches and retrieves blocks beyond latestAcknowledged to prevent the BN from falling too far behind live. |      true |
 | BACKFILL_HISTORICAL_QUEUE_CAPACITY       | Bounded queue capacity for historical block fetch tasks (min 1, max 1000).                                             |        20 |
 | BACKFILL_LIVE_TAIL_QUEUE_CAPACITY        | Bounded queue capacity for live-tail block fetch tasks (min 1, max 100).                                               |        10 |
 | BACKFILL_HEALTH_PENALTY_PER_FAILURE      | Health score penalty applied per failed fetch attempt to a peer node.                                                  |    1000.0 |
@@ -281,6 +281,40 @@ for the JSON schema.
 | ENV Variable       | Description                                                                                      | Default |
 |:-------------------|:-------------------------------------------------------------------------------------------------|--------:|
 | SERVER_STATUS_PORT | Dedicated port for the server-status gRPC service. When unset, the service shares `SERVER_PORT`. | (unset) |
+
+### Throttle Configuration
+
+The `serverStatus` and `serverStatusDetail` gRPC methods are throttled per client and node-wide. All keys have defaults.
+
+#### Global limits (prefix `throttle.global.`)
+
+| Config Key                      | Description                                                                                                           | Default |
+|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------|--------:|
+| serverStatusMaxConcurrent       | Node-wide ceiling on concurrent in-flight `serverStatus` calls across all clients.                                    |   1,000 |
+| serverStatusDetailMaxConcurrent | Node-wide ceiling on concurrent in-flight `serverStatusDetail` calls across all clients.                              |   1,000 |
+| clientStateTtlMinutes           | How long a throttled method keeps a client's rate and concurrency state after its last call before it can be evicted. |      30 |
+| clientStateSweepIntervalMinutes | How often the sweep that evicts stale client state runs.                                                              |       5 |
+
+#### Per-method limits (prefixes `throttle.serverStatus.` and `throttle.serverStatusDetail.`)
+
+The same four keys apply under each prefix.
+
+| Config Key             | Description                                                                                                                                                                                                                                                                                                          |                                        Default |
+|:-----------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------:|
+| ratePerSecond          | Sustained requests per second allowed per client.                                                                                                                                                                                                                                                                    |                                             50 |
+| burstTolerance         | How many pacing intervals early a request may arrive and still be admitted.                                                                                                                                                                                                                                          |                                             20 |
+| maxConcurrentPerClient | Concurrent in-flight calls allowed per client.                                                                                                                                                                                                                                                                       |                                              5 |
+| maxPermitHoldSeconds   | Age after which a concurrency permit that is still held is force-released by a background sweep. This only corrects the throttle's accounting for calls whose connection dropped before completing. It never terminates a call. The sweep runs about every half of the smallest configured value (minimum 1 second). | 10 (`serverStatus`), 60 (`serverStatusDetail`) |
+
+#### When a client is rejected
+
+The client receives gRPC status `RESOURCE_EXHAUSTED` with a reason string: rate limit exceeded, per-client concurrency limit reached, or node-wide concurrency limit reached. The matching `outcome` label on the `throttle_calls` metric increments. See [metrics](./metrics.md).
+
+#### Operator note: client identity
+
+Client identity is the remote IP address. Behind a Kubernetes LoadBalancer Service with the default `externalTrafficPolicy: Cluster`, source IPs are SNATed, so all external clients share one key and therefore one per-client budget. Set `externalTrafficPolicy: Local` or raise the per-client limits. The helm chart has no setting for this today.
+
+The opposite holds for IPv6: one client usually controls a whole /64, so it can rotate addresses to get fresh per-client budgets, and the client-state table has no size cap. Subnet-level limits are tracked in [#3573](https://github.com/hiero-ledger/hiero-block-node/issues/3573).
 
 ### Publisher Plugin Configuration
 
