@@ -485,13 +485,13 @@ network interruption).
 
 ### How do I tune backfill retry behavior?
 
-|             Variable             |     Default     |                                       Purpose                                        |
-|----------------------------------|-----------------|--------------------------------------------------------------------------------------|
-| `BACKFILL_MAX_RETRIES`           | 3               | Max retries per fetch attempt                                                        |
-| `BACKFILL_MAX_BACKOFF_MS`        | 300,000 (5 min) | Max backoff between retries                                                          |
-| `BACKFILL_FETCH_BATCH_SIZE`      | 10              | Blocks fetched per gRPC call                                                         |
-| `BACKFILL_DELAY_BETWEEN_BATCHES` | 1,000 ms        | Delay between successive batch requests                                              |
-| `BACKFILL_GREEDY`                | false           | Set `true` to continuously fetch without delay (recommended during initial backfill) |
+|             Variable             |     Default     |                           Purpose                           |
+|----------------------------------|-----------------|-------------------------------------------------------------|
+| `BACKFILL_MAX_RETRIES`           | 3               | Max retries per fetch attempt                               |
+| `BACKFILL_MAX_BACKOFF_MS`        | 300,000 (5 min) | Max backoff between retries                                 |
+| `BACKFILL_FETCH_BATCH_SIZE`      | 10              | Blocks fetched per gRPC call                                |
+| `BACKFILL_DELAY_BETWEEN_BATCHES` | 1,000 ms        | Delay between successive batch requests                     |
+| `BACKFILL_GREEDY`                | true            | Set `false` to only fill gaps below the latest stored block |
 
 > See [Configuration Reference](../configuration.md) for full details.
 
@@ -576,7 +576,7 @@ The Block Node public API protos live in `protobuf-sources/src/main/proto/block-
 | `block_stream_subscribe_service.proto` | `BlockStreamSubscribeService.subscribeBlockStream` - MN / Tier 2 consumption                                    |
 | `block_access_service.proto`           | `BlockAccessService.getBlock` - random-access single-block retrieval                                            |
 | `node_service.proto`                   | `BlockNodeService.serverStatus` / `serverStatusDetail` - metadata and health                                    |
-| `state_service.proto`                  | `StateService.stateSnapshot` - *(defined; not yet implemented)*                                                 |
+| `state_service.proto`                  | `StateService.getKV`/`getSingleton`/`getQueue` - *(defined; not yet implemented)*                               |
 | `proof_service.proto`                  | `ProofService` - block content and state proofs *(not yet implemented)*                                         |
 | `reconnect_service.proto`              | `ReconnectService.reconnect()` - provides state + block data to lagging Consensus Nodes *(not yet implemented)* |
 | `network-data.proto`                   | Shared network endpoint message types: `NetworkData`, `NetworkConnection`                                       |
