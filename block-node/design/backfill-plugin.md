@@ -263,7 +263,7 @@ Properties are set via the Block Node configuration system (prefix: `backfill.`)
 | `perBlockProcessingTimeout` | int     | 1000    | Per-block processing timeout in ms          |
 | `grpcOverallTimeout`        | int     | 60000   | gRPC timeout fallback in ms                 |
 | `enableTLS`                 | boolean | false   | Enable TLS for gRPC connections             |
-| `greedy`                    | boolean | false   | Fetch blocks ahead of local storage         |
+| `greedy`                    | boolean | true    | Fetch blocks ahead of local storage         |
 | `historicalQueueCapacity`   | int     | 20      | Historical queue size                       |
 | `liveTailQueueCapacity`     | int     | 10      | Live-tail queue size                        |
 | `healthPenaltyPerFailure`   | double  | 1000.0  | Health score penalty per failure            |

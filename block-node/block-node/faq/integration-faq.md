@@ -152,15 +152,14 @@ its `BlockProof`.
 For `NOT_AVAILABLE`, call `serverStatusDetail` to determine the BN's `available_ranges`,
 then query a BN that covers the needed range.
 
-### Is `stateSnapshot` implemented?
+### Is `StateService` implemented?
 
-**No.** The `StateService.stateSnapshot` RPC is defined in the proto but not
-implemented. The proto itself contains a REVIEW NOTE: *"This is TEMPORARY. We have not
-yet designed how state snapshots may be sent."* There is no Java source plugin or
-service implementation in the Block Node codebase, and neither the Mirror Node nor the
-Consensus Node has any client code that calls this RPC.
+**No.** `state_service.proto` defines `getKV`/`getSingleton`/`getQueue`
+for the live Hashgraph state plugin, but there is no gRPC service implementation yet —
+only the lifecycle and apply-pipeline slice of the plugin exists so far. Neither the
+Mirror Node nor the Consensus Node has any client code that calls these RPCs.
 
-Document any dependency on `stateSnapshot` as a future requirement.
+Document any dependency on `StateService` as a future requirement.
 
 ---
 
