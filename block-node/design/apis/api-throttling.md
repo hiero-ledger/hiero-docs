@@ -639,12 +639,12 @@ reflects the size of one configured method's own state table (see
 [Client-state bookkeeping](#client-state-bookkeeping)), not any one call's outcome. It only exists for methods that
 are actually configured — there is no table, and therefore no gauge, for an unconfigured method.
 
-|             Metric              |                              Type                              |                                                                 Meaning                                                                  |
-|---------------------------------|----------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| `throttle_calls`                | Counter, labeled by `service`/`method`/`weightClass`/`outcome` | Every call to a throttled method, by outcome (`admitted`, `rejected_global_concurrency`, `rejected_client_concurrency`, `rejected_rate`) |
-| `throttle_client_state`         | Gauge, labeled by `service`/`method`/`weightClass`             | Number of distinct clients tracked by one configured method's throttle, to catch unexpected growth                                       |
-| `block_read_bulkhead_in_use`    | Gauge, unlabeled                                               | Permits currently held from the shared block-storage read bulkhead                                                                       |
-| `block_read_bulkhead_available` | Gauge, unlabeled                                               | Permits currently available in the shared block-storage read bulkhead                                                                    |
+|          Metric          |                              Type                              |                                                                 Meaning                                                                  |
+|--------------------------|----------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `throttle_calls`         | Counter, labeled by `service`/`method`/`weightClass`/`outcome` | Every call to a throttled method, by outcome (`admitted`, `rejected_global_concurrency`, `rejected_client_concurrency`, `rejected_rate`) |
+| `throttle_client_state`  | Gauge, labeled by `service`/`method`/`weightClass`             | Number of distinct clients tracked by one configured method's throttle, to catch unexpected growth                                       |
+| `bulkhead_read_in_use`   | Gauge, labeled by `resource`                                   | Permits currently held from a shared read bulkhead (`resource="block"` for block storage)                                                |
+| `bulkhead_read_requests` | Counter, labeled by `resource`/`method`/`status`               | Every bulkhead acquire attempt by caller (`get_block`, `subscriber_catch_up`) and outcome (`acquired`, `rejected`)                       |
 
 The `weightClass` label above describes the full, weighted design; it is not yet emitted by either metric today,
 since no method has more than one weight class until content-aware weighing lands — the counter and gauge are

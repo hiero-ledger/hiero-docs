@@ -81,6 +81,12 @@ Key plugins include:
 
 For additional details on plugins, refer to the [Plugins](./plugins.md).
 
+> **Beta plugins.** Any plugin module **not listed above** (e.g.
+> `state-management-hashgraph`) is considered beta and has not yet passed promotion
+> criteria. Block-Node plugins have no runtime `enabled` switch — the chart
+> manifest is the single gate. Beta plugins are bundled only in opt-in
+> deployment manifests, not the default chart.
+
 ## Modules
 
 The repo structure is organized into multiple Java modules, each encapsulating specific functionality.

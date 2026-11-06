@@ -75,6 +75,23 @@ their transitive dependencies are kept separate. At build time, tasks like `prep
 (for local Docker) and `prepareTestPlugins` (in the suites module) resolve the full plugin
 classpath, then filter out any jars already present in the core runtime to avoid duplicates.
 
+### Plugin Catalog (Full Image)
+
+`assemblePluginCatalog` builds `build/plugin-catalog/<plugin>/` for every `blockNodePlugins` entry:
+the plugin jar plus its dependencies that are not in core. Each plugin is resolved like the core
+`runtimeClasspath`, so core jars are removed by JPMS module name. The build fails if a remaining jar
+shares a package with core, or if one module resolves to different jars across plugins. Identical jars
+are hardlinked.
+
+The `hiero-block-node-full` image ships this catalog. When `BN_PLUGINS` (comma-separated, or `all`) is
+set, the start script copies the selected plugins into `plugins/`, so the module path stays
+`lib/:plugins/` for every image. Jars it copied are listed in `plugins/.catalog-jars` and removed on the
+next start; other jars in `plugins/`, such as third-party plugins, are left alone. `plugins/` must be
+writable.
+
+The `hiero-block-node-plugins` image holds only the catalog, to combine with the plain
+`hiero-block-node` image. See [`block-node/app/docker/README.md`](../../../block-node/app/docker/README.md).
+
 ### How Other Projects Consume Plugins
 
 The E2E suites module ([`tools-and-tests/suites/build.gradle.kts`](https://github.com/hiero-ledger/hiero-block-node/blob/main/tools-and-tests/suites/build.gradle.kts))
@@ -89,6 +106,8 @@ directory that gets mounted into E2E test containers.
 
 The Block Node OCI image is published without plugins. Plugins are downloaded during deployment
 based on Helm chart configuration. This allows operators to select exactly which plugins to load.
+The `hiero-block-node-full` image instead ships every plugin prebuilt and selects them with
+`BN_PLUGINS`, so no download is needed at pod start (Helm `plugins.source: image`).
 
 For deployment configuration, including pre-defined profiles and custom plugin selection, see:
 - [Helm Chart Plugin Configuration](https://github.com/hiero-ledger/hiero-block-node/blob/main/charts/block-node-server/README.md#plugin-configuration)

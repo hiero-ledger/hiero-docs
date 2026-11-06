@@ -108,8 +108,8 @@ Record `firstAvailableBlock` and `lastAvailableBlock` - both should be sensible 
 Edit the `.env` file used by the Node Operations Taskfile and set `VERSION` to the target chart version. The chart, the image, and the protobuf bundle all share this version. Confirm the target is available on the [releases page](https://github.com/hiero-ledger/hiero-block-node/releases) before proceeding.
 
 ```bash
-# example .env line
-VERSION=0.34.0
+# example .env line — replace with the target GA version from the releases page
+VERSION=<target-version>
 ```
 
 ### Step 3: Run the upgrade
