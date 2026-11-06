@@ -61,6 +61,12 @@ grants less than configured. On high-latency links, raise the `tcp_rmem` / `tcp_
 | SERVER_HTTP2_MAX_RAPID_RESETS         | Max rapid resets (stream RST sent by client before any data sent by server). |        50 |
 | SERVER_HTTP2_RAPID_RESET_CHECK_PERIOD | Period for counting rapid resets (ms).                                       |    10,000 |
 
+### Block Read Bulkhead Configuration
+
+| ENV Variable                | Description                                                                                                                                                                                       | Default |
+|:----------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------:|
+| BLOCK_READ_BULKHEAD_PERMITS | Max concurrent block-storage reads shared by `getBlock` and subscriber historical catch-up (1 to 1,000). `getBlock` gets `RESOURCE_EXHAUSTED` when exhausted; subscribers wait briefly and retry. |      50 |
+
 ### Application State Configuration
 
 | ENV Variable                                 | Description                                                                                                                                                                                                                                                                                                                            |                                Default                                |

@@ -78,6 +78,20 @@ Observes the block access service that serves requests for blocks.
 
 ---
 
+### Read Bulkhead
+
+**Plugin:** shared SPI (`spi-plugins`), used by `block-access [block-access-service]` and `subscriber [stream-subscriber]`
+Observes the shared bulkhead that caps concurrent block-storage reads. See [Block Read Bulkhead Configuration](configuration.md#block-read-bulkhead-configuration) for sizing.
+
+|  Type   |           Name           |                                                 Labels                                                 |                                                                 Description                                                                 |
+|---------|--------------------------|--------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Gauge   | `bulkhead_read_in_use`   | `resource` (`block`)                                                                                   | Permits currently held                                                                                                                      |
+| Counter | `bulkhead_read_requests` | `resource` (`block`), `method` (`get_block`, `subscriber_catch_up`), `status` (`acquired`, `rejected`) | Acquire attempts. A `rejected` `get_block` is returned to the client as `RESOURCE_EXHAUSTED`; a `rejected` `subscriber_catch_up` is retried |
+
+Saturation is `bulkhead_read_in_use` divided by the configured permits.
+
+---
+
 ### Block Messaging
 
 **Plugin:** `messaging [facility-messaging]`
@@ -169,6 +183,24 @@ Measures block‑verification throughput and success rate.
 | Counter | `hashing_future_items_refused`    | Future block item types that caused a block to be refused.                                                                     |
 | Counter | `verification_proof_total`        | [Block proof](./glossary.md#block-proof) verifications, labels: `proof_type={rsa,state_proof,tss}`, `result={success,failure}` |
 | Counter | `rsa_roster_mismatch_total`       | RSA signatures from node IDs absent from the loaded address book                                                               |
+
+---
+
+### State Management
+
+**Plugin:** `state-management [block-node-state-management-hashgraph]` (beta)
+Replays verified block-stream `state_changes` onto a live, queryable copy of Hashgraph state.
+
+|  Type   |            Name             |                              Description                              |
+|---------|-----------------------------|-----------------------------------------------------------------------|
+| Gauge   | `state_applied_block`       | Latest committed (reader-visible) block number applied to live state  |
+| Gauge   | `state_size`                | Node count of the latest network-attested state                       |
+| Gauge   | `state_pending_blocks`      | Blocks buffered awaiting apply (bounded by `pendingBlocksMax`)        |
+| Gauge   | `state_ready`               | `1` once catch-up has completed without halting, else `0`             |
+| Gauge   | `state_apply_halted`        | `1` when block apply has halted (e.g. footer hash mismatch), else `0` |
+| Gauge   | `state_apply_latency_ms`    | Wall-clock duration of the most recent block apply, in milliseconds   |
+| Counter | `state_hash_mismatch_total` | Cumulative footer hash mismatches observed                            |
+| Gauge   | `state_block_lag`           | Blocks between the latest available block and the attested block      |
 
 ---
 
