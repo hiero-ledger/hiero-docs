@@ -155,7 +155,7 @@ List<BlockRange> storedBlocks();
 // State mutation (persists to disk and notifies handlers)
 void updateTssData(TssData tssData);
 boolean updateAddressBookHistory(RangedAddressBookHistory history);
-void addStoredBlockRange(LongRange blockRange);
+void addStoredBlockRange(BlockRange blockRange);
 void updateAvailableBlocks();
 ```
 

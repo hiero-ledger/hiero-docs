@@ -103,6 +103,7 @@ used for `swirlds-config-*`.
 | `snapshotRecentRetentionCount` | `3`                                                | Recent snapshot dirs kept on disk (oldest pruned).                                                                                                                                                                                                    |
 | `port`                         | `null` (share `server.port`)                       | Dedicated port for the `StateService` gRPC API; `null` shares the default server port.                                                                                                                                                                |
 | `maxQueueRangeSize`            | `1000`                                             | Largest number of queue elements `getQueue` will serve in one call (§8), whether requested as a `queue_range` or as a full-queue read; anything larger is `INVALID_REQUEST`. Operator-adjustable to allow raising it over time without a code change. |
+| `gapRetryDelaySeconds`         | `5`                                                | Delay before retrying a missing block in `pendingBlocks` from `historicalBlockProvider` (§6.3).                                                                                                                                                       |
 
 There is no apply-interval setting: state changes are applied the moment a verified block arrives (see §6.5).
 
@@ -223,17 +224,30 @@ service StateService {
    file. A snapshot is only ever written from `attested.state()` (§6.6), so once this check
    passes the restored state is published as the initial `AttestedSnapshot` with
    `blockNumber = N`, before the plugin accepts queries. Queries are then served from it
-   immediately, even while catch-up is still running. If the directory is unreadable, fails to load, or its self-check fails, **halt**
+   immediately, even while catch-up is still running. If the snapshot root cannot be listed, the
+   directory is unreadable, fails to load, or its self-check fails, **halt**
    (`applyHalted=true`) rather than silently falling back to genesis or an older directory — a
    snapshot directory existing is the operator's recorded intent, and discarding it quietly would
    only surface later as a confusing hash mismatch on some unrelated block. The plugin still
    starts successfully (no exception, no shutdown request); it just never becomes `ready` and
    never applies or serves anything until a fixed snapshot directory is in place and the node
-   restarts. `lastAppliedRound` is left unknown (`-1`) after a restore — it is not persisted (see
+   restarts.
+
+   A loaded snapshot is trusted as a previously stored *attested* state. The self-check only
+   confirms the snapshot matches its directory name. The state's root hash is first verified
+   against the chain when block N+1's footer (`startOfBlockStateRootHash`) arrives, so a
+   deployment that restores a snapshot but ingests no further blocks (for example a Tier 2 node
+   serving state from a fixed block) relies on snapshot integrity. Comparing the hash returned
+   by `loadSnapshot` with the loaded state's root hash would not help, since both come from the
+   same map.
+
+   `lastAppliedRound` is left unknown (`-1`) after a restore — it is not persisted (see
    §5.1) and is repopulated by the first applied block's `RoundHeader`.
+
 3. Register self as `BlockNotificationHandler` via
    `context.blockMessaging().registerBlockNotificationHandler(this, true, "StateManagementPlugin")`.
    `cpuIntensive=true` because state apply is CPU-bound parsing work.
+
 4. Start the periodic snapshot executor
    (`snapshotExecutor.scheduleWithFixedDelay(this::saveSnapshot, …)`) and a single
    dedicated **apply-worker thread** (`StateManagement-apply`). The worker first runs
@@ -244,6 +258,9 @@ service StateService {
 ### 6.3 `handleVerification(VerificationNotification)`
 
 - Only proceed on `success=true` with a non-null block payload.
+- Drop a block at or below the last applied block (a resend or backfill-sourced verification).
+  `applyPending()` only removes `expectedNext`, so staging it would leak it and eventually fill
+  `pendingBlocks` to its cap.
 - Park the block in the `ConcurrentSkipListMap<Long, BlockUnparsed> pendingBlocks`
   keyed by block number (the ordered gap buffer).
 - `offer` the block number to the apply worker's `BlockingQueue` to wake it immediately.
@@ -259,8 +276,8 @@ service StateService {
 Closes the gap between `attested.blockNumber()` and the latest verified block the
 Block-Node has on hand without waiting for verification notifications.
 
-1. Read `context.historicalBlockProvider()`. If null or empty → set
-   `ready=true` and return.
+1. Read `context.historicalBlockProvider()`. If null or empty → the sweep reports it reached the
+   tip (nothing to catch up to).
 2. Compute the catch-up window:
    - genesis → `from = availableBlocks().min()`
    - otherwise → `from = attested.blockNumber() + 1`
@@ -273,8 +290,12 @@ Block-Node has on hand without waiting for verification notifications.
 4. After each batch, call `applyPending()` synchronously to drain.
 5. Stop early if the plugin is `applyHalted` (a hash mismatch occurred) or
    `stopping`.
-6. In `finally`, set `ready=true` **only if not `applyHalted`** — ready means catch-up finished
-   *without* halting, not merely "catch-up attempt finished." This lets a monitoring consumer
+6. The sweep returns whether it reached the latest available block. Set `ready=true` **only if
+   it did and the plugin is not `applyHalted`**. Ready means caught up *without* halting, not
+   merely "catch-up attempt finished." A sweep that stops short (hole in `availableBlocks`,
+   failed fetch, exception) leaves the plugin not ready and schedules a gap retry, since
+   `applyPending()` only schedules one when `pendingBlocks` is non-empty. The apply worker sets
+   `ready=true` when a later sweep reaches the tip. This lets a monitoring consumer
    tell "healthy and caught up" apart from "caught up once, then halted" from `ready` alone,
    without also having to check `apply_halted`. A halt logs a warning and leaves `state_ready`
    at `0`/`state_apply_halted` at `1` permanently (until a restart) — these metrics (§9), not the
@@ -292,6 +313,8 @@ arrives (no timer). `applyPending()` takes the `applyLock` and drains contiguous
 while (!pendingBlocks.isEmpty() && !stopping && !applyHalted) {
   long next = atGenesis ? pendingBlocks.firstKey()
                         : max(lastAppliedBlock, attested.blockNumber()) + 1;
+  if (!atGenesis) pendingBlocks.headMap(next).clear();   // backstop: drop stale entries
+  if (pendingBlocks.isEmpty()) return;
   BlockUnparsed b = pendingBlocks.get(next);
   if (b == null) return;            // gap → wait for the missing predecessor
   if (!applyBlockStateChanges(b)) return;   // failure → leave queued, stop draining
@@ -512,7 +535,7 @@ Registered with the block node's `MetricRegistry` in `init()`, under the `blockn
 | `state_applied_block`       | ObservableGauge | Latest committed (reader-visible) block number applied to live state                                                                                                                        |
 | `state_size`                | ObservableGauge | Node count of the latest network-attested state                                                                                                                                             |
 | `state_pending_blocks`      | ObservableGauge | Blocks buffered awaiting apply (bounded by `pendingBlocksMax`)                                                                                                                              |
-| `state_ready`               | ObservableGauge | `1` once catch-up has completed without halting, else `0`                                                                                                                                   |
+| `state_ready`               | ObservableGauge | `1` once catch-up has reached the latest available block without halting, else `0`                                                                                                          |
 | `state_apply_halted`        | ObservableGauge | `1` when block apply has halted (e.g. footer hash mismatch), else `0`                                                                                                                       |
 | `state_apply_latency_ms`    | ObservableGauge | Wall-clock duration of the most recent block apply, in milliseconds                                                                                                                         |
 | `state_hash_mismatch_total` | LongCounter     | Cumulative footer hash mismatches observed                                                                                                                                                  |
@@ -524,19 +547,19 @@ alongside those features.
 
 ## 10. Failure modes
 
-|                                                                                     Failure                                                                                     |                                                                                                                                Behaviour                                                                                                                                |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| No snapshot directories under `recentPath` at startup                                                                                                                           | Genesis, cleanly — there's no operator intent to honor, so this is the normal first-boot path, not a failure.                                                                                                                                                           |
-| Highest-numbered snapshot directory is unreadable, fails to load, or fails its self-consistency check (loaded `BlockStreamInfo.block_number` disagrees with the directory name) | Halt (`applyHalted=true`), log at ERROR. Starting from genesis instead would silently discard the operator's recorded intent and surface only later as a confusing hash mismatch on an unrelated block. Plugin still starts; never becomes `ready`.                     |
-| `startOfBlockStateRootHash` mismatch                                                                                                                                            | Increment `hashMismatchTotal`, set `applyHalted=true`, log at ERROR. Apply loop short-circuits thereafter; further blocks ignored until restart.                                                                                                                        |
-| Footer hash digest length differs from this build's (e.g. a SHA-256 footer against a SHA-384 `VirtualMap` hash)                                                                 | Same halt as any other `startOfBlockStateRootHash` mismatch, but logged distinctly as a digest-length mismatch rather than genuine divergence (#3813). Does not self-resolve: needs a CN release or state-library pin that matches the source chain's digest. See §6.5. |
-| First block after a fresh (no-snapshot) start is N > 0, not 0                                                                                                                   | **Not yet handled** — no real seed state exists to validate N's footer against; currently indistinguishable from a genuine hash mismatch. See §6.5. Needs a design decision.                                                                                            |
-| Malformed `state_changes` item                                                                                                                                                  | `IllegalStateException` from the applier; plugin refuses to advance past that block.                                                                                                                                                                                    |
-| Legacy field-2 token-association encoding on a `stateId == 9` change                                                                                                            | Halt with a distinct "unsupported legacy token-association encoding" error, not a generic hash mismatch — this plugin does not remap field 2 the way consensus-node's reference applier does. See §7.                                                                   |
-| Verification gap                                                                                                                                                                | Block parks in `pendingBlocks` until the predecessor arrives (via notification or catch-up); apply loop retries from `historicalBlockProvider` on a delay. `pendingBlocks` is capped (`pendingBlocksMax`) so a long-lived gap can't grow it unboundedly.                |
-| Historical block missing locally                                                                                                                                                | Catch-up skips it; the same block can arrive via notification later.                                                                                                                                                                                                    |
-| Snapshot write fails (I/O)                                                                                                                                                      | Log at WARNING; recent dir not deleted; next snapshot cycle retries.                                                                                                                                                                                                    |
-| Missing-queue query                                                                                                                                                             | gRPC handler defensively maps NPE from `getQueueState`/`getQueueAsList`/`peekQueue` to `NOT_FOUND`.                                                                                                                                                                     |
+|                                                                                                        Failure                                                                                                         |                                                                                                                                Behaviour                                                                                                                                |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| No snapshot directories under `recentPath` at startup                                                                                                                                                                  | Genesis, cleanly — there's no operator intent to honor, so this is the normal first-boot path, not a failure.                                                                                                                                                           |
+| Snapshot root cannot be listed, or the highest-numbered snapshot directory is unreadable, fails to load, or fails its self-consistency check (loaded `BlockStreamInfo.block_number` disagrees with the directory name) | Halt (`applyHalted=true`), log at ERROR. Starting from genesis instead would silently discard the operator's recorded intent and surface only later as a confusing hash mismatch on an unrelated block. Plugin still starts; never becomes `ready`.                     |
+| `startOfBlockStateRootHash` mismatch                                                                                                                                                                                   | Increment `hashMismatchTotal`, set `applyHalted=true`, log at ERROR. Apply loop short-circuits thereafter; further blocks ignored until restart.                                                                                                                        |
+| Footer hash digest length differs from this build's (e.g. a SHA-256 footer against a SHA-384 `VirtualMap` hash)                                                                                                        | Same halt as any other `startOfBlockStateRootHash` mismatch, but logged distinctly as a digest-length mismatch rather than genuine divergence (#3813). Does not self-resolve: needs a CN release or state-library pin that matches the source chain's digest. See §6.5. |
+| First block after a fresh (no-snapshot) start is N > 0, not 0                                                                                                                                                          | **Not yet handled** — no real seed state exists to validate N's footer against; currently indistinguishable from a genuine hash mismatch. See §6.5. Needs a design decision.                                                                                            |
+| Malformed `state_changes` item                                                                                                                                                                                         | `IllegalStateException` from the applier; plugin refuses to advance past that block.                                                                                                                                                                                    |
+| Legacy field-2 token-association encoding on a `stateId == 9` change                                                                                                                                                   | Halt with a distinct "unsupported legacy token-association encoding" error, not a generic hash mismatch — this plugin does not remap field 2 the way consensus-node's reference applier does. See §7.                                                                   |
+| Verification gap                                                                                                                                                                                                       | Block parks in `pendingBlocks` until the predecessor arrives (via notification or catch-up); apply loop retries from `historicalBlockProvider` on a delay. `pendingBlocks` is capped (`pendingBlocksMax`) so a long-lived gap can't grow it unboundedly.                |
+| Historical block missing locally                                                                                                                                                                                       | Catch-up skips it; the same block can arrive via notification later.                                                                                                                                                                                                    |
+| Snapshot write fails (I/O)                                                                                                                                                                                             | Log at WARNING; recent dir not deleted; next snapshot cycle retries.                                                                                                                                                                                                    |
+| Missing-queue query                                                                                                                                                                                                    | gRPC handler defensively maps NPE from `getQueueState`/`getQueueAsList`/`peekQueue` to `NOT_FOUND`.                                                                                                                                                                     |
 
 **Recovery from a halt** is restart-from-snapshot, but *which* restart recovers depends on
 whether the cause is transient or deterministic. A snapshot-hash-mismatch or missing-snapshot

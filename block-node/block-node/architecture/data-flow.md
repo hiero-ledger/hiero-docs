@@ -41,7 +41,7 @@ sequenceDiagram
     Client->>Plugin: getBlock(BlockRequest)
     Note over Plugin: Resolve block number or<br/>retrieve_latest sentinel
     Plugin->>Facility: availableBlocks()
-    Facility-->>Plugin: LongRange of stored blocks
+    Facility-->>Plugin: BlockRange of stored blocks
     alt Block not in available range
         Plugin-->>Client: BlockResponse(NOT_AVAILABLE)
     else Block in range

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="Helvetica, Arial, sans-serif">
+  <title>StateManagementPlugin apply pipeline — three concurrent state versions</title>
+  <rect x="0" y="0" width="900" height="470" fill="#f6f8fa"/>
+
+  <text x="450" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2328">
+    Apply pipeline state machine (lag-1 commit)
+  </text>
+  <text x="450" y="48" text-anchor="middle" font-size="12" fill="#57606a">
+    Each verified block cycles through all three states, one block behind attestation
+  </text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf222e"/>
+    </marker>
+  </defs>
+
+  <!-- MUTABLE (3) -->
+  <rect x="40" y="90" width="220" height="100" rx="10" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+  <text x="150" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#0969da">(3) MUTABLE</text>
+  <text x="150" y="142" text-anchor="middle" font-size="11" fill="#1f2328">getMutableState()</text>
+  <text x="150" y="160" text-anchor="middle" font-size="11" fill="#1f2328">receives block N's</text>
+  <text x="150" y="176" text-anchor="middle" font-size="11" fill="#1f2328">state_changes</text>
+
+  <!-- HASHING (2) -->
+  <rect x="360" y="90" width="220" height="100" rx="10" fill="#fff8c5" stroke="#9a6700" stroke-width="1.5"/>
+  <text x="470" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#9a6700">(2) HASHING</text>
+  <text x="470" y="142" text-anchor="middle" font-size="11" fill="#1f2328">hashingImmutable</text>
+  <text x="470" y="160" text-anchor="middle" font-size="11" fill="#1f2328">hash starts in background</text>
+  <text x="470" y="176" text-anchor="middle" font-size="11" fill="#1f2328">immediately on seal</text>
+
+  <!-- HALTED -->
+  <rect x="660" y="90" width="200" height="100" rx="10" fill="#ffebe9" stroke="#cf222e" stroke-width="1.5"/>
+  <text x="760" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#cf222e">HALTED</text>
+  <text x="760" y="142" text-anchor="middle" font-size="11" fill="#1f2328">applyHalted = true</text>
+  <text x="760" y="160" text-anchor="middle" font-size="11" fill="#1f2328">terminal — recovery is</text>
+  <text x="760" y="176" text-anchor="middle" font-size="11" fill="#1f2328">restart from snapshot</text>
+
+  <!-- ATTESTED (1) -->
+  <rect x="360" y="320" width="220" height="100" rx="10" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
+  <text x="470" y="350" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a7f37">(1) ATTESTED</text>
+  <text x="470" y="372" text-anchor="middle" font-size="11" fill="#1f2328">attested.state()</text>
+  <text x="470" y="390" text-anchor="middle" font-size="11" fill="#1f2328">only state the query</text>
+  <text x="470" y="406" text-anchor="middle" font-size="11" fill="#1f2328">API reads (§8)</text>
+
+  <!-- MUTABLE -> HASHING -->
+  <line x1="260" y1="140" x2="355" y2="140" stroke="#57606a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="307" y="125" text-anchor="middle" font-size="10.5" fill="#1f2328">seal</text>
+  <text x="307" y="138" text-anchor="middle" font-size="10.5" fill="#1f2328">copyMutableState()</text>
+
+  <!-- HASHING -> HALTED -->
+  <line x1="580" y1="140" x2="655" y2="140" stroke="#cf222e" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+  <text x="617" y="125" text-anchor="middle" font-size="10.5" fill="#cf222e">footer hash</text>
+  <text x="617" y="138" text-anchor="middle" font-size="10.5" fill="#cf222e">mismatch</text>
+
+  <!-- HASHING -> ATTESTED -->
+  <line x1="470" y1="190" x2="470" y2="315" stroke="#57606a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="590" y="250" text-anchor="middle" font-size="10.5" fill="#1f2328">block N+1's footer</text>
+  <text x="590" y="264" text-anchor="middle" font-size="10.5" fill="#1f2328">attests state N</text>
+  <text x="590" y="278" text-anchor="middle" font-size="10.5" fill="#1f2328">(promote)</text>
+
+  <!-- ATTESTED -> MUTABLE (loop back) -->
+  <path d="M 360,370 C 150,370 60,290 60,190" fill="none" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <text x="130" y="340" text-anchor="middle" font-size="10.5" fill="#1f2328">next block's</text>
+  <text x="130" y="354" text-anchor="middle" font-size="10.5" fill="#1f2328">changes begin</text>
+
+  <text x="450" y="450" text-anchor="middle" font-size="11" fill="#57606a">
+    docs/design/state/live-state.md §6.5 has the full per-block walkthrough
+  </text>
+</svg>

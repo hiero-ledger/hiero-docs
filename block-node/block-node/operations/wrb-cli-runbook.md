@@ -47,10 +47,13 @@ For convenience, you can set up aliases to simplify command invocations:
 
 ```bash
 # Add to ~/.bashrc or ~/.bash_profile
-alias bntools='java -jar /mnt/wrb-operations/tools-0.35.0-SNAPSHOT-all.jar '
+# Replace <version> with the jar version from the ls step above.
+# To get a GA (non-SNAPSHOT) jar, check out a release tag before building, e.g.:
+#   git checkout v0.44.3 && ./gradlew :tools:shadowJar
+alias bntools='java -jar /mnt/wrb-operations/tools-<version>-all.jar '
 
 # Common operations with JVM args
-alias bntools-large='java -Xmx32g -Xms16g -jar /mnt/wrb-operations/tools-0.35.0-SNAPSHOT-all.jar'
+alias bntools-large='java -Xmx32g -Xms16g -jar /mnt/wrb-operations/tools-<version>-all.jar'
 
 # Then use as:
 bntools --network testnet metadata update
