@@ -236,9 +236,10 @@ flowchart TD
 
 Tracks peer node reliability to prefer healthy, fast nodes. Lower score = better node.
 
-**Score:** `(failures × healthPenaltyPerFailure) + avgLatencyMs`
+**Score:** `(failures × healthPenaltyPerFailure) + avgLatencyMs`, where `avgLatencyMs` is the time per block received
 
 - **Success**: Resets failures to 0, tracks latency
+- **Partial fetch** (some blocks received): Tracks latency, keeps failures, no backoff
 - **Failure**: Increments failures, applies exponential backoff (`initialRetryDelay × 2^failures`, capped at `maxBackoffMs`)
 
 Nodes in backoff are skipped entirely until the backoff period expires.
