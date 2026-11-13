@@ -47,6 +47,14 @@ communicating with a single Block-Node. A subsequent section will describe
 the interactions when multiple Publishers are communicating with a single Block
 Node.
 
+> [!NOTE]
+> We deliberately left some things open and unspecified in this protocol to
+> allow for implementation flexibility. Implementors should consider the
+> implications of various approaches in meeting their implementation goals
+> including strictness of interpretation and response policy relating to, for
+> example, interpreting unexpected responses as indicators versus interpreting
+> unexpected responses as errors.
+
 * Publisher, on connect, sends a block header, this contains a block number.
   * If this is the next block, no problem, start streaming.
   * If this is less than last known verified block, respond with
@@ -133,6 +141,7 @@ sequenceDiagram
       Note over Publisher: Reconnect to consensus network, if needed
     else N > last known verified block number + 1
       BlockNode -->> Publisher: Respond with BehindPublisher and specify the latest completed block (L)
+      Note over BlockNode: Records L+1 as the next expected block reported by ServerStatus
       Publisher-->>BlockNode: Send from block L+1 or send EndStream(Too Far Behind) and retry with exponential backoff
       Note over Publisher: Includes earliest and latest available blocks with EndStream if sent
       Note over BlockNode: May need to catch up from another Block-Node

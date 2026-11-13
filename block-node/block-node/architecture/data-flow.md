@@ -192,7 +192,7 @@ sequenceDiagram
 
     alt Fetch succeeds
         Peer-->>Fetcher: block stream
-        Fetcher->>Fetcher: markSuccess — reset failures, record latency in healthMap
+        Fetcher->>Fetcher: recordBlocksReceived — reset failures, record latency in healthMap
         Fetcher-->>Runner: List of BlockUnparsed
         loop Each fetched block
             Runner->>Messaging: sendBackfilledBlockNotification

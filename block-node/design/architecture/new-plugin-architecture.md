@@ -113,13 +113,14 @@ The inter-plugin event bus currently built using LMAX Disruptor ring buffers for
 
 **Block Notifications** — five typed notification events for block lifecycle milestones:
 
-|              Notification               |       Sender        |                          Meaning                           |
-|-----------------------------------------|---------------------|------------------------------------------------------------|
-| `VerificationNotification`              | Verification plugin | Block passed or failed cryptographic verification.         |
-| `PersistedNotification`                 | Storage plugins     | Block has been durably written by a provider.              |
-| `BackfilledBlockNotification`           | Backfill plugin     | A previously missing block was retrieved and stored.       |
-| `NewestBlockKnownToNetworkNotification` | Publisher plugin    | Consensus Node has reported the latest known block header. |
-| `PublisherStatusUpdateNotification`     | Publisher plugin    | Publisher connection state changed.                        |
+|               Notification               |       Sender        |                                        Meaning                                         |
+|------------------------------------------|---------------------|----------------------------------------------------------------------------------------|
+| `VerificationNotification`               | Verification plugin | Block passed or failed cryptographic verification.                                     |
+| `PersistedNotification`                  | Storage plugins     | Block has been durably written by a provider.                                          |
+| `BackfilledBlockNotification`            | Backfill plugin     | A previously missing block was retrieved and stored.                                   |
+| `NewestBlockKnownToNetworkNotification`  | Publisher plugin    | Consensus Node has reported the latest known block header.                             |
+| `NextExpectedPublisherBlockNotification` | Publisher plugin    | A publisher was told this node is behind it; carries the next block this node expects. |
+| `PublisherStatusUpdateNotification`      | Publisher plugin    | Publisher connection state changed.                                                    |
 
 Any plugin may subscribe to notifications via `registerBlockNotificationHandler(BlockNotificationHandler, ...)`.
 

@@ -36,7 +36,7 @@ A request with a `start_block_number` below `first_available_block` is rejected 
 Both request fields are `uint64`. The value `18446744073709551615` (`0xFFFFFFFFFFFFFFFF`, `uint64` maximum) is a sentinel value with two distinct meanings depending on which field it appears in:
 
 - In `start_block_number`: begin from `first_available_block` as reported by `serverStatus`.
-- In `end_block_number`: stream indefinitely; no terminal `SUCCESS` is sent until the stream is closed by an error or a Block Node shutdown.
+- In `end_block_number`: stream indefinitely; no terminal `SUCCESS` is sent until the stream is closed by an error, a Block Node shutdown, or the idle session limit.
 
 The four supported streaming modes are:
 
@@ -76,7 +76,7 @@ block_items...  end_of_block(M)
 status(SUCCESS)
 ```
 
-For an indefinite request (`end_block_number` = `uint64_max`) the `status` message is sent only when the stream is closed by an error, a Block Node shutdown, or when the stream reaches maximum connection duration (typically around 600,000 blocks, if enabled).
+For an indefinite request (`end_block_number` = `uint64_max`) the `status` message is sent only when the stream is closed by an error, a Block Node shutdown, when the stream reaches maximum connection duration (typically around 600,000 blocks, if enabled), or when the Block Node has sent nothing on the stream for the idle session limit (`subscriber.idleSessionTimeoutSeconds`, default 1800 seconds plus up to 10% random jitter per stream, applies to any stream waiting for blocks). While no new blocks are produced, for example during network quiescence, this also ends healthy streams; subscribers reconnect from the last received `block_number` + 1.
 
 ### Base protocol diagram
 
@@ -173,19 +173,19 @@ A request for a start block within the permitted future window but not yet produ
 
 The terminal `status` message carries one of the following `Code` values. The Block Node sends exactly one `status` per session, as the final message.
 
-| Code                         | Value | When returned                                                                                                                    | Subscriber action                                                                     |
-|:-----------------------------|:-----:|:---------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------|
-| `UNKNOWN`                    |   0   | Software defect; SHALL NOT be intentionally set                                                                                  | Treat as `ERROR`; reconnect with exponential back-off                                 |
-| `SUCCESS`                    |   1   | All requested blocks delivered, orderly Block Node shutdown, or maximum connection duration reached (if enabled)                 | If more blocks are expected, reconnect from the last received `block_number` + 1      |
-| `INVALID_REQUEST`            |   2   | Request is structurally malformed (defensive code; not triggered by a well-formed gRPC call with valid uint64 fields)            | Fix the request; do not retry unchanged                                               |
-| `ERROR`                      |   3   | Block Node internal error                                                                                                        | Reconnect with exponential back-off; try a different Block Node if the error persists |
-| `INVALID_START_BLOCK_NUMBER` |   4   | `start_block_number` is below `first_available_block` or is otherwise invalid                                                    | Call `serverStatus`; correct `start_block_number`; retry                              |
-| `INVALID_END_BLOCK_NUMBER`   |   5   | `end_block_number` is less than `start_block_number`                                                                             | Correct `end_block_number`; retry                                                     |
-| `NOT_AVAILABLE`              |   6   | `start_block_number` exceeds the future-block limit, a required block is absent from storage, or the Block Node is shutting down | Call `serverStatus`; adjust the block range; retry with exponential back-off          |
+| Code                         | Value | When returned                                                                                                                                | Subscriber action                                                                     |
+|:-----------------------------|:-----:|:---------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------|
+| `UNKNOWN`                    |   0   | Software defect; SHALL NOT be intentionally set                                                                                              | Treat as `ERROR`; reconnect with exponential back-off                                 |
+| `SUCCESS`                    |   1   | All requested blocks delivered, orderly Block Node shutdown, maximum connection duration reached (if enabled), or idle session limit reached | If more blocks are expected, reconnect from the last received `block_number` + 1      |
+| `INVALID_REQUEST`            |   2   | Request is structurally malformed (defensive code; not triggered by a well-formed gRPC call with valid uint64 fields)                        | Fix the request; do not retry unchanged                                               |
+| `ERROR`                      |   3   | Block Node internal error                                                                                                                    | Reconnect with exponential back-off; try a different Block Node if the error persists |
+| `INVALID_START_BLOCK_NUMBER` |   4   | `start_block_number` is below `first_available_block` or is otherwise invalid                                                                | Call `serverStatus`; correct `start_block_number`; retry                              |
+| `INVALID_END_BLOCK_NUMBER`   |   5   | `end_block_number` is less than `start_block_number`                                                                                         | Correct `end_block_number`; retry                                                     |
+| `NOT_AVAILABLE`              |   6   | `start_block_number` exceeds the future-block limit, a required block is absent from storage, or the Block Node is shutting down             | Call `serverStatus`; adjust the block range; retry with exponential back-off          |
 
 When the Block Node shuts down gracefully it closes each open session with `status(SUCCESS)`. New connection attempts received during shutdown are immediately closed with `NOT_AVAILABLE`.
 
-Because `SUCCESS` does not imply all requested blocks were delivered (orderly shutdown and connection limit are also reported as `SUCCESS`), subscribers MUST NOT assume delivery is complete on receiving `SUCCESS` for an indefinite or partially-delivered stream.
+Because `SUCCESS` does not imply all requested blocks were delivered (orderly shutdown, connection limit and idle session limit are also reported as `SUCCESS`), subscribers MUST NOT assume delivery is complete on receiving `SUCCESS` for an indefinite or partially-delivered stream.
 
 ### Error handling diagram
 
