@@ -277,10 +277,12 @@ for the JSON schema.
 
 ### Messaging Plugin Configuration
 
-| ENV Variable                            | Description                                                                               | Default |
-|:----------------------------------------|:------------------------------------------------------------------------------------------|--------:|
-| MESSAGING_BLOCK_ITEM_QUEUE_SIZE         | Max messages in block item queue. Each batch ~100 items. Must be power of 2.              |     512 |
-| MESSAGING_BLOCK_NOTIFICATION_QUEUE_SIZE | Max block notifications queued. Each may hold a full block in memory. Must be power of 2. |      32 |
+| ENV Variable                                 | Description                                                                                                                                                |  Default |
+|:---------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------:|
+| MESSAGING_BLOCK_ITEM_QUEUE_SIZE              | Max messages in block item queue. Each batch ~100 items. Must be power of 2.                                                                               |      512 |
+| MESSAGING_BLOCK_NOTIFICATION_QUEUE_SIZE      | Max block notifications queued. Each may hold a full block in memory. Must be power of 2.                                                                  |       32 |
+| MESSAGING_WAIT_STRATEGY                      | How ring handlers wait once caught up: `BLOCKING`, `PHASED_BACKOFF` (yield, then block), or `SLEEPING` (old behavior, burns CPU when idle; rollback only). | BLOCKING |
+| MESSAGING_WAIT_STRATEGY_YIELD_TIMEOUT_MICROS | How long a `PHASED_BACKOFF` handler yields after its last message before blocking, in microseconds. Must not be negative.                                  |     1000 |
 
 ### Server Status Plugin Configuration
 
