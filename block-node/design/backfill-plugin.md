@@ -193,6 +193,19 @@ sequenceDiagram
     end
 ```
 
+Each batch request ends early when it receives no complete response message for `grpcInactivityTimeout`, or when it
+takes longer than `grpcOverallTimeout` in total. A request that ends early, or a stream that ends before the whole batch arrived, keeps
+the complete blocks received so far. Those blocks are persisted, and the next request starts at the first block not
+received, so no block is requested twice. A block that arrived only in part is dropped and requested again.
+
+The inactivity clock is reset only when a complete gRPC response message arrives, because the gRPC client does not
+report bytes still in transit. The serving node splits blocks into messages of about 1 MB, but a single block item
+larger than that is sent as one message, so `grpcInactivityTimeout` must cover the transfer of the largest single
+message on the slowest expected link.
+
+The two timeouts are not checked against each other. If `grpcInactivityTimeout` is set at or above
+`grpcOverallTimeout`, the overall timeout always ends the request first, so the request has a single deadline.
+
 ### On-Demand Backfill
 
 Triggered when `NewestBlockKnownToNetworkNotification` is received (e.g., from PublisherPlugin):
@@ -250,25 +263,26 @@ Nodes in backoff are skipped entirely until the backoff period expires.
 
 Properties are set via the Block Node configuration system (prefix: `backfill.`):
 
-|          Property           |  Type   | Default |                 Description                 |
-|-----------------------------|---------|---------|---------------------------------------------|
-| `startBlock`                | long    | 0       | First block number to consider for backfill |
-| `endBlock`                  | long    | -1      | Last block (-1 = unlimited)                 |
-| `blockNodeSourcesPath`      | String  | ""      | Path to peer nodes JSON file                |
-| `scanInterval`              | int     | 60000   | Gap detection interval in ms                |
-| `maxRetries`                | int     | 3       | Max attempts per fetch (min 1)              |
-| `initialRetryDelay`         | int     | 5000    | Initial retry delay in ms                   |
-| `fetchBatchSize`            | int     | 10      | Blocks per gRPC request                     |
-| `delayBetweenBatches`       | int     | 1000    | Delay between batches in ms                 |
-| `initialDelay`              | int     | 15000   | Startup delay in ms                         |
-| `perBlockProcessingTimeout` | int     | 1000    | Per-block processing timeout in ms          |
-| `grpcOverallTimeout`        | int     | 60000   | gRPC timeout fallback in ms                 |
-| `enableTLS`                 | boolean | false   | Enable TLS for gRPC connections             |
-| `greedy`                    | boolean | true    | Fetch blocks ahead of local storage         |
-| `historicalQueueCapacity`   | int     | 20      | Historical queue size                       |
-| `liveTailQueueCapacity`     | int     | 10      | Live-tail queue size                        |
-| `healthPenaltyPerFailure`   | double  | 1000.0  | Health score penalty per failure            |
-| `maxBackoffMs`              | long    | 300000  | Maximum backoff duration in ms              |
+|          Property           |  Type   | Default |                                       Description                                       |
+|-----------------------------|---------|---------|-----------------------------------------------------------------------------------------|
+| `startBlock`                | long    | 0       | First block number to consider for backfill                                             |
+| `endBlock`                  | long    | -1      | Last block (-1 = unlimited)                                                             |
+| `blockNodeSourcesPath`      | String  | ""      | Path to peer nodes JSON file                                                            |
+| `scanInterval`              | int     | 60000   | Gap detection interval in ms                                                            |
+| `maxRetries`                | int     | 3       | Max attempts per fetch (min 1)                                                          |
+| `initialRetryDelay`         | int     | 5000    | Initial retry delay in ms                                                               |
+| `fetchBatchSize`            | int     | 10      | Blocks per gRPC request                                                                 |
+| `delayBetweenBatches`       | int     | 1000    | Delay between batches in ms                                                             |
+| `initialDelay`              | int     | 15000   | Startup delay in ms                                                                     |
+| `perBlockProcessingTimeout` | int     | 1000    | Per-block processing timeout in ms                                                      |
+| `grpcOverallTimeout`        | int     | 900000  | Longest time in ms one batch request may take in total                                  |
+| `grpcInactivityTimeout`     | int     | 60000   | Longest time in ms a batch request may go without receiving a complete response message |
+| `enableTLS`                 | boolean | false   | Enable TLS for gRPC connections                                                         |
+| `greedy`                    | boolean | true    | Fetch blocks ahead of local storage                                                     |
+| `historicalQueueCapacity`   | int     | 20      | Historical queue size                                                                   |
+| `liveTailQueueCapacity`     | int     | 10      | Live-tail queue size                                                                    |
+| `healthPenaltyPerFailure`   | double  | 1000.0  | Health score penalty per failure                                                        |
+| `maxBackoffMs`              | long    | 300000  | Maximum backoff duration in ms                                                          |
 
 ### Peer Nodes Configuration (JSON)
 
@@ -308,13 +322,13 @@ The `blockNodeSourcesPath` file defines peer block nodes:
 
 #### gRPC Tuning Options
 
-All fields optional. Timeouts default to `grpcOverallTimeout`, others have sensible defaults.
+All fields optional; a field that is unset or 0 uses its default.
 
 |         Field          | Default |          Description          |
 |------------------------|---------|-------------------------------|
-| `connect_timeout`      | global  | Connection timeout in ms      |
-| `read_timeout`         | global  | Read timeout in ms            |
-| `poll_wait_time`       | global  | Poll wait time in ms          |
+| `connect_timeout`      | 10000   | Connection timeout in ms      |
+| `read_timeout`         | 10000   | Read timeout in ms            |
+| `poll_wait_time`       | 10000   | Poll wait time in ms          |
 | `prior_knowledge`      | true    | Skip HTTP/1.1 upgrade         |
 | `max_frame_size`       | 2MB     | HTTP/2 max frame size         |
 | `initial_window_size`  | 2MB     | HTTP/2 flow control window    |

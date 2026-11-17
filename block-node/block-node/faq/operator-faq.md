@@ -485,13 +485,22 @@ network interruption).
 
 ### How do I tune backfill retry behavior?
 
-|             Variable             |     Default     |                           Purpose                           |
-|----------------------------------|-----------------|-------------------------------------------------------------|
-| `BACKFILL_MAX_RETRIES`           | 3               | Max retries per fetch attempt                               |
-| `BACKFILL_MAX_BACKOFF_MS`        | 300,000 (5 min) | Max backoff between retries                                 |
-| `BACKFILL_FETCH_BATCH_SIZE`      | 10              | Blocks fetched per gRPC call                                |
-| `BACKFILL_DELAY_BETWEEN_BATCHES` | 1,000 ms        | Delay between successive batch requests                     |
-| `BACKFILL_GREEDY`                | true            | Set `false` to only fill gaps below the latest stored block |
+|              Variable              |     Default      |                                    Purpose                                    |
+|------------------------------------|------------------|-------------------------------------------------------------------------------|
+| `BACKFILL_MAX_RETRIES`             | 3                | Max retries per fetch attempt                                                 |
+| `BACKFILL_MAX_BACKOFF_MS`          | 300,000 (5 min)  | Max backoff between retries                                                   |
+| `BACKFILL_FETCH_BATCH_SIZE`        | 10               | Blocks fetched per gRPC call                                                  |
+| `BACKFILL_DELAY_BETWEEN_BATCHES`   | 1,000 ms         | Delay between successive batch requests                                       |
+| `BACKFILL_GREEDY`                  | true             | Set `false` to only fill gaps below the latest stored block                   |
+| `BACKFILL_GRPC_INACTIVITY_TIMEOUT` | 60,000 ms        | Ends a batch request that receives no complete response message for this long |
+| `BACKFILL_GRPC_OVERALL_TIMEOUT`    | 900,000 (15 min) | Ends a batch request that takes this long in total                            |
+
+A batch request that ends early keeps the blocks it already received and the next request starts after them,
+so large blocks no longer need a smaller `BACKFILL_FETCH_BATCH_SIZE` or a longer timeout.
+The inactivity timeout counts only complete response messages, not bytes in transit. The serving node sends blocks in
+messages of about 1 MB, but a single block item larger than that is sent as one message. On a slow link, raise
+`BACKFILL_GRPC_INACTIVITY_TIMEOUT` so it covers the transfer of the largest such message; otherwise every request
+times out at that block.
 
 > See [Configuration Reference](../configuration.md) for full details.
 
