@@ -206,27 +206,28 @@ interrupted group. Bucket lifecycle rules over the prefix must not delete object
 
 ### Backfill Plugin Configuration
 
-| ENV Variable                             | Description                                                                                                            |   Default |
-|:-----------------------------------------|:-----------------------------------------------------------------------------------------------------------------------|----------:|
-| BACKFILL_START_BLOCK                     | First block this BN deploy wants.                                                                                      |         0 |
-| BACKFILL_END_BLOCK                       | Max block number, -1 means no limit.                                                                                   |        -1 |
-| BACKFILL_BLOCK_NODE_SOURCES_PATH         | File path for BN sources (PBJ JSON `block-nodes.json`).                                                                |        "" |
-| BACKFILL_SCAN_INTERVAL                   | Scan interval for gap detection (ms).                                                                                  |     60000 |
-| BACKFILL_MAX_RETRIES                     | Max attempts to fetch a block, minimum 1.                                                                              |         3 |
-| BACKFILL_INITIAL_RETRY_DELAY             | Initial retry delay (ms), grows linearly.                                                                              |      5000 |
-| BACKFILL_FETCH_BATCH_SIZE                | Number of blocks per gRPC call.                                                                                        |        10 |
-| BACKFILL_DELAY_BETWEEN_BATCHES           | Delay (ms) between block batches.                                                                                      |      1000 |
-| BACKFILL_INITIAL_DELAY                   | Initial delay (ms) before starting backfill.                                                                           |     15000 |
-| BACKFILL_PER_BLOCK_PROCESSING_TIMEOUT    | Timeout (ms) to wait for a block batch.                                                                                |      1000 |
-| BACKFILL_GRPC_OVERALL_TIMEOUT            | Overall gRPC timeout (connect, read, poll) in ms.                                                                      |     60000 |
-| BACKFILL_MAX_INCOMING_BUFFER_SIZE        | Max gRPC incoming buffer size in bytes (min 10 MB, max 300 MB).                                                        | 104857600 |
-| BACKFILL_ENABLE_TLS                      | Enable TLS if supported by block-node client.                                                                          |     false |
-| BACKFILL_MAX_PROTOBUF_MESSAGE_SIZE_BYTES | Max protobuf message size (bytes) accepted when parsing a block fetched over the wire during backfill.                 | 131072000 |
-| BACKFILL_GREEDY                          | When true, searches and retrieves blocks beyond latestAcknowledged to prevent the BN from falling too far behind live. |      true |
-| BACKFILL_HISTORICAL_QUEUE_CAPACITY       | Bounded queue capacity for historical block fetch tasks (min 1, max 1000).                                             |        20 |
-| BACKFILL_LIVE_TAIL_QUEUE_CAPACITY        | Bounded queue capacity for live-tail block fetch tasks (min 1, max 100).                                               |        10 |
-| BACKFILL_HEALTH_PENALTY_PER_FAILURE      | Health score penalty applied per failed fetch attempt to a peer node.                                                  |    1000.0 |
-| BACKFILL_MAX_BACKOFF_MS                  | Maximum backoff (ms) before retrying a failed peer node (minimum: 30,000).                                             |   300,000 |
+| ENV Variable                             | Description                                                                                                                                                                                                                          |   Default |
+|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------:|
+| BACKFILL_START_BLOCK                     | First block this BN deploy wants.                                                                                                                                                                                                    |         0 |
+| BACKFILL_END_BLOCK                       | Max block number, -1 means no limit.                                                                                                                                                                                                 |        -1 |
+| BACKFILL_BLOCK_NODE_SOURCES_PATH         | File path for BN sources (PBJ JSON `block-nodes.json`).                                                                                                                                                                              |        "" |
+| BACKFILL_SCAN_INTERVAL                   | Scan interval for gap detection (ms).                                                                                                                                                                                                |     60000 |
+| BACKFILL_MAX_RETRIES                     | Max attempts to fetch a block, minimum 1.                                                                                                                                                                                            |         3 |
+| BACKFILL_INITIAL_RETRY_DELAY             | Initial retry delay (ms), grows linearly.                                                                                                                                                                                            |      5000 |
+| BACKFILL_FETCH_BATCH_SIZE                | Number of blocks per gRPC call.                                                                                                                                                                                                      |        10 |
+| BACKFILL_DELAY_BETWEEN_BATCHES           | Delay (ms) between block batches.                                                                                                                                                                                                    |      1000 |
+| BACKFILL_INITIAL_DELAY                   | Initial delay (ms) before starting backfill.                                                                                                                                                                                         |     15000 |
+| BACKFILL_PER_BLOCK_PROCESSING_TIMEOUT    | Timeout (ms) to wait for a block batch.                                                                                                                                                                                              |      1000 |
+| BACKFILL_GRPC_OVERALL_TIMEOUT            | Longest time (ms) one batch request may take in total, however steadily blocks arrive.                                                                                                                                               |    900000 |
+| BACKFILL_GRPC_INACTIVITY_TIMEOUT         | Longest time (ms) a batch request may go without receiving a complete response message before it ends early. Must cover the transfer of the largest single message. A value at or above BACKFILL_GRPC_OVERALL_TIMEOUT has no effect. |     60000 |
+| BACKFILL_MAX_INCOMING_BUFFER_SIZE        | Max gRPC incoming buffer size in bytes (min 10 MB, max 300 MB).                                                                                                                                                                      | 104857600 |
+| BACKFILL_ENABLE_TLS                      | Enable TLS if supported by block-node client.                                                                                                                                                                                        |     false |
+| BACKFILL_MAX_PROTOBUF_MESSAGE_SIZE_BYTES | Max protobuf message size (bytes) accepted when parsing a block fetched over the wire during backfill.                                                                                                                               | 131072000 |
+| BACKFILL_GREEDY                          | When true, searches and retrieves blocks beyond latestAcknowledged to prevent the BN from falling too far behind live.                                                                                                               |      true |
+| BACKFILL_HISTORICAL_QUEUE_CAPACITY       | Bounded queue capacity for historical block fetch tasks (min 1, max 1000).                                                                                                                                                           |        20 |
+| BACKFILL_LIVE_TAIL_QUEUE_CAPACITY        | Bounded queue capacity for live-tail block fetch tasks (min 1, max 100).                                                                                                                                                             |        10 |
+| BACKFILL_HEALTH_PENALTY_PER_FAILURE      | Health score penalty applied per failed fetch attempt to a peer node.                                                                                                                                                                |    1000.0 |
+| BACKFILL_MAX_BACKOFF_MS                  | Maximum backoff (ms) before retrying a failed peer node (minimum: 30,000).                                                                                                                                                           |   300,000 |
 
 **Note:** The following can be configured in the JSON file at `BACKFILL_BLOCK_NODE_SOURCES_PATH`:
 - Per-node gRPC timeout overrides: `grpc_connect_timeout`, `grpc_read_timeout`, `grpc_poll_wait_time`
@@ -277,10 +278,13 @@ for the JSON schema.
 
 ### Messaging Plugin Configuration
 
-| ENV Variable                            | Description                                                                               | Default |
-|:----------------------------------------|:------------------------------------------------------------------------------------------|--------:|
-| MESSAGING_BLOCK_ITEM_QUEUE_SIZE         | Max messages in block item queue. Each batch ~100 items. Must be power of 2.              |     512 |
-| MESSAGING_BLOCK_NOTIFICATION_QUEUE_SIZE | Max block notifications queued. Each may hold a full block in memory. Must be power of 2. |      32 |
+| ENV Variable                                 | Description                                                                                                                                                |  Default |
+|:---------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------:|
+| MESSAGING_BLOCK_ITEM_QUEUE_SIZE              | Max messages in block item queue. Each batch ~100 items. Must be power of 2.                                                                               |      512 |
+| MESSAGING_BLOCK_NOTIFICATION_QUEUE_SIZE      | Max block notifications queued. Each may hold a full block in memory. Must be power of 2.                                                                  |       32 |
+| MESSAGING_UNVALIDATED_BLOCK_QUEUE_SIZE       | Max backfilled blocks queued for verification. Each is a full block. Must be power of 2.                                                                   |       32 |
+| MESSAGING_WAIT_STRATEGY                      | How ring handlers wait once caught up: `BLOCKING`, `PHASED_BACKOFF` (yield, then block), or `SLEEPING` (old behavior, burns CPU when idle; rollback only). | BLOCKING |
+| MESSAGING_WAIT_STRATEGY_YIELD_TIMEOUT_MICROS | How long a `PHASED_BACKOFF` handler yields after its last message before blocking, in microseconds. Must not be negative.                                  |     1000 |
 
 ### Server Status Plugin Configuration
 

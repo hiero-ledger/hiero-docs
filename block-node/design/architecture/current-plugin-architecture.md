@@ -44,7 +44,7 @@ This document describes the design of that architecture — the `BlockNodePlugin
   <dd>An interface passed alongside <code>BlockNodeContext</code> during <code>init()</code> that allows plugins to register HTTP and gRPC service routes on the Helidon web server.</dd>
 
   <dt>Disruptor</dt>
-  <dd>The LMAX Disruptor ring buffer used by <code>BlockMessagingFacility</code> as the underlying transport for both block-item distribution and block-notification events between plugins.</dd>
+  <dd>The LMAX Disruptor ring buffer used by <code>BlockMessagingFacility</code> as the underlying transport between plugins, with one ring each for block items, block notifications and unvalidated blocks.</dd>
 
   <dt>BlockProviderPlugin</dt>
   <dd>A specialization of <code>BlockNodePlugin</code> that contributes a source of historical blocks (e.g., file system, S3, RAM cache). The <code>HistoricalBlockFacility</code> composes all registered providers in priority order.</dd>
@@ -107,12 +107,11 @@ The inter-plugin event bus. Itself a plugin (and a required facility — startup
 |------------------------------------------|---------------------|----------------------------------------------------------------------------------------|
 | `VerificationNotification`               | Verification plugin | Block passed or failed cryptographic verification.                                     |
 | `PersistedNotification`                  | Storage plugins     | Block has been durably written by a provider.                                          |
-| `BackfilledBlockNotification`            | Backfill plugin     | A previously missing block was retrieved and stored.                                   |
 | `NewestBlockKnownToNetworkNotification`  | Publisher plugin    | Consensus Node has reported the latest known block header.                             |
 | `NextExpectedPublisherBlockNotification` | Publisher plugin    | A publisher was told this node is behind it; carries the next block this node expects. |
 | `PublisherStatusUpdateNotification`      | Publisher plugin    | Publisher connection state changed.                                                    |
 
-Any plugin may subscribe to notifications via `registerBlockNotificationHandler(BlockNotificationHandler, ...)`.
+Any plugin may subscribe to notifications via `registerBlockNotificationHandler(BlockNotificationHandler, ...)`. Such a handler does not receive backfilled blocks, see Unvalidated Blocks below.
 
 **Application State Notifications** — four typed notification events sent by the `ApplicationStateFacility` when node-level state changes. They travel on the block notification ring buffer:
 
@@ -124,6 +123,13 @@ Any plugin may subscribe to notifications via `registerBlockNotificationHandler(
 | `AvailableBlocksNotification`    | The union of the providers' available block ranges changed. |
 
 Any plugin may subscribe via `registerApplicationStateNotificationHandler(ApplicationStateNotificationHandler, ...)`, and should call `unregisterApplicationStateNotificationHandler(...)` in `stop()`.
+
+**Unvalidated Blocks**: whole blocks that are not verified yet and do not come from the live publisher, for now the blocks fetched by the backfill plugin. They travel on a ring buffer of their own, sized by `messaging.unvalidatedBlockQueueSize`:
+- `sendBackfilledBlockNotification(BackfilledBlockNotification)`: called by the backfill plugin for every fetched block. Several backfill threads may send at once, and a full ring holds the sender back until the handlers catch up.
+- `registerUnvalidatedBlockHandler(BlockNotificationHandler, cpuIntensive, name)`: subscribe with back-pressure; the handler receives each block through `handleBackfilled`. The verification plugin is currently the only handler.
+- `unregisterUnvalidatedBlockHandler(BlockNotificationHandler)`: stop receiving unvalidated blocks.
+
+`handleBackfilled` is only called for handlers registered with `registerUnvalidatedBlockHandler`. A handler that needs both block notifications and unvalidated blocks registers both ways, and gets a separate thread for each ring.
 
 ### `HistoricalBlockFacility` (interface + plugin)
 
@@ -232,7 +238,7 @@ No changes to `BlockNodeApp` or any existing plugin are required.
 
 ### Inter-Plugin Messaging
 
-The `BlockMessagingFacility` decouples producers from consumers using two independent Disruptor ring buffers:
+The `BlockMessagingFacility` decouples producers from consumers using three independent Disruptor ring buffers:
 
 ```
 Publisher Plugin
@@ -245,7 +251,7 @@ Publisher Plugin
       ▼           ▼
  Subscriber    Verification    ...  (N handlers, each with optional back-pressure)
 
-Block Lifecycle Events (verification, persistence, backfill, etc.)
+Block Lifecycle Events (verification, persistence, etc.)
       │
       ▼  sendBlockVerification() / sendBlockPersisted() / ...
 ┌────────────────────────────┐
@@ -254,6 +260,16 @@ Block Lifecycle Events (verification, persistence, backfill, etc.)
       │           │
       ▼           ▼
   Subscriber   Publisher   ...  (N handlers)
+
+Backfill Plugin
+      │
+      ▼  sendBackfilledBlockNotification()
+┌────────────────────────────┐
+│  Unvalidated Block Buffer  │  (Disruptor ring)
+└────────────────────────────┘
+      │
+      ▼
+ Verification   (handlers registered with registerUnvalidatedBlockHandler)
 ```
 
 Handlers registered with back-pressure (default) slow the producer if they fall behind, providing flow control. Handlers registered without back-pressure (`NoBackPressureBlockItemHandler`) are called with a skip notification (`onTooFarBehindError`) when they fall more than 80% of the ring size behind.
@@ -359,6 +375,9 @@ flowchart LR
     BI --> SUB[Subscriber Plugin]
     BI --> VER[Verification Plugin]
     BI --> N1[... Plugin N]
+
+    BF[Backfill Plugin] -->|sendBackfilledBlockNotification| UB[Unvalidated Blocks\nDisruptor]
+    UB --> VER
 
     VER -->|sendBlockVerification| BN[Block Notification\nDisruptor]
     STOR[Storage Plugin] -->|sendBlockPersisted| BN

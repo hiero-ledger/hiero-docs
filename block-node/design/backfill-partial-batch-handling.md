@@ -98,7 +98,7 @@ Out of scope:
 * **Terminal Event**: The first of: stream completed, stream error, block number
   mismatch, unexpected response, internal error while processing a response
   message (for example a parse error), timeout, interruption of the waiting
-  thread. After the terminal event a request accepts no more data.
+  thread. A response message that arrives after the terminal event is ignored.
 * **Abandoned Stream**: A gRPC stream whose batch request has already returned
   to the caller (because of a timeout or an error) while the peer may still be
   sending data.
@@ -139,9 +139,8 @@ early, if any.
 
 The per-request state and the pbj pipeline that turns response messages into
 blocks. The request ends at the first terminal event, and the pipeline ignores
-everything that arrives after it. The completed blocks live in the same atomic
-snapshot as the outcome, so the prefix handed to the waiting thread is fixed at
-the terminal event.
+everything that arrives after it. The completed blocks are collected in a
+queue, and the waiting thread copies them once the request has ended.
 
 ### BlockNodeClient
 
@@ -176,10 +175,11 @@ full.
 The request ends at its first terminal event: the stream completes, the stream
 fails, the peer sends an error status or a block with an unexpected number,
 processing a response message fails on our side, a timeout trips, or the
-waiting thread is interrupted. The client keeps the outcome and the completed
-blocks together in one `AtomicReference` updated by `compareAndSet`, so only the
-first event counts and no block is added after it, even while the pbj reader
-thread is still running. The waiting thread then returns those blocks, together
+waiting thread is interrupted. The client records the first terminal event with
+`compareAndSet`, so only that event counts. The pbj reader thread appends each
+complete block to a queue, and the waiting thread copies the queue once the
+request has ended; a block still being added at that moment is returned only if
+it lands before the copy. The waiting thread then returns those blocks, together
 with the error, if any; it does not throw.
 
 ### Resuming After the Received Blocks
@@ -279,8 +279,8 @@ three attempts of 15 minutes, plus the retry delays. During that time the
 scheduler running the fetch starts no other chunk; the other scheduler is not
 affected, and every block the peer completes is kept.
 
-Each limit logs its own `WARNING`, so operators can tell a stalled peer apart
-from a batch that did not finish in time.
+The error of each limit names its setting, so operators can tell a stalled peer
+apart from a batch that did not finish in time.
 
 pbj's per-peer read timeout (10 seconds by default) does not end a stream: it
 only sends a ping and keeps reading. A stalled peer is therefore caught by the
@@ -448,21 +448,23 @@ details:
   throws `IllegalArgumentException`, because it is a bug in the caller, not a
   failure of the peer.
 - **Timeouts.** The inactivity timeout and the ceiling end the request the same
-  way, each with its own `WARNING` message naming the setting and the first
-  block not received.
+  way, each with an error naming the setting and its value. The client logs the
+  first block not received at `DEBUG`.
 - **Interruption.** The waiting thread is interrupted only when the backfill
   plugin stops: `stop()` shuts down the scheduler executors with
   `shutdownNow()`. The interrupt flag is restored, the prefix is returned with
   an `InterruptedException`, the fetcher stops retrying, and the peer is not
   marked as failed.
-- **Late callbacks.** Any callback after the terminal event is ignored. The log
-  level of `onError` depends on when it arrives: an `onError` that ends the
-  request is logged at `WARNING`, while one that arrives after
+- **Late callbacks.** Any callback after the terminal event is ignored. The
+  client logs `onError` at `DEBUG`, whether it ends the request or arrives after
   the terminal event, typically because the connection of an abandoned stream
-  was closed, is logged at `DEBUG`.
+  was closed.
 - **Exhausted attempts with a prefix.** When every attempt failed but some
   blocks arrived, the fetcher returns them, logs the last error at `WARNING`,
   and does not mark the node as failed.
+- **One warning per fetch.** A failed attempt is logged at `DEBUG`, because the
+  next attempt may recover it. Only a fetch whose attempts ran out on an error
+  logs a `WARNING`, once, with the last error.
 
 ## Acceptance Tests
 

@@ -106,6 +106,7 @@ Observes the messaging system that connects the publisher with subscribers and t
 | Gauge   | `messaging_no_of_notification_listeners`                | Active notification listeners                                          |
 | Gauge   | `messaging_item_queue_percent_used`                     | Percent of item queue utilised                                         |
 | Gauge   | `messaging_notification_queue_percent_used`             | Percent of notification queue utilised                                 |
+| Gauge   | `messaging_unvalidated_block_queue_percent_used`        | Percent of unvalidated block queue utilised                            |
 | Counter | `messaging_block_backfilled_notifications`              | Notifications issued after backfilling blocks                          |
 | Counter | `messaging_newest_block_known_to_network_notifications` | Notifications issued for newest block known to network                 |
 | Counter | `messaging_next_expected_publisher_block_notifications` | Notifications issued after a publisher was told this node is behind it |
