@@ -294,7 +294,7 @@ for the JSON schema.
 
 ### Throttle Configuration
 
-The `serverStatus` and `serverStatusDetail` gRPC methods are throttled per client and node-wide. All keys have defaults.
+The `serverStatus`, `serverStatusDetail`, `getAddressBook` and `getTssData` gRPC methods are throttled per client and node-wide. All keys have defaults.
 
 #### Global limits (prefix `throttle.global.`)
 
@@ -302,12 +302,14 @@ The `serverStatus` and `serverStatusDetail` gRPC methods are throttled per clien
 |:--------------------------------|:----------------------------------------------------------------------------------------------------------------------|--------:|
 | serverStatusMaxConcurrent       | Node-wide ceiling on concurrent in-flight `serverStatus` calls across all clients.                                    |   1,000 |
 | serverStatusDetailMaxConcurrent | Node-wide ceiling on concurrent in-flight `serverStatusDetail` calls across all clients.                              |   1,000 |
+| getAddressBookMaxConcurrent     | Node-wide ceiling on concurrent in-flight `getAddressBook` calls across all clients.                                  |     100 |
+| getTssDataMaxConcurrent         | Node-wide ceiling on concurrent in-flight `getTssData` calls across all clients.                                      |     500 |
 | clientStateTtlMinutes           | How long a throttled method keeps a client's rate and concurrency state after its last call before it can be evicted. |      30 |
 | clientStateSweepIntervalMinutes | How often the sweep that evicts stale client state runs.                                                              |       5 |
 
-#### Per-method limits (prefixes `throttle.serverStatus.` and `throttle.serverStatusDetail.`)
+#### Per-method limits (prefixes `throttle.serverStatus.`, `throttle.serverStatusDetail.`, `throttle.getAddressBook.` and `throttle.getTssData.`)
 
-The same four keys apply under each prefix.
+The same four keys apply under each prefix. The defaults in the table are those of `serverStatus` and `serverStatusDetail`; `getAddressBook` and `getTssData` default lower (see below), because the roster data they return changes rarely.
 
 | Config Key             | Description                                                                                                                                                                                                                                                                                                          |                                        Default |
 |:-----------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------:|
@@ -315,6 +317,15 @@ The same four keys apply under each prefix.
 | burstTolerance         | How many pacing intervals early a request may arrive and still be admitted.                                                                                                                                                                                                                                          |                                             20 |
 | maxConcurrentPerClient | Concurrent in-flight calls allowed per client.                                                                                                                                                                                                                                                                       |                                              5 |
 | maxPermitHoldSeconds   | Age after which a concurrency permit that is still held is force-released by a background sweep. This only corrects the throttle's accounting for calls whose connection dropped before completing. It never terminates a call. The sweep runs about every half of the smallest configured value (minimum 1 second). | 10 (`serverStatus`), 60 (`serverStatusDetail`) |
+
+The defaults for the roster calls, `throttle.getAddressBook.` and `throttle.getTssData.`:
+
+| Config Key             | Default |
+|:-----------------------|--------:|
+| ratePerSecond          |      10 |
+| burstTolerance         |      10 |
+| maxConcurrentPerClient |       3 |
+| maxPermitHoldSeconds   |      60 |
 
 #### When a client is rejected
 
