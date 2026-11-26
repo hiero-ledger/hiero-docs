@@ -36,12 +36,13 @@ A client sends one `BlockRequest`; the Block Node responds with the raw block by
 sequenceDiagram
     participant Client as gRPC Client
     participant Plugin as BlockAccessServicePlugin
+    participant State as ApplicationStateFacility
     participant Facility as HistoricalBlockFacility
 
     Client->>Plugin: getBlock(BlockRequest)
     Note over Plugin: Resolve block number or<br/>retrieve_latest sentinel
-    Plugin->>Facility: availableBlocks()
-    Facility-->>Plugin: BlockRange of stored blocks
+    Plugin->>State: availableBlockSet()
+    State-->>Plugin: BlockRangeSet of available blocks
     alt Block not in available range
         Plugin-->>Client: BlockResponse(NOT_AVAILABLE)
     else Block in range
@@ -57,10 +58,10 @@ Detailed Steps:
 1. A gRPC client sends a `getBlock` unary request to `BlockAccessServicePlugin`. The request specifies either an explicit
    `block_number` or sets `retrieve_latest` to `true`.
 2. The plugin resolves the target block number: an explicit `block_number ≥ 0` is used directly; `retrieve_latest = true`
-   (or `block_number = -1`) resolves to the maximum block number returned by `HistoricalBlockFacility.availableBlocks().max()`.
+   (or `block_number = -1`) resolves to the maximum block number returned by `ApplicationStateFacility.availableBlockSet().max()`.
    An unrecognised combination returns `INVALID_REQUEST`.
-3. The plugin calls `availableBlocks().contains(N)` to confirm the resolved block number is within the current stored
-   range. If not, it returns `NOT_AVAILABLE` without touching storage.
+3. The plugin calls `availableBlockSet().contains(N)` on the `ApplicationStateFacility`, which tracks the blocks each
+   storage plugin reports as available, to confirm the resolved block number is currently available. If not, it returns `NOT_AVAILABLE` without touching storage.
 4. The plugin calls `blockProvider.block(N)`, which opens a `BlockAccessor` pointing at the requested block.
    `HistoricalBlockFacility` dispatches internally to whichever storage tier currently holds that block:
    `BlockFileRecentPlugin` (backed by fast NVMe, holds recent and live-stream blocks) for newer blocks, or

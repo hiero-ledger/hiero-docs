@@ -31,7 +31,7 @@ Before you begin, ensure you have:
 - A running Mirror Node deployment ready to be reconfigured to consume from a Block Node:
   - [**Mirror Node Installation Guide**](https://github.com/hiero-ledger/hiero-mirror-node/blob/main/docs/installation.md) - local or Docker Compose install paths.
   - [**Mirror Node Configuration Reference**](https://github.com/hiero-ledger/hiero-mirror-node/blob/main/docs/configuration.md) - full property reference for the Mirror Node services.
-- Network connectivity between the Mirror Node host and each Block Node host on the Block Node's Subscribe API port (`40980` in LFH profile; `40840` in base-chart default).
+- Network connectivity between the Mirror Node host and each Block Node host on the Block Node's Subscribe API port (`40980` in LFH profile; `40840` in base-chart default) and Status API port (`40982` in LFH profile; `40840` in base-chart default).
 - A gRPC client capable of HTTP/2 server-streaming calls:
   - The Mirror Node's built-in gRPC stack (for production integration), **or**
   - [**`grpcurl`**](https://github.com/fullstorydev/grpcurl) - for ad-hoc verification from a shell (optional but recommended). Install via `brew install grpcurl` on macOS, following the [official guide](https://grpcurl.com/how-do-i-install-grpcurl-on-my-system/) on Windows, or your distribution's package manager on Linux.
@@ -42,7 +42,7 @@ The table below summarises the Mirror-Node-side technical requirements. For Bloc
 
 |    Requirement    |                                                                                                                                                                                                                                                              Details                                                                                                                                                                                                                                                              |
 |-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Network access    | TCP connectivity from the Mirror Node host to each Block Node host on its Subscribe API port (`40980` in LFH profile; `40840` in base-chart default).                                                                                                                                                                                                                                                                                                                                                                             |
+| Network access    | TCP connectivity from the Mirror Node host to each Block Node host on its Subscribe API port (`40980` in LFH profile; `40840` in base-chart default) and Status API port (`40982` in LFH profile; `40840` in base-chart default).                                                                                                                                                                                                                                                                                                 |
 | Proto definitions | `block_stream_subscribe_service.proto`, `node_service.proto`, and `shared_message_types.proto` from [`protobuf-sources/src/main/proto/block-node/api/`](https://github.com/hiero-ledger/hiero-block-node/tree/main/protobuf-sources/src/main/proto/block-node/api). For ad-hoc `grpcurl` use, the matching versioned bundle from the [Block Node releases](https://github.com/hiero-ledger/hiero-block-node/releases) page is the easiest source - see [Step 1](#step-1-confirm-each-block-node-is-reachable-and-serving-blocks). |
 | gRPC reflection   | The Block Node does **not** enable gRPC server reflection on the public port. Clients must supply protobuf descriptors explicitly.                                                                                                                                                                                                                                                                                                                                                                                                |
 
@@ -63,16 +63,21 @@ Configure the Mirror Node via `application.yml` (or equivalent Spring property s
 
 #### Block Node endpoints
 
-Declare one entry under `hiero.mirror.importer.block.nodes[]` per target Block Node:
+Declare one entry under `hiero.mirror.importer.block.nodes[]` per target Block Node, and list that Block Node's gRPC endpoints under `endpoints[]`:
 
-|                     Property                      | Default |                                                Effect                                                 |
-|---------------------------------------------------|---------|-------------------------------------------------------------------------------------------------------|
-| `hiero.mirror.importer.block.nodes[].host`        | -       | Host or IP of the Block Node gRPC service. **Required.**                                              |
-| `hiero.mirror.importer.block.nodes[].port`        | `40980` | Subscribe API port of the Block Node. LFH profile default: `40980`; base-chart default: `40840`.      |
-| `hiero.mirror.importer.block.nodes[].priority`    | `0`     | Selection priority. **Lower value is higher priority.** Highest-priority reachable node is preferred. |
-| `hiero.mirror.importer.block.nodes[].requiresTls` | `false` | Set to `true` if the Block Node endpoint is fronted by TLS termination.                               |
+|                           Property                            |           Default            |                                                                                  Effect                                                                                  |
+|---------------------------------------------------------------|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `hiero.mirror.importer.block.nodes[].endpoints[].host`        | -                            | Host or IP of the endpoint. **Required.**                                                                                                                                |
+| `hiero.mirror.importer.block.nodes[].endpoints[].port`        | `40840`                      | Port of the endpoint.                                                                                                                                                    |
+| `hiero.mirror.importer.block.nodes[].endpoints[].apis`        | `[STATUS, SUBSCRIBE_STREAM]` | Block Node APIs served on this endpoint. The Mirror Node sends `serverStatusDetail` requests to the `STATUS` endpoint and subscribes on the `SUBSCRIBE_STREAM` endpoint. |
+| `hiero.mirror.importer.block.nodes[].endpoints[].requiresTls` | `false`                      | Set to `true` if the endpoint is fronted by TLS termination.                                                                                                             |
+| `hiero.mirror.importer.block.nodes[].priority`                | `0`                          | Selection priority. **Lower value is higher priority.** Highest-priority reachable node is preferred.                                                                    |
 
-Example YAML for two Block Nodes with the second as failover:
+The endpoints of one Block Node must together provide both `STATUS` and `SUBSCRIBE_STREAM`, or the Mirror Node fails validation at startup. When the Block Node serves each API on its own port (per-service ports; the LFH profile uses `40982` for server status and `40980` for subscribe), declare two endpoints for the same host, one per API, as in the example below. When the Block Node serves both APIs on one port (the base-chart default `40840`), a single endpoint with the default `apis` is enough. If the `STATUS` endpoint does not answer, the Mirror Node logs `Failed to get server status detail for ...` and skips that Block Node.
+
+> **Note:** Mirror Node v0.157.0 introduced `endpoints[]`. Earlier versions used flat `nodes[].host`, `nodes[].port`, and `nodes[].requiresTls` keys, which current versions do not read.
+
+Example YAML for two Block Nodes with per-service ports, the second as failover:
 
 ```yaml
 hiero:
@@ -82,26 +87,37 @@ hiero:
         enabled: true
         sourceType: BLOCK_NODE
         nodes:
-          - host: bn-primary.example.com
-            port: 40980
-            priority: 0
-            requiresTls: true
-          - host: bn-fallback.example.com
-            port: 40980
-            priority: 10
-            requiresTls: true
+          - priority: 0
+            endpoints:
+              - host: bn-primary.example.com
+                port: 40982
+                apis: [STATUS]
+              - host: bn-primary.example.com
+                port: 40980
+                apis: [SUBSCRIBE_STREAM]
+          - priority: 10
+            endpoints:
+              - host: bn-fallback.example.com
+                port: 40982
+                apis: [STATUS]
+              - host: bn-fallback.example.com
+                port: 40980
+                apis: [SUBSCRIBE_STREAM]
 ```
+
+> **Note:** Set `requiresTls: true` on an endpoint only if a TLS-terminating proxy or load balancer sits
+> in front of the Block Node. The Block Node itself serves plaintext.
 
 #### Selection and readmit behaviour
 
 The Mirror Node will not block on a single unhealthy Block Node. Tune the readmit logic with:
 
-|                         Property                          |         Default         |                                                                     Effect                                                                      |
-|-----------------------------------------------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hiero.mirror.importer.block.scheduler.type`              | `PRIORITY_THEN_LATENCY` | Selection strategy: `LATENCY`, `PRIORITY`, or `PRIORITY_THEN_LATENCY`. The default picks by priority and uses measured latency as a tiebreaker. |
-| `hiero.mirror.importer.block.stream.maxSubscribeAttempts` | `3`                     | Consecutive failed subscribe attempts before a Block Node is marked inactive.                                                                   |
-| `hiero.mirror.importer.block.stream.readmitDelay`         | `1m`                    | How long an inactive Block Node stays out before being retried.                                                                                 |
-| `hiero.mirror.importer.block.stream.responseTimeout`      | `400ms`                 | `serverStatus` request timeout.                                                                                                                 |
+|                       Property                       |         Default         |                                                                                                                   Effect                                                                                                                   |
+|------------------------------------------------------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `hiero.mirror.importer.block.scheduler.type`         | `PRIORITY_THEN_LATENCY` | Selection strategy: `LATENCY`, `PRIORITY`, or `PRIORITY_THEN_LATENCY`. The default picks by priority and uses measured latency as a tiebreaker.                                                                                            |
+| `hiero.mirror.importer.block.stream.maxAttempts`     | `3`                     | Consecutive failed attempts before a Block Node is marked inactive. Named `maxSubscribeAttempts` before Mirror Node v0.167.0. From v0.167.0, a Block Node that is unreachable or rejects the call is marked inactive on the first failure. |
+| `hiero.mirror.importer.block.stream.readmitDelay`    | `1m`                    | How long an inactive Block Node stays out before being retried.                                                                                                                                                                            |
+| `hiero.mirror.importer.block.stream.responseTimeout` | `400ms`                 | Timeout for the `serverStatusDetail` request to a Block Node's `STATUS` endpoint.                                                                                                                                                          |
 
 #### Migration cutover
 
@@ -123,10 +139,14 @@ For each Block Node entry you plan to configure, run the checks below.
 #### Reachability
 
 ```bash
+# Subscribe API port
 nc -vz <BLOCK_NODE_HOST> 40980
+# Status API port
+nc -vz <BLOCK_NODE_HOST> 40982
 ```
 
-- **Expected output**: `Connection to <BLOCK_NODE_HOST> port 40980 [tcp/*] succeeded!`
+- **Expected output**: `Connection to <BLOCK_NODE_HOST> port 40980 [tcp/*] succeeded!` and the same for port `40982`. In base-chart deployments both APIs share port `40840`, so one check against `40840` is enough.
+- The Mirror Node calls `serverStatusDetail` on the Status API port before it subscribes, so a Block Node whose Subscribe API port is reachable but whose Status API port is not fails at runtime with `Failed to get server status detail`.
 - **If this fails**: investigate firewall rules, security groups, and that the Block Node process is running.
 
 #### Available block range
@@ -144,12 +164,13 @@ mkdir -p ~/bn-proto && cd ~/bn-proto
 curl -sL -O "$BUNDLE_URL"
 tar -xzf block-node-protobuf-*.tgz
 
-# 3. Call serverStatus. The bundle extracts to the current directory, so use `-import-path .`.
+# 3. Call serverStatus on the Status API port (40982 in LFH profile; 40840 in base-chart default).
+#    The bundle extracts to the current directory, so use `-import-path .`.
 grpcurl -plaintext -emit-defaults \
   -import-path . \
   -proto block-node/api/node_service.proto \
   -d '{}' \
-  <BLOCK_NODE_HOST>:40980 \
+  <BLOCK_NODE_HOST>:40982 \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
@@ -184,7 +205,7 @@ grpcurl -plaintext -emit-defaults \
 2. Set the [required properties](#required) and add a `nodes[]` entry per Block Node, as shown in the example above.
 3. Restart the importer.
 
-The Mirror Node selects an active Block Node by `scheduler.type` (default `PRIORITY_THEN_LATENCY`) and opens a `subscribeBlockStream` gRPC call against it. On failure, it tries the next eligible Block Node, marking failed nodes inactive after `maxSubscribeAttempts` consecutive failures and readmitting them after `readmitDelay`.
+The Mirror Node selects an active Block Node by `scheduler.type` (default `PRIORITY_THEN_LATENCY`) and opens a `subscribeBlockStream` gRPC call against it. On failure, it tries the next eligible Block Node, marking failed nodes inactive after `maxAttempts` (`maxSubscribeAttempts` before Mirror Node v0.167.0) consecutive failures and readmitting them after `readmitDelay`.
 
 ### Step 3: Smoke-test the subscribe call from the shell *(optional)*
 
@@ -209,12 +230,12 @@ grpcurl -plaintext \
 
 ### Step 4: Handle disconnects and gaps
 
-The Block Node closes the stream when the finite range is fully served, when the connection reaches the Block Node's connection lifetime limit, when an internal error occurs, or when the client disconnects. The Mirror Node handles reconnection automatically: it will retry against the highest-priority reachable Block Node, governed by `maxSubscribeAttempts` and `readmitDelay`.
+The Block Node closes the stream when the finite range is fully served, when the connection reaches the Block Node's connection lifetime limit, when an internal error occurs, or when the client disconnects. The Mirror Node handles reconnection automatically: it will retry against the highest-priority reachable Block Node, governed by `maxAttempts` (`maxSubscribeAttempts` before Mirror Node v0.167.0) and `readmitDelay`.
 
 Two operator-visible patterns are worth knowing:
 
 - **Gap in `end_of_block.block_number`**: the flow of data from Consensus Node to Block Node arrived out-of-order or required a resend due to verification or persistence failure on the upstream stream. The Mirror Node may reconnect to [backfill](../glossary.md#backfill) the missing range from history. The Mirror Node detects this and re-subscribes with `start_block_number = (last_committed_block + 1)`. If the gap is not available on the current Block Node (terminal `NOT_AVAILABLE`), failover to a higher-priority [Tier-1](../glossary.md#tier-1-block-node) archive node is required - configure such a node as a low-priority entry under `nodes[]` so the Mirror Node can fall over automatically.
-- **Repeated `ERROR (3)` from one Block Node**: the Block Node is failing internally. The Mirror Node will mark it inactive after `maxSubscribeAttempts` and try the next configured node.
+- **Repeated `ERROR (3)` from one Block Node**: the Block Node is failing internally. The Mirror Node will mark it inactive after `maxAttempts` (`maxSubscribeAttempts` before Mirror Node v0.167.0) and try the next configured node.
 
 See [Gaps and out-of-order blocks come from the unverified stream](../mirror-node-integration.md#gaps-and-out-of-order-blocks-come-from-the-unverified-stream) in the concept doc for the rationale.
 
@@ -267,33 +288,33 @@ curl -s http://<BLOCK_NODE_HOST>:16007/metrics | grep blocknode_subscriber
 
 #### Status
 
-Re-run `serverStatus` while the Mirror Node is connected and confirm `lastAvailableBlock` advances as Consensus Nodes publish new blocks:
+Re-run `serverStatus` on the Status API port (`40982` in LFH profile; `40840` in base-chart default) while the Mirror Node is connected and confirm `lastAvailableBlock` advances as Consensus Nodes publish new blocks:
 
 ```bash
 grpcurl -plaintext -d '{}' \
   -import-path ~/bn-proto \
   -proto block-node/api/node_service.proto \
-  <BLOCK_NODE_HOST>:40980 \
+  <BLOCK_NODE_HOST>:40982 \
   org.hiero.block.api.BlockNodeService/serverStatus
 ```
 
 ## Troubleshooting
 
-|                                           Symptom                                            |                                                    Likely cause                                                    |                                                                                                                 Resolution                                                                                                                 |
-|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `grpcurl` returns `Failed to dial: connection refused`                                       | Block Node is not listening on the expected port.                                                                  | Verify the Subscribe API port in the Block Node configuration and that the process is running. On Linux: `ss -tlnp \| grep 40980`. On macOS: `lsof -nP -iTCP:40980 -sTCP:LISTEN`. In base-chart (non-LFH) deployments, substitute `40840`. |
-| `grpcurl` returns `Failed to list services: ... malformed header: missing HTTP content-type` | The Block Node does not enable gRPC server reflection on the public port; `grpcurl` cannot self-discover services. | Supply protobuf descriptors explicitly with `-import-path` and `-proto`, as shown in [Step 1](#step-1-confirm-each-block-node-is-reachable-and-serving-blocks).                                                                            |
-| `nc -vz` succeeds but `subscribeBlockStream` immediately closes with `NOT_AVAILABLE (6)`     | `start_block_number` is below `first_available_block`, or the Block Node has not ingested any blocks yet.          | Call `serverStatus`; if both `first_available_block` and `last_available_block` equal `uint64_max`, wait for ingest. Otherwise set `start_block_number >= first_available_block`.                                                          |
-| Immediate close with `INVALID_START_BLOCK_NUMBER (4)`                                        | `start_block_number` exceeds `last_available_block + subscriber.maximumFutureRequest`.                             | Wait for the Block Node to advance, or reduce `start_block_number`.                                                                                                                                                                        |
-| Immediate close with `INVALID_END_BLOCK_NUMBER (5)`                                          | `end_block_number < start_block_number`.                                                                           | Set `end_block_number >= start_block_number`, or use `18446744073709551615` for an indefinite stream.                                                                                                                                      |
-| Repeated terminal `ERROR (3)` from a single Block Node                                       | Block Node internal failure.                                                                                       | Check that Block Node's logs at `INFO` for `failed due to ...`; review its health (CPU, memory, disk). The Mirror Node will mark this node inactive after `maxSubscribeAttempts`.                                                          |
-| All configured Block Nodes marked inactive                                                   | Network reachability problem, or all Block Nodes simultaneously unhealthy.                                         | Verify host/port for each `nodes[]` entry; check that `requiresTls` matches the actual termination setup; inspect each Block Node's metrics endpoint.                                                                                      |
-| `blocknode_subscriber_open_connections` does not increment after Mirror Node connects        | Connection is not reaching the Block Node.                                                                         | Re-check firewall rules; verify the Mirror Node is connecting to the correct host and port.                                                                                                                                                |
-| **Gap in `end_of_block.block_number` after going live**                                      | The live block stream experienced interruptions or errors and blocks were received out of order or were resent.    | The Mirror Node will reconnect to backfill from history.                                                                                                                                                                                   |
-| Stream stalls with no new `block_items` after going live                                     | Block Node has not received new blocks from Consensus Nodes.                                                       | Check `blocknode_publisher_open_connections` and Consensus Node logs; this is a publisher-side issue, not a subscriber one. See [Block Node Troubleshooting](../troubleshooting.md#block-node-not-receiving-new-blocks).                   |
-| High latency between block production and Mirror Node receipt                                | Live queue is polled at up to `MAX_LIVE_POLL_DELAY = 500 ms`.                                                      | This is the worst-case poll latency in the current implementation.                                                                                                                                                                         |
-| Session fails shortly after reconnect with `NOT_AVAILABLE (6)`                               | Mirror Node reconnected before the Block Node re-indexed the requested range after a restart.                      | Add a short delay and re-query `serverStatus` before each reconnect (already handled by the Mirror Node's readmit logic via `readmitDelay`).                                                                                               |
-| Cutover does not switch to block-stream source                                               | `hiero.mirror.importer.block.cutover.enabled` is `false`, or the network has not reached `cutover.hapiVersion`.    | Set `cutover.enabled=true`; confirm the network HAPI version meets `cutover.hapiVersion`.                                                                                                                                                  |
+|                                           Symptom                                            |                                                    Likely cause                                                    |                                                                                                                                                        Resolution                                                                                                                                                        |
+|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grpcurl` returns `Failed to dial: connection refused`                                       | Block Node is not listening on the expected port.                                                                  | Verify the port you called (Subscribe API `40980` or Status API `40982` in LFH profile) in the Block Node configuration and that the process is running. On Linux: `ss -tlnp \| grep -E '4098[02]'`. On macOS: `lsof -nP -iTCP:40980 -iTCP:40982 -sTCP:LISTEN`. In base-chart (non-LFH) deployments, substitute `40840`. |
+| `grpcurl` returns `Failed to list services: ... malformed header: missing HTTP content-type` | The Block Node does not enable gRPC server reflection on the public port; `grpcurl` cannot self-discover services. | Supply protobuf descriptors explicitly with `-import-path` and `-proto`, as shown in [Step 1](#step-1-confirm-each-block-node-is-reachable-and-serving-blocks).                                                                                                                                                          |
+| `nc -vz` succeeds but `subscribeBlockStream` immediately closes with `NOT_AVAILABLE (6)`     | `start_block_number` is below `first_available_block`, or the Block Node has not ingested any blocks yet.          | Call `serverStatus`; if both `first_available_block` and `last_available_block` equal `uint64_max`, wait for ingest. Otherwise set `start_block_number >= first_available_block`.                                                                                                                                        |
+| Immediate close with `INVALID_START_BLOCK_NUMBER (4)`                                        | `start_block_number` exceeds `last_available_block + subscriber.maximumFutureRequest`.                             | Wait for the Block Node to advance, or reduce `start_block_number`.                                                                                                                                                                                                                                                      |
+| Immediate close with `INVALID_END_BLOCK_NUMBER (5)`                                          | `end_block_number < start_block_number`.                                                                           | Set `end_block_number >= start_block_number`, or use `18446744073709551615` for an indefinite stream.                                                                                                                                                                                                                    |
+| Repeated terminal `ERROR (3)` from a single Block Node                                       | Block Node internal failure.                                                                                       | Check that Block Node's logs at `INFO` for `failed due to ...`; review its health (CPU, memory, disk). The Mirror Node will mark this node inactive after `maxAttempts` (`maxSubscribeAttempts` before Mirror Node v0.167.0).                                                                                            |
+| All configured Block Nodes marked inactive                                                   | Network reachability problem, or all Block Nodes simultaneously unhealthy.                                         | Verify host/port for each `nodes[]` entry; check that `requiresTls` matches the actual termination setup; inspect each Block Node's metrics endpoint.                                                                                                                                                                    |
+| `blocknode_subscriber_open_connections` does not increment after Mirror Node connects        | Connection is not reaching the Block Node.                                                                         | Re-check firewall rules; verify the Mirror Node is connecting to the correct host and port.                                                                                                                                                                                                                              |
+| **Gap in `end_of_block.block_number` after going live**                                      | The live block stream experienced interruptions or errors and blocks were received out of order or were resent.    | The Mirror Node will reconnect to backfill from history.                                                                                                                                                                                                                                                                 |
+| Stream stalls with no new `block_items` after going live                                     | Block Node has not received new blocks from Consensus Nodes.                                                       | Check `blocknode_publisher_open_connections` and Consensus Node logs; this is a publisher-side issue, not a subscriber one. See [Block Node Troubleshooting](../troubleshooting.md#block-node-not-receiving-new-blocks).                                                                                                 |
+| High latency between block production and Mirror Node receipt                                | Live queue is polled at up to `MAX_LIVE_POLL_DELAY = 500 ms`.                                                      | This is the worst-case poll latency in the current implementation.                                                                                                                                                                                                                                                       |
+| Session fails shortly after reconnect with `NOT_AVAILABLE (6)`                               | Mirror Node reconnected before the Block Node re-indexed the requested range after a restart.                      | Add a short delay and re-query `serverStatus` before each reconnect (already handled by the Mirror Node's readmit logic via `readmitDelay`).                                                                                                                                                                             |
+| Cutover does not switch to block-stream source                                               | `hiero.mirror.importer.block.cutover.enabled` is `false`, or the network has not reached `cutover.hapiVersion`.    | Set `cutover.enabled=true`; confirm the network HAPI version meets `cutover.hapiVersion`.                                                                                                                                                                                                                                |
 
 ## Related documentation
 

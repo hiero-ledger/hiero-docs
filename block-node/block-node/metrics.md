@@ -327,6 +327,30 @@ Tracks the count and byte data size regarding single block uploads
 
 ---
 
+### cloud-storage-download
+
+**Plugin:** `cloud-storage-download`
+Tracks the blocks recovered from the bucket the Consensus Nodes upload blocks to. See
+[Cloud Storage Download Plugin Configuration](./configuration.md#cloud-storage-download-plugin-configuration).
+
+|  Type   |          Name           |                                  Description                                  |
+|---------|-------------------------|-------------------------------------------------------------------------------|
+| Counter | `cloud_download_blocks` | Blocks of a pull range by outcome, one increment per block, labeled `result`. |
+
+|     `result`     |                                         The block                                         |
+|------------------|-------------------------------------------------------------------------------------------|
+| `persisted`      | Was persisted from its bucket copy.                                                       |
+| `already_stored` | Was stored by another source (publisher or backfill), before download or during the wait. |
+
+`cloud_download_blocks{result="persisted"}` is the recovery signal: any increase means streaming from
+the Consensus Nodes fell behind and the bucket filled the gap. Each pull also logs one INFO line when
+it starts and one when it ends, with the range, the counts and the duration.
+
+> **Note:** This counter is registered without a `_total` suffix; Prometheus appends `_total` at
+> scrape time (for example `cloud_download_blocks_total{result="persisted"}`).
+
+---
+
 ### roster-bootstrap-rsa
 
 **Plugin:** `roster-bootstrap-rsa`

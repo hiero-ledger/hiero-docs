@@ -51,15 +51,15 @@ All `grpcurl` commands below assume you are running from `~/bn-proto`.
 
 > Start with previewnet or testnet before querying mainnet.
 
-Each Block Node service listens on its own dedicated port. Previewnet is already deployed with
-per-service ports; testnet and mainnet will be updated before the v0.76 release.
+Each Block Node service listens on its own dedicated port. All three public networks (previewnet,
+testnet, and mainnet) are deployed with per-service ports.
 
 |                          Service                          | Port  |  Protocol  |
 |-----------------------------------------------------------|-------|------------|
 | `BlockStreamSubscribeService` (`subscribeBlockStream`)    | 40980 | gRPC (h2c) |
 | `BlockAccessService` (`getBlock`)                         | 40981 | gRPC (h2c) |
 | `BlockNodeService` (`serverStatus`, `serverStatusDetail`) | 40982 | gRPC (h2c) |
-| Health (`/healthz`, `/readyz`)                            | 40983 | HTTP       |
+| Health (`/healthz/livez`, `/healthz/readyz`)              | 40983 | HTTP       |
 
 Connect with `-plaintext` for all public endpoints - TLS is terminated upstream at the load balancer.
 
@@ -89,8 +89,8 @@ Connect with `-plaintext` for all public endpoints - TLS is terminated upstream 
 | `163.114.159.114` | 1    |
 | `82.223.201.227`  | 1    |
 
-Additional mainnet operators are being onboarded; the list will grow as more come online. Once
-[HIP-1137](https://hips.hedera.com/hip/hip-1137) is live, the full roster will be queryable
+Additional mainnet operators are being onboarded; the list will grow as more come online. With
+[HIP-1137](https://hips.hedera.com/hip/hip-1137) live, the full roster is queryable
 on-chain via the Mirror Node REST API at `/api/v1/network/registered-nodes`.
 
 No API key or authentication token is required for the public endpoints listed above.
@@ -194,9 +194,9 @@ grpcurl -plaintext -emit-defaults \
 
 ## About the block data
 
-Blocks currently served by Block Nodes wrap Hiero Record Stream Files - the same data Mirror Nodes have
-always processed, packaged in the Block format. The block content and structure will change at the
-block stream cutover, after which blocks will carry the full Hiero block stream: event data, state
-changes, and more granular transaction detail. Both forms are wire-compatible using the same proto
-schema, but the post-cutover form contains significantly more information. See
+Blocks currently served by Block Nodes wrap Hiero Record Stream Files (the same data Mirror Nodes
+have always processed, packaged in the Block format). The block content and structure will change
+at the block stream cutover, after which blocks will carry the full Hiero block stream: event data,
+state changes, and more granular transaction detail. Both forms are wire-compatible using the same
+proto schema, but the post-cutover form contains significantly more information. See
 [Block Stream Cutover](./Cutover-Process.md) for the cutover schedule and migration details.

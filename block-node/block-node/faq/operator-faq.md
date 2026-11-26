@@ -369,10 +369,17 @@ hiero:
       block:
         enabled: true
         nodes:
-          - host: <block-node-host>
-            port: 40840
+          - endpoints:
+              - host: <block-node-host>
+                port: 40840
             priority: 0
 ```
+
+This single endpoint serves both the `STATUS` and `SUBSCRIBE_STREAM` APIs (the default `apis`),
+which matches the base chart, where every Block Node API listens on `40840`. If your Block Node
+uses per-service ports (for example the LFH profile: `40982` for server status, `40980` for
+subscribe), list one endpoint per port with its `apis`. The `endpoints[]` format requires Mirror
+Node v0.157.0 or later.
 
 Then restart the Mirror Node importer. Verify by checking that `lastAvailableBlock`
 advances in the Block Node `serverStatus` response and that the Mirror Node logs show
@@ -626,6 +633,7 @@ Each plugin is identified by its `plugins.names` key (used in Helm configuration
 | `blocks-file-recent`     | Short-term block persistence on local NVMe with configurable retention policy                  | LFH and RFH profiles                  |
 | `blocks-file-historic`   | Long-term block persistence on local HDD (archive tier)                                        | LFH profile                           |
 | `cloud-storage-archive`  | Archives blocks to S3-compatible cloud storage (group files)                                   | RFH and cloud-backup profiles         |
+| `cloud-storage-download` | Recovers missing blocks from the bucket the Consensus Nodes upload blocks to                   | Optional                              |
 | `cloud-storage-expanded` | Uploads each verified block individually to S3-compatible storage                              | Optional                              |
 | `backfill`               | Fetches missing historical blocks from peer Block Nodes                                        | All production deployments            |
 | `roster-bootstrap-rsa`   | Loads the RSA node address book at startup for WRB block proof verification                    | Required for WRB cutover              |

@@ -23,7 +23,7 @@ The on-chain registry lands in the following release tags:
 | Consensus Node | `v0.75`  | The `RegisteredNodeCreate` / `RegisteredNodeUpdate` / `RegisteredNodeDelete` HAPI transactions (HieroFunctionality codes 101 / 102 / 103). Handlers live at [`hedera-node/hedera-addressbook-service-impl/.../handlers/`](https://github.com/hiero-ledger/hiero-consensus-node/tree/main/hedera-node/hedera-addressbook-service-impl/src/main/java/com/hedera/node/app/service/addressbook/impl/handlers). |
 | Mirror Node    | `v0.156` | The `/api/v1/network/registered-nodes` REST endpoint and the `associated_registered_nodes` field on `/api/v1/network/nodes`. Implemented at [`rest-java/.../NetworkController.java`](https://github.com/hiero-ledger/hiero-mirror-node/blob/main/rest-java/src/main/java/org/hiero/mirror/restjava/controller/NetworkController.java).                                                                     |
 
-The rollout dates for `v0.75` on each network are network-operations decisions - check the [Consensus Node](https://github.com/hiero-ledger/hiero-consensus-node/releases) and [Mirror Node](https://github.com/hiero-ledger/hiero-mirror-node/releases) release pages before scheduling your first registration on mainnet.
+CN `v0.75` and Mirror Node `v0.156` are shipped across all public networks. Check the [Consensus Node](https://github.com/hiero-ledger/hiero-consensus-node/releases) and [Mirror Node](https://github.com/hiero-ledger/hiero-mirror-node/releases) release pages for the specific rollout dates on each network.
 
 ## What gets registered
 
@@ -329,7 +329,7 @@ All three transactions share a fee schedule and throttle configuration identical
 
 ## Recommended practices
 
-- **Test on previewnet or testnet before mainnet.** HIP-1137 ships on all three networks together at `v0.75`; submit a throwaway registration on a non-production network first to validate your transaction shape, key custody, and verification steps. There is no recovery from a lost `admin_key`, and the create throttle is network-wide — both reasons to dry-run.
+- **Test on previewnet or testnet before mainnet.** HIP-1137 shipped on all three networks at `v0.75`. Submit a throwaway registration on a non-production network first to validate your transaction shape, key custody, and verification steps. There is no recovery from a lost `admin_key`, and the create throttle is network-wide — both reasons to dry-run.
 - **Use an `admin_key` not tied to any network account.** The administrative key controls the registration; entangling it with a treasury or transaction-signing account adds unnecessary blast radius if the operator account is ever compromised.
 - **Use a `KeyList` or `ThresholdKey` for production.** Single-key control is acceptable for dev/test but exposes the registration to single-point-of-failure key loss.
 - **Treat the `registered_node_id` as operational metadata.** Store it alongside your deployment records. Without it, every subsequent management transaction requires looking your node up from the registry first.

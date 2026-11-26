@@ -288,12 +288,12 @@ itself, not from storage.
 Closes the gap between `attested.blockNumber()` and the latest verified block the
 Block-Node has on hand without waiting for verification notifications.
 
-1. Read `context.historicalBlockProvider()`. If null or empty → the sweep reports it reached the
-   tip (nothing to catch up to).
+1. Read `context.applicationStateFacility().availableBlockSet()`. If the facility is null or the
+   set is empty → the sweep reports it reached the tip (nothing to catch up to).
 2. Compute the catch-up window:
-   - genesis → `from = availableBlocks().min()`
+   - genesis → `from = availableBlockSet().min()`
    - otherwise → `from = attested.blockNumber() + 1`
-   - `to = availableBlocks().max()`
+   - `to = availableBlockSet().max()`
 3. Walk `from..to` one block at a time: `context.historicalBlockProvider().block(n)`, parse,
    apply, close; each block is released before the next is read. The latest block is re-read when the walk finishes, so
    blocks persisted meanwhile are included.
@@ -302,7 +302,7 @@ Block-Node has on hand without waiting for verification notifications.
 5. (Live blocks may apply between catch-up blocks; each apply takes the `applyLock`.)
 6. The sweep returns whether it reached the latest available block. Set `ready=true` **only if
    it did and the plugin is not `applyHalted`**. Ready means caught up *without* halting, not
-   merely "catch-up attempt finished." A sweep that stops short (hole in `availableBlocks`,
+   merely "catch-up attempt finished." A sweep that stops short (hole in the available blocks,
    failed fetch, exception) leaves the plugin not ready. It resumes when the next block ahead
    of the gap, or the next hole-filling block, requests another catch-up (§6.3), which latches
    `ready=true` once the tip is reached. This lets a monitoring consumer
@@ -649,7 +649,8 @@ Other test classes:
 - `StateChangeApplierTest` — singleton / KV / queue dispatch via PBJ codecs
 - `StateManagementAccessTest` — gRPC query rules (invalid shapes, NOT_FOUND, success)
 - `StateManagementCatchUpTest` — `catchUpFromHistoricalBlocks` with an in-tree
-  `HistoricalBlockFacility` fixture
+  `HistoricalBlockFacility` fixture, whose available blocks are exposed through a
+  `TestApplicationStateFacility`
 - `StateManagementPluginLifecycleTest` — start → apply → snapshot → stop →
   restart round-trip
 
