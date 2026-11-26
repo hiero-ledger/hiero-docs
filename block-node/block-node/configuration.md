@@ -35,7 +35,7 @@ the design.
 | SERVER_SHUTDOWN_DELAY_MILLIS            | Delay before shutdown (ms).                                                                                                                                         | 500         |
 | SERVER_MAX_TCP_CONNECTIONS              | Max TCP connections allowed.                                                                                                                                        | 1000        |
 | SERVER_IDLE_CONNECTION_PERIOD_MINUTES   | Period for idle connections check (minutes).                                                                                                                        | 5           |
-| SERVER_IDLE_CONNECTION_TIMEOUT_MINUTES  | Timeout for idle connections (minutes).                                                                                                                             | 30          |
+| SERVER_IDLE_CONNECTION_TIMEOUT_MINUTES  | Timeout for idle connections (minutes).                                                                                                                             | 120         |
 | SERVER_TCP_NO_DELAY                     | Disable Nagle's algorithm (TCP_NODELAY). Reduces latency for small, frequent writes.                                                                                | true        |
 | SERVER_BACKLOG_SIZE                     | Maximum length of the queue of incoming connections on the server socket.                                                                                           | 8,192       |
 | SERVER_WRITE_QUEUE_LENGTH               | Number of write buffers queued for write operations. HTTP/1.1 only; HTTP/2 (gRPC) frames bypass this queue.                                                         | 8,192       |
@@ -63,36 +63,39 @@ grants less than configured. On high-latency links, raise the `tcp_rmem` / `tcp_
 
 ### Block Read Bulkhead Configuration
 
-| ENV Variable                | Description                                                                                                                                                                                       | Default |
-|:----------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------:|
-| BLOCK_READ_BULKHEAD_PERMITS | Max concurrent block-storage reads shared by `getBlock` and subscriber historical catch-up (1 to 1,000). `getBlock` gets `RESOURCE_EXHAUSTED` when exhausted; subscribers wait briefly and retry. |      50 |
+| ENV Variable              | Description                                                                                                                                                                                                                                                                                                                         | Default |
+|:--------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------:|
+| BLOCKREADBULKHEAD_PERMITS | Max concurrent block-storage reads shared by `getBlock` and subscriber historical catch-up (1 to 1,000). `getBlock` gets `RESOURCE_EXHAUSTED` when exhausted; subscribers wait briefly and retry. Note: the prefix `blockReadBulkhead` contains no dots, so the env var has no underscores between `BLOCK`, `READ`, and `BULKHEAD`. |      50 |
 
 ### Application State Configuration
 
-| ENV Variable                                 | Description                                                                                                                                                                                                                                                                                                                            |                                Default                                |
-|:---------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| APP_STATE_TSS_BOOTSTRAP_FILE_PATH            | Path where [TSS](./glossary.md#tss-hints) data (ledger ID and the informational current Roster) is persisted across restarts.                                                                                                                                                                                                          | /opt/hiero/block-node/application-state/tss-bootstrap-roster.json     |
-| APP_STATE_RSA_BOOTSTRAP_FILE_PATH            | Path where the single current RSA node address book is persisted across restarts. Used by single-book deployments that have not yet migrated to the address book history file.                                                                                                                                                         | /opt/hiero/block-node/application-state/rsa-bootstrap-roster.json     |
-| APP_STATE_RSA_ADDRESS_BOOK_HISTORY_FILE_PATH | Path to the block-number-keyed RSA address book history file (JSON-encoded `RangedAddressBookHistory`). When present, this file takes precedence over `APP_STATE_RSA_BOOTSTRAP_FILE_PATH` and enables verification of historical [WRBs](./glossary.md#wrb-wrapped-record-block) against the address book that was in effect per block. | /opt/hiero/block-node/application-state/rsa-address-book-history.json |
-| APP_STATE_BLOCK_RANGES_FILE_PATH             | Path where the set of available and stored block ranges is persisted. Written every 1,000 blocks received.                                                                                                                                                                                                                             | /opt/hiero/block-node/application-state/block-ranges.json             |
-| KNOWN_PUBLISHERS_FILE_PATH                   | Path where connections for known publisher are persisted. Read only on start.                                                                                                                                                                                                                                                          | /opt/hiero/block-node/application-state/known-publishers.json         |
-| INBOUND_PARTNERS_FILE_PATH                   | Path where connections for designated inbound partners are persisted. Read only on start.                                                                                                                                                                                                                                              | /opt/hiero/block-node/application-state/inbound-partners.json         |
-| OUTBOUND_PARTNERS_FILE_PATH                  | Path where connections for designated outbound partners are persisted. Read only on start.                                                                                                                                                                                                                                             | /opt/hiero/block-node/application-state/outbound-partners.json        |
-| APP_STATE_UPDATE_SCAN_INTERVAL               | How often (ms) the application state facility checks whether stored block ranges need persisting. Minimum 100.                                                                                                                                                                                                                         | 500                                                                   |
-| APP_STATE_UPDATE_INITIAL_DELAY               | Delay (ms) before the application state facility begins its first scan.                                                                                                                                                                                                                                                                | 0                                                                     |
+| ENV Variable                                | Description                                                                                                                                                                                                                                                     |                              Default                              |
+|:--------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| APP_STATE_TSS_BOOTSTRAP_FILE_PATH           | Path where [TSS](./glossary.md#tss-hints) data (ledger ID and the informational current Roster) is persisted across restarts.                                                                                                                                   | /opt/hiero/block-node/application-state/tss-bootstrap-roster.json |
+| APP_STATE_RSA_BOOTSTRAP_FILE_PATH           | Path to the RSA bootstrap file - either a single `NodeAddressBook` (JSON) or a `RangedAddressBookHistory` (JSON); format is auto-detected at startup. See [RSA address book history vs. single-book file](#rsa-address-book-history-vs-single-book-file) below. | /opt/hiero/block-node/application-state/rsa-bootstrap-roster.json |
+| APP_STATE_BLOCK_RANGES_FILE_PATH            | Path where the set of available and stored block ranges is persisted. Written every 1,000 blocks received.                                                                                                                                                      | /opt/hiero/block-node/application-state/block-ranges.json         |
+| APP_STATE_KNOWN_PUBLISHERS_FILE_PATH        | Path where connections for known publishers are persisted. Read only on start.                                                                                                                                                                                  | /opt/hiero/block-node/application-state/known-publishers.json     |
+| APP_STATE_INBOUND_PARTNERS_FILE_PATH        | Path where connections for designated inbound partners are persisted. Read only on start.                                                                                                                                                                       | /opt/hiero/block-node/application-state/inbound-partners.json     |
+| APP_STATE_OUTBOUND_PARTNERS_FILE_PATH       | Path where connections for designated outbound partners are persisted. Read only on start.                                                                                                                                                                      | /opt/hiero/block-node/application-state/outbound-partners.json    |
+| APP_STATE_PUBLISHER_INBOUND_CATEGORY        | Name of the inbound category this block node uses for publisher connections, as defined by the provisioner.                                                                                                                                                     | publisher                                                         |
+| APP_STATE_ENABLE_NODE_STATE_CHANGE_TRACKING | Enable tracking of `Node` state changes to populate the current Node Store (address book data) for validating publishers and their endpoints.                                                                                                                   | false                                                             |
+| APP_STATE_UPDATE_SCAN_INTERVAL              | How often (ms) the application state facility checks whether stored block ranges need persisting. Minimum 100.                                                                                                                                                  | 500                                                               |
+| APP_STATE_UPDATE_INITIAL_DELAY              | Delay (ms) before the application state facility begins its first scan.                                                                                                                                                                                         | 0                                                                 |
 
-Stored blocks are all blocks reported as persisted by any plugin. Block availability is derived
-from `HistoricalBlockFacility` at query time and is not persisted separately. The stored block
-range set is loaded at startup and persisted to disk automatically.
+Stored blocks are all blocks reported as persisted by any plugin. Block availability is tracked
+by the application state facility from the ranges each block provider plugin reports, at startup
+and whenever it gains or drops blocks. It is not restored from disk: providers report it again
+on every start. Blocks reported as available are also recorded as stored. The stored block range
+set is loaded at startup and persisted to disk automatically.
 
 #### RSA address book history vs. single-book file
 
-The BN supports two modes for RSA key material:
+Both modes are configured via `APP_STATE_RSA_BOOTSTRAP_FILE_PATH`. The BN auto-detects the format at startup based on the file content.
 
-- **Single-book mode** (`APP_STATE_RSA_BOOTSTRAP_FILE_PATH`): the original mode — one `NodeAddressBook` covering the current network state. Sufficient for deployments that only handle live blocks.
-- **History mode** (`APP_STATE_RSA_ADDRESS_BOOK_HISTORY_FILE_PATH`): a `RangedAddressBookHistory` containing one entry per address book era, each scoped to a `[startBlock, endBlock]` range. Required for verifying historical Wrapped Record Blocks (WRBs) against the keys that were in effect when those blocks were produced.
+- **Single-book mode**: point `APP_STATE_RSA_BOOTSTRAP_FILE_PATH` to a file containing a single `NodeAddressBook`. The original format; sufficient for deployments that only handle live blocks.
+- **History mode**: point `APP_STATE_RSA_BOOTSTRAP_FILE_PATH` to a file containing a `RangedAddressBookHistory` - one entry per address book era, each scoped to a `[startBlock, endBlock]` range. Required for verifying historical Wrapped Record Blocks (WRBs) against the keys that were in effect when those blocks were produced.
 
-When the history file is present at startup it takes precedence. When only the single-book file is present, the BN wraps it into a single open-ended era (covering all block numbers) so verification behaviour is unchanged.
+When the file holds a `RangedAddressBookHistory`, the BN uses the matching era for each block. When the file holds a single `NodeAddressBook`, the BN wraps it into a single open-ended era so verification behavior is unchanged.
 
 ### Metrics Endpoint Configuration
 
@@ -125,7 +128,7 @@ A base Block Node deployment ships with no plugins; the Helm chart downloads the
 
 ```yaml
 plugins:
-  names: "facility-app-state,facility-messaging,block-access-service,health,server-status,stream-publisher,stream-subscriber,block-verification,blocks-file-historic,blocks-file-recent,backfill"
+  names: "backfill,block-access-service,block-verification,blocks-file-historic,blocks-file-recent,facility-app-state,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-publisher,stream-subscriber"
 ```
 
 > **Note:** All [Tier 2](./glossary.md#tier-2-block-node) Block Nodes should drop `stream-publisher` from `plugins.names`. The presence of `stream-publisher` is the main difference between a Tier 1 and a Tier 2 deployment.
@@ -136,16 +139,35 @@ To change which plugins load, edit the list. Adding a name causes that plugin to
 
 #### Plugin sources
 
-The chart supports two sources for downloading plugins; both are configurable:
+`plugins.source` selects where plugin JARs come from at pod start:
 
-- **`plugins.repositories`** (recommended for production): Maven repositories the init container queries to resolve plugin artifacts. Defaults to Maven Central and Sonatype Snapshots. Operators running at scale should add a local mirror to `plugins.repositories` to reduce dependency on public infrastructure.
-- **`plugins.mavenImage`** (intended for local and Solo testing): a container image with plugin JARs pre-built into it. Used as a fallback when network-based resolution from `plugins.repositories` isn't appropriate.
+| `plugins.source`  |                                                                                                                                                                                    Behavior                                                                                                                                                                                    |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `maven` (default) | Init containers resolve `plugins.names` from Maven repos at pod start. `plugins.repositories` lists the repos; `plugins.mavenImage` is the Maven+JDK container used to run the resolution.                                                                                                                                                                                     |
+| `image`           | Requires the `hiero-block-node-full` image. No init containers, Maven, or network access needed at pod start. When `plugins.names` is set, the chart passes it as `BN_PLUGINS`; the image copies those plugins from its prebuilt `plugin-catalog/` into `plugins/`. When `plugins.names` is empty, the image's built-in default (`BN_PLUGINS=all`) loads every catalog plugin. |
 
-|      Chart value       |                       Purpose                       |                                                                                                              Default                                                                                                               |
-|------------------------|-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `plugins.names`        | Comma-separated list of plugin identifiers to load  | `backfill,block-access-service,block-verification,blocks-file-historic,blocks-file-recent,facility-app-state,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-publisher,stream-subscriber` |
-| `plugins.repositories` | Maven repositories used to resolve plugin artifacts | `central` (`https://repo1.maven.org/maven2`), `sonatype-snapshots` (`https://central.sonatype.com/repository/maven-snapshots`)                                                                                                     |
-| `plugins.mavenImage`   | Container image used as a fallback plugin source    | `maven:3-eclipse-temurin-25-alpine`                                                                                                                                                                                                |
+|      Chart value       |                                                   Purpose                                                   |                                                                                                              Default                                                                                                               |
+|------------------------|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `plugins.source`       | Plugin source: `maven` downloads at pod start; `image` uses the prebuilt catalog in `hiero-block-node-full` | `maven`                                                                                                                                                                                                                            |
+| `plugins.names`        | Comma-separated list of plugin identifiers to load                                                          | `backfill,block-access-service,block-verification,blocks-file-historic,blocks-file-recent,facility-app-state,facility-messaging,health,roster-bootstrap-rsa,roster-bootstrap-tss,server-status,stream-publisher,stream-subscriber` |
+| `plugins.repositories` | Maven repos queried by the `maven` source to resolve plugin JARs                                            | `central` (`https://repo1.maven.org/maven2`), `sonatype-snapshots` (`https://central.sonatype.com/repository/maven-snapshots`)                                                                                                     |
+| `plugins.mavenImage`   | Maven+JDK container image used by the `maven` source init container                                         | `maven:3-eclipse-temurin-25-alpine`                                                                                                                                                                                                |
+
+#### Prebuilt plugins (full image)
+
+The `hiero-block-node-full` image (`ghcr.io/hiero-ledger/hiero-block-node-full`) ships every official plugin prebuilt in `plugin-catalog/<plugin>/`. This eliminates Maven resolution and network access at pod start, making it well-suited for air-gapped environments or deployments where startup latency matters.
+
+To use it, apply `values-overrides/full.yaml` (which sets both the image repository and `plugins.source: image`) together with a plugin profile:
+
+```bash
+helm install "${RELEASE}" charts/block-node-server \
+  -f charts/block-node-server/values-overrides/full.yaml \
+  -f charts/block-node-server/values-overrides/plugin-profile-lfh.yaml
+```
+
+`plugins.names` selects which catalog plugins to activate. Set it to `""` to activate all 15 bundled plugins. Changing `plugins.names` rolls the pod - no image rebuild is needed.
+
+The `hiero-block-node-plugins` image (`ghcr.io/hiero-ledger/hiero-block-node-plugins`) ships only the catalog without the Block Node software. Use it as a `COPY --from` source when building a custom Docker image that pins a fixed plugin subset into the standard `hiero-block-node` image.
 
 ### Third-party plugins (Maven-resolvable)
 
@@ -221,7 +243,7 @@ interrupted group. Bucket lifecycle rules over the prefix must not delete object
 | BACKFILL_GRPC_OVERALL_TIMEOUT            | Longest time (ms) one batch request may take in total, however steadily blocks arrive.                                                                                                                                               |    900000 |
 | BACKFILL_GRPC_INACTIVITY_TIMEOUT         | Longest time (ms) a batch request may go without receiving a complete response message before it ends early. Must cover the transfer of the largest single message. A value at or above BACKFILL_GRPC_OVERALL_TIMEOUT has no effect. |     60000 |
 | BACKFILL_MAX_INCOMING_BUFFER_SIZE        | Max gRPC incoming buffer size in bytes (min 10 MB, max 300 MB).                                                                                                                                                                      | 104857600 |
-| BACKFILL_ENABLE_TLS                      | Enable TLS if supported by block-node client.                                                                                                                                                                                        |     false |
+| BACKFILL_ENABLE_T_L_S                    | Enable TLS if supported by block-node client. Note the underscores between T, L, and S - they come from each capital letter in the field name (`enableTLS`).                                                                         |     false |
 | BACKFILL_MAX_PROTOBUF_MESSAGE_SIZE_BYTES | Max protobuf message size (bytes) accepted when parsing a block fetched over the wire during backfill.                                                                                                                               | 131072000 |
 | BACKFILL_GREEDY                          | When true, searches and retrieves blocks beyond latestAcknowledged to prevent the BN from falling too far behind live.                                                                                                               |      true |
 | BACKFILL_HISTORICAL_QUEUE_CAPACITY       | Bounded queue capacity for historical block fetch tasks (min 1, max 1000).                                                                                                                                                           |        20 |
@@ -272,9 +294,17 @@ for the JSON schema.
 
 ### Health Plugin Configuration
 
-| ENV Variable | Description                                                                                                                              | Default |
-|:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------|--------:|
-| HEALTH_PORT  | Dedicated port for the health HTTP endpoints. The Health plugin always runs on its own dedicated web server; this port is always active. |   40983 |
+| ENV Variable                            | Description                                                                                                                              | Default |
+|:----------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|--------:|
+| HEALTH_PORT                             | Dedicated port for the health HTTP endpoints. The Health plugin always runs on its own dedicated web server; this port is always active. |   40983 |
+| HEALTH_SOCKET_SEND_BUFFER_SIZE_BYTES    | Socket send buffer size (bytes) for the health web server. Must be between 32,768 and 2,097,152.                                         |  32,768 |
+| HEALTH_SOCKET_RECEIVE_BUFFER_SIZE_BYTES | Socket receive buffer size (bytes) for the health web server. Must be between 32,768 and 2,097,152.                                      |  65,536 |
+| HEALTH_BACKLOG_SIZE                     | Maximum length of the incoming connection queue on the health server socket. Must be between 64 and 4,096.                               |   1,024 |
+| HEALTH_WRITE_QUEUE_LENGTH               | Number of write buffers queued for write operations on the health web server. Must be between 64 and 4,096.                              |   2,048 |
+| HEALTH_MAX_TCP_CONNECTIONS              | Maximum number of TCP connections for the health web server. Must be between 1 and 1,024.                                                |     100 |
+| HEALTH_IDLE_CONNECTION_PERIOD_MINUTES   | How often (minutes) the idle-connection reaper runs on the health web server. Must be between 1 and 60.                                  |       1 |
+| HEALTH_IDLE_CONNECTION_TIMEOUT_MINUTES  | How long (minutes) a connection may sit idle on the health web server before it is closed. Must be between 1 and 1,440.                  |       2 |
+| HEALTH_TCP_NO_DELAY                     | Whether to disable Nagle's algorithm (TCP_NODELAY) on the health web server. Reduces latency for small responses.                        |    true |
 
 ### Messaging Plugin Configuration
 
@@ -288,9 +318,10 @@ for the JSON schema.
 
 ### Server Status Plugin Configuration
 
-| ENV Variable       | Description                                                                                      | Default |
-|:-------------------|:-------------------------------------------------------------------------------------------------|--------:|
-| SERVER_STATUS_PORT | Dedicated port for the server-status gRPC service. When unset, the service shares `SERVER_PORT`. | (unset) |
+| ENV Variable                           | Description                                                                                                                                             | Default |
+|:---------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------|--------:|
+| SERVER_STATUS_PORT                     | Dedicated port for the server-status gRPC service. When unset, the service shares `SERVER_PORT`.                                                        | (unset) |
+| SERVER_STATUS_HEARTBEAT_PERIOD_SECONDS | How often (seconds) the plugin emits a periodic `INFO` heartbeat logging the available block range and next expected block. Set `0` or less to disable. |     300 |
 
 ### Throttle Configuration
 
@@ -339,39 +370,46 @@ The opposite holds for IPv6: one client usually controls a whole /64, so it can 
 
 ### Publisher Plugin Configuration
 
-| ENV Variable                                 | Description                                                                                                                                                                                                                                                                                                                                                                     |                   Default |
-|:---------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------:|
-| PRODUCER_BATCH_FORWARD_LIMIT                 | Max number of blocks to forward in a batch. Must be ≥ 100,000.                                                                                                                                                                                                                                                                                                                  | 9,223,372,036,854,775,807 |
-| PRODUCER_PUBLISHER_UNAVAILABILITY_TIMEOUT    | The time in seconds to wait when we have no active publishers before sending a publisher unavailability timeout status update. Must be ≥ 0.                                                                                                                                                                                                                                     |                       300 |
-| PRODUCER_STALE_RESEND_PRUNE_BUFFER           | Number of blocks behind `lastPersistedBlockNumber` that a `blocksToResend` entry may sit before `handlePersisted` prunes it. Entries within the buffer are still considered fillable by a publisher; entries older than the buffer are dropped (the gap is owned by [backfill](./glossary.md#backfill) at that point). Set to ~CN block-history depth. Must be 0 ≤ value ≤ 200. |                       100 |
-| PRODUCER_FLOW_CONTROL_REFRESH_INTERVAL_NANOS | Duration (ns) between flow-control refresh cycles. The manager resets per-handler message budgets and checks aggregate consumption at this cadence. Must be 100,000 ≤ value ≤ 100,000,000.                                                                                                                                                                                      |                10,000,000 |
-| PRODUCER_DUPLICATE_BLOCK_SKIP_WINDOW         | Number of blocks behind `lastPersistedBlockNumber` for which a duplicate block header is answered with `SkipBlock` instead of `EndOfStream(DUPLICATE_BLOCK)`. A publisher only slightly behind can fast-forward without reconnecting; duplicates further behind than the window still close the stream so the publisher reconnects. Must be 1 ≤ value ≤ 10.                     |                         5 |
-| PRODUCER_PORT                                | Dedicated port for the publisher gRPC service. When unset, the service shares `SERVER_PORT`.                                                                                                                                                                                                                                                                                    |                   (unset) |
+| ENV Variable                                           | Description                                                                                                                                                                                                                                                                                                                                                                     |                   Default |
+|:-------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------:|
+| PRODUCER_BATCH_FORWARD_LIMIT                           | Max number of blocks to forward in a batch. Must be ≥ 100,000.                                                                                                                                                                                                                                                                                                                  | 9,223,372,036,854,775,807 |
+| PRODUCER_PUBLISHER_UNAVAILABILITY_TIMEOUT              | The time in seconds to wait when we have no active publishers before sending a publisher unavailability timeout status update. Must be ≥ 0.                                                                                                                                                                                                                                     |                       300 |
+| PRODUCER_STALE_RESEND_PRUNE_BUFFER                     | Number of blocks behind `lastPersistedBlockNumber` that a `blocksToResend` entry may sit before `handlePersisted` prunes it. Entries within the buffer are still considered fillable by a publisher; entries older than the buffer are dropped (the gap is owned by [backfill](./glossary.md#backfill) at that point). Set to ~CN block-history depth. Must be 0 ≤ value ≤ 200. |                       100 |
+| PRODUCER__MAX_FUTURE_BLOCKS_BEFORE_STALLED             | Maximum number of future blocks a publisher may send before the stream is considered stalled and terminated. Must be between 3 and 50. Note the double underscore, it comes from the capitalized field name.                                                                                                                                                                    |                         3 |
+| PRODUCER_PER_HANDLER_MESSAGE_BUDGET                    | Maximum `onNext` calls a single publisher handler may process in one flow-control refresh interval before being parked. Must be between 10 and 100,000.                                                                                                                                                                                                                         |                       100 |
+| PRODUCER_TOTAL_MESSAGE_BUDGET_PER_INTERVAL             | Aggregate `onNext` call budget across all publisher handlers per refresh interval. When reached, all individual budgets are withheld until the next interval. Must be ≥ 10.                                                                                                                                                                                                     |                     1,000 |
+| PRODUCER_FLOW_CONTROL_REFRESH_INTERVAL_NANOS           | Duration (ns) between flow-control refresh cycles. The manager resets per-handler message budgets and checks aggregate consumption at this cadence. Must be 100,000 ≤ value ≤ 100,000,000.                                                                                                                                                                                      |                10,000,000 |
+| PRODUCER_CONSECUTIVE_FULL_BUDGET_INTERVALS_FOR_PENALTY | Number of consecutive intervals in which a publisher handler fully exhausts its budget before a penalty pause is applied. Must be ≥ 10.                                                                                                                                                                                                                                         |                        15 |
+| PRODUCER_PENALTY_DURATION_SECONDS                      | Base penalty pause duration (seconds). Each additional penalty in the same reset window multiplies this by the penalty count. Must be between 2 and 600.                                                                                                                                                                                                                        |                        30 |
+| PRODUCER_PENALTY_RESET_INTERVAL_SECONDS                | Interval (seconds) after which all per-handler penalty counts are reset (tumbling window). Must be between 600 and 86,400.                                                                                                                                                                                                                                                      |                     3,600 |
+| PRODUCER_DUPLICATE_BLOCK_SKIP_WINDOW                   | Number of blocks behind `lastPersistedBlockNumber` for which a duplicate block header is answered with `SkipBlock` instead of `EndOfStream(DUPLICATE_BLOCK)`. A publisher only slightly behind can fast-forward without reconnecting; duplicates further behind than the window still close the stream so the publisher reconnects. Must be 1 ≤ value ≤ 10.                     |                         5 |
+| PRODUCER_PORT                                          | Dedicated port for the publisher gRPC service. When unset, the service shares `SERVER_PORT`.                                                                                                                                                                                                                                                                                    |                   (unset) |
 
 ### RSA Bootstrap Plugin Configuration
 
-| ENV Variable                                             | Description                                                                                  |   Default |
-|:---------------------------------------------------------|:---------------------------------------------------------------------------------------------|----------:|
-| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_BASE_URL                | The URL of the mirror node from which to request the node address book.                      |        "" |
-| ROSTER_BOOTSTRAP_RSA_MN_INITIAL_QUERY_INTERVAL_MILLIS    | The initial period between queries to the mirror node until a node address book is found.    |      5000 |
-| ROSTER_BOOTSTRAP_RSA_MN_SUBSEQUENT_QUERY_INTERVAL_MILLIS | The subsequent period between queries to the mirror node after a node address book is found. |     60000 |
-| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_CONNECT_TIMEOUT_SECONDS | TCP connect timeout when calling the Mirror Node.                                            |         5 |
-| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_READ_TIMEOUT_SECONDS    | Per-request read timeout when calling the Mirror Node.                                       |        10 |
-| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_PAGE_SIZE               | Number of nodes requested per paginated Mirror Node call.                                    |       100 |
-| ROSTER_BOOTSTRAP_RSA_BLOCK_NODE_SOURCES_PATH             | File path to the JSON file containing a list of block node servers to query for RSA data.    |        "" |
-| ROSTER_BOOTSTRAP_RSA_BN_INITIAL_QUERY_INTERVAL_MILLIS    | The initial period between queries to the block node until a node address book is found.     |      5000 |
-| ROSTER_BOOTSTRAP_RSA_BN_SUBSEQUENT_QUERY_INTERVAL_MILLIS | The subsequent period between queries to the block node after a node address book is found.  |     60000 |
-| ROSTER_BOOTSTRAP_RSA_GRPC_OVERALL_TIMEOUT                | Overall gRPC timeout (connect, read, poll) in ms.                                            |     60000 |
-| ROSTER_BOOTSTRAP_RSA_MAX_INCOMING_BUFFER_SIZE            | Maximum block size used for the BlockNode Client                                             | 104857600 |
-| ROSTER_BOOTSTRAP_RSA_ENABLE_TLS                          | Flag indicating whether TLS should be enabled for the BlockNode client.                      |     false |
+| ENV Variable                                             | Description                                                                                                                                                                            |   Default |
+|:---------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------:|
+| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_BASE_URL                | The URL of the mirror node from which to request the node address book.                                                                                                                |        "" |
+| ROSTER_BOOTSTRAP_RSA_MN_INITIAL_QUERY_INTERVAL_MILLIS    | The initial period between queries to the mirror node until a node address book is found.                                                                                              |      5000 |
+| ROSTER_BOOTSTRAP_RSA_MN_SUBSEQUENT_QUERY_INTERVAL_MILLIS | The subsequent period between queries to the mirror node after a node address book is found.                                                                                           |     60000 |
+| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_CONNECT_TIMEOUT_SECONDS | TCP connect timeout when calling the Mirror Node.                                                                                                                                      |         5 |
+| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_READ_TIMEOUT_SECONDS    | Per-request read timeout when calling the Mirror Node.                                                                                                                                 |        10 |
+| ROSTER_BOOTSTRAP_RSA_MIRROR_NODE_PAGE_SIZE               | Number of nodes requested per paginated Mirror Node call.                                                                                                                              |       100 |
+| ROSTER_BOOTSTRAP_RSA_BLOCK_NODE_SOURCES_PATH             | File path to the JSON file containing a list of block node servers to query for RSA data.                                                                                              |        "" |
+| ROSTER_BOOTSTRAP_RSA_BN_INITIAL_QUERY_INTERVAL_MILLIS    | The initial period between queries to the block node until a node address book is found.                                                                                               |      5000 |
+| ROSTER_BOOTSTRAP_RSA_BN_SUBSEQUENT_QUERY_INTERVAL_MILLIS | The subsequent period between queries to the block node after a node address book is found.                                                                                            |     60000 |
+| ROSTER_BOOTSTRAP_RSA_GRPC_OVERALL_TIMEOUT                | Overall gRPC timeout (connect, read, poll) in ms.                                                                                                                                      |     60000 |
+| ROSTER_BOOTSTRAP_RSA_MAX_INCOMING_BUFFER_SIZE            | Maximum block size used for the BlockNode Client                                                                                                                                       | 104857600 |
+| ROSTER_BOOTSTRAP_RSA_ENABLE_T_L_S                        | Flag indicating whether TLS should be enabled for the BlockNode client. Note the underscores between T, L, and S - they come from each capital letter in the field name (`enableTLS`). |     false |
 
 ### Subscriber Plugin Configuration
 
 | ENV Variable                                       | Description                                                                                                                                                                                                                           |   Default |
 |:---------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------:|
 | SUBSCRIBER_LIVE_QUEUE_SIZE                         | Queue size (in batches) for transferring live data between messaging and client threads. Must be ≥100.                                                                                                                                |      4000 |
-| SUBSCRIBER_MAXIMUM_FUTURE_REQUEST                  | Max blocks ahead of latest "live" block a request can start from. Must be ≥10.                                                                                                                                                        |      4000 |
+| SUBSCRIBER_MAXIMUM_FUTURE_REQUEST                  | Max blocks ahead of latest “live” block a request can start from. Must be ≥10.                                                                                                                                                        |      4000 |
 | SUBSCRIBER_MINIMUM_LIVE_QUEUE_CAPACITY             | Minimum free capacity in the live queue before dropping oldest blocks. Typically ~10% of queue size.                                                                                                                                  |       400 |
+| SUBSCRIBER_MAX_CHUNK_SIZE_BYTES                    | Max size (bytes) for a chunk of block items when streaming historical blocks. Large blocks are split into chunks to stay within PBJ’s 4 MB buffer limit.                                                                              | 1,048,576 |
 | SUBSCRIBER_MAX_PROTOBUF_MESSAGE_SIZE_BYTES         | Max protobuf message size (bytes) accepted when parsing a block to stream to a subscriber.                                                                                                                                            | 131072000 |
 | SUBSCRIBER_PORT                                    | Dedicated port for the subscriber gRPC service. When unset, the service shares `SERVER_PORT`.                                                                                                                                         |   (unset) |
 | SUBSCRIBER_COMPLETED_SESSION_REAP_INTERVAL_SECONDS | How often the background reaper drains completed subscriber sessions, independent of new traffic.                                                                                                                                     |         5 |
@@ -379,13 +417,13 @@ The opposite holds for IPv6: one client usually controls a whole /64, so it can 
 
 ### TSS Bootstrap Plugin Configuration
 
-| ENV Variable                                  | Description                                                                               |   Default |
-|:----------------------------------------------|:------------------------------------------------------------------------------------------|----------:|
-| ROSTER_BOOTSTRAP_TSS_BLOCK_NODE_SOURCES_PATH  | File path to the JSON file containing a list of block node servers to query for TSS data. |        "" |
-| ROSTER_BOOTSTRAP_TSS_QUERY_PEER_INTERVAL      | The amount of time in milliseconds between queries to the Peer Block Nodes for TSS data.  |     60000 |
-| ROSTER_GRPC_OVERALL_TIMEOUT                   | Overall gRPC timeout (connect, read, poll) in ms.                                         |     60000 |
-| ROSTER_BOOTSTRAP_TSS_MAX_INCOMING_BUFFER_SIZE | Maximum block size used for the BlockNode Client                                          | 104857600 |
-| ROSTER_BOOTSTRAP_TSS_ENABLE_TLS               | Flag indicating whether TLS should be enabled for the BlockNode client.                   |     false |
+| ENV Variable                                  | Description                                                                                                                                                                            |   Default |
+|:----------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------:|
+| ROSTER_BOOTSTRAP_TSS_BLOCK_NODE_SOURCES_PATH  | File path to the JSON file containing a list of block node servers to query for TSS data.                                                                                              |        "" |
+| ROSTER_BOOTSTRAP_TSS_QUERY_PEER_INTERVAL      | The amount of time in milliseconds between queries to the Peer Block Nodes for TSS data.                                                                                               |     60000 |
+| ROSTER_BOOTSTRAP_TSS_GRPC_OVERALL_TIMEOUT     | Overall gRPC timeout (connect, read, poll) in ms.                                                                                                                                      |     60000 |
+| ROSTER_BOOTSTRAP_TSS_MAX_INCOMING_BUFFER_SIZE | Maximum block size used for the BlockNode Client                                                                                                                                       | 104857600 |
+| ROSTER_BOOTSTRAP_TSS_ENABLE_T_L_S             | Flag indicating whether TLS should be enabled for the BlockNode client. Note the underscores between T, L, and S - they come from each capital letter in the field name (`enableTLS`). |     false |
 
 ### Verification Plugin Configuration
 
@@ -410,22 +448,6 @@ The opposite holds for IPv6: one client usually controls a whole /64, so it can 
 > (a few MB) into the directory named by the `java.io.tmpdir` system property (`/tmp` by default), which must be
 > writable and allow executing mapped files; the Block Node shuts down when the library cannot load. See
 > [TSS Block Proof Verification](../design/tss-block-proof-verification.md#start-up-warm-up).
-
-### Verification Plugin Configuration (DEPRECATED)
-
-| ENV Variable                                        | Description                                                                    |                                                                 Default |
-|:----------------------------------------------------|:-------------------------------------------------------------------------------|------------------------------------------------------------------------:|
-| VERIFICATION_ALL_BLOCKS_HASHER_ENABLED              | Enable the all-blocks hasher to compute and verify a rolling root hash.        |                                                                   false |
-| VERIFICATION_ALL_BLOCKS_HASHER_FILE_PATH            | Path to the persisted root hash file for all previous blocks.                  | /opt/hiero/block-node/application-state/rootHashOfAllPreviousBlocks.bin |
-| VERIFICATION_ALL_BLOCKS_HASHER_PERSISTENCE_INTERVAL | How often (in blocks) the hasher persists its state to disk.                   |                                                                      10 |
-| VERIFICATION_TSS_PARAMETERS_FILE_PATH               | Not read: the TSS data is kept at `APP_STATE_TSS_BOOTSTRAP_FILE_PATH` instead. |              /opt/hiero/block-node/application-state/tss-parameters.bin |
-| VERIFICATION_DUMP_ENABLED                           | Write failing block bytes and metadata to disk for post-incident diagnostics.  |                                                                   false |
-| VERIFICATION_DUMP_DIRECTORY_PATH                    | Directory where bad-block dump files are written.                              |                                /opt/hiero/block-node/verification/dumps |
-| VERIFICATION_DUMP_RETENTION_DAYS                    | Number of days to retain dump files before the daily purge removes them.       |                                                                       7 |
-
-> **Note:** `VERIFICATION_ALL_BLOCKS_HASHER_ENABLED` must remain `false` (the default).
-> The all-blocks hasher requires a strictly sequential block stream; out-of-order or
-> forward-arriving blocks will cause it to fall out of sync and produce incorrect root hashes.
 
 ### Cloud Storage Expanded Plugin Configuration
 
@@ -458,3 +480,50 @@ Object keys follow the format `{prefix}/AAAA/BBBB/CCCC/DDDD/EEE.blk.zstd`, where
 | 1            | `blocks/0000/0000/0000/0000/001.blk.zstd` |
 | 1 234 567    | `blocks/0000/0000/0000/1234/567.blk.zstd` |
 | 108 273 182  | `blocks/0000/0000/0010/8273/182.blk.zstd` |
+
+### Cloud Storage Download Plugin Configuration
+
+Recovers missing blocks from the bucket the Consensus Nodes upload blocks to, when this
+[Tier 1](./glossary.md#tier-1-block-node) Block Node falls behind. Every poll interval the plugin
+checks whether the bucket holds the block `aheadThresholdBlocks` after the last stored block. If it
+does, the plugin downloads the missing blocks and submits them, in order, to the same verification and
+persistence path backfill uses. It only reads from the bucket, so read-only credentials are enough.
+
+The plugin is turned on by adding `cloud-storage-download` to `plugins.names` and setting the five
+required settings below; it has no switch of its own. If any of them is blank, the plugin logs a
+WARNING naming each blank setting (never its value) and stays idle, and the Block Node starts as
+usual. A numeric setting below its minimum stops the Block Node at startup with an error that names
+the setting. Whether the bucket is reachable is not checked at startup: wrong credentials, a missing
+bucket or an unreachable endpoint fail each probe with a WARNING, and the plugin recovers once the
+bucket is reachable.
+
+| ENV Variable                                   | Description                                                                                                                                     | Default |
+|:-----------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|--------:|
+| CLOUD_STORAGE_DOWNLOAD_ENDPOINT_URL            | S3-compatible endpoint URL. Required.                                                                                                           |      "" |
+| CLOUD_STORAGE_DOWNLOAD_REGION_NAME             | AWS / S3-compatible region name. Required.                                                                                                      |      "" |
+| CLOUD_STORAGE_DOWNLOAD_BUCKET_NAME             | Name of the bucket the Consensus Nodes upload blocks to. Required.                                                                              |      "" |
+| CLOUD_STORAGE_DOWNLOAD_ACCESS_KEY              | Read-only access key (an HMAC key for GCS; not logged). Required.                                                                               |      "" |
+| CLOUD_STORAGE_DOWNLOAD_SECRET_KEY              | Read-only secret key (not logged). Required.                                                                                                    |      "" |
+| CLOUD_STORAGE_DOWNLOAD_OBJECT_KEY_PREFIX       | Network folder of the bucket, e.g. `mainnet` or `testnet-202611011200` (network name and last reset time). Update it after every network reset. |      "" |
+| CLOUD_STORAGE_DOWNLOAD_POLL_INTERVAL_MS        | Time between two checks of the bucket, in milliseconds. Minimum 1.                                                                              |   10000 |
+| CLOUD_STORAGE_DOWNLOAD_AHEAD_THRESHOLD_BLOCKS  | How many blocks the bucket must be ahead of the last stored block before the plugin pulls. Minimum 1; keep it below the CN buffer limit.        |      10 |
+| CLOUD_STORAGE_DOWNLOAD_DOWNLOAD_WINDOW         | Number of blocks downloaded in parallel before being submitted in order. Minimum 1.                                                             |      10 |
+| CLOUD_STORAGE_DOWNLOAD_PERSIST_WAIT_TIMEOUT_MS | How long to wait for one submitted block to be persisted before ending the pull, in milliseconds. Minimum 1.                                    |   90000 |
+| CLOUD_STORAGE_DOWNLOAD_REQUEST_TIMEOUT_MS      | Timeout for the response of one bucket request, in milliseconds. Minimum 1.                                                                     |   10000 |
+
+> **Note:** The defaults of `CLOUD_STORAGE_DOWNLOAD_AHEAD_THRESHOLD_BLOCKS` and
+> `CLOUD_STORAGE_DOWNLOAD_POLL_INTERVAL_MS` are a starting point, to be refined per network. A
+> threshold below 10 is too aggressive: the plugin would act before the Consensus Nodes and the
+> publish protocol have had time to recover on their own. Keep the poll interval below
+> `(CN buffer limit - threshold) x block time`, so the plugin notices the node is behind before the
+> Consensus Node buffers fill.
+
+Each Consensus Node uploads to its own folder, named after its node ID, and the plugin reads the node
+IDs from the current roster. Each block file is uploaded with a single PUT, so a block file found in
+the bucket is complete. Object keys follow the expanded layout under the `block` folder of the node
+folder, `{prefix}/{nodeId}/block/AAAA/BBBB/CCCC/DDDD/EEE.blk.zstd`:
+
+| Prefix                 | Node | Block number | Block file                                                      |
+|:-----------------------|:-----|:-------------|:----------------------------------------------------------------|
+| `testnet-202611011200` | 3    | 108 273 182  | `testnet-202611011200/3/block/0000/0000/0010/8273/182.blk.zstd` |
+| `mainnet`              | 3    | 1            | `mainnet/3/block/0000/0000/0000/0000/001.blk.zstd`              |

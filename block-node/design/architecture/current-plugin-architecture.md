@@ -76,7 +76,7 @@ An immutable record injected into every plugin. Fields:
 | `serverHealth`             | `HealthFacility`           | Query node state; trigger graceful shutdown.                                             |
 | `blockMessaging`           | `BlockMessagingFacility`   | Publish/subscribe to block items and block lifecycle notifications.                      |
 | `historicalBlockProvider`  | `HistoricalBlockFacility`  | Random-access read of any stored block by number.                                        |
-| `applicationStateFacility` | `ApplicationStateFacility` | Persist and update mutable node state (TssData, NodeAddressBook).                        |
+| `applicationStateFacility` | `ApplicationStateFacility` | Mutable node state: TssData, address books, stored and available blocks.                 |
 | `serviceLoader`            | `ServiceLoaderFunction`    | Load additional SPI extensions at runtime.                                               |
 | `threadPoolManager`        | `ThreadPoolManager`        | Create managed virtual-thread or platform-thread executors.                              |
 | `blockNodeVersions`        | `BlockNodeVersions`        | Version information for all loaded plugins.                                              |
@@ -136,7 +136,7 @@ Any plugin may subscribe via `registerApplicationStateNotificationHandler(Applic
 Aggregates all registered `BlockProviderPlugin` implementations and presents a unified read interface:
 
 - `block(long blockNumber)` → `BlockAccessor` — queries providers in descending priority order; returns the first non-null result.
-- `availableBlocks()` → `BlockRangeSet` — the union of all providers' available ranges.
+- `availableBlocks()` → `BlockRangeSet` — the union of all providers' own available ranges. This is not the source of truth for availability; plugins query `ApplicationStateFacility.availableBlockSet()` instead (see below). The facility is used for retrieval, `block(n)`.
 
 ### `HealthFacility` (interface)
 
@@ -153,17 +153,35 @@ The `HealthServicePlugin` registers `/healthz/livez` and `/healthz/readyz` HTTP 
 A `BlockNodePlugin` provided by the `facility-app-state` module (`ApplicationStateFacilityPlugin`), registered in its `module-info.java` as a `provides ApplicationStateFacility` service. `BlockNodeApp` loads it through `ServiceLoader`, exposes it to every plugin as `BlockNodeContext.applicationStateFacility()`, and manages its lifecycle: it is initialized right after the messaging facility, started once the messaging facility is running, and stopped before it. The module also owns `ApplicationStateConfig` (the `app.state` configuration), the persisted state files, and the `app_historical_oldest_block` / `app_historical_newest_block` gauges.
 
 ```java
+// Mutable state
 void updateTssData(TssData tssData);
 boolean updateAddressBookHistory(RangedAddressBookHistory history);
 void addStoredBlockRange(BlockRange blockRange);
-void updateAvailableBlocks();
+
+// Block availability, reported by BlockProviderPlugin implementations
+void addAvailableBlockRange(BlockProviderPlugin provider, BlockRange blockRange);
+void removeAvailableBlockRange(BlockProviderPlugin provider, BlockRange blockRange);
+
+// Block availability, read by any plugin
+List<BlockRange> availableBlocks();
+BlockRangeSet availableBlockSet();
+Optional<BlockProviderPlugin> blockProvider(long blockNumber);
 ```
 
 TSS data and address book history updates are persisted to disk as JSON; stored block ranges are persisted periodically and at shutdown. Each change is dispatched to registered `ApplicationStateNotificationHandler` instances as an application state notification. Plugins that need the state already loaded at startup read it from the facility in `start()` (for example `storedBlocks()` or `rangedAddressBookHistory()`).
 
+**Available blocks.** The facility is the source of truth for which blocks the node can serve. It does not read them from the `HistoricalBlockFacility`; each `BlockProviderPlugin` reports what it holds and the facility tracks it per provider:
+
+- A provider calls `addAvailableBlockRange` from `init()` for the blocks it finds on disk, then again whenever it gains blocks, and `removeAvailableBlockRange` when it drops blocks (retention, pruning). The facility is initialized before every provider, so reporting from `init()` is safe.
+- The available blocks are the union of the per-provider sets. A block stays available while any provider still holds it, so one provider dropping a block does not hide it when another still has it.
+- `blockProvider(n)` returns the provider of block `n`; when several hold it, the one with the highest `defaultPriority()`.
+- Reporting a range as available also records it as stored. Removing it from a provider only affects availability; the blocks stay in the stored ranges.
+- `availableBlockSet()` returns an immutable snapshot that is rebuilt only when the available blocks change, so callers can query `min()`, `max()` and `contains()` on every request without copying. Plugins that need to know what can be served (block access, server status, subscribers, backfill, state management) read it here instead of from `HistoricalBlockFacility.availableBlocks()`.
+- A change to the union is dispatched as an `AvailableBlocksNotification`. Because stored is always a superset of available, a `StoredBlocksNotification` follows when the stored ranges change too.
+
 ### `BlockProviderPlugin` (interface)
 
-Specialization of `BlockNodePlugin` for block storage backends. Each provider declares a `defaultPriority()` (higher = preferred). The `HistoricalBlockFacility` loads all providers and sorts them by priority.
+Specialization of `BlockNodePlugin` for block storage backends. Each provider declares a `defaultPriority()` (higher = preferred). The `HistoricalBlockFacility` loads all providers and sorts them by priority. A provider is also responsible for keeping the `ApplicationStateFacility` informed of the blocks it holds: it reports its on-disk ranges from `init()` and every later gain or loss with `addAvailableBlockRange` / `removeAvailableBlockRange`, passing itself as the provider.
 
 ## Design
 
@@ -317,6 +335,26 @@ State dispatcher thread
 BlockMessagingFacility
     │
     ▼ handler.handleTssDataUpdate(notification) for every registered handler
+```
+
+Block availability follows the same path in the other direction: a provider reports a change and the facility owns the result.
+
+```
+BlockProviderPlugin (e.g. blocks-file-recent)
+    │
+    ▼ applicationStateFacility.addAvailableBlockRange(this, range)
+ApplicationStateFacilityPlugin
+    │
+    ├── Record the range against that provider and add it to the stored blocks
+    ├── Recompute the union across providers; stop if available and stored are unchanged
+    │
+    ▼
+State dispatcher thread
+    ▼ blockMessaging.sendAvailableBlocksUpdate(AvailableBlocksNotification)
+    ▼ blockMessaging.sendStoredBlocksUpdate(StoredBlocksNotification)   (if the stored ranges changed)
+BlockMessagingFacility
+    │
+    ▼ handler.handleAvailableBlocksUpdate / handleStoredBlocksUpdate for every registered handler
 ```
 
 The `BlockNodeContext` is never replaced. Each handler runs on its own messaging thread and receives notifications in the order they were sent, so a handler never sees older TSS data after newer data.

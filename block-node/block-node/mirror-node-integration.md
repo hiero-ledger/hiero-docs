@@ -57,12 +57,12 @@ Over the wire the pattern is: `block_items + end_of_block` repeated per block, f
 
 ## Connecting to multiple Block Nodes
 
-A Mirror Node should be configured to subscribe to more than one Block Node. The Mirror Node holds the full list as a configured array under `hiero.mirror.importer.block.nodes[]` and chooses which node to use according to a scheduler strategy - by default, `PRIORITY_THEN_LATENCY`. Each entry carries a `priority` (lower is higher priority) and an optional `requiresTls` flag.
+A Mirror Node should be configured to subscribe to more than one Block Node. The Mirror Node holds the full list as a configured array under `hiero.mirror.importer.block.nodes[]` and chooses which node to use according to a scheduler strategy - by default, `PRIORITY_THEN_LATENCY`. Each entry carries a `priority` (lower is higher priority) and a list of `endpoints`, each with a `host`, a `port`, the Block Node APIs it serves (`apis`), and an optional `requiresTls` flag.
 
 The selection rules at a glance:
 
 - At any moment, the Mirror Node maintains an active subscription to one Block Node - the highest-priority reachable node, with measured latency as a tiebreaker.
-- A Block Node is marked **inactive** after `block.stream.maxSubscribeAttempts` consecutive failed subscribe attempts and is excluded from selection for `block.stream.readmitDelay`. After that window, it is eligible again.
+- A Block Node is marked **inactive** after `block.stream.maxAttempts` consecutive failed attempts (`block.stream.maxSubscribeAttempts` before Mirror Node v0.167.0; from v0.167.0 an unreachable or rejecting node is marked inactive on the first failure) and is excluded from selection for `block.stream.readmitDelay`. After that window, it is eligible again.
 - When the active Block Node closes the stream with an error or becomes unreachable, the Mirror Node selects the next eligible node automatically. The operator does not need to intervene for the common failure modes.
 - For historical gaps that the current Block Node cannot serve (returns `NOT_AVAILABLE` on [backfill](./glossary.md#backfill)), configure a Tier-1 archive Block Node as a low-priority fallback so the Mirror Node can fall over to it without operator action.
 

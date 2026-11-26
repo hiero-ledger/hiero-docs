@@ -10,15 +10,14 @@ who need to know which component versions are required to run together.
 
 ## Version compatibility table
 
-|   Block Node    |   Consensus Node    |     Mirror Node      |
-|-----------------|---------------------|----------------------|
-| 0.45.0+         | 0.79.0+ (tentative) | 0.166.0+ (tentative) |
-| 0.41.x - 0.44.x | 0.77.x - 0.78.x     | 0.162.x - 0.165.x    |
-| 0.38.x - 0.40.x | 0.76.x              | -                    |
-| 0.36.x - 0.37.x | 0.75.x              | -                    |
+|   Block Node    |   Consensus Node    |    Mirror Node    |
+|-----------------|---------------------|-------------------|
+| 0.45.0+         | 0.79.0+ (tentative) | 0.166.0+          |
+| 0.41.x - 0.44.x | 0.77.x - 0.78.x     | 0.162.x - 0.165.x |
+| 0.38.x - 0.40.x | 0.76.x              | -                 |
+| 0.36.x - 0.37.x | 0.75.x              | -                 |
 
-Mirror Node versions are tracked from BN 0.41.0 onwards. The 0.45.0 row is tentative until those
-releases exist; see the [compatibility fence at BN 0.45.0](#compatibility-fence-at-bn-0450--cn-0790--mn-01660).
+Mirror Node versions are tracked from BN 0.41.0 onwards. See the [compatibility fence at BN 0.45.0](#compatibility-fence-at-bn-0450--cn-0790--mn-01660) for upgrade requirements.
 Pre-releases on the earlier TSS library pair like the 0.41.x - 0.44.x row: the Block Node
 pre-releases 0.45.0-rc1, 0.45.0-rc2 and 0.45.0-sha256.*, and the Consensus Node pre-releases of
 0.79.0 and 0.80.0 published so far (the alpha pre-releases). The Block Node carries the new library
@@ -31,7 +30,7 @@ or open an issue on the [hiero-block-node repository](https://github.com/hiero-l
 
 ## Compatibility fence at BN 0.45.0 / CN 0.79.0 / MN 0.166.0
 
-> **Tentative:** these versions are planned and may change until the releases exist.
+> **Tentative:** CN 0.79.0 is not yet released (the latest GA is v0.78.1; v0.79.0-alpha.1 and alpha.2 exist). The CN 0.79.0 version in the table above may change until the GA release ships.
 
 BN 0.45.0 moves block proof verification to hiero-cryptography 3.22.0, the TSS library release
 that the Consensus Node adopts with
@@ -78,7 +77,7 @@ components must cross this fence together:
 - Block hashes computed by an MN older than 0.162.0 will not match those computed by BN 0.41.0+.
 - CN 0.77.0 is required for protocol compatibility with BN 0.41.0.
 
-When CN 0.77 ships, upgrade BN, CN, and MN at the same time. Block Node operators are encouraged to reset
+When upgrading to CN 0.77, upgrade BN, CN, and MN at the same time. Block Node operators are encouraged to reset
 the block store when upgrading to BN 0.41.0 - see
 [Resetting and Upgrading the Block Node](./resetting-and-upgrading-the-block-node.md).
 

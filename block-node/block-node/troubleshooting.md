@@ -237,11 +237,14 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
    - From the Mirror Node host, confirm TCP connectivity to each configured Block Node:
 
      ```bash
+     # Subscribe API port
      nc -vz <BLOCK_NODE_HOST> 40980
+     # Status API port
+     nc -vz <BLOCK_NODE_HOST> 40982
      ```
 
-     - **Success**: `Connection to <BLOCK_NODE_HOST> port 40980 succeeded!` - proceed to the next step.
-     - **Failure**: TCP reachability is broken. Check firewall rules, security groups, and that the Block Node process is running. Confirm the port matches `hiero.mirror.importer.block.nodes[].port` in the Mirror Node configuration.
+     - **Success**: `Connection to <BLOCK_NODE_HOST> port 40980 succeeded!` and the same for port `40982` - proceed to the next step. In base-chart deployments both APIs share port `40840`, so check `40840` once.
+     - **Failure**: TCP reachability is broken. Check firewall rules, security groups, and that the Block Node process is running. Confirm each port matches the `hiero.mirror.importer.block.nodes[].endpoints[].port` of the `SUBSCRIBE_STREAM` and `STATUS` endpoints in the Mirror Node configuration.
 3. **Block Node status**
    - Query `serverStatus` to confirm blocks are available and the gRPC endpoint is responding.
      See [Step 1 in Connecting a Mirror Node to a Block Node](./operations/connecting-a-mirror-node-to-a-block-node.md#step-1-confirm-each-block-node-is-reachable-and-serving-blocks) for the exact command.
@@ -254,8 +257,8 @@ Use the runbooks below during incidents. Each follows a consistent pattern:
 5. **Mirror Node configuration**
    - Verify:
      - `hiero.mirror.importer.block.enabled` is `true`.
-     - `hiero.mirror.importer.block.nodes[].host` and `.port` match the actual Block Node endpoint.
-     - `hiero.mirror.importer.block.nodes[].requiresTls` matches whether the endpoint uses TLS (`false` for plain gRPC, `true` if TLS is terminated at the Block Node or a load balancer in front of it).
+     - `hiero.mirror.importer.block.nodes[].endpoints[].host` and `.port` match the actual Block Node endpoints, and each node's endpoints together provide both `STATUS` and `SUBSCRIBE_STREAM` (`.apis`). With per-service ports that means two endpoints, for example `40982` for `STATUS` and `40980` for `SUBSCRIBE_STREAM`.
+     - `hiero.mirror.importer.block.nodes[].endpoints[].requiresTls` matches whether each endpoint uses TLS (`false` for plain gRPC, `true` if TLS is terminated in front of the Block Node, for example at a load balancer).
      - `hiero.mirror.importer.block.sourceType` is `BLOCK_NODE` (or `AUTO` to try Block Node first and fall back to block files from cloud storage if the Block Node becomes unavailable).
 6. **Resolution**
    - After correcting any configuration, restart the Mirror Node importer and re-run the reachability and smoke-test checks above to confirm the fix.

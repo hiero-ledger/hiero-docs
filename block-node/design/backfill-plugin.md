@@ -87,8 +87,8 @@ Detect missing gaps in the stored block sequence and autonomously fetch missing 
 
 ```mermaid
 flowchart TB
-  subgraph Storage["Storage"]
-    ST[("HistoricalBlockFacility")]
+  subgraph Storage["Application State"]
+    ST[("ApplicationStateFacility")]
   end
 
   subgraph Plugin["BackfillPlugin"]
@@ -172,13 +172,13 @@ The plugin periodically scans for gaps and fetches missing blocks:
 ```mermaid
 sequenceDiagram
     participant BP as BackfillPlugin
-    participant HBF as HistoricalBlockFacility
+    participant ASF as ApplicationStateFacility
     participant Fetcher as BackfillFetcher
     participant MF as MessagingFacility
     participant Persist as PersistencePlugin
 
     loop Every scanInterval
-        BP->>HBF: Query available blocks
+        BP->>ASF: Query available blocks
         BP->>BP: Detect gaps (GapDetector)
         alt Gaps found
             BP->>Fetcher: Get availability from peers

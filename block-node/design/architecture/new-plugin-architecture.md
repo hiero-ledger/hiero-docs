@@ -152,19 +152,34 @@ TssData tssData();
 RangedAddressBookHistory rangedAddressBookHistory();
 NodeAddressBook getAddressBookForBlock(long blockNum);
 List<BlockRange> storedBlocks();
+List<BlockRange> availableBlocks();
+BlockRangeSet availableBlockSet();               // immutable snapshot, rebuilt only on change
+Optional<BlockProviderPlugin> blockProvider(long blockNumber);
 
 // State mutation (persists to disk and notifies handlers)
 void updateTssData(TssData tssData);
 boolean updateAddressBookHistory(RangedAddressBookHistory history);
 void addStoredBlockRange(BlockRange blockRange);
-void updateAvailableBlocks();
+
+// Block availability, called by BlockProviderPlugin implementations
+void addAvailableBlockRange(BlockProviderPlugin provider, BlockRange blockRange);
+void removeAvailableBlockRange(BlockProviderPlugin provider, BlockRange blockRange);
 ```
+
+**Available blocks.** The facility is the source of truth for which blocks the node can serve; it does not read them from `HistoricalBlockFacility`. Each `BlockProviderPlugin` reports what it holds and the facility tracks it per provider:
+
+- A provider calls `addAvailableBlockRange` from `init()` for the blocks it finds on disk, then whenever it gains blocks, and `removeAvailableBlockRange` when it drops blocks (retention, pruning). The facility is initialized before every provider.
+- The available blocks are the union of the per-provider sets, so a block stays available while any provider still holds it.
+- `blockProvider(n)` returns the provider of block `n`; when several hold it, the one with the highest `defaultPriority()`.
+- Reporting a range as available also records it as stored. Removing it only affects availability; the blocks remain in the stored ranges.
+- `availableBlockSet()` is immutable and rebuilt only when the available blocks change, so it can be queried on every request without copying.
+- A change is dispatched as an `AvailableBlocksNotification`, followed by a `StoredBlocksNotification` when the stored ranges changed too.
 
 Plugins that need to react to a change implement `ApplicationStateNotificationHandler` and register it with `BlockMessagingFacility.registerApplicationStateNotificationHandler(...)`, typically in `init()`. Plugins that need the state loaded at startup read it from the facility in `start()`, which runs after the facility has started and loaded its state from disk.
 
 ### `BlockProviderPlugin` (interface)
 
-Specialization of `BlockNodePlugin` for block storage backends. Each provider declares a `defaultPriority()` (higher = preferred).
+Specialization of `BlockNodePlugin` for block storage backends. Each provider declares a `defaultPriority()` (higher = preferred). A provider reports the blocks it holds to the `ApplicationStateFacility` (see above): its on-disk ranges from `init()`, and every later gain or loss with `addAvailableBlockRange` / `removeAvailableBlockRange`.
 
 ## Design
 
@@ -344,6 +359,26 @@ BlockMessagingFacility
 
 This replaces the previous `onContextUpdate()` broadcast and the reconstruction of `BlockNodeContext`. Each handler is called by the messaging facility and handles only the state it cares about.
 
+Block availability follows the same path in the other direction: a provider reports a change and the facility owns the result.
+
+```
+BlockProviderPlugin (e.g. blocks-file-recent)
+    │
+    ▼ applicationStateFacility.addAvailableBlockRange(this, range)
+ApplicationStateFacilityPlugin
+    │
+    ├── Record the range against that provider and add it to the stored blocks
+    ├── Recompute the union across providers; stop if available and stored are unchanged
+    │
+    ▼
+State dispatcher thread
+    ▼ blockMessaging.sendAvailableBlocksUpdate(AvailableBlocksNotification)
+    ▼ blockMessaging.sendStoredBlocksUpdate(StoredBlocksNotification)   (if the stored ranges changed)
+BlockMessagingFacility
+    │
+    ▼ handler.handleAvailableBlocksUpdate / handleStoredBlocksUpdate for every registered handler
+```
+
 ### Inter-Plugin Messaging
 
 Unchanged from the previous architecture. The `BlockMessagingFacility` plugin provides two independent LMAX Disruptor ring buffers:
@@ -459,12 +494,12 @@ flowchart TD
     SPI[spi-plugins\n<i>declares uses</i>]
 
     MSGF[facility-messaging\n<i>provides BlockNodePlugin</i>\n<i>provides BlockMessagingFacility</i>]
-    HISTF[blocks-file-recent / historic / s3-archive\n<i>provides BlockNodePlugin</i>\n<i>provides BlockProviderPlugin</i>]
+    HISTF[blocks-file-recent / historic / s3-archive\n<i>provides BlockNodePlugin</i>\n<i>provides BlockProviderPlugin</i>\n<i>uses ApplicationStateFacility</i>]
     HEALTHF[health\n<i>provides BlockNodePlugin</i>\n<i>provides HealthFacility</i>]
     STATEF[app-state\n<i>provides BlockNodePlugin</i>\n<i>provides ApplicationStateFacility</i>]
 
     PUB[stream-publisher\n<i>provides BlockNodePlugin</i>\n<i>uses BlockMessagingFacility</i>]
-    SUB[stream-subscriber\n<i>provides BlockNodePlugin</i>\n<i>uses BlockMessagingFacility</i>\n<i>uses HistoricalBlockFacility</i>]
+    SUB[stream-subscriber\n<i>provides BlockNodePlugin</i>\n<i>uses BlockMessagingFacility</i>\n<i>uses HistoricalBlockFacility</i>\n<i>uses ApplicationStateFacility</i>]
     VER[block-verification\n<i>provides BlockNodePlugin</i>\n<i>uses BlockMessagingFacility</i>\n<i>uses ApplicationStateFacility</i>]
     TSS[roster-bootstrap-tss\n<i>provides BlockNodePlugin</i>\n<i>uses ApplicationStateFacility</i>]
 
@@ -520,8 +555,8 @@ String METRICS_CATEGORY = "blocknode";
 ```
 
 The `ApplicationStateFacility` plugin manages stored and available blocks. It registers two observable gauges in `init()`, under the `blocknode` category:
-- `app_historical_oldest_block` — oldest block available across all providers.
-- `app_historical_newest_block` — newest block available across all providers.
+- `app_historical_oldest_block` — oldest block available across all providers, read from the facility's own available blocks.
+- `app_historical_newest_block` — newest block available across all providers, read from the facility's own available blocks.
 
 ## Exceptions
 
@@ -546,6 +581,8 @@ The `ApplicationStateFacility` plugin manages stored and available blocks. It re
 - **ApplicationStateFacility — initial delivery**: A handler registered before the `ApplicationStateFacility` starts receives the state loaded from disk (`TssData`, address book history, stored and available blocks) as notifications once the facility starts. A plugin that starts afterwards reads the current value from the facility in `start()`.
 - **ApplicationStateFacility — update delivery**: Calling `applicationStateFacility.updateTssData(newData)` results in every registered handler being called with `newData`. No `onContextUpdate()` broadcast occurs; `BlockNodeContext` is not reconstructed.
 - **ApplicationStateFacility — address book history**: Calling `applicationStateFacility.updateAddressBookHistory(newHistory)` delivers `newHistory` to all registered handlers when it is newer than the current history.
+- **ApplicationStateFacility — available blocks**: Two providers each call `addAvailableBlockRange` for overlapping ranges; `availableBlocks()` is their union and `blockProvider(n)` returns the higher-priority provider. When one provider calls `removeAvailableBlockRange` for a range the other still holds, those blocks remain available. A range reported as available is also in `storedBlocks()`, and stays there after it is removed from availability.
+- **ApplicationStateFacility — provider startup report**: A `BlockProviderPlugin` that reports its on-disk ranges from `init()` has them reflected in `availableBlocks()` and delivered as an `AvailableBlocksNotification` to handlers once the facility starts.
 - **Plugin isolation**: Removing a plugin's JAR from the module path causes the node to start without that plugin's functionality, without failures in unrelated plugins.
 - **Back-pressure**: A block-item handler that sleeps for 100 ms per batch reduces the observed throughput of `sendBlockItems()` to match, without deadlock or data loss.
 - **No-back-pressure skip**: A `NoBackPressureBlockItemHandler` that processes slowly receives `onTooFarBehindError()` calls under sustained load without causing the publisher to block.
